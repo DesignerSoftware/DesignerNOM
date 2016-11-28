@@ -1837,23 +1837,18 @@ public class ControlAusentismos implements Serializable {
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTiposAusentismos");
                 RequestContext.getCurrentInstance().execute("PF('editarTiposAusentismos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClasesAusentismos");
                 RequestContext.getCurrentInstance().execute("PF('editarClasesAusentismos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCausasAusentismos");
                 RequestContext.getCurrentInstance().execute("PF('editarCausasAusentismos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDiasD");
                 RequestContext.getCurrentInstance().execute("PF('editarDiasD').show()");
-                cualCelda = -1;
             } else if (cualCelda == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarHorasD");
                 RequestContext.getCurrentInstance().execute("PF('editarHorasD').show()");
-                cualCelda = -1;
             } else if (cualCelda == 5) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFIausencias");
                 RequestContext.getCurrentInstance().execute("PF('editarFIausencias').show()");
@@ -1863,59 +1858,45 @@ public class ControlAusentismos implements Serializable {
             } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFexpediciones");
                 RequestContext.getCurrentInstance().execute("PF('editarFexpediciones').show()");
-                cualCelda = -1;
             } else if (cualCelda == 8) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFIpagos");
                 RequestContext.getCurrentInstance().execute("PF('editarFIpagos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 9) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFFpagos");
                 RequestContext.getCurrentInstance().execute("PF('editarFFpagos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 10) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPorcentajes");
                 RequestContext.getCurrentInstance().execute("PF('editarPorcentajes').show()");
-                cualCelda = -1;
             } else if (cualCelda == 11) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarBliquidaciones");
                 RequestContext.getCurrentInstance().execute("PF('editarBliquidaciones').show()");
-                cualCelda = -1;
             } else if (cualCelda == 12) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFliquidaciones");
                 RequestContext.getCurrentInstance().execute("PF('editarFliquidaciones').show()");
-                cualCelda = -1;
             } else if (cualCelda == 13) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAccidentes");
                 RequestContext.getCurrentInstance().execute("PF('editarAccidentes').show()");
-                cualCelda = -1;
             } else if (cualCelda == 14) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEnfermedades");
                 RequestContext.getCurrentInstance().execute("PF('editarEnfermedades').show()");
-                cualCelda = -1;
             } else if (cualCelda == 15) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarNcertificados");
                 RequestContext.getCurrentInstance().execute("PF('editarNcertificados').show()");
-                cualCelda = -1;
             } else if (cualCelda == 16) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDiagnosticos");
                 RequestContext.getCurrentInstance().execute("PF('editarDiagnosticos').show()");
-                cualCelda = -1;
             } else if (cualCelda == 17) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProrrogas");
                 RequestContext.getCurrentInstance().execute("PF('editarProrrogas').show()");
-                cualCelda = -1;
             } else if (cualCelda == 18) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarRelacion");
                 RequestContext.getCurrentInstance().execute("PF('editarRelacion').show()");
-                cualCelda = -1;
             } else if (cualCelda == 19) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTerceros");
                 RequestContext.getCurrentInstance().execute("PF('editarTerceros').show()");
-                cualCelda = -1;
             } else if (cualCelda == 20) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacionesD");
                 RequestContext.getCurrentInstance().execute("PF('editarObservacionesD').show()");
-                cualCelda = -1;
             }
         } else {
             RequestContext.getCurrentInstance().execute("seleccionarRegistro').show()");
@@ -2920,7 +2901,7 @@ public class ControlAusentismos implements Serializable {
             ausentismoSeleccionado = null;
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");

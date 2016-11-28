@@ -90,6 +90,14 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
     public void modificarCuentas(List<Cuentas> listCuentasModificar) {
         try {
             for (int i = 0; i < listCuentasModificar.size(); i++) {
+                if(listCuentasModificar.get(i).getRubropresupuestal().getDescripcion() == null){
+                    listCuentasModificar.get(i).setRubropresupuestal(new Rubrospresupuestales());
+                }
+                
+                if(listCuentasModificar.get(i).getContracuentatesoreria().getCodigo() == null){
+                    listCuentasModificar.get(i).setContracuentatesoreria(new Cuentas());
+                }
+                
                 persistenciaCuentas.editar(em, listCuentasModificar.get(i));
             }
         } catch (Exception e) {

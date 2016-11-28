@@ -11,6 +11,7 @@
             <ui:define name="body">                  
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.cuenta" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" style="position: absolute; width: 874px; height: 530px; text-align: left;" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
@@ -87,7 +88,7 @@
                             <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
                             <p:dataTable id="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
-                                         value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="280" scrollWidth="830"
+                                         value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
 
@@ -99,16 +100,10 @@
                                         <h:outputText id="DetalleC" value="D"/>
                                         <p:tooltip for="DetalleC" value="Detalle Cuenta"/>
                                     </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <img src="Imagenes/Iconos/editar.png" width="18" height="18" />
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
-                                                <p:ajax event="select" listener="#{controlCuenta.verDetalle(infoC)}" immediate="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <p:commandButton action="detalleCuenta" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                                     value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}">
+                                <!--<p:ajax event="click"  listener="#{controlCuenta.verDetalle(infoC)}" oncomplete="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}"/>-->
+                                </p:commandButton>   
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -127,9 +122,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo" 
-                                                         style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(indice, 0)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                          style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 1)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -151,8 +146,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(indice, 1)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 2)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -161,9 +156,8 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['naturaleza']}" filterMatchMode="contains" id="cuentaNaturaleza" 
-                                          filterStyle="display: none; visibility: hidden;" 
-                                          style="padding-left: 0px; padding-right: 0px; width: 90px;">
+                                <p:column headerText="#{msg['naturaleza']}" id="cuentaNaturaleza" filterStyle="display: none; visibility: hidden;" 
+                                          sortBy="#{infoC.naturaleza}" filterBy="#{infoC.naturaleza}" filterMatchMode="contains" style="padding-left: 0px; padding-right: 0px; width: 90px;">
                                     <f:facet name="header">
                                         <h:outputText id="headNaturaleza" value="#{msg['naturaleza']}" />
                                         <p:tooltip  for="headNaturaleza" value="#{msg['naturalezaTtip']}"/> 
@@ -173,11 +167,11 @@
                                             <h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>
                                         </f:facet> 
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 90px; font-weight: bold;text-transform: uppercase">  
+                                            <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase">  
                                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                                 <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO" />  
                                                 <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO" /> 
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -187,8 +181,7 @@
                                 </p:column>
 
 
-                                <p:column  filterMatchMode="contains" id="cuentaTipo" 
-                                           filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" filterBy="#{infoC.tipo}"
+                                <p:column  id="cuentaTipo"  filterStyle="display: none; visibility: hidden;" sortBy="#{infoC.tipo}" filterBy="#{infoC.tipo}" filterMatchMode="contains" 
                                            style="padding-left: 0px; padding-right: 0px; width: 100px;">
                                     <f:facet name="header">
                                         <h:outputText id="headTipo" value="#{msg['tipo']}" />
@@ -199,13 +192,13 @@
                                             <h:outputText value="#{infoC.tipo}"/>
                                         </f:facet> 
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 100px; font-weight: bold; text-transform: uppercase">  
+                                            <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 70px; font-weight: bold; text-transform: uppercase">  
                                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                                 <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP" />  
                                                 <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC" />  
                                                 <f:selectItem itemLabel="#{msg['netodenomina']}" itemValue="NDN" />  
                                                 <f:selectItem itemLabel="#{msg['puente']}" itemValue="PNT" />  
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -227,9 +220,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.contracuentatesoreria.codigo}"  id="editarCuentaContracuenta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(indice, 3)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(indice, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
-                                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,0,0)}" process="@this" update="editarCuentaContracuenta"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
+                                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,0)}" process="@this" update="editarCuentaContracuenta"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -251,9 +244,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.rubropresupuestal.descripcion}"  id="editarCuentaRubro" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(indice, 5)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(indice, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
-                                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,1,0)}" process="@this" update="editarCuentaRubro"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
+                                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,0)}" process="@this" update="editarCuentaRubro"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -270,7 +263,7 @@
                                         <p:tooltip for="textN" value="#{msg['textN']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkManejaNit" value="#{infoC.checkManejaNit}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -285,7 +278,7 @@
                                         <p:tooltip for="textC" value="#{msg['textC']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkManejaNitEmpleado" value="#{infoC.checkCCEmpleado}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -300,15 +293,14 @@
                                         <p:tooltip for="textP" value="#{msg['textP']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkProrrateo" value="#{infoC.checkProrrateo}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
 
-                                <p:column id="cuentaCC" filterMatchMode="contains"  
-                                          filterStyle="display: none; visibility: hidden;" 
+                                <p:column id="cuentaCC" sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;" 
                                           style="padding-left: 0px; padding-right: 0px; width: 50px; text-align: center;">
                                     <f:facet name="header">
                                         <h:outputText id="textCC" value="#{msg['cc']}"/>
@@ -323,7 +315,7 @@
                                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -331,8 +323,8 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
-                                <p:column id="cuentaICC" filterMatchMode="contains" 
-                                          filterStyle="display: none; visibility: hidden;" 
+                                <p:column id="cuentaICC"  sortBy="#{infoC.manejacentrocosto}" filterBy="#{infoC.manejacentrocosto}"
+                                          filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" 
                                           style="padding-left: 0px; padding-right: 0px; width: 50px; text-align: center;">                                  
                                     <f:facet name="header">
                                         <h:outputText id="textICC" value="#{msg['icc']}"/>
@@ -347,7 +339,7 @@
                                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -369,8 +361,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.codigoalternativo}" maxlength="30" id="editarCuentaCodigoA" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(indice, 11)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 12)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -387,7 +379,7 @@
                                         <p:tooltip for="textE" value="#{msg['textE']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkConsolidaNit" value="#{infoC.checkConsolidaNITEmpresa}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -402,7 +394,7 @@
                                         <p:tooltip for="textI" value="#{msg['textI']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkIncluyeShort" value="#{infoC.checkShortName}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -417,7 +409,7 @@
                                         <p:tooltip for="textSAP" value="#{msg['cuentaasociada']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkAsociadaSAP" value="#{infoC.checkAsociadaSAP}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -432,7 +424,7 @@
                                         <p:tooltip for="textSubC" value="#{msg['manejasubcuenta']}"/>
                                     </f:facet>
                                     <p:selectBooleanCheckbox id="checkSubCuenta" value="#{infoC.checkSubCuenta}" style="alignment-adjust: central">  
-                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(indice)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                     </p:selectBooleanCheckbox>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -441,7 +433,7 @@
 
                             </p:dataTable>
 
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: absolute; left: 15px; top: 325px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: relative; left: 0px; top: -1px; font-weight: bold"/>
 
                         </fieldset>
 
@@ -449,10 +441,6 @@
                                          style="position: absolute; left: 670px; top: 460px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
                         <p:commandButton id="MOSTRARTODOS" value="" actionListener="#{controlCuenta.mostrarTodos()}" process="@this"
                                          style="position: absolute; left: 765px; top: 460px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
-
-                        <p:separator id="separator"  style="vertical-align: central;position: absolute;height: 28px;width: 2px;top: 475px;left: 255px "/>  
-                        <p:commandButton  style="background-image: url(Imagenes/Iconos/revisar.png); background-size: 100% 100%; background-repeat: no-repeat;position: absolute; width: 28px; height: 28px; left: 265px; top: 482px;" id="DETALLES" value="" disabled="#{controlCuenta.activoDetalle}" process="@this" action="detalleCuenta" actionListener="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}" />
-                        <p:tooltip  for="DETALLES" value="#{msg['tdetallescuenta']}" />
 
                         <p:commandButton id="ACEPTAR" value="" disabled="#{controlCuenta.guardado}" onclick="PF('confirmarGuardarSalida').show();" process="@this" update=":form:datosCuenta"
                                          style="position: absolute; left: 670px; top: 500px; height: 30px; width: 90px; border: none; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
@@ -467,68 +455,70 @@
                                      filteredValue="#{controlCuenta.filtrarListCuentasTesoreria}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarCC"/>
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarCuenta()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlCuenta.contarRegistroContraCuenta()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarCT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovContracuenta').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <h:outputText value="#{msg['buscarCT']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovContracuenta').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{cuenta.codigo}" width="60" filterStyle="width: 50px;" filterMatchMode="contains" >
+                            <p:column filterBy="#{cuenta.codigo}" width="60" filterStyle="width: 80% !important;" filterMatchMode="contains" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigoCT']}" />
                                 </f:facet>
                                 <h:outputText  value="#{cuenta.codigo}" />
                             </p:column>
-                            <p:column filterBy="#{cuenta.descripcion}"   filterMatchMode="contains">
+                            <p:column filterBy="#{cuenta.descripcion}"  filterStyle="width: 80% !important;"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcionCT']}" />
                                 </f:facet>
                                 <h:outputText value="#{cuenta.descripcion}" />
                             </p:column>
-                            <p:column filterBy="#{cuenta.empresa.nombre}"  filterMatchMode="contains">
+                            <p:column filterBy="#{cuenta.empresa.nombre}" filterStyle="width: 80% !important;"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['empresaCT']}" />
                                 </f:facet>
                                 <h:outputText value="#{cuenta.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroContraCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroContraCuenta}" style="position: absolute; left: 20px; top: 325px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarCC" icon="ui-icon-check" style="position: relative; left: 510px;" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarCuenta()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
-
-                        <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 510px;" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioCuenta()}"  process="@this"/>
-
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroContraCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroContraCuenta}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarCC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarCuenta()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
+                        <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioCuenta()}"  process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog header="#{msg['rubrosRP']}" widgetVar="RubrosDialogo" draggable="true" resizable="false" closable="false" id="RubrosDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="432" modal="true" >
                         <p:dataTable id="lovRubros" style="width: 400px;" var="rubro" value="#{controlCuenta.listRubros}" rowKey="#{rubro.secuencia}"
                                      selection="#{controlCuenta.rubroSeleccionado}" selectionMode="single" widgetVar="lovRubros" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlCuenta.filtrarListRubros}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarRP"/>
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarRubro()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlCuenta.contarRegistroRubro()}" />
+
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarRP']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovRubros').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <h:outputText value="#{msg['buscarRP']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovRubros').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
-                            <p:column filterBy="#{rubro.codigo}" width="60" filterStyle="width: 50px;" filterMatchMode="contains" >
+                            <p:column filterBy="#{rubro.codigo}" width="60" filterStyle="width: 80% !important;" filterMatchMode="contains" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigoRP']}" />
                                 </f:facet>
                                 <h:outputText  value="#{rubro.codigo}" />
                             </p:column>
-                            <p:column filterBy="#{rubro.descripcion}"  filterMatchMode="contains">
+                            <p:column filterBy="#{rubro.descripcion}" filterStyle="width: 80% !important;"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcionRP']}" />
                                 </f:facet>
                                 <h:outputText value="#{rubro.descripcion}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroRubro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroRubro}" style="position: absolute; left: 20px; top: 325px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarRP" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarRubro()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
-
-                        <p:commandButton id="atrasRP" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioRubro()}" process="@this"/>
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroRubro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroRubro}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarRP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarRubro()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
+                        <p:commandButton id="atrasRP" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioRubro()}" process="@this"/>
+                        </div>
 
                     </p:dialog>
 
@@ -539,44 +529,44 @@
                                      filteredValue="#{controlCuenta.filtrarListCuentasTesoreria}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":form:aceptarBC"/>
                             <p:ajax event="rowDblselect" listener="#{controlCuenta.validarSeleccionCuenta()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlCuenta.contarRegistroLov()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCuentas').filter();" style="width:150px; position: relative; left: 20px;" />  
+                                <h:outputText value="#{msg['buscarC']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCuentas').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{buscarC.codigo}" width="60" filterStyle="width: 50px;"  filterMatchMode="contains">
+                            <p:column filterBy="#{buscarC.codigo}" width="60" filterStyle="width: 80% !important;"  filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoC']}" />
                                 </f:facet>
                                 <h:outputText value="#{buscarC.codigo}" />
                             </p:column>
-                            <p:column filterBy="#{buscarC.descripcion}" filterMatchMode="contains" >
+                            <p:column filterBy="#{buscarC.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important;" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['descripcionC']}" />
                                 </f:facet>
                                 <h:outputText  value="#{buscarC.descripcion}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroBuscarCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroBuscarCuenta}" style="position: absolute; left: 20px; top: 325px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarBC" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" actionListener="#{controlCuenta.validarSeleccionCuenta()}" disabled="#{controlCuenta.aceptar}" process="@this"/>
-
-                        <p:commandButton id="atrasBC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarSeleccionCuenta()}" process="@this"/>
+                         <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroBuscarCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroBuscarCuenta}" class="cssinfoRegistroLOV" />
+                        <p:commandButton id="aceptarBC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.validarSeleccionCuenta()}" disabled="#{controlCuenta.aceptar}" process="@this"/>
+                        <p:commandButton id="atrasBC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarSeleccionCuenta()}" process="@this"/>
+                        </div>   
 
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlCuenta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlCuenta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
@@ -592,8 +582,8 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuentaRastro')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
@@ -603,28 +593,28 @@
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuenta.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" style="position: absolute; top: 50px; left: 135px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuenta.salir()}" style="position: absolute; top: 50px; left: 200px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.salir()}" action="nomina" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 135px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.salir()}" action="nomina" style="position: absolute; top: 50px; left: 200px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                 </h:form>
@@ -652,7 +642,7 @@
                             <p:watermark for="nuevaDescripcionC" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['naturalezaN']}" style="position: absolute; top: 130px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="nuevaNaturalezaC" value="#{controlCuenta.nuevoCuentas.naturaleza}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
+                            <p:selectOneMenu id="nuevaNaturalezaC" value="#{controlCuenta.nuevoCuentas.naturaleza}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO" />  
                                 <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO" /> 
@@ -661,14 +651,16 @@
 
                             <strong><h:outputText value="#{msg['ctatesoreriaN']}" style="position: absolute; top: 160px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaCtaTesoreriaC" value="#{controlCuenta.nuevoCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,0,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'CONTRACUENTA')}" />
                                 <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('CONTRACUENTA', controlCuenta.nuevoCuentas.contracuentatesoreria.codigo, 1)}" />
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 335px; top: 160px; width: 23px; height: 23px;" class="cssBotonLovDialogos" 
+                                             id="btnNuevaCtaTesoreria" value="" process="@this" actionListener="#{controlCuenta.asignarIndex(infoC,0,1)}"/>   
                             <p:watermark for="nuevaCtaTesoreriaC" value="#{msg['contracuentatesoreria']}" />
 
                             <strong><h:outputText value="#{msg['tipoN']}" style="position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="nuevaTipoC" value="#{controlCuenta.nuevoCuentas.tipo}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
+                            <p:selectOneMenu id="nuevaTipoC" value="#{controlCuenta.nuevoCuentas.tipo}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP" />  
                                 <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC" />  
@@ -679,10 +671,12 @@
 
                             <strong><h:outputText value="#{msg['rubroN']}" style="position: absolute; top: 220px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaRubroC"  value="#{controlCuenta.nuevoCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,0,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'RUBRO')}" />
                                 <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('RUBRO', controlCuenta.nuevoCuentas.rubropresupuestal.descripcion, 1)}" />
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 335px; top:220px; width: 23px; height: 23px;" class="cssBotonLovDialogos" 
+                                             id="btnNuevoRubro" value="" process="@this" actionListener="#{controlCuenta.asignarIndex(infoC,0,1)}"/> 
                             <p:watermark for="nuevaRubroC" value="#{msg['rubroX']}" />
 
                             <strong><h:outputText value="#{msg['consolidanitN']}" style="position: absolute; top: 250px; left: 50px;" /></strong>
@@ -695,14 +689,14 @@
                                 <p:ajax event="change" update="nuevaConsolidaNITEmpleadoC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['prorrateoN']}:" style="position: absolute; top: 70px; left: 360px;" /></strong>
+                            <strong><h:outputText value="#{msg['prorrateoN']}:" style="position: absolute; top: 70px; left: 400px;" /></strong>
                             <p:selectBooleanCheckbox id="nuevaProrrateoC" value="#{controlCuenta.nuevoCuentas.checkProrrateo}" style="alignment-adjust: central;position: absolute; left: 570px; top: 70px;">  
                                 <p:ajax event="change" update="nuevaConsolidaNITC"/>
                             </p:selectBooleanCheckbox> 
 
 
-                            <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 360px;" /></strong>
-                            <p:selectOneMenu id="nuevaCCC" value="#{controlCuenta.nuevoCuentas.manejacentrocosto}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
+                            <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 400px;" /></strong>
+                            <p:selectOneMenu id="nuevaCCC" value="#{controlCuenta.nuevoCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
@@ -710,8 +704,8 @@
                             </p:selectOneMenu>
 
 
-                            <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 360px;" /></strong>
-                            <p:selectOneMenu id="nuevaICCC" value="#{controlCuenta.nuevoCuentas.incluyecentrocostocodigocuenta}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
+                            <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 400px;" /></strong>
+                            <p:selectOneMenu id="nuevaICCC" value="#{controlCuenta.nuevoCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
@@ -719,36 +713,36 @@
                             </p:selectOneMenu>
 
 
-                            <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 360px;" /></strong>
+                            <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 400px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaCodigoAC" maxlength="30" value="#{controlCuenta.nuevoCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="nuevaCodigoAC"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoAC" value="#{msg['codigoalternativo']}" />
 
-                            <strong><h:outputText value="#{msg['consolidanitempresaN']}" style="position: absolute; top: 190px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['consolidanitempresaN']}" style="position: absolute; top: 190px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="nuevaConsolidaNITEC" value="#{controlCuenta.nuevoCuentas.checkConsolidaNITEmpresa}" style="alignment-adjust: central;position: absolute; left: 570px;top: 190px;">  
                                 <p:ajax event="change" update="nuevaConsolidaNITEC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['shortnameN']}" style="position: absolute; top: 220px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['shortnameN']}" style="position: absolute; top: 220px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="nuevaShortNameC" value="#{controlCuenta.nuevoCuentas.checkShortName}" style="alignment-adjust: central;position: absolute; left: 570px;top: 220px;">  
                                 <p:ajax event="change" update="nuevaShortNameC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['cuentasapN']}" style="position: absolute; top: 250px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['cuentasapN']}" style="position: absolute; top: 250px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="nuevaCuentaSAPC" value="#{controlCuenta.nuevoCuentas.checkAsociadaSAP}" style="alignment-adjust: central;position: absolute; left: 570px;top: 250px;">  
                                 <p:ajax event="change" update="nuevaShortNameC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['subcuentaN']}" style="position: absolute; top: 280px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['subcuentaN']}" style="position: absolute; top: 280px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="nuevaSubCuentaC" value="#{controlCuenta.nuevoCuentas.checkSubCuenta}" style="alignment-adjust: central;position: absolute; left: 570px;top: 280px;">  
                                 <p:ajax event="change" update="nuevaSubCuentaC"/>
                             </p:selectBooleanCheckbox> 
 
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarNC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 325px;" actionListener="#{controlCuenta.limpiarNuevoCuenta()}" update="nuevaC" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarNC" value="#{msg['agregar']}" style="position: absolute; left: 560px; top: 325px;"  process="@this" actionListener="#{controlCuenta.agregarNuevoCuenta()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNC" value="#{msg['cancelar']}" style="position: absolute; left: 650px; top: 325px;" actionListener="#{controlCuenta.limpiarNuevoCuenta()}" update="nuevaC" onclick="PF('NuevoRegistroCuenta').hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarNC"  value="#{msg['agregar']}" style="position: absolute; left: 540px; top: 325px;"  process="@this" actionListener="#{controlCuenta.agregarNuevoCuenta()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNC" value="#{msg['cancelar']}" style="position: absolute; left: 640px; top: 325px;" actionListener="#{controlCuenta.limpiarNuevoCuenta()}" update="nuevaC" onclick="PF('NuevoRegistroCuenta').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -770,7 +764,7 @@
                             <p:watermark for="duplicaDescripcionC" value="#{msg['descripcion']}" />
 
                             <strong><h:outputText value="#{msg['naturalezaN']}" style="position: absolute; top: 130px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="duplicaNaturalezaC" value="#{controlCuenta.duplicarCuentas.naturaleza}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
+                            <p:selectOneMenu id="duplicaNaturalezaC" value="#{controlCuenta.duplicarCuentas.naturaleza}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 130px;">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO" />  
                                 <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO" /> 
@@ -779,14 +773,16 @@
 
                             <strong><h:outputText value="#{msg['ctatesoreriaN']}" style="position: absolute; top: 160px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicaCtaTesoreriaC" value="#{controlCuenta.duplicarCuentas.contracuentatesoreria.codigo}" style="width: 122px; position: absolute; left: 200px; top: 160px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,0,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'CONTRACUENTA')}" />
                                 <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('CONTRACUENTA', controlCuenta.duplicarCuentas.contracuentatesoreria.codigo, 1)}" />
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 335px; top: 160px; width: 23px; height: 23px;" class="cssBotonLovDialogos" 
+                                             id="btnDuplicarCtaTesoreria" value="" process="@this" actionListener="#{controlCuenta.asignarIndex(infoC,0,2)}" />   
                             <p:watermark for="duplicaCtaTesoreriaC" value="#{msg['contracuentatesoreria']}" />
 
                             <strong><h:outputText value="#{msg['tipoN']}" style="position: absolute; top: 190px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="duplicaTipoC" value="#{controlCuenta.duplicarCuentas.tipo}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
+                            <p:selectOneMenu id="duplicaTipoC" value="#{controlCuenta.duplicarCuentas.tipo}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 200px; top: 190px;">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP" />  
                                 <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC" />  
@@ -797,10 +793,12 @@
 
                             <strong><h:outputText value="#{msg['rubroN']}" style="position: absolute; top: 220px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicaRubroC" value="#{controlCuenta.duplicarCuentas.rubropresupuestal.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(indice,0,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlCuenta.valoresBackupAutocompletar(1, 'RUBRO')}" />
                                 <p:ajax event="change" listener="#{controlCuenta.autocompletarNuevoyDuplicadoCuenta('RUBRO', controlCuenta.duplicarCuentas.rubropresupuestal.descripcion, 1)}" />
                             </p:inputText>
+                            <p:commandButton style="position: absolute; left: 335px; top: 220px; width: 23px; height: 23px;" class="cssBotonLovDialogos" 
+                                             id="btnDuplicarRubro" value="" process="@this" actionListener="#{controlCuenta.asignarIndex(infoC,1,2)}" />
                             <p:watermark for="duplicaRubroC" value="#{msg['rubroX']}" />
 
                             <strong><h:outputText value="#{msg['consolidanitN']}" style="position: absolute; top: 250px; left: 50px;" /></strong>
@@ -813,56 +811,56 @@
                                 <p:ajax event="change" update="duplicaConsolidaNITEmpleadoC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['prorrateoN']}:" style="position: absolute; top: 70px; left: 360px;" /></strong>
+                            <strong><h:outputText value="#{msg['prorrateoN']}:" style="position: absolute; top: 70px; left: 400px;" /></strong>
                             <p:selectBooleanCheckbox id="duplicaProrrateoC" value="#{controlCuenta.duplicarCuentas.checkProrrateo}" style="alignment-adjust: central;position: absolute; left: 570px; top: 70px;">  
                                 <p:ajax event="change" update="duplicaConsolidaNITC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 360px;" /></strong>
-                            <p:selectOneMenu id="duplicaCCC" value="#{controlCuenta.duplicarCuentas.manejacentrocosto}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
+                            <strong><h:outputText value="#{msg['centrocostoN']}:" style="position: absolute; top: 100px; left: 400px;" /></strong>
+                            <p:selectOneMenu id="duplicaCCC" value="#{controlCuenta.duplicarCuentas.manejacentrocosto}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 100px">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
                                 <p:ajax event="change" update="duplicaCCC" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 360px;" /></strong>
-                            <p:selectOneMenu id="duplicaICCC" value="#{controlCuenta.duplicarCuentas.incluyecentrocostocodigocuenta}" style="width: 130px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
+                            <strong><h:outputText value="#{msg['incorporacentrocostoN']}" style="position: absolute; top: 130px; left: 400px;" /></strong>
+                            <p:selectOneMenu id="duplicaICCC" value="#{controlCuenta.duplicarCuentas.incluyecentrocostocodigocuenta}" style="width: 105px; font-weight: bold;text-transform: uppercase;position: absolute; left: 570px; top: 130px">  
                                 <f:selectItem itemLabel="" itemValue="null" /> 
                                 <f:selectItem itemLabel="#{msg['sii']}" itemValue="S" />  
                                 <f:selectItem itemLabel="#{msg['noo']}" itemValue="N" /> 
                                 <p:ajax event="change" update="duplicaICCC" />
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 360px;" /></strong>
+                            <strong><h:outputText value="#{msg['codigoalternativoN']}" style="position: absolute; top: 160px; left: 400px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicaCodigoAC" maxlength="30" value="#{controlCuenta.duplicarCuentas.codigoalternativo}" style="width: 122px; position: absolute; left: 570px; top: 160px; text-transform: uppercase">
                                 <p:ajax event="change" update="duplicaCodigoAC"/>
                             </p:inputText>
                             <p:watermark for="duplicaCodigoAC" value="#{msg['codigoalternativo']}" />
 
-                            <strong><h:outputText value="#{msg['consolidanitempresaN']}" style="position: absolute; top: 190px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['consolidanitempresaN']}" style="position: absolute; top: 190px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="duplicaConsolidaNITEC" value="#{controlCuenta.duplicarCuentas.checkConsolidaNITEmpresa}" style="alignment-adjust: central;position: absolute; left: 570px;top: 190px;">  
                                 <p:ajax event="change" update="duplicaConsolidaNITEC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['shortnameN']}" style="position: absolute; top: 220px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['shortnameN']}" style="position: absolute; top: 220px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="duplicaShortNameC" value="#{controlCuenta.duplicarCuentas.checkShortName}" style="alignment-adjust: central;position: absolute; left: 570px;top: 220px;">  
                                 <p:ajax event="change" update="duplicaShortNameC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['cuentasapN']}" style="position: absolute; top: 250px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['cuentasapN']}" style="position: absolute; top: 250px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="duplicaCuentaSAPC" value="#{controlCuenta.duplicarCuentas.checkAsociadaSAP}" style="alignment-adjust: central;position: absolute; left: 570px;top: 250px;">  
                                 <p:ajax event="change" update="duplicaShortNameC"/>
                             </p:selectBooleanCheckbox> 
 
-                            <strong><h:outputText value="#{msg['subcuentaN']}" style="position: absolute; top: 280px; left: 360px;"/></strong>
+                            <strong><h:outputText value="#{msg['subcuentaN']}" style="position: absolute; top: 280px; left: 400px;"/></strong>
                             <p:selectBooleanCheckbox id="duplicaSubCuentaC" value="#{controlCuenta.duplicarCuentas.checkSubCuenta}" style="alignment-adjust: central;position: absolute; left: 570px;top: 280px;">  
                                 <p:ajax event="change" update="duplicaSubCuentaC"/>
                             </p:selectBooleanCheckbox> 
 
                             <p:commandButton icon="ui-icon-trash" id="limpiarDC" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 325px;" actionListener="#{controlCuenta.limpiarDuplicarCuenta()}" update="duplicaC" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDC" value="#{msg['agregar']}" style="position: absolute; left: 560px; top: 325px;"  process="@this" actionListener="#{controlCuenta.confirmarDuplicar()}" />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDC" value="#{msg['cancelar']}" style="position: absolute; left: 650px; top: 325px;" actionListener="#{controlCuenta.limpiarDuplicarCuenta()}" update="duplicaC" onclick="PF('DuplicarRegistroCuenta').hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDC" value="#{msg['agregar']}" style="position: absolute; left: 540px; top: 325px;"  process="@this" actionListener="#{controlCuenta.confirmarDuplicar()}" />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDC" value="#{msg['cancelar']}" style="position: absolute; left: 640px; top: 325px;" actionListener="#{controlCuenta.limpiarDuplicarCuenta()}" update="duplicaC" onclick="PF('DuplicarRegistroCuenta').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -872,33 +870,35 @@
                                      selection="#{controlCuenta.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresas" scrollable="true" scrollWidth="416" scrollHeight="225"
                                      filteredValue="#{controlCuenta.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlCuenta.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarEmpresa()}" process="@this" onstart="PF('lovEmpresas').clearFilters()"/>
+                            <p:ajax event="rowDblselect" listener="#{controlCuenta.actualizarEmpresa()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlCuenta.contarRegistroLov()}" />
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEM']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" style="width:100px; position: relative; left: 10px;" />  
+                                <h:outputText value="#{msg['buscarEM']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{empresa.nit}" filterMatchMode="contains" width="60" filterStyle="width: 50px">
+                            <p:column filterBy="#{empresa.nit}" filterMatchMode="contains" width="60" filterStyle="width: 80% !important;" >
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nitEM']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nit}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important;"  >
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEM']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroEmpresa}" style="position: absolute; left: 20px; top: 325px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlCuenta.aceptar}" actionListener="#{controlCuenta.actualizarEmpresa()}" update="aceptarE" process="@this">
+                        
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCuenta.aceptar}" actionListener="#{controlCuenta.actualizarEmpresa()}" update="aceptarE" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
-                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" onclick="PF('EmpresasDialogo').hide(), PF('lovEmpresas').clearFilters();" actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
+                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
                             <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
                         </p:commandButton>
+                        </div>
                     </p:dialog>
 
                     <p:dialog id="editarCodigoCuentaD" header="#{msg['codigocuentaE']}" widgetVar="editarCodigoCuentaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
@@ -919,6 +919,10 @@
 
                     <p:dialog id="editarCodigoACuentaD" header="#{msg['codigoalternativoE']}" widgetVar="editarCodigoACuentaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlCuenta.editarCuentas.codigoalternativo}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    
+                     <p:dialog id="editarContraCuentaTesoreria" header="#{msg['contraT']}" widgetVar="editarContraCuentaTesoreria" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                         <p:inputTextarea value="#{controlCuenta.editarCuentas.contracuentatesoreria.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

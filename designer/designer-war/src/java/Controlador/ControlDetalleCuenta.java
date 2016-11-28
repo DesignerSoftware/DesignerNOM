@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.Cuentas;
 import Entidades.VigenciasCuentas;
 import Exportar.ExportarPDF;
@@ -58,57 +57,50 @@ public class ControlDetalleCuenta implements Serializable {
     //Columnas Tabla VP
     private Column debitoFechaInicial, debitoFechaFinal, debitoCodigo, debitoDescripcion, debitoDescripcionCC, debitoCC, debitoTipo;
     private boolean aceptar;
-    private int indexCredito;
     private boolean guardado, guardarOk;
     private VigenciasCuentas editarCredito;
     private VigenciasCuentas editarDebito;
     private int cualCeldaCredito, tipoListaCredito;
     private boolean cambioEditor, aceptarEditar;
-    private int indexDebito;
     private int cualCeldaDebito, tipoListaDebito;
     private int indexAuxCredito, indexAuxDebito;
     private String nombreXML;
     private String nombreTabla;
-    private BigInteger secRegistroCredito;
     private BigInteger backUpSecRegistroCredito;
-    private BigInteger secRegistroDebito;
     private BigInteger backUpSecRegistroDebito;
     private String msnConfirmarRastro, msnConfirmarRastroHistorico;
     private BigInteger backUp;
     private String nombreTablaRastro;
-    //
     private String altoTablaCredito, altoTablaDebito;
+    private int cualTabla;
+    private String infoRegistroDebito, infoRegistroCredito;
 
     public ControlDetalleCuenta() {
-        altoTablaDebito = "105";
-        altoTablaCredito = "120";
+        altoTablaDebito = "95";
+        altoTablaCredito = "95";
         nombreTablaRastro = "";
         backUp = null;
         listCuentasDebito = null;
         msnConfirmarRastro = "";
         msnConfirmarRastroHistorico = "";
-        secRegistroCredito = null;
         backUpSecRegistroCredito = null;
-        secRegistroDebito = null;
+        cuentaDebitoTablaSeleccionada = null;
         backUpSecRegistroDebito = null;
         listCuentasCredito = null;
-        cuentaActual = new Cuentas();
         //Otros
         aceptar = true;
         editarCredito = new VigenciasCuentas();
         editarDebito = new VigenciasCuentas();
         cambioEditor = false;
         aceptarEditar = true;
-        cualCeldaCredito = -1;
         tipoListaCredito = 0;
         tipoListaDebito = 0;
         //guardar
         guardado = true;
-        indexCredito = -1;
+        cuentaCreditoTablaSeleccionada = null;
         banderaCredito = 0;
         banderaDebito = 0;
-        indexDebito = -1;
-        cualCeldaDebito = -1;
+        cuentaDebitoTablaSeleccionada = null;
         nombreTabla = ":formExportarCredito:datosCreditoExportar";
         nombreXML = "CuentrasCreditoXML";
     }
@@ -127,9 +119,11 @@ public class ControlDetalleCuenta implements Serializable {
     }
 
     public void recibirCuenta(BigInteger cuenta) {
+        System.out.println("cuenta en detalle cuenta : " + cuenta);
         listCuentasCredito = null;
         listCuentasDebito = null;
         cuentaActual = administrarDetalleCuenta.mostrarCuenta(cuenta);
+        System.out.println("cuenta actual en detalle cuenta : " + cuentaActual);
     }
 
     public void posicionCredito() {
@@ -139,7 +133,8 @@ public class ControlDetalleCuenta implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndiceCredito(indice, columna);
+        cuentaCreditoTablaSeleccionada = listCuentasCredito.get(indice);
+        cambiarIndiceCredito(cuentaCreditoTablaSeleccionada, columna);
     }
 
     public void posicionDebito() {
@@ -149,15 +144,31 @@ public class ControlDetalleCuenta implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndiceDebito(indice, columna);
+        cuentaDebitoTablaSeleccionada = listCuentasDebito.get(indice);
+        cambiarIndiceDebito(cuentaDebitoTablaSeleccionada, columna);
+
     }
 
-    public void cambiarIndiceCredito(int indice, int celda) {
+    public void cambiarIndiceCredito(VigenciasCuentas cuentaC, int celda) {
+        cualTabla = 2;
         cualCeldaCredito = celda;
-        indexCredito = indice;
-        indexAuxCredito = indice;
-        indexAuxDebito = -1;
-        secRegistroCredito = listCuentasCredito.get(indexCredito).getSecuencia();
+        cuentaCreditoTablaSeleccionada = cuentaC;
+        cuentaCreditoTablaSeleccionada.getSecuencia();
+        if (cualCeldaCredito == 0) {
+            cuentaCreditoTablaSeleccionada.getFechainicial();
+        } else if (cualCeldaCredito == 1) {
+            cuentaCreditoTablaSeleccionada.getFechafinal();
+        } else if (cualCeldaCredito == 2) {
+            cuentaCreditoTablaSeleccionada.getConcepto().getCodigo();
+        } else if (cualCeldaCredito == 3) {
+            cuentaCreditoTablaSeleccionada.getConcepto().getDescripcion();
+        } else if (cualCeldaCredito == 4) {
+            cuentaCreditoTablaSeleccionada.getConsolidadorc().getNombre();
+        } else if (cualCeldaCredito == 5) {
+            cuentaCreditoTablaSeleccionada.getConsolidadorc().getCodigo();
+        } else if (cualCeldaCredito == 6) {
+            cuentaCreditoTablaSeleccionada.getTipocc().getNombre();
+        }
     }
 
     /**
@@ -166,101 +177,89 @@ public class ControlDetalleCuenta implements Serializable {
      * @param indice Fila de la tabla
      * @param celda Columna de la tabla
      */
-    public void cambiarIndiceDebito(int indice, int celda) {
-        indexDebito = indice;
+    public void cambiarIndiceDebito(VigenciasCuentas cuentaD, int celda) {
+        cualTabla = 1;
         cualCeldaDebito = celda;
-        indexAuxDebito = indice;
-        indexAuxCredito = -1;
-        secRegistroDebito = listCuentasDebito.get(indexDebito).getSecuencia();
-
+        cuentaDebitoTablaSeleccionada = cuentaD;
+        cuentaDebitoTablaSeleccionada.getSecuencia();
+        if (cualCeldaDebito == 0) {
+            cuentaDebitoTablaSeleccionada.getFechainicial();
+        } else if (cualCeldaDebito == 1) {
+            cuentaDebitoTablaSeleccionada.getFechafinal();
+        } else if (cualCeldaDebito == 2) {
+            cuentaDebitoTablaSeleccionada.getConcepto().getCodigo();
+        } else if (cualCeldaDebito == 3) {
+            cuentaDebitoTablaSeleccionada.getConcepto().getDescripcion();
+        } else if (cualCeldaDebito == 4) {
+            cuentaDebitoTablaSeleccionada.getConsolidadord().getNombre();
+        } else if (cualCeldaDebito == 5) {
+            cuentaDebitoTablaSeleccionada.getConsolidadord().getCodigo();
+        } else if (cualCeldaDebito == 6) {
+            cuentaDebitoTablaSeleccionada.getTipocc().getNombre();
+        }
     }
 
-    //MOSTRAR DATOS CELDA
-    /**
-     * Metodo que muestra los dialogos de editar con respecto a la lista real o
-     * la lista filtrada y a la columna
-     */
     public void editarCelda() {
-        if (indexAuxCredito >= 0) {
-            if (tipoListaCredito == 0) {
-                editarCredito = listCuentasCredito.get(indexCredito);
+        if (cualTabla == 1) {
+            System.out.println("editar celda debito");
+            if (cuentaDebitoTablaSeleccionada != null) {
+                editarDebito = cuentaDebitoTablaSeleccionada;
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCeldaDebito == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaInicialDebitoD').show()");
+                } else if (cualCeldaDebito == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaFinalDebitoD').show()");
+                } else if (cualCeldaDebito == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoDebitoD').show()");
+                } else if (cualCeldaDebito == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionDebitoD').show()");
+                } else if (cualCeldaDebito == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCCDebitoD').show()");
+                } else if (cualCeldaDebito == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCCDebitoD').show()");
+                } else if (cualCeldaDebito == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoDebitoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoDebitoD').show()");
+                }
             }
-            if (tipoListaCredito == 1) {
-                editarCredito = filtrarListCuentasCredito.get(indexCredito);
+        } else if (cualTabla == 2) {
+            System.out.println("editar celda credito");
+            if (cuentaCreditoTablaSeleccionada != null) {
+                System.out.println("entró al if de editarCelda Credito cualCeldaCredito : " + cualCeldaCredito);
+                editarCredito = cuentaCreditoTablaSeleccionada;
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCeldaCredito == 0) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaInicialCreditoD').show()");
+                } else if (cualCeldaCredito == 1) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarFechaFinalCreditoD').show()");
+                } else if (cualCeldaCredito == 2) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCodigoCreditoD').show()");
+                } else if (cualCeldaCredito == 3) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCreditoD').show()");
+                } else if (cualCeldaCredito == 4) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarDescripcionCCCreditoD').show()");
+                } else if (cualCeldaCredito == 5) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarCCCreditoD').show()");
+                } else if (cualCeldaCredito == 6) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCreditoD");
+                    RequestContext.getCurrentInstance().execute("PF('editarTipoCreditoD').show()");
+                }
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCeldaCredito == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarCodigoCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarDescripcionCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarDescripcionCCCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarCCCreditoD').show()");
-                cualCeldaCredito = -1;
-            } else if (cualCeldaCredito == 6) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoCreditoD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoCreditoD').show()");
-                cualCeldaCredito = -1;
-            }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        if (indexAuxDebito >= 0) {
-            if (tipoListaDebito == 0) {
-                editarDebito = listCuentasDebito.get(indexDebito);
-            }
-            if (tipoListaDebito == 1) {
-                editarDebito = filtrarListCuentasDebito.get(indexDebito);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCeldaDebito == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaInicialDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaFinalDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarCodigoDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarDescripcionDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcionCCDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarDescripcionCCDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarCCDebitoD').show()");
-                cualCeldaDebito = -1;
-            } else if (cualCeldaDebito == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoDebitoD");
-                RequestContext.getCurrentInstance().execute("PF('editarTipoDebitoD').show()");
-                cualCeldaDebito = -1;
-            }
-        }
-        indexCredito = -1;
-        secRegistroCredito = null;
-        indexDebito = -1;
-        secRegistroDebito = null;
     }
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
@@ -269,16 +268,8 @@ public class ControlDetalleCuenta implements Serializable {
      * medio de la tecla Crtl+F11
      */
     public void activarCtrlF11() {
-        // if (indexMvrs >= 0) {
-        if (indexCredito >= 0) {
-            filtradoCredito();
-        }
-        // }
-        //  if (indexOtrosCertificados >= 0) {
-        if (indexDebito >= 0) {
-            filtradoDebito();
-        }
-        //  }
+        filtradoDebito();
+        filtradoCredito();
     }
 
     /**
@@ -286,7 +277,7 @@ public class ControlDetalleCuenta implements Serializable {
      */
     public void filtradoCredito() {
         if (banderaCredito == 0) {
-            altoTablaCredito = "100";
+            altoTablaCredito = "75";
             creditoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaInicial");
             creditoFechaInicial.setFilterStyle("width: 85% !important");
             creditoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaFinal");
@@ -304,7 +295,7 @@ public class ControlDetalleCuenta implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosCuentaCredito");
             banderaCredito = 1;
         } else if (banderaCredito == 1) {
-            altoTablaCredito = "120";
+            altoTablaCredito = "95";
             creditoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaInicial");
             creditoFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             creditoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaFinal");
@@ -333,7 +324,7 @@ public class ControlDetalleCuenta implements Serializable {
     public void filtradoDebito() {
         if (banderaDebito == 0) {
 
-            altoTablaDebito = "83";
+            altoTablaDebito = "75";
             debitoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaInicial");
             debitoFechaInicial.setFilterStyle("width: 85% !important;");
             debitoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaFinal");
@@ -351,7 +342,7 @@ public class ControlDetalleCuenta implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosCuentaDebito");
             banderaDebito = 1;
         } else if (banderaDebito == 1) {
-            altoTablaDebito = "105";
+            altoTablaDebito = "95";
             debitoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaInicial");
             debitoFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             debitoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaFinal");
@@ -379,7 +370,7 @@ public class ControlDetalleCuenta implements Serializable {
      */
     public void salir() {
         if (banderaCredito == 1) {
-            altoTablaCredito = "120";
+            altoTablaCredito = "95";
             creditoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaInicial");
             creditoFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             creditoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaCredito:creditoFechaFinal");
@@ -400,7 +391,7 @@ public class ControlDetalleCuenta implements Serializable {
             tipoListaCredito = 0;
         }
         if (banderaDebito == 1) {
-            altoTablaDebito = "105";
+            altoTablaDebito = "95";
             debitoFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaInicial");
             debitoFechaInicial.setFilterStyle("display: none; visibility: hidden;");
             debitoFechaFinal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosCuentaDebito:debitoFechaFinal");
@@ -420,10 +411,9 @@ public class ControlDetalleCuenta implements Serializable {
             filtrarListCuentasDebito = null;
             tipoListaDebito = 0;
         }
-        indexCredito = -1;
-        secRegistroCredito = null;
-        indexDebito = -1;
-        secRegistroDebito = null;
+        cuentaCreditoTablaSeleccionada = null;
+        cuentaDebitoTablaSeleccionada = null;
+        cuentaDebitoTablaSeleccionada = null;
         listCuentasCredito = null;
         listCuentasDebito = null;
         guardado = true;
@@ -444,219 +434,155 @@ public class ControlDetalleCuenta implements Serializable {
      * @return Nombre del dialogo a exportar en XML
      */
     public String exportXML() {
-        if (indexAuxCredito >= 0) {
+        if (cualTabla == 1) {
+            nombreTabla = ":formExportarDebito:datosDebitoExportar";
+            nombreXML = "CuentasDebitoXML";
+        } else if (cualTabla == 2) {
             nombreTabla = ":formExportarCredito:datosCreditoExportar";
             nombreXML = "CuentasCreditoXML";
         }
-        if (indexAuxDebito >= 0) {
-            nombreTabla = ":formExportarDebito:datosDebitoExportar";
-            nombreXML = "CuentasDebitoXML";
-        }
+
         return nombreTabla;
     }
 
-    /**
-     * Valida la tabla a exportar en PDF con respecto al index activo
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void validarExportPDF() throws IOException {
-        if (indexAuxCredito >= 0) {
+        if (cualTabla == 1) {
+            exportPDF_D();
+        } else if (cualTabla == 2) {
             exportPDF_C();
         }
-        if (indexAuxDebito >= 0) {
-            exportPDF_D();
-        }
+
     }
 
-    /**
-     * Metodo que exporta datos a PDF Vigencia Localizacion
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportPDF_C() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarCredito:datosCreditoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "CuentasCreditoPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexCredito = -1;
-        secRegistroCredito = null;
     }
 
-    /**
-     * Metodo que exporta datos a PDF Vigencia Prorrateo
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportPDF_D() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarDebito:datosDebitoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "CuentasDebitoPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexDebito = -1;
-        secRegistroDebito = null;
     }
 
-    /**
-     * Verifica que tabla exportar XLS con respecto al index activo
-     *
-     * @throws IOException
-     */
     public void verificarExportXLS() throws IOException {
-        if (indexAuxCredito >= 0) {
+        if (cualTabla == 1) {
+            exportXLS_D();
+        } else if (cualTabla == 2) {
             exportXLS_C();
         }
-        if (indexAuxDebito >= 0) {
-            exportXLS_D();
-        }
     }
 
-    /**
-     * Metodo que exporta datos a XLS Vigencia Sueldos
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportXLS_C() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarCredito:datosCreditoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "CuentasCreditoXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexCredito = -1;
-        secRegistroCredito = null;
     }
 
-    /**
-     * Metodo que exporta datos a XLS Vigencia Afiliaciones
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportXLS_D() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportarDebito:datosDebitoExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "CuentasDebitoXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexDebito = -1;
-        secRegistroDebito = null;
     }
 
-    //EVENTO FILTRAR
-    /**
-     * Evento que cambia la lista real a la filtrada
-     */
-    public void eventoFiltrar() {
-        if (indexAuxCredito >= 0) {
-            if (tipoListaCredito == 0) {
-                tipoListaCredito = 1;
-            }
+    public void eventoFiltrarCredito() {
+        if (tipoListaCredito == 0) {
+            tipoListaCredito = 1;
         }
-        if (indexAuxDebito >= 0) {
-            if (tipoListaDebito == 0) {
-                tipoListaDebito = 1;
-            }
-        }
+        contarRegistrosCredito();
     }
 
-    //METODO RASTROS PARA LAS TABLAS EN EMPLVIGENCIASUELDOS
+    public void eventoFiltrarDebito() {
+        if (tipoListaDebito == 0) {
+            tipoListaDebito = 1;
+        }
+        contarRegistrosDebito();
+
+    }
+
     public void verificarRastroTabla() {
-        if (listCuentasDebito == null || listCuentasCredito == null) {
-            //Dialogo para seleccionar el rato de la tabla deseada
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
-        }
-
-        if ((listCuentasDebito != null) && (listCuentasCredito != null)) {
-            if (indexCredito >= 0) {
+//        if (listCuentasDebito == null || listCuentasCredito == null) {
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
+//        }
+        if (cualTabla == 1) {
+            if (cuentaCreditoTablaSeleccionada != null) {
                 verificarRastroCredito();
-                indexCredito = -1;
             }
-            if (indexDebito >= 0) {
-                //Metodo Rastro Vigencias Afiliaciones
+        } else if (cualTabla == 2) {
+            if (cuentaDebitoTablaSeleccionada != null) {
                 verificarRastroDebito();
-                indexDebito = -1;
             }
         }
     }
-    //Verificar Rastro Vigencia Sueldos
 
     public void verificarRastroCredito() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listCuentasCredito != null) {
-            if (secRegistroCredito != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistroCredito, "VIGENCIASCUENTAS");
-                backUpSecRegistroCredito = secRegistroCredito;
-                backUp = secRegistroCredito;
-                secRegistroCredito = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "VigenciasCuentas";
-                    msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
+        if (cuentaCreditoTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(cuentaCreditoTablaSeleccionada.getSecuencia(), "VIGENCIASCUENTAS");
+            backUpSecRegistroCredito = cuentaCreditoTablaSeleccionada.getSecuencia();
+            backUp = cuentaCreditoTablaSeleccionada.getSecuencia();
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "VigenciasCuentas";
-                msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+                msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
+            nombreTablaRastro = "VigenciasCuentas";
+            msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        indexCredito = -1;
     }
 
-    //Verificar Rastro Vigencia Sueldos
     public void verificarRastroDebito() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listCuentasDebito != null) {
-            if (secRegistroDebito != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistroDebito, "VIGENCIASCUENTAS");
-                backUpSecRegistroDebito = secRegistroDebito;
-                backUp = backUpSecRegistroDebito;
-                secRegistroDebito = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "VigenciasCuentas";
-                    msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
+        if (cuentaDebitoTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(cuentaDebitoTablaSeleccionada.getSecuencia(), "VIGENCIASCUENTAS");
+            backUpSecRegistroDebito = cuentaDebitoTablaSeleccionada.getSecuencia();
+            backUp = backUpSecRegistroDebito;
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "VigenciasCuentas";
-                msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+                msnConfirmarRastro = "La tabla VIGENCIASCUENTAS tiene rastros para el registro seleccionado, ¿desea continuar?";
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASCUENTAS")) {
+            nombreTablaRastro = "VigenciasCuentas";
+            msnConfirmarRastroHistorico = "La tabla VIGENCIASCUENTAS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        indexDebito = -1;
     }
 
     public void limpiarMSNRastros() {
@@ -667,15 +593,22 @@ public class ControlDetalleCuenta implements Serializable {
 
     public void obtenerCuenta(BigInteger secuencia) {
         cuentaActual = administrarDetalleCuenta.mostrarCuenta(secuencia);
-        indexCredito = -1;
-        secRegistroCredito = null;
-        indexDebito = -1;
-        secRegistroDebito = null;
         listCuentasCredito = null;
+        getListCuentasCredito();
         listCuentasDebito = null;
+        getListCuentasDebito();
         guardado = true;
     }
-    
+
+    public void contarRegistrosDebito() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroDebito");
+    }
+
+    public void contarRegistrosCredito() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroCredito");
+    }
+
+    ////////SETS Y GETS /////////////////
     public List<VigenciasCuentas> getListCuentasCredito() {
         try {
             if (listCuentasCredito == null) {
@@ -817,13 +750,13 @@ public class ControlDetalleCuenta implements Serializable {
     }
 
     public VigenciasCuentas getCuentaCreditoTablaSeleccionada() {
-        getListCuentasCredito();
-        if (listCuentasCredito != null) {
-            int tam = listCuentasCredito.size();
-            if (tam > 0) {
-                cuentaCreditoTablaSeleccionada = listCuentasCredito.get(0);
-            }
-        }
+//        getListCuentasCredito();
+//        if (listCuentasCredito != null) {
+//            int tam = listCuentasCredito.size();
+//            if (tam > 0) {
+//                cuentaCreditoTablaSeleccionada = listCuentasCredito.get(0);
+//            }
+//        }
         return cuentaCreditoTablaSeleccionada;
     }
 
@@ -832,13 +765,13 @@ public class ControlDetalleCuenta implements Serializable {
     }
 
     public VigenciasCuentas getCuentaDebitoTablaSeleccionada() {
-        getListCuentasDebito();
-        if (listCuentasDebito != null) {
-            int tam = listCuentasDebito.size();
-            if (tam > 0) {
-                cuentaDebitoTablaSeleccionada = listCuentasDebito.get(0);
-            }
-        }
+//        getListCuentasDebito();
+//        if (listCuentasDebito != null) {
+//            int tam = listCuentasDebito.size();
+//            if (tam > 0) {
+//                cuentaDebitoTablaSeleccionada = listCuentasDebito.get(0);
+//            }
+//        }
         return cuentaDebitoTablaSeleccionada;
     }
 
@@ -860,6 +793,28 @@ public class ControlDetalleCuenta implements Serializable {
 
     public void setAltoTablaDebito(String altoTablaDebito) {
         this.altoTablaDebito = altoTablaDebito;
+    }
+
+    public String getInfoRegistroDebito() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCuentaDebito");
+        infoRegistroDebito = String.valueOf(tabla.getRowCount());
+        return infoRegistroDebito;
+    }
+
+    public void setInfoRegistroDebito(String infoRegistroDebito) {
+        this.infoRegistroDebito = infoRegistroDebito;
+    }
+
+    public String getInfoRegistroCredito() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCuentaCredito");
+        infoRegistroCredito = String.valueOf(tabla.getRowCount());
+        return infoRegistroCredito;
+    }
+
+    public void setInfoRegistroCredito(String infoRegistroCredito) {
+        this.infoRegistroCredito = infoRegistroCredito;
     }
 
 }

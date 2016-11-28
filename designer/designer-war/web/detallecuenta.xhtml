@@ -13,11 +13,8 @@
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.detallecuenta" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-                        <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: #009;font-weight: bold;text-align: right;width: 240px;left: 300px;" value="#{msg['cuenta']}"/>
-                        <h:outputText style="position: absolute; top: 50px; height: 12px;position: absolute;color: red;font-weight: bold;text-align: left;width: 240px;left: 550px;" id="nombreCuenta" value="#{controlDetalleCuenta.cuentaActual.codigo} - #{controlDetalleCuenta.cuentaActual.descripcion}">
-                        </h:outputText>
 
-                        <p:toolbar style="position: absolute; top: 37px; left: 12px; height: 23px">  
+                        <p:toolbar class="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
                                 <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%;background-image: url(Imagenes/Iconos/guardar.png) ;background-repeat: no-repeat; width: 25px; height: 25px;" />
@@ -66,165 +63,28 @@
                                 <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
+                                <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlDetalleCuenta.salir()}" action="cuentasBack" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 10px; top: 90px; width: 830px; height: 180px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue"><strong>#{msg['cuentacredito']}</strong></legend>
-                            <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
-                            <p:dataTable id="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px;width: 820px;"   
-                                         value="#{controlDetalleCuenta.listCuentasCredito}" scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaCredito}" scrollWidth="835"
-                                         filteredValue="#{controlDetalleCuenta.filtrarListCuentasCredito}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="12"
-                                         selection="#{controlDetalleCuenta.cuentaCreditoTablaSeleccionada}" selectionMode="single">
-
-                                <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrar()}"/>
-
-                                <p:column  headerText="#{msg['fechainicial']}" sortBy="#{infoCredito.fechainicial}" filterBy="#{infoCredito.fechainicial}" filterMatchMode="contains" 
-                                           width="72" id="creditoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
-                                                         styleClass="ui-datepicker, myClass" autocomplete="true"
-                                                         onselect="posicionC([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">      
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoCredito.fechafinal}" filterBy="#{infoCredito.fechafinal}" 
-                                          filterMatchMode="contains"  width="72" id="creditoFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
-                                                          styleClass="ui-datepicker, myClass" autocomplete="true"
-                                                          onselect="posicionC([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">                                         
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{infoCredito.concepto.codigo}" filterBy="#{infoCredito.concepto.codigo}" filterMatchMode="contains" 
-                                          id="creditoCodigo" width="85" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.concepto.codigo}">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionC([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{infoCredito.concepto.descripcion}" filterBy="#{infoCredito.concepto.descripcion}" 
-                                          filterMatchMode="contains" id="creditoDescripcion" width="133" filterStyle="display: none; visibility: hidden" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{infoCredito.concepto.descripcion}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                          onselect="posicionC([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['descripcioncc']}" sortBy="#{infoCredito.consolidadorc.nombre}" filterBy="#{infoCredito.consolidadorc.nombre}" 
-                                          filterMatchMode="contains" id="creditoDescripcionCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.consolidadorc.nombre}">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionC([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['cc']}" sortBy="#{infoCredito.consolidadorc.codigo}" filterBy="#{infoCredito.consolidadorc.codigo}" 
-                                          filterMatchMode="contains" id="creditoCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.consolidadorc.codigo}">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionC([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);"> 
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column headerText="#{msg['tipo']}" sortBy="#{infoCredito.tipocc.nombre}" filterBy="#{infoCredito.tipocc.nombre}" 
-                                          filterMatchMode="contains" id="creditoTipo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoCredito.tipocc.nombre}">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionC([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);"> 
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>
+                        <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" value="#{msg['cuenta']}"/>
+                            <h:outputText style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px" id="nombreCuenta" value="#{controlDetalleCuenta.cuentaActual.codigo} - #{controlDetalleCuenta.cuentaActual.descripcion}">
+                            </h:outputText>
                         </fieldset>
 
-                        <fieldset style="position: absolute;top: 290px;left: 10px;height: 160px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 160px; border-radius: 10px; text-align: left">
                             <legend style="color: blue"><strong>#{msg['cuentadebito']}</strong></legend> 
                             <p:dataTable id="datosCuentaDebito" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlDetalleCuenta.listCuentasDebito}" 
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasDebito}" editable="true" editMode="cell" liveScroll="true" scrollRows="12"
                                          scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaDebito}" scrollWidth="830" emptyMessage="#{msg['vacio']}" 
                                          selection="#{controlDetalleCuenta.cuentaDebitoTablaSeleccionada}" selectionMode="single" style="border: 1px;width: 830px">
-
+                                
+                                <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarDebito()}"/>
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" 
                                           width="72" id="debitoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
                                     <p:cellEditor>  
@@ -235,8 +95,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{info.fechainicial}" id="editarFechaInicialDebito"   
-                                                         styleClass="ui-datepicker, myClass" autocomplete="true"
-                                                         onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">      
+                                                          styleClass="ui-datepicker, myClass" 
+                                                          onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">      
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>   
@@ -257,7 +117,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{info.fechafinal}" id="editarFechaFinalDebito" 
-                                                          styleClass="ui-datepicker, myClass" autocomplete="true"
+                                                          styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);">                                         
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
@@ -278,7 +138,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionD([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                          onselect="posicionD([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -303,7 +163,7 @@
                                 </p:column>
 
                                 <p:column headerText="#{msg['descripcioncc']}" sortBy="#{info.consolidadord.nombre}" filterBy="#{info.consolidadord.nombre}" 
-                                          filterMatchMode="contains" id="debitoDescripcionCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                          filterMatchMode="contains" id="debitoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.consolidadord.nombre}">
@@ -311,7 +171,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionD([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                          onselect="posicionD([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -329,7 +189,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
-                                                         onselect="posicionD([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                          onselect="posicionD([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -358,14 +218,159 @@
                                 </p:column>
 
                             </p:dataTable>
+                            <h:outputText id="infoRegistroDebito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroDebito}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
                         </fieldset>
 
+                        <fieldset style="position: absolute;top: 305px; left: 10px; width: 830px; height: 160px; border-radius: 10px; text-align: left">
+                            <legend style="color: blue"><strong>#{msg['cuentacredito']}</strong></legend>
+                            <!-- TABLA EMPLVIGENCIALOCALIZACION -->
+
+                            <p:dataTable id="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px;width: 820px;"   
+                                         value="#{controlDetalleCuenta.listCuentasCredito}" scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaCredito}" scrollWidth="835"
+                                         filteredValue="#{controlDetalleCuenta.filtrarListCuentasCredito}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="12"
+                                         selection="#{controlDetalleCuenta.cuentaCreditoTablaSeleccionada}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarCredito()}"/>
+
+                                <p:column  headerText="#{msg['fechainicial']}" sortBy="#{infoCredito.fechainicial}" filterBy="#{infoCredito.fechainicial}" filterMatchMode="contains" 
+                                           width="80" id="creditoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
+                                                          styleClass="ui-datepicker, myClass"  onselect="posicionC([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">      
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{infoCredito.fechafinal}" filterBy="#{infoCredito.fechafinal}" 
+                                          filterMatchMode="contains"  width="72" id="creditoFechaFinal" filterStyle="display: none; visibility: hidden;"  >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
+                                                          styleClass="ui-datepicker, myClass"   onselect="posicionC([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">                                         
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </p:inputText>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{infoCredito.concepto.codigo}" filterBy="#{infoCredito.concepto.codigo}" filterMatchMode="contains" 
+                                          id="creditoCodigo" width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.concepto.codigo}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                                          onselect="posicionC([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{infoCredito.concepto.descripcion}" filterBy="#{infoCredito.concepto.descripcion}" 
+                                          filterMatchMode="contains" id="creditoDescripcion" width="133" filterStyle="display: none; visibility: hidden" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{infoCredito.concepto.descripcion}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                                          onselect="posicionC([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['descripcioncc']}" sortBy="#{infoCredito.consolidadorc.nombre}" filterBy="#{infoCredito.consolidadorc.nombre}" 
+                                          filterMatchMode="contains" id="creditoDescripcionCC" width="120" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.consolidadorc.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                                          onselect="posicionC([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['cc']}" sortBy="#{infoCredito.consolidadorc.codigo}" filterBy="#{infoCredito.consolidadorc.codigo}" 
+                                          filterMatchMode="contains" id="creditoCC" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.consolidadorc.codigo}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                                          onselect="posicionC([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="#{msg['tipo']}" sortBy="#{infoCredito.tipocc.nombre}" filterBy="#{infoCredito.tipocc.nombre}" 
+                                          filterMatchMode="contains" id="creditoTipo" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{infoCredito.tipocc.nombre}">
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                                          onselect="posicionC([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);"> 
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+                            <h:outputText id="infoRegistroCredito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroCredito}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
+                        </fieldset>
 
                         <p:remoteCommand name="posicionC" actionListener="#{controlDetalleCuenta.posicionCredito()}"/>
                         <p:remoteCommand name="posicionD" actionListener="#{controlDetalleCuenta.posicionDebito()}"/>
 
 
-                        <p:commandButton style="position: absolute; left: 775px; top: 475px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlDetalleCuenta.salir()}" action="cuentasBack" process="@this" />
+                        <p:commandButton class="cssBotonAceptar"  value="" actionListener="#{controlDetalleCuenta.salir()}" action="cuentasBack" process="@this" />
 
                     </p:panel>
 
