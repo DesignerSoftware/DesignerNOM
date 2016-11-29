@@ -116,7 +116,7 @@
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " disabled="#{controlAusentismos.guardado}" onclick="PF('confirmarGuardar').show();" update="form:datosAusentismosEmpleado" process="@this"/>
                         <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" "  action="atrasatausentismos" actionListener="#{controlAusentismos.salir()}"/>
 
-                        <fieldset style="position: absolute; left: 10px; top: 230px;  width: 100px; height: 235px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 230px;  width: 100px; height: 240px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['da']}</strong></legend>
                             <p:dataTable id="datosAusentismosEmpleado" var="ausentismos" value="#{controlAusentismos.listaAusentismos}"
                                          rowKey="#{ausentismos.secuencia}" rowIndexVar="indice" style="border: 1px;width: 840px;"                           

@@ -6,6 +6,7 @@ package Controlador;
 
 import Entidades.Cuentas;
 import Entidades.Empresas;
+import Entidades.GruposTiposCC;
 import Entidades.Rubrospresupuestales;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -182,20 +183,7 @@ public class ControlCuenta implements Serializable {
     public void modificarCuenta(Cuentas cuenta) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (validarDatosNull(0) == true) {
-            if (tipoLista == 0) {
-                if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
-                    if (listCuentasModificar.isEmpty()) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
+            if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
                 if (listCuentasModificar.isEmpty()) {
                     listCuentasModificar.add(cuentaTablaSeleccionada);
                 } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
@@ -203,20 +191,15 @@ public class ControlCuenta implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
+
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
             cambiosCuentas = true;
             activoDetalle = true;
-//            RequestContext.getCurrentInstance().update("form:DETALLES");
         } else {
-            if (tipoLista == 0) {
-                cuentaTablaSeleccionada.setCodigo(auxCodigoCuenta);
-                cuentaTablaSeleccionada.setDescripcion(auxDescripcionCuenta);
-            } else {
-                cuentaTablaSeleccionada.setCodigo(auxCodigoCuenta);
-                cuentaTablaSeleccionada.setDescripcion(auxDescripcionCuenta);
-            }
+            cuentaTablaSeleccionada.setCodigo(auxCodigoCuenta);
+            cuentaTablaSeleccionada.setDescripcion(auxDescripcionCuenta);
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullCuenta').show()");
         }
         RequestContext.getCurrentInstance().update("form:datosCuenta");
@@ -224,16 +207,13 @@ public class ControlCuenta implements Serializable {
 
     public void modificarCuentaAutocompletar(Cuentas cuenta, String confirmarCambio, String valorConfirmar) {
         cuentaTablaSeleccionada = cuenta;
+        System.out.println("valor confirmar : " + valorConfirmar);
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("CONTRACUENTA")) {
             if (!valorConfirmar.isEmpty()) {
-                if (tipoLista == 0) {
-                    cuentaTablaSeleccionada.getContracuentatesoreria().setDescripcion(cuentaTablaSeleccionada.getCodigo());
-                } else {
-                    cuentaTablaSeleccionada.getContracuentatesoreria().setDescripcion(cuentaTablaSeleccionada.getCodigo());
-                }
+                cuentaTablaSeleccionada.getContracuentatesoreria().setCodigo(cuentaTablaSeleccionada.getCodigo());
                 for (int i = 0; i < listCuentasTesoreria.size(); i++) {
                     if (listCuentasTesoreria.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -241,11 +221,7 @@ public class ControlCuenta implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        cuentaTablaSeleccionada.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
-                    } else {
-                        cuentaTablaSeleccionada.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
-                    }
+                    cuentaTablaSeleccionada.setContracuentatesoreria(listCuentasTesoreria.get(indiceUnicoElemento));
                     listCuentasTesoreria.clear();
                     getListCuentasTesoreria();
                 } else {
@@ -256,22 +232,16 @@ public class ControlCuenta implements Serializable {
                 }
             } else {
                 coincidencias = 1;
-                if (tipoLista == 0) {
-                    cuentaTablaSeleccionada.setContracuentatesoreria(new Cuentas());
-                } else {
-                    cuentaTablaSeleccionada.setContracuentatesoreria(new Cuentas());
-                }
+                cuentaTablaSeleccionada.getContracuentatesoreria().setCodigo("");
+                cuentaTablaSeleccionada.getContracuentatesoreria().setDescripcion("");
+                cuentaTablaSeleccionada.getContracuentatesoreria().setEmpresa(empresaActual);
                 listCuentasTesoreria.clear();
                 getListCuentasTesoreria();
             }
         }
         if (confirmarCambio.equalsIgnoreCase("RUBRO")) {
             if (!valorConfirmar.isEmpty()) {
-                if (tipoLista == 0) {
-                    cuentaTablaSeleccionada.getRubropresupuestal().setDescripcion(rubroP);
-                } else {
-                    cuentaTablaSeleccionada.getRubropresupuestal().setDescripcion(rubroP);
-                }
+                cuentaTablaSeleccionada.getRubropresupuestal().setDescripcion(cuentaTablaSeleccionada.getDescripcion());
                 for (int i = 0; i < listRubros.size(); i++) {
                     if (listRubros.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -279,11 +249,7 @@ public class ControlCuenta implements Serializable {
                     }
                 }
                 if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        cuentaTablaSeleccionada.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
-                    } else {
-                        cuentaTablaSeleccionada.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
-                    }
+                    cuentaTablaSeleccionada.setRubropresupuestal(listRubros.get(indiceUnicoElemento));
                     listRubros.clear();
                     getListRubros();
                 } else {
@@ -293,46 +259,32 @@ public class ControlCuenta implements Serializable {
                     tipoActualizacion = 0;
                 }
             } else {
+                System.out.println("entro al else de modificar rubros");
                 coincidencias = 1;
-                if (tipoLista == 0) {
-                    cuentaTablaSeleccionada.setRubropresupuestal(new Rubrospresupuestales());
-                } else {
-                    cuentaTablaSeleccionada.setRubropresupuestal(new Rubrospresupuestales());
-                }
+                cuentaTablaSeleccionada.getRubropresupuestal().setDescripcion("");
+                cuentaTablaSeleccionada.getRubropresupuestal().setPlaTipres("");
+                cuentaTablaSeleccionada.getRubropresupuestal().setPlaGrupos("");
+                cuentaTablaSeleccionada.getRubropresupuestal().setPlaConcep("");
+                cuentaTablaSeleccionada.getRubropresupuestal().setPlaTipres("");
+                cuentaTablaSeleccionada.getRubropresupuestal().setAreCodigo(Short.valueOf("1"));
+                cuentaTablaSeleccionada.getRubropresupuestal().setGrupotipocc(new GruposTiposCC());
                 listRubros.clear();
                 getListRubros();
             }
         }
         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
-                    if (listCuentasModificar.isEmpty()) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+            if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
+                if (listCuentasModificar.isEmpty()) {
+                    listCuentasModificar.add(cuentaTablaSeleccionada);
+                } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
+                    listCuentasModificar.add(cuentaTablaSeleccionada);
                 }
-                activoDetalle = true;
-//                RequestContext.getCurrentInstance().update("form:DETALLES");
-            } else {
-                if (!listCuentasCrear.contains(cuentaTablaSeleccionada)) {
-                    if (listCuentasModificar.isEmpty()) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    } else if (!listCuentasModificar.contains(cuentaTablaSeleccionada)) {
-                        listCuentasModificar.add(cuentaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                activoDetalle = true;
-//                RequestContext.getCurrentInstance().update("form:DETALLES");
             }
+            activoDetalle = true;
             cambiosCuentas = true;
         }
         RequestContext.getCurrentInstance().update("form:datosCuenta");
@@ -343,10 +295,7 @@ public class ControlCuenta implements Serializable {
             cualCelda = celda;
             cuentaTablaSeleccionada = cuenta;
             cuentaActual = cuentaTablaSeleccionada;
-            System.out.println("cuenta seleccionada : " + cuentaTablaSeleccionada.getDescripcion());
-            System.out.println("cuenta Actual : " + cuentaActual.getDescripcion());
             activoDetalle = false;
-//            RequestContext.getCurrentInstance().update("form:DETALLES");
 
             cuentaTablaSeleccionada.getSecuencia();
             auxCodigoCuenta = cuentaTablaSeleccionada.getCodigo();
@@ -381,6 +330,8 @@ public class ControlCuenta implements Serializable {
         try {
             if (guardado == false) {
                 if (!listCuentasBorrar.isEmpty()) {
+
+                    System.out.println("entró al administrar de borrar");
                     administrarCuentas.borrarCuentas(listCuentasBorrar);
                     listCuentasBorrar.clear();
                 }
@@ -389,14 +340,22 @@ public class ControlCuenta implements Serializable {
                     listCuentasCrear.clear();
                 }
                 if (!listCuentasModificar.isEmpty()) {
+                    System.out.println("entró a guardarCambiosCuenta.listCuentaModificar : " + listCuentasModificar.size());
+                    for (int i = 0; i < listCuentasModificar.size(); i++) {
+                        if (listCuentasModificar.get(i).getRubropresupuestal().getDescripcion().equals("") || listCuentasModificar.get(i).getRubropresupuestal().getDescripcion().isEmpty()) {
+                            listCuentasModificar.get(i).setRubropresupuestal(null);
+                        }
+
+                        if (listCuentasModificar.get(i).getContracuentatesoreria().getCodigo().equals("") || listCuentasModificar.get(i).getContracuentatesoreria().getCodigo().isEmpty()) {
+                            listCuentasModificar.get(i).setContracuentatesoreria(null);
+                        }
+                    }
                     administrarCuentas.modificarCuentas(listCuentasModificar);
                     listCuentasModificar.clear();
                 }
                 listCuentas = null;
                 getListCuentas();
                 contarRegistro();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
                 RequestContext.getCurrentInstance().update("form:datosCuenta");
                 k = 0;
                 cuentaTablaSeleccionada = null;
@@ -405,7 +364,6 @@ public class ControlCuenta implements Serializable {
                 guardado = true;
                 cambiosCuentas = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//                RequestContext.getCurrentInstance().update("form:DETALLES");
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
@@ -665,48 +623,35 @@ public class ControlCuenta implements Serializable {
 
     public void duplicarCuenta() {
         duplicarCuentas = new Cuentas();
-        if (tipoLista == 0) {
-            duplicarCuentas.setCodigo(cuentaTablaSeleccionada.getCodigo());
-            duplicarCuentas.setDescripcion(cuentaTablaSeleccionada.getDescripcion());
-            duplicarCuentas.setNaturaleza(cuentaTablaSeleccionada.getNaturaleza());
-            duplicarCuentas.setContracuentatesoreria(cuentaTablaSeleccionada.getContracuentatesoreria());
-            duplicarCuentas.setTipo(cuentaTablaSeleccionada.getTipo());
-            duplicarCuentas.setRubropresupuestal(cuentaTablaSeleccionada.getRubropresupuestal());
-            duplicarCuentas.setManejanit(cuentaTablaSeleccionada.getManejanit());
-            duplicarCuentas.setManejanitempleado(cuentaTablaSeleccionada.getManejanitempleado());
-            duplicarCuentas.setProrrateo(cuentaTablaSeleccionada.getProrrateo());
-            duplicarCuentas.setManejacentrocosto(cuentaTablaSeleccionada.getManejacentrocosto());
-            duplicarCuentas.setIncluyecentrocostocodigocuenta(cuentaTablaSeleccionada.getIncluyecentrocostocodigocuenta());
-            duplicarCuentas.setCodigoalternativo(cuentaTablaSeleccionada.getCodigoalternativo());
-            duplicarCuentas.setConsolidanitempresa(cuentaTablaSeleccionada.getConsolidanitempresa());
-            duplicarCuentas.setCuentaasociadasap(cuentaTablaSeleccionada.getCuentaasociadasap());
-            duplicarCuentas.setManejasubcuenta(cuentaTablaSeleccionada.getManejasubcuenta());
-        }
-        if (tipoLista == 1) {
+        duplicarCuentas.setCodigo(cuentaTablaSeleccionada.getCodigo());
+        duplicarCuentas.setDescripcion(cuentaTablaSeleccionada.getDescripcion());
+        duplicarCuentas.setNaturaleza(cuentaTablaSeleccionada.getNaturaleza());
+        duplicarCuentas.setContracuentatesoreria(cuentaTablaSeleccionada.getContracuentatesoreria());
+        duplicarCuentas.setTipo(cuentaTablaSeleccionada.getTipo());
+        duplicarCuentas.setRubropresupuestal(cuentaTablaSeleccionada.getRubropresupuestal());
+        duplicarCuentas.setManejanit(cuentaTablaSeleccionada.getManejanit());
+        duplicarCuentas.setManejanitempleado(cuentaTablaSeleccionada.getManejanitempleado());
+        duplicarCuentas.setProrrateo(cuentaTablaSeleccionada.getProrrateo());
+        duplicarCuentas.setManejacentrocosto(cuentaTablaSeleccionada.getManejacentrocosto());
+        duplicarCuentas.setIncluyecentrocostocodigocuenta(cuentaTablaSeleccionada.getIncluyecentrocostocodigocuenta());
+        duplicarCuentas.setCodigoalternativo(cuentaTablaSeleccionada.getCodigoalternativo());
+        duplicarCuentas.setConsolidanitempresa(cuentaTablaSeleccionada.getConsolidanitempresa());
+        duplicarCuentas.setCuentaasociadasap(cuentaTablaSeleccionada.getCuentaasociadasap());
+        duplicarCuentas.setManejasubcuenta(cuentaTablaSeleccionada.getManejasubcuenta());
+        duplicarCuentas.setCheckAsociadaSAP(cuentaTablaSeleccionada.isCheckAsociadaSAP());
+        duplicarCuentas.setCheckCCEmpleado(cuentaTablaSeleccionada.isCheckCCEmpleado());
+        duplicarCuentas.setCheckConsolidaNITEmpresa(cuentaTablaSeleccionada.isCheckConsolidaNITEmpresa());
+        duplicarCuentas.setCheckManejaNit(cuentaTablaSeleccionada.isCheckManejaNit());
+        duplicarCuentas.setCheckProrrateo(cuentaTablaSeleccionada.isCheckProrrateo());
+        duplicarCuentas.setCheckShortName(cuentaTablaSeleccionada.isCheckShortName());
+        duplicarCuentas.setCheckSubCuenta(cuentaTablaSeleccionada.isCheckSubCuenta());
 
-            duplicarCuentas.setCodigo(cuentaTablaSeleccionada.getCodigo());
-            duplicarCuentas.setDescripcion(cuentaTablaSeleccionada.getDescripcion());
-            duplicarCuentas.setNaturaleza(cuentaTablaSeleccionada.getNaturaleza());
-            duplicarCuentas.setContracuentatesoreria(cuentaTablaSeleccionada.getContracuentatesoreria());
-            duplicarCuentas.setTipo(cuentaTablaSeleccionada.getTipo());
-            duplicarCuentas.setRubropresupuestal(cuentaTablaSeleccionada.getRubropresupuestal());
-            duplicarCuentas.setManejanit(cuentaTablaSeleccionada.getManejanit());
-            duplicarCuentas.setManejanitempleado(cuentaTablaSeleccionada.getManejanitempleado());
-            duplicarCuentas.setProrrateo(cuentaTablaSeleccionada.getProrrateo());
-            duplicarCuentas.setManejacentrocosto(cuentaTablaSeleccionada.getManejacentrocosto());
-            duplicarCuentas.setIncluyecentrocostocodigocuenta(cuentaTablaSeleccionada.getIncluyecentrocostocodigocuenta());
-            duplicarCuentas.setCodigoalternativo(cuentaTablaSeleccionada.getCodigoalternativo());
-            duplicarCuentas.setConsolidanitempresa(cuentaTablaSeleccionada.getConsolidanitempresa());
-            duplicarCuentas.setCuentaasociadasap(cuentaTablaSeleccionada.getCuentaasociadasap());
-            duplicarCuentas.setManejasubcuenta(cuentaTablaSeleccionada.getManejasubcuenta());
-
-        }
-        if (duplicarCuentas.getRubropresupuestal().getSecuencia() == null) {
-            duplicarCuentas.setRubropresupuestal(new Rubrospresupuestales());
-        }
-        if (duplicarCuentas.getContracuentatesoreria().getSecuencia() == null) {
-            duplicarCuentas.setContracuentatesoreria(new Cuentas());
-        }
+//        if (duplicarCuentas.getRubropresupuestal().getSecuencia() == null) {
+//            duplicarCuentas.setRubropresupuestal(null);
+//        }
+//        if (duplicarCuentas.getContracuentatesoreria().getSecuencia() == null) {
+//            duplicarCuentas.setContracuentatesoreria(null);
+//        }
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCuenta");
         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCuenta').show()");
@@ -715,6 +660,7 @@ public class ControlCuenta implements Serializable {
     }
 
     public void confirmarDuplicar() {
+        int aux = 0;
         if (validarDatosNull(2) == true) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -756,27 +702,37 @@ public class ControlCuenta implements Serializable {
                 filtrarListCuentas = null;
                 tipoLista = 0;
             }
-            k++;
-            BigInteger var = BigInteger.valueOf(k);
-            duplicarCuentas.setSecuencia(var);
-            duplicarCuentas.setEmpresa(empresaActual);
-            listCuentasCrear.add(duplicarCuentas);
-            listCuentas.add(duplicarCuentas);
-            cuentaTablaSeleccionada = duplicarCuentas;
-            duplicarCuentas = new Cuentas();
-            //infoRegistro = "Cantidad de registros : " + listCuentas.size();
-            contarRegistro();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosCuenta");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+            for (int i = 0; i < listCuentas.size(); i++) {
+                if (listCuentas.get(i).getCodigo().equals(duplicarCuentas.getCodigo())) {
+                    RequestContext.getCurrentInstance().update("formularioDialogos:existeCuenta");
+                    RequestContext.getCurrentInstance().execute("PF('existeCuenta').show()");
+                    aux++;
+                }
             }
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCuenta').hide()");
-            cambiosCuentas = true;
-            activoDetalle = true;
-//            RequestContext.getCurrentInstance().update("form:DETALLES");
+
+            if (aux == 0) {
+                k++;
+                BigInteger var = BigInteger.valueOf(k);
+                duplicarCuentas.setSecuencia(var);
+                duplicarCuentas.setEmpresa(empresaActual);
+                listCuentasCrear.add(duplicarCuentas);
+                listCuentas.add(duplicarCuentas);
+                cuentaTablaSeleccionada = duplicarCuentas;
+                duplicarCuentas = new Cuentas();
+                contarRegistro();
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosCuenta");
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCuenta').hide()");
+                cambiosCuentas = true;
+                activoDetalle = true;
+            }
+
         } else {
             RequestContext.getCurrentInstance().execute("errorDatosNullCuenta').show()");
         }
@@ -792,32 +748,26 @@ public class ControlCuenta implements Serializable {
 
     public void borrarCuenta() {
         if (cuentaTablaSeleccionada != null) {
-            if (tipoLista == 0) {
-                if (!listCuentasModificar.isEmpty() && listCuentasModificar.contains(cuentaTablaSeleccionada)) {
-                    int modIndex = listCuentasModificar.indexOf(cuentaTablaSeleccionada);
-                    listCuentasModificar.remove(modIndex);
-                    listCuentasBorrar.add(cuentaTablaSeleccionada);
-                } else if (!listCuentasCrear.isEmpty() && listCuentasCrear.contains(cuentaTablaSeleccionada)) {
-                    int crearIndex = listCuentasCrear.indexOf(cuentaTablaSeleccionada);
-                    listCuentasCrear.remove(crearIndex);
-                } else {
-                    listCuentasBorrar.add(cuentaTablaSeleccionada);
-                }
-                listCuentas.remove(cuentaTablaSeleccionada);
-                //infoRegistro = "Cantidad de registros : " + listCuentas.size();
-                contarRegistro();
+            if (!listCuentasModificar.isEmpty() && listCuentasModificar.contains(cuentaTablaSeleccionada)) {
+                int modIndex = listCuentasModificar.indexOf(cuentaTablaSeleccionada);
+                listCuentasModificar.remove(modIndex);
+                listCuentasBorrar.add(cuentaTablaSeleccionada);
+            } else if (!listCuentasCrear.isEmpty() && listCuentasCrear.contains(cuentaTablaSeleccionada)) {
+                int crearIndex = listCuentasCrear.indexOf(cuentaTablaSeleccionada);
+                listCuentasCrear.remove(crearIndex);
+            } else {
+                listCuentasBorrar.add(cuentaTablaSeleccionada);
             }
+            listCuentas.remove(cuentaTablaSeleccionada);
             if (tipoLista == 1) {
                 filtrarListCuentas.remove(cuentaTablaSeleccionada);
-                contarRegistro();
             }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistro();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCuenta");
 
             cuentaTablaSeleccionada = null;
             activoDetalle = true;
-//            RequestContext.getCurrentInstance().update("form:DETALLES");
             cambiosCuentas = true;
             if (guardado == true) {
                 guardado = false;

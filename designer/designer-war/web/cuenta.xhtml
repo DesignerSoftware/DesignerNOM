@@ -164,7 +164,8 @@
                                     </f:facet>
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>
+                                            <h:outputText value="#{infoC.naturaleza}"/>
+                                            <!--<h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>-->
                                         </f:facet> 
                                         <f:facet name="input">
                                             <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase">  
@@ -925,7 +926,13 @@
                          <p:inputTextarea value="#{controlCuenta.editarCuentas.contracuentatesoreria.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-
+                    
+                    <p:dialog id="existeCuenta" header="#{msg['error']}" widgetVar="existeCuenta"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable ="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['existeCuenta']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeCuenta').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
+                    </p:dialog>
+                    
                 </h:form>
 
                 <h:form id="formExportarCuentas">

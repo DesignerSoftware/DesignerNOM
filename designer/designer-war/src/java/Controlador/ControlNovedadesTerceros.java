@@ -1150,7 +1150,6 @@ public class ControlNovedadesTerceros implements Serializable {
       nuevaNovedad.setTercero(new Terceros());
       nuevaNovedad.getTercero().setNombre(" ");
       nuevaNovedad.setEmpleado(new Empleados());
-      nuevaNovedad.getEmpleado().getPersona().setNombreCompleto(" ");
       nuevaNovedad.setConcepto(new Conceptos());
       nuevaNovedad.getConcepto().setDescripcion(" ");
       nuevaNovedad.setFormula(new Formulas());

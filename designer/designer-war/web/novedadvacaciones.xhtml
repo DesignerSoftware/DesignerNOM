@@ -122,7 +122,7 @@
                                              actionListener="#{controlNovedadesVacaciones.mostrarTodos()}" disabled="#{controlNovedadesVacaciones.activarMTodos}" process="@this"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 260px; width: 830px; height: 210px; border-radius: 10px; ">
+                        <fieldset style="position: relative; left: -4px; top: 227px; width: 830px; height: 210px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>Novedad de Vacaciones disfrutadas/por disfrutar</strong></legend>
                             <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadesVacaciones.listaNovedades}"
                                          rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 820px;"                             
@@ -314,11 +314,11 @@
 
                             </p:dataTable>
                             <p:remoteCommand name="posicionOtro" actionListener="#{controlNovedadesVacaciones.posicionOtro()}"/>
-                            <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroNovedades}  " style="position: relative; left: 10px; top: 15px; font-weight: bold"/>
-                            <h:outputText value="Total Dias Vacaciones Disfrutadas:" style=" position: relative; top: 15px; left:120px"/>
-                            <h:outputText value="#{controlNovedadesVacaciones.diasTotales}" id="diasTotales" style=" position: relative; top:15px; left:155px;border-radius: 0px; width: 55px;" /> 
-                            <h:outputText value="Total Dias Aplazados:" style=" position: relative; top: 15px; left:330px"/>
-                            <h:outputText value="#{controlNovedadesVacaciones.diasAplazadosTotal}" id="diasAplazados" style=" position: relative; top: 15px ; left:360px; border-radius: 0px; width: 50px;" /> 
+                            <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroNovedades}  " style="position: relative; left: 10px; top: 8px; font-weight: bold"/>
+                            <h:outputText value="Total Dias Vacaciones Disfrutadas:" style=" position: relative; top: 8px; left:105px"/>
+                            <h:outputText value="#{controlNovedadesVacaciones.diasTotales}" id="diasTotales" style=" position: relative; top:8px; left:130px;border-radius: 0px; width: 55px;" /> 
+                            <h:outputText value="Total Dias Aplazados:" style=" position: relative; top: 8px; left:405px"/>
+                            <h:outputText value="#{controlNovedadesVacaciones.diasAplazadosTotal}" id="diasAplazados" style=" position: relative; top: 8px ; left:425px; border-radius: 0px; width: 50px;" /> 
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" value="" id="ACEPTAR" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />

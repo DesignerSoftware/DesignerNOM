@@ -90,12 +90,15 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
     public void modificarCuentas(List<Cuentas> listCuentasModificar) {
         try {
             for (int i = 0; i < listCuentasModificar.size(); i++) {
-                if(listCuentasModificar.get(i).getRubropresupuestal().getDescripcion() == null){
-                    listCuentasModificar.get(i).setRubropresupuestal(new Rubrospresupuestales());
+                
+                 if (listCuentasModificar.get(i).getRubropresupuestal() != null) {
+                    if (listCuentasModificar.get(i).getRubropresupuestal().getSecuencia() == null) {
+                        listCuentasModificar.get(i).setRubropresupuestal(null);
+                    }
                 }
                 
-                if(listCuentasModificar.get(i).getContracuentatesoreria().getCodigo() == null){
-                    listCuentasModificar.get(i).setContracuentatesoreria(new Cuentas());
+                if(listCuentasModificar.get(i).getContracuentatesoreria().getSecuencia() == null){
+                    listCuentasModificar.get(i).setContracuentatesoreria(null);
                 }
                 
                 persistenciaCuentas.editar(em, listCuentasModificar.get(i));
@@ -109,6 +112,16 @@ public class AdministrarCuentas implements AdministrarCuentasInterface {
     public void borrarCuentas(List<Cuentas> listCuentasBorrar) {
         try {
             for (int i = 0; i < listCuentasBorrar.size(); i++) {
+                if (listCuentasBorrar.get(i).getRubropresupuestal() != null) {
+                    if (listCuentasBorrar.get(i).getRubropresupuestal().getSecuencia() == null) {
+                        listCuentasBorrar.get(i).setRubropresupuestal(null);
+                    }
+                }
+                
+                if(listCuentasBorrar.get(i).getContracuentatesoreria().getSecuencia() == null){
+                    listCuentasBorrar.get(i).setContracuentatesoreria(null);
+                }
+                
                 persistenciaCuentas.borrar(em, listCuentasBorrar.get(i));
             }
         } catch (Exception e) {
