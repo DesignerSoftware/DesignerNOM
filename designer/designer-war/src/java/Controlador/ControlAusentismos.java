@@ -2939,6 +2939,7 @@ public class ControlAusentismos implements Serializable {
         listaAusentismosModificar.clear();
         colapsado = true;
         seleccionEmpleados = null;
+        seleccionMostrar = null;
         ausentismoSeleccionado = null;
         listaAusentismos = null;
         getListaAusentismos();

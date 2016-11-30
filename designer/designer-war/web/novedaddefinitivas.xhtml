@@ -27,15 +27,14 @@
                 <div style="position: static;"></div>               
                 <h:form id="form" > 
                     <f:loadBundle basename="Recursos.novedaddefinitivas" var="msg" />
-                    <p:growl id="growl" showDetail="true" sticky="true"/> 
+                    <p:growl id="growl" showDetail="true"/> 
                     <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
                         <!-- TOOLBAR--> 
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
-                                                 actionListener="#{controlNovedadesDefinitivas.guardarCambiosNovedades()}" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNovedadesDefinitivas.guardarCambiosNovedades()}" process="@this" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
@@ -88,7 +87,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                                 actionListener="#{controlNovedadesDefinitivas.refrescar()}" action="novedad" process="@this"/>  
+                                                 actionListener="#{controlNovedadesDefinitivas.salir()}" action="novedad" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
 
@@ -160,14 +159,12 @@
                                 <div style="position: relative; top: -60px; width: 830px; left: 0px; border-color: blue;">
 
                                     <h:outputText value="#{msg['fechaliquidacion']}:" style=" top: 55px; right: 672px; position:absolute"/>
-                                    <div id="posicionFormulaFechaLiquidacion" style=" position: absolute; top: 50px; left: 170px">
-                                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
+                                        <p:calendar  autocomplete="off" style=" position: absolute; top: 50px; left: 170px"  mask="true" pattern="dd/MM/yyyy" disabled="#{controlNovedadesDefinitivas.activate}" id="fechaLiquidacion" 
                                                      value="#{controlNovedadesDefinitivas.novedadMostrar.fechainicialdisfrute}"> 
                                             <p:ajax event="dateSelect" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
                                             <p:ajax event="change" listener="#{controlNovedadesDefinitivas.cambiosCampos()}" update="fechaLiquidacion" process="@this"/>
                                             <p:ajax event="click" listener="#{controlNovedadesDefinitivas.celda('FECHA')}" process="@this"/>
                                         </p:calendar>
-                                    </div>
 
                                     <h:outputText value="#{msg['motivoliquidacion']}:" style=" top: 55px; left: 322px; position: absolute"/>
                                     <p:inputText  autocomplete="off"  disabled="#{controlNovedadesDefinitivas.activate}" id="motivoLiquidacion" 
@@ -212,8 +209,8 @@
                             </fieldset>
                         </p:panel>
 
-                        <p:commandButton style="position: absolute; left: 680px; top: 497px;" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();" update=":form:formularioNovedades" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 770px; top: 497px;" class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesDefinitivas.refrescar()}" action="novedad"/>
+                        <p:commandButton style="position: absolute; left: 680px; top: 497px;" class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:formularioNovedades" process="@this"/>
+                        <p:commandButton style="position: absolute; left: 770px; top: 497px;" class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesDefinitivas.salir()}" action="novedad"/>
                     </p:panel>
                 </h:form>
 

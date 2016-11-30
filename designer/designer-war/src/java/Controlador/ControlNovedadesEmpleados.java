@@ -449,13 +449,10 @@ public class ControlNovedadesEmpleados implements Serializable {
          guardado = true;
          permitirIndex = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
-         //  k = 0;
       }
-      System.out.println("Tamaño lista: " + listaNovedadesCrear.size());
-      System.out.println("Valor k: " + k);
    }
 
    //CREAR NOVEDADES
@@ -1081,7 +1078,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormula");
             }
          } else {
-            RequestContext.getCurrentInstance().update("form:formulasDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:formulasDialogo");
             RequestContext.getCurrentInstance().execute("PF('formulasDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
@@ -1117,7 +1114,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroNombre");
             }
          } else {
-            RequestContext.getCurrentInstance().update("form:tercerosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
@@ -1131,9 +1128,9 @@ public class ControlNovedadesEmpleados implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("CODIGO")) {
          cargarLOVPeriodicidades();
          if (tipoNuevo == 1) {
-            nuevaNovedad.getPeriodicidad().setCodigoStr(CodigoPeriodicidad);
+            nuevaNovedad.getPeriodicidad().setCodigoStr(nuevaNovedad.getPeriodicidad().getCodigoStr());
          } else if (tipoNuevo == 2) {
-            duplicarNovedad.getPeriodicidad().setCodigoStr(CodigoPeriodicidad);
+            duplicarNovedad.getPeriodicidad().setCodigoStr(duplicarNovedad.getPeriodicidad().getCodigoStr());
          }
 
          for (int i = 0; i < listaPeriodicidades.size(); i++) {
@@ -1146,22 +1143,22 @@ public class ControlNovedadesEmpleados implements Serializable {
             if (tipoNuevo == 1) {
                nuevaNovedad.setPeriodicidad(listaPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriodicidadCodigo");
-               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriodicidadDescripcion");
+               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriocidadDescripcion");
             } else if (tipoNuevo == 2) {
                duplicarNovedad.setPeriodicidad(listaPeriodicidades.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadCodigo");
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadDescripcion");
+               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriocidadDescripcion");
             }
          } else {
-            RequestContext.getCurrentInstance().update("form:periodicidadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:periodicidadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('periodicidadesDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriodicidadCodigo");
-               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriodicidadDescripcion");
+               RequestContext.getCurrentInstance().update("formularioDialogos:nuevaPeriocidadDescripcion");
             } else if (tipoNuevo == 2) {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadCodigo");
-               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadDescripcion");
+               RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriocidadDescripcion");
             }
          }
       } else if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) {
@@ -1192,7 +1189,7 @@ public class ControlNovedadesEmpleados implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarConceptoDescripcion");
             }
          } else {
-            RequestContext.getCurrentInstance().update("form:conceptosDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:conceptosDialogo");
             RequestContext.getCurrentInstance().execute("PF('conceptosDialogo').show()");
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {

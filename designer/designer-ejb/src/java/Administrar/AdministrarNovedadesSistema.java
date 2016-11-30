@@ -83,11 +83,11 @@ public class AdministrarNovedadesSistema implements AdministrarNovedadesSistemaI
     
     @Override
     public List<Empleados> buscarEmpleados(){
-        return persistenciaEmpleados.todosEmpleados(em);
+        return persistenciaEmpleados.empleadosDefinitiva(em);
     }
     
     public List<Empleados> lovEmpleados(){
-        return persistenciaEmpleados.todosEmpleados(em);
+        return persistenciaEmpleados.empleadosDefinitiva(em);
     }
     
     @Override

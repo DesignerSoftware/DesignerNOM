@@ -624,7 +624,7 @@
                                   selection="#{controlTiposTrabajadores.tipoCotizanteLovSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="445" scrollHeight="170"
                                   filteredValue="#{controlTiposTrabajadores.filtrarLovTiposCotizantes}" emptyMessage="#{msg['lovvacio']}">              
 
-                        <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarLovTC}"/>
+                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.contarRegistrosLovTCotiz()}"/>
                         <p:ajax event="rowDblselect" listener="#{controlTiposTrabajadores.actualizarTipoCotizante()}" process="@this" />
                         <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.activarAceptar()}" update=":form:aceptarTC"/>
 
@@ -651,8 +651,8 @@
                         <p:commandButton id="aceptarTC" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlTiposTrabajadores.actualizarTipoCotizante()}" disabled="#{controlTiposTrabajadores.aceptar}"
                                          process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasTC" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTiposTrabajadores.cancelarSeleccionTipoCot()}" process="@this" icon="ui-icon-arrowreturnthick-1-w" >
-                     </div>
                      </p:commandButton>
+                     </div>
                   </p:dialog> 
 
                   <!-- DIALOGO L.O.V TipoTrabajador -->
@@ -662,7 +662,7 @@
                                   selection="#{controlTiposTrabajadores.tipoTrabajadorLovSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="445" scrollHeight="170"
                                   filteredValue="#{controlTiposTrabajadores.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
 
-                        <p:ajax event="filter" listener="#{controlTiposTrabajadores.eventoFiltrarLovTT()}"/>
+                         <p:ajax event="filter" listener="#{controlTiposTrabajadores.contarRegistrosLovTT()}"/>
                         <p:ajax event="rowSelect" listener="#{controlTiposTrabajadores.activarAceptar()}" update=":form:aceptarTTra"/>
                         <p:ajax event="rowDblselect" listener="#{controlTiposTrabajadores.seleccionarTipoTrabajador()}" process="@this" />
 
@@ -690,8 +690,8 @@
                                          actionListener="#{controlTiposTrabajadores.seleccionarTipoTrabajador()}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton id="atrasTTra" class="cssAtrasLOV" value="#{msg['atras']}"
                                          actionListener="#{controlTiposTrabajadores.cancelarCambioTipoTrabajador()}" process="@this" icon="ui-icon-arrowreturnthick-1-w" >
-                     </div>
                      </p:commandButton>
+                     </div>
                   </p:dialog> 
 
                </p:panel>

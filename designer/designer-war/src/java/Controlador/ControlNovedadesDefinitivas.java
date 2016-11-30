@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -121,6 +122,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         nuevaNovedad.setDias(BigInteger.valueOf(0));
         nuevaNovedad.setTipo(" ");
         nuevaNovedad.setSubtipo(" ");
+        nuevaNovedad.setFechainicialdisfrute(new Date());
         activarMostrarTodos = true;
         numNovedad = -1;
         activarNoRango = false;
@@ -138,6 +140,16 @@ public class ControlNovedadesDefinitivas implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarNovedadesSistema.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            getListaEmpleados();
+            if (listaEmpleados != null) {
+                if (!listaEmpleados.isEmpty()) {
+                    empleadoSeleccionado = listaEmpleados.get(0);
+                }
+            }
+
+            listaNovedades = null;
+            getListaNovedades();
+
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -146,6 +158,9 @@ public class ControlNovedadesDefinitivas implements Serializable {
 
     public void recibirPagina(String pagina) {
         paginaAnterior = pagina;
+        listaNovedades = null;
+        getListaNovedades();
+
         getListaEmpleados();
         if (listaEmpleados != null) {
             empleadoSeleccionado = listaEmpleados.get(0);
@@ -278,11 +293,19 @@ public class ControlNovedadesDefinitivas implements Serializable {
     public void cambiosCampos() {
         RequestContext context = RequestContext.getCurrentInstance();
         int error = 0;
+        System.out.println("cambios campos, lista Novedades : " + listaNovedades.size());
+        System.out.println("cambios campos ,novedad mostrar: " + novedadMostrar.getSecuencia());
+        System.out.println("cambios campos ,novedad mostrar getFechainicialdisfrute: " + novedadMostrar.getFechainicialdisfrute());
+        System.out.println("cambios campos ,nueva novedad getFechainicialdisfrute: " + nuevaNovedad.getFechainicialdisfrute());
         for (int i = 0; i < listaNovedades.size(); i++) {
-            if (novedadMostrar.getFechainicialdisfrute() != null && (nuevaNovedad.getFechainicialdisfrute().equals(listaNovedades.get(i).getFechainicialdisfrute()))) {
-                error++;
+            if (novedadMostrar.getFechainicialdisfrute() != null) {
+                System.out.println("listaNovedades.get(i).getFechainicialdisfrute() : " + listaNovedades.get(i).getFechainicialdisfrute());
+                if (nuevaNovedad.getFechainicialdisfrute().equals(listaNovedades.get(i).getFechainicialdisfrute())) {
+                    error++;
+                }
             }
         }
+        System.out.println("error : " + error);
         if (error > 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:fechaRepetida");
             RequestContext.getCurrentInstance().execute("PF('fechaRepetida').show()");
@@ -385,6 +408,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         nuevaNovedad = new NovedadesSistema();
         nuevaNovedad.setMotivodefinitiva(new MotivosDefinitivas());
         nuevaNovedad.setMotivoretiro(new MotivosRetiros());
+        nuevaNovedad.setFechainicialdisfrute(new Date());
     }
 
     public void exportPDF() throws IOException {
@@ -505,10 +529,11 @@ public class ControlNovedadesDefinitivas implements Serializable {
             nuevaNovedad.setDias(BigInteger.valueOf(0));
             nuevaNovedad.setTipo("DEFINITIVA");
             nuevaNovedad.setSubtipo("DINERO");
+            nuevaNovedad.setFechainicialdisfrute(new Date());
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             primeraNovedad();
             RequestContext.getCurrentInstance().execute("PF('NuevaNovedadEmpleado').hide()");
@@ -557,15 +582,17 @@ public class ControlNovedadesDefinitivas implements Serializable {
                     listaBorrar.clear();
                 }
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            fcontext.addMessage(null, new FacesMessage("Guardado Exitoso", "Los cambios han sido guardados exitosamente"));
-            RequestContext.getCurrentInstance().update("form:growl");
 
             listaNovedades = null;
             RequestContext.getCurrentInstance().update("form:datosEmpleados");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext context = RequestContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
         }
         deshabilitarBotonLov();
     }
@@ -610,7 +637,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         primeraNovedad();
         deshabilitarBotonLov();
@@ -699,7 +726,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
             RequestContext.getCurrentInstance().update("form:formularioNovedades");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('DuplicarNovedadEmpleado').hide()");
         } else {
@@ -833,7 +860,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         listaBorrar.clear();
         listaCrear.clear();
         listaModificar.clear();
-
+        empleadoSeleccionado = null;
         listaEmpleados = null;
         getListaEmpleados();
         contarRegistros();
@@ -844,15 +871,24 @@ public class ControlNovedadesDefinitivas implements Serializable {
         RequestContext.getCurrentInstance().update("form:formularioNovedades");
     }
 
+    public void salir() {
+        listaBorrar.clear();
+        listaCrear.clear();
+        listaModificar.clear();
+        empleadoSeleccionado = null;
+        k = 0;
+        listaEmpleados = null;
+        listaNovedades = null;
+        guardado = true;
+
+    }
+
     //GETTERS & SETTERS
     public List<NovedadesSistema> getListaNovedades() {
+
         if (listaNovedades == null) {
-            if (empleadoSeleccionado == null) {
-                empleadoSeleccionado = listaEmpleados.get(0);
-            }
-            listaNovedades = administrarNovedadesSistema.novedadesEmpleado(empleadoSeleccionado.getSecuencia());
-            if (listaNovedades == null) {
-                listaNovedades = new ArrayList<NovedadesSistema>();
+            if (empleadoSeleccionado != null) {
+                listaNovedades = administrarNovedadesSistema.novedadesEmpleado(empleadoSeleccionado.getSecuencia());
             }
         }
         novedadMostrar = null;
@@ -880,11 +916,6 @@ public class ControlNovedadesDefinitivas implements Serializable {
     public List<Empleados> getListaEmpleados() {
         if (listaEmpleados == null) {
             listaEmpleados = administrarNovedadesSistema.buscarEmpleados();
-            listaEmpleadosLOV = new ArrayList<Empleados>();
-            for (int i = 0; i < listaEmpleados.size(); i++) {
-                listaEmpleadosLOV.add(listaEmpleados.get(i));
-            }
-            getListaNovedades();
         }
         return listaEmpleados;
     }

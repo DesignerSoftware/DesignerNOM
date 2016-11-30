@@ -842,4 +842,23 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
         }
     }
 
+    @Override
+    public List<Empleados> empleadosDefinitiva(EntityManager em) {
+        try {
+            em.clear();
+            String sql = "SELECT * FROM EMPLEADOS E \n"
+                    + "WHERE EXISTS (SELECT 1 FROM VWACTUALESTIPOSTRABAJADORES VTT,   TIPOSTRABAJADORES TT \n"
+                    + "   WHERE VTT.TIPOTRABAJADOR = TT.SECUENCIA \n"
+                    + "   AND   VTT.EMPLEADO = E.SECUENCIA \n"
+                    + "   AND   TT.TIPO IN ( 'ACTIVO'	,'PENSIONADO'))";
+            Query query = em.createNativeQuery(sql, Empleados.class);
+            List<Empleados> empleadosDefinitiva = query.getResultList();
+            System.out.println("empleadosDefinitiva : " + empleadosDefinitiva.size());
+            return empleadosDefinitiva;
+        } catch (Exception e) {
+            System.out.println("error persistenciaEmpledos.empleadosDefinitiva()");
+            return null;
+        }
+    }
+
 }

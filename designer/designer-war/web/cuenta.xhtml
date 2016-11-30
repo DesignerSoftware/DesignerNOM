@@ -169,10 +169,10 @@
                                         </f:facet> 
                                         <f:facet name="input">
                                             <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase">  
-                                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                                <f:selectItem itemLabel=" " itemValue="NULL" /> 
                                                 <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO" />  
                                                 <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO" /> 
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.seleccionarNaturaleza(controlCuenta.cuentaTablaSeleccionada.naturaleza, controlCuenta.cuentaTablaSeleccionada)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -194,12 +194,12 @@
                                         </f:facet> 
                                         <f:facet name="input">
                                             <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 70px; font-weight: bold; text-transform: uppercase">  
-                                                <f:selectItem itemLabel="" itemValue="null" /> 
+                                                <f:selectItem itemLabel=" " itemValue="NULL" /> 
                                                 <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP" />  
                                                 <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC" />  
                                                 <f:selectItem itemLabel="#{msg['netodenomina']}" itemValue="NDN" />  
                                                 <f:selectItem itemLabel="#{msg['puente']}" itemValue="PNT" />  
-                                                <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlCuenta.seleccionarTipo(controlCuenta.cuentaTablaSeleccionada.tipo, controlCuenta.cuentaTablaSeleccionada)}" process="@this"/>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>

@@ -207,4 +207,5 @@ public interface PersistenciaEmpleadoInterface {
 
     public List<Empleados> empleadosAusentismos(EntityManager em);
 
+    public List<Empleados> empleadosDefinitiva(EntityManager em);
 }
