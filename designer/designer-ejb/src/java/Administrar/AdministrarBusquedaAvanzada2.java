@@ -990,9 +990,9 @@ public class AdministrarBusquedaAvanzada2 implements AdministrarBusquedaAvanzada
     }
 
     @Override
-    public List<ColumnasBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<Empleados> listaEmpleadosResultados, List<String> campos) {
+    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos) {
         try {
-            List<ColumnasBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado(em, listaEmpleadosResultados, campos);
+            List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleado(em, listaEmpleadosResultados, campos);
             return retorno;
         } catch (Exception e) {
             System.out.println("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
@@ -1002,9 +1002,9 @@ public class AdministrarBusquedaAvanzada2 implements AdministrarBusquedaAvanzada
     }
 
     //@Override 
-    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados, String campos) {
+    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados) {
         try {
-            List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo(em, listaCodigosEmpleados, campos);
+            List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigo(em, listaCodigosEmpleados);
             return retorno;
         } catch (Exception e) {
             System.out.println("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());

@@ -22,7 +22,15 @@ import javax.persistence.EntityManager;
 public interface PersistenciaColumnasEscenariosInterface {
     
     public List<ColumnasEscenarios> buscarColumnasEscenarios(EntityManager em);
-    public List<ColumnasBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em,List<Empleados> listaEmpleadosResultados, List<String> campos);
-    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleadoCodigo(EntityManager em,List<BigInteger> listaEmpleadosResultados, String campos);
+
+   /**
+    *
+    * @param em
+    * @param listaEmpleadosResultados
+    * @param campos
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em, List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
+   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em,List<BigInteger> listaEmpleadosResultados);
     
 }

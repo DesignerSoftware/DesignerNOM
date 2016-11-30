@@ -7,45 +7,97 @@ import java.math.BigInteger;
 import java.util.List;
 
 public interface AdministrarBusquedaAvanzadaInterface {
-    public void obtenerConexion(String idSesion);
-    public List<Cargos> lovCargos();
-    public List<Estructuras> lovEstructuras();
-    public List<Empleados> lovJefe();
-    public List<MotivosCambiosCargos> lovMotivosCargos();
-    public List<Papeles> lovPapeles();
-    public List<MotivosLocalizaciones> lovMotivosLocalizaciones();
-    public List<TiposSueldos> lovTiposSueldos();
-    public List<MotivosCambiosSueldos> lovMotivosSueldos();
-    public List<TiposContratos> lovTiposContratos();
-    public List<MotivosContratos> lovMotivosContratos();
-    public List<TiposTrabajadores> lovTiposTrabajadores();
-    public List<ReformasLaborales> lovReformasLaborales();
-    public List<Contratos> lovContratos();
-    public List<UbicacionesGeograficas> lovUbicaciones();
-    public List<TercerosSucursales> lovTercerosSucursales();
-    public List<TiposEntidades> lovTiposEntidades();
-    public List<EstadosAfiliaciones> lovEstadosAfiliaciones();
-    public List<Periodicidades> lovFormasPagos();
-    public List<Sucursales> lovSucursales();
-    public List<Motivosmvrs> lovMotivosMvrs();
-    public List<NormasLaborales> lovNormasLaborales();
-    public List<JornadasLaborales> lovJornadasLaborales();
-    public List<MotivosRetiros> lovMotivosRetiros();
-    public List<Ciudades> lovCiudades();
-    public List<EstadosCiviles> lovEstadosCiviles();
-    public List<Idiomas> lovIdiomas();
-    public List<TiposIndicadores> lovTiposIndicadores();
-    public List<Indicadores> lovIndicadores();
-    public List<Profesiones> lovProfesiones();
-    public List<Instituciones> lovInstitucioneses();
-    public List<Cursos> lovCursos();
-    public List<SectoresEconomicos> lovSectoresEconomicos();
-    public List<Proyectos> lovProyectos();
-    public List<PryRoles> lovRoles();
-    public List<Empleados> ejecutarQueryBusquedaAvanzadaPorModulos(String query);
-    public String armarQueryModulosBusquedaAvanzada(List<ParametrosQueryBusquedaAvanzada> listaParametro);
-    public List<ColumnasEscenarios> buscarColumnasEscenarios();
-    public List<ColumnasBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<Empleados> listaEmpleadosResultados, List<String> campos);
-    public List<BigInteger> ejecutarQueryBusquedaAvanzadaPorModulosCodigo(String query);
-    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados, String campos);
+
+   public void obtenerConexion(String idSesion);
+
+   public List<Cargos> lovCargos();
+
+   public List<Estructuras> lovEstructuras();
+
+   public List<Empleados> lovJefe();
+
+   public List<MotivosCambiosCargos> lovMotivosCargos();
+
+   public List<Papeles> lovPapeles();
+
+   public List<MotivosLocalizaciones> lovMotivosLocalizaciones();
+
+   public List<TiposSueldos> lovTiposSueldos();
+
+   public List<MotivosCambiosSueldos> lovMotivosSueldos();
+
+   public List<TiposContratos> lovTiposContratos();
+
+   public List<MotivosContratos> lovMotivosContratos();
+
+   public List<TiposTrabajadores> lovTiposTrabajadores();
+
+   public List<ReformasLaborales> lovReformasLaborales();
+
+   public List<Contratos> lovContratos();
+
+   public List<UbicacionesGeograficas> lovUbicaciones();
+
+   public List<TercerosSucursales> lovTercerosSucursales();
+
+   public List<TiposEntidades> lovTiposEntidades();
+
+   public List<EstadosAfiliaciones> lovEstadosAfiliaciones();
+
+   public List<Periodicidades> lovFormasPagos();
+
+   public List<Sucursales> lovSucursales();
+
+   public List<Motivosmvrs> lovMotivosMvrs();
+
+   public List<NormasLaborales> lovNormasLaborales();
+
+   public List<JornadasLaborales> lovJornadasLaborales();
+
+   public List<MotivosRetiros> lovMotivosRetiros();
+
+   public List<Ciudades> lovCiudades();
+
+   public List<EstadosCiviles> lovEstadosCiviles();
+
+   public List<Idiomas> lovIdiomas();
+
+   public List<TiposIndicadores> lovTiposIndicadores();
+
+   public List<Indicadores> lovIndicadores();
+
+   public List<Profesiones> lovProfesiones();
+
+   public List<Instituciones> lovInstitucioneses();
+
+   public List<Cursos> lovCursos();
+
+   public List<SectoresEconomicos> lovSectoresEconomicos();
+
+   public List<Proyectos> lovProyectos();
+
+   public List<PryRoles> lovRoles();
+
+   public List<Empleados> ejecutarQueryBusquedaAvanzadaPorModulos(String query);
+
+   public String armarQueryModulosBusquedaAvanzada(List<ParametrosQueryBusquedaAvanzada> listaParametro);
+
+   public List<ColumnasEscenarios> buscarColumnasEscenarios();
+
+   public List<BigInteger> ejecutarQueryBusquedaAvanzadaPorModulosCodigo(String query);
+
+   /**
+    *
+    * @param listaEmpleadosResultados
+    * @param campos
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
+
+   /**
+    *
+    * @param listaCodigosEmpleados
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados);
 }

@@ -7632,7 +7632,7 @@ public class ControlBusquedaAvanzada2 implements Serializable {
             }
         }
         listaColumnasBusquedaAvanzada = new ArrayList<ColumnasBusquedaAvanzada>();
-        listaResultadoBusquedaAvanzada = administrarBusquedaAvanzada.obtenerQVWEmpleadosCorteParaEmpleadoCodigo(listaCodigosEmpleado, camposBusqueda);
+//        listaResultadoBusquedaAvanzada = administrarBusquedaAvanzada.obtenerQVWEmpleadosCorteParaEmpleadoCodigo(listaCodigosEmpleado, camposBusqueda);
         int tamanoLista = 0;
         if (listaResultadoBusquedaAvanzada != null) {
             tamanoLista = listaResultadoBusquedaAvanzada.size();

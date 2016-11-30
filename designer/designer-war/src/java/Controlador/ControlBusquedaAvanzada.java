@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.SystemEventListenerHolder;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
@@ -248,8 +249,9 @@ public class ControlBusquedaAvanzada implements Serializable {
    private String valorCopia;
    List<BigInteger> listaCodigosEmpleado;
    //Para Todos los listados
-//   private String infoRegistro;
+   private String infoRegistro;
    private boolean aceptar;
+   private String anchoTablaResultados;
 
    public ControlBusquedaAvanzada() {
       //Inicializar objeto de negocio
@@ -386,8 +388,9 @@ public class ControlBusquedaAvanzada implements Serializable {
       vTipoFechaCenso = "false";
       vTipoFechaEducacionFormal = "false";
       vTipoFechaEducacionNoFormal = "false";
-//      infoRegistro = "";
+      infoRegistro = "";
       aceptar = true;
+      anchoTablaResultados = 800 + "px";
    }
 
    @PostConstruct
@@ -411,12 +414,14 @@ public class ControlBusquedaAvanzada implements Serializable {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
 
-      if (!valorPorDefecto.isEmpty()) {
-         valorPorDefecto = "";
+      if (valorPorDefecto != null) {
+         if (!valorPorDefecto.isEmpty()) {
+            valorPorDefecto = "";
+         }
       }
 
       if (cualParametro.equals("CARGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(null);
@@ -443,7 +448,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("ESTRUCTURA")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(null);
@@ -470,7 +475,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("JEFE")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().setNombreCompleto(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(null);
@@ -497,7 +502,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVOCARGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(null);
@@ -524,7 +529,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("PAPEL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(null);
@@ -551,7 +556,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("LOCALIZACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(null);
@@ -578,7 +583,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVOLOCALIZACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(null);
@@ -605,7 +610,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TIPOSUELDO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(null);
@@ -632,7 +637,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVOSUELDO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(null);
@@ -659,7 +664,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TIPOCONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(null);
@@ -686,7 +691,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVOCONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(null);
@@ -713,7 +718,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TIPOTRABAJADOR")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(null);
@@ -740,7 +745,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("REFORMALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(null);
@@ -767,7 +772,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("CONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(null);
@@ -794,7 +799,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("UBICACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(null);
@@ -821,7 +826,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TERCEROSUCURSAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(null);
@@ -848,7 +853,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TIPOENTIDAD")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(null);
@@ -875,7 +880,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("ESTADOAFILIACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(null);
@@ -902,7 +907,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("FORMAPAGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(null);
@@ -929,7 +934,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("SUCURSAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(null);
@@ -956,7 +961,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVOMVR")) {
-         if (parametros.getParametrosBusquedaNomina().getMvrs().getMotivo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(null);
@@ -983,7 +988,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("NORMALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(null);
@@ -1010,7 +1015,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("JORNADALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo() != null) {
+         if (parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(null);
@@ -1037,7 +1042,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVORETIRO")) {
-         if (parametros.getParametrosBusquedaNomina().getMotivosRetiros() != null) {
+         if (parametros.getParametrosBusquedaNomina().getMotivosRetiros().getSecuencia() != null) {
             parametros.getParametrosBusquedaNomina().getMotivosRetiros().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().setMotivosRetiros(null);
@@ -1064,7 +1069,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("CIUDADNACIMIENDO")) {
-         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(null);
@@ -1091,7 +1096,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("CIUDADDOCUMENTO")) {
-         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(null);
@@ -1118,7 +1123,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("ESTADOCIVIL")) {
-         if (parametros.getParametrosBusquedaPersonal().getEstadoCivil() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getEstadoCivil().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getEstadoCivil().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().setEstadoCivil(null);
@@ -1145,7 +1150,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("IDIOMA")) {
-         if (parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(null);
@@ -1172,7 +1177,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("TIPOINDICADOR")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(null);
@@ -1199,7 +1204,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("INDICADOR")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(null);
@@ -1226,7 +1231,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("PROFESION")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(null);
@@ -1253,7 +1258,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("INSTITUCIONF")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(null);
@@ -1280,7 +1285,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("INSTITUCIONNF")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(null);
@@ -1307,7 +1312,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("CURSO")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(null);
@@ -1334,7 +1339,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("SECTORECONOMICO")) {
-         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(null);
@@ -1361,7 +1366,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("PROYECTO")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().setNombreproyecto(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(null);
@@ -1388,7 +1393,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("ROL")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().setDescripcion(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(null);
@@ -1415,7 +1420,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("CARGOPERSONAL")) {
-         if (parametros.getParametrosBusquedaPersonal().getCargo() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getCargo().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getCargo().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaPersonal().setCargo(null);
@@ -1442,7 +1447,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
       } else if (cualParametro.equals("MOTIVORETIROPERSONAL")) {
-         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro() != null) {
+         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getSecuencia() != null) {
             parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().setNombre(valorCopia);
          }
          parametros.getParametrosBusquedaNomina().setMotivosRetiros(null);
@@ -1701,7 +1706,12 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public void requerirLovColumnasBusqueda() {
-      lovColumnasEscenarios = administrarBusquedaAvanzada.buscarColumnasEscenarios();
+      if (lovColumnasEscenarios == null) {
+         lovColumnasEscenarios = administrarBusquedaAvanzada.buscarColumnasEscenarios();
+      } else if (lovColumnasEscenarios.isEmpty()) {
+         lovColumnasEscenarios = administrarBusquedaAvanzada.buscarColumnasEscenarios();
+      }
+      columnasEsSeleccionadas = null;
 //      modificarInfoR(lovColumnasEscenarios.size()
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCB");
    }
@@ -1881,6 +1891,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          motivoRetiroSeleccionado = null;
          filtroLovMotivosRetiros = null;
       }
+      anchoTablaResultados = 800 + "px";
    }
 
    //METODO ACEPTAR - PARAMETROS PERSONAL
@@ -2001,6 +2012,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          columnasEsSeleccionadas = null;
          filtradoColumnasEscenarios = null;
       }
+      anchoTablaResultados = 800 + "px";
    }
 
    //VALIDAR FECHAS
@@ -2454,16 +2466,54 @@ public class ControlBusquedaAvanzada implements Serializable {
       String query = administrarBusquedaAvanzada.armarQueryModulosBusquedaAvanzada(listaParametrosQueryModulos);
       System.out.println("QUERY: " + query);
       String queryEmpleado = "SELECT codigoempleado FROM EMPLEADOS EM ";
-      if (!query.isEmpty()) {
-         queryEmpleado = queryEmpleado + query;
-         System.out.println("SUPER QUERY: " + queryEmpleado);
-         listaCodigosEmpleado = administrarBusquedaAvanzada.ejecutarQueryBusquedaAvanzadaPorModulosCodigo(queryEmpleado);
-         String columnas = convertirListaAString();
-         listaResultadoBusqueda = administrarBusquedaAvanzada.obtenerQVWEmpleadosCorteParaEmpleadoCodigo(listaCodigosEmpleado, columnas);
-         FacesContext context = FacesContext.getCurrentInstance();
-         ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class);
-         controladorColumnasDinamicas.updateColumns(columnas);
+//      if (!query.isEmpty()) {
+      queryEmpleado = queryEmpleado + query;
+      System.out.println("SUPER QUERY: " + queryEmpleado);
+      listaCodigosEmpleado = administrarBusquedaAvanzada.ejecutarQueryBusquedaAvanzadaPorModulosCodigo(queryEmpleado);
+      System.out.println("listaCodigosEmpleado : " + listaCodigosEmpleado);
+      listaResultadoBusqueda = administrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo(listaCodigosEmpleado);
+      FacesContext context = FacesContext.getCurrentInstance();
+      String columnas = "";
+      if (columnasEsSeleccionadas != null && !columnasEsSeleccionadas.isEmpty()) {
+         for (int i = 0; i < columnasEsSeleccionadas.size(); i++) {
+            if (i == 0) {
+               columnas = columnasEsSeleccionadas.get(i).getNombrecolumna();
+            } else {
+               columnas += "," + columnasEsSeleccionadas.get(i).getNombrecolumna();
+            }
+         }
+         String[] campoColumns = columnas.split(",");
+         List<String> listCampoColumns = new ArrayList<String>();
+         for (int i = 0; i < campoColumns.length; i++) {
+            listCampoColumns.add(campoColumns[i]);
+         }
+         List<ResultadoBusquedaAvanzada> listaResultadoBusquedaAux = administrarBusquedaAvanzada.obtenerQVWEmpleadosCorteParaEmpleado(listaResultadoBusqueda, listCampoColumns);
+
+         for (int i = 0; i < listaResultadoBusqueda.size(); i++) {
+            for (int j = 0; j < listaResultadoBusquedaAux.size(); j++) {
+               if (listaResultadoBusqueda.get(i).getCodigoEmpleado().equals(listaResultadoBusquedaAux.get(j).getCodigoEmpleado())) {
+                  listaResultadoBusqueda.get(i).setColumna0(listaResultadoBusquedaAux.get(j).getColumna0());
+                  listaResultadoBusqueda.get(i).setColumna1(listaResultadoBusquedaAux.get(j).getColumna1());
+                  listaResultadoBusqueda.get(i).setColumna2(listaResultadoBusquedaAux.get(j).getColumna2());
+                  listaResultadoBusqueda.get(i).setColumna3(listaResultadoBusquedaAux.get(j).getColumna3());
+                  listaResultadoBusqueda.get(i).setColumna4(listaResultadoBusquedaAux.get(j).getColumna4());
+                  listaResultadoBusqueda.get(i).setColumna5(listaResultadoBusquedaAux.get(j).getColumna5());
+                  listaResultadoBusqueda.get(i).setColumna6(listaResultadoBusquedaAux.get(j).getColumna6());
+                  listaResultadoBusqueda.get(i).setColumna7(listaResultadoBusquedaAux.get(j).getColumna7());
+                  listaResultadoBusqueda.get(i).setColumna8(listaResultadoBusquedaAux.get(j).getColumna8());
+                  listaResultadoBusqueda.get(i).setColumna9(listaResultadoBusquedaAux.get(j).getColumna9());
+                  listaResultadoBusquedaAux.remove(listaResultadoBusquedaAux.get(j));
+               }
+            }
+         }
       }
+      columnas = convertirListaAString();
+      ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class);
+      controladorColumnasDinamicas.updateColumns(columnas);
+//      }
+      RequestContext.getCurrentInstance().update("form:infoRegistro");
+      RequestContext.getCurrentInstance().update("form:resultadoBusqueda");
+      RequestContext.getCurrentInstance().execute("PF('detallesBusquedaDialogo').hide();");
    }
 
    public void cargueQueryModuloNomina() {
@@ -2532,25 +2582,25 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "CARGO", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "ESTRUCTURA", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getSecuencia().toString());
             ParametrosQueryBusquedaAvanzada parametro2 = new ParametrosQueryBusquedaAvanzada("CARGO", "CENTROCOSTO", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getCentrocosto().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
             listaParametrosQueryModulos.add(parametro2);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe() != null && this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getSecuencia() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "EMPLEADOJEFE", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "MOTIVOCAMBIOCARGO", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "PAPEL", this.parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2580,11 +2630,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENTROCOSTO", "LOCALIZACION", this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENTROCOSTO", "MOTIVOLOCALIZACION", this.parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2614,11 +2664,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SUELDO", "TIPOSUELDO", this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SUELDO", "MOTIVOCAMBIOSUELDO", this.parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2656,11 +2706,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FECHACONTRATO", "TIPOCONTRATO", this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FECHACONTRATO", "MOTIVOCONTRATO", this.parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2690,7 +2740,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOTRABAJADOR", "TIPOTRABAJADOR", this.parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2720,7 +2770,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOSALARIO", "REFORMA", this.parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2751,7 +2801,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("NORMALABORAL", "NORMA", this.parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2791,7 +2841,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro5);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("LEGISLACIONLABORAL", "CONTRATO", this.parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2821,7 +2871,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("UBICACION", "UBICACION", this.parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2851,15 +2901,15 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("AFILIACIONES", "TERCERO", this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("AFILIACIONES", "TIPOENTIDAD", this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("AFILIACIONES", "ESTADO", this.parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2890,11 +2940,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FORMAPAGO", "FORMAPAGO", this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal() != null && this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getSecuencia() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FORMAPAGO", "SUCURSAL", this.parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -2925,7 +2975,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaNomina().getMvrs().getMotivo() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("MVRS", "MOTIVO", this.parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3034,7 +3084,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             ParametrosQueryBusquedaAvanzada parametro3 = new ParametrosQueryBusquedaAvanzada("FECHARETIRO", "FECHARETIROHASTA", df.format(this.parametros.getParametrosBusquedaNomina().getFechaFinalRetiro()).toString());
             listaParametrosQueryModulos.add(parametro3);
          }
-         if (this.parametros.getParametrosBusquedaNomina().getMotivosRetiros() != null) {
+         if (this.parametros.getParametrosBusquedaNomina().getMotivosRetiros().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FECHARETIRO", "MOTIVO", this.parametros.getParametrosBusquedaNomina().getMotivosRetiros().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3076,7 +3126,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NUMERODOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getNumerodocumento().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADDOCUMENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3085,7 +3135,7 @@ public class ControlBusquedaAvanzada implements Serializable {
             listaParametrosQueryModulos.add(parametro);
             System.out.println("sexo : " + this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getSexo());
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "CIUDADNACIMIENTO", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3141,7 +3191,7 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getEstadoCivil() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getEstadoCivil().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("ESTADOCIVIL", "ESTADOCIVIL", this.parametros.getParametrosBusquedaPersonal().getEstadoCivil().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3156,7 +3206,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("IDIOMA", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
 
-         if (this.parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("IDIOMA", "IDIOMA", this.parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3210,11 +3260,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENSOS", "TIPOINDICADOR", this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENSOS", "INDICADOR", this.parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3244,11 +3294,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONFORMAL", "INSTITUCION", this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONFORMAL", "PROFESION", this.parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3282,11 +3332,11 @@ public class ControlBusquedaAvanzada implements Serializable {
                listaParametrosQueryModulos.add(parametro3);
             }
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONNOFORMAL", "INSTITUCION", this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONNOFORMAL", "CURSO", this.parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3305,7 +3355,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("CARGOPOSTULARSE", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
 
-         if (this.parametros.getParametrosBusquedaPersonal().getCargo() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getCargo().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGOPOSTULARSE", "CARGO", this.parametros.getParametrosBusquedaPersonal().getCargo().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3320,11 +3370,11 @@ public class ControlBusquedaAvanzada implements Serializable {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("PROYECTO", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
 
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("PROYECTO", "PROYECTO", this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("PROYECTO", "ROL", this.parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3357,11 +3407,11 @@ public class ControlBusquedaAvanzada implements Serializable {
             ParametrosQueryBusquedaAvanzada parametro3 = new ParametrosQueryBusquedaAvanzada("EXPERIENCIALABORAL", "EMPRESA", this.parametros.getParametrosBusquedaPersonal().getEmpresaExperienciaLaboral().toString());
             listaParametrosQueryModulos.add(parametro3);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EXPERIENCIALABORAL", "SECTORECONOMICO", this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
-         if (this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro() != null) {
+         if (this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getSecuencia() != null) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EXPERIENCIALABORAL", "MOTIVORETIRO", this.parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getSecuencia().toString());
             listaParametrosQueryModulos.add(parametro);
          }
@@ -3380,13 +3430,177 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    //CONVERTIR LISTA A STRING
    public String convertirListaAString() {
-      String columnas = "SECUENCIA, CODIGOEMPLEADO, NOMBRE, PRIMERAPELLIDO, SEGUNDOAPELLIDO";
+      String columnas = "CODIGOEMPLEADO, NOMBRE, PRIMERAPELLIDO, SEGUNDOAPELLIDO";
       if (columnasEsSeleccionadas != null && !columnasEsSeleccionadas.isEmpty()) {
          for (ColumnasEscenarios columna : columnasEsSeleccionadas) {
             columnas += "," + columna.getDescripcion();
          }
       }
       return columnas;
+   }
+
+   public ResultadoBusquedaAvanzada primerResultado() {
+      System.out.println("Controlador.ControlBusquedaAvanzada.primerResultado()");
+      ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
+      if (listaResultadoBusqueda != null) {
+         if (!listaResultadoBusqueda.isEmpty()) {
+            resultado = listaResultadoBusqueda.get(0);
+            if (listaResultadoBusqueda.size() > 0) {
+               ResultadoBusquedaAvanzada resultado2 = listaResultadoBusqueda.get(1);
+               try {
+                  if (resultado2.getColumna0().length() > resultado.getColumna0().length()) {
+                     resultado.setColumna0(resultado2.getColumna0());
+                  }
+                  if (resultado2.getColumna1().length() > resultado.getColumna1().length()) {
+                     resultado.setColumna1(resultado2.getColumna1());
+                  }
+                  if (resultado2.getColumna2().length() > resultado.getColumna2().length()) {
+                     resultado.setColumna2(resultado2.getColumna2());
+                  }
+                  if (resultado2.getColumna3().length() > resultado.getColumna3().length()) {
+                     resultado.setColumna3(resultado2.getColumna3());
+                  }
+                  if (resultado2.getColumna4().length() > resultado.getColumna4().length()) {
+                     resultado.setColumna4(resultado2.getColumna4());
+                  }
+                  if (resultado2.getColumna5().length() > resultado.getColumna5().length()) {
+                     resultado.setColumna5(resultado2.getColumna5());
+                  }
+                  if (resultado2.getColumna6().length() > resultado.getColumna6().length()) {
+                     resultado.setColumna6(resultado2.getColumna6());
+                  }
+                  if (resultado2.getColumna7().length() > resultado.getColumna7().length()) {
+                     resultado.setColumna7(resultado2.getColumna7());
+                  }
+                  if (resultado2.getColumna8().length() > resultado.getColumna8().length()) {
+                     resultado.setColumna8(resultado2.getColumna8());
+                  }
+                  if (resultado2.getColumna9().length() > resultado.getColumna9().length()) {
+                     resultado.setColumna9(resultado2.getColumna9());
+                  }
+               } catch (Exception e) {
+                  System.out.println("Entro al catch1() e : " + e);
+               }
+            }
+            if (listaResultadoBusqueda.size() > 1) {
+               ResultadoBusquedaAvanzada resultado2 = listaResultadoBusqueda.get(2);
+               try {
+                  if (resultado2.getColumna0().length() > resultado.getColumna0().length()) {
+                     resultado.setColumna0(resultado2.getColumna0());
+                  }
+                  if (resultado2.getColumna1().length() > resultado.getColumna1().length()) {
+                     resultado.setColumna1(resultado2.getColumna1());
+                  }
+                  if (resultado2.getColumna2().length() > resultado.getColumna2().length()) {
+                     resultado.setColumna2(resultado2.getColumna2());
+                  }
+                  if (resultado2.getColumna3().length() > resultado.getColumna3().length()) {
+                     resultado.setColumna3(resultado2.getColumna3());
+                  }
+                  if (resultado2.getColumna4().length() > resultado.getColumna4().length()) {
+                     resultado.setColumna4(resultado2.getColumna4());
+                  }
+                  if (resultado2.getColumna5().length() > resultado.getColumna5().length()) {
+                     resultado.setColumna5(resultado2.getColumna5());
+                  }
+                  if (resultado2.getColumna6().length() > resultado.getColumna6().length()) {
+                     resultado.setColumna6(resultado2.getColumna6());
+                  }
+                  if (resultado2.getColumna7().length() > resultado.getColumna7().length()) {
+                     resultado.setColumna7(resultado2.getColumna7());
+                  }
+                  if (resultado2.getColumna8().length() > resultado.getColumna8().length()) {
+                     resultado.setColumna8(resultado2.getColumna8());
+                  }
+                  if (resultado2.getColumna9().length() > resultado.getColumna9().length()) {
+                     resultado.setColumna9(resultado2.getColumna9());
+                  }
+               } catch (Exception e) {
+                  System.out.println("Entro al catch1() e : " + e);
+               }
+            }
+
+            int totalAncho = 800;
+
+            String col = convertirListaAString();
+            String[] columnKeys = col.split(",");
+            try {
+               if (columnKeys[4].length() >= resultado.getColumna0().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[4].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna0().length());
+               }
+
+               if (columnKeys[5].length() >= resultado.getColumna1().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[5].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna1().length());
+               }
+
+               if (columnKeys[6].length() >= resultado.getColumna2().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[6].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna2().length());
+               }
+
+               if (columnKeys[7].length() >= resultado.getColumna3().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[7].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna3().length());
+               }
+
+               if (columnKeys[8].length() >= resultado.getColumna4().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[8].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna4().length());
+               }
+
+               if (columnKeys[9].length() >= resultado.getColumna5().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[9].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna5().length());
+               }
+
+               if (columnKeys[10].length() >= resultado.getColumna6().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[10].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna6().length());
+               }
+
+               if (columnKeys[11].length() >= resultado.getColumna7().length()) {
+                  calcularAncho(columnKeys[11].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna7().length());
+               }
+
+               if (columnKeys[12].length() >= resultado.getColumna8().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[12].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna8().length());
+               }
+
+               if (columnKeys[13].length() >= resultado.getColumna0().length()) {
+                  totalAncho = totalAncho + calcularAncho(columnKeys[9].length());
+               } else {
+                  totalAncho = totalAncho + calcularAncho(resultado.getColumna9().length());
+               }
+            } catch (Exception e) {
+               System.out.println("Entro al catch2() e : " + e);
+            }
+            System.out.println("totalAncho : " + totalAncho);
+            anchoTablaResultados = totalAncho + "px";
+            ejecutarBusqueda();
+         }
+      }
+      return resultado;
+   }
+
+   public int calcularAncho(int tamanoString) {
+      if (tamanoString > 0) {
+         return (tamanoString * 9);
+      } else {
+         return 100;
+      }
    }
 
    public void exportPDF() throws IOException {
@@ -4428,7 +4642,7 @@ public class ControlBusquedaAvanzada implements Serializable {
       return columnasEsSeleccionadas;
    }
 
-   public void setSeleccionColumnasEscenarios(List<ColumnasEscenarios> seleccionColumnasEscenarios) {
+   public void setColumnasEsSeleccionadas(List<ColumnasEscenarios> seleccionColumnasEscenarios) {
       this.columnasEsSeleccionadas = seleccionColumnasEscenarios;
    }
 
@@ -4888,14 +5102,17 @@ public class ControlBusquedaAvanzada implements Serializable {
       return infoRegistroColumnasEs;
    }
 
-//   public String getInfoRegistro() {
-//      return infoRegistro;
-//   }
-//
-//   public void setInfoRegistros(String infoRegistro) {
-//      this.infoRegistro = infoRegistro;
-//   }
-   
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:resultadoBusqueda");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
+
+   public void setInfoRegistros(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
+
    public boolean isAceptar() {
       return aceptar;
    }
@@ -4903,4 +5120,13 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void setAceptar(boolean aceptar) {
       this.aceptar = aceptar;
    }
+
+   public String getAnchoTablaResultados() {
+      return anchoTablaResultados;
+   }
+
+   public void setAnchoTablaResultados(String anchoTablaResultados) {
+      this.anchoTablaResultados = anchoTablaResultados;
+   }
+
 }

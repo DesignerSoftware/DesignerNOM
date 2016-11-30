@@ -26,11 +26,22 @@ public interface AdministrarBusquedaAvanzadaInterface2 {
 
     public List<ColumnasEscenarios> buscarColumnasEscenarios();
 
-    public List<ColumnasBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<Empleados> listaEmpleadosResultados, List<String> campos);
+   /**
+    *
+    * @param listaEmpleadosResultados
+    * @param campos
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
 
     public List<BigInteger> ejecutarQueryBusquedaAvanzadaPorModulosCodigo(String query);
 
-    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados, String campos);
+   /**
+    *
+    * @param listaCodigosEmpleados
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados);
 
     /**
      * Método encargado de obtener el Entity Manager el cual tiene asociado la
