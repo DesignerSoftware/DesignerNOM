@@ -86,18 +86,21 @@ public interface AdministrarBusquedaAvanzadaInterface {
 
    public List<BigInteger> ejecutarQueryBusquedaAvanzadaPorModulosCodigo(String query);
 
-   /**
-    *
-    * @param listaEmpleadosResultados
-    * @param campos
-    * @return
-    */
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
 
-   /**
-    *
-    * @param listaCodigosEmpleados
-    * @return
-    */
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados);
+
+   public List<Parametros> empleadosParametros();
+
+   public void borrarParametros(BigInteger secParametroEstructura);
+
+   public ParametrosEstructuras parametrosLiquidacion();
+
+   public Usuarios usuarioActual();
+
+   public void crearParametroEstructura(ParametrosEstructuras parametroEstructura);
+
+   public void crearParametros(List<Parametros> listaParametros);
+   
+   public List<Empleados> consultarEmpleadosXCodigo(List<BigInteger> listaCodigos);
 }

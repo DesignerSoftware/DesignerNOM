@@ -52,7 +52,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
 
     @Override
     public String actualAliasBD(EntityManager em) {
-        System.err.println(this.getClass().getName() + ".actualAliasBD()");
+        System.out.println(this.getClass().getName() + ".actualAliasBD()");
         try {
             em.clear();
             String sqlQuery = "SELECT au.ALIAS FROM VWActualUsuario au";
@@ -63,8 +63,6 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
             return alias;
         } catch (Exception e) {
             System.out.println("persistenciaActualUsuario .actualAliasBD  :    Sali con errores");
-            //PropertyConfigurator.configure("log4j.properties");
-            //logger.error("Metodo: actualAliasBD - PersistenciaActualUsuario - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
             return null;
         }
     }

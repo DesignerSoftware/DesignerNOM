@@ -102,6 +102,8 @@ public interface PersistenciaEmpleadoInterface {
      * parámetro.
      */
     public Empleados buscarEmpleadoCodigo(EntityManager em, BigInteger codigoEmpleado);
+    
+    public List<Empleados> buscarEmpleadosPorCodigo(EntityManager em, List<BigInteger> codigosEmpleado);
 
     /**
      * Método encargado de buscar los empleados que fueron parametrizados y se

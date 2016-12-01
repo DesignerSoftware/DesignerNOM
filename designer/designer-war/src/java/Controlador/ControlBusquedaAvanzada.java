@@ -3603,6 +3603,144 @@ public class ControlBusquedaAvanzada implements Serializable {
       }
    }
 
+   public void validarAnadirAParametros() {
+      List<Parametros> listEmpleadosParametros = administrarBusquedaAvanzada.empleadosParametros();
+      System.out.println("validarAnadirAParametros() ya consulto");
+      if (listEmpleadosParametros != null) {
+         System.out.println("listEmpleadosParametros.size() : " + listEmpleadosParametros.size());
+         if (!listEmpleadosParametros.isEmpty()) {
+            System.out.println("1");
+            RequestContext.getCurrentInstance().execute("PF('validarParametrosExistentes').show()");
+         } else {
+            System.out.println("2");
+            RequestContext.getCurrentInstance().execute("PF('validarCrearParametros').show()");
+         }
+      } else {
+         System.out.println("2");
+         RequestContext.getCurrentInstance().execute("PF('validarCrearParametros').show()");
+      }
+   }
+
+   public void limpiarParametros(ParametrosEstructuras parametroLiquidacion) {
+      administrarBusquedaAvanzada.borrarParametros(parametroLiquidacion.getSecuencia());
+   }
+
+   public ParametrosEstructuras consultarParametroLiquidacion() {
+      ParametrosEstructuras parametroLiquidacion = administrarBusquedaAvanzada.parametrosLiquidacion();
+      if (parametroLiquidacion == null) {
+         Usuarios au = administrarBusquedaAvanzada.usuarioActual();
+         parametroLiquidacion = new ParametrosEstructuras();
+         parametroLiquidacion.setUsuario(au);
+         parametroLiquidacion.setProceso(new Procesos());
+         parametroLiquidacion.setSecuencia(BigInteger.valueOf(0));
+      }
+      return parametroLiquidacion;
+   }
+
+   public void borrarYCrearNuavosParametros() {
+      if (listaResultadoBusqueda != null) {
+         if (!listaResultadoBusqueda.isEmpty()) {
+            ParametrosEstructuras parametroLiquidacion = consultarParametroLiquidacion();
+            limpiarParametros(parametroLiquidacion);
+            parametroLiquidacion = consultarParametroLiquidacion();
+            administrarBusquedaAvanzada.crearParametroEstructura(parametroLiquidacion);
+            parametroLiquidacion = consultarParametroLiquidacion();
+            List<Empleados> listaEmpleados = administrarBusquedaAvanzada.consultarEmpleadosXCodigo(listaCodigosEmpleado);
+            añadirEmpleadosParametros(parametroLiquidacion, listaEmpleados);
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+      }
+   }
+
+   public void crearNuavosParametros() {
+      if (listaResultadoBusqueda != null) {
+         if (!listaResultadoBusqueda.isEmpty()) {
+            ParametrosEstructuras parametroLiquidacion = consultarParametroLiquidacion();
+            administrarBusquedaAvanzada.crearParametroEstructura(parametroLiquidacion);
+            parametroLiquidacion = consultarParametroLiquidacion();
+            List<Empleados> listaEmpleados = administrarBusquedaAvanzada.consultarEmpleadosXCodigo(listaCodigosEmpleado);
+            añadirEmpleadosParametros(parametroLiquidacion, listaEmpleados);
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+      }
+   }
+
+   public void añadirMasParametros() {
+      if (listaResultadoBusqueda != null) {
+         if (!listaResultadoBusqueda.isEmpty()) {
+            ParametrosEstructuras parametroLiquidacion = consultarParametroLiquidacion();
+            administrarBusquedaAvanzada.crearParametroEstructura(parametroLiquidacion);
+            parametroLiquidacion = consultarParametroLiquidacion();
+            List<Parametros> listEmpleadosParametros = administrarBusquedaAvanzada.empleadosParametros();
+            List<Empleados> listaEmpleados = administrarBusquedaAvanzada.consultarEmpleadosXCodigo(listaCodigosEmpleado);
+            for (int i = 0; i < listEmpleadosParametros.size(); i++) {
+               for (int j = 0; j < listaEmpleados.size(); j++) {
+                  if (listEmpleadosParametros.get(i).getEmpleado().getSecuencia().equals(listaEmpleados.get(j).getSecuencia())) {
+                     listaEmpleados.remove(listaEmpleados.get(j));
+                     break;
+                  }
+               }
+            }
+            añadirEmpleadosParametros(parametroLiquidacion, listaEmpleados);
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('ErrorSinEmpleadosAParametros').show()");
+      }
+   }
+
+   public void añadirEmpleadosParametros(ParametrosEstructuras parametroLiquidacion, List<Empleados> listaEmpleados) {
+      int k = 0;
+      BigInteger l;
+      List<Parametros> listaCrearParametros = new ArrayList<Parametros>();
+      System.out.println("Controlador.ControlBusquedaAvanzada.añadirEmpleadosParametros() Va a entrar al primer try{}");
+      try {
+         for (int i = 0; i < listaEmpleados.size(); i++) {
+            k++;
+            l = BigInteger.valueOf(k);
+            Parametros parametro = new Parametros();
+            parametro.setSecuencia(l);
+            parametro.setParametroestructura(parametroLiquidacion);
+            parametro.setEmpleado(listaEmpleados.get(i));
+            listaCrearParametros.add(parametro);
+         }
+      } catch (Exception e) {
+         System.out.println("ERROR añadirEmpleadosParametros() llenando listaCrearParametros e: " + e);
+         RequestContext.getCurrentInstance().execute("PF('errorCreandoParametros').show()");
+      }
+      if (!listaCrearParametros.isEmpty()) {
+         try {
+            Usuarios au = administrarBusquedaAvanzada.usuarioActual();
+            Date fechaDesde = parametroLiquidacion.getFechadesdecausado();
+            Date fechaHasta = parametroLiquidacion.getFechahastacausado();
+            Date fechaSistema = parametroLiquidacion.getFechasistema();
+            Procesos proceso = parametroLiquidacion.getProceso();
+            for (int i = 0; i < listaCrearParametros.size(); i++) {
+               listaCrearParametros.get(i).setFechadesdecausado(fechaDesde);
+               listaCrearParametros.get(i).setFechahastacausado(fechaHasta);
+               listaCrearParametros.get(i).setFechasistema(fechaSistema);
+               listaCrearParametros.get(i).setProceso(proceso);
+               listaCrearParametros.get(i).setUsuario(au);
+               if (listaCrearParametros.get(i).getParametroestructura().getTipotrabajador().getSecuencia() == null) {
+                  listaCrearParametros.get(i).getParametroestructura().setTipotrabajador(null);
+               }
+            }
+         } catch (Exception e) {
+            System.out.println("ERROR añadirEmpleadosParametros() añadiemdo datos a listaCrearParametros e: " + e);
+            RequestContext.getCurrentInstance().execute("PF('errorCreandoParametros').show()");
+         }
+         administrarBusquedaAvanzada.crearParametros(listaCrearParametros);
+         RequestContext.getCurrentInstance().execute("PF('parametrosModificados').show()");
+      }
+   }
+
    public void exportPDF() throws IOException {
       DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosBusquedaAvanzadaExportar");
       FacesContext context = FacesContext.getCurrentInstance();

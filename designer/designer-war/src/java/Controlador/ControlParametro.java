@@ -996,8 +996,6 @@ public class ControlParametro implements Serializable {
       listaBorrarParametros.clear();
       listaCrearParametros.clear();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      getListEmpleadosParametros();
-      contarRegistros();
       guardado = true;
    }
 

@@ -1836,7 +1836,7 @@
                                    oncomplete="updateColumns()"/>
                   <p:tooltip style="font-size: 12px;" for="btnbuscar" value="#{msg['textEjecutar']}"/>
 
-                  <p:commandButton style="position: absolute; left: 10px; top: 501px; width: 170px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;" 
+                  <p:commandButton class="cssBotonLargo" style="position: absolute; left: 10px; top: 501px;" actionListener="#{controlBusquedaAvanzada.validarAnadirAParametros()}"
                                    icon="ui-icon-extlink" id="ANADIRAPARAMETROS" value="#{msg['anadirParametros']}" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="ANADIRAPARAMETROS" value="#{msg['textAnadirParametros']}"/>
 
@@ -1846,6 +1846,47 @@
             </h:form>
 
             <h:form id="formularioDialogos">
+
+               <p:dialog id="validarParametrosExistentes" widgetVar="validarParametrosExistentes" header="Parametros Existentes"
+                         resizable="false" draggable="true" modal="true" height="150" width="350"  >
+                  <h:outputText value="Ya hay empleados en Parametros de Liquidación." style="position: absolute; left: 20px; top: 15px; color: blue; font-weight: bold"/>
+
+                  <p:commandButton value="Borrar Parametros Actuales y Agregar" style="position: absolute; left: 30px; top: 50px; width: 290px; height: 27px;"  
+                                   actionListener="#{controlBusquedaAvanzada.borrarYCrearNuavosParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+
+                  <p:commandButton value="Añadir a parametros Actuales" style="position: absolute; left: 30px; top: 80px; width: 290px; height: 27px;" 
+                                   actionListener="#{controlBusquedaAvanzada.añadirMasParametros()}" onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+
+                  <p:commandButton value="Cancelar" class="cssAtrasLOV" style="top: 120px !important;" icon="ui-icon-close"
+                                   onclick="PF('validarParametrosExistentes').hide();" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="validarCrearParametros" header="#{msg['informacion']}" widgetVar="validarCrearParametros"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="¿Desea agregar los resultados de la Búsqueda a Parámetros de Liquidación?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center"/>
+                  <p:commandButton value="Continuar" onclick="PF('validarCrearParametros').hide();" actionListener="#{controlBusquedaAvanzada.crearNuavosParametros()}"
+                                   icon="ui-icon-check" process="@this" class="cssAceptarLOV" style="top: 60px !important;"/>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('validarCrearParametros').hide();" class="cssAtrasLOV" style="top: 60px !important;"
+                                   icon="ui-icon-close" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="parametrosModificados" header="#{msg['informacion']}" widgetVar="parametrosModificados" resizable="false" draggable="true" modal="true" height="95" width="330" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Se han Agregado los Empleados a Parámetros de Liquidación con exito."
+                                style="position: absolute; left: 75px; top: 15px; width: 235px; font-weight: bold; text-align: center"/>
+                  <p:commandButton value="Aceptar" onclick="PF('parametrosModificados').hide();"
+                                   icon="ui-icon-check" process="@this" class="cssAtrasLOV" style="top: 60px !important;"/>
+               </p:dialog>
+               
+               <p:dialog id="errorCreandoParametros" header="#{msg['error']}" widgetVar="errorCreandoParametros" resizable="false" draggable="true" modal="true" height="70" width="300" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="Ha ocurrido un ERROR agregar a Parámetros de Liquidación. No se pudo terminar la tarea." style="position: absolute; left: 70px; top: 10px; width: 200px; font-weight:bold;"/>
+               </p:dialog>
+
+               <p:dialog id="ErrorSinEmpleadosAParametros" header="#{msg['error']}" widgetVar="ErrorSinEmpleadosAParametros" resizable="false" draggable="true" modal="true" height="70" width="300" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="No hay resultados de la Busqueda que se puedan Añadir a Parametros de Liquidación." style="position: absolute; left: 75px; top: 10px; width: 200px; font-weight:bold;"/>
+               </p:dialog>
 
                <p:dialog id="errorFechasIngresadas" header="#{msg['error']}" widgetVar="errorFechasIngresadas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
