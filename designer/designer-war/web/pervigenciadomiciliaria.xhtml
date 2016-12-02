@@ -261,7 +261,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooCiudad" action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value=""/>
+                                            <p:commandButton style="width: 170px;" id="fooCiudad" action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('ciudadvisita')}"  value="" process="@this" />
                                         </f:facet>
                                     </p:column> 
 
@@ -374,7 +374,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelvisita" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
+                                            <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelvisita" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('tipotelvisita')}" process="@this" />
                                         </f:facet>
                                     </p:column>
 
@@ -408,7 +408,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 210px;" id="fooCiudadTel" value=" " action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
+                                            <p:commandButton style="width: 210px;" id="fooCiudadTel" value=" " action="ciudadvisita" onclick="#{controlCiudades.recibirPaginaEntrante('ciudadvisita')}" process="@this"/>
                                         </f:facet>
                                     </p:column> 
                                 </p:dataTable>  
@@ -459,7 +459,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadocivilvisita" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
+                                            <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadocivilvisita" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivilvisita')}" process="@this"/>
                                         </f:facet>
                                     </p:column>
                                 </p:dataTable>
@@ -624,7 +624,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipofamiliarvisita" onclick="#{controlTiposFamiliares.recibirPagina('pervigenciadomiciliaria')}"  value=" "/>
+                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipofamiliarvisita" onclick="#{controlTiposFamiliares.recibirPagina('tipofamiliarvisita')}"  value=" " process="@this"/>
                                         </f:facet>
                                     </p:column> 
                                     <p:column id="servicioMedico" sortBy="#{familiar.serviciomedico}" filterBy="#{familiar.serviciomedico}" width="20"
@@ -756,7 +756,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="tipoeducacionvisita" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
+                                            <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="tipoeducacionvisita" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('tipoeducacionvisita')}" process="@this" />
                                         </f:facet>
                                     </p:column>
 
@@ -773,7 +773,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="profesionesvisita" onclick="#{controlProfesiones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
+                                            <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="profesionesvisita" onclick="#{controlProfesiones.recibirPaginaEntrante('profesionesvisita')}" process="@this" />
                                         </f:facet>
                                     </p:column>
 
@@ -790,7 +790,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px;" id="fooInstitucion" value="" action="institucionesvisita" onclick="#{controlInstituciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" />
+                                            <p:commandButton style="width: 170px;" id="fooInstitucion" value="" action="institucionesvisita" onclick="#{controlInstituciones.recibirPaginaEntrante('institucionesvisita')}" process="@this" />
                                         </f:facet>
                                     </p:column>
 
@@ -1038,7 +1038,7 @@
                                             </f:facet>  
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooSector" value="" action="sectoreseconomicosvisita" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}"/>
+                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooSector" value="" action="sectoreseconomicosvisita" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('sectoreseconomicosvisita')}" process="@this"/>
                                         </f:facet>
                                     </p:column>
 
@@ -1055,7 +1055,7 @@
                                             </f:facet>  
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivoretirovisita" actionListener="#{controlMotivosRetiros.recibirPagina('pervigenciadomiciliaria')}"/>
+                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivoretirovisita" actionListener="#{controlMotivosRetiros.recibirPagina('motivoretirovisita')}" process="@this"/>
                                         </f:facet>
                                     </p:column>
                                 </p:dataTable>

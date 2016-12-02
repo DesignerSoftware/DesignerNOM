@@ -65,7 +65,7 @@
                                                  actionListener="#{controlFamiliares.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="atrasfamiliares" actionListener="#{controlFamiliares.salir()}" process="@this" />  
+                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="familiares" actionListener="#{controlFamiliares.salir()}" process="@this" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -73,7 +73,7 @@
 
                         <p:commandButton style=" position: absolute; left: 680px; top: 480px;" class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlFamiliares.guardado}" 
                                          onclick="PF('confirmarGuardar').show();"   update="datosFamiliares"  process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 770px; top: 480px;" class="cssBotonCancelar"  id="ATRAS" action="atrasfamiliares" actionListener="#{controlFamiliares.salir()}" value=" "    />
+                        <p:commandButton style=" position: absolute; left: 770px; top: 480px;" class="cssBotonCancelar"  id="ATRAS" action="familiares" actionListener="#{controlFamiliares.salir()}" value=" "    />
 
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
@@ -256,15 +256,15 @@
                             </div>
 
                             <p:commandButton id="btneducacion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/niveleducativo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 195px; background-color: white; " value=" "  actionListener="#{controlPersonaEducacion.recibirPersona(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" action="educacionfamiliares" />
+                                             left: 195px; background-color: white; " value=" "  actionListener="#{controlPersonaEducacion.recibirPersona(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'educacionfamiliares')}" action="educacionfamiliares" />
                             <h:outputText value="#{msg['nivel']}" style="position: absolute; left: 240px; top: 22px; font-weight: bold; color: #14388B;" />
 
                             <p:commandButton id="btntelefono" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/telefono.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 350px; background-color: white; " value=" " action="telefonosfamiliares" actionListener="#{controlPerTelefonos.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" />
+                                             left: 350px; background-color: white; " value=" " action="telefonosfamiliares" actionListener="#{controlPerTelefonos.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'telefonosfamiliares')}" />
                             <h:outputText value="#{msg['tel']}" style="position: absolute; left: 395px; top: 22px; font-weight: bold; color: #14388B;" />
 
                             <p:commandButton id="btndireccion" disabled="#{controlFamiliares.activardatos}"  style="background-image: url(Imagenes/Iconos/direccion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; border:none;
-                                             left: 475px; background-color: white; " value=" " action="direccionesfamiliares" actionListener="#{controlPerDirecciones.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'emplfamiliares')}" />
+                                             left: 475px; background-color: white; " value=" " action="direccionesfamiliares" actionListener="#{controlPerDirecciones.recibirEmpleado(controlFamiliares.familiarSeleccionado.personafamiliar.secuencia,'direccionesfamiliares')}" />
                             <h:outputText value="#{msg['dir']}" style="position: absolute; left: 522px; top: 22px; font-weight: bold; color: #14388B;" />
 
                         </fieldset>

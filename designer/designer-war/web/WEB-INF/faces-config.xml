@@ -2231,7 +2231,7 @@
     <navigation-rule>
         <from-view-id>/perdireccion.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>individual</from-outcome>
+            <from-outcome>direccionespersona</from-outcome>
             <to-view-id>/empleadoindividual.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -2248,7 +2248,7 @@
     <navigation-rule>
         <from-view-id>/pertelefono.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>individual</from-outcome>
+            <from-outcome>telefonospersona</from-outcome>
             <to-view-id>/empleadoindividual.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -2262,6 +2262,15 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>personaeducacion</from-outcome>
+            <to-view-id>/empleadoindividual.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>/personaeducacion.xhtml</from-view-id>
         <navigation-case>
@@ -2308,7 +2317,7 @@
     <navigation-rule>
         <from-view-id>/pertelefono.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>tipotelefono</from-outcome>
+            <from-outcome>ciudad</from-outcome>
             <to-view-id>/tipotelefono.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5869,6 +5878,14 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/ciudades.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudades</from-outcome>
+            <to-view-id>/perdireccion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/personaeducacion.xhtml</from-view-id>
@@ -5969,7 +5986,7 @@
     <navigation-rule>
         <from-view-id>/emplfamiliares.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasfamiliares</from-outcome>
+            <from-outcome>familiares</from-outcome>
             <to-view-id>/empleadoindividual.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5983,12 +6000,28 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+       <navigation-rule>
+        <from-view-id>/pertelefono.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>telefonosfamiliares</from-outcome>
+            <to-view-id>/emplfamiliares.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/emplfamiliares.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>direccionesfamiliares</from-outcome>
             <to-view-id>/perdireccion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/perdireccion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>direccionesfamiliares</from-outcome>
+            <to-view-id>/emplfamiliares.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6001,6 +6034,15 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/personaeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>educacionfamiliares</from-outcome>
+            <to-view-id>/emplfamiliares.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
     
     <navigation-rule>
         <from-view-id>/emplfamiliares.xhtml</from-view-id>
@@ -6240,12 +6282,28 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/ciudades.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudadvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipotelvisita</from-outcome>
             <to-view-id>/tipotelefono.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipotelefono.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipotelvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6258,12 +6316,28 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/estadocivil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>estadocivilvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 
     <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>tipofamiliarvisita</from-outcome>
             <to-view-id>/tipofamiliar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipofamiliar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipofamiliarvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6276,12 +6350,28 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/tipoeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoeducacionvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 
     <navigation-rule>
         <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>profesionesvisita</from-outcome>
             <to-view-id>/profesiones.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/profesiones.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profesionesvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6294,12 +6384,11 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+     <navigation-rule>
+        <from-view-id>/instituciones.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>sectoreseconomicosvisita</from-outcome>
-            <to-view-id>/sectoreseconomicos.xhtml</to-view-id>
+            <from-outcome>institucionesvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6309,6 +6398,14 @@
         <navigation-case>
             <from-outcome>sectoreseconomicosvisita</from-outcome>
             <to-view-id>/sectoreseconomicos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/sectoreseconomicos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sectoreseconomicosvisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6318,6 +6415,14 @@
         <navigation-case>
             <from-outcome>motivoretirovisita</from-outcome>
             <to-view-id>/motivosretiros.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/motivosretiros.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>motivoretirovisita</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

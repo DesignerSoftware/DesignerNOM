@@ -10,6 +10,13 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
+              <script type="text/javascript">
+               $(window).load(function() {
+               $(".loader").fadeOut("slow");
+               });
+            </script>
+             <div class="loader"></div>
+            <div style="position: static;"></div>
             <h:form id="form">
 
                <f:loadBundle basename="Recursos.tercero" var="msg" />
@@ -99,13 +106,15 @@
                      <h:outputText id="nitEmpresa" value="#{controlTercero.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 225px; border-radius: 10px; text-align: left">
+                  <fieldset style="position: absolute; left: 10px; top: 106px; width: 830px; height: 230px; border-radius: 10px; text-align: left">
                      <legend style="color: blue"><strong>#{msg['terceros']}</strong></legend>
 
                      <p:dataTable id="datosTerceros" var="infoT" widgetVar="datosTerceros" rowIndexVar="indice" style="border: 1px; width: 1350px; position: absolute;"   
                                   value="#{controlTercero.listTerceros}" scrollable="true" scrollHeight="#{controlTercero.altoTablaTercero}" scrollWidth="830"
                                   filteredValue="#{controlTercero.filtrarListTercero}" emptyMessage="#{msg['vacio']}" rowKey="#{infoT.secuencia}" 
-                                  editable="true" editMode="cell" liveScroll="true" scrollRows="40" selectionMode="single" selection="#{controlTercero.terceroTablaSeleccionado}">
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="40" selectionMode="single" selection="#{controlTercero.terceroTablaSeleccionado}"
+                                  rows="#{controlTercero.altoTablaTercero}" paginator="true" 
+                                  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" currentPageReportTemplate="{totalPages}">
 
                         <f:event type="preRenderView" listener="#{controlTercero.recordarSeleccionT()}"/>
                         <p:ajax event="filter" listener="#{controlTercero.eventoFiltrarT()}"/>
@@ -176,7 +185,7 @@
                         <p:column sortBy="#{infoT.nitalternativo}" filterBy="#{infoT.nitalternativo}" filterMatchMode="contains" 
                                   id="terceroNITAlternativo" width="90" filterStyle="display: none; visibility: hidden" >                                  
                            <f:facet name="header">
-                              <h:outputText id="headNitA" value="NIT A"/>
+                              <h:outputText id="headNitA" value="NIT ALT"/>
                               <p:tooltip for="headNitA" value="#{msg['nitA']}"/>
                            </f:facet>
                            <p:cellEditor>  
@@ -270,25 +279,25 @@
                                     <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 7)}" process="@this"
                                             onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'TERCEROCONSOLIDADOR', infoT.terceroconsolidador.nombre)}" process="@this" update="editarTConsolidador"/>
-                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,0,0)}" process="@this" update="editarTConsolidador"/>
+                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,0)}" process="@this" update="editarTConsolidador"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" value="" />
+                               <h:outputText value="" />
                            </f:facet>
                         </p:column>
 
-                        <p:column sortBy="#{infoT.terceroconsolidador.nit}" filterBy="#{infoT.terceroconsolidador.nit}" filterMatchMode="contains" 
+                        <p:column sortBy="#{infoT.terceroconsolidador.nit}" filterBy="#{infoT.terceroconsolidador.strNit}" filterMatchMode="contains" 
                                   id="terceroNITConsolidado" width="90" filterStyle="display: none; visibility: hidden" >                                  
                            <f:facet name="header">
                               <h:outputText id="headconsolida" value="N.I.T C"/>
                               <p:tooltip for="headconsolida" value="#{msg['nitConsolida']}"/>
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nit}"/></f:facet>  
+                               <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.strNit}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.nit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                 <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.strNit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                     <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 8)}" process="@this"
                                             onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
@@ -313,7 +322,7 @@
                                     <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 9)}" process="@this"
                                             onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'CIUDAD', infoT.ciudad.nombre)}" process="@this" update="editarTerceroCiudad"/>
-                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1, 0,0)}" process="@this" update="editarTerceroCiudad"/>
+                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1, 0)}" process="@this" update="editarTerceroCiudad"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -322,17 +331,17 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['codigoalterno']}" sortBy="#{infoT.codigoalternativo}" filterBy="#{infoT.codigoalternativo}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['codigoalterno']}" sortBy="#{infoT.strCodAlt}" filterBy="#{infoT.strCodAlt}" filterMatchMode="contains" 
                                   id="terceroCodigoAlterno" width="100" filterStyle="display: none; visibility: hidden">                                  
                            <f:facet name="header">
                               <h:outputText id="headcodigoalterno" value="#{msg['codigoalterno']}"/>
                               <p:tooltip for="headcodigoalterno" value="#{msg['codAlterno']}"/>
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output"><h:outputText value="#{infoT.codigoalternativo}"/></f:facet>  
+                              <f:facet name="output"><h:outputText value="#{infoT.strCodAlt}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{infoT.codigoalternativo}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                    <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this"
+                                 <p:inputText  autocomplete="off"  value="#{infoT.strCodAlt}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                    <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this" 
                                             onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
                                     <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                  </p:inputText>
@@ -348,8 +357,8 @@
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{infoT.tiponit}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarTerceroTipoNIT" value="#{infoT.tiponit}" style="text-align: left; width: 120px"
-                                                  onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  
+                                 <p:selectOneMenu id="editarTerceroTipoNIT" value="#{infoT.tiponit}" style="text-align: left; width: 90px">
+                                                  <!--onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">-->  
                                     <f:selectItem itemLabel=""/> 
                                     <f:selectItem itemLabel="#{msg['natural']}" itemValue="N" />  
                                     <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J" />
@@ -369,8 +378,8 @@
                            <p:cellEditor>   
                               <f:facet name="output"><h:outputText value="#{infoT.codigotercerosap}" /></f:facet>  
                               <f:facet name="input">
-                                 <p:selectOneMenu id="editarTerceroCodigoSAP" value="#{infoT.codigotercerosap}" style="text-align: left; width: 120px"
-                                                  onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  
+                                 <p:selectOneMenu id="editarTerceroCodigoSAP" value="#{infoT.codigotercerosap}" style="text-align: left; width: 90px" >
+<!--                                                  onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  -->
                                     <f:selectItem itemLabel=""/> 
                                     <f:selectItem itemLabel="#{msg['EPS']}" itemValue="EPS" />  
                                     <f:selectItem itemLabel="#{msg['AFP']}" itemValue="AFP" />
@@ -387,10 +396,12 @@
                         </p:column>
 
                      </p:dataTable>
-                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTercero.infoRegistro}" style="position: relative; left: 10px; top: 185px; font-weight: bold; display: table"/>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlTercero.infoRegistro}" style="position: relative; left: 10px; top: 195px; font-weight: bold; display: table"/>
 
-                     <p:commandButton id="btnBuscarTerceros" value="" style="position: relative; top: 172px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlTercero.dialogoSeleccionarTercero()}" process="@this"/>
-                     <p:commandButton id="btnMostrarTodos" value="" style="position: relative; top: 172px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlTercero.mostrarTodos()}" process="@this" />
+                     <p:commandButton id="btnBuscarTerceros" value="" style="position: relative; top: 180px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                      actionListener="#{controlTercero.dialogoSeleccionarTercero()}" process="@this"/>
+                     <p:commandButton id="btnMostrarTodos" value="" style="position: relative; top: 180px; left: 650px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                      actionListener="#{controlTercero.mostrarTodos()}" process="@this" />
                   </fieldset>
 
 
@@ -480,13 +491,13 @@
                                  <p:inputText  autocomplete="off"  value="#{infoTS.ciudad.nombre}"  id="editarTerceroSucursalCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                     <p:ajax event="select" listener="#{controlTercero.cambiarIndiceTS(infoTS, 3)}" process="@this"
                                             onstart="PF('datosTercerosSucursales').unselectAllRows();PF('datosTercerosSucursales').selectRow(#{indiceTS});"/>
-                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoTS,0,0,1)}" process="@this" update="editarTerceroSucursalCiudad"/>
+                                    <p:ajax event="dblclick" listener="#{controlTercero.asignarIndexSucursales(infoTS,0,0)}" process="@this" update="editarTerceroSucursalCiudad"/>
                                     <p:ajax event="change" listener="#{controlTercero.modificarTerceroSucursalAutocompletar(infoTS, 'CIUDAD', infoTS.ciudad.nombre)}" process="@this" update="editarTerceroSucursalCiudad"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 220px;" value="" />
+                               <p:commandButton style="width: 210px;" id="fooTerceroSucursalCiudad" action="ciudades" actionListener="#{controlCiudades.recibirPaginaEntrante('atrastercero')}" value=" "/>
                            </f:facet>
                         </p:column>
                      </p:dataTable>
@@ -499,7 +510,7 @@
                </p:panel>
 
                <p:dialog header="#{msg['tercerosT']}" widgetVar="BuscarTerceroDialogo" draggable="true" resizable="false" closable="false" id="BuscarTerceroDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                         showEffect="fade" hideEffect="fade" width="435" modal="true" >
                   <p:dataTable id="lovBuscarTercero" liveScroll="true" scrollRows="20" var="tercero" value="#{controlTercero.listTercerosLOV}" rowKey="#{tercero.secuencia}"
                                selection="#{controlTercero.terceroLOVSeleccionado}" selectionMode="single" widgetVar="lovBuscarTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListTerceroLOV}" emptyMessage="#{msg['lovvacio']}">              
@@ -513,13 +524,13 @@
                         <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovBuscarTercero').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{tercero.nit}" filterMatchMode="contains">
+                     <p:column filterBy="#{tercero.nit}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitT']}" />
                         </f:facet>
                         <h:outputText value="#{tercero.nit}" />
                      </p:column>
-                     <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" >
+                     <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreT']}" />
                         </f:facet>
@@ -530,33 +541,33 @@
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroLovTercero}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarBT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}"
-                                      actionListener="#{controlTercero.validarSeleccionTercero()}" disabled="#{controlTercero.aceptar}" update=":form:BuscarTerceroDialogo" process="@this"/>
+                                      actionListener="#{controlTercero.validarSeleccionTercero()}" disabled="#{controlTercero.aceptar}"  process="@this"/>
                      <p:commandButton id="atrasBT" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"
-                                      actionListener="#{controlTercero.cancelarSeleccionTercero()}" update=":form:BuscarTerceroDialogo" process="@this"/>
+                                      actionListener="#{controlTercero.cancelarSeleccionTercero()}" process="@this"/>
                   </div>
                </p:dialog>
 
                <p:dialog header="#{msg['tercerosT']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="435" modal="true">
                   <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" var="tercero" value="#{controlTercero.listTerceroConsolidador}" rowKey="#{tercero.secuencia}"
                                selection="#{controlTercero.terceroCSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListTerceroConsolidador}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosTerceroConsol()}"/>
                      <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarT"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarTerceros()}" update=":form:TerceroDialogo" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarTerceros()}" process="@this" />
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}"/>  
                         <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovTercero').filter();" value="#{filtrado}" class="cssFiltroLOV"/>
                      </f:facet> 
-                     <p:column filterBy="#{tercero.nit}"  filterMatchMode="contains">
+                     <p:column filterBy="#{tercero.nit}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitT']}" />
                         </f:facet>
                         <h:outputText value="#{tercero.nit}" />
                      </p:column>
-                     <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" >
+                     <p:column filterBy="#{tercero.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['nombreT']}" />
                         </f:facet>
@@ -567,31 +578,31 @@
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroTerceroConsolidador" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroTerceroConsolidador}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarTerceros()}" disabled="#{controlTercero.aceptar}" update=":form:TerceroDialogo" process="@this"/>
-                     <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioTerceros()}" update=":form:TerceroDialogo" process="@this"/>
+                     <p:commandButton id="atrasT" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioTerceros()}" process="@this"/>
                   </div>
                </p:dialog>
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadDialogo" draggable="true" resizable="false" closable="false" id="CiudadDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                         showEffect="fade" hideEffect="fade" width="435" modal="true" >
                   <p:dataTable id="lovCiudad" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudad" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosCiudadTerc()}"/>
                      <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudad()}" update=":form:CiudadDialogo" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudad()}" process="@this" />
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCiudad').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{ciudad.codigo}" filterMatchMode="contains">
+                     <p:column filterBy="#{ciudad.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoC']}"/>
                         </f:facet>
                         <h:outputText value="#{ciudad.codigo}" />
                      </p:column>
-                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" >
+                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreC']}" />
                         </f:facet>
@@ -601,32 +612,32 @@
                   </p:dataTable>
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroCiudad1" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroCiudad1}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarCiudad()}" disabled="#{controlTercero.aceptar}" update=":form:CiudadDialogo" process="@this"/>
-                     <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudad()}" update=":form:CiudadDialogo" process="@this"/>
+                     <p:commandButton id="aceptarC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlTercero.actualizarCiudad()}" disabled="#{controlTercero.aceptar}"  process="@this"/>
+                     <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTercero.cancelarCambioCiudad()}" process="@this"/>
                   </div>
                </p:dialog>
 
                <p:dialog header="#{msg['ciudadesC']}" widgetVar="CiudadTSDialogo" draggable="true" resizable="false" closable="false" id="CiudadTSDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="435" modal="true">
                   <p:dataTable id="lovCiudadTS" liveScroll="true" scrollRows="20" var="ciudad" value="#{controlTercero.listCiudades}" rowKey="#{ciudad.secuencia}"
                                selection="#{controlTercero.ciudadSeleccionada}" selectionMode="single" widgetVar="lovCiudadTS" scrollable="true" scrollWidth="416" scrollHeight="250"
                                filteredValue="#{controlTercero.filtrarListCiudades}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="filter" listener="#{controlTercero.contarRegistrosCiudadTSucur()}"/>
                      <p:ajax event="rowSelect" listener="#{controlTercero.activarAceptar()}" update=":form:aceptarCTS"/>
-                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudadTS()}" update=":form:CiudadTSDialogo" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlTercero.actualizarCiudadTS()}" process="@this" />
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarC']}"/>  
                         <p:inputText  autocomplete="off"  id="globalFilter" value="#{filtrado}" onkeyup="PF('lovCiudadTS').filter();" class="cssFiltroLOV"/>  
                      </f:facet> 
-                     <p:column filterBy="#{ciudad.codigo}"  filterMatchMode="contains">
+                     <p:column filterBy="#{ciudad.codigo}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['codigoC']}" />
                         </f:facet>
                         <h:outputText value="#{ciudad.codigo}" />
                      </p:column>
-                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" >
+                     <p:column filterBy="#{ciudad.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText  value="#{msg['nombreC']}" />
                         </f:facet>
@@ -637,9 +648,9 @@
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroCiudad2" value="#{msg['infoRegistro']} #{controlTercero.infoRegistroCiudad2}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarCTS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}"
-                                      actionListener="#{controlTercero.actualizarCiudadTS()}" disabled="#{controlTercero.aceptar}" update=":form:CiudadTSDialogo" process="@this"/>
+                                      actionListener="#{controlTercero.actualizarCiudadTS()}" disabled="#{controlTercero.aceptar}"  process="@this"/>
                      <p:commandButton id="atrasCTS" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"
-                                      actionListener="#{controlTercero.cancelarCambioCiudadTS()}" action="#{controlTercero.valorPaginaAnterior}" update=":form:CiudadTSDialogo" process="@this"/>
+                                      actionListener="#{controlTercero.cancelarCambioCiudadTS()}"  process="@this"/>
                   </div>
                </p:dialog>
 
@@ -736,17 +747,6 @@
             </h:form>
 
             <h:form id="formularioDialogos">
-
-      <!--           <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="400" style="padding: 0px">  
-                      <center><strong><h:outputText value="#{msg['seleccione']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <h:outputText value="#{msg['terceros']}" style="position: absolute; top: 47px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaSueldo" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTercero').show()" update=":formularioDialogos:nuevaT" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
-
-                        <h:outputText value="#{msg['sss']}" style="position: absolute; top: 92px;left: 60px"/>
-                        <p:commandButton id="NuevoVigenciaAfiliacion" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" oncomplete="PF('NuevoRegistroTerceroSucursal').show()" update=":formularioDialogos:nuevaTS" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
-
-                        <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="#{msg['cancelar']}" style="position: absolute; top: 125px;left: 300px"/>
-                    </p:dialog>
                -->                     
                <p:dialog id="NuevoRegistroPagina" header="#{msg['nrpi']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="150" width="400" style=" padding: 0px">  
                   <center><strong><h:outputText value="#{msg['seleccione']}" style="font-size: 14px; color: blue; position: relative; top: 5px;" /></strong></center> 
@@ -802,11 +802,11 @@
 
                      <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
                      <p:inputText  autocomplete="off"  id="nuevaTerceroCT" value="#{controlTercero.nuevoTercero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,0)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,1)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'TERCEROCONSOLIDADOR',0)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.nuevoTercero.terceroconsolidador.nombre, 1)}" />
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 70px;  " id="btnNuevoMotivoCambioSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,1,0)}" update="nuevaTerceroCT"/>   
+                     <p:commandButton style="position: absolute; left: 675px; top: 73px;" class="cssBotonLovDialogos" id="btnNuevoTerceroConso" value=" " process="@this"  actionListener="#{controlTercero.asignarIndex(infoT,0,1)}" update="nuevaTerceroCT"/>   
                      <p:watermark for="nuevaTerceroCT" value="#{msg['consolidadorWM']}" />
 
                      <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px;" /></strong>
@@ -816,11 +816,11 @@
 
                      <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
                      <p:inputText  autocomplete="off"  id="nuevaCiudadT" value="#{controlTercero.nuevoTercero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1,1)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',0)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.nuevoTercero.ciudad.nombre, 1)}" update="nuevaCiudadT"/>
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 130px;  " id="btnNuevoTipoSueldo" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,1,1,0)}"/>   
+                     <p:commandButton style="position: absolute; left: 675px; top: 133px;"  class="cssBotonLovDialogos" id="BotonTerceroCiudad" value=" " process="@this"  actionListener="#{controlTercero.asignarIndex(infoT,1,1)}"/>   
                      <p:watermark for="nuevaCiudadT" value="#{msg['ciudadWM']}" />
 
                      <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
@@ -851,7 +851,7 @@
                      </p:selectOneMenu>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarNT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTercero()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarNT" value="#{msg['agregar']}" style="position: absolute; left: 510px; top: 290px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTercero()}"  />
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarNT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarNuevoTercero()}" update="nuevaT" onclick="PF('NuevoRegistroTercero').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -904,11 +904,11 @@
 
                      <strong><h:outputText value="#{msg['consolidadorNT']}" style="position: absolute; top: 75px; left: 360px;" /></strong>
                      <p:inputText  autocomplete="off"  id="duplicarTTerceroCT" value="#{controlTercero.duplicarTecero.terceroconsolidador.nombre}" style="width: 122px; position: absolute; left: 540px; top: 70px; text-transform: uppercase" onclick="select();" >
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,0)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,2)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'TERCEROCONSOLIDADOR',0)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('TERCEROCONSOLIDADOR', controlTercero.duplicarTecero.terceroconsolidador.nombre, 2)}" />
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 70px;  " id="btnDuplicarTerceroC" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,2,0)}" update="duplicarTTerceroCT"/>   
+                     <p:commandButton style="position: absolute; left: 675px; top: 73px; " class="cssBotonLovDialogos" value=" " id="btnDuplicarTerceroC" process="@this"  actionListener="#{controlTercero.asignarIndex(infoT,0,2)}" update="duplicarTTerceroCT"/>   
                      <p:watermark for="duplicarTTerceroCT" value="#{msg['consolidadorWM']}" />
 
                      <strong><h:outputText value="#{msg['nitconsolidadorNT']}" style="position: absolute; top: 105px; left: 360px;" /></strong>
@@ -918,11 +918,11 @@
 
                      <strong><h:outputText value="#{msg['ciudadNT']}" style="position: absolute; top: 135px; left: 360px;" /></strong>
                      <p:inputText  autocomplete="off"  id="duplicarTCiudadT" value="#{controlTercero.duplicarTecero.ciudad.nombre}" style="width: 122px; position: absolute; left: 540px; top: 130px; text-transform: uppercase" onclick="select();">
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1,2)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',0)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTercero('CIUDAD', controlTercero.duplicarTecero.ciudad.nombre, 2)}" update="duplicarTCiudadT"/>
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 670px; top: 130px;  " id="btnDuplicarCiudad" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,1,2,0)}"/>   
+                     <p:commandButton style="position: absolute; left: 675px; top: 133px; " id="btnDuplicarCiudad" class="cssBotonLovDialogos" value=" " process="@this"  actionListener="#{controlTercero.asignarIndex(infoT,1,2)}"/>   
                      <p:watermark for="duplicarTCiudadT" value="#{msg['ciudadWM']}"/>
 
                      <strong><h:outputText value="#{msg['codigoalternativoNT']}" style="position: absolute; top: 165px; left: 360px;" /></strong>
@@ -953,7 +953,7 @@
                      </p:selectOneMenu>
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDT" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDT" value="#{msg['agregar']}" style="position: absolute; left: 500px; top: 290px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicar()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDT" value="#{msg['agregar']}" style="position: absolute; left: 510px; top: 290px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicar()}"  />
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarDT" value="#{msg['cancelar']}" style="position: absolute; left: 610px; top: 290px;" actionListener="#{controlTercero.limpiarDuplicarTercero()}" update="nuevaT" onclick="PF('DuplicarRegistroTercero').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -962,7 +962,7 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="nuevaTS" style="border: none;">
 
-                     <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 42px;" /></strong>
                      <p:inputText  autocomplete="off"  id="nuevaSucursalTS" value="#{controlTercero.nuevoTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
                         <p:ajax event="change" update="nuevaSucursalTS" process="@this"/>
                      </p:inputText>
@@ -982,15 +982,15 @@
 
                      <strong><h:outputText value="#{msg['ciudadNS']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                      <p:inputText  autocomplete="off"  id="nuevaCiudadTS" value="#{controlTercero.nuevoTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndexSucursales(infoTS,0,1)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(1, 'CIUDAD',1)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.nuevoTerceroSucursal.ciudad.nombre, 1)}" update="nuevaCiudadTS" process="@this"/>
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 350px; top: 160px;  " id="btnNuevaCiudadTS" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,1,1)}"/>   
+                     <p:commandButton style=" position: absolute; left: 355px; top: 163px;" class="cssBotonLovDialogos"  id="btnNuevaCiudadTS" value=" " process="@this"  actionListener="#{controlTercero.asignarIndexSucursales(infoTS,0,1)}"/>   
                      <p:watermark for="nuevaCiudadTS" value="#{msg['ciudadWM']}" />
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarNTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarNTS" value="#{msg['agregar']}" style=" position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTerceroSucursal()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarNTS" value="#{msg['agregar']}" style=" position: absolute; left: 180px; top: 200px;"  process="@this" actionListener="#{controlTercero.agregarNuevoTerceroSucursal()}"  />
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarNTS" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarNuevoTerceroSucursal()}" update="nuevaTS" onclick="PF('NuevoRegistroTerceroSucursal').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -999,7 +999,7 @@
                   <center><strong><h:outputText value="#{msg['ingresarnuevosucursal']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="duplicarTS" style="border: none;">
 
-                     <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <strong><h:outputText value="*#{msg['codigosucursalNS']}" style="position: absolute; top: 75px; left: 42px;" /></strong>
                      <p:inputText  autocomplete="off"  id="duplicarucursalTS" value="#{controlTercero.duplicarTerceroSucursal.codigosucursal}" style="width: 122px; position: absolute; left: 220px; top: 70px; text-transform: uppercase">
                         <p:ajax event="change" update="duplicarucursalTS" process="@this"/>
                      </p:inputText>
@@ -1019,15 +1019,15 @@
 
                      <strong><h:outputText value="#{msg['ciudadNS']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
                      <p:inputText  autocomplete="off"  id="duplicarCiudadTS" value="#{controlTercero.duplicarTerceroSucursal.ciudad.nombre}" style="width: 122px; position: absolute; left: 220px; top: 160px; text-transform: uppercase" onclick="select();">
-                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>
+                        <p:ajax event="dblclick" listener="#{controlTercero.asignarIndexSucursales(infoTS,0,2)}"/>
                         <p:ajax event="click" listener="#{controlTercero.valoresBackupAutocompletar(2, 'CIUDAD',1)}" />
                         <p:ajax event="change" listener="#{controlTercero.autocompletarNuevoyDuplicadoTerceroSucursal('CIUDAD', controlTercero.duplicarTerceroSucursal.ciudad.nombre, 1)}" update="duplicarCiudadTS" process="@this"/>
                      </p:inputText>
-                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 345px; top: 160px;  " id="btnDuplicarCiudadTS" icon="ui-icon-search" process="@this"  actionListener="#{controlTercero.asignarIndex(indice,0,2,1)}"/>   
+                     <p:commandButton style="position: absolute; left: 355px; top: 163px;  " id="btnDuplicarCiudadTS" value=" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlTercero.asignarIndexSucursales(infoTS,0,2)}"/>   
                      <p:watermark for="duplicarCiudadTS" value="#{msg['ciudadWM']}" />
 
                      <p:commandButton icon="ui-icon-trash" id="limpiarDTS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarDTS" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 200px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicarTS()}"  />
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDTS" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 200px;"  process="@this" actionListener="#{controlTercero.confirmarDuplicarTS()}"  />
                      <p:commandButton icon="ui-icon-circle-close" id="cancelarDTS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 200px;" actionListener="#{controlTercero.limpiarDuplicarTerceroSucursal()}" update="nuevaTS" onclick="PF('DuplicarRegistroTerceroSucursal').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
@@ -1048,13 +1048,13 @@
                         <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresas').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
                      </f:facet>
 
-                     <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80px">
+                     <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nitE']}" />
                         </f:facet>
                         <h:outputText  value="#{empresa.nit}" />
                      </p:column>
-                     <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                     <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreE']}" />
                         </f:facet>

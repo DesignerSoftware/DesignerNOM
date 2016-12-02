@@ -124,7 +124,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.strMes}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase; min-width: 40px;"  >  
+                                            <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;"  >  
                                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
                                                 <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
@@ -1372,13 +1372,6 @@
                         <p:remoteCommand name="posicionParametro" actionListener="#{controlParametroAutoliq.posicionParametro()}"/>
 
                     </p:panel>
-                    <style>
-                        .ui-selectonemenu{
-                            height: 20px;
-                            margin : -4px;
-                        }
-
-                    </style>   
 
                 </h:form>
 

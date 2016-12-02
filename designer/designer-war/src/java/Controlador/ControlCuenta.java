@@ -98,7 +98,7 @@ public class ControlCuenta implements Serializable {
     public ControlCuenta() {
         empresaSeleccionada = new Empresas();
         activoDetalle = true;
-        altoTabla = "280";
+        altoTabla = "265";
         cuentaActual = null;
         listRubros = null;
         listCuentasTesoreria = null;
@@ -432,7 +432,7 @@ public class ControlCuenta implements Serializable {
 
     public void cancelarModificacion() {
         if (bandera == 1) {
-            altoTabla = "280";
+            altoTabla = "265";
             FacesContext c = FacesContext.getCurrentInstance();
             cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
             cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
@@ -601,7 +601,7 @@ public class ControlCuenta implements Serializable {
     public void agregarNuevoCuenta() {
         if (validarDatosNull(1) == true) {
             if (bandera == 1) {
-                altoTabla = "280";
+                altoTabla = "265";
                 FacesContext c = FacesContext.getCurrentInstance();
                 cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
                 cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
@@ -718,7 +718,7 @@ public class ControlCuenta implements Serializable {
         if (validarDatosNull(2) == true) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                altoTabla = "280";
+                altoTabla = "265";
                 cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
                 cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
                 cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
@@ -838,7 +838,7 @@ public class ControlCuenta implements Serializable {
 
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            altoTabla = "260";
+            altoTabla = "240";
             cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
             cuentaCodigo.setFilterStyle("width: 85% !important");
             cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
@@ -874,7 +874,7 @@ public class ControlCuenta implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosCuenta");
             bandera = 1;
         } else if (bandera == 1) {
-            altoTabla = "280";
+            altoTabla = "265";
             cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
             cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");
             cuentasDescripcion = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentasDescripcion");
@@ -917,7 +917,7 @@ public class ControlCuenta implements Serializable {
 
     public void salir() {
         if (bandera == 1) {
-            altoTabla = "280";
+            altoTabla = "265";
             FacesContext c = FacesContext.getCurrentInstance();
             cuentaCodigo = (Column) c.getViewRoot().findComponent("form:datosCuenta:cuentaCodigo");
             cuentaCodigo.setFilterStyle("display: none; visibility: hidden;");

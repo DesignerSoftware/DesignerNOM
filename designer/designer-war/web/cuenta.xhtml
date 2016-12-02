@@ -8,7 +8,14 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
+            <ui:define name="body">    
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $(".loader").fadeOut("slow");
+                    });
+                </script>
+                <div class="loader"></div>
+                <div style="position: static;"></div>
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.cuenta" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
@@ -77,14 +84,15 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
-
-                        <h:outputText value="#{msg['empresa']}" style="font-weight: bold; color: #14388B; position: relative; top: 40px; left: 120px"/>
-                        <h:outputText id="nombreEmpresa" value="#{controlCuenta.empresaActual.nombre}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 40px;"/>
-                        <h:outputText value="#{msg['nit']}" style="font-weight: bold; color: #14388B; position: relative; left: 230px; top: 40px;"/>
-                        <h:outputText id="nitEmpresa" value="#{controlCuenta.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 240px; top: 40px;"/>
-
-
-                        <fieldset style="position: absolute; left: 5px; top: 93px; width: 835px; height: 350px; border-radius: 10px;">
+                        
+                        <fieldset style="position: absolute; top: 75px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" value="#{msg['empresa']}"/>
+                        <h:outputText id="nombreEmpresa" value="#{controlCuenta.empresaActual.nombre}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 15px; top: 5px;"/>
+                        <h:outputText value="#{msg['nit']}" style="font-weight: bold; color: #14388B; position: relative; left: 175px; top: 5px;"/>
+                        <h:outputText id="nitEmpresa" value="#{controlCuenta.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 200px; top: 5px;"/>
+                        </fieldset>
+                        
+                        <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 360px; border-radius: 10px;">
                             <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
                             <p:dataTable id="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
@@ -103,7 +111,7 @@
                                     <p:commandButton action="detalleCuenta" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                                      value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}">
                                 <!--<p:ajax event="click"  listener="#{controlCuenta.verDetalle(infoC)}" oncomplete="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}"/>-->
-                                </p:commandButton>   
+                                    </p:commandButton>   
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -434,14 +442,14 @@
 
                             </p:dataTable>
 
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: relative; left: 0px; top: -1px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistro}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
 
                         </fieldset>
 
                         <p:commandButton id="BUSCARTODOS" value="" actionListener="#{controlCuenta.dialogoSeleccionarCuenta()}" process="@this"
-                                         style="position: absolute; left: 670px; top: 460px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
+                                         style="position: absolute; left: 670px; top: 450px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
                         <p:commandButton id="MOSTRARTODOS" value="" actionListener="#{controlCuenta.mostrarTodos()}" process="@this"
-                                         style="position: absolute; left: 765px; top: 460px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
+                                         style="position: absolute; left: 765px; top: 450px; width: 90px; height: 30px; border: none; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat;" />
 
                         <p:commandButton id="ACEPTAR" value="" disabled="#{controlCuenta.guardado}" onclick="PF('confirmarGuardarSalida').show();" process="@this" update=":form:datosCuenta"
                                          style="position: absolute; left: 670px; top: 500px; height: 30px; width: 90px; border: none; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat;"/>
@@ -480,11 +488,11 @@
                                 <h:outputText value="#{cuenta.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroContraCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroContraCuenta}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarCC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarCuenta()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
-                        <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioCuenta()}"  process="@this"/>
+                            <h:outputText id="infoRegistroContraCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroContraCuenta}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarCuenta()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
+                            <p:commandButton id="atrasCC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioCuenta()}"  process="@this"/>
                         </div>
                     </p:dialog>
 
@@ -514,11 +522,11 @@
                                 <h:outputText value="#{rubro.descripcion}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroRubro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroRubro}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarRP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarRubro()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
-                        <p:commandButton id="atrasRP" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioRubro()}" process="@this"/>
+                            <h:outputText id="infoRegistroRubro" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroRubro}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarRP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.actualizarRubro()}" disabled="#{controlCuenta.aceptar}"  process="@this"/>
+                            <p:commandButton id="atrasRP" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarCambioRubro()}" process="@this"/>
                         </div>
 
                     </p:dialog>
@@ -548,10 +556,10 @@
                                 <h:outputText  value="#{buscarC.descripcion}" />
                             </p:column>
                         </p:dataTable>
-                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroBuscarCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroBuscarCuenta}" class="cssinfoRegistroLOV" />
-                        <p:commandButton id="aceptarBC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.validarSeleccionCuenta()}" disabled="#{controlCuenta.aceptar}" process="@this"/>
-                        <p:commandButton id="atrasBC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarSeleccionCuenta()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroBuscarCuenta" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroBuscarCuenta}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarBC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" actionListener="#{controlCuenta.validarSeleccionCuenta()}" disabled="#{controlCuenta.aceptar}" process="@this"/>
+                            <p:commandButton id="atrasBC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlCuenta.cancelarSeleccionCuenta()}" process="@this"/>
                         </div>   
 
                     </p:dialog>
@@ -890,15 +898,15 @@
                                 <h:outputText  value="#{empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCuenta.aceptar}" actionListener="#{controlCuenta.actualizarEmpresa()}" update="aceptarE" process="@this">
-                            <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
-                        </p:commandButton>
-                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
-                            <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
-                        </p:commandButton>
+                            <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlCuenta.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCuenta.aceptar}" actionListener="#{controlCuenta.actualizarEmpresa()}" update="aceptarE" process="@this">
+                                <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
+                            </p:commandButton>
+                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}"  actionListener="#{controlCuenta.cancelarCambioEmpresa()}" update="lovEmpresas" process="@this">
+                                <p:resetInput target=":formularioDialogos:lovEmpresas:globalFilter"/>
+                            </p:commandButton>
                         </div>
                     </p:dialog>
 
@@ -921,18 +929,18 @@
                     <p:dialog id="editarCodigoACuentaD" header="#{msg['codigoalternativoE']}" widgetVar="editarCodigoACuentaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlCuenta.editarCuentas.codigoalternativo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
-                     <p:dialog id="editarContraCuentaTesoreria" header="#{msg['contraT']}" widgetVar="editarContraCuentaTesoreria" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                         <p:inputTextarea value="#{controlCuenta.editarCuentas.contracuentatesoreria.codigo}" style="overflow: auto;" readonly="true"/>
+
+                    <p:dialog id="editarContraCuentaTesoreria" header="#{msg['contraT']}" widgetVar="editarContraCuentaTesoreria" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuenta.editarCuentas.contracuentatesoreria.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    
+
                     <p:dialog id="existeCuenta" header="#{msg['error']}" widgetVar="existeCuenta"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['existeCuenta']}" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeCuenta').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
-                    
+
                 </h:form>
 
                 <h:form id="formExportarCuentas">

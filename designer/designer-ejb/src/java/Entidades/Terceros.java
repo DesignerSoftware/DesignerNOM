@@ -69,6 +69,8 @@ public class Terceros implements Serializable {
     private CentrosCostos centrocosto;
     @Transient
     private String strNit;
+    @Transient
+    private String strCodAlt;
 
     public Terceros() {
     }
@@ -96,13 +98,17 @@ public class Terceros implements Serializable {
         if (nit > 0) {
             strNit = String.valueOf(nit);
         } else {
-            strNit = " ";
+            strNit = "";
         }
         return strNit;
     }
 
     public void setStrNit(String strNit) {
-        nit = Long.parseLong(strNit);
+        if (strNit.equals("")) {
+            nit = 0;
+        } else {
+            nit = Long.parseLong(strNit);
+        }
         this.strNit = strNit;
     }
 
@@ -232,6 +238,38 @@ public class Terceros implements Serializable {
         this.centrocosto = centrocosto;
     }
 
+    public long getNit() {
+        return nit;
+    }
+
+    public void setNit(long nit) {
+        this.nit = nit;
+    }
+
+    public String getStrCodAlt() {
+        getCodigoalternativo();
+        if (codigoalternativo != null) {
+        if (codigoalternativo > 0) {
+            strCodAlt = String.valueOf(codigoalternativo);
+        }else{
+            strCodAlt = "";
+        }
+        } else {
+            strCodAlt = "";
+        }
+        return strCodAlt;
+    }
+
+    public void setStrCodAlt(String strCodAlt) {
+        if (strCodAlt.equals("")) {
+            codigoalternativo = Long.valueOf(0);
+        } else {
+            codigoalternativo = Long.parseLong(strCodAlt);
+        }
+
+        this.strCodAlt = strCodAlt;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -257,11 +295,4 @@ public class Terceros implements Serializable {
         return "Entidades.Terceros[ secuencia=" + secuencia + " ]";
     }
 
-    public long getNit() {
-        return nit;
-    }
-
-    public void setNit(long nit) {
-        this.nit = nit;
-    }
 }

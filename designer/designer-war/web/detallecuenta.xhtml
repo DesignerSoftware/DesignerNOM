@@ -9,7 +9,14 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
+            <ui:define name="body">   
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $(".loader").fadeOut("slow");
+                    });
+                </script>
+                <div class="loader"></div>
+                <div style="position: static;"></div>
                 <h:form id="form">
                     <f:loadBundle basename="Recursos.detallecuenta" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
@@ -83,7 +90,7 @@
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasDebito}" editable="true" editMode="cell" liveScroll="true" scrollRows="12"
                                          scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaDebito}" scrollWidth="830" emptyMessage="#{msg['vacio']}" 
                                          selection="#{controlDetalleCuenta.cuentaDebitoTablaSeleccionada}" selectionMode="single" style="border: 1px;width: 830px">
-                                
+
                                 <p:ajax event="filter" listener="#{controlDetalleCuenta.eventoFiltrarDebito()}"/>
                                 <p:column headerText="#{msg['fechainicial']}" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" 
                                           width="72" id="debitoFechaInicial" filterStyle="display: none; visibility: hidden;"  >  
