@@ -6338,6 +6338,23 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/tipocentrocosto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>grupostipocc</from-outcome>
+            <to-view-id>/grupotipocc.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/grupotipocc.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>grupostipocc</from-outcome>
+            <to-view-id>/tipocentrocosto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 
 
 

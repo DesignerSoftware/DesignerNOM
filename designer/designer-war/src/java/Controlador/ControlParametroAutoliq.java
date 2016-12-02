@@ -19,6 +19,7 @@ import InterfaceAdministrar.AdministrarRastrosInterface;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -310,7 +311,7 @@ public class ControlParametroAutoliq implements Serializable {
         }
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
-
+    
     public void modificarAporteEntidad(AportesEntidades aporte) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoListaAporte == 0) {
@@ -701,23 +702,17 @@ public class ControlParametroAutoliq implements Serializable {
             cualTabla = 1;
             parametroTablaSeleccionado = parametro;
             cualCelda = celda;
-            auxTipoTipoTrabajador = parametroTablaSeleccionado.getTipotrabajador().getNombre();
-            if (banderaAporte == 1) {
-                desactivarFiltradoAporteEntidad();
-                banderaAporte = 0;
-                filtrarListaAportesEntidades = null;
-                tipoListaAporte = 0;
-            }
             activoBtnsPaginas = false;
-            //RequestContext.getCurrentInstance().update("form:datosAporteEntidad2");
             visibilidadMostrarTodos = "hidden";
-//            RequestContext.getCurrentInstance().update("form:mostrarTodos");
-//            RequestContext.getCurrentInstance().update("form:novedadauto");
-//            RequestContext.getCurrentInstance().update("form:eliminarToda");
-//            RequestContext.getCurrentInstance().update("form:procesoLiq");
-//            RequestContext.getCurrentInstance().update("form:acumDif");
-//            RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
-//            RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
+            auxTipoTipoTrabajador = parametroTablaSeleccionado.getTipotrabajador().getNombre();
+
+            if (cualCelda == 0) {
+                parametroTablaSeleccionado.getAno();
+            } else if (cualCelda == 2) {
+                parametroTablaSeleccionado.getTipotrabajador().getNombre();
+            } else if (cualCelda == 3) {
+                parametroTablaSeleccionado.getEmpresa().getNombre();
+            }
             cargarDatosNuevos();
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         }
@@ -1406,7 +1401,7 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:nuevoAporteEntidad').hide()");
+        RequestContext.getCurrentInstance().execute("PF('nuevoAporteEntidad').hide()");
         if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1695,21 +1690,21 @@ public class ControlParametroAutoliq implements Serializable {
                     disabledBuscar = true;
                     visibilidadMostrarTodos = "hidden";
                     RequestContext.getCurrentInstance().update("form:mostrarTodos");
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     RequestContext.getCurrentInstance().update("form:buscar");
                     RequestContext.getCurrentInstance().update("form:infoRegistroAporte");
                     RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
                     RequestContext.getCurrentInstance().update("form:datosParametroAuto");
                     RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
                     activoBtnsPaginas = true;
-                    RequestContext.getCurrentInstance().update("form:novedadauto");
-                    RequestContext.getCurrentInstance().update("form:eliminarToda");
-                    RequestContext.getCurrentInstance().update("form:procesoLiq");
-                    RequestContext.getCurrentInstance().update("form:acumDif");
+//                    RequestContext.getCurrentInstance().update("form:novedadauto");
+//                    RequestContext.getCurrentInstance().update("form:eliminarToda");
+//                    RequestContext.getCurrentInstance().update("form:procesoLiq");
+//                    RequestContext.getCurrentInstance().update("form:acumDif");
                     System.out.println("El borrado fue realizado con éxito");
                     FacesMessage msg = new FacesMessage("Información", "El borrado fue realizado con éxito. Recuerde que los cambios manuales deben ser borrados manualmente");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
                 System.out.println("No hay información para borrar");
@@ -1738,13 +1733,8 @@ public class ControlParametroAutoliq implements Serializable {
                     boolean fechasIgualesInforme = true;
                     short ano = 0;
                     short mes = 0;
-                    if (tipoLista == 0) {
-                        ano = parametroTablaSeleccionado.getAno();
-                        mes = parametroTablaSeleccionado.getMes();
-                    } else {
-                        ano = parametroTablaSeleccionado.getAno();
-                        mes = parametroTablaSeleccionado.getMes();
-                    }
+                    ano = parametroTablaSeleccionado.getAno();
+                    mes = parametroTablaSeleccionado.getMes();
 
                     if ((parametroEstructura.getFechahastacausado().getMonth() + 1) != mes) {
                         fechasIgualesEstructura = false;
@@ -1773,6 +1763,7 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void procesoLiquidacionOK() {
         RequestContext context = RequestContext.getCurrentInstance();
+        
         try {
             if (guardado == false) {
                 System.out.println("entró a if 1");
@@ -1785,29 +1776,15 @@ public class ControlParametroAutoliq implements Serializable {
                 String procesoInsertar = " ";
                 String procesoActualizar = " ";
 
-                System.out.println("fechadesde : " + parametroEstructura.getFechadesdecausado());
-                System.out.println("fecha hasta:  " + parametroEstructura.getFechahastacausado());
-                System.out.println("tipo trabajador: " + parametroTablaSeleccionado.getTipotrabajador().getSecuencia());
-                System.out.println("empresa : " + parametroTablaSeleccionado.getEmpresa().getNombre());
-
-                if (tipoLista == 0) {
-                    System.out.println("entró a if 2");
-                    procesoInsertar = administrarParametroAutoliq.ejecutarPKGInsertar(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroTablaSeleccionado.getTipotrabajador().getSecuencia(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-                    System.out.println("procesoinsertar del if 2 : " + procesoInsertar);
-                    procesoActualizar = administrarParametroAutoliq.ejecutarPKGActualizarNovedades(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-                    System.out.println("procesoActualizar del if 2 : " + procesoActualizar);
-                } else {
-                    System.out.println("entró a else 1");
-                    procesoInsertar = administrarParametroAutoliq.ejecutarPKGInsertar(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroTablaSeleccionado.getTipotrabajador().getSecuencia(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-                    procesoActualizar = administrarParametroAutoliq.ejecutarPKGActualizarNovedades(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
-                }
+                System.out.println("entró a procesar los paquetes");
+                procesoInsertar = administrarParametroAutoliq.ejecutarPKGInsertar(parametroEstructura.getFechadesdecausado(), parametroEstructura.getFechahastacausado(), parametroTablaSeleccionado.getTipotrabajador().getSecuencia(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                procesoActualizar = administrarParametroAutoliq.ejecutarPKGActualizarNovedades(parametroTablaSeleccionado.getAno(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getEmpresa().getSecuencia());
+                System.out.println("procesoinsertar del if 2 : " + procesoInsertar);
+                System.out.println("procesoActualizar del if 2 : " + procesoActualizar);
                 if ((procesoInsertar.equals("PROCESO_EXITOSO")) && (procesoActualizar.equals("PROCESO_EXITOSO"))) {
                     System.out.println("entró a if 3");
                     System.out.println("procesoinsertar del if 3 : " + procesoInsertar);
                     System.out.println("procesoActualizar del if 3 : " + procesoActualizar);
-//                listaParametrosAutoliq = null;
-//                getListaParametrosAutoliq();
-//                modificarInfoRegistroParametro(listaParametrosAutoliq.size());
                     listaAportesEntidades = null;
                     getListaAportesEntidades();
                     contarRegistrosAporte();
@@ -1905,28 +1882,6 @@ public class ControlParametroAutoliq implements Serializable {
 //
                         boolean fechasIgualesEstructura = true;
                         boolean fechasIgualesInforme = true;
-//                    short ano = 0;
-//                    short mes = 0;
-//                    ano = getParametroTablaSeleccionado().getAno();
-//                    mes = getParametroTablaSeleccionado().getMes();
-////
-//                    System.out.println("Año al entrar al if : " + ano);
-//                    System.out.println("Mes al entrar al if : " + mes);
-//                    if ((parametroEstructura.getFechahastacausado().getMonth() + 1) != mes) {
-//                        fechasIgualesEstructura = false;
-//                    }
-//                    if ((parametroEstructura.getFechahastacausado().getYear() + 1900) != ano) {
-//                        fechasIgualesEstructura = false;
-//                    }
-//                    if ((parametroInforme.getFechahasta().getMonth() + 1) != mes) {
-//                        fechasIgualesInforme = false;
-//                    }
-//                    if ((parametroInforme.getFechahasta().getYear() + 1900) != ano) {
-//                        fechasIgualesInforme = false;
-//                    }
-//                    System.out.println("fechas iguales estructura : " + fechasIgualesEstructura);
-//                    System.out.println("fechas iguales informe : " + fechasIgualesInforme);
-
                         System.out.println("parada 2");
                         if (fechasIgualesEstructura == true && fechasIgualesInforme == true) {
                             System.out.println("entra a acumular dif ok");
@@ -3070,14 +3025,6 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoAporte').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-        }
-    }
-
-    public void recordarSeleccion() {
-        if (parametroTablaSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosParametroAuto");
-            tablaC.setSelection(parametroTablaSeleccionado);
         }
     }
 

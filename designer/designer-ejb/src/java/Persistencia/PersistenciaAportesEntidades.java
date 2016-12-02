@@ -4,6 +4,7 @@ import Entidades.AportesEntidades;
 import Entidades.TercerosAux;
 import InterfacePersistencia.PersistenciaAportesEntidadesInterface;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -85,14 +86,15 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
         try {
             em.clear();
             String sql = "SELECT a.* FROM AportesEntidades a \n"
-                    + "WHERE a.empresa =? AND a.ano =? AND a.mes =? \n"
+                    + "WHERE a.empresa = ? AND a.ano = ? AND a.mes = ? \n"
                     + "AND EXISTS(SELECT 'x' FROM Empleados e WHERE e.secuencia = a.empleado) ";
             Query query = em.createNativeQuery(sql, AportesEntidades.class);
             query.setParameter(1, secEmpresa);
             query.setParameter(2, ano);
             query.setParameter(3, mes);
-            List<AportesEntidades> aportesEntidades = query.getResultList();
 
+            List<AportesEntidades> aportesEntidades = query.getResultList();
+            System.out.println("lista aportes entidades : " + aportesEntidades.size());
             if (aportesEntidades != null) {
                 if (!aportesEntidades.isEmpty()) {
                     for (int i = 0; i < aportesEntidades.size(); i++) {
@@ -104,14 +106,12 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
                             }
                             Query query2 = em.createNativeQuery(sqlAux, TercerosAux.class);
                             TercerosAux tAux = (TercerosAux) query2.getSingleResult();
-//                        System.out.println("tAux : " + tAux);
                             aportesEntidades.get(i).setNombretercero(tAux.getNombretercero());
                             aportesEntidades.get(i).setNittercero(tAux.getNittercero());
                         }
                     }
                 }
             }
-
             return aportesEntidades;
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAño : " + e.toString());
@@ -142,14 +142,24 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGInsertar(EntityManager em, Date fechaIni, Date fechaFin, BigInteger tipoTrabajador, BigInteger secEmpresa) {
+        System.out.println("Persistencia.PersistenciaAportesEntidades.ejecutarPKGInsertar()");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaIncicial = formatoFecha.format(fechaIni);
+        String fechaFinal = formatoFecha.format(fechaFin);
+        System.out.println("ejecutarPKGInsertar fechaInicial: " + fechaIncicial);
+        System.out.println("ejecutarPKGInsertar fechaFinal: " + fechaFinal);
+        System.out.println("ejecutarPKGInsertar tipoTrabajador: " + tipoTrabajador);
+        System.out.println("ejecutarPKGInsertar secEmpresa: " + secEmpresa);
+        
+        
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
             String sqlQuery = "call APORTESENTIDADES_PKG.INSERTAR(?, ?, ?, ?)";
             Query query = em.createNativeQuery(sqlQuery);
-            query.setParameter(1, fechaIni);
-            query.setParameter(2, fechaFin);
+            query.setParameter(1, fechaIncicial);
+            query.setParameter(2, fechaFinal);
             query.setParameter(3, tipoTrabajador);
             query.setParameter(4, secEmpresa);
             query.executeUpdate();
@@ -166,6 +176,10 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGActualizarNovedades(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
+        System.out.println("Persistencia.PersistenciaAportesEntidades.ejecutarPKGActualizarNovedades()");
+        System.out.println("ejecutarPKGActualizarNovedades secEmpresa: " +secEmpresa );
+        System.out.println("ejecutarPKGActualizarNovedades mes: " +mes );
+        System.out.println("ejecutarPKGActualizarNovedades año: " +ano );
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {

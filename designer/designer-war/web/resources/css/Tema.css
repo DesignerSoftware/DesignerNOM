@@ -763,3 +763,8 @@ button .ui-widget-header{
 .cssScrollPanelsBusquedaAv .ui-tabs-selected a {
    height: 10px !important;
 }
+
+/*.ui-selectonemenu ui-widget ui-state-default ui-corner-all*/
+.ui-selectonemenu{
+    min-width: 0px !important;
+}

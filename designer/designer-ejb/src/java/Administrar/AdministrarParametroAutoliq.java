@@ -135,7 +135,10 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public List<AportesEntidades> consultarAportesEntidadesPorParametroAutoliq(BigInteger empresa, short mes, short ano) {
         try {
-            System.out.println("entró en: consultarAportesEntidadesPorParametroAutoliq ");
+            System.out.println("Administrar.AdministrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq()");
+            System.out.println("consultarAportesEntidadesPorParametroAutoliq  empresa:" + empresa);
+            System.out.println("consultarAportesEntidadesPorParametroAutoliq mes "+ mes);
+            System.out.println("consultarAportesEntidadesPorParametroAutoliq ano " + ano);
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
             System.out.println("ya tiene lista : " + lista.size());
             return lista;
@@ -202,15 +205,6 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
                     }
                 }
 
-//                if (listaAE.get(i).getTerceroRegistro() != null) {
-//                    if (listaAE.get(i).getTerceroRegistro().getSecuencia() == null) {
-//                        System.out.println("if 4 crearAportesEntidades");
-//                        listaAE.get(i).setTercero(null);
-//                    } else {
-//                        listaAE.get(i).setTercero(listaAE.get(i).getTerceroRegistro().getSecuencia());
-//
-//                    }
-//                }
                 persistenciaAportesEntidades.crear(em, listaAE.get(i));
             }
             System.out.println("sale del for crearAportesEntidades");
@@ -337,6 +331,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
 
     @Override
     public String ejecutarPKGActualizarNovedades(short ano, short mes, BigInteger secuencia) {
+        System.out.println("Administrar.AdministrarParametroAutoliq.ejecutarPKGActualizarNovedades()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
             return proceso;
@@ -348,6 +343,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
 
     @Override
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa) {
+        System.out.println("Administrar.AdministrarParametroAutoliq.ejecutarPKGInsertar()");
         try {
             String proceso = persistenciaAportesEntidades.ejecutarPKGInsertar(em, fechaIni, fechaFin, secTipoTrabajador, secuenciaEmpresa);
             return proceso;

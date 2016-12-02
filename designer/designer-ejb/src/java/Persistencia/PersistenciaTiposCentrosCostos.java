@@ -71,7 +71,7 @@ public class PersistenciaTiposCentrosCostos implements PersistenciaTiposCentrosC
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(TiposCentrosCostos);
+            em.remove(em.merge(TiposCentrosCostos));
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaTiposCentrosCostos.borrar: " + e);
