@@ -30,9 +30,11 @@ public class ParametrosContables implements Serializable {
     private Short monedaCodigo;
     @Column(name = "FECHAINICIALCONTABILIZACION")
     //@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechainicialcontabilizacion;
     @Column(name = "FECHAFINALCONTABILIZACION")
     //@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechafinalcontabilizacion;
     @Size(max = 30)
     @Column(name = "USUARIO")
@@ -73,7 +75,8 @@ public class ParametrosContables implements Serializable {
     @Column(name = "CHEQUERA")
     private String chequera;
     @Column(name = "FECHACONTABILIZACION")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechacontabilizacion;
     @JoinColumn(name = "PROCESO", referencedColumnName = "SECUENCIA")
     @ManyToOne

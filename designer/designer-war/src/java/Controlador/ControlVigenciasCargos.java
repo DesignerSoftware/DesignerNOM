@@ -1,6 +1,6 @@
 package Controlador;
 
-import Convertidores.MotivosCambiosCargosConverter;
+//import Convertidores.MotivosCambiosCargosConverter;
 import Entidades.*;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -76,7 +76,7 @@ public class ControlVigenciasCargos implements Serializable {
    private List<MotivosCambiosCargos> motivosCambiosCargos;
    private List<MotivosCambiosCargos> filterMotivos;
    private MotivosCambiosCargos motivoSeleccionado;
-   private MotivosCambiosCargosConverter motivoConverter;
+//   private MotivosCambiosCargosConverter motivoConverter;
    //Cargos
    private List<Cargos> cargos;
    private List<Cargos> filterCargos;
@@ -143,7 +143,7 @@ public class ControlVigenciasCargos implements Serializable {
       //Estructuras
       //Motivos
       motivoSeleccionado = null;
-      motivoConverter = new MotivosCambiosCargosConverter();
+//      motivoConverter = new MotivosCambiosCargosConverter();
       //Cargos
       //Otros
       formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
@@ -1626,14 +1626,14 @@ public class ControlVigenciasCargos implements Serializable {
    }
    //MotivoConverter--------------------------------------
 
-   public MotivosCambiosCargosConverter getMotivoConverter() {
+   /*public MotivosCambiosCargosConverter getMotivoConverter() {
       motivoConverter.setMo(getMotivosCambiosCargos());
       return motivoConverter;
    }
 
    public void setMotivoConverter(MotivosCambiosCargosConverter motivoConverter) {
       this.motivoConverter = motivoConverter;
-   }
+   }**/
    //CARGOS
    //Cargos------------------------------------------------
 

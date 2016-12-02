@@ -16,11 +16,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 //import javax.faces.bean.ManagedBean;
 //import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
@@ -28,6 +29,7 @@ import org.primefaces.context.RequestContext;
 //import org.primefaces.model.StreamedContent;
 
 @Named("controlInicioRed")
+//@ManagedBean
 @SessionScoped
 public class ControlInicioRed implements Serializable {
 
@@ -106,6 +108,7 @@ public class ControlInicioRed implements Serializable {
             if (!estadoInicio) {
                 // Iniciar sesión.
                 if (!baseDatos.equals("") && !usuario.equals("") && !contraseña.equals("")) {
+//                if ( (getBaseDatos() != null) && (getUsuario() != null) && (getContraseña() != null) ) {
                     // Utiliza los datos ingresados
                     if (administrarInicioRed.conexionInicial(baseDatos)) {
                         // La base de datos fue verificada.
@@ -378,6 +381,7 @@ public class ControlInicioRed implements Serializable {
     }
 
     public void setUsuario(String usuario) {
+//        System.out.println("usuario: "+usuario);
         this.usuario = usuario.toUpperCase();
     }
 
@@ -386,6 +390,7 @@ public class ControlInicioRed implements Serializable {
     }
 
     public void setContraseña(String contraseña) {
+//        System.out.println("Contraseña: "+contraseña);
         this.contraseña = contraseña;
     }
 
@@ -394,6 +399,7 @@ public class ControlInicioRed implements Serializable {
     }
 
     public void setBaseDatos(String baseDatos) {
+//        System.out.println("Base de datos: "+baseDatos);
         this.baseDatos = baseDatos.toUpperCase();
     }
 
