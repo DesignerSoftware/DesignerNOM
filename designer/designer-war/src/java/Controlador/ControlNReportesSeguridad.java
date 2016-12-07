@@ -99,7 +99,7 @@ public class ControlNReportesSeguridad implements Serializable {
     private SucursalesPila sucursalSeleccionada;
     private List<SucursalesPila> filtrarListSucursales;
     //EXPORTAR REPORTE
-    private String pathReporteGenerado = null;
+    private String pathReporteGenerado;
     private String nombreReporte, tipoReporte;
     private List<Inforeportes> listaInfoReportesModificados;
     private String color, decoracion;
@@ -107,7 +107,7 @@ public class ControlNReportesSeguridad implements Serializable {
     private int casillaInforReporte;
     private Date fechaDesde, fechaHasta;
     private BigDecimal emplDesde, emplHasta;
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     //VISUALIZAR REPORTE PDF
     private StreamedContent reporte;
     private String cabezeraVisor;
@@ -131,6 +131,8 @@ public class ControlNReportesSeguridad implements Serializable {
     public ControlNReportesSeguridad() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
+        pathReporteGenerado = null;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -221,11 +223,21 @@ public class ControlNReportesSeguridad implements Serializable {
         System.out.println(this.getClass().getName() + ".cancelarRequisitosReporte()");
         requisitosReporte = "";
     }
+    
+    private void activarEnvioCorreo(){
+        if (reporteSeleccionado != null) {
+            activarEnvio = false;
+        }else{
+            activarEnvio = true;
+        }
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
 
     public void seleccionRegistro() {
         System.out.println("Controlador.ControlNReportesSeguridad.seleccionRegistro()");
         RequestContext context = RequestContext.getCurrentInstance();
         // Resalto Parametros Para Reporte
+        activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
         System.out.println("reporteSeleccionado: " + reporteSeleccionado);
         System.out.println("reporteSeleccionado.getFecdesde(): " + reporteSeleccionado.getFecdesde());
@@ -920,6 +932,7 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:reportesSeguridad");
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametroL");
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
@@ -1661,6 +1674,14 @@ public class ControlNReportesSeguridad implements Serializable {
 
     public void setProceso(String proceso) {
         this.proceso = proceso;
+    }
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
     }
 
 }

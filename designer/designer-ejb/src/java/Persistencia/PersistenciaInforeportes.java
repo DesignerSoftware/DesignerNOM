@@ -186,6 +186,20 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
     public List<Inforeportes> buscarInforeportesUsuarioSeguridadSocial(EntityManager em) {
         try {
             em.clear();
+            Query query = em.createQuery("SELECT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'CAP' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
+            return inforeportes;
+        } catch (Exception e) {
+            System.out.println("Error en buscarInforeportesUsuario PersistenciaInforeportes : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Inforeportes> buscarInforeportesUsuarioCapacitacion(EntityManager em) {
+         try {
+            em.clear();
             Query query = em.createQuery("SELECT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'SES' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
@@ -195,4 +209,19 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             return null;
         }
     }
+    
+    @Override
+    public List<Inforeportes> buscarInforeportesUsuarioEvaluacionCompetencias(EntityManager em) {
+         try {
+            em.clear();
+            Query query = em.createQuery("SELECT ui.inforeporte FROM UsuariosInforeportes ui WHERE ui.inforeporte.modulo.nombrecorto = 'ECO' AND ui.usuario.alias = (SELECT a.alias FROM ActualUsuario a) ORDER BY ui.inforeporte.codigo DESC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Inforeportes> inforeportes = (List<Inforeportes>) query.getResultList();
+            return inforeportes;
+        } catch (Exception e) {
+            System.out.println("Error en buscarInforeportesUsuarioEvaluacionCompetencias PersistenciaInforeportes : " + e.toString());
+            return null;
+        }
+    }
+
 }

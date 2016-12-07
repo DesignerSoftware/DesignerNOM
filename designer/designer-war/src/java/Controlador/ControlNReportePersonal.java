@@ -126,7 +126,7 @@ public class ControlNReportePersonal implements Serializable {
     private int casillaInforReporte;
     private Date fechaDesde, fechaHasta;
     private BigDecimal emplDesde, emplHasta;
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     private String infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa, infoRegistroEstructura, infoRegistroTipoTrabajador, infoRegistroEstadoCivil, infoRegistroTipoTelefono, infoRegistroCiudad, infoRegistroDeporte, infoRegistroAficion, infoRegistroIdioma, infoRegistroJefe;
     private String infoRegistroReportes;
     private String infoRegistro;
@@ -145,6 +145,7 @@ public class ControlNReportePersonal implements Serializable {
         System.out.println("Controlador.ControlNReportePersonal.<init>()");
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -213,6 +214,7 @@ public class ControlNReportePersonal implements Serializable {
         System.out.println(this.getClass().getName() + ".iniciarPagina()");
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         getListaIR();
     }
 
@@ -270,6 +272,7 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void seleccionRegistro() {
+        activarEnvioCorreo();
         System.out.println(this.getClass().getName() + ".seleccionRegistro()");
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado);
@@ -379,7 +382,7 @@ public class ControlNReportePersonal implements Serializable {
             idiomaParametro.setStyle(idiomaParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:idiomaParametro");
         }
-
+//        activarEnvio = false;
         System.out.println("reporte seleccionado : " + inforreporteSeleccionado.getSecuencia());
     }
 
@@ -1153,6 +1156,15 @@ public class ControlNReportePersonal implements Serializable {
         aceptar = false;
     }
 
+    public void activarEnvioCorreo() {
+        if (inforreporteSeleccionado != null) {
+            activarEnvio = false;
+        } else {
+            activarEnvio = true;
+        }
+         RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
+
     public void actualizarEmplDesde() {
         permitirIndex = true;
         parametroDeReporte.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
@@ -1499,7 +1511,7 @@ public class ControlNReportePersonal implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cambiosReporte == true) {
                 contarRegistrosLovReportes();
-                contarRegistrosReportes();
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:ReportesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').show()");
             } else {
@@ -1553,7 +1565,7 @@ public class ControlNReportePersonal implements Serializable {
         aceptar = true;
         activoBuscarReporte = true;
         activoMostrarTodos = false;
-        contarRegistrosReportes();
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
@@ -1561,7 +1573,6 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
         RequestContext.getCurrentInstance().update("form:reportesPersonal");
-        contarRegistros();
     }
 
     public void cancelarSeleccionInforeporte() {
@@ -1581,7 +1592,7 @@ public class ControlNReportePersonal implements Serializable {
             for (int i = 0; i < lovInforeportes.size(); i++) {
                 listaIR.add(lovInforeportes.get(i));
             }
-            contarRegistrosReportes();
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             activoBuscarReporte = false;
             activoMostrarTodos = true;
@@ -1619,6 +1630,7 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:reportesPersonal");
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
@@ -1865,15 +1877,6 @@ public class ControlNReportePersonal implements Serializable {
         administarReportes.cancelarReporte();
     }
 
-    public void recordarSeleccion() {
-        System.out.println(this.getClass().getName() + ".recordarSeleccion()");
-        if (inforreporteSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tabla = (DataTable) c.getViewRoot().findComponent("form:reportesPersonal");
-            tabla.setSelection(inforreporteSeleccionado);
-        }
-    }
-
     //EVENTO FILTRAR
     public void eventoFiltrar() {
         contarRegistros();
@@ -1881,10 +1884,6 @@ public class ControlNReportePersonal implements Serializable {
 
     //CONTAR REGISTROS
     public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-    }
-
-    public void contarRegistrosReportes() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
@@ -1942,7 +1941,6 @@ public class ControlNReportePersonal implements Serializable {
 
     ///////////////////////////////SETS Y GETS/////////////////////////////
     public ParametrosReportes getParametroDeReporte() {
-        System.out.println("Controlador.ControlNReportePersonal.getParametroDeReporte()");
         try {
             if (parametroDeReporte == null) {
                 parametroDeReporte = new ParametrosReportes();
@@ -2578,6 +2576,14 @@ public class ControlNReportePersonal implements Serializable {
 
     public void setReporteLovSeleccionado(Inforeportes reporteLovSeleccionado) {
         this.reporteLovSeleccionado = reporteLovSeleccionado;
+    }
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
     }
 
 }

@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $(".loader").fadeOut("slow");
+                    });
+                </script>
+                <div class="loader"></div>
+                <div style="position: static;"></div>
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.nreportecapacitacion" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                        <p:toolbar styleClass="cssToolbar" style=" position: absolute; top: 40px; left: 20px; height: 24px">  
+                            <p:toolbarGroup align="left"> 
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlNReporteCapacitacion.guardarCambios()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " process="@this" actionListener="#{controlNReporteCapacitacion.editarCelda()}"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " process="@this" actionListener="#{controlNReporteCapacitacion.listaValoresBoton()}" />
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                               <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" 
+                                                id="filtrar" value="" actionListener="#{controlNReporteCapacitacion.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png)"/>
+                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/XML.png)">
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" disabled="true" value="" style="background-image: url(Imagenes/Iconos/pdf.png)"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/> 
+                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png)"/>  
+                                <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png)"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" disabled="true" style="background-image: url(Imagenes/Iconos/rastro.png)" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/> 
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png)" actionListener="#{controlNReporteCapacitacion.cancelarModificaciones()}"   process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)" actionListener="#{controlNReporteCapacitacion.salir()}" action="capacitacion"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; left: 150px; top: 180px; width: 690px; height: 281px; border-radius: 10px">
+
+                            <p:dataTable id="reportesCapacitacion" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 675px;"                           
+                                         value="#{controlNReporteCapacitacion.listaIR}" scrollable="true" scrollHeight="#{controlNReporteCapacitacion.altoTabla}" scrollWidth="696"
+                                         filteredValue="#{controlNReporteCapacitacion.filtrarListIRU}" selectionMode="single" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" selection="#{controlNReporteCapacitacion.reporteSeleccionado}" liveScroll="true" scrollRows="25">
+
+                                <p:ajax event="filter" listener="#{controlNReporteCapacitacion.eventoFiltrar()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlNReporteCapacitacion.seleccionRegistro()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.requisitosParaReporte()}" process="@this" />
+
+                                <p:column id="codigoIR" style="text-align: center" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <h:outputText value="#{info.codigo}"/>
+                                </p:column>
+
+                                <p:column id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                                    <h:outputText value="#{info.nombre}"/>
+                                </p:column>
+
+                                <p:column id="tipoIR" headerText="#{msg['tipo']}" width="60" style="padding: 0px;" > 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu value="#{info.tipo}"  style="width: 98%; font-weight: bold; ">  
+                                                <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF" />  
+                                                <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML" />  
+                                                <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS" />  
+                                                <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX" />  
+                                                <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV" />
+                                                <p:ajax event="change" listener="#{controlNReporteCapacitacion.modificacionTipoReporte(info)}" update=":form:reportesCapacitacion" />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column id="columnaGenerarR" width="19" style="padding-left: 5px;padding: 0px; text-align: center" >                                                              
+                                    <f:facet name="header">
+                                        <h:outputText id="GenerarR" value="R"/>
+                                        <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18" /></f:facet>  
+                                        <p:tooltip for="hacerReporte" value="#{msg['generarReporte']}"/>
+                                        <f:facet name="input">
+                                            <p:inputText id="EdGenerarR" autocomplete="off" value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" >
+                                                <p:ajax event="select" listener="#{controlNReporteCapacitacion.generarReporte(info)}" process="@this"/>
+                                            </p:inputText>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlNReporteCapacitacion.infoRegistro}" style="position: relative; left: 15px; top: 4px; font-weight: bold"/>
+
+                            <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 13px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" 
+                                             actionListener="#{controlNReporteCapacitacion.mostrarDialogoBuscarReporte()}" disabled="#{controlNReporteCapacitacion.activoBuscarReporte}"/>
+                            <p:tooltip  for="BUSCARREPORTE" value="#{msg['buscarReporte']}" />
+
+                            <p:commandButton id="MOSTRARTODOS" style="position: relative; left: 430px; top: 13px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosdb.png); 
+                                             background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""  process="@this" 
+                                             actionListener="#{controlNReporteCapacitacion.mostrarTodos()}" disabled="#{controlNReporteCapacitacion.activoMostrarTodos}" />
+                            <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
+                        </fieldset>
+                        <fieldset style="position: absolute; left: 10px; top: 180px; height: 281px; width: 115px; border-radius: 10px;">
+                            <h:outputText id="btn" style="position: absolute; left: 10px; top: 10px; background-image: url(Imagenes/Iconos/reporte.png); width:115px; height:268px; background-repeat: no-repeat; border: none; background-size: 100% 100%"/>
+                        </fieldset>
+
+                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
+                                         actionListener="#{controlNReporteCapacitacion.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteCapacitacion.cambiosReporte}" process="@this" />
+
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nomina" 
+                                         actionListener="#{controlNReporteCapacitacion.cancelarYSalir()}" process="@this" />
+
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteCapacitacion.activarEnvio}"
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportecapacitacion', controlNReporteCapacitacion.reporteSeleccionado.secuencia)}" process="@this" />
+                        <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
+                    </p:panel>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlNReporteCapacitacion.activarCtrlF11()}" process="@this"/> 
+                </h:form>
+
+                <h:form id="formParametros" style="position: absolute; top: 10px; left: 0px">
+                    <fieldset id="parametrosInforme" style="position: absolute; top: 85px; left: 18px; width: 835px; height: 63px; 
+                              border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
+                        <div id="fila1parametros" style="display: table-row;">
+                            <div style="position: absolute; width: 22%; top: 20px;">
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['fechadesde']}:" style="position: relative; top: 2px;"/>
+                                    <p:calendar id="fechaDesdeParametro" autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteCapacitacion.parametroDeReporte.fechadesde}"
+                                                style="position: absolute; width: 150px; left: 90px; top: 0px;">
+                                        <p:ajax event="click" listener="#{controlNReporteCapacitacion.posicionCelda(1)}" process="@this"/>
+                                        <p:ajax event="change" listener="#{controlNReporteCapacitacion.modificarParametroInforme()}" process="@this" update="fechaDesdeParametro"/>
+                                        <p:ajax event="dateSelect" listener="#{controlNReporteCapacitacion.modificarParametroInforme()}" process="@this" update="fechaDesdeParametro"/>
+                                    </p:calendar> 
+                                </div>
+                            </div>
+
+                            <div style="position: absolute; left: 188px; width: 22%; top: 20px;">
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['fechahasta']}:" style="position: relative; top: 2px;"/>
+                                    <p:calendar id="fechaHastaParametro" autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlNReporteCapacitacion.parametroDeReporte.fechahasta}"
+                                                style="position: absolute; left: 90px; top: 0px;">
+                                        <p:ajax event="click" listener="#{controlNReporteCapacitacion.posicionCelda(3)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlNReporteCapacitacion.modificarParametroInforme()}" process="@this" update="fechaHastaParametro"/>
+                                        <p:ajax event="dateSelect" listener="#{controlNReporteCapacitacion.modificarParametroInforme()}" process="@this" update="fechaHastaParametro"/>
+                                    </p:calendar> 
+                                </div>
+                            </div>
+
+                            <div style="position: absolute; left: 371px; width: 30%; top: 20px;">
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['empleadodesde']}:" style="position: relative; top: 2px;"/>
+                                    <p:inputText id="empleadoDesdeParametro" autocomplete="off" value="#{controlNReporteCapacitacion.parametroDeReporte.codigoempleadodesde}" 
+                                                 style="position: absolute; top: 0px; left: 112px; height: 15px; width: 100px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlNReporteCapacitacion.posicionCelda(2)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlNReporteCapacitacion.modificarParametroEmpleadoDesde(controlNReporteCapacitacion.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametro"  process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlNReporteCapacitacion.listaValoresBoton()}"/>
+                                    </p:inputText>
+                                </div>
+                            </div>
+
+                            <div style="position: absolute; left: 615px; width: 22%; top: 20px;">
+                                <div style="display: block;">
+                                    <h:outputText value="#{msg['empleadohasta']}:" style="position: relative; top: 2px;"/>
+                                    <p:inputText id="empleadoHastaParametro" autocomplete="off" value="#{controlNReporteCapacitacion.parametroDeReporte.codigoempleadohasta}" 
+                                                 style="position: absolute; top: 0px; left: 108px; height: 15px; width: 100px;" onclick="select();">
+                                        <p:ajax event="click" listener="#{controlNReporteCapacitacion.posicionCelda(4)}" process="@this"/> 
+                                        <p:ajax event="change" listener="#{controlNReporteCapacitacion.modificarParametroEmpleadoHasta(controlNReporteCapacitacion.parametroDeReporte.codigoempleadohasta)}" update="empleadoHastaParametro" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlNReporteCapacitacion.listaValoresBoton()}"/>
+                                    </p:inputText>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </h:form>
+
+                <h:form id="formDialogos">
+                    <p:dialog header="#{msg['reporteR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
+                              showEffect="fade" hideEffect="fade" width="470" modal="true" >
+                        <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReporteCapacitacion.listValInforeportes}" rowKey="#{reportes.secuencia}"
+                                     selection="#{controlNReporteCapacitacion.reporteSeleccionadoLOV}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="240"
+                                     filteredValue="#{controlNReporteCapacitacion.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25" >              
+
+                            <p:ajax event="filter" listener="#{controlNReporteCapacitacion.contarRegistrosLovReportes()}"/>                            
+                            <p:ajax event="rowSelect" listener="#{controlNReporteCapacitacion.activarAceptar()}" update=":formDialogos:aceptarR"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" immediate="true" />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarR']}"/>   
+                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}" />  
+                            </f:facet>
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
+                                <f:facet name="header" >
+                                    <h:outputText  value="#{msg['codigoR']}" />
+                                </f:facet>
+                                <h:outputText style="text-align: center" value="#{reportes.codigo}" />
+                            </p:column>
+
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%" sortBy="#{reportes.nombre}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreR']}" />
+                                </f:facet>
+                                <h:outputText value="#{reportes.nombre}" />
+                            </p:column>
+
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroReportes" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteCapacitacion.infoRegistroReportes}" />
+                            <p:commandButton id="aceptarR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteCapacitacion.aceptar}" icon="ui-icon-check"
+                                             actionListener="#{controlNReporteCapacitacion.actualizarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" process="@this" 
+                                             />
+                            <p:commandButton id="atrasR" class="cssAtrasLOV" value="#{msg['cancelar']}" 
+                                             actionListener="#{controlNReporteCapacitacion.cancelarSeleccionInforeporte()}" update=":formDialogos:lovReportesDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this" />
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="EmpleadoDesdeDialogo" header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false"   
+                              showEffect="fade" hideEffect="fade" width="440" modal="true" >
+                        <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteCapacitacion.listValEmpleados}" rowKey="#{empleadoDesde.secuencia}"
+                                     selection="#{controlNReporteCapacitacion.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="425" scrollHeight="250"
+                                     filteredValue="#{controlNReporteCapacitacion.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+
+                            <p:ajax event="filter" listener="#{controlNReporteCapacitacion.contarRegistrosEmpeladoD()}"/>    
+
+                            <p:ajax event="rowSelect" listener="#{controlNReporteCapacitacion.activarAceptar()}" update=":formDialogos:aceptarED"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarEmplDesde()}" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"  />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarEMP']}"/>  
+                                <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
+                            </f:facet>
+                            <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigooEMP']}" />
+                                </f:facet>
+                                <h:outputText value="#{empleadoDesde.codigoempleado}" />
+                            </p:column>
+                            <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreEMP']}" />
+                                </f:facet>
+                                <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleadoDesde" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteCapacitacion.infoRegistroEmpleadoDesde}"/>
+
+                            <p:commandButton id="aceptarED" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteCapacitacion.aceptar}" actionListener="#{controlNReporteCapacitacion.actualizarEmplDesde()}" 
+                                             icon="ui-icon-check" update=":formDialogos:EmpleadoDesdeDialogo" process="@this"/>
+
+                            <p:commandButton id="atrasED" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteCapacitacion.cancelarCambioEmplDesde()}" 
+                                             update=":formDialogos:EmpleadoDesdeDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"  />
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="EmpleadoHastaDialogo" header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false"  
+                              showEffect="fade" hideEffect="fade" width="440" modal="true" >
+                        <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteCapacitacion.listValEmpleados}" rowKey="#{empleadoHasta.secuencia}"
+                                     selection="#{controlNReporteCapacitacion.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="425" scrollHeight="250"
+                                     filteredValue="#{controlNReporteCapacitacion.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+
+                            <p:ajax event="filter" listener="#{controlNReporteCapacitacion.contarRegistrosEmpeladoH()}"/>    
+
+                            <p:ajax event="rowSelect" listener="#{controlNReporteCapacitacion.activarAceptar()}" update=":formDialogos:aceptarEH"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarEmplHasta()}" update=":formDialogos:EmpleadoHastaDialogo" process="@this"   />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarEMPH']}"/>  
+                                <p:inputText class="cssFiltroLOV" autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" value="#{filtrado}"/>  
+                            </f:facet>
+                            <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['codigooEMPH']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empleadoHasta.codigoempleado}" />
+                            </p:column>
+                            <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreEMPH']}" />
+                                </f:facet>
+                                <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleadoHasta" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteCapacitacion.infoRegistroEmpleadoHasta}"/>
+
+                            <p:commandButton id="aceptarEH" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteCapacitacion.aceptar}" actionListener="#{controlNReporteCapacitacion.actualizarEmplHasta()}" 
+                                             icon="ui-icon-check" update=":formDialogos:EmpleadoHastaDialogo" process="@this" />
+
+                            <p:commandButton id="atrasEH" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteCapacitacion.cancelarCambioEmplHasta()}"
+                                             update=":formDialogos:EmpleadoHastaDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
+                              showEffect="fade" hideEffect="fade" width="440" modal="true" >
+                        <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteCapacitacion.listValEmpresas}" rowKey="#{empresa.secuencia}"
+                                     selection="#{controlNReporteCapacitacion.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="425" scrollHeight="180"
+                                     filteredValue="#{controlNReporteCapacitacion.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
+
+                            <p:ajax event="filter" listener="#{controlNReporteCapacitacion.contarRegistrosEmpresa()}"/>
+
+                            <p:ajax event="rowSelect" listener="#{controlNReporteCapacitacion.activarAceptar()}" update=":formDialogos:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNReporteCapacitacion.actualizarEmpresa()}" update=":formDialogos:EmpresaDialogo" process="@this"   />
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarE']}"/>  
+                                <p:inputText id="globalFilter" class="cssFiltroLOV" autocomplete="off" onkeyup="PF('lovEmpresa').filter();" value="#{filtrado}"/>  
+                            </f:facet>
+                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['nitE']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nit}" />
+                            </p:column>
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                <f:facet name="header">
+                                    <h:outputText style="text-align: center" value="#{msg['nombreE']}" />
+                                </f:facet>
+                                <h:outputText  value="#{empresa.nombre}" />
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpresa" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlNReporteCapacitacion.infoRegistroEmpresa}"/>
+
+                            <p:commandButton id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNReporteCapacitacion.aceptar}" actionListener="#{controlNReporteCapacitacion.actualizarEmpresa()}" 
+                                             icon="ui-icon-check" update=":formDialogos:EmpresaDialogo" process="@this" />
+
+                            <p:commandButton id="atrasE" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNReporteCapacitacion.cancelarEmpresa()}" 
+                                             icon="ui-icon-arrowreturnthick-1-w" update=":formDialogos:EmpresaDialogo" process="@this" />
+                        </div>
+                    </p:dialog>
+                    <p:dialog id="editarFechaDesde" header="#{msg['editarFechaDesde']}" widgetVar="editarFechaDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.parametroDeReporte.fechadesde}" style="overflow: auto;" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaHasta" header="#{msg['editarFechaHasta']}" widgetVar="editarFechaHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.parametroDeReporte.fechahasta}" style="overflow: auto;" readonly="true">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="empleadoDesde" header="#{msg['empleadoDesde']}" widgetVar="empleadoDesde" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.parametroDeReporte.codigoempleadodesde}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="empleadoHasta" header="#{msg['empleadoHasta']}" widgetVar="empleadoHasta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.parametroDeReporte.codigoempleadohasta}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="empresa" header="#{msg['empresaaE']}" widgetVar="empresa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.parametroDeReporte.empresa.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="reporteAGenerar" header="#{msg['reporteAGenerar']}" widgetVar="reporteAGenerar" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <h:outputText value="#{controlNReporteCapacitacion.reporteGenerar}" style="overflow: auto; width: 200px; height: 40px"/>
+                        <p:commandButton id="cancelarReporteSeleccionado" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('reporteAGenerar').hide();" actionListener="#{controlNReporteCapacitacion.cancelarGenerarReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="requisitosReporte" header="#{msg['requisitosReporte']}" widgetVar="requisitosReporte" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+                        <h:outputText value="#{controlNReporteCapacitacion.requisitosReporte}" style="overflow: auto; width: 200px; height: 40px"/>
+                        <p:commandButton id="cancelarRequisitoReporte" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('requisitosReporte').hide();" actionListener="#{controlNReporteCapacitacion.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+                    </p:dialog>
+
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReporteCapacitacion.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="descargarReporte" widgetVar="descargarReporte" header="#{msg['informacion']}" resizable="false" draggable="true" modal="true" height="90" width="330" style="font-size: 12px;" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/descargar.gif" width="50" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                        <h:outputText value="#{msg['mensajeExitoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <p:commandButton value="#{msg['descargar']}" icon="ui-icon-download" actionListener="#{controlNReporteCapacitacion.exportarReporte()}" style="position: absolute; top: 50px; left: 100px;" process="@this" ajax="false" onclick="PF('descargarReporte').hide();"/>
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('descargarReporte').hide();" style="position: absolute; top: 50px; left: 212px;" process="@this" />
+                    </p:dialog> 
+
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlNReporteCapacitacion.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+                    </p:dialog>
+
+                    <p:dialog id="verReportePDF" widgetVar="verReportePDF" header="#{controlNReporteCapacitacion.cabezeraVisor}" style="width: 802px; height: 490px;" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlNReporteCapacitacion.reporte}" style="width: 800px; height: 500px;" player="pdf" rendered="#{controlNReporteCapacitacion.reporte != null}"/>
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteCapacitacion.reiniciarStreamedContent()}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

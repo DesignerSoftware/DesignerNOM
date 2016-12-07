@@ -100,7 +100,7 @@ public class ControlNReporteLaboral implements Serializable {
     private Date fechaDesde, fechaHasta;
     private BigDecimal emplDesde, emplHasta;
     //
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     private String infoRegistroReportes, infoRegistroCargo, infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa;
     private String infoRegistro;
     private String nombreReporte, tipoReporte;
@@ -114,6 +114,7 @@ public class ControlNReporteLaboral implements Serializable {
     public ControlNReporteLaboral() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -185,11 +186,18 @@ public class ControlNReporteLaboral implements Serializable {
         requisitosReporte = "";
     }
 
+    public void activarEnvioCorreo() {
+        if (inforreporteSeleccionado != null) {
+            activarEnvio = false;
+        }else{
+            activarEnvio = true;
+        }
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
+
     public void seleccionRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        //reporteSeleccionado = reporte;
-        // Resalto Parametros Para Reporte
-        System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado);
+        activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
         if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
@@ -279,7 +287,7 @@ public class ControlNReporteLaboral implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } 
+            }
         } catch (Exception e) {
             System.out.println("Ingrese Catch");
             System.out.println("Error en guardar Cambios Controlador : " + e.toString());
@@ -526,6 +534,7 @@ public class ControlNReporteLaboral implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:reportesLaboral");
     }
@@ -571,7 +580,7 @@ public class ControlNReporteLaboral implements Serializable {
         } else if (tipo.equals("CSV")) {
             inforreporteSeleccionado.setTipo("CSV");
         }
-        
+
         System.out.println("tipo modificado : " + inforreporteSeleccionado.getTipo());
         System.out.println("listaInfoReportesModificados: " + listaInfoReportesModificados);
         if (listaInfoReportesModificados.isEmpty()) {
@@ -953,7 +962,7 @@ public class ControlNReporteLaboral implements Serializable {
                 out.close();
                 ctx.responseComplete();
             }
-        }else {
+        } else {
             System.out.println("validar descarga reporte - ingreso al if 1 else");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
@@ -1385,6 +1394,14 @@ public class ControlNReporteLaboral implements Serializable {
 
     public void setCabezeraVisor(String cabezeraVisor) {
         this.cabezeraVisor = cabezeraVisor;
+    }
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
     }
 
 }

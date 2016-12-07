@@ -6461,8 +6461,21 @@
         </navigation-case>
     </navigation-rule>
 
-
-
-
+ <navigation-rule>
+        <from-view-id>/nreportebienestar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>enviocorreo</from-outcome>
+            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nreportebienestar</from-outcome>
+            <to-view-id>/reportesbancos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
 

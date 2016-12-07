@@ -6,7 +6,6 @@ package Controlador;
 
 import Entidades.*;
 import InterfaceAdministrar.AdministarReportesInterface;
-import InterfaceAdministrar.AdministrarInforeportesInterface;
 import InterfaceAdministrar.AdministrarNReportesNominaInterface;
 import java.io.*;
 import java.math.BigDecimal;
@@ -24,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import org.apache.poi.hssf.record.PageBreakRecord;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -125,7 +125,7 @@ public class ControlNReporteNomina implements Serializable {
     private Date fechaDesde, fechaHasta;
     private BigDecimal emplDesde, emplHasta;
     //MOSTRAR TODOS
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     //VISUALIZAR REPORTE PDF
     private StreamedContent reporte;
     private String cabezeraVisor;
@@ -146,6 +146,7 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".Constructor()");
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -216,6 +217,7 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".iniciarPagina()");
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         getListaIR();
     }
 
@@ -501,6 +503,7 @@ public class ControlNReporteNomina implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:reportesNomina");
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
@@ -531,21 +534,27 @@ public class ControlNReporteNomina implements Serializable {
         contarRegistros();
     }
 
+    public void activarEnvioCorreo() {
+        if (reporteSeleccionado != null) {
+            activarEnvio = false;
+        } else {
+            activarEnvio = true;
+        }
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
+
     public void seleccionRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        //reporteSeleccionado = reporte;
-        // Resalto Parametros Para Reporte
+        activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
         if (reporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
             RequestContext.getCurrentInstance().update("formParametros");
         }
-        System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
         if (reporteSeleccionado.getFechasta().equals("SI")) {
             color2 = "red";
             RequestContext.getCurrentInstance().update("formParametros");
         }
-        System.out.println("reporteSeleccionado.getEmdesde(): " + reporteSeleccionado.getEmdesde());
         if (reporteSeleccionado.getEmdesde().equals("SI")) {
             empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
             //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
@@ -565,43 +574,36 @@ public class ControlNReporteNomina implements Serializable {
             }
         }
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-
-        System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
         if (reporteSeleccionado.getEmhasta().equals("SI")) {
             empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
             //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
             empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         }
-        System.out.println("reporteSeleccionado.getGrupo(): " + reporteSeleccionado.getGrupo());
         if (reporteSeleccionado.getGrupo() != null && reporteSeleccionado.getGrupo().equals("SI")) {
             grupoParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:grupoParametro");
             //grupoParametro.setStyle("position: absolute; top: 89px; left: 150px; height: 10px; font-size: 11px; width: 130px; color: red;");
             grupoParametro.setStyle(grupoParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:grupoParametro");
         }
-        System.out.println("reporteSeleccionado.getLocalizacion(): " + reporteSeleccionado.getLocalizacion());
         if (reporteSeleccionado.getLocalizacion().equals("SI")) {
             estructuraParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estructuraParametro");
             //estructuraParametro.setStyle("position: absolute; top: 20px; left: 625px;height: 10px; font-size: 11px;width: 180px; color: red;");
             estructuraParametro.setStyle(estructuraParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
         }
-        System.out.println("reporteSeleccionado.getTipotrabajador(): " + reporteSeleccionado.getTipotrabajador());
         if (reporteSeleccionado.getTipotrabajador().equals("SI")) {
             tipoTrabajadorParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:tipoTrabajadorParametro");
             //tipoTrabajadorParametro.setStyle("position: absolute; top: 43px; left: 625px;height: 10px; font-size: 11px; width: 180px; color: red;");
             tipoTrabajadorParametro.setStyle(tipoTrabajadorParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
         }
-        System.out.println("reporteSeleccionado.getTercero(): " + reporteSeleccionado.getTercero());
         if (reporteSeleccionado.getTercero().equals("SI")) {
             terceroParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:terceroParametro");
             //terceroParametro.setStyle("position: absolute; top: 66px; left: 625px; height: 10px; font-size: 11px; width: 180px; color: red;");
             terceroParametro.setStyle(terceroParametro.getStyle() + "color: red;");
             RequestContext.getCurrentInstance().update("formParametros:terceroParametro");
         }
-        System.out.println("reporteSeleccionado.getEstado(): " + reporteSeleccionado.getEstado());
         if (reporteSeleccionado.getEstado().equals("SI")) {
             estadoParametro = (SelectOneMenu) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoParametro");
             estadoParametro.setStyleClass("selectOneMenuNReporteN");
@@ -651,6 +653,8 @@ public class ControlNReporteNomina implements Serializable {
     public void modificacionTipoReporte(Inforeportes reporte) {
         System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
         reporteSeleccionado = reporte;
+        System.out.println("reporteSeleccionado: " + reporteSeleccionado);
+        System.out.println("Tipo reporteSeleccionado: " + reporteSeleccionado.getTipo());
         cambiosReporte = false;
         if (listaInfoReportesModificados.isEmpty()) {
             listaInfoReportesModificados.add(reporteSeleccionado);
@@ -668,8 +672,12 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         reporteSeleccionado = reporte;
         seleccionRegistro();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
         generarDocumentoReporte();
+    }
+
+    public void generandoReport() {
+        System.out.println("Controlador.ControlNReporteNomina.generandoReport()");
+        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
     }
 
     /*
@@ -763,7 +771,7 @@ public class ControlNReporteNomina implements Serializable {
 //    }
     public void exportarReporte() throws IOException {
         System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null) {
+        if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
             FileInputStream fis = new FileInputStream(reporteF);
@@ -782,6 +790,10 @@ public class ControlNReporteNomina implements Serializable {
                 out.close();
                 ctx.responseComplete();
             }
+        } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
@@ -820,7 +832,7 @@ public class ControlNReporteNomina implements Serializable {
                     RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
                     RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                 }
-                pathReporteGenerado = null;
+//                pathReporteGenerado = null;
             }
         } else {
             System.out.println("validar descarga reporte - ingreso al if 1 else");
@@ -905,6 +917,7 @@ public class ControlNReporteNomina implements Serializable {
             for (int i = 0; i < listValInforeportes.size(); i++) {
                 listaIR.add(listValInforeportes.get(i));
             }
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             activoBuscarReporte = false;
             activoMostrarTodos = true;
@@ -2439,4 +2452,13 @@ public class ControlNReporteNomina implements Serializable {
     public void setReporteSeleccionado(Inforeportes inforreporteSeleccionado) {
         this.reporteSeleccionado = inforreporteSeleccionado;
     }
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
+    }
+
 }

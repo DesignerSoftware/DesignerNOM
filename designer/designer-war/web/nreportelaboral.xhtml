@@ -153,7 +153,8 @@
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" action="nomina" actionListener="#{controlNReporteLaboral.salir()}" process="@this" />
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteLaboral.activarEnvio}"
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                     </p:panel>
@@ -161,11 +162,11 @@
                 </h:form>
 
                 <h:form id="formParametros" style="position: absolute; top: 11px; left: 4px">
-                    <fieldset id="parametrosInforme" style="position: absolute; top: 85px; left: 18px; width: 835px; height: 160px; 
+                    <fieldset id="parametrosInforme" style="position: absolute; top: 85px; left: 18px; width: 835px; height: 96px; 
                               border-radius: 3px; padding: 0px; display: table; border-spacing: 5px;">
 
                         <div id="fila1parametros" style="display: table-row;">
-                            <div id="marcoizquierdo" style="display: inline-block; width: 55%; background-color: white; position: absolute; height: 90%; margin-top: 5px;" >
+                            <div id="marcoizquierdo" style="display: inline-block; width: 55%; background-color: white; position: absolute; height: 76px; margin-top: 5px;" >
 
                                 <div style="position: absolute; width: 50%">
                                     <div style="display: block;">

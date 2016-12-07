@@ -74,7 +74,7 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
     }
 
     @Override
-    public List<Evalconvocatorias> consultarEvalConvocatorias(EntityManager em,BigInteger secuenciaEmpleado) {
+    public List<Evalconvocatorias> consultarEvalConvocatorias(EntityManager em, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
             String sql = "SELECT * FROM EVALCONVOCATORIAS WHERE EXISTS(SELECT 'X' FROM EVALRESULTADOSCONV B \n"
@@ -85,6 +85,20 @@ public class PersistenciaEvalConvocatorias implements PersistenciaEvalConvocator
             return evalconvocatorias;
         } catch (Exception e) {
             System.out.println("Error en PersistenciaEvalConvocatorias.consultarEvalConvocatorias ERROR" + e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Evalconvocatorias> consultarEvalConvocatorias(EntityManager em) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT ec FROM Evalconvocatorias ec ORDER BY ec.codigo ");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Evalconvocatorias> evalConvocatorias = query.getResultList();
+            return evalConvocatorias;
+        } catch (Exception e) {
+            System.out.println("Error Persistencia.PersistenciaEvalConvocatorias.consultarEvalConvocatorias(): " + e);
             return null;
         }
     }

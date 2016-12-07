@@ -127,7 +127,8 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=" " action="nomina" actionListener="#{controlReportesBancos.salir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 512px; top: 483px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlReportesBancos.activarEnvio}"
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/> 

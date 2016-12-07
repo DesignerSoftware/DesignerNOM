@@ -169,7 +169,8 @@
                                          actionListener="#{controlNReporteContabilidad.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportecontabilidad', controlNReporteContabilidad.inforreporteSeleccionado.secuencia)}" process="@this"/>
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteContabilidad.activarEnvio}"
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportecontabilidad', controlNReporteContabilidad.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                         <p:commandButton id="UGPP" icon="ui-icon-extlink" style="position: absolute; left: 150px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;

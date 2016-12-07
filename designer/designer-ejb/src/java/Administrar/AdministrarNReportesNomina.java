@@ -100,6 +100,7 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
 
+    @Override
     public ParametrosReportes parametrosDeReporte() {
         try {
             if (usuarioActual == null) {

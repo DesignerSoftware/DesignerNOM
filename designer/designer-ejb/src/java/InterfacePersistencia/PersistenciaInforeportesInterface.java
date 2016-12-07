@@ -67,6 +67,7 @@ public interface PersistenciaInforeportesInterface {
      * Método encargado de buscar los Inforeportes de Banco permitidos para el
      * usuario actualmente conectado.
      *
+     * @param em
      * @return Retorna una lista de Inforeportes
      */
     public List<Inforeportes> buscarInforeportesUsuarioBanco(EntityManager em);
@@ -84,6 +85,7 @@ public interface PersistenciaInforeportesInterface {
      * Método encargado de buscar los Inforeportes de Personal permitidos para
      * el usuario actualmente conectado.
      *
+     * @param em
      * @return Retorna una lista de Inforeportes
      */
     public List<Inforeportes> buscarInforeportesUsuarioPersonal(EntityManager em);
@@ -97,6 +99,14 @@ public interface PersistenciaInforeportesInterface {
      */
     public List<Inforeportes> buscarInforeportesUsuarioBienestar(EntityManager em);
 
+    /**
+     *
+     * @param em
+     * @return
+     */
     public List<Inforeportes> buscarInforeportesUsuarioSeguridadSocial(EntityManager em);
+    
+    public List<Inforeportes> buscarInforeportesUsuarioCapacitacion(EntityManager em);
 
+    public List<Inforeportes> buscarInforeportesUsuarioEvaluacionCompetencias(EntityManager em);
 }

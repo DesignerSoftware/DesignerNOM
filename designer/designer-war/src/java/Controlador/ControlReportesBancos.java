@@ -116,7 +116,7 @@ public class ControlReportesBancos implements Serializable {
     private String infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa, infoRegistroTipoTrabajador, infoRegistroProceso, infoRegistroBanco, infoRegistroCiudad;
     private String infoRegistro, infoRegistroReportes;
     //MOSTRAR TODOS
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     //LOV INFOREPORTES
     private List<Inforeportes> listValInforeportes;
     private Inforeportes reporteSeleccionadoLOV;
@@ -133,6 +133,7 @@ public class ControlReportesBancos implements Serializable {
     public ControlReportesBancos() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -214,7 +215,17 @@ public class ControlReportesBancos implements Serializable {
         }
     }
 
+    private void activarEnvioCorreo(){
+        if (inforreporteSeleccionado != null) {
+            activarEnvio = false;
+        }else{
+            activarEnvio = true;
+        }
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
+    
     public void seleccionRegistro() {
+        activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
         if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
@@ -977,6 +988,7 @@ public class ControlReportesBancos implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:reportesBancos");
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametroL");
         RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
@@ -1703,6 +1715,14 @@ public class ControlReportesBancos implements Serializable {
 
     public void setPathReporteGenerado(String pathReporteGenerado) {
         this.pathReporteGenerado = pathReporteGenerado;
+    }
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
     }
 
 }

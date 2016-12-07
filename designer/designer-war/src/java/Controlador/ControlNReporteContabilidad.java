@@ -84,7 +84,7 @@ public class ControlNReporteContabilidad implements Serializable {
     //
     private boolean aceptar, cambiosReporte;
     private boolean permitirIndex;
-    private boolean activoMostrarTodos, activoBuscarReporte;
+    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
     //
     private Column codigoIR, reporteIR, tipoIR;
     //
@@ -120,6 +120,7 @@ public class ControlNReporteContabilidad implements Serializable {
     public ControlNReporteContabilidad() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        activarEnvio = true;
         color = "black";
         decoracion = "none";
         color2 = "black";
@@ -341,6 +342,7 @@ public class ControlNReporteContabilidad implements Serializable {
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:reportesContabilidad");
         RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametroL");
@@ -360,11 +362,18 @@ public class ControlNReporteContabilidad implements Serializable {
         contarRegistros();
     }
 
+    private void activarEnvioCorreo() {
+        if (inforreporteSeleccionado != null) {
+            activarEnvio = false;
+        } else {
+            activarEnvio = false;
+        }
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+    }
+
     public void seleccionRegistro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado);
-        //reporteSeleccionado = reporte;
-        // Resalto Parametros Para Reporte
+        activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
         if (inforreporteSeleccionado.getFecdesde().equals("SI")) {
             color = "red";
@@ -1311,6 +1320,13 @@ public class ControlNReporteContabilidad implements Serializable {
     public void setCabezeraVisor(String cabezeraVisor) {
         this.cabezeraVisor = cabezeraVisor;
     }
-    
-    
+
+    public boolean isActivarEnvio() {
+        return activarEnvio;
+    }
+
+    public void setActivarEnvio(boolean activarEnvio) {
+        this.activarEnvio = activarEnvio;
+    }
+
 }
