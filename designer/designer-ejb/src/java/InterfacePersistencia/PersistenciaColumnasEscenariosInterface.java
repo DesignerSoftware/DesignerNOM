@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package InterfacePersistencia;
 
 import ClasesAyuda.ColumnasBusquedaAvanzada;
@@ -20,8 +19,8 @@ import javax.persistence.EntityManager;
  * @author PROYECTO01
  */
 public interface PersistenciaColumnasEscenariosInterface {
-    
-    public List<ColumnasEscenarios> buscarColumnasEscenarios(EntityManager em);
+
+   public List<ColumnasEscenarios> buscarColumnasEscenarios(EntityManager em);
 
    /**
     *
@@ -31,6 +30,9 @@ public interface PersistenciaColumnasEscenariosInterface {
     * @return
     */
    public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCorteCodigoEmpleado(EntityManager em, List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
-   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em,List<BigInteger> listaEmpleadosResultados);
-    
+
+   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigo(EntityManager em, List<BigInteger> listaEmpleadosResultados);
+
+   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(EntityManager em, List<BigInteger> listaEmpleadosResultados, List<String> campos);
+
 }

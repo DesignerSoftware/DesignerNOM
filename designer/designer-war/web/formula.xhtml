@@ -102,8 +102,8 @@
                               <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18" /></f:facet>  
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
-                                    <p:ajax event="select" listener="#{controlFormula.verDetalle(formula)}" immediate="#{controlHistoriaFormula.recibirFormula(formula.secuencia)}"
-                                            onstart="PF('datosFormulas').unselectAllRows();PF('datosFormulas').selectRow(#{indice});"/>
+                                    <p:ajax event="select" listener="#{controlFormula.verDetalle(formula)}"
+                                            onstart="#{controlHistoriaFormula.recibirFormulaYPagina(formula, 'retornoFormula')}"/>
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>

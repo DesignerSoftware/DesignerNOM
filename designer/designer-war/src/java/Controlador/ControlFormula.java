@@ -866,6 +866,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void verDetalle(Formulas formula) {
+      System.out.println("Controlador.ControlFormula.verDetalle()");
       unaVez = true;
       regSolucion = -1;
       nombreLargoMientras = "0";

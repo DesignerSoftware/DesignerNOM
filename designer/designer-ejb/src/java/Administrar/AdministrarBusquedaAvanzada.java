@@ -325,11 +325,10 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       //try {
       usoWhere = false;
       String query = "";
-      int tam = listaParametro.size();
-      if (tam > 0) {
+      if (listaParametro.size() > 0) {
          int i = 0;
          List<String> listaPorModulo = listaParametrosPorModulos(listaParametro);
-         while (i < tam) {
+         while (i < listaParametro.size()) {
             String modulo = listaParametro.get(i).getModulo();
             List<ParametrosQueryBusquedaAvanzada> listaAuxiliar = new ArrayList<ParametrosQueryBusquedaAvanzada>();
             int indiceInicial = i;
@@ -352,6 +351,14 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       //System.out.println("Error armarQueryModulosBusquedaAvanzada Admi : " + e.toString());
       //return "";
       //}
+   }
+
+   private List<String> listaParametrosPorModulos(List<ParametrosQueryBusquedaAvanzada> listaAuxiliar) {
+      List<String> retorno = new ArrayList<String>();
+      for (int i = 0; i < listaAuxiliar.size(); i++) {
+         retorno.add(listaAuxiliar.get(i).getModulo());
+      }
+      return retorno;
    }
 
    private String crearQueryPorModulo(List<ParametrosQueryBusquedaAvanzada> listaAuxiliar) {
@@ -1223,14 +1230,6 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
       return queryAux;
    }
 
-   private List<String> listaParametrosPorModulos(List<ParametrosQueryBusquedaAvanzada> listaAuxiliar) {
-      List<String> retorno = new ArrayList<String>();
-      for (int i = 0; i < listaAuxiliar.size(); i++) {
-         retorno.add(listaAuxiliar.get(i).getModulo());
-      }
-      return retorno;
-   }
-
    @Override
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos) {
       try {
@@ -1251,6 +1250,18 @@ public class AdministrarBusquedaAvanzada implements AdministrarBusquedaAvanzadaI
          return retorno;
       } catch (Exception e) {
          System.out.println("Error obtenerQVWEmpleadosCorteParaEmpleado Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(List<BigInteger> listaCodigosEmpleados, List<String> campos) {
+      try {
+         System.out.println("Administrar.AdministrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         List<ResultadoBusquedaAvanzada> retorno = persistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(em, listaCodigosEmpleados, campos);
+         return retorno;
+      } catch (Exception e) {
+         System.out.println("Error obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos Administrar : " + e.toString());
          return null;
       }
    }

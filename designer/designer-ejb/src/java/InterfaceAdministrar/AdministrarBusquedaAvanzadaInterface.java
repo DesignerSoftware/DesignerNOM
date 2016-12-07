@@ -1,11 +1,12 @@
 package InterfaceAdministrar;
 
-import ClasesAyuda.ColumnasBusquedaAvanzada;
 import ClasesAyuda.ParametrosQueryBusquedaAvanzada;
 import Entidades.*;
 import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 
+@Local
 public interface AdministrarBusquedaAvanzadaInterface {
 
    public void obtenerConexion(String idSesion);
@@ -89,6 +90,14 @@ public interface AdministrarBusquedaAvanzadaInterface {
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCorteParaEmpleado(List<ResultadoBusquedaAvanzada> listaEmpleadosResultados, List<String> campos);
 
    public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigo(List<BigInteger> listaCodigosEmpleados);
+   
+   /**
+    *
+    * @param listaCodigosEmpleados
+    * @param campos
+    * @return
+    */
+   public List<ResultadoBusquedaAvanzada> obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(List<BigInteger> listaCodigosEmpleados, List<String> campos);
 
    public List<Parametros> empleadosParametros();
 

@@ -252,6 +252,14 @@ public class ControlBusquedaAvanzada implements Serializable {
    private String infoRegistro;
    private boolean aceptar;
    private String anchoTablaResultados;
+   private String txt_vcargo_cargo, txt_vcargo_empleadoJefe_Per, txt_vcargo_estructura, txt_vcargo_estructura_CC, txt_vcargo_motivoCam, txt_vcargo_papel,
+           txt_vlocalizacion_locali, txt_vlocalizacion_motivo, txt_vlocalizacion_proyecto, txt_vsueldo_motivo, txt_vsueldo_tipoS,
+           txt_vtipoContrato_ciudad, txt_vtipoContrato_motivo, txt_vtipoContrato_tipoCont, txt_vtipoTrab_tipoTrab,
+           txt_vreformaL_ReforLab, txt_vcontrato_contrato, txt_vubicacion_ubic, txt_vubicacion_ciudad, txt_vafiliacion_estado,
+           txt_vafiliacion_tercSuc, txt_vafiliacion_tipoEntidad, txt_vformapago_formaP, txt_vformapago_sucursal, txt_mvrs_motivo, txt_vnorma_norma,
+           txt_vjornada_jornada, txtP_empleado_per_ciudadNac, txtP_empleado_per_ciudadDoc, txtP_empleado_per_tipoDoc, txtP_estadoCivil, txtP_idiomap_idioma,
+           txtP_vindicador_indic, txtP_vindicador_tipoIndi, txtP_vFormal_institu, txtP_vFormal_profecion, txtP_vNoformal_curso, txtP_vNoformal_institu,
+           txtP_experLab_SectorEco, txtP_experLab_motivo, txtP_vproyecto_proyect, txtP_vproyecto_rol, txtP_cargoPostul, txt_motivoRet;
 
    public ControlBusquedaAvanzada() {
       //Inicializar objeto de negocio
@@ -260,7 +268,176 @@ public class ControlBusquedaAvanzada implements Serializable {
 
       parametros.getParametrosBusquedaNomina().setVigenciaCargo(new VigenciasCargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(new Cargos());
-//      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleado(new Empleados());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(new Empleados());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().setPersona(new Personas());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(new Estructuras());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setCentrocosto(new CentrosCostos());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(new MotivosCambiosCargos());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(new Papeles());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaLocalizacion(new VigenciasLocalizaciones());
+      parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(new Estructuras());
+      parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(new MotivosLocalizaciones());
+      parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setProyecto(new Proyectos());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaSueldo(new VigenciasSueldos());
+      parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(new MotivosCambiosSueldos());
+      parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(new TiposSueldos());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaTipoContrato(new VigenciasTiposContratos());
+      parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setCiudad(new Ciudades());
+      parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(new MotivosContratos());
+      parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(new TiposContratos());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaTipoTrabajador(new VigenciasTiposTrabajadores());
+      parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(new TiposTrabajadores());
+      parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().setTipocotizante(new TiposCotizantes());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaReformasLaboral(new VigenciasReformasLaborales());
+      parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(new ReformasLaborales());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaContrato(new VigenciasContratos());
+      parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(new Contratos());
+      parametros.getParametrosBusquedaNomina().getVigenciaContrato().setTipocontrato(new TiposContratos());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaUbicacion(new VigenciasUbicaciones());
+      parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(new UbicacionesGeograficas());
+      parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().setCiudad(new Ciudades());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaAfiliacion(new VigenciasAfiliaciones());
+      parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(new EstadosAfiliaciones());
+      parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(new TercerosSucursales());
+      parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(new TiposEntidades());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaFormaPago(new VigenciasFormasPagos());
+      parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(new Periodicidades());
+      parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(new Sucursales());
+
+      parametros.getParametrosBusquedaNomina().setMvrs(new Mvrs());
+      parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(new Motivosmvrs());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaNormaEmpleado(new VigenciasNormasEmpleados());
+      parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(new NormasLaborales());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaJornada(new VigenciasJornadas());
+      parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(new JornadasLaborales());
+      parametros.getParametrosBusquedaNomina().getVigenciaJornada().setTipodescanso(new TiposDescansos());
+
+      parametros.getParametrosBusquedaNomina().setMotivosRetiros(new MotivosRetiros());
+
+      parametros.setParametrosBusquedaPersonal(new ParametrosBusquedaPersonal());
+      parametros.getParametrosBusquedaPersonal().setEmpleado(new Empleados());
+      parametros.getParametrosBusquedaPersonal().getEmpleado().setEmpresa(new Empresas());
+      parametros.getParametrosBusquedaPersonal().getEmpleado().setPersona(new Personas());
+      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(new Ciudades());
+      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(new Ciudades());
+      parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setTipodocumento(new TiposDocumentos());
+
+      parametros.getParametrosBusquedaPersonal().setEstadoCivil(new EstadosCiviles());
+      parametros.getParametrosBusquedaPersonal().setIdiomaPersona(new IdiomasPersonas());
+      parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(new Idiomas());
+
+      parametros.getParametrosBusquedaPersonal().setVigenciaIndicador(new VigenciasIndicadores());
+      parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(new Indicadores());
+      parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(new TiposIndicadores());
+
+      parametros.getParametrosBusquedaPersonal().setVigenciaFormal(new VigenciasFormales());
+      parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(new Profesiones());
+      parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(new Instituciones());
+
+      parametros.getParametrosBusquedaPersonal().setVigenciaNoFormal(new VigenciasNoFormales());
+      parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(new Cursos());
+      parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(new Instituciones());
+
+      parametros.getParametrosBusquedaPersonal().setHvExperienciaLaboral(new HvExperienciasLaborales());
+      parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setHojadevida(new HVHojasDeVida());
+      parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setMotivoretiro(new MotivosRetiros());
+      parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(new SectoresEconomicos());
+
+      parametros.getParametrosBusquedaPersonal().setVigenciaProyecto(new VigenciasProyectos());
+      parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(new Proyectos());
+      parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryCargoproyecto(new Cargos());
+      parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(new PryRoles());
+
+      parametros.getParametrosBusquedaPersonal().setCargo(new Cargos());
+
+      //Inicializar variables visibilidad
+      vTipoBusqueda = "Nomina"; //Por defecto al ingresar la opción sera Nomina.
+      vTipoFechaCargo = "false";
+      vTipoFechaCentroCosto = "false";
+      vTipoFechaSueldo = "false";
+      vTipoFechaTipoContrato = "false";
+      vTipoFechaTipoTrabajador = "false";
+      vTipoFechaReformaLaboral = "false";
+      vTipoFechaLegislacion = "false";
+      vTipoFechaUbicacion = "false";
+      vTipoFechaAfiliacion = "false";
+      vTipoFechaFormaPago = "false";
+      vTipoFechaMvr = "false";
+      vTipoFechaSet = "false";
+      vTipoFechaNormaLaboral = "false";
+      vTipoFechaDatosPersonales = "false";
+      vTipoFechaEstadoCivil = "false";
+      vTipoFechaCenso = "false";
+      vTipoFechaEducacionFormal = "false";
+      vTipoFechaEducacionNoFormal = "false";
+      infoRegistro = "";
+      aceptar = true;
+      anchoTablaResultados = 800 + "px";
+
+      txt_vcargo_cargo = "";
+      txt_vcargo_empleadoJefe_Per = "";
+      txt_vcargo_estructura_CC = "";
+      txt_vcargo_estructura = "";
+      txt_vcargo_motivoCam = "";
+      txt_vcargo_papel = "";
+      txt_vlocalizacion_locali = "";
+      txt_vlocalizacion_motivo = "";
+      txt_vlocalizacion_proyecto = "";
+      txt_vsueldo_motivo = "";
+      txt_vsueldo_tipoS = "";
+      txt_vtipoContrato_ciudad = "";
+      txt_vtipoContrato_motivo = "";
+      txt_vtipoContrato_tipoCont = "";
+      txt_vtipoTrab_tipoTrab = "";
+      txt_vreformaL_ReforLab = "";
+      txt_vcontrato_contrato = "";
+      txt_vubicacion_ubic = "";
+      txt_vubicacion_ciudad = "";
+      txt_vafiliacion_estado = "";
+      txt_vafiliacion_tercSuc = "";
+      txt_vafiliacion_tipoEntidad = "";
+      txt_vformapago_formaP = "";
+      txt_vformapago_sucursal = "";
+      txt_mvrs_motivo = "";
+      txt_vnorma_norma = "";
+      txt_vjornada_jornada = "";
+      txtP_empleado_per_ciudadNac = "";
+      txtP_empleado_per_ciudadDoc = "";
+      txtP_empleado_per_tipoDoc = "";
+      txtP_estadoCivil = "";
+      txtP_idiomap_idioma = "";
+      txtP_vindicador_indic = "";
+      txtP_vindicador_tipoIndi = "";
+      txtP_vFormal_institu = "";
+      txtP_vFormal_profecion = "";
+      txtP_vNoformal_curso = "";
+      txtP_vNoformal_institu = "";
+      txtP_experLab_SectorEco = "";
+      txtP_experLab_motivo = "";
+      txtP_vproyecto_proyect = "";
+      txtP_vproyecto_rol = "";
+      txtP_cargoPostul = "";
+      txt_motivoRet = "";
+   }
+
+   public void cancelarModificaciones() {
+      //Inicializar objeto de negocio
+      parametros = new ParametrosBusquedaAvanzada();
+      parametros.setParametrosBusquedaNomina(new ParametrosBusquedaNomina());
+
+      parametros.getParametrosBusquedaNomina().setVigenciaCargo(new VigenciasCargos());
+      parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(new Cargos());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(new Empleados());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().setPersona(new Personas());
       parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(new Estructuras());
@@ -296,6 +473,7 @@ public class ControlBusquedaAvanzada implements Serializable {
 
       parametros.getParametrosBusquedaNomina().setVigenciaUbicacion(new VigenciasUbicaciones());
       parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(new UbicacionesGeograficas());
+      parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().setCiudad(new Ciudades());
 
       parametros.getParametrosBusquedaNomina().setVigenciaAfiliacion(new VigenciasAfiliaciones());
       parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setConcepto(new Conceptos());
@@ -321,6 +499,8 @@ public class ControlBusquedaAvanzada implements Serializable {
       parametros.getParametrosBusquedaNomina().setVigenciaJornada(new VigenciasJornadas());
       parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(new JornadasLaborales());
       parametros.getParametrosBusquedaNomina().getVigenciaJornada().setTipodescanso(new TiposDescansos());
+
+      parametros.getParametrosBusquedaNomina().setMotivosRetiros(new MotivosRetiros());
 
       parametros.setParametrosBusquedaPersonal(new ParametrosBusquedaPersonal());
       parametros.getParametrosBusquedaPersonal().setEmpleado(new Empleados());
@@ -391,6 +571,51 @@ public class ControlBusquedaAvanzada implements Serializable {
       infoRegistro = "";
       aceptar = true;
       anchoTablaResultados = 800 + "px";
+
+      txt_vcargo_cargo = "";
+      txt_vcargo_empleadoJefe_Per = "";
+      txt_vcargo_estructura_CC = "";
+      txt_vcargo_estructura = "";
+      txt_vcargo_motivoCam = "";
+      txt_vcargo_papel = "";
+      txt_vlocalizacion_locali = "";
+      txt_vlocalizacion_motivo = "";
+      txt_vlocalizacion_proyecto = "";
+      txt_vsueldo_motivo = "";
+      txt_vsueldo_tipoS = "";
+      txt_vtipoContrato_ciudad = "";
+      txt_vtipoContrato_motivo = "";
+      txt_vtipoContrato_tipoCont = "";
+      txt_vtipoTrab_tipoTrab = "";
+      txt_vreformaL_ReforLab = "";
+      txt_vcontrato_contrato = "";
+      txt_vubicacion_ubic = "";
+      txt_vubicacion_ciudad = "";
+      txt_vafiliacion_estado = "";
+      txt_vafiliacion_tercSuc = "";
+      txt_vafiliacion_tipoEntidad = "";
+      txt_vformapago_formaP = "";
+      txt_vformapago_sucursal = "";
+      txt_mvrs_motivo = "";
+      txt_vnorma_norma = "";
+      txt_vjornada_jornada = "";
+      txtP_empleado_per_ciudadNac = "";
+      txtP_empleado_per_ciudadDoc = "";
+      txtP_empleado_per_tipoDoc = "";
+      txtP_estadoCivil = "";
+      txtP_idiomap_idioma = "";
+      txtP_vindicador_indic = "";
+      txtP_vindicador_tipoIndi = "";
+      txtP_vFormal_institu = "";
+      txtP_vFormal_profecion = "";
+      txtP_vNoformal_curso = "";
+      txtP_vNoformal_institu = "";
+      txtP_experLab_SectorEco = "";
+      txtP_experLab_motivo = "";
+      txtP_vproyecto_proyect = "";
+      txtP_vproyecto_rol = "";
+      txtP_cargoPostul = "";
+      txt_motivoRet = "";
    }
 
    @PostConstruct
@@ -410,7 +635,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    //METODOS AUTOCOMPLETAR
-   public void autocompletarParametros(String cualParametro, String valorConfirmar) {
+   public void autocompletarParametros(String cualParametro, String valor) {
+      System.out.println("autocompletarParametros() valor : __" + valor + "__");
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
 
@@ -421,1200 +647,1142 @@ public class ControlBusquedaAvanzada implements Serializable {
       }
 
       if (cualParametro.equals("CARGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(new Cargos());
+         if (lovCargos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovCargos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovCargos != null) {
-               for (int i = 0; i < lovCargos.size(); i++) {
-                  if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vcargo_cargo = "";
+         } else if (lovCargos != null) {
+            for (int i = 0; i < lovCargos.size(); i++) {
+               if (lovCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(lovCargos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:DialogoCargos");
-                  RequestContext.getCurrentInstance().execute("PF('DialogoCargos').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(lovCargos.get(indiceUnicoElemento));
+               txt_vcargo_cargo = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getNombre();
+            } else {
+               txt_vcargo_cargo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:DialogoCargos");
+               RequestContext.getCurrentInstance().execute("PF('DialogoCargos').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("ESTRUCTURA")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(new Estructuras());
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().setCentrocosto(new CentrosCostos());
+         if (lovEstructuras == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovEstructuras == null) {
-               requerirLOV(cualParametro);
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vcargo_estructura_CC = "";
+            txt_vcargo_estructura = "";
+         } else if (lovEstructuras != null) {
+            for (int i = 0; i < lovEstructuras.size(); i++) {
+               if (lovEstructuras.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
+               }
             }
-
-            if (lovEstructuras != null) {
-               for (int i = 0; i < lovEstructuras.size(); i++) {
-                  if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
-               }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(lovEstructuras.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:EstructuraDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
-               }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(lovEstructuras.get(indiceUnicoElemento));
+               txt_vcargo_estructura_CC = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getCentrocosto().getNombre();
+               txt_vcargo_estructura = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getNombre();
             } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
+               txt_vcargo_estructura_CC = "";
+               txt_vcargo_estructura = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:EstructuraDialogo");
+               RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("JEFE")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().setNombreCompleto(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(new Empleados());
+         if (lovJefe == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovJefe == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovJefe != null) {
-               for (int i = 0; i < lovJefe.size(); i++) {
-                  if (lovJefe.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vcargo_empleadoJefe_Per = "";
+         } else if (lovJefe != null) {
+            for (int i = 0; i < lovJefe.size(); i++) {
+               if (lovJefe.get(i).getPersona().getNombreCompleto().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(lovJefe.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:JefeDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('JefeDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(lovJefe.get(indiceUnicoElemento));
+               txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().getNombreCompleto();
+            } else {
+               txt_vcargo_empleadoJefe_Per = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:JefeDialogo");
+               RequestContext.getCurrentInstance().execute("PF('JefeDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVOCARGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(new MotivosCambiosCargos());
+         if (lovMotivosCargos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosCargos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosCargos != null) {
-               for (int i = 0; i < lovMotivosCargos.size(); i++) {
-                  if (lovMotivosCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vcargo_motivoCam = "";
+         } else if (lovMotivosCargos != null) {
+            for (int i = 0; i < lovMotivosCargos.size(); i++) {
+               if (lovMotivosCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(lovMotivosCargos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCargoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoCargoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(lovMotivosCargos.get(indiceUnicoElemento));
+               txt_vcargo_motivoCam = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getNombre();
+            } else {
+               txt_vcargo_motivoCam = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCargoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoCargoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("PAPEL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(new Papeles());
+         if (lovPapeles == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovPapeles == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovPapeles != null) {
-               for (int i = 0; i < lovPapeles.size(); i++) {
-                  if (lovPapeles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (lovPapeles != null) {
+            for (int i = 0; i < lovPapeles.size(); i++) {
+               if (lovPapeles.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(lovPapeles.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:PapelCargoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('PapelCargoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(lovPapeles.get(indiceUnicoElemento));
+               txt_vcargo_papel = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getDescripcion();
+            } else {
+               txt_vcargo_papel = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:PapelCargoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('PapelCargoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("LOCALIZACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(new Estructuras());
+         if (lovEstructuras == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovEstructuras == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovEstructuras != null) {
-               for (int i = 0; i < lovEstructuras.size(); i++) {
-                  if (lovEstructuras.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vlocalizacion_locali = "";
+         } else if (lovEstructuras != null) {
+            for (int i = 0; i < lovEstructuras.size(); i++) {
+               if (lovEstructuras.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(lovEstructuras.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:LocalizacionCentroCostoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('LocalizacionCentroCostoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(lovEstructuras.get(indiceUnicoElemento));
+               txt_vlocalizacion_locali = parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getNombre();
+            } else {
+               txt_vlocalizacion_locali = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:LocalizacionCentroCostoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('LocalizacionCentroCostoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVOLOCALIZACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(new MotivosLocalizaciones());
+         if (lovMotivosLocalizaciones == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosLocalizaciones == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosLocalizaciones != null) {
-               for (int i = 0; i < lovMotivosLocalizaciones.size(); i++) {
-                  if (lovMotivosLocalizaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vlocalizacion_motivo = "";
+         } else if (lovMotivosLocalizaciones != null) {
+            for (int i = 0; i < lovMotivosLocalizaciones.size(); i++) {
+               if (lovMotivosLocalizaciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCentroCostoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoCentroCostoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(lovMotivosLocalizaciones.get(indiceUnicoElemento));
+               txt_vlocalizacion_motivo = parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getDescripcion();
+            } else {
+               txt_vlocalizacion_motivo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoCentroCostoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoCentroCostoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TIPOSUELDO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(new TiposSueldos());
+         if (lovTiposSueldos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTiposSueldos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTiposSueldos != null) {
-               for (int i = 0; i < lovTiposSueldos.size(); i++) {
-                  if (lovTiposSueldos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vsueldo_tipoS = "";
+         } else if (lovTiposSueldos != null) {
+            for (int i = 0; i < lovTiposSueldos.size(); i++) {
+               if (lovTiposSueldos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TipoSueldoSueldoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TipoSueldoSueldoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(lovTiposSueldos.get(indiceUnicoElemento));
+               txt_vsueldo_tipoS = parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getDescripcion();
+            } else {
+               txt_vsueldo_tipoS = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TipoSueldoSueldoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TipoSueldoSueldoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVOSUELDO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(new MotivosCambiosSueldos());
+         if (lovMotivosSueldos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosSueldos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosSueldos != null) {
-               for (int i = 0; i < lovMotivosSueldos.size(); i++) {
-                  if (lovMotivosSueldos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vsueldo_motivo = "";
+         } else if (lovMotivosSueldos != null) {
+            for (int i = 0; i < lovMotivosSueldos.size(); i++) {
+               if (lovMotivosSueldos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(lovMotivosSueldos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoSueldoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoSueldoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(lovMotivosSueldos.get(indiceUnicoElemento));
+               txt_vsueldo_motivo = parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getNombre();
+            } else {
+               txt_vsueldo_motivo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoSueldoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoSueldoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TIPOCONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(new TiposContratos());
+         if (lovTiposContratos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTiposContratos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTiposContratos != null) {
-               for (int i = 0; i < lovTiposContratos.size(); i++) {
-                  if (lovTiposContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vtipoContrato_tipoCont = "";
+         } else if (lovTiposContratos != null) {
+            for (int i = 0; i < lovTiposContratos.size(); i++) {
+               if (lovTiposContratos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TipoContratoFechaContratoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TipoContratoFechaContratoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(lovTiposContratos.get(indiceUnicoElemento));
+               txt_vtipoContrato_tipoCont = parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getNombre();
+            } else {
+               txt_vtipoContrato_tipoCont = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TipoContratoFechaContratoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TipoContratoFechaContratoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVOCONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(new MotivosContratos());
+         if (lovMotivosContratos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosContratos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosContratos != null) {
-               for (int i = 0; i < lovMotivosContratos.size(); i++) {
-                  if (lovMotivosContratos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vtipoContrato_motivo = "";
+         } else if (lovMotivosContratos != null) {
+            for (int i = 0; i < lovMotivosContratos.size(); i++) {
+               if (lovMotivosContratos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaContratoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoFechaContratoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(lovMotivosContratos.get(indiceUnicoElemento));
+               txt_vtipoContrato_motivo = parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getNombre();
+            } else {
+               txt_vtipoContrato_motivo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaContratoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoFechaContratoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TIPOTRABAJADOR")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(new TiposTrabajadores());
+         if (lovTiposTrabajadores == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTiposTrabajadores == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTiposTrabajadores != null) {
-               for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
-                  if (lovTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vtipoTrab_tipoTrab = "";
+         } else if (lovTiposTrabajadores != null) {
+            for (int i = 0; i < lovTiposTrabajadores.size(); i++) {
+               if (lovTiposTrabajadores.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorTipoTrabajadorDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(lovTiposTrabajadores.get(indiceUnicoElemento));
+               txt_vtipoTrab_tipoTrab = parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getNombre();
+            } else {
+               txt_vtipoTrab_tipoTrab = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TipoTrabajadorTipoTrabajadorDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorTipoTrabajadorDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("REFORMALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(new ReformasLaborales());
+         if (lovReformasLaborales == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovReformasLaborales == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovReformasLaborales != null) {
-               for (int i = 0; i < lovReformasLaborales.size(); i++) {
-                  if (lovReformasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vreformaL_ReforLab = "";
+         } else if (lovReformasLaborales != null) {
+            for (int i = 0; i < lovReformasLaborales.size(); i++) {
+               if (lovReformasLaborales.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:ReformaLaboralTipoSalarioDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('ReformaLaboralTipoSalarioDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(lovReformasLaborales.get(indiceUnicoElemento));
+               txt_vreformaL_ReforLab = parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getNombre();
+            } else {
+               txt_vreformaL_ReforLab = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:ReformaLaboralTipoSalarioDialogo");
+               RequestContext.getCurrentInstance().execute("PF('ReformaLaboralTipoSalarioDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CONTRATO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(new Contratos());
+         if (lovContratos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovContratos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovContratos != null) {
-               for (int i = 0; i < lovContratos.size(); i++) {
-                  if (lovContratos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vcontrato_contrato = "";
+         } else if (lovContratos != null) {
+            for (int i = 0; i < lovContratos.size(); i++) {
+               if (lovContratos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(lovContratos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:LegislacionLegislacionLaboralDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('LegislacionLegislacionLaboralDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(lovContratos.get(indiceUnicoElemento));
+               txt_vcontrato_contrato = parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getDescripcion();
+            } else {
+               txt_vcontrato_contrato = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:LegislacionLegislacionLaboralDialogo");
+               RequestContext.getCurrentInstance().execute("PF('LegislacionLegislacionLaboralDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("UBICACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(new UbicacionesGeograficas());
+         if (lovUbicaciones == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovUbicaciones == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovUbicaciones != null) {
-               for (int i = 0; i < lovUbicaciones.size(); i++) {
-                  if (lovUbicaciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vubicacion_ubic = "";
+            txt_vubicacion_ciudad = "";
+         } else if (lovUbicaciones != null) {
+            for (int i = 0; i < lovUbicaciones.size(); i++) {
+               if (lovUbicaciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:UbicacionUbicacionDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('UbicacionUbicacionDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(lovUbicaciones.get(indiceUnicoElemento));
+               txt_vubicacion_ubic = parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getDescripcion();
+               txt_vubicacion_ciudad = parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getCiudad().getNombre();
+            } else {
+               txt_vubicacion_ubic = "";
+               txt_vubicacion_ciudad = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:UbicacionUbicacionDialogo");
+               RequestContext.getCurrentInstance().execute("PF('UbicacionUbicacionDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TERCEROSUCURSAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(new TercerosSucursales());
+         if (lovTercerosSucursales == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTercerosSucursales == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTercerosSucursales != null) {
-               for (int i = 0; i < lovTercerosSucursales.size(); i++) {
-                  if (lovTercerosSucursales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vafiliacion_tercSuc = "";
+         } else if (lovTercerosSucursales != null) {
+            for (int i = 0; i < lovTercerosSucursales.size(); i++) {
+               if (lovTercerosSucursales.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(lovTercerosSucursales.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TerceroAfiliacionDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(lovTercerosSucursales.get(indiceUnicoElemento));
+               txt_vafiliacion_tercSuc = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getDescripcion();
+            } else {
+               txt_vafiliacion_tercSuc = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TerceroAfiliacionDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TerceroAfiliacionDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TIPOENTIDAD")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(new TiposEntidades());
+         if (lovTiposEntidades == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTiposEntidades == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTiposEntidades != null) {
-               for (int i = 0; i < lovTiposEntidades.size(); i++) {
-                  if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vafiliacion_tipoEntidad = "";
+         } else if (lovTiposEntidades != null) {
+            for (int i = 0; i < lovTiposEntidades.size(); i++) {
+               if (lovTiposEntidades.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TipoEntidadAfiliacionDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TipoEntidadAfiliacionDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
+               txt_vafiliacion_tipoEntidad = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getNombre();
+            } else {
+               txt_vafiliacion_tipoEntidad = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TipoEntidadAfiliacionDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TipoEntidadAfiliacionDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("ESTADOAFILIACION")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(new EstadosAfiliaciones());
+         if (lovEstadosAfiliaciones == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovEstadosAfiliaciones == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovEstadosAfiliaciones != null) {
-               for (int i = 0; i < lovEstadosAfiliaciones.size(); i++) {
-                  if (lovEstadosAfiliaciones.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vafiliacion_estado = "";
+         } else if (lovEstadosAfiliaciones != null) {
+            for (int i = 0; i < lovEstadosAfiliaciones.size(); i++) {
+               if (lovEstadosAfiliaciones.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(lovEstadosAfiliaciones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:EstadoAfiliacionDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('EstadoAfiliacionDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(lovEstadosAfiliaciones.get(indiceUnicoElemento));
+               txt_vafiliacion_estado = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getNombre();
+            } else {
+               txt_vafiliacion_estado = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:EstadoAfiliacionDialogo");
+               RequestContext.getCurrentInstance().execute("PF('EstadoAfiliacionDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("FORMAPAGO")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(new Periodicidades());
+         if (lovFormasPagos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovFormasPagos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovFormasPagos != null) {
-               for (int i = 0; i < lovFormasPagos.size(); i++) {
-                  if (lovFormasPagos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vformapago_formaP = "";
+         } else if (lovFormasPagos != null) {
+            for (int i = 0; i < lovFormasPagos.size(); i++) {
+               if (lovFormasPagos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(lovFormasPagos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:PeriodicidadFormaPagoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('PeriodicidadFormaPagoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(lovFormasPagos.get(indiceUnicoElemento));
+               txt_vformapago_formaP = parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getNombre();
+            } else {
+               txt_vformapago_formaP = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:PeriodicidadFormaPagoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('PeriodicidadFormaPagoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("SUCURSAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(new Sucursales());
+         if (lovSucursales == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovSucursales == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovSucursales != null) {
-               for (int i = 0; i < lovSucursales.size(); i++) {
-                  if (lovSucursales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vformapago_sucursal = "";
+         } else if (lovSucursales != null) {
+            for (int i = 0; i < lovSucursales.size(); i++) {
+               if (lovSucursales.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(lovSucursales.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:SucursalFormaPagoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('SucursalFormaPagoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(lovSucursales.get(indiceUnicoElemento));
+               txt_vformapago_sucursal = parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getNombre();
+            } else {
+               txt_vformapago_sucursal = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:SucursalFormaPagoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('SucursalFormaPagoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVOMVR")) {
-         if (parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(new Motivosmvrs());
+         if (lovMotivosMvrs == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosMvrs == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosMvrs != null) {
-               for (int i = 0; i < lovMotivosMvrs.size(); i++) {
-                  if (lovMotivosMvrs.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_mvrs_motivo = "";
+         } else if (lovMotivosMvrs != null) {
+            for (int i = 0; i < lovMotivosMvrs.size(); i++) {
+               if (lovMotivosMvrs.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoMvrsDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoMvrsDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(lovMotivosMvrs.get(indiceUnicoElemento));
+               txt_mvrs_motivo = parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getNombre();
+            } else {
+               txt_mvrs_motivo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoMvrsDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoMvrsDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("NORMALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(new NormasLaborales());
+         if (lovNormasLaborales == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovNormasLaborales == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovNormasLaborales != null) {
-               for (int i = 0; i < lovNormasLaborales.size(); i++) {
-                  if (lovNormasLaborales.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vnorma_norma = "";
+         } else if (lovNormasLaborales != null) {
+            for (int i = 0; i < lovNormasLaborales.size(); i++) {
+               if (lovNormasLaborales.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:NormaLaboralNormaLaboralDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('NormaLaboralNormaLaboralDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(lovNormasLaborales.get(indiceUnicoElemento));
+               txt_vnorma_norma = parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getNombre();
+            } else {
+               txt_vnorma_norma = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:NormaLaboralNormaLaboralDialogo");
+               RequestContext.getCurrentInstance().execute("PF('NormaLaboralNormaLaboralDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("JORNADALABORAL")) {
-         if (parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(new JornadasLaborales());
+         if (lovJornadasLaborales == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovJornadasLaborales == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovJornadasLaborales != null) {
-               for (int i = 0; i < lovJornadasLaborales.size(); i++) {
-                  if (lovJornadasLaborales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_vjornada_jornada = "";
+         } else if (lovJornadasLaborales != null) {
+            for (int i = 0; i < lovJornadasLaborales.size(); i++) {
+               if (lovJornadasLaborales.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:JornadaJornadaLaboralDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('JornadaJornadaLaboralDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(lovJornadasLaborales.get(indiceUnicoElemento));
+               txt_vjornada_jornada = parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().getDescripcion();
+            } else {
+               txt_vjornada_jornada = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:JornadaJornadaLaboralDialogo");
+               RequestContext.getCurrentInstance().execute("PF('JornadaJornadaLaboralDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVORETIRO")) {
-         if (parametros.getParametrosBusquedaNomina().getMotivosRetiros().getSecuencia() != null) {
-            parametros.getParametrosBusquedaNomina().getMotivosRetiros().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().setMotivosRetiros(new MotivosRetiros());
+         if (lovMotivosRetiros == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaNomina().setMotivosRetiros(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosRetiros == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovMotivosRetiros != null) {
-               for (int i = 0; i < lovMotivosRetiros.size(); i++) {
-                  if (lovMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txt_motivoRet = "";
+         } else if (lovMotivosRetiros != null) {
+            for (int i = 0; i < lovMotivosRetiros.size(); i++) {
+               if (lovMotivosRetiros.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().setMotivosRetiros(lovMotivosRetiros.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaRetiroDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoFechaRetiroDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaNomina().setMotivosRetiros(lovMotivosRetiros.get(indiceUnicoElemento));
+               txt_motivoRet = parametros.getParametrosBusquedaNomina().getMotivosRetiros().getNombre();
+            } else {
+               txt_motivoRet = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoFechaRetiroDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoFechaRetiroDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CIUDADNACIMIENDO")) {
-         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().setNombre(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(new Ciudades());
+         if (lovCiudades == null) {
+            requerirLOV("CIUDAD");
          }
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovCiudades == null) {
-               requerirLOV("CIUDAD");
-            }
 
-            if (lovCiudades != null) {
-               for (int i = 0; i < lovCiudades.size(); i++) {
-                  if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_empleado_per_ciudadNac = "";
+         } else if (lovCiudades != null) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:CiudadNacimientoDatosPersonalesDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('CiudadNacimientoDatosPersonalesDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(lovCiudades.get(indiceUnicoElemento));
+               txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getNombre();
+            } else {
+               txtP_empleado_per_ciudadNac = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:CiudadNacimientoDatosPersonalesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('CiudadNacimientoDatosPersonalesDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CIUDADDOCUMENTO")) {
-         if (parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().setNombre(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(new Ciudades());
+         if (lovCiudades == null) {
+            requerirLOV("CIUDAD");
          }
-         parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovCiudades == null) {
-               requerirLOV("CIUDAD");
-            }
 
-            if (lovCiudades != null) {
-               for (int i = 0; i < lovCiudades.size(); i++) {
-                  if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_empleado_per_ciudadDoc = "";
+         } else if (lovCiudades != null) {
+            for (int i = 0; i < lovCiudades.size(); i++) {
+               if (lovCiudades.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:CiudadDocumentoDatosPersonalesDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('CiudadDocumentoDatosPersonalesDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(lovCiudades.get(indiceUnicoElemento));
+               txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getNombre();
+            } else {
+               txtP_empleado_per_ciudadDoc = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:CiudadDocumentoDatosPersonalesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('CiudadDocumentoDatosPersonalesDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("ESTADOCIVIL")) {
-         if (parametros.getParametrosBusquedaPersonal().getEstadoCivil().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getEstadoCivil().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().setEstadoCivil(new EstadosCiviles());
+         if (lovEstadosCiviles == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().setEstadoCivil(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovEstadosCiviles == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovEstadosCiviles != null) {
-               for (int i = 0; i < lovEstadosCiviles.size(); i++) {
-                  if (lovEstadosCiviles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_estadoCivil = "";
+         } else if (lovEstadosCiviles != null) {
+            for (int i = 0; i < lovEstadosCiviles.size(); i++) {
+               if (lovEstadosCiviles.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().setEstadoCivil(lovEstadosCiviles.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilEstadoCivilDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().setEstadoCivil(lovEstadosCiviles.get(indiceUnicoElemento));
+               txtP_estadoCivil = parametros.getParametrosBusquedaPersonal().getEstadoCivil().getDescripcion();
+            } else {
+               txtP_estadoCivil = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilEstadoCivilDialogo");
+               RequestContext.getCurrentInstance().execute("PF('EstadoCivilEstadoCivilDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("IDIOMA")) {
-         if (parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().setNombre(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(new Idiomas());
+         if (lovIdiomas == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovIdiomas == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovIdiomas != null) {
-               for (int i = 0; i < lovIdiomas.size(); i++) {
-                  if (lovIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_idiomap_idioma = "";
+         } else if (lovIdiomas != null) {
+            for (int i = 0; i < lovIdiomas.size(); i++) {
+               if (lovIdiomas.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(lovIdiomas.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:IdiomaIdiomaDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('IdiomaIdiomaDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(lovIdiomas.get(indiceUnicoElemento));
+               txtP_idiomap_idioma = parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getNombre();
+            } else {
+               txtP_idiomap_idioma = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:IdiomaIdiomaDialogo");
+               RequestContext.getCurrentInstance().execute("PF('IdiomaIdiomaDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("TIPOINDICADOR")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(new TiposIndicadores());
+         if (lovTiposIndicadores == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovTiposIndicadores == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovTiposIndicadores != null) {
-               for (int i = 0; i < lovTiposIndicadores.size(); i++) {
-                  if (lovTiposIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vindicador_tipoIndi = "";
+         } else if (lovTiposIndicadores != null) {
+            for (int i = 0; i < lovTiposIndicadores.size(); i++) {
+               if (lovTiposIndicadores.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(lovTiposIndicadores.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:TipoIndicadorCensoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('TipoIndicadorCensoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(lovTiposIndicadores.get(indiceUnicoElemento));
+               txtP_vindicador_tipoIndi = parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getDescripcion();
+            } else {
+               txtP_vindicador_tipoIndi = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:TipoIndicadorCensoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TipoIndicadorCensoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("INDICADOR")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(new Indicadores());
+         if (lovIndicadores == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovIndicadores == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovIndicadores != null) {
-               for (int i = 0; i < lovIndicadores.size(); i++) {
-                  if (lovIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vindicador_indic = "";
+         } else if (lovIndicadores != null) {
+            for (int i = 0; i < lovIndicadores.size(); i++) {
+               if (lovIndicadores.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(lovIndicadores.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:IndicadorCensoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('IndicadorCensoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(lovIndicadores.get(indiceUnicoElemento));
+               txtP_vindicador_indic = parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getDescripcion();
+            } else {
+               txtP_vindicador_indic = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:IndicadorCensoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('IndicadorCensoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("PROFESION")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(new Profesiones());
+         if (lovProfesiones == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovProfesiones == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovProfesiones != null) {
-               for (int i = 0; i < lovProfesiones.size(); i++) {
-                  if (lovProfesiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vFormal_profecion = "";
+         } else if (lovProfesiones != null) {
+            for (int i = 0; i < lovProfesiones.size(); i++) {
+               if (lovProfesiones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(lovProfesiones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:ProfesionEducacionFormalDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('ProfesionEducacionFormalDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(lovProfesiones.get(indiceUnicoElemento));
+               txtP_vFormal_profecion = parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getDescripcion();
+            } else {
+               txtP_vFormal_profecion = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:ProfesionEducacionFormalDialogo");
+               RequestContext.getCurrentInstance().execute("PF('ProfesionEducacionFormalDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("INSTITUCIONF")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(new Instituciones());
+         if (lovInstituciones == null) {
+            requerirLOV("INSTITUCION");
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovInstituciones == null) {
-               requerirLOV("INSTITUCION");
-            }
 
-            if (lovInstituciones != null) {
-               for (int i = 0; i < lovInstituciones.size(); i++) {
-                  if (lovInstituciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vFormal_institu = "";
+         } else if (lovInstituciones != null) {
+            for (int i = 0; i < lovInstituciones.size(); i++) {
+               if (lovInstituciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionFormalDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionFormalDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
+               txtP_vFormal_institu = parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getDescripcion();
+            } else {
+               txtP_vFormal_institu = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionFormalDialogo");
+               RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionFormalDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("INSTITUCIONNF")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(new Instituciones());
+         if (lovInstituciones == null) {
+            requerirLOV("INSTITUCION");
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovInstituciones == null) {
-               requerirLOV("INSTITUCION");
-            }
 
-            if (lovInstituciones != null) {
-               for (int i = 0; i < lovInstituciones.size(); i++) {
-                  if (lovInstituciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vNoformal_institu = "";
+         } else if (lovInstituciones != null) {
+            for (int i = 0; i < lovInstituciones.size(); i++) {
+               if (lovInstituciones.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionNoFormalDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionNoFormalDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(lovInstituciones.get(indiceUnicoElemento));
+               txtP_vNoformal_institu = parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getDescripcion();
+            } else {
+               txtP_vNoformal_institu = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:InstitucionEducacionNoFormalDialogo");
+               RequestContext.getCurrentInstance().execute("PF('InstitucionEducacionNoFormalDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CURSO")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().setNombre(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(new Cursos());
+         if (lovCursos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovCursos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovCursos != null) {
-               for (int i = 0; i < lovCursos.size(); i++) {
-                  if (lovCursos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vNoformal_curso = "";
+         } else if (lovCursos != null) {
+            for (int i = 0; i < lovCursos.size(); i++) {
+               if (lovCursos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(lovCursos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:CursoEducacionNoFormalDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('CursoEducacionNoFormalDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(lovCursos.get(indiceUnicoElemento));
+               txtP_vNoformal_curso = parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getNombre();
+            } else {
+               txtP_vNoformal_curso = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:CursoEducacionNoFormalDialogo");
+               RequestContext.getCurrentInstance().execute("PF('CursoEducacionNoFormalDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("SECTORECONOMICO")) {
-         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(new SectoresEconomicos());
+         if (lovSectoresEconomicos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovSectoresEconomicos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovSectoresEconomicos != null) {
-               for (int i = 0; i < lovSectoresEconomicos.size(); i++) {
-                  if (lovSectoresEconomicos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_experLab_SectorEco = "";
+         } else if (lovSectoresEconomicos != null) {
+            for (int i = 0; i < lovSectoresEconomicos.size(); i++) {
+               if (lovSectoresEconomicos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:SectorEconomicoExperienciaLaboralDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('SectorEconomicoExperienciaLaboralDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
+               txtP_experLab_SectorEco = parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getDescripcion();
+            } else {
+               txtP_experLab_SectorEco = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:SectorEconomicoExperienciaLaboralDialogo");
+               RequestContext.getCurrentInstance().execute("PF('SectorEconomicoExperienciaLaboralDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("PROYECTO")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().setNombreproyecto(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(new Proyectos());
+         if (lovProyectos == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovProyectos == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovProyectos != null) {
-               for (int i = 0; i < lovProyectos.size(); i++) {
-                  if (lovProyectos.get(i).getNombreproyecto().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vproyecto_proyect = "";
+         } else if (lovProyectos != null) {
+            for (int i = 0; i < lovProyectos.size(); i++) {
+               if (lovProyectos.get(i).getNombreproyecto().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(lovProyectos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:ProyectoProyectoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('ProyectoProyectoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(lovProyectos.get(indiceUnicoElemento));
+               txtP_vproyecto_proyect = parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getNombreproyecto();
+            } else {
+               txtP_vproyecto_proyect = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:ProyectoProyectoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('ProyectoProyectoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("ROL")) {
-         if (parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().setDescripcion(valorCopia);
+         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(new PryRoles());
+         if (lovRoles == null) {
+            requerirLOV(cualParametro);
          }
-         parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovRoles == null) {
-               requerirLOV(cualParametro);
-            }
 
-            if (lovRoles != null) {
-               for (int i = 0; i < lovRoles.size(); i++) {
-                  if (lovRoles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_vproyecto_rol = "";
+         } else if (lovRoles != null) {
+            for (int i = 0; i < lovRoles.size(); i++) {
+               if (lovRoles.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(lovRoles.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:PryRolProyectoDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('PryRolProyectoDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(lovRoles.get(indiceUnicoElemento));
+               txtP_vproyecto_rol = parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getDescripcion();
+            } else {
+               txtP_vproyecto_rol = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:PryRolProyectoDialogo");
+               RequestContext.getCurrentInstance().execute("PF('PryRolProyectoDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("CARGOPERSONAL")) {
-         if (parametros.getParametrosBusquedaPersonal().getCargo().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getCargo().setNombre(valorCopia);
+         parametros.getParametrosBusquedaPersonal().setCargo(new Cargos());
+         if (lovCargos == null) {
+            requerirLOV("CARGO");
          }
-         parametros.getParametrosBusquedaPersonal().setCargo(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovCargos == null) {
-               requerirLOV("CARGO");
-            }
 
-            if (lovCargos != null) {
-               for (int i = 0; i < lovCargos.size(); i++) {
-                  if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_cargoPostul = "";
+         } else if (lovCargos != null) {
+            for (int i = 0; i < lovCargos.size(); i++) {
+               if (lovCargos.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaPersonal().setCargo(lovCargos.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:CargoCargoPostularseDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('CargoCargoPostularseDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().setCargo(lovCargos.get(indiceUnicoElemento));
+               txtP_cargoPostul = parametros.getParametrosBusquedaPersonal().getCargo().getNombre();
+            } else {
+               txtP_cargoPostul = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:CargoCargoPostularseDialogo");
+               RequestContext.getCurrentInstance().execute("PF('CargoCargoPostularseDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       } else if (cualParametro.equals("MOTIVORETIROPERSONAL")) {
-         if (parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getSecuencia() != null) {
-            parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().setNombre(valorCopia);
+         parametros.getParametrosBusquedaNomina().setMotivosRetiros(new MotivosRetiros());
+         if (lovMotivosRetiros == null) {
+            requerirLOV("MOTIVORETIRO");
          }
-         parametros.getParametrosBusquedaNomina().setMotivosRetiros(null);
-         if (!valorConfirmar.isEmpty()) {
-            if (lovMotivosRetiros == null) {
-               requerirLOV("MOTIVORETIRO");
-            }
 
-            if (lovMotivosRetiros != null) {
-               for (int i = 0; i < lovMotivosRetiros.size(); i++) {
-                  if (lovMotivosRetiros.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                     indiceUnicoElemento = i;
-                     coincidencias++;
-                  }
+         if (valor.equals("") || valor.isEmpty()) {
+            txtP_experLab_motivo = "";
+         } else if (lovMotivosRetiros != null) {
+            for (int i = 0; i < lovMotivosRetiros.size(); i++) {
+               if (lovMotivosRetiros.get(i).getNombre().startsWith(valor.toUpperCase())) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
                }
-               if (coincidencias == 1) {
-                  parametros.getParametrosBusquedaNomina().setMotivosRetiros(lovMotivosRetiros.get(indiceUnicoElemento));
-               } else {
-                  RequestContext.getCurrentInstance().update("formularioDialogos:MotivoRetiroExperienciaLaboralDialogo");
-                  RequestContext.getCurrentInstance().execute("PF('MotivoRetiroExperienciaLaboralDialogo').show()");
-               }
-            } else {
-               RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
             }
+            txtP_experLab_motivo = parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getNombre();
+            if (coincidencias == 1) {
+               parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setMotivoretiro(lovMotivosRetiros.get(indiceUnicoElemento));
+            } else {
+               txtP_experLab_motivo = "";
+               RequestContext.getCurrentInstance().update("formularioDialogos:MotivoRetiroExperienciaLaboralDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivoRetiroExperienciaLaboralDialogo').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorListaDialogo').show()");
          }
       }
    }
-
    //METODOS LISTA DE VALORES
+
    public void requerirLOV(String tipoLov) {
       if (vTipoBusqueda.equals("Nomina")) {
          if (tipoLov.equals("CARGO") && lovCargos == null) {
             lovCargos = administrarBusquedaAvanzada.lovCargos();
             if (lovCargos != null) {
-//               modificarInfoR(lovCargos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroC");
             }
          } else if (tipoLov.equals("ESTRUCTURA") && lovEstructuras == null) {
             lovEstructuras = administrarBusquedaAvanzada.lovEstructuras();
             if (lovEstructuras != null) {
-//               modificarInfoR(lovEstructuras.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroE");
             }
          } else if (tipoLov.equals("JEFE") && lovJefe == null) {
             lovJefe = administrarBusquedaAvanzada.lovJefe();
             if (lovJefe != null) {
-//               modificarInfoR(lovJefe.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroJ");
             }
          } else if (tipoLov.equals("MOTIVOCARGO") && lovMotivosCargos == null) {
             lovMotivosCargos = administrarBusquedaAvanzada.lovMotivosCargos();
             if (lovMotivosCargos != null) {
-//               modificarInfoR(lovMotivosCargos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMC");
             }
          } else if (tipoLov.equals("PAPEL") && lovPapeles == null) {
             lovPapeles = administrarBusquedaAvanzada.lovPapeles();
             if (lovPapeles != null) {
-//               modificarInfoR(lovPapeles.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPC");
             }
          } else if (tipoLov.equals("MOTIVOLOCALIZACION") && lovMotivosLocalizaciones == null) {
             lovMotivosLocalizaciones = administrarBusquedaAvanzada.lovMotivosLocalizaciones();
             if (lovMotivosLocalizaciones != null) {
-//               modificarInfoR(lovMotivosLocalizaciones.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMCC");
             }
          } else if (tipoLov.equals("TIPOSUELDO") && lovTiposSueldos == null) {
             lovTiposSueldos = administrarBusquedaAvanzada.lovTiposSueldos();
             if (lovTiposSueldos != null) {
-//               modificarInfoR(lovTiposSueldos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTSS");
             }
          } else if (tipoLov.equals("MOTIVOSUELDO") && lovMotivosSueldos == null) {
             lovMotivosSueldos = administrarBusquedaAvanzada.lovMotivosSueldos();
             if (lovMotivosSueldos != null) {
-//               modificarInfoR(lovMotivosSueldos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMSS");
             }
          } else if (tipoLov.equals("TIPOCONTRATO") && lovTiposContratos == null) {
             lovTiposContratos = administrarBusquedaAvanzada.lovTiposContratos();
             if (lovTiposContratos != null) {
-//               modificarInfoR(lovTiposContratos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTCFC");
             }
          } else if (tipoLov.equals("MOTIVOCONTRATO") && lovMotivosContratos == null) {
             lovMotivosContratos = administrarBusquedaAvanzada.lovMotivosContratos();
             if (lovMotivosContratos != null) {
-//               modificarInfoR(lovMotivosContratos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMFC");
             }
          } else if (tipoLov.equals("TIPOTRABAJADOR") && lovTiposTrabajadores == null) {
             lovTiposTrabajadores = administrarBusquedaAvanzada.lovTiposTrabajadores();
             if (lovTiposTrabajadores != null) {
-//               modificarInfoR(lovTiposTrabajadores.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTTTT");
             }
          } else if (tipoLov.equals("REFORMALABORAL") && lovReformasLaborales == null) {
             lovReformasLaborales = administrarBusquedaAvanzada.lovReformasLaborales();
             if (lovReformasLaborales != null) {
-//               modificarInfoR(lovReformasLaborales.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroRLTS");
             }
          } else if (tipoLov.equals("CONTRATO") && lovContratos == null) {
             lovContratos = administrarBusquedaAvanzada.lovContratos();
             if (lovContratos != null) {
-//               modificarInfoR(lovContratos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLLL");
             }
          } else if (tipoLov.equals("UBICACION") && lovUbicaciones == null) {
             lovUbicaciones = administrarBusquedaAvanzada.lovUbicaciones();
             if (lovUbicaciones != null) {
-//               modificarInfoR(lovUbicaciones.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroUUG");
             }
          } else if (tipoLov.equals("TERCEROSUCURSAL") && lovTercerosSucursales == null) {
             lovTercerosSucursales = administrarBusquedaAvanzada.lovTercerosSucursales();
             if (lovTercerosSucursales != null) {
-//               modificarInfoR(lovTercerosSucursales.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTSA");
             }
          } else if (tipoLov.equals("TIPOENTIDAD") && lovTiposEntidades == null) {
             lovTiposEntidades = administrarBusquedaAvanzada.lovTiposEntidades();
             if (lovTiposEntidades != null) {
-//               modificarInfoR(lovTiposEntidades.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTEA");
             }
          } else if (tipoLov.equals("ESTADOAFILIACION") && lovEstadosAfiliaciones == null) {
             lovEstadosAfiliaciones = administrarBusquedaAvanzada.lovEstadosAfiliaciones();
             if (lovEstadosAfiliaciones != null) {
-//               modificarInfoR(lovEstadosAfiliaciones.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEA");
             }
          } else if (tipoLov.equals("FORMAPAGO") && lovFormasPagos == null) {
             lovFormasPagos = administrarBusquedaAvanzada.lovFormasPagos();
             if (lovFormasPagos != null) {
-//               modificarInfoR(lovFormasPagos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPFP");
             }
          } else if (tipoLov.equals("SUCURSAL") && lovSucursales == null) {
             lovSucursales = administrarBusquedaAvanzada.lovSucursales();
             if (lovSucursales != null) {
-//               modificarInfoR(lovSucursales.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroSFP");
             }
          } else if (tipoLov.equals("MOTIVOMVR") && lovMotivosMvrs == null) {
             lovMotivosMvrs = administrarBusquedaAvanzada.lovMotivosMvrs();
             if (lovMotivosMvrs != null) {
-//               modificarInfoR(lovMotivosMvrs.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMMVR");
             }
          } else if (tipoLov.equals("NORMALABORAL") && lovNormasLaborales == null) {
             lovNormasLaborales = administrarBusquedaAvanzada.lovNormasLaborales();
             if (lovNormasLaborales != null) {
-//               modificarInfoR(lovNormasLaborales.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroNLNL");
             }
          } else if (tipoLov.equals("JORNADALABORAL") && lovJornadasLaborales == null) {
             lovJornadasLaborales = administrarBusquedaAvanzada.lovJornadasLaborales();
             if (lovJornadasLaborales != null) {
-//               modificarInfoR(lovJornadasLaborales.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroJLJL");
             }
          } else if (tipoLov.equals("MOTIVORETIRO") && lovMotivosRetiros == null) {
             lovMotivosRetiros = administrarBusquedaAvanzada.lovMotivosRetiros();
             if (lovMotivosRetiros != null) {
-//               modificarInfoR(lovMotivosRetiros.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMRFR");
             }
          }
@@ -1622,87 +1790,71 @@ public class ControlBusquedaAvanzada implements Serializable {
          if (tipoLov.equals("CIUDAD") && lovCiudades == null) {
             lovCiudades = administrarBusquedaAvanzada.lovCiudades();
             if (lovCiudades != null) {
-//               modificarInfoR(lovCiudades.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCDDP");
             }
          } else if (tipoLov.equals("ESTADOCIVIL") && lovEstructuras == null) {
             lovEstadosCiviles = administrarBusquedaAvanzada.lovEstadosCiviles();
             if (lovEstadosCiviles != null) {
-//               modificarInfoR(lovEstadosCiviles.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroECEC");
             }
          } else if (tipoLov.equals("IDIOMA") && lovIdiomas == null) {
             lovIdiomas = administrarBusquedaAvanzada.lovIdiomas();
             if (lovIdiomas != null) {
-//               modificarInfoR(lovIdiomas.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroII");
             }
          } else if (tipoLov.equals("TIPOINDICADOR") && lovTiposIndicadores == null) {
             lovTiposIndicadores = administrarBusquedaAvanzada.lovTiposIndicadores();
             if (lovTiposIndicadores != null) {
-//               modificarInfoR(lovTiposIndicadores.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTIC");
             }
          } else if (tipoLov.equals("INDICADOR") && lovIndicadores == null) {
             lovIndicadores = administrarBusquedaAvanzada.lovIndicadores();
             if (lovIndicadores != null) {
-//               modificarInfoR(lovIndicadores.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroIC");
             }
          } else if (tipoLov.equals("PROFESION") && lovProfesiones == null) {
             lovProfesiones = administrarBusquedaAvanzada.lovProfesiones();
             if (lovProfesiones != null) {
-//               modificarInfoR(lovProfesiones.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPEF");
             }
          } else if (tipoLov.equals("INSTITUCION") && lovInstituciones == null) {
             lovInstituciones = administrarBusquedaAvanzada.lovInstitucioneses();
             if (lovInstituciones != null) {
-//               modificarInfoR(lovInstituciones.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroIEF");
             }
          } else if (tipoLov.equals("CURSO") && lovCursos == null) {
             lovCursos = administrarBusquedaAvanzada.lovCursos();
             if (lovCursos != null) {
-//               modificarInfoR(lovCursos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCENF");
             }
          } else if (tipoLov.equals("SECTORECONOMICO") && lovSectoresEconomicos == null) {
             lovSectoresEconomicos = administrarBusquedaAvanzada.lovSectoresEconomicos();
             System.out.println("SECTOR ECONOMICO: " + lovSectoresEconomicos);
             if (lovSectoresEconomicos != null) {
-//               modificarInfoR(lovSectoresEconomicos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroSEEL");
             }
          } else if (tipoLov.equals("PROYECTO") && lovProyectos == null) {
             lovProyectos = administrarBusquedaAvanzada.lovProyectos();
             if (lovProyectos != null) {
-//               modificarInfoR(lovProyectos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPP");
             }
          } else if (tipoLov.equals("ROL") && lovRoles == null) {
             lovRoles = administrarBusquedaAvanzada.lovRoles();
             if (lovRoles != null) {
-//               modificarInfoR(lovRoles.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPRYP");
             }
          } else if (tipoLov.equals("MOTIVORETIRO") && lovMotivosRetiros == null) {
             lovMotivosRetiros = administrarBusquedaAvanzada.lovMotivosRetiros();
             if (lovMotivosRetiros != null) {
-//               modificarInfoR(lovMotivosRetiros.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMREL");
             }
          } else if (tipoLov.equals("CARGO") && lovCargos == null) {
             lovCargos = administrarBusquedaAvanzada.lovCargos();
             if (lovCargos != null) {
-//               modificarInfoR(lovCargos.size());
                RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCCP");
             }
          }
       }
-      //RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroECC");
-      //RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCNDP");
-      //RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroIENF");
    }
 
    public void requerirLovColumnasBusqueda() {
@@ -1721,98 +1873,129 @@ public class ControlBusquedaAvanzada implements Serializable {
       aceptar = true;
       if (tipoLov.equals("CARGO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setCargo(cargoSeleccionado);
+         txt_vcargo_cargo = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getCargo().getNombre();
          cargoSeleccionado = null;
          filtroLovCargos = null;
       } else if (tipoLov.equals("ESTRUCTURA")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEstructura(estructuraSeleccionada);
+         txt_vcargo_estructura = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getNombre();
+         txt_vcargo_estructura_CC = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEstructura().getCentrocosto().getNombre();
          estructuraSeleccionada = null;
          filtroLovEstructuras = null;
       } else if (tipoLov.equals("JEFE")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setEmpleadojefe(jefeSeleccionado);
+         txt_vcargo_empleadoJefe_Per = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getEmpleadojefe().getPersona().getNombreCompleto();
          jefeSeleccionado = null;
          filtroLovJefe = null;
       } else if (tipoLov.equals("MOTIVOCARGO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setMotivocambiocargo(motivoCargoSeleccionado);
+         txt_vcargo_motivoCam = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getMotivocambiocargo().getNombre();
          motivoCargoSeleccionado = null;
          filtroLovMotivosCargos = null;
       } else if (tipoLov.equals("PAPEL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaCargo().setPapel(papelSeleccionado);
+         txt_vcargo_papel = parametros.getParametrosBusquedaNomina().getVigenciaCargo().getPapel().getDescripcion();
          papelSeleccionado = null;
          filtroLovPapeles = null;
       } else if (tipoLov.equals("LOCALIZACION")) {
          parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setLocalizacion(estructuraSeleccionada);
+         txt_vlocalizacion_locali = parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getLocalizacion().getNombre();
          estructuraSeleccionada = null;
          filtroLovEstructuras = null;
       } else if (tipoLov.equals("MOTIVOLOCALIZACION")) {
          parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().setMotivo(motivoLocalizacionSeleccionado);
+         txt_vlocalizacion_motivo = parametros.getParametrosBusquedaNomina().getVigenciaLocalizacion().getMotivo().getDescripcion();
          motivoLocalizacionSeleccionado = null;
          filtroLovMotivosLocalizaciones = null;
       } else if (tipoLov.equals("TIPOSUELDO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setTiposueldo(tipoSueldoSeleccionado);
+         txt_vsueldo_tipoS = parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getTiposueldo().getDescripcion();
          tipoSueldoSeleccionado = null;
          filtroLovTiposSueldos = null;
       } else if (tipoLov.equals("MOTIVOSUELDO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaSueldo().setMotivocambiosueldo(motivoSueldoSeleccionado);
+         txt_vsueldo_motivo = parametros.getParametrosBusquedaNomina().getVigenciaSueldo().getMotivocambiosueldo().getNombre();
          motivoSueldoSeleccionado = null;
          filtroLovMotivosSueldos = null;
       } else if (tipoLov.equals("TIPOCONTRATO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setTipocontrato(tipoContratoSeleccionado);
+         txt_vtipoContrato_tipoCont = parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getTipocontrato().getNombre();
          tipoContratoSeleccionado = null;
          filtroLovTiposContratos = null;
       } else if (tipoLov.equals("MOTIVOCONTRATO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().setMotivocontrato(motivoContratoSeleccionado);
+         txt_vtipoContrato_motivo = parametros.getParametrosBusquedaNomina().getVigenciaTipoContrato().getMotivocontrato().getNombre();
          motivoContratoSeleccionado = null;
          filtroLovMotivosContratos = null;
       } else if (tipoLov.equals("TIPOTRABAJADOR")) {
          parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().setTipotrabajador(tipoTrabajadorSeleccionado);
+         txt_vtipoTrab_tipoTrab = parametros.getParametrosBusquedaNomina().getVigenciaTipoTrabajador().getTipotrabajador().getNombre();
          tipoTrabajadorSeleccionado = null;
          filtroLovTiposTrabajadores = null;
       } else if (tipoLov.equals("REFORMALABORAL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().setReformalaboral(reformaLaboralSeleccionada);
+         txt_vreformaL_ReforLab = parametros.getParametrosBusquedaNomina().getVigenciaReformasLaboral().getReformalaboral().getNombre();
          reformaLaboralSeleccionada = null;
          filtroLovReformasLaborales = null;
       } else if (tipoLov.equals("CONTRATO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaContrato().setContrato(contratoSeleccionado);
+         txt_vcontrato_contrato = parametros.getParametrosBusquedaNomina().getVigenciaContrato().getContrato().getDescripcion();
          contratoSeleccionado = null;
          filtroLovContratos = null;
       } else if (tipoLov.equals("UBICACION")) {
          parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().setUbicacion(ubicacionSeleccionado);
+         txt_vubicacion_ubic = parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getDescripcion();
+         txt_vubicacion_ciudad = parametros.getParametrosBusquedaNomina().getVigenciaUbicacion().getUbicacion().getCiudad().getNombre();
          ubicacionSeleccionado = null;
          filtroLovUbicaciones = null;
       } else if (tipoLov.equals("TERCEROSUCURSAL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTercerosucursal(terceroSucursalSeleccionado);
+         txt_vafiliacion_tercSuc = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTercerosucursal().getDescripcion();
          terceroSucursalSeleccionado = null;
          filtroLovTercerosSucursales = null;
       } else if (tipoLov.equals("TIPOENTIDAD")) {
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setTipoentidad(tipoEntidadSeleccionado);
+         txt_vafiliacion_tipoEntidad = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getTipoentidad().getNombre();
          tipoEntidadSeleccionado = null;
          filtroLovTiposEntidades = null;
       } else if (tipoLov.equals("ESTADOAFILIACION")) {
          parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().setEstadoafiliacion(estadoAfiliacionSeleccionado);
+         txt_vafiliacion_estado = parametros.getParametrosBusquedaNomina().getVigenciaAfiliacion().getEstadoafiliacion().getNombre();
          estadoAfiliacionSeleccionado = null;
          filtroLovEstadosAfiliaciones = null;
       } else if (tipoLov.equals("FORMAPAGO")) {
          parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setFormapago(formaPagoSeleccionado);
+         txt_vformapago_formaP = parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getFormapago().getNombre();
          formaPagoSeleccionado = null;
          filtroLovFormasPagos = null;
       } else if (tipoLov.equals("SUCURSAL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().setSucursal(sucursalSeleccionado);
+         txt_vformapago_sucursal = parametros.getParametrosBusquedaNomina().getVigenciaFormaPago().getSucursal().getNombre();
          sucursalSeleccionado = null;
          filtroLovSucursales = null;
       } else if (tipoLov.equals("MOTIVOMVR")) {
          parametros.getParametrosBusquedaNomina().getMvrs().setMotivo(motivoMvrSeleccionado);
+         txt_mvrs_motivo = parametros.getParametrosBusquedaNomina().getMvrs().getMotivo().getNombre();
          motivoMvrSeleccionado = null;
          filtroLovMotivosMvrs = null;
       } else if (tipoLov.equals("NORMALABORAL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().setNormalaboral(normaLaboralSeleccionado);
+         txt_vnorma_norma = parametros.getParametrosBusquedaNomina().getVigenciaNormaEmpleado().getNormalaboral().getNombre();
          normaLaboralSeleccionado = null;
          filtroLovNormasLaborales = null;
       } else if (tipoLov.equals("JORNADALABORAL")) {
          parametros.getParametrosBusquedaNomina().getVigenciaJornada().setJornadatrabajo(jornadaLaboralSeleccionado);
+         txt_vjornada_jornada = parametros.getParametrosBusquedaNomina().getVigenciaJornada().getJornadatrabajo().getDescripcion();
          jornadaLaboralSeleccionado = null;
          filtroLovJornadasLaborales = null;
       } else if (tipoLov.equals("MOTIVORETIRO")) {
          parametros.getParametrosBusquedaNomina().setMotivosRetiros(motivoRetiroSeleccionado);
+         txt_motivoRet = parametros.getParametrosBusquedaNomina().getMotivosRetiros().getNombre();
+         motivoRetiroSeleccionado = null;
+         filtroLovMotivosRetiros = null;
+      } else if (tipoLov.equals("MOTIVORETIROPERSONAL")) {
+         parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setMotivoretiro(motivoRetiroSeleccionado);
+         txt_motivoRet = parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getNombre();
          motivoRetiroSeleccionado = null;
          filtroLovMotivosRetiros = null;
       }
@@ -1822,72 +2005,98 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cancelarParametroNomina(String tipoLov) {
       aceptar = true;
       if (tipoLov.equals("CARGO")) {
+         txt_vcargo_cargo = "";
          cargoSeleccionado = null;
          filtroLovCargos = null;
       } else if (tipoLov.equals("ESTRUCTURA") || tipoLov.equals("LOCALIZACION")) {
+         txt_vcargo_estructura_CC = "";
+         txt_vcargo_estructura = "";
+         txt_vlocalizacion_locali = "";
          estructuraSeleccionada = null;
          filtroLovEstructuras = null;
       } else if (tipoLov.equals("JEFE")) {
+         txt_vcargo_empleadoJefe_Per = "";
          jefeSeleccionado = null;
          filtroLovJefe = null;
       } else if (tipoLov.equals("MOTIVOCARGO")) {
+         txt_vcargo_motivoCam = "";
          motivoCargoSeleccionado = null;
          filtroLovMotivosCargos = null;
       } else if (tipoLov.equals("PAPEL")) {
+         txt_vcargo_papel = "";
          papelSeleccionado = null;
          filtroLovPapeles = null;
       } else if (tipoLov.equals("MOTIVOLOCALIZACION")) {
+         txt_vlocalizacion_motivo = "";
          motivoLocalizacionSeleccionado = null;
          filtroLovMotivosLocalizaciones = null;
       } else if (tipoLov.equals("TIPOSUELDO")) {
+         txt_vsueldo_tipoS = "";
          tipoSueldoSeleccionado = null;
          filtroLovTiposSueldos = null;
       } else if (tipoLov.equals("MOTIVOSUELDO")) {
+         txt_vsueldo_motivo = "";
          motivoSueldoSeleccionado = null;
          filtroLovMotivosSueldos = null;
       } else if (tipoLov.equals("TIPOCONTRATO")) {
+         txt_vtipoContrato_tipoCont = "";
          tipoContratoSeleccionado = null;
          filtroLovTiposContratos = null;
       } else if (tipoLov.equals("MOTIVOCONTRATO")) {
+         txt_vtipoContrato_motivo = "";
          motivoContratoSeleccionado = null;
          filtroLovMotivosContratos = null;
       } else if (tipoLov.equals("TIPOTRABAJADOR")) {
+         txt_vtipoTrab_tipoTrab = "";
          tipoTrabajadorSeleccionado = null;
          filtroLovTiposTrabajadores = null;
       } else if (tipoLov.equals("REFORMALABORAL")) {
+         txt_vreformaL_ReforLab = "";
          reformaLaboralSeleccionada = null;
          filtroLovReformasLaborales = null;
       } else if (tipoLov.equals("CONTRATO")) {
+         txt_vcontrato_contrato = "";
          contratoSeleccionado = null;
          filtroLovContratos = null;
       } else if (tipoLov.equals("UBICACION")) {
+         txt_vubicacion_ubic = "";
+         txt_vubicacion_ciudad = "";
          ubicacionSeleccionado = null;
          filtroLovUbicaciones = null;
       } else if (tipoLov.equals("TERCEROSUCURSAL")) {
+         txt_vafiliacion_tercSuc = "";
          terceroSucursalSeleccionado = null;
          filtroLovTercerosSucursales = null;
       } else if (tipoLov.equals("TIPOENTIDAD")) {
+         txt_vafiliacion_tipoEntidad = "";
          tipoEntidadSeleccionado = null;
          filtroLovTiposEntidades = null;
       } else if (tipoLov.equals("ESTADOAFILIACION")) {
+         txt_vafiliacion_estado = "";
          estadoAfiliacionSeleccionado = null;
          filtroLovEstadosAfiliaciones = null;
       } else if (tipoLov.equals("FORMAPAGO")) {
+         txt_vformapago_formaP = "";
          formaPagoSeleccionado = null;
          filtroLovFormasPagos = null;
       } else if (tipoLov.equals("SUCURSAL")) {
+         txt_vformapago_sucursal = "";
          sucursalSeleccionado = null;
          filtroLovSucursales = null;
       } else if (tipoLov.equals("MOTIVOMVR")) {
+         txt_mvrs_motivo = "";
          motivoMvrSeleccionado = null;
          filtroLovMotivosMvrs = null;
       } else if (tipoLov.equals("NORMALABORAL")) {
+         txt_vnorma_norma = "";
          normaLaboralSeleccionado = null;
          filtroLovNormasLaborales = null;
       } else if (tipoLov.equals("JORNADALABORAL")) {
+         txt_vjornada_jornada = "";
          jornadaLaboralSeleccionado = null;
          filtroLovJornadasLaborales = null;
       } else if (tipoLov.equals("MOTIVORETIRO")) {
+         txt_motivoRet = "";
          motivoRetiroSeleccionado = null;
          filtroLovMotivosRetiros = null;
       }
@@ -1899,62 +2108,77 @@ public class ControlBusquedaAvanzada implements Serializable {
       aceptar = true;
       if (tipoLov.equals("CIUDADNACIMIENTO")) {
          parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudadnacimiento(ciudadSeleccionado);
+         txtP_empleado_per_ciudadNac = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudadnacimiento().getNombre();
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("CIUDADDOCUMENTO")) {
          parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().setCiudaddocumento(ciudadSeleccionado);
+         txtP_empleado_per_ciudadDoc = parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getCiudaddocumento().getNombre();
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("ESTADOCIVIL")) {
          parametros.getParametrosBusquedaPersonal().setEstadoCivil(estadoCivilSeleccionado);
+         txtP_estadoCivil = parametros.getParametrosBusquedaPersonal().getEstadoCivil().getDescripcion();
          estadoCivilSeleccionado = null;
          filtroLovEstadosCiviles = null;
       } else if (tipoLov.equals("IDIOMA")) {
          parametros.getParametrosBusquedaPersonal().getIdiomaPersona().setIdioma(idiomaSeleccionado);
+         txtP_idiomap_idioma = parametros.getParametrosBusquedaPersonal().getIdiomaPersona().getIdioma().getNombre();
          idiomaSeleccionado = null;
          filtroLovIdiomas = null;
       } else if (tipoLov.equals("TIPOINDICADOR")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setTipoindicador(tipoIndicadorSeleccionado);
+         txtP_vindicador_tipoIndi = parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getTipoindicador().getDescripcion();
          tipoIndicadorSeleccionado = null;
          filtroLovTiposIndicadores = null;
       } else if (tipoLov.equals("INDICADOR")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().setIndicador(indicadorSeleccionado);
+         txtP_vindicador_indic = parametros.getParametrosBusquedaPersonal().getVigenciaIndicador().getIndicador().getDescripcion();
          indicadorSeleccionado = null;
          filtroLovIndicadores = null;
       } else if (tipoLov.equals("PROFESION")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setProfesion(profesionSeleccionado);
+         txtP_vFormal_profecion = parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getProfesion().getDescripcion();
          profesionSeleccionado = null;
          filtroLovProfesiones = null;
       } else if (tipoLov.equals("INSTITUCIONF")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaFormal().setInstitucion(institucionSeleccionado);
+         txtP_vFormal_institu = parametros.getParametrosBusquedaPersonal().getVigenciaFormal().getInstitucion().getDescripcion();
          institucionSeleccionado = null;
          filtroLovInstituciones = null;
       } else if (tipoLov.equals("INSTITUCIONNF")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setInstitucion(institucionSeleccionado);
+         txtP_vNoformal_institu = parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getInstitucion().getDescripcion();
          institucionSeleccionado = null;
          filtroLovInstituciones = null;
       } else if (tipoLov.equals("CURSO")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().setCurso(cursoSeleccionado);
+         txtP_vNoformal_curso = parametros.getParametrosBusquedaPersonal().getVigenciaNoFormal().getCurso().getNombre();
          cursoSeleccionado = null;
          filtroLovCursos = null;
       } else if (tipoLov.equals("SECTORECONOMICO")) {
          parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setSectoreconomico(sectorEconomicoSeleccionado);
+         txtP_experLab_SectorEco = parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getSectoreconomico().getDescripcion();
          sectorEconomicoSeleccionado = null;
          filtroLovSectoresEconomicos = null;
       } else if (tipoLov.equals("MOTIVORETIRO")) {
          parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().setMotivoretiro(motivoRetiroSeleccionado);
+         txtP_experLab_motivo = parametros.getParametrosBusquedaPersonal().getHvExperienciaLaboral().getMotivoretiro().getNombre();
          motivoRetiroSeleccionado = null;
          filtroLovMotivosRetiros = null;
       } else if (tipoLov.equals("PROYECTO")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setProyecto(proyectoSeleccionado);
+         txtP_vproyecto_proyect = parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getProyecto().getNombreproyecto();
          proyectoSeleccionado = null;
          filtroLovProyectos = null;
       } else if (tipoLov.equals("ROL")) {
          parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(rolSeleccionado);
+         txtP_vproyecto_rol = parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().getPryRol().getDescripcion();
          rolSeleccionado = null;
          filtroLovRoles = null;
       } else if (tipoLov.equals("CARGO")) {
          parametros.getParametrosBusquedaPersonal().setCargo(cargoSeleccionado);
+         txtP_cargoPostul = parametros.getParametrosBusquedaPersonal().getCargo().getNombre();
          cargoSeleccionado = null;
          filtroLovCargos = null;
       } else if (tipoLov.equals("COLUMNASBUSQUEDA")) {
@@ -1966,46 +2190,61 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cancelarParametroPersonal(String tipoLov) {
       aceptar = true;
       if (tipoLov.equals("CIUDADNACIMIENTO")) {
+         txtP_empleado_per_ciudadNac = "";
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("CIUDADDOCUMENTO")) {
+         txtP_empleado_per_ciudadDoc = "";
          ciudadSeleccionado = null;
          filtroLovCiudades = null;
       } else if (tipoLov.equals("ESTADOCIVIL")) {
+         txtP_estadoCivil = "";
          estadoCivilSeleccionado = null;
          filtroLovEstadosCiviles = null;
       } else if (tipoLov.equals("IDIOMA")) {
+         txtP_idiomap_idioma = "";
          idiomaSeleccionado = null;
          filtroLovIdiomas = null;
       } else if (tipoLov.equals("TIPOINDICADOR")) {
+         txtP_vindicador_tipoIndi = "";
          tipoIndicadorSeleccionado = null;
          filtroLovTiposIndicadores = null;
       } else if (tipoLov.equals("INDICADOR")) {
+         txtP_vindicador_indic = "";
          indicadorSeleccionado = null;
          filtroLovIndicadores = null;
       } else if (tipoLov.equals("PROFESION")) {
+         txtP_vFormal_profecion = "";
          profesionSeleccionado = null;
          filtroLovProfesiones = null;
       } else if (tipoLov.equals("INSTITUCION")) {
+         txtP_vFormal_institu = "";
+         txtP_vNoformal_institu = "";
          institucionSeleccionado = null;
          filtroLovInstituciones = null;
       } else if (tipoLov.equals("CURSO")) {
+         txtP_vNoformal_curso = "";
          cursoSeleccionado = null;
          filtroLovCursos = null;
       } else if (tipoLov.equals("SECTORECONOMICO")) {
+         txtP_experLab_SectorEco = "";
          sectorEconomicoSeleccionado = null;
          filtroLovSectoresEconomicos = null;
       } else if (tipoLov.equals("MOTIVORETIRO")) {
+         txtP_experLab_motivo = "";
          motivoRetiroSeleccionado = null;
          filtroLovMotivosRetiros = null;
       } else if (tipoLov.equals("PROYECTO")) {
+         txtP_vproyecto_proyect = "";
          proyectoSeleccionado = null;
          filtroLovProyectos = null;
       } else if (tipoLov.equals("ROL")) {
+         txtP_vproyecto_rol = "";
          parametros.getParametrosBusquedaPersonal().getVigenciaProyecto().setPryRol(rolSeleccionado);
          rolSeleccionado = null;
          filtroLovRoles = null;
       } else if (tipoLov.equals("CARGO")) {
+         txtP_cargoPostul = "";
          cargoSeleccionado = null;
          filtroLovCargos = null;
       } else if (tipoLov.equals("COLUMNASBUSQUEDA")) {
@@ -2013,6 +2252,7 @@ public class ControlBusquedaAvanzada implements Serializable {
          filtradoColumnasEscenarios = null;
       }
       anchoTablaResultados = 800 + "px";
+
    }
 
    //VALIDAR FECHAS
@@ -2470,10 +2710,16 @@ public class ControlBusquedaAvanzada implements Serializable {
       queryEmpleado = queryEmpleado + query;
       System.out.println("SUPER QUERY: " + queryEmpleado);
       listaCodigosEmpleado = administrarBusquedaAvanzada.ejecutarQueryBusquedaAvanzadaPorModulosCodigo(queryEmpleado);
-      System.out.println("listaCodigosEmpleado : " + listaCodigosEmpleado);
-      listaResultadoBusqueda = administrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigo(listaCodigosEmpleado);
+      if (listaCodigosEmpleado != null) {
+         System.out.println("listaCodigosEmpleado.size() : " + listaCodigosEmpleado.size());
+         if (listaCodigosEmpleado.size() > 4) {
+            System.out.println("listaCodigosEmpleado (Primeros 4): " + listaCodigosEmpleado.get(0) + ", " + listaCodigosEmpleado.get(1) + ", " + listaCodigosEmpleado.get(2) + ", " + listaCodigosEmpleado.get(3));
+         }
+      }
+
       FacesContext context = FacesContext.getCurrentInstance();
       String columnas = "";
+      List<String> listCampoColumns = new ArrayList<String>();
       if (columnasEsSeleccionadas != null && !columnasEsSeleccionadas.isEmpty()) {
          for (int i = 0; i < columnasEsSeleccionadas.size(); i++) {
             if (i == 0) {
@@ -2483,34 +2729,16 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
          }
          String[] campoColumns = columnas.split(",");
-         List<String> listCampoColumns = new ArrayList<String>();
          for (int i = 0; i < campoColumns.length; i++) {
             listCampoColumns.add(campoColumns[i]);
          }
-         List<ResultadoBusquedaAvanzada> listaResultadoBusquedaAux = administrarBusquedaAvanzada.obtenerQVWEmpleadosCorteParaEmpleado(listaResultadoBusqueda, listCampoColumns);
-
-         for (int i = 0; i < listaResultadoBusqueda.size(); i++) {
-            for (int j = 0; j < listaResultadoBusquedaAux.size(); j++) {
-               if (listaResultadoBusqueda.get(i).getCodigoEmpleado().equals(listaResultadoBusquedaAux.get(j).getCodigoEmpleado())) {
-                  listaResultadoBusqueda.get(i).setColumna0(listaResultadoBusquedaAux.get(j).getColumna0());
-                  listaResultadoBusqueda.get(i).setColumna1(listaResultadoBusquedaAux.get(j).getColumna1());
-                  listaResultadoBusqueda.get(i).setColumna2(listaResultadoBusquedaAux.get(j).getColumna2());
-                  listaResultadoBusqueda.get(i).setColumna3(listaResultadoBusquedaAux.get(j).getColumna3());
-                  listaResultadoBusqueda.get(i).setColumna4(listaResultadoBusquedaAux.get(j).getColumna4());
-                  listaResultadoBusqueda.get(i).setColumna5(listaResultadoBusquedaAux.get(j).getColumna5());
-                  listaResultadoBusqueda.get(i).setColumna6(listaResultadoBusquedaAux.get(j).getColumna6());
-                  listaResultadoBusqueda.get(i).setColumna7(listaResultadoBusquedaAux.get(j).getColumna7());
-                  listaResultadoBusqueda.get(i).setColumna8(listaResultadoBusquedaAux.get(j).getColumna8());
-                  listaResultadoBusqueda.get(i).setColumna9(listaResultadoBusquedaAux.get(j).getColumna9());
-                  listaResultadoBusquedaAux.remove(listaResultadoBusquedaAux.get(j));
-               }
-            }
-         }
       }
+      listaResultadoBusqueda = administrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(listaCodigosEmpleado, listCampoColumns);
+
       columnas = convertirListaAString();
-      ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class);
-      controladorColumnasDinamicas.updateColumns(columnas);
-//      }
+      ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class
+      );
+      controladorColumnasDinamicas.updateColumns(columnas, primerResultado());
       RequestContext.getCurrentInstance().update("form:infoRegistro");
       RequestContext.getCurrentInstance().update("form:resultadoBusqueda");
       RequestContext.getCurrentInstance().execute("PF('detallesBusquedaDialogo').hide();");
@@ -2540,6 +2768,8 @@ public class ControlBusquedaAvanzada implements Serializable {
       System.out.println("Controlador.ControlBusquedaAvanzada.cargueQueryModuloPersonal()");
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCosto");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOTRABAJADOR", "BTIPOTRABAJADOR", "A");
          listaParametrosQueryModulos.add(parametro);
@@ -2561,6 +2791,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCargo() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCosto");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCargo.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "BCARGO", "A");
@@ -2568,7 +2800,6 @@ public class ControlBusquedaAvanzada implements Serializable {
          }
          if (vTipoFechaCargo.equals("true")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CARGO", "BCARGO", "H");
-
             DateFormat df = DateFormat.getDateInstance();
             listaParametrosQueryModulos.add(parametro);
             ParametrosQueryBusquedaAvanzada parametro2 = null;
@@ -2610,6 +2841,9 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCentroCosto() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCentroCosto");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
+//      System.out.println("cargueModuloCentroCosto : " + cargueModuloCentroCosto);
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCentroCosto.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENTROCOSTO", "BCENTROCOSTO", "A");
@@ -2644,6 +2878,9 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloSueldo() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesSueldo");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
+//      System.out.println("cargueModuloSueldo : " + cargueModuloSueldo);
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaSueldo.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SUELDO", "BSUELDO", "A");
@@ -2686,6 +2923,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFechaContrato() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoContrato");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaTipoContrato.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FECHACONTRATO", "BFECHACONTRATO", "A");
@@ -2720,6 +2959,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloTipoTrabajador() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoTrabajador");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaTipoTrabajador.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOTRABAJADOR", "BTIPOTRABAJADOR", "A");
@@ -2750,6 +2991,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloTipoSalario() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesTipoSalario");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaReformaLaboral.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("TIPOSALARIO", "BTIPOSALARIO", "A");
@@ -2780,6 +3023,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloNormaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesNormaLaboral");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaNormaLaboral.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("NORMALABORAL", "BNORMALABORAL", "A");
@@ -2811,6 +3056,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloLegislacionLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesLegislacionLaboral");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaLegislacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("LEGISLACIONLABORAL", "BLEGISLACIONLABORAL", "A");
@@ -2851,6 +3098,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloUbicacionGeografica() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesUbicacion");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaUbicacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("UBICACION", "BUBICACION", "A");
@@ -2881,6 +3130,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloAfiliaciones() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesAfiliacion");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaAfiliacion.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("AFILIACIONES", "BAFILIACIONES", "A");
@@ -2919,6 +3170,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFormaPago() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesFormaPago");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaFormaPago.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FORMAPAGO", "BFORMAPAGO", "A");
@@ -2955,6 +3208,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloMVR() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesMvrs");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaMvr.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("MVRS", "BMVRS", "A");
@@ -2993,6 +3248,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloSET() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesSets");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaSet.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("SETS", "BSETS", "A");
@@ -3042,6 +3299,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloVacaciones() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesVacacion");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("VACACIONES", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3071,6 +3330,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFechaRetiro() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesRetiro");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("FECHARETIRO", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3094,6 +3355,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloJornadaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesJornadaLaboral");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("JORNADALABORAL", "NN", "NN");
          listaParametrosQueryModulos.add(parametroInicial);
@@ -3117,6 +3380,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloDatosPersonales() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesDatosPersonales");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("DATOSPERSONALES", "NN", "NN");
@@ -3155,6 +3420,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloFactorRH() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesFactorRH");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh() != null && !this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().isEmpty()) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("FACTORRH", "FACTORRH", this.parametros.getParametrosBusquedaPersonal().getEmpleado().getPersona().getFactorrh().toString());
@@ -3170,6 +3437,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEstadoCivil() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEstadoCivil");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEstadoCivil.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("ESTADOCIVIL", "BESTADOCIVIL", "A");
@@ -3201,6 +3470,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloIdioma() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesIdioma");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("IDIOMA", "NN", "NN");
@@ -3240,6 +3511,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCensos() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCenso");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaCenso.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("CENSOS", "BCENSOS", "A");
@@ -3274,6 +3547,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEducacionFormal() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEducacionFormal");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEducacionFormal.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONFORMAL", "BEDUCACIONFORMAL", "A");
@@ -3312,6 +3587,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloEducacionNoFormal() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesEducacionNoFormal");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
          if (vTipoFechaEducacionNoFormal.equals("false")) {
             ParametrosQueryBusquedaAvanzada parametro = new ParametrosQueryBusquedaAvanzada("EDUCACIONNOFORMAL", "BEDUCACIONNOFORMAL", "A");
@@ -3350,6 +3627,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloCargoPostularse() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesCargoPostularse");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("CARGOPOSTULARSE", "NN", "NN");
@@ -3365,6 +3644,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloProyecto() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesProyecto");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("PROYECTO", "NN", "NN");
@@ -3394,6 +3675,8 @@ public class ControlBusquedaAvanzada implements Serializable {
    public void cargueParametrosModuloExperienciaLaboral() {
       FacesContext c = FacesContext.getCurrentInstance();
       TabView t = (TabView) c.getViewRoot().findComponent("form:opcionesExperienciaLaboral");
+      System.out.println("t : " + t);
+      System.out.println("t.getActiveIndex() : " + t.getActiveIndex());
       if (t.getActiveIndex() == 1) {
 
          ParametrosQueryBusquedaAvanzada parametroInicial = new ParametrosQueryBusquedaAvanzada("EXPERIENCIALABORAL", "NN", "NN");
@@ -3445,7 +3728,7 @@ public class ControlBusquedaAvanzada implements Serializable {
       if (listaResultadoBusqueda != null) {
          if (!listaResultadoBusqueda.isEmpty()) {
             resultado = listaResultadoBusqueda.get(0);
-            if (listaResultadoBusqueda.size() > 0) {
+            if (listaResultadoBusqueda.size() > 1) {
                ResultadoBusquedaAvanzada resultado2 = listaResultadoBusqueda.get(1);
                try {
                   if (resultado2.getColumna0().length() > resultado.getColumna0().length()) {
@@ -3589,7 +3872,6 @@ public class ControlBusquedaAvanzada implements Serializable {
             }
             System.out.println("totalAncho : " + totalAncho);
             anchoTablaResultados = totalAncho + "px";
-            ejecutarBusqueda();
          }
       }
       return resultado;
@@ -3829,6 +4111,9 @@ public class ControlBusquedaAvanzada implements Serializable {
    }
 
    public String getValorCopia() {
+      if (valorCopia == null) {
+         valorCopia = "";
+      }
       return valorCopia;
    }
 
@@ -5265,6 +5550,358 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    public void setAnchoTablaResultados(String anchoTablaResultados) {
       this.anchoTablaResultados = anchoTablaResultados;
+   }
+
+   public String getTxt_vcargo_cargo() {
+      return txt_vcargo_cargo;
+   }
+
+   public void setTxt_vcargo_cargo(String txt_vcargo_cargo) {
+      this.txt_vcargo_cargo = txt_vcargo_cargo;
+   }
+
+   public String getTxt_vcargo_empleadoJefe_Per() {
+      return txt_vcargo_empleadoJefe_Per;
+   }
+
+   public void setTxt_vcargo_empleadoJefe_Per(String txt_vcargo_empleadoJefe_Per) {
+      this.txt_vcargo_empleadoJefe_Per = txt_vcargo_empleadoJefe_Per;
+   }
+
+   public String getTxt_vcargo_estructura_CC() {
+      return txt_vcargo_estructura_CC;
+   }
+
+   public void setTxt_vcargo_estructura_CC(String txt_vcargo_estructura_CC) {
+      this.txt_vcargo_estructura_CC = txt_vcargo_estructura_CC;
+   }
+
+   public String getTxt_vcargo_motivoCam() {
+      return txt_vcargo_motivoCam;
+   }
+
+   public void setTxt_vcargo_motivoCam(String txt_vcargo_motivoCam) {
+      this.txt_vcargo_motivoCam = txt_vcargo_motivoCam;
+   }
+
+   public String getTxt_vcargo_papel() {
+      return txt_vcargo_papel;
+   }
+
+   public void setTxt_vcargo_papel(String txt_vcargo_papel) {
+      this.txt_vcargo_papel = txt_vcargo_papel;
+   }
+
+   public String getTxt_vlocalizacion_locali() {
+      return txt_vlocalizacion_locali;
+   }
+
+   public void setTxt_vlocalizacion_locali(String txt_vlocalizacion_locali) {
+      this.txt_vlocalizacion_locali = txt_vlocalizacion_locali;
+   }
+
+   public String getTxt_vlocalizacion_motivo() {
+      return txt_vlocalizacion_motivo;
+   }
+
+   public void setTxt_vlocalizacion_motivo(String txt_vlocalizacion_motivo) {
+      this.txt_vlocalizacion_motivo = txt_vlocalizacion_motivo;
+   }
+
+   public String getTxt_vlocalizacion_proyecto() {
+      return txt_vlocalizacion_proyecto;
+   }
+
+   public void setTxt_vlocalizacion_proyecto(String txt_vlocalizacion_proyecto) {
+      this.txt_vlocalizacion_proyecto = txt_vlocalizacion_proyecto;
+   }
+
+   public String getTxt_vsueldo_motivo() {
+      return txt_vsueldo_motivo;
+   }
+
+   public void setTxt_vsueldo_motivo(String txt_vsueldo_motivo) {
+      this.txt_vsueldo_motivo = txt_vsueldo_motivo;
+   }
+
+   public String getTxt_vsueldo_tipoS() {
+      return txt_vsueldo_tipoS;
+   }
+
+   public void setTxt_vsueldo_tipoS(String txt_vsueldo_tipoS) {
+      this.txt_vsueldo_tipoS = txt_vsueldo_tipoS;
+   }
+
+   public String getTxt_vtipoContrato_ciudad() {
+      return txt_vtipoContrato_ciudad;
+   }
+
+   public void setTxt_vtipoContrato_ciudad(String txt_vtipoContrato_ciudad) {
+      this.txt_vtipoContrato_ciudad = txt_vtipoContrato_ciudad;
+   }
+
+   public String getTxt_vtipoContrato_motivo() {
+      return txt_vtipoContrato_motivo;
+   }
+
+   public void setTxt_vtipoContrato_motivo(String txt_vtipoContrato_motivo) {
+      this.txt_vtipoContrato_motivo = txt_vtipoContrato_motivo;
+   }
+
+   public String getTxt_vtipoContrato_tipoCont() {
+      return txt_vtipoContrato_tipoCont;
+   }
+
+   public void setTxt_vtipoContrato_tipoCont(String txt_vtipoContrato_tipoCont) {
+      this.txt_vtipoContrato_tipoCont = txt_vtipoContrato_tipoCont;
+   }
+
+   public String getTxt_vtipoTrab_tipoTrab() {
+      return txt_vtipoTrab_tipoTrab;
+   }
+
+   public void setTxt_vtipoTrab_tipoTrab(String txt_vtipoTrab_tipoTrab) {
+      this.txt_vtipoTrab_tipoTrab = txt_vtipoTrab_tipoTrab;
+   }
+
+   public String getTxt_vreformaL_ReforLab() {
+      return txt_vreformaL_ReforLab;
+   }
+
+   public void setTxt_vreformaL_ReforLab(String txt_vreformaL_ReforLab) {
+      this.txt_vreformaL_ReforLab = txt_vreformaL_ReforLab;
+   }
+
+   public String getTxt_vcontrato_contrato() {
+      return txt_vcontrato_contrato;
+   }
+
+   public void setTxt_vcontrato_contrato(String txt_vcontrato_contrato) {
+      this.txt_vcontrato_contrato = txt_vcontrato_contrato;
+   }
+
+   public String getTxt_vubicacion_ciudad() {
+      return txt_vubicacion_ciudad;
+   }
+
+   public void setTxt_vubicacion_ciudad(String txt_vubicacion_ciudad) {
+      this.txt_vubicacion_ciudad = txt_vubicacion_ciudad;
+   }
+
+   public String getTxt_vubicacion_ubic() {
+      return txt_vubicacion_ubic;
+   }
+
+   public void setTxt_vubicacion_ubic(String txt_vubicacion_ubic) {
+      this.txt_vubicacion_ubic = txt_vubicacion_ubic;
+   }
+
+   public String getTxt_vafiliacion_estado() {
+      return txt_vafiliacion_estado;
+   }
+
+   public void setTxt_vafiliacion_estado(String txt_vafiliacion_estado) {
+      this.txt_vafiliacion_estado = txt_vafiliacion_estado;
+   }
+
+   public String getTxt_vafiliacion_tercSuc() {
+      return txt_vafiliacion_tercSuc;
+   }
+
+   public void setTxt_vafiliacion_tercSuc(String txt_vafiliacion_tercSuc) {
+      this.txt_vafiliacion_tercSuc = txt_vafiliacion_tercSuc;
+   }
+
+   public String getTxt_vafiliacion_tipoEntidad() {
+      return txt_vafiliacion_tipoEntidad;
+   }
+
+   public void setTxt_vafiliacion_tipoEntidad(String txt_vafiliacion_tipoEntidad) {
+      this.txt_vafiliacion_tipoEntidad = txt_vafiliacion_tipoEntidad;
+   }
+
+   public String getTxt_vformapago_formaP() {
+      return txt_vformapago_formaP;
+   }
+
+   public void setTxt_vformapago_formaP(String txt_vformapago_formaP) {
+      this.txt_vformapago_formaP = txt_vformapago_formaP;
+   }
+
+   public String getTxt_vformapago_sucursal() {
+      return txt_vformapago_sucursal;
+   }
+
+   public void setTxt_vformapago_sucursal(String txt_vformapago_sucursal) {
+      this.txt_vformapago_sucursal = txt_vformapago_sucursal;
+   }
+
+   public String getTxt_mvrs_motivo() {
+      return txt_mvrs_motivo;
+   }
+
+   public void setTxt_mvrs_motivo(String txt_mvrs_motivo) {
+      this.txt_mvrs_motivo = txt_mvrs_motivo;
+   }
+
+   public String getTxt_vnorma_norma() {
+      return txt_vnorma_norma;
+   }
+
+   public void setTxt_vnorma_norma(String txt_vnorma_norma) {
+      this.txt_vnorma_norma = txt_vnorma_norma;
+   }
+
+   public String getTxt_vjornada_jornada() {
+      return txt_vjornada_jornada;
+   }
+
+   public void setTxt_vjornada_jornada(String txt_vjornada_jornada) {
+      this.txt_vjornada_jornada = txt_vjornada_jornada;
+   }
+
+   public String getTxtP_empleado_per_ciudadNac() {
+      return txtP_empleado_per_ciudadNac;
+   }
+
+   public void setTxtP_empleado_per_ciudadNac(String txtP_empleado_per_ciudadNac) {
+      this.txtP_empleado_per_ciudadNac = txtP_empleado_per_ciudadNac;
+   }
+
+   public String getTxtP_empleado_per_ciudadDoc() {
+      return txtP_empleado_per_ciudadDoc;
+   }
+
+   public void setTxtP_empleado_per_ciudadDoc(String txtP_empleado_per_ciudadDoc) {
+      this.txtP_empleado_per_ciudadDoc = txtP_empleado_per_ciudadDoc;
+   }
+
+   public String getTxtP_empleado_per_tipoDoc() {
+      return txtP_empleado_per_tipoDoc;
+   }
+
+   public void setTxtP_empleado_per_tipoDoc(String txtP_empleado_per_tipoDoc) {
+      this.txtP_empleado_per_tipoDoc = txtP_empleado_per_tipoDoc;
+   }
+
+   public String getTxtP_estadoCivil() {
+      return txtP_estadoCivil;
+   }
+
+   public void setTxtP_estadoCivil(String txtP_estadoCivil) {
+      this.txtP_estadoCivil = txtP_estadoCivil;
+   }
+
+   public String getTxtP_idiomap_idioma() {
+      return txtP_idiomap_idioma;
+   }
+
+   public void setTxtP_idiomap_idioma(String txtP_idiomap_idioma) {
+      this.txtP_idiomap_idioma = txtP_idiomap_idioma;
+   }
+
+   public String getTxtP_vindicador_indic() {
+      return txtP_vindicador_indic;
+   }
+
+   public void setTxtP_vindicador_indic(String txtP_vindicador_indic) {
+      this.txtP_vindicador_indic = txtP_vindicador_indic;
+   }
+
+   public String getTxtP_vindicador_tipoIndi() {
+      return txtP_vindicador_tipoIndi;
+   }
+
+   public void setTxtP_vindicador_tipoIndi(String txtP_vindicador_tipoIndi) {
+      this.txtP_vindicador_tipoIndi = txtP_vindicador_tipoIndi;
+   }
+
+   public String getTxtP_vFormal_institu() {
+      return txtP_vFormal_institu;
+   }
+
+   public void setTxtP_vFormal_institu(String txtP_vFormal_institu) {
+      this.txtP_vFormal_institu = txtP_vFormal_institu;
+   }
+
+   public String getTxtP_vFormal_profecion() {
+      return txtP_vFormal_profecion;
+   }
+
+   public void setTxtP_vFormal_profecion(String txtP_vFormal_profecion) {
+      this.txtP_vFormal_profecion = txtP_vFormal_profecion;
+   }
+
+   public String getTxtP_vNoformal_curso() {
+      return txtP_vNoformal_curso;
+   }
+
+   public void setTxtP_vNoformal_curso(String txtP_vNoformal_curso) {
+      this.txtP_vNoformal_curso = txtP_vNoformal_curso;
+   }
+
+   public String getTxtP_vNoformal_institu() {
+      return txtP_vNoformal_institu;
+   }
+
+   public void setTxtP_vNoformal_institu(String txtP_vNoformal_institu) {
+      this.txtP_vNoformal_institu = txtP_vNoformal_institu;
+   }
+
+   public String getTxtP_experLab_SectorEco() {
+      return txtP_experLab_SectorEco;
+   }
+
+   public void setTxtP_experLab_SectorEco(String txtP_experLab_SectorEco) {
+      this.txtP_experLab_SectorEco = txtP_experLab_SectorEco;
+   }
+
+   public String getTxtP_experLab_motivo() {
+      return txtP_experLab_motivo;
+   }
+
+   public void setTxtP_experLab_motivo(String txtP_experLab_motivo) {
+      this.txtP_experLab_motivo = txtP_experLab_motivo;
+   }
+
+   public String getTxtP_vproyecto_proyect() {
+      return txtP_vproyecto_proyect;
+   }
+
+   public void setTxtP_vproyecto_proyect(String txtP_vproyecto_proyect) {
+      this.txtP_vproyecto_proyect = txtP_vproyecto_proyect;
+   }
+
+   public String getTxtP_vproyecto_rol() {
+      return txtP_vproyecto_rol;
+   }
+
+   public void setTxtP_vproyecto_rol(String txtP_vproyecto_rol) {
+      this.txtP_vproyecto_rol = txtP_vproyecto_rol;
+   }
+
+   public String getTxtP_cargoPostul() {
+      return txtP_cargoPostul;
+   }
+
+   public void setTxtP_cargoPostul(String txtP_cargoPostul) {
+      this.txtP_cargoPostul = txtP_cargoPostul;
+   }
+
+   public String getTxt_motivoRet() {
+      return txt_motivoRet;
+   }
+
+   public void setTxt_motivoRet(String txt_motivoRet) {
+      this.txt_motivoRet = txt_motivoRet;
+   }
+
+   public String getTxt_vcargo_estructura() {
+      return txt_vcargo_estructura;
+   }
+
+   public void setTxt_vcargo_estructura(String txt_vcargo_estructura) {
+      this.txt_vcargo_estructura = txt_vcargo_estructura;
    }
 
 }

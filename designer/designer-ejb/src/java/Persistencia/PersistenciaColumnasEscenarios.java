@@ -62,6 +62,9 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                try {
                   String q = "SELECT " + auxiliarCampo + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = " + listaEmpleadosResultados.get(j).getCodigoEmpleado();
                   Query query = em.createNativeQuery(q);
+                  if (i == 0) {
+                     System.out.println("Persistencia - buscarQVWEmpleadosCorteCodigoEmpleado() Query : " + q);
+                  }
                   String valor = (String) query.getSingleResult();
                   registrosConDatos.get(j).setCodigoEmpleado(listaEmpleadosResultados.get(j).getCodigoEmpleado());
                   if (i == 0) {
@@ -97,7 +100,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
                } catch (PersistenceException errorPersistence) {
                   System.out.println("Error consultando Datos errorPersistence : " + errorPersistence);
                   if (j == 0) {
-                  System.out.println("i : " + i + "   , campos.get(i) : " + campos.get(i));
+                     System.out.println("i : " + i + "   , campos.get(i) : " + campos.get(i));
                   }
                }
             }
@@ -122,18 +125,76 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          System.out.println("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCorteCodigoEmpleadoCodigo()");
          String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
          em.clear();
-//         String[] campoColumns = campos.split(",");
-//         int numColumna = 0;
-//         int i = 4;
-//         while (i < campoColumns.length) {
-//            if (campoColumns[i].contains("FECHA")) {
-//               camposAux = camposAux + ", NVL(TO_CHAR(" + campoColumns[i] + ",'DD/MM/YYYY'),' ') COLUMNA" + String.valueOf(numColumna) + " ";
-//            } else {
-//               camposAux = camposAux + ", NVL(TO_CHAR('" + campoColumns[i] + "'),' ') COLUMNA" + String.valueOf(numColumna) + " ";
-//            }
-//            i++;
-//            numColumna++;
-//         }
+
+         String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
+         System.out.println("queryMap: " + queryMap);
+         List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
+         for (int j = 0; j < listaEmpleadosResultados.size(); j++) {
+            if (j == 0) {
+               System.out.println("listaEmpleadosResultados.get(0) : " + listaEmpleadosResultados.get(0));
+            }
+            ResultadoBusquedaAvanzada resultado = new ResultadoBusquedaAvanzada();
+            Query query = em.createNativeQuery(queryMap, "ConsultaBusquedaAvanzada");
+            query.setParameter(1, listaEmpleadosResultados.get(j));
+            resultado = (ResultadoBusquedaAvanzada) query.getSingleResult();
+            registroPrueba.add(resultado);
+         }
+         return registroPrueba;
+
+      } catch (Exception e) {
+         System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<ResultadoBusquedaAvanzada> buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos(EntityManager em, List<BigInteger> listaEmpleadosResultados, List<String> campos) {
+      try {
+         System.out.println("Persistencia.PersistenciaColumnasEscenarios.buscarQVWEmpleadosCortePorEmpleadoCodigoCompletos()");
+         String camposAux = "secuencia SECUENCIA, NVL(TO_CHAR(codigoempleado),' ') CODIGOEMPLEADO, NVL(primerapellido,' ') PRIMERAPELLIDO, NVL(segundoapellido,' ') SEGUNDOAPELLIDO, NVL(nombre ,' ') NOMBREEMPLEADO";
+         em.clear();
+         if (!campos.isEmpty()) {
+            String auxiliarCampo = "";
+            for (int i = 0; i < campos.size(); i++) {
+               String cualColumna = "";
+               if (i == 0) {
+                  cualColumna = "COLUMNA0";
+               }
+               if (i == 1) {
+                  cualColumna = "COLUMNA1";
+               }
+               if (i == 2) {
+                  cualColumna = "COLUMNA2";
+               }
+               if (i == 3) {
+                  cualColumna = "COLUMNA3";
+               }
+               if (i == 4) {
+                  cualColumna = "COLUMNA4";
+               }
+               if (i == 5) {
+                  cualColumna = "COLUMNA5";
+               }
+               if (i == 6) {
+                  cualColumna = "COLUMNA6";
+               }
+               if (i == 7) {
+                  cualColumna = "COLUMNA7";
+               }
+               if (i == 8) {
+                  cualColumna = "COLUMNA8";
+               }
+               if (i == 9) {
+                  cualColumna = "COLUMNA9";
+               }
+               if (campos.get(i).contains("FECHA")) {
+                  auxiliarCampo = auxiliarCampo + ", TO_CHAR(" + campos.get(i) + ",'DD/MM/YYYY') " + cualColumna;
+               } else {
+                  auxiliarCampo = auxiliarCampo + ", TO_CHAR(" + campos.get(i) + ") " + cualColumna;
+               }
+            }
+            camposAux = camposAux + auxiliarCampo;
+         }
          String queryMap = "SELECT " + camposAux + " FROM QVWEmpleadosCorte q WHERE q.codigoempleado = ?";
          System.out.println("queryMap: " + queryMap);
          List<ResultadoBusquedaAvanzada> registroPrueba = new ArrayList<ResultadoBusquedaAvanzada>();
