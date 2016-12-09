@@ -96,8 +96,8 @@ public class PersistenciaGruposTiposEntidades implements PersistenciaGruposTipos
     public List<Grupostiposentidades> consultarGruposTiposEntidades(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT ta FROM Grupostiposentidades ta ORDER BY ta.codigo");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT * FROM GRUPOSTIPOSENTIDADES ORDER BY CODIGO";
+            Query query = em.createNativeQuery(sql, Grupostiposentidades.class);
             List<Grupostiposentidades> todosGrupostiposentidades = query.getResultList();
             return todosGrupostiposentidades;
         } catch (Exception e) {

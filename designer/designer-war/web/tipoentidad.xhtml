@@ -18,6 +18,7 @@
 
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  actionListener="#{controlTiposEntidades.guardarCambiosTiposEntidades()}" process="@this" />
                         <p:tooltip style="" for="guardarRapido" value="Guardar" />
+                        
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTiposEntidades.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar" />
 
@@ -146,7 +147,7 @@
                </p:panel>
 
                <p:dialog header="Grupos De Tipo Entidad" widgetVar="gruposTiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="gruposTiposEntidadesDialogo"  
-                         showEffect="fade" hideEffect="fade" width="400" modal="true" style="">
+                         showEffect="fade" hideEffect="fade" width="410" modal="true" style="">
                   <p:dataTable id="lovGruposTiposEntidades" var="grupos" value="#{controlTiposEntidades.listaGruposTiposEntidades}" rowKey="#{grupos.secuencia}"
                                selection="#{controlTiposEntidades.gruposTiposEntidadesSeleccionada}" selectionMode="single" widgetVar="lovGruposTiposEntidades" scrollable="true" scrollWidth="385" scrollHeight="250"
                                filteredValue="#{controlTiposEntidades.filtradoGruposTiposEntidades}" emptyMessage="No se encontraron resultados con el criterio de busqueda.">              
@@ -159,13 +160,13 @@
                         <h:outputText value="Buscar Grupo de Tipo Entidad : "/>  
                         <p:inputText autocomplete="off" id="globalFilter" value="#{filtrado}" onkeyup="PF('lovGruposTiposEntidades').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{grupos.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                     <p:column filterBy="#{grupos.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                         <f:facet name="header">
                            <h:outputText value="Código" />
                         </f:facet>
                         <h:outputText value="#{grupos.codigo}" />
                      </p:column>
-                     <p:column filterBy="#{grupos.nombre}" width="150px;" filterStyle="width:100px;" filterMatchMode="contains">
+                     <p:column filterBy="#{grupos.nombre}" width="150px;" filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText value="Descripción" />
                         </f:facet>
@@ -182,7 +183,7 @@
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposEntidades.activarCtrlF11()}"/> 
 
-               <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+               <p:dialog id="confirmarGuardar" header="¡Precaución!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                   <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlTiposEntidades.redirigirPaginaAnterior()}" actionListener="#{controlTiposEntidades.guardarCambiosTiposEntidades()}" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
@@ -193,12 +194,12 @@
 
                <p:dialog id="validacionNuevaVigencia" header="¡Precaución!" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="true" modal="true" height="77" width="420" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Para agregar es necesario adicionar: #{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 100px; top: 15px; width: 300px; font-weight:bold" />
+                  <h:outputText value="#{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 100px; top: 15px; width: 300px; font-weight:bold" />
                   <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" />
                </p:dialog>
                <p:dialog id="validacionDuplicarVigencia" header="¡Precaución!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 10px; top: 15px;"  />
-                  <h:outputText value="Necesita : #{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width:280px; font-weight:bold" />
+                  <h:outputText value="#{controlTiposEntidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width:280px; font-weight:bold" />
                   <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 285px;" process="@this" />
                </p:dialog>
 
@@ -273,7 +274,7 @@
                <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
                   <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editNombre" header="Nómbre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+               <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
                   <p:inputTextarea value="#{controlTiposEntidades.editarTipoEntidad.nombre}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
                <p:dialog id="editGrupoAsociado" header="Grupo Asociado" widgetVar="editGrupoAsociado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  

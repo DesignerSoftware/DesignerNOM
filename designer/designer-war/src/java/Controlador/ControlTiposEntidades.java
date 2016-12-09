@@ -485,7 +485,7 @@ public class ControlTiposEntidades implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
 
       if (nuevoTipoEntidad.getCodigo() == null) {
-         mensajeValidacion = " *Codigo \n";
+         mensajeValidacion = "El campo código es obligatorio";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
          System.out.println("tamaño lista de tipos de entidades en agregar  : " + listTiposEntidades.size());
@@ -499,7 +499,7 @@ public class ControlTiposEntidades implements Serializable {
          System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
 
          if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
+            mensajeValidacion = " Ya existe un registro con el código ingresado. \n";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
          } else {
             System.out.println("bandera");
@@ -507,7 +507,7 @@ public class ControlTiposEntidades implements Serializable {
          }
       }
       if (nuevoTipoEntidad.getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + " *Nombre \n";
+         mensajeValidacion = "El campo Nombre es obligatorio \n";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
 
       } else {
@@ -516,7 +516,7 @@ public class ControlTiposEntidades implements Serializable {
 
       }
       if (nuevoTipoEntidad.getGrupo().getSecuencia() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Grupo Tipo Entidad \n";
+         mensajeValidacion = "El campo Grupo Tipo Entidad es obligatorio ";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
 
       } else {
@@ -687,7 +687,7 @@ public class ControlTiposEntidades implements Serializable {
       a = null;
 
       if (duplicarTipoEntidad.getCodigo() == a) {
-         mensajeValidacion = mensajeValidacion + "   *Codigo \n";
+         mensajeValidacion = "El campo código es obligatorio";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listTiposEntidades.size(); x++) {
@@ -696,7 +696,7 @@ public class ControlTiposEntidades implements Serializable {
             }
          }
          if (duplicados > 0) {
-            mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
+            mensajeValidacion = "Ya existe un registro con el mismo código. ";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
          } else {
             System.out.println("bandera");
@@ -705,7 +705,7 @@ public class ControlTiposEntidades implements Serializable {
          }
       }
       if (duplicarTipoEntidad.getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Nombre \n";
+         mensajeValidacion = "El campo nombre es obligatorio";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
 
       } else {
@@ -713,7 +713,7 @@ public class ControlTiposEntidades implements Serializable {
          contador++;
       }
       if (duplicarTipoEntidad.getGrupo().getNombre() == null) {
-         mensajeValidacion = mensajeValidacion + "   *Grupo Tipo Entidad \n";
+         mensajeValidacion = "El campo Grupo Tipo de Entidad es obligatorio";
          System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
          contador++;

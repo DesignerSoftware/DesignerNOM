@@ -81,7 +81,7 @@ public class PersistenciaTiposEntidades implements PersistenciaTiposEntidadesInt
     public List<TiposEntidades> buscarTiposEntidades(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT te FROM TiposEntidades te");
+            Query query = em.createQuery("SELECT te FROM TiposEntidades te ORDER BY te.codigo");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<TiposEntidades> tiposEntidades = query.getResultList();
             return tiposEntidades;
