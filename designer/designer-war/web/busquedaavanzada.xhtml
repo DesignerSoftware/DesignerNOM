@@ -10,7 +10,12 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">    
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
             <h:form id="form">
                <f:loadBundle basename="Recursos.busquedaavanzada" var="msg"/>
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
@@ -187,7 +192,7 @@
                            <legend style="font-size: 11px; color: blue;"><strong>#{msg['centroCosto']}</strong></legend>
 
                            <p:tabView style="position: relative; top: -6px; left: 0px; width: 810px; font-size: 11px; border: none;" id="opcionesCentroCosto" widgetVar="opcionesCentroCosto">
-                              
+
                               <p:ajax event="tabChange" update="@this"/>
                               <p:tab id="tabMensajeCentroCosto" title="#{msg['infoBasica']}" >
                                  <div style="height: 55px; position: relative; left: 0px; top: 0px;">
@@ -252,7 +257,7 @@
                            <legend style="font-size: 11px; color: blue;"><strong>#{msg['sueldo']}</strong></legend>
 
                            <p:tabView style="position: relative; top: -4px; left: -1px; width: 810px; font-size: 11px; border: none; height: 96%;" id="opcionesSueldo" widgetVar="opcionesSueldo">
-                              
+
                               <p:ajax event="tabChange" update="@this"/>
                               <p:tab id="tabMensajeSueldo" title="#{msg['infoBasica']}">
                                  <div style="height: 63px; position: relative; left: 0px; top: 0px;">
@@ -1870,7 +1875,7 @@
                                    icon="ui-icon-extlink" id="ANADIRAPARAMETROS" value="#{msg['anadirParametros']}" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="ANADIRAPARAMETROS" value="#{msg['textAnadirParametros']}"/>
 
-                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" process="@this" action="nominaf"/>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlRemoto.recibirBusquedaAvansada(controlBusquedaAvanzada.listaSecuenciasEmpleado)}" process="@this" action="nominaf"/>
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" process="@this" action="nominaf"/>
                </p:panel>
             </h:form>
@@ -1893,7 +1898,7 @@
 
                <p:dialog id="validarCrearParametros" header="#{msg['informacion']}" widgetVar="validarCrearParametros" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="¿Desea agregar los resultados de la Búsqueda a Parámetros de Liquidación?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;"/>
+                  <h:outputText value="¿Desea agregar los resultados de la Búsqueda a Parámetros de Liquidación?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Continuar" onclick="PF('validarCrearParametros').hide();" actionListener="#{controlBusquedaAvanzada.crearNuavosParametros()}"
                                    icon="ui-icon-check" process="@this" class="cssAceptarLOV" style="top: 60px !important;"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('validarCrearParametros').hide();" class="cssAtrasLOV" style="top: 60px !important;"
@@ -3499,7 +3504,7 @@
                      <p:commandButton id="aceptarDB" icon="ui-icon-check" class="cssAtrasLOV" value="#{msg['aceptar']}"
                                       actionListener="#{controlBusquedaAvanzada.ejecutarBusqueda()}"
                                       process="@this" update=":form:resultadoBusqueda" onclick="PF('detallesBusquedaDialogo').hide();"/>
-                                      <!--actionListener="#/{controladorColumnasDinamicas.updateColumns(controlBusquedaAvanzada.convertirListaAString(), controlBusquedaAvanzada.primerResultado())}"-->
+                     <!--actionListener="#/{controladorColumnasDinamicas.updateColumns(controlBusquedaAvanzada.convertirListaAString(), controlBusquedaAvanzada.primerResultado())}"-->
                   </div>
                </p:dialog>
             </h:form>

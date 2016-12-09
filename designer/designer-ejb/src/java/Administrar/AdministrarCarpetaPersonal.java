@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
@@ -27,6 +28,7 @@ import javax.persistence.EntityManager;
  * @author Administrator
  */
 @Stateful
+@Local
 public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInterface {
    //--------------------------------------------------------------------------
    //ATRIBUTOS
@@ -378,6 +380,18 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
          VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador(em, secEmpleado);
          return vwActualesTiposTrabajadores;
       } catch (Exception e) {
+         return null;
+      }
+   }
+
+   @Override
+   public VWActualesTiposTrabajadores consultarActualTipoTrabajadorCodEmpleado(BigInteger codEmpleado) {
+      try {
+         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = persistenciaVWActualesTiposTrabajadores.buscarTipoTrabajadorCodigoEmpl(em, codEmpleado);
+         System.out.println("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() vwActualesTiposTrabajadores : " + vwActualesTiposTrabajadores);
+         return vwActualesTiposTrabajadores;
+      } catch (Exception e) {
+         System.out.println("Administrar.AdministrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado() ERROR: " + e);
          return null;
       }
    }

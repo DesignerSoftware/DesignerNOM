@@ -2,6 +2,7 @@ package Controlador;
 
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
+import ComponentesDinamicos.ControladorColumnasDinamicas;
 import Entidades.*;
 import InterfaceAdministrar.*;
 import javax.ejb.EJB;
@@ -50,7 +51,7 @@ public class ControlRemoto implements Serializable {
    private VWActualesAfiliacionesPension vwActualesAfiliacionesPension;
    private VWActualesLocalizaciones vwActualesLocalizaciones;
    private VWActualesTiposTrabajadores vwActualesTiposTrabajadores;
-   private VWActualesTiposTrabajadores trabajador;
+//   private VWActualesTiposTrabajadores trabajador;
    private VWActualesContratos vwActualesContratos;
    private VWActualesJornadas vwActualesJornadas;
    private VWActualesReformasLaborales vwActualesReformasLaborales;
@@ -81,7 +82,7 @@ public class ControlRemoto implements Serializable {
    private boolean acumulado, novedad, evaluacion, activo, pensionado, aspirante, hv1, hv2, bandera;
    private VwTiposEmpleados emplSeleccionado;
    private VwTiposEmpleados emplSeleccionadoBE;
-   private boolean buscar, buscarEmp, mostrarT;
+   private boolean buscar, buscarEmp, mostrarT, mostrarT2;
    private UploadedFile file;
    private String nombreTabla;
    private Integer estadoEmpleado;
@@ -130,6 +131,9 @@ public class ControlRemoto implements Serializable {
    private boolean activarAceptarEmpresas;
    private Empresas unicaEmpresa;
 
+   private boolean resultadoBusquedaAv = false;
+   private List<VWActualesTiposTrabajadores> listaBusquedaAvanzada;
+
    public ControlRemoto() {
       lovEmpresas = null;
       extension = ".png";
@@ -165,6 +169,7 @@ public class ControlRemoto implements Serializable {
       buscar = true;
       buscarEmp = false;
       mostrarT = true;
+      mostrarT2 = true;
       bandera = false;
       //Carpeta Designer //
       listModulos = null;
@@ -188,6 +193,7 @@ public class ControlRemoto implements Serializable {
       infoRegistroEmpresas = "0";
       activarAceptarEmpresas = true;
       unicaEmpresa = null;
+      listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
    }
 
    @PostConstruct
@@ -226,10 +232,11 @@ public class ControlRemoto implements Serializable {
    }
 
    public void valorInputText() throws ParseException {
-      trabajador = vwActualesTiposTrabajadoresPosicion;
-      if (trabajador.getEmpleado() != null) {
-         secuencia = trabajador.getEmpleado().getSecuencia();
-         identificacion = trabajador.getEmpleado().getPersona().getNumerodocumento();
+      System.out.println("Controlador.ControlRemoto.valorInputText()");
+//      trabajador = vwActualesTiposTrabajadoresPosicion;
+      if (vwActualesTiposTrabajadoresPosicion.getEmpleado() != null) {
+         secuencia = vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia();
+         identificacion = vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getNumerodocumento();
       }
 
       try {
@@ -335,7 +342,7 @@ public class ControlRemoto implements Serializable {
       }
 
       try {
-         actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, trabajador.getEmpleado().getEmpresa().getRetencionysegsocxpersona());
+         actualIBC = administrarCarpetaPersonal.actualIBC(secuencia, vwActualesTiposTrabajadoresPosicion.getEmpleado().getEmpresa().getRetencionysegsocxpersona());
       } catch (Exception e) {
          actualIBC = null;
       }
@@ -352,8 +359,137 @@ public class ControlRemoto implements Serializable {
          actualComprobante = null;
       }
    }
+//
+//   public void recibirBusquedaAvansada2() {
+//      FacesContext context = FacesContext.getCurrentInstance();
+//      ControlBusquedaAvanzada controlBusquedaAvanzada = (ControlBusquedaAvanzada) context.getApplication().evaluateExpressionGet(context, "#{controlBusquedaAvanzada}", ControlBusquedaAvanzada.class);
+//      List<BigDecimal> listaCodigosEmpleados2 = controlBusquedaAvanzada.consultarListaCodigos();
+//      List<BigInteger> listaCodigosEmpleados = controlBusquedaAvanzada.consultarListaCodigos();
+//
+//      if (listaCodigosEmpleados != null) {
+//         if (!listaCodigosEmpleados.isEmpty()) {
+//            listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
+//            for (int i = 0; i < listaCodigosEmpleados.size(); i++) {
+//               try {
+//                  listaBusquedaAvanzada.add(administrarCarpetaPersonal.consultarActualTipoTrabajadorCodEmpleado(listaCodigosEmpleados.get(i)));
+//               } catch (Exception e) {
+//                  System.out.println("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
+//               }
+//            }
+//            resultadoBusquedaAv = true;
+//            totalRegistros = listaBusquedaAvanzada.size();
+//            tipoPersonal = "activos";
+//            tipoBk = tipo;
+//            tipo = "ACTIVO";
+//            posicion = 0;
+//            requerirTipoTrabajador(posicion);
+//            if (vwActualesTiposTrabajadoresPosicion == null) {
+//               vwActualesTiposTrabajadoresPosicion = backup;
+//               Mensaje = "Activo";
+//               RequestContext.getCurrentInstance().execute("PF('alerta').show()");
+//               tipo = tipoBk;
+//            } else {
+//               backup = null;
+//               Imagen = "personal1" + extension;
+//               styleActivos = "ui-state-highlight";
+//               stylePensionados = "";
+//               styleRetirados = "";
+//               styleAspirantes = "";
+//               buscarEmp = false;
+//               tipoBk = null;
+//               acumulado = false;
+//               novedad = false;
+//               evaluacion = false;
+//               activo = false;
+//               pensionado = true;
+//               aspirante = false;
+//               hv1 = true;
+//               hv2 = false;
+//               mostrarT = true;
+//               try {
+//                  valorInputText();
+//               } catch (ParseException ex) {
+//                  System.out.println(this.getClass().getName() + "activos() error ");
+//                  ex.printStackTrace();
+//               }
+//               buscarEmplTipo = null;
+//               actualizarInformacionTipoTrabajador();
+//               RequestContext.getCurrentInstance().update("form:tabmenu");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:activos");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:pensionados");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:retirados");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:aspirantes");
+//            }
+//         }
+//      }
+//   }
+
+   public void recibirBusquedaAvansada(List<BigInteger> listaSecEmpleados) {
+      System.out.println("listaSecEmpleados : " + listaSecEmpleados);
+      this.resultadoBusquedaAv = true;
+      if (listaSecEmpleados != null) {
+         if (!listaSecEmpleados.isEmpty()) {
+            listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
+            for (int i = 0; i < listaSecEmpleados.size(); i++) {
+               try {
+                  listaBusquedaAvanzada.add(administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(listaSecEmpleados.get(i)));
+                  System.out.println("Controlador.ControlRemoto.recibirBusquedaAvansada()");
+               } catch (Exception e) {
+                  System.out.println("recibirBusquedaAvansada() Error consultando vwactualtipotrabajador Pos : " + i + ",  ERROR e : " + e);
+               }
+            }
+            totalRegistros = listaBusquedaAvanzada.size();
+            tipoPersonal = "activos";
+            tipoBk = tipo;
+            tipo = "ACTIVO";
+            posicion = 0;
+            vwActualesTiposTrabajadoresPosicion = listaBusquedaAvanzada.get(0);
+            System.out.println("vwActualesTiposTrabajadoresPosicion : " + vwActualesTiposTrabajadoresPosicion);
+            if (vwActualesTiposTrabajadoresPosicion == null) {
+               vwActualesTiposTrabajadoresPosicion = backup;
+               Mensaje = "Activo";
+               RequestContext.getCurrentInstance().execute("PF('alerta').show()");
+               tipo = tipoBk;
+            } else {
+               backup = null;
+               Imagen = "personal1" + extension;
+               styleActivos = "ui-state-highlight";
+               stylePensionados = "";
+               styleRetirados = "";
+               styleAspirantes = "";
+               buscarEmp = false;
+               tipoBk = null;
+               acumulado = false;
+               novedad = false;
+               evaluacion = false;
+               activo = false;
+               pensionado = true;
+               aspirante = false;
+               hv1 = true;
+               hv2 = false;
+               try {
+                  valorInputText();
+               } catch (ParseException ex) {
+                  System.out.println(this.getClass().getName() + "activos() error ");
+                  ex.printStackTrace();
+               }
+               mostrarT2 = false;
+               mostrarT = true;
+               buscarEmplTipo = null;
+               System.out.println("Ya termino de entrar  :)");
+               actualizarInformacionTipoTrabajador();
+//               RequestContext.getCurrentInstance().update("form:tabmenu");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:activos");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:pensionados");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:retirados");
+//               RequestContext.getCurrentInstance().update("form:tabmenu:aspirantes");
+            }
+         }
+      }
+   }
 
    public void activos() {
+      resultadoBusquedaAv = false;
       tipoPersonal = "activos";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
@@ -384,6 +520,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = false;
          mostrarT = true;
+         mostrarT2 = true;
          try {
             valorInputText();
          } catch (ParseException ex) {
@@ -401,6 +538,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void pensionados() {
+      resultadoBusquedaAv = false;
       tipoPersonal = "pensionados";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
@@ -431,6 +569,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = true;
          mostrarT = true;
+         mostrarT2 = true;
          try {
             valorInputText();
          } catch (ParseException ex) {
@@ -447,6 +586,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void retirados() {
+      resultadoBusquedaAv = false;
       tipoPersonal = "retirados";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
@@ -477,6 +617,7 @@ public class ControlRemoto implements Serializable {
          hv1 = true;
          hv2 = true;
          mostrarT = true;
+         mostrarT2 = true;
          try {
             valorInputText();
          } catch (ParseException ex) {
@@ -493,6 +634,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void aspirantes() {
+      resultadoBusquedaAv = false;
       tipoPersonal = "aspirantes";
       backup = vwActualesTiposTrabajadoresPosicion;
       tipoBk = tipo;
@@ -523,6 +665,7 @@ public class ControlRemoto implements Serializable {
          hv1 = false;
          hv2 = true;
          mostrarT = true;
+         mostrarT2 = true;
          try {
             valorInputText();
          } catch (ParseException ex) {
@@ -577,9 +720,52 @@ public class ControlRemoto implements Serializable {
 
    public void paso4() {
       try {
-         administrarCarpetaPersonal.borrarEmpleadoActivo(trabajador.getEmpleado().getSecuencia(), trabajador.getEmpleado().getPersona().getSecuencia());
+         administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia(), vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getSecuencia());
          RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
          RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
+
+         if (resultadoBusquedaAv) {
+            totalRegistros = listaBusquedaAvanzada.size();
+            tipoPersonal = "activos";
+            tipoBk = tipo;
+            tipo = "ACTIVO";
+            posicion = 0;
+            listaBusquedaAvanzada.remove(vwActualesTiposTrabajadoresPosicion);
+            requerirTipoTrabajador(posicion);
+            if (vwActualesTiposTrabajadoresPosicion != null) {
+               backup = null;
+               Imagen = "personal1" + extension;
+               styleActivos = "ui-state-highlight";
+               stylePensionados = "";
+               styleRetirados = "";
+               styleAspirantes = "";
+               buscarEmp = false;
+               tipoBk = null;
+               acumulado = false;
+               novedad = false;
+               evaluacion = false;
+               activo = false;
+               pensionado = true;
+               aspirante = false;
+               hv1 = true;
+               hv2 = false;
+               mostrarT = true;
+               mostrarT2 = true;
+               try {
+                  valorInputText();
+               } catch (ParseException ex) {
+                  System.out.println(this.getClass().getName() + "activos() 'resultadoBusquedaAv' error ");
+                  ex.printStackTrace();
+               }
+               buscarEmplTipo = null;
+               actualizarInformacionTipoTrabajador();
+               RequestContext.getCurrentInstance().update("form:tabmenu");
+               RequestContext.getCurrentInstance().update("form:tabmenu:activos");
+               RequestContext.getCurrentInstance().update("form:tabmenu:pensionados");
+               RequestContext.getCurrentInstance().update("form:tabmenu:retirados");
+               RequestContext.getCurrentInstance().update("form:tabmenu:aspirantes");
+            }
+         }
       } catch (Exception e) {
          System.out.println("Error en borrar al empleado");
       }
@@ -589,6 +775,7 @@ public class ControlRemoto implements Serializable {
       System.out.println("Entro en busqueda Rapida()");
       filterBusquedaRapida = null;
       VWActualesTiposTrabajadores empleadoSeleccionado = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(emplSeleccionado.getRfEmpleado());
+      resultadoBusquedaAv = false;
       if (empleadoSeleccionado.getTipoTrabajador().getTipo().equalsIgnoreCase("activo")) {
          Imagen = "personal1" + extension;
          styleActivos = "ui-state-highlight";
@@ -665,6 +852,7 @@ public class ControlRemoto implements Serializable {
       buscar = true;
       buscarEmp = true;
       mostrarT = false;
+      mostrarT2 = false;
       totalRegistros = 1;
       posicion = 0;
       RequestContext.getCurrentInstance().update("form:tabmenu:activos");
@@ -677,8 +865,10 @@ public class ControlRemoto implements Serializable {
       RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodos");
       try {
          valorInputText();
+
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         System.out.println(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -704,12 +894,14 @@ public class ControlRemoto implements Serializable {
       System.out.println("Entro en buscarEmpleado();");
       System.out.println("emplSeleccionadoBE : " + emplSeleccionadoBE);
       filterBuscarEmpleado = null;
+      resultadoBusquedaAv = false;
       VWActualesTiposTrabajadores empleadoSeleccionado = administrarCarpetaPersonal.consultarActualTipoTrabajadorEmpleado(emplSeleccionadoBE.getRfEmpleado());
       tipo = empleadoSeleccionado.getTipoTrabajador().getTipo();
       vwActualesTiposTrabajadoresPosicion = empleadoSeleccionado;
       emplSeleccionadoBE = null;
       buscar = true;
       mostrarT = false;
+      mostrarT2 = false;
       totalRegistros = 1;
       posicion = 0;
 
@@ -725,8 +917,10 @@ public class ControlRemoto implements Serializable {
 
       try {
          valorInputText();
+
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         System.out.println(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -746,10 +940,13 @@ public class ControlRemoto implements Serializable {
    }
 
    public void mostrarTodos() {
-      requerirTipoTrabajador(0);
       totalRegistros = administrarCarpetaPersonal.obtenerTotalRegistrosTipoTrabajador(tipo);
+      resultadoBusquedaAv = false;
       mostrarT = true;
+      mostrarT2 = true;
       buscarEmp = false;
+      posicion = 0;
+      requerirTipoTrabajador(0);
       try {
          valorInputText();
       } catch (ParseException ex) {
@@ -906,6 +1103,7 @@ public class ControlRemoto implements Serializable {
    public void primerTipoTrabajador() {
       posicion = 0;
       System.out.println("Esta en primerTipoTrabajador()");
+      System.out.println("resultadoBusquedaAv : " + resultadoBusquedaAv);
       requerirTipoTrabajador(posicion);
       try {
          valorInputText();
@@ -922,8 +1120,10 @@ public class ControlRemoto implements Serializable {
          requerirTipoTrabajador(posicion);
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada.");
+            System.out.println(ControlRemoto.class
+                    .getName() + " error en la entrada.");
          }
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -936,8 +1136,10 @@ public class ControlRemoto implements Serializable {
          requerirTipoTrabajador(posicion);
          try {
             valorInputText();
+
          } catch (ParseException ex) {
-            System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+            System.out.println(ControlRemoto.class
+                    .getName() + " error en la entrada");
          }
          actualizarInformacionTipoTrabajador();
          RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -949,8 +1151,10 @@ public class ControlRemoto implements Serializable {
       requerirTipoTrabajador(posicion);
       try {
          valorInputText();
+
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
+         System.out.println(ControlRemoto.class
+                 .getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       RequestContext.getCurrentInstance().update("form:tabmenu");
@@ -984,7 +1188,12 @@ public class ControlRemoto implements Serializable {
    }
 
    public VWActualesTiposTrabajadores requerirTipoTrabajador(int posicion) {
-      vwActualesTiposTrabajadoresPosicion = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajadorPosicion(tipo, posicion);
+      System.out.println("resultadoBusquedaAv : " + resultadoBusquedaAv);
+      if (resultadoBusquedaAv) {
+         vwActualesTiposTrabajadoresPosicion = listaBusquedaAvanzada.get(posicion);
+      } else {
+         vwActualesTiposTrabajadoresPosicion = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajadorPosicion(tipo, posicion);
+      }
       return vwActualesTiposTrabajadoresPosicion;
    }
 
@@ -996,6 +1205,7 @@ public class ControlRemoto implements Serializable {
       banner.add(new BannerInicioRed("https://www.nomina.com.co/images/publicidadInn/pInn04.png", "www.nomina.com.co"));
    }
 
+   //   GET'S Y SET'S
    public List<Tablas> getListTablas() {
       return listTablas;
    }
@@ -1192,10 +1402,10 @@ public class ControlRemoto implements Serializable {
    public void setVigenciaSeleccionada(VigenciasCargos vigenciaSeleccionada) {
       this.vigenciaSeleccionada = vigenciaSeleccionada;
    }
-
-   public VWActualesTiposTrabajadores getTrabajador() {
-      return trabajador;
-   }
+//
+//   public VWActualesTiposTrabajadores getTrabajador() {
+//      return trabajador;
+//   }
 
    public boolean isAcumulado() {
       return acumulado;
@@ -1765,6 +1975,14 @@ public class ControlRemoto implements Serializable {
 
    public void setInfoRegistroBuscarTablas(String infoRegistroBuscarTablas) {
       this.infoRegistroBuscarTablas = infoRegistroBuscarTablas;
+   }
+
+   public boolean isMostrarT2() {
+      return mostrarT2;
+   }
+
+   public void setMostrarT2(boolean mostrarT2) {
+      this.mostrarT2 = mostrarT2;
    }
 
 }

@@ -248,6 +248,7 @@ public class ControlBusquedaAvanzada implements Serializable {
    private String valorPorDefecto;
    private String valorCopia;
    List<BigInteger> listaCodigosEmpleado;
+   List<BigInteger> listaSecuenciasEmpleado;
    //Para Todos los listados
    private String infoRegistro;
    private boolean aceptar;
@@ -429,6 +430,9 @@ public class ControlBusquedaAvanzada implements Serializable {
       txtP_vproyecto_rol = "";
       txtP_cargoPostul = "";
       txt_motivoRet = "";
+
+      listaCodigosEmpleado = new ArrayList<BigInteger>();
+      listaSecuenciasEmpleado = new ArrayList<BigInteger>();
    }
 
    public void cancelarModificaciones() {
@@ -616,6 +620,9 @@ public class ControlBusquedaAvanzada implements Serializable {
       txtP_vproyecto_rol = "";
       txtP_cargoPostul = "";
       txt_motivoRet = "";
+
+      listaCodigosEmpleado = new ArrayList<BigInteger>();
+      listaSecuenciasEmpleado = new ArrayList<BigInteger>();
    }
 
    @PostConstruct
@@ -2734,10 +2741,16 @@ public class ControlBusquedaAvanzada implements Serializable {
          }
       }
       listaResultadoBusqueda = administrarBusquedaAvanzada.obtenerQVWEmpleadosCortePorEmpleadoCodigoCompletos(listaCodigosEmpleado, listCampoColumns);
-
+      listaSecuenciasEmpleado = new ArrayList<BigInteger>();
+      if (listaResultadoBusqueda != null) {
+         if (!listaResultadoBusqueda.isEmpty()) {
+            for (int i = 0; i < listaResultadoBusqueda.size(); i++) {
+               listaSecuenciasEmpleado.add(listaResultadoBusqueda.get(i).getSecuencia());
+            }
+         }
+      }
       columnas = convertirListaAString();
-      ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class
-      );
+      ControladorColumnasDinamicas controladorColumnasDinamicas = (ControladorColumnasDinamicas) context.getApplication().evaluateExpressionGet(context, "#{controladorColumnasDinamicas}", ControladorColumnasDinamicas.class);
       controladorColumnasDinamicas.updateColumns(columnas, primerResultado());
       RequestContext.getCurrentInstance().update("form:infoRegistro");
       RequestContext.getCurrentInstance().update("form:resultadoBusqueda");
@@ -5902,6 +5915,14 @@ public class ControlBusquedaAvanzada implements Serializable {
 
    public void setTxt_vcargo_estructura(String txt_vcargo_estructura) {
       this.txt_vcargo_estructura = txt_vcargo_estructura;
+   }
+
+   public List<BigInteger> getListaSecuenciasEmpleado() {
+      return listaSecuenciasEmpleado;
+   }
+
+   public void setListaSecuenciasEmpleado(List<BigInteger> listaSecuenciasEmpleado) {
+      this.listaSecuenciasEmpleado = listaSecuenciasEmpleado;
    }
 
 }
