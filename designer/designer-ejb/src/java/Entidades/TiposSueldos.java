@@ -112,9 +112,9 @@ public class TiposSueldos implements Serializable {
     public String getStrCapacidad() {
         getCapacidadendeudamiento();
         if (capacidadendeudamiento.equalsIgnoreCase("N")) {
-            strCapacidad = "SI";
-        } else {
             strCapacidad = "NO";
+        } else {
+            strCapacidad = "SI";
         }
         return strCapacidad;
     }
@@ -126,9 +126,9 @@ public class TiposSueldos implements Serializable {
     public String getStrBasico() {
         getBasico();
         if (basico.equalsIgnoreCase("N")) {
-            strBasico = "SI";
-        } else {
             strBasico = "NO";
+        } else {
+            strBasico = "SI";
         }
         return strBasico;
     }
@@ -140,9 +140,9 @@ public class TiposSueldos implements Serializable {
     public String getStrAdicional() {
         getAdicionalbasico();
         if (adicionalbasico.equalsIgnoreCase("N")) {
-            strAdicional = "SI";
-        } else {
             strAdicional = "NO";
+        } else {
+            strAdicional = "SI";
         }
         return strAdicional;
     }

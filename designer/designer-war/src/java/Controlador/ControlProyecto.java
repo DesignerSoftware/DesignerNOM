@@ -1802,27 +1802,28 @@ public class ControlProyecto implements Serializable {
    }
 
    public void actualizarProyecto() {
-      listProyectos = null;
+      if(!listProyectos.isEmpty()){
+          listProyectos.clear();
+          listProyectos.add(proyectoLOVSeleccionado);
+          proyectoTablaSeleccionado = listProyectos.get(0);
+      }
       filtrarListProyectos = null;
-      listProyectos = new ArrayList<Proyectos>();
-      listProyectos.add(proyectoTablaSeleccionado);
       RequestContext context = RequestContext.getCurrentInstance();
-      proyectoTablaSeleccionado = null;
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
-      RequestContext.getCurrentInstance().update("form:datosProyectos");
       RequestContext.getCurrentInstance().update("form:BuscarProyectoDialogo");
       RequestContext.getCurrentInstance().update("form:lovProyecto");
       RequestContext.getCurrentInstance().update("form:aceptarPro");
       context.reset("form:lovProyecto:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovProyecto').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('BuscarProyectoDialogo').hide()");
+      RequestContext.getCurrentInstance().update("form:datosProyectos");
    }
 
    public void cancelarActualizarProyecto() {
       RequestContext context = RequestContext.getCurrentInstance();
-      proyectoTablaSeleccionado = null;
       aceptar = true;
       filtrarListProyectos = null;
+      
       RequestContext.getCurrentInstance().update("form:infoRegistro");
       RequestContext.getCurrentInstance().update("form:datosProyectos");
       RequestContext.getCurrentInstance().update("form:BuscarProyectoDialogo");
@@ -1844,7 +1845,6 @@ public class ControlProyecto implements Serializable {
       }
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
       RequestContext.getCurrentInstance().update("form:datosProyectos");
    }
    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO

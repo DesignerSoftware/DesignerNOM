@@ -290,6 +290,9 @@ public class AdministrarTiposSueldos implements AdministrarTiposSueldosInterface
     public void editarTEFormulasConceptos(List<TEFormulasConceptos> listaTE) {
         try {
             for (int i = 0; i < listaTE.size(); i++) {
+                if(listaTE.get(i).getConcepto() == null){
+                    listaTE.get(i).setConcepto(new Conceptos());
+                }
                 listaTE.get(i).setEmpresa(listaTE.get(i).getConcepto().getEmpresa());
                 persistenciaTEFormulasConceptos.editar(em, listaTE.get(i));
             }

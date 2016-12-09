@@ -110,9 +110,9 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
     public List<VigenciasGruposSalariales> buscarVigenciaGrupoSalarialSecuenciaGrupoSal(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT vgs FROM VigenciasGruposSalariales vgs WHERE vgs.gruposalarial.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT * FROM VigenciasGruposSalariales WHERE gruposalarial = ?";
+            Query query = em.createNativeQuery(sql, VigenciasGruposSalariales.class);
+            query.setParameter(1, secuencia);
             List<VigenciasGruposSalariales> vigenciasGruposSalariales = (List<VigenciasGruposSalariales>) query.getResultList();
             return vigenciasGruposSalariales;
         } catch (Exception e) {

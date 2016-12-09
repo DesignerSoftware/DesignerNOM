@@ -83,8 +83,8 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
     public List<GruposSalariales> buscarGruposSalariales(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT gs FROM GruposSalariales gs ORDER BY gs.secuencia");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql="SELECT * FROM GRUPOSSALARIALES ORDER BY CODIGO";
+            Query query = em.createNativeQuery(sql, GruposSalariales.class);
             List<GruposSalariales> gruposSalariales = query.getResultList();
             return gruposSalariales;
         } catch (Exception e) {
@@ -98,9 +98,9 @@ public class PersistenciaGruposSalariales implements PersistenciaGruposSalariale
 
         try {
             em.clear();
-            Query query = em.createQuery("SELECT gs FROM GruposSalariales gs WHERE gs.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql = "SELECT * FROM GruposSalariales WHERE secuencia = ?";
+            Query query = em.createNativeQuery(sql, GruposSalariales.class);
+            query.setParameter(1, secuencia);
             GruposSalariales gruposSalariales = (GruposSalariales) query.getSingleResult();
             return gruposSalariales;
         } catch (Exception e) {

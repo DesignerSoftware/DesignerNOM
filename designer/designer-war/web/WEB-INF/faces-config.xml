@@ -4695,7 +4695,7 @@
     <navigation-rule>
         <from-view-id>/tiposueldo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>tipoentidadtiposueldo</from-outcome>
+            <from-outcome>tipoentidad</from-outcome>
             <to-view-id>/tipoentidad.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -4703,7 +4703,7 @@
     <navigation-rule>
         <from-view-id>/tipoentidad.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrastipoentidadtiposueldo</from-outcome>
+            <from-outcome>tipoentidad</from-outcome>
             <to-view-id>/tiposueldo.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -6461,21 +6461,39 @@
         </navigation-case>
     </navigation-rule>
 
- <navigation-rule>
-        <from-view-id>/nreportebienestar.xhtml</from-view-id>
+      <navigation-rule>
+        <from-view-id>/tiposueldo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>enviocorreo</from-outcome>
-            <to-view-id>/enviocorreo.xhtml</to-view-id>
+            <from-outcome>concepto</from-outcome>
+            <to-view-id>/concepto.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/enviocorreo.xhtml</from-view-id>
+        <from-view-id>/concepto.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>nreportebienestar</from-outcome>
-            <to-view-id>/reportesbancos.xhtml</to-view-id>
+            <from-outcome>concepto</from-outcome>
+            <to-view-id>/tiposueldo.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+        <navigation-rule>
+        <from-view-id>/tiposueldo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>formula</from-outcome>
+            <to-view-id>/formula.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/formula.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>formula</from-outcome>
+            <to-view-id>/tiposueldo.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>
 

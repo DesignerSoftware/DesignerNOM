@@ -70,7 +70,7 @@ public class PersistenciaTiposSueldos implements PersistenciaTiposSueldosInterfa
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(tiposSueldos);
+            em.remove(em.merge(tiposSueldos));
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaTiposSueldos.borrar: " + e);

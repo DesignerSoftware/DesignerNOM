@@ -89,7 +89,6 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptos(EntityManager em) {
       em.clear();
       try {
-         System.out.println("Entro en buscarConceptos()");
          javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
          cq.select(cq.from(Conceptos.class));
          return em.createQuery(cq).getResultList();

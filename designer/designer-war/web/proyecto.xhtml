@@ -75,7 +75,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute;top: 80px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
+                  <fieldset style="position: relative;top: 40px;left: 0px;height: 390px;width: 830px; border-radius: 10px; text-align: left">
                      <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
                      <p:dataTable id="datosProyectos" widgetVar="datosProyecto" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceP" value="#{controlProyecto.listProyectos}" 
                                   filteredValue="#{controlProyecto.filtrarListProyectos}" editable="true" editMode="cell" 
@@ -251,7 +251,7 @@
                            </p:cellEditor>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistro}" style="position: relative; left: 5px; top:-8px; font-weight: bold"/>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlProyecto.infoRegistro}" style="position: relative; left: 5px; top:-5px; font-weight: bold"/>
                      <p:commandButton style="position: relative; left: 575px; top:1px;" class="cssBotonBuscar"
                                       id="BUSCARPROYECTO" process="@this" value=" " actionListener="#{controlProyecto.dialogoProyecto()}"/> 
                      <p:commandButton style="position: relative; left: 575px; top:1px;" class="cssBotonMostrarTodos"
@@ -273,13 +273,13 @@
                            <h:outputText value="#{msg['buscarE']}" />  
                            <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"  />  
                         </f:facet>
-                        <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains">
+                        <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width:80% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nombreE']}" />
                            </f:facet>
                            <h:outputText value="#{empresa.nombre}" />
                         </p:column>
-                        <p:column filterBy="#{empresa.nit}"  filterMatchMode="contains" >
+                        <p:column filterBy="#{empresa.nit}"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['nitE']}" />
                            </f:facet>
@@ -312,19 +312,19 @@
                            </f:facet>
                            <h:outputText  value="#{cliente.nombre}" />
                         </p:column>
-                        <p:column filterBy="#{cliente.direccion}" width="140"  filterMatchMode="contains">
+                        <p:column filterBy="#{cliente.direccion}" width="140"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText value="#{msg['direccionC']}" />
                            </f:facet>
                            <h:outputText value="#{cliente.direccion}" />
                         </p:column>
-                        <p:column filterBy="#{cliente.telefono}" width="110"  filterMatchMode="contains" >
+                        <p:column filterBy="#{cliente.telefono}" width="110"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText value="#{msg['telefonoC']}" />
                            </f:facet>
                            <h:outputText value="#{cliente.telefono}" />
                         </p:column>
-                        <p:column filterBy="#{cliente.contacto}" width="110"  filterMatchMode="contains">
+                        <p:column filterBy="#{cliente.contacto}" width="110"  filterMatchMode="contains" filterStyle="width:80% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['contactoC']}" />
                            </f:facet>
@@ -353,19 +353,19 @@
                            <h:outputText value="#{msg['buscarP']}" />  
                            <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPlataforma').filter();" class="cssFiltroLOV" />  
                         </f:facet>
-                        <p:column filterBy="#{plataforma.codigo}"  filterMatchMode="contains">
+                        <p:column filterBy="#{plataforma.codigo}"  filterMatchMode="contains" filterStyle="width:80% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigoP']}" />
                            </f:facet>
                            <h:outputText value="#{plataforma.codigo}" />
                         </p:column>
-                        <p:column filterBy="#{plataforma.descripcion}"  filterMatchMode="contains" >
+                        <p:column filterBy="#{plataforma.descripcion}"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['descripcionP']}" />
                            </f:facet>
                            <h:outputText  value="#{plataforma.descripcion}" />
                         </p:column>
-                        <p:column filterBy="#{plataforma.observacion}"  filterMatchMode="contains" >
+                        <p:column filterBy="#{plataforma.observacion}"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['observacionP']}" />
                            </f:facet>
@@ -395,13 +395,13 @@
                            <h:outputText value="#{msg['buscarM']}"  />  
                            <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovMoneda').filter();" class="cssFiltroLOV" />  
                         </f:facet>
-                        <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains">
+                        <p:column filterBy="#{moneda.codigo}" width="100"  filterMatchMode="contains" filterStyle="width:80% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigoM']}" />
                            </f:facet>
                            <h:outputText value="#{moneda.codigo}" />
                         </p:column>
-                        <p:column filterBy="#{moneda.nombre}" width="200" filterMatchMode="contains" >
+                        <p:column filterBy="#{moneda.nombre}" width="200" filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['nombreM']}" />
                            </f:facet>
@@ -431,13 +431,13 @@
                            <h:outputText value="#{msg['buscarPR']}:"/>  
                            <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProyecto').filter();" class="cssFiltroLOV" />  
                         </f:facet>
-                        <p:column filterBy="#{proyecto.codigo}" width="100"  filterMatchMode="contains">
+                        <p:column filterBy="#{proyecto.codigo}" width="100"  filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText value="#{msg['codigoPR']}" />
                            </f:facet>
                            <h:outputText value="#{proyecto.codigo}" />
                         </p:column>
-                        <p:column filterBy="#{proyecto.nombreproyecto}" width="200" filterMatchMode="contains" >
+                        <p:column filterBy="#{proyecto.nombreproyecto}" width="200" filterMatchMode="contains" filterStyle="width:80% !important" >
                            <f:facet name="header">
                               <h:outputText style="text-align: center" value="#{msg['nombrePR']}" />
                            </f:facet>

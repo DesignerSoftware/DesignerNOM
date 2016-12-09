@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Conceptos;
 import Entidades.Empresas;
 import Entidades.Formulas;
@@ -32,10 +31,6 @@ import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
 
-/**
- *
- * @author PROYECTO01
- */
 @ManagedBean
 @SessionScoped
 public class ControlTipoSueldo implements Serializable {
@@ -48,35 +43,26 @@ public class ControlTipoSueldo implements Serializable {
     private List<TiposSueldos> listaTiposSueldos;
     private List<TiposSueldos> filtrarListaTiposSueldos;
     private TiposSueldos tipoSueldoTablaSeleccionado;
-    //
     private List<TSFormulasConceptos> listaTSFormulasConceptos;
     private List<TSFormulasConceptos> filtrarListaTSFormulasConceptos;
     private TSFormulasConceptos tsFormulaTablaSeleccionado;
-    //
     private List<TSGruposTiposEntidades> listaTSGruposTiposEntidades;
     private List<TSGruposTiposEntidades> filtrarListaTSGruposTiposEntidades;
     private TSGruposTiposEntidades tsGrupoTablaSeleccionado;
-    //
     private List<TEFormulasConceptos> listaTEFormulasConceptos;
     private List<TEFormulasConceptos> filtrarListaTEFormulasConceptos;
     private TEFormulasConceptos teFormulaTablaSeleccionado;
-    //Activo/Desactivo Crtl + F11
     private int bandera, banderaTSFormulas, banderaTSGrupos, banderaTEFormulas;
-    //Columnas Tabla 
     private Column tipoSueldoCodigo, tipoSueldoDescripcion, tipoSueldoCap, tipoSueldoBas, tipoSueldoAdi;
     private Column tsFormulaFormula, tsFormulaConcepto, tsFormulaEmpresa, tsFormulaOrigen;
     private Column teFormulaFormula, teFormulaConcepto, teFormulaEmpresa, teFormulaTipoEntidad;
     private Column tsGrupoGrupo;
-    //Otros
     private boolean aceptar;
-    private int index, indexTSFormulas, indexAux, indexTSGrupos, indexTEFormulas, indexAuxTSGrupos;
-    //modificar
     private List<TiposSueldos> listTiposSueldosModificar;
     private List<TSFormulasConceptos> listTSFormulasConceptosModificar;
     private List<TSGruposTiposEntidades> listTSGruposTiposEntidadesModificar;
     private List<TEFormulasConceptos> listTEFormulasConceptosModificar;
     private boolean guardado, guardadoTSFormulas, guardadoTSGrupos, guardadoTEFormulas;
-    //crear 
     private TiposSueldos nuevoTipoSueldo;
     private TSFormulasConceptos nuevoTSFormulaConcepto;
     private TSGruposTiposEntidades nuevoTSGrupoTipoEntidad;
@@ -87,29 +73,22 @@ public class ControlTipoSueldo implements Serializable {
     private List<TEFormulasConceptos> listTEFormulasConceptosCrear;
     private BigInteger l;
     private int k;
-    //borrar 
     private List<TiposSueldos> listTiposSueldosBorrar;
     private List<TSFormulasConceptos> listTSFormulasConceptosBorrar;
     private List<TSGruposTiposEntidades> listTSGruposTiposEntidadesBorrar;
     private List<TEFormulasConceptos> listTEFormulasConceptosBorrar;
-    //editar celda
     private TiposSueldos editarTipoSueldo;
     private TSFormulasConceptos editarTSFormulaConcepto;
     private TSGruposTiposEntidades editarTSGrupoTipoEntidad;
     private TEFormulasConceptos editarTEFormulaConcepto;
     private int cualCelda, tipoLista, cualCeldaTSFormulas, tipoListaTSFormulas, cualCeldaTSGrupos, tipoListaTSGrupos, cualCeldaTEFormulas, tipoListaTEFormulas;
-    //duplicar
     private TiposSueldos duplicarTipoSueldo;
     private TSFormulasConceptos duplicarTSFormulaConcepto;
     private TSGruposTiposEntidades duplicarTSGrupoTipoEntidad;
     private TEFormulasConceptos duplicarTEFormulaConcepto;
-    private BigInteger secRegistro, secRegistroTSFormulas, secRegistroTSGrupos, secRegistroTEFormulas;
-    private BigInteger backUpSecRegistro, backUpSecRegistroTSFormulas, backUpSecRegistroTSGrupos, backUpSecRegistroTEFormulas;
     private String msnConfirmarRastro, msnConfirmarRastroHistorico;
-    private BigInteger backUp;
     private String nombreTablaRastro;
     private String nombreXML, nombreTabla;
-    private String formula, concepto, grupo, tipoEntidad;
 
     ///////////LOV///////////
     private List<Formulas> lovFormulas;
@@ -130,38 +109,28 @@ public class ControlTipoSueldo implements Serializable {
 
     private boolean permitirIndexTSFormulas, permitirIndexTSGrupos, permitirIndexTEFormulas;
     private int tipoActualizacion;
-    private short auxCodigoTipoSueldo;
-    private String auxDescripcionTipoSueldo;
-    //
     private boolean cambiosPagina;
     private String altoTablaTiposSueldos, altoTablaTSFormulas, altoTablaTSGrupos, altoTablaTEFormulas;
-    //
     private String paginaAnterior;
-    //
-    private Conceptos auxConceptoTE;
-    private TiposEntidades auxTipoEntidadTE;
-    //
     private boolean activoFormulaConcepto, activoGrupoDistribucion, activoTipoEntidad;
-    //
+    private String infoRegistroTS, infoRegistroTSFormulas, infoRegistroTSGrupos, infoRegistroTE;
     private String infoRegistroFormula, infoRegistroConcepto, infoRegistroGrupo, infoRegistroTipoEntidad, infoRegistroFormulaTE, infoRegistroConceptoTE;
+    private int cualtabla;
+    private BigInteger backup;
+    private boolean activarLov;
 
     public ControlTipoSueldo() {
         activoFormulaConcepto = true;
         activoGrupoDistribucion = true;
         activoTipoEntidad = true;
-        auxConceptoTE = new Conceptos();
-        auxTipoEntidadTE = new TiposEntidades();
         paginaAnterior = "";
-        //altos tablas
-        altoTablaTiposSueldos = "80";
-        altoTablaTSFormulas = "230";
-        altoTablaTSGrupos = "73";
-        altoTablaTEFormulas = "73";
-        //Permitir index
+        altoTablaTiposSueldos = "60";
+        altoTablaTSFormulas = "220";
+        altoTablaTSGrupos = "60";
+        altoTablaTEFormulas = "60";
         permitirIndexTSFormulas = true;
         permitirIndexTEFormulas = true;
         permitirIndexTSGrupos = true;
-        //lovs
         lovFormulas = null;
         formulaSeleccionado = new Formulas();
         lovConceptos = null;
@@ -170,56 +139,42 @@ public class ControlTipoSueldo implements Serializable {
         grupoTipoEntidadSeleccionado = new Grupostiposentidades();
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = new TiposEntidades();
-        //index tablas
-        indexTSFormulas = -1;
-        indexTSGrupos = -1;
-        indexTEFormulas = -1;
-        //listas de tablas
         listaTiposSueldos = null;
         listaTSFormulasConceptos = null;
         listaTSGruposTiposEntidades = null;
         listaTEFormulasConceptos = null;
-        //Otros
         aceptar = true;
         cambiosPagina = true;
         tipoActualizacion = -1;
         k = 0;
-        //borrar 
         listTiposSueldosBorrar = new ArrayList<TiposSueldos>();
         listTSFormulasConceptosBorrar = new ArrayList<TSFormulasConceptos>();
         listTSGruposTiposEntidadesBorrar = new ArrayList<TSGruposTiposEntidades>();
         listTEFormulasConceptosBorrar = new ArrayList<TEFormulasConceptos>();
-        //crear 
         listTiposSueldosCrear = new ArrayList<TiposSueldos>();
         listTSFormulasConceptosCrear = new ArrayList<TSFormulasConceptos>();
         listTSGruposTiposEntidadesCrear = new ArrayList<TSGruposTiposEntidades>();
         listTEFormulasConceptosCrear = new ArrayList<TEFormulasConceptos>();
-        //modificar 
         listTSFormulasConceptosModificar = new ArrayList<TSFormulasConceptos>();
         listTiposSueldosModificar = new ArrayList<TiposSueldos>();
         listTSGruposTiposEntidadesModificar = new ArrayList<TSGruposTiposEntidades>();
         listTEFormulasConceptosModificar = new ArrayList<TEFormulasConceptos>();
-        //editar
         editarTipoSueldo = new TiposSueldos();
         editarTSFormulaConcepto = new TSFormulasConceptos();
         editarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
         editarTEFormulaConcepto = new TEFormulasConceptos();
-        //Cual Celda
         cualCelda = -1;
         cualCeldaTSFormulas = -1;
         cualCeldaTEFormulas = -1;
         cualCeldaTSGrupos = -1;
-        //Tipo Lista
         tipoListaTSFormulas = 0;
         tipoListaTEFormulas = 0;
         tipoLista = 0;
         tipoListaTSGrupos = 0;
-        //guardar
         guardado = true;
         guardadoTSFormulas = true;
         guardadoTEFormulas = true;
         guardadoTSGrupos = true;
-        //Crear 
         nuevoTipoSueldo = new TiposSueldos();
         nuevoTSFormulaConcepto = new TSFormulasConceptos();
         nuevoTSFormulaConcepto.setFormula(new Formulas());
@@ -232,25 +187,18 @@ public class ControlTipoSueldo implements Serializable {
         nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
         nuevoTEFormulaConcepto.setConcepto(new Conceptos());
         nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
-        //Duplicar
         duplicarTipoSueldo = new TiposSueldos();
         duplicarTSFormulaConcepto = new TSFormulasConceptos();
         duplicarTEFormulaConcepto = new TEFormulasConceptos();
         duplicarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
-        //Sec Registro
-        secRegistro = null;
-        backUpSecRegistro = null;
-        secRegistroTSFormulas = null;
-        secRegistroTEFormulas = null;
-        backUpSecRegistroTSFormulas = null;
-        backUpSecRegistroTEFormulas = null;
-        secRegistroTSFormulas = null;
-        backUpSecRegistroTSGrupos = null;
-        //Banderas
+        tipoSueldoTablaSeleccionado = null;
+        tsFormulaTablaSeleccionado = null;
+        teFormulaTablaSeleccionado = null;
         bandera = 0;
         banderaTSFormulas = 0;
         banderaTEFormulas = 0;
         banderaTSGrupos = 0;
+        activarLov = true;
     }
 
     @PostConstruct
@@ -275,51 +223,60 @@ public class ControlTipoSueldo implements Serializable {
         listaTSFormulasConceptos = null;
         listaTiposSueldos = null;
         getListaTiposSueldos();
-        int tam = listaTiposSueldos.size();
-        if (tam >= 1) {
-            index = 0;
-            getListaTSFormulasConceptos();
-            indexTSGrupos = 0;
-            getListaTSGruposTiposEntidades();
+        if (listaTiposSueldos != null) {
+            if (!listaTiposSueldos.isEmpty()) {
+                tipoSueldoTablaSeleccionado = listaTiposSueldos.get(0);
+                cargarDatos();
+            }
         }
+        getListaTSGruposTiposEntidades();
+        getListaTSFormulasConceptos();
+        getListaTEFormulasConceptos();
     }
 
     public boolean validarCamposNulosTipoSueldo(int i) {
         boolean retorno = true;
         if (i == 0) {
             TiposSueldos aux = new TiposSueldos();
-            if (tipoLista == 0) {
-                aux = listaTiposSueldos.get(index);
-            }
-            if (tipoLista == 1) {
-                aux = filtrarListaTiposSueldos.get(index);
-            }
+            aux = tipoSueldoTablaSeleccionado;
             if (aux.getCodigo() == null || aux.getDescripcion().isEmpty()) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
             if (aux.getCodigo() != null) {
                 if (aux.getCodigo() <= 0) {
                     retorno = false;
+                } else {
+                    retorno = true;
                 }
             }
         }
         if (i == 1) {
             if (nuevoTipoSueldo.getCodigo() == null || nuevoTipoSueldo.getDescripcion().isEmpty()) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
             if (nuevoTipoSueldo.getCodigo() != null) {
                 if (nuevoTipoSueldo.getCodigo() <= 0) {
                     retorno = false;
+                } else {
+                    retorno = true;
                 }
             }
         }
         if (i == 2) {
             if (duplicarTipoSueldo.getCodigo() == null || duplicarTipoSueldo.getDescripcion().isEmpty()) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
             if (duplicarTipoSueldo.getCodigo() != null) {
                 if (duplicarTipoSueldo.getCodigo() <= 0) {
                     retorno = false;
+                } else {
+                    retorno = true;
                 }
             }
         }
@@ -331,11 +288,15 @@ public class ControlTipoSueldo implements Serializable {
         if (i == 1) {
             if (nuevoTSFormulaConcepto.getConcepto().getSecuencia() == null || nuevoTSFormulaConcepto.getFormula().getSecuencia() == null) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
         }
         if (i == 2) {
             if (duplicarTSFormulaConcepto.getConcepto().getSecuencia() == null || duplicarTSFormulaConcepto.getFormula().getSecuencia() == null) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
         }
         return retorno;
@@ -346,11 +307,15 @@ public class ControlTipoSueldo implements Serializable {
         if (i == 1) {
             if (nuevoTEFormulaConcepto.getConcepto().getSecuencia() == null || nuevoTEFormulaConcepto.getFormula().getSecuencia() == null || nuevoTEFormulaConcepto.getTipoentidad().getSecuencia() == null) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
         }
         if (i == 2) {
             if (duplicarTEFormulaConcepto.getConcepto().getSecuencia() == null || duplicarTEFormulaConcepto.getFormula().getSecuencia() == null || duplicarTEFormulaConcepto.getTipoentidad().getSecuencia() == null) {
                 retorno = false;
+            } else {
+                retorno = true;
             }
         }
         return retorno;
@@ -367,8 +332,8 @@ public class ControlTipoSueldo implements Serializable {
                 if (tipoListaTEFormulas == 0) {
                     for (int i = 0; i < lista.size(); i++) {
                         TEFormulasConceptos aux = lista.get(i);
-                        if ((aux.getConcepto().getEmpresa().getSecuencia().equals(listaTEFormulasConceptos.get(indexTEFormulas).getConcepto().getEmpresa().getSecuencia()))
-                                && (aux.getTipoentidad().getSecuencia().equals(listaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad().getSecuencia()))) {
+                        if ((aux.getConcepto().getEmpresa().getSecuencia().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa().getSecuencia()))
+                                && (aux.getTipoentidad().getSecuencia().equals(teFormulaTablaSeleccionado.getTipoentidad().getSecuencia()))) {
                             conteo++;
                         }
                     }
@@ -376,8 +341,8 @@ public class ControlTipoSueldo implements Serializable {
                 if (tipoListaTEFormulas == 1) {
                     for (int i = 0; i < lista.size(); i++) {
                         TEFormulasConceptos aux = lista.get(i);
-                        if ((aux.getConcepto().getEmpresa().getSecuencia().equals(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getConcepto().getEmpresa().getSecuencia()))
-                                && (aux.getTipoentidad().getSecuencia().equals(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad().getSecuencia()))) {
+                        if ((aux.getConcepto().getEmpresa().getSecuencia().equals(teFormulaTablaSeleccionado.getConcepto().getEmpresa().getSecuencia()))
+                                && (aux.getTipoentidad().getSecuencia().equals(teFormulaTablaSeleccionado.getTipoentidad().getSecuencia()))) {
                             conteo++;
                         }
                     }
@@ -419,45 +384,37 @@ public class ControlTipoSueldo implements Serializable {
         return retorno;
     }
 
-    public void procesoModificacionTipoSueldo(int i) {
-        index = i;
+    public void procesoModificacionTipoSueldo(TiposSueldos tipoS) {
+        tipoSueldoTablaSeleccionado = tipoS;
         boolean respuesta = validarCamposNulosTipoSueldo(0);
         if (respuesta == true) {
-            modificarTipoSueldo(i);
+            modificarTipoSueldo(tipoSueldoTablaSeleccionado);
         } else {
-            if (tipoLista == 0) {
-                listaTiposSueldos.get(index).setCodigo(auxCodigoTipoSueldo);
-                listaTiposSueldos.get(index).setDescripcion(auxDescripcionTipoSueldo);
-            }
-            if (tipoLista == 1) {
-                filtrarListaTiposSueldos.get(index).setCodigo(auxCodigoTipoSueldo);
-                filtrarListaTiposSueldos.get(index).setDescripcion(auxDescripcionTipoSueldo);
-            }
-            index = -1;
-            secRegistro = null;
+            tipoSueldoTablaSeleccionado.setCodigo(tipoSueldoTablaSeleccionado.getCodigo());
+            tipoSueldoTablaSeleccionado.setDescripcion(tipoSueldoTablaSeleccionado.getDescripcion());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoSueldo').show()");
         }
     }
 
-    public void modificarTipoSueldo(int indice) {
+    public void modificarTipoSueldo(TiposSueldos tipoS) {
         int tamDes = 0;
         if (tipoLista == 0) {
-            tamDes = listaTiposSueldos.get(indice).getDescripcion().length();
+            tamDes = tipoSueldoTablaSeleccionado.getDescripcion().length();
         }
         if (tipoLista == 1) {
-            tamDes = filtrarListaTiposSueldos.get(indice).getDescripcion().length();
+            tamDes = tipoSueldoTablaSeleccionado.getDescripcion().length();
         }
         if (tamDes >= 1 && tamDes <= 30) {
             if (tipoLista == 0) {
-                String textM = listaTiposSueldos.get(indice).getDescripcion().toUpperCase();
-                listaTiposSueldos.get(indice).setDescripcion(textM);
-                if (!listTiposSueldosCrear.contains(listaTiposSueldos.get(indice))) {
+                String textM = tipoSueldoTablaSeleccionado.getDescripcion().toUpperCase();
+                tipoSueldoTablaSeleccionado.setDescripcion(textM);
+                if (!listTiposSueldosCrear.contains(tipoSueldoTablaSeleccionado)) {
                     if (listTiposSueldosModificar.isEmpty()) {
-                        listTiposSueldosModificar.add(listaTiposSueldos.get(indice));
-                    } else if (!listTiposSueldosModificar.contains(listaTiposSueldos.get(indice))) {
-                        listTiposSueldosModificar.add(listaTiposSueldos.get(indice));
+                        listTiposSueldosModificar.add(tipoSueldoTablaSeleccionado);
+                    } else if (!listTiposSueldosModificar.contains(tipoSueldoTablaSeleccionado)) {
+                        listTiposSueldosModificar.add(tipoSueldoTablaSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
@@ -465,35 +422,31 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (tipoLista == 1) {
-                String textM = filtrarListaTiposSueldos.get(indice).getDescripcion().toUpperCase();
-                filtrarListaTiposSueldos.get(indice).setDescripcion(textM);
-                if (!listTiposSueldosCrear.contains(filtrarListaTiposSueldos.get(indice))) {
+                String textM = tipoSueldoTablaSeleccionado.getDescripcion().toUpperCase();
+                tipoSueldoTablaSeleccionado.setDescripcion(textM);
+                if (!listTiposSueldosCrear.contains(tipoSueldoTablaSeleccionado)) {
                     if (listTiposSueldosModificar.isEmpty()) {
-                        listTiposSueldosModificar.add(filtrarListaTiposSueldos.get(indice));
-                    } else if (!listTiposSueldosModificar.contains(filtrarListaTiposSueldos.get(indice))) {
-                        listTiposSueldosModificar.add(filtrarListaTiposSueldos.get(indice));
+                        listTiposSueldosModificar.add(tipoSueldoTablaSeleccionado);
+                    } else if (!listTiposSueldosModificar.contains(tipoSueldoTablaSeleccionado)) {
+                        listTiposSueldosModificar.add(tipoSueldoTablaSeleccionado);
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
-            index = -1;
-            secRegistro = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
         } else {
             if (tipoLista == 0) {
-                listaTiposSueldos.get(index).setDescripcion(auxDescripcionTipoSueldo);
+                tipoSueldoTablaSeleccionado.setDescripcion(tipoSueldoTablaSeleccionado.getDescripcion());
             }
             if (tipoLista == 1) {
-                filtrarListaTiposSueldos.get(index).setDescripcion(auxDescripcionTipoSueldo);
+                tipoSueldoTablaSeleccionado.setDescripcion(tipoSueldoTablaSeleccionado.getDescripcion());
             }
-            index = -1;
-            secRegistro = null;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
             RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoSueldo').show()");
@@ -501,51 +454,31 @@ public class ControlTipoSueldo implements Serializable {
 
     }
 
-    public void modificarTSFormula(int indice) {
-        if (tipoListaTSFormulas == 0) {
-            if (!listTSFormulasConceptosCrear.contains(listaTSFormulasConceptos.get(indice))) {
-                if (listTSFormulasConceptosModificar.isEmpty()) {
-                    listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indice));
-                } else if (!listTSFormulasConceptosModificar.contains(listaTSFormulasConceptos.get(indice))) {
-                    listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indice));
-                }
-                if (guardadoTSFormulas == true) {
-                    guardadoTSFormulas = false;
-                }
+    public void modificarTSFormula(TSFormulasConceptos tsformcon) {
+        tsFormulaTablaSeleccionado = tsformcon;
+        if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
+            if (listTSFormulasConceptosModificar.isEmpty()) {
+                listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+            } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+            }
+            if (guardadoTSFormulas == true) {
+                guardadoTSFormulas = false;
             }
         }
-        if (tipoListaTSFormulas == 1) {
-            if (!listTSFormulasConceptosCrear.contains(filtrarListaTSFormulasConceptos.get(indice))) {
-                if (listTSFormulasConceptosModificar.isEmpty()) {
-                    listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indice));
-                } else if (!listTSFormulasConceptosModificar.contains(filtrarListaTSFormulasConceptos.get(indice))) {
-                    listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indice));
-                }
-                if (guardadoTSFormulas == true) {
-                    guardadoTSFormulas = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
-                }
-            }
-        }
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosTSFormula");
     }
 
-    public void modificarTSFormula(int indice, String confirmarCambio, String valorConfirmar) {
-        indexTSFormulas = indice;
+    public void modificarTSFormula(TSFormulasConceptos tsformulac, String confirmarCambio, String valorConfirmar) {
+        tsFormulaTablaSeleccionado = tsformulac;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-            if (tipoListaTSFormulas == 0) {
-                listaTSFormulasConceptos.get(indice).getFormula().setNombrelargo(formula);
-            } else {
-                filtrarListaTSFormulasConceptos.get(indice).getFormula().setNombrelargo(formula);
-            }
+            tsFormulaTablaSeleccionado.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             for (int i = 0; i < lovFormulas.size(); i++) {
                 if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -553,11 +486,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoListaTSFormulas == 0) {
-                    listaTSFormulasConceptos.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                } else {
-                    filtrarListaTSFormulasConceptos.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                }
+                tsFormulaTablaSeleccionado.setFormula(lovFormulas.get(indiceUnicoElemento));
                 lovFormulas.clear();
                 getLovFormulas();
                 cambiosPagina = false;
@@ -571,11 +500,7 @@ public class ControlTipoSueldo implements Serializable {
         }
 
         if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) {
-            if (tipoListaTSFormulas == 0) {
-                listaTSFormulasConceptos.get(indice).getConcepto().setDescripcion(concepto);
-            } else {
-                filtrarListaTSFormulasConceptos.get(indice).getConcepto().setDescripcion(concepto);
-            }
+            tsFormulaTablaSeleccionado.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             for (int i = 0; i < lovConceptos.size(); i++) {
                 if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -583,11 +508,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoListaTSFormulas == 0) {
-                    listaTSFormulasConceptos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
-                } else {
-                    filtrarListaTSFormulasConceptos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
-                }
+                tsFormulaTablaSeleccionado.setConcepto(lovConceptos.get(indiceUnicoElemento));
                 lovConceptos.clear();
                 getLovConceptos();
                 cambiosPagina = false;
@@ -601,80 +522,47 @@ public class ControlTipoSueldo implements Serializable {
         }
 
         if (coincidencias == 1) {
-            if (tipoListaTSFormulas == 0) {
-                if (!listTSFormulasConceptosCrear.contains(listaTSFormulasConceptos.get(indice))) {
-                    if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indice));
-                    } else if (!listTSFormulasConceptosModificar.contains(listaTSFormulasConceptos.get(indice))) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTSFormulas == true) {
-                        guardadoTSFormulas = false;
-                    }
+            if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
+                if (listTSFormulasConceptosModificar.isEmpty()) {
+                    listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+                } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                    listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
                 }
-            }
-            if (tipoListaTSFormulas == 1) {
-                if (!listTSFormulasConceptosCrear.contains(filtrarListaTSFormulasConceptos.get(indice))) {
-                    if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indice));
-                    } else if (!listTSFormulasConceptosModificar.contains(filtrarListaTSFormulasConceptos.get(indice))) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTSFormulas == true) {
-                        guardadoTSFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
-                    }
+                if (guardadoTSFormulas == true) {
+                    guardadoTSFormulas = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
         RequestContext.getCurrentInstance().update("form:datosTSFormula");
     }
 
-    public void modificarTSGrupo(int indice) {
-        if (tipoListaTSGrupos == 0) {
-            if (!listTSGruposTiposEntidadesCrear.contains(listaTSGruposTiposEntidades.get(indice))) {
-                if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                    listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indice));
-                } else if (!listTSGruposTiposEntidadesModificar.contains(listaTSGruposTiposEntidades.get(indice))) {
-                    listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indice));
-                }
-                if (guardadoTSGrupos == true) {
-                    guardadoTSGrupos = false;
-                }
+    public void modificarTSGrupo(TSGruposTiposEntidades tsgrupo) {
+        tsGrupoTablaSeleccionado = tsgrupo;
+        if (!listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
+            if (listTSGruposTiposEntidadesModificar.isEmpty()) {
+                listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+            } else if (!listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+            }
+            if (guardadoTSGrupos == true) {
+                guardadoTSGrupos = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        if (tipoListaTSGrupos == 1) {
-            if (!listTSGruposTiposEntidadesCrear.contains(filtrarListaTSGruposTiposEntidades.get(indice))) {
-                if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                    listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indice));
-                } else if (!listTSGruposTiposEntidadesModificar.contains(filtrarListaTSGruposTiposEntidades.get(indice))) {
-                    listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indice));
-                }
-                if (guardadoTSGrupos == true) {
-                    guardadoTSGrupos = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
-                }
-            }
-        }
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
         cambiosPagina = false;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosTSGrupo");
     }
 
-    public void modificarTSGrupo(int indice, String confirmarCambio, String valorConfirmar) {
-        indexTSGrupos = indice;
+    public void modificarTSGrupo(TSGruposTiposEntidades tsgrupo, String confirmarCambio, String valorConfirmar) {
+        tsGrupoTablaSeleccionado = tsgrupo;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("GRUPO")) {
-            if (tipoListaTSGrupos == 0) {
-                listaTSGruposTiposEntidades.get(indice).getGrupotipoentidad().setNombre(grupo);
-            } else {
-                filtrarListaTSGruposTiposEntidades.get(indice).getGrupotipoentidad().setNombre(grupo);
-            }
+            tsGrupoTablaSeleccionado.getGrupotipoentidad().setNombre(tsGrupoTablaSeleccionado.getGrupotipoentidad().getNombre());
             for (int i = 0; i < lovGruposTiposEntidades.size(); i++) {
                 if (lovGruposTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -682,11 +570,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoListaTSGrupos == 0) {
-                    listaTSGruposTiposEntidades.get(indice).setGrupotipoentidad(lovGruposTiposEntidades.get(indiceUnicoElemento));
-                } else {
-                    filtrarListaTSGruposTiposEntidades.get(indice).setGrupotipoentidad(lovGruposTiposEntidades.get(indiceUnicoElemento));
-                }
+                tsGrupoTablaSeleccionado.setGrupotipoentidad(lovGruposTiposEntidades.get(indiceUnicoElemento));
                 lovGruposTiposEntidades.clear();
                 getLovGruposTiposEntidades();
                 cambiosPagina = false;
@@ -700,11 +584,11 @@ public class ControlTipoSueldo implements Serializable {
         }
         if (coincidencias == 1) {
             if (tipoListaTSGrupos == 0) {
-                if (!listTSGruposTiposEntidadesCrear.contains(listaTSGruposTiposEntidades.get(indice))) {
+                if (!listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
                     if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                        listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indice));
-                    } else if (!listTSGruposTiposEntidadesModificar.contains(listaTSGruposTiposEntidades.get(indice))) {
-                        listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indice));
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+                    } else if (!listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
                     }
                     if (guardadoTSGrupos == true) {
                         guardadoTSGrupos = false;
@@ -712,15 +596,15 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (tipoListaTSGrupos == 1) {
-                if (!listTSGruposTiposEntidadesCrear.contains(filtrarListaTSGruposTiposEntidades.get(indice))) {
+                if (!listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
                     if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                        listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indice));
-                    } else if (!listTSGruposTiposEntidadesModificar.contains(filtrarListaTSGruposTiposEntidades.get(indice))) {
-                        listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indice));
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+                    } else if (!listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
                     }
                     if (guardadoTSGrupos == true) {
                         guardadoTSGrupos = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -728,65 +612,39 @@ public class ControlTipoSueldo implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosTSGrupo");
     }
 
-    public void modificarTEFormula(int indice) {
+    public void modificarTEFormula(TEFormulasConceptos teformcon) {
+        teFormulaTablaSeleccionado = teformcon;
         if (validarTipoEntidadYEmpresaNuevoRegistro(0) == true) {
-            if (tipoListaTEFormulas == 0) {
-                if (!listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indice))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indice));
-                    } else if (!listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indice))) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTEFormulas == true) {
-                        guardadoTEFormulas = false;
-                    }
+            if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
+                if (listTEFormulasConceptosModificar.isEmpty()) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                }
+                if (guardadoTEFormulas == true) {
+                    guardadoTEFormulas = false;
                 }
             }
-            if (tipoListaTEFormulas == 1) {
-                if (!listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indice))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indice));
-                    } else if (!listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indice))) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTEFormulas == true) {
-                        guardadoTEFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
-                    }
-                }
-            }
-            indexTEFormulas = -1;
-            secRegistroTEFormulas = null;
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTEFormula");
         } else {
-            if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indexTEFormulas).setConcepto(auxConceptoTE);
-                listaTEFormulasConceptos.get(indexTEFormulas).setTipoentidad(auxTipoEntidadTE);
-            }
-            if (tipoListaTEFormulas == 1) {
-                filtrarListaTEFormulasConceptos.get(indexTEFormulas).setConcepto(auxConceptoTE);
-                filtrarListaTEFormulasConceptos.get(indexTEFormulas).setTipoentidad(auxTipoEntidadTE);
-            }
+            teFormulaTablaSeleccionado.setConcepto(teFormulaTablaSeleccionado.getConcepto());
+            teFormulaTablaSeleccionado.setTipoentidad(teFormulaTablaSeleccionado.getTipoentidad());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorNuevoRegistroTEFormula').show()");
             RequestContext.getCurrentInstance().update("form:datosTEFormula");
         }
     }
 
-    public void modificarTEFormula(int indice, String confirmarCambio, String valorConfirmar) {
-        indexTEFormulas = indice;
+    public void modificarTEFormula(TEFormulasConceptos teformcon, String confirmarCambio, String valorConfirmar) {
+        teFormulaTablaSeleccionado = teformcon;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("FORMULATE")) {
-            if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indice).getFormula().setNombrelargo(formula);
-            } else {
-                filtrarListaTEFormulasConceptos.get(indice).getFormula().setNombrelargo(formula);
-            }
+            teFormulaTablaSeleccionado.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             for (int i = 0; i < lovFormulas.size(); i++) {
                 if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -794,11 +652,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoListaTEFormulas == 0) {
-                    listaTEFormulasConceptos.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                } else {
-                    filtrarListaTEFormulasConceptos.get(indice).setFormula(lovFormulas.get(indiceUnicoElemento));
-                }
+                teFormulaTablaSeleccionado.setFormula(lovFormulas.get(indiceUnicoElemento));
                 lovFormulas.clear();
                 getLovFormulas();
                 cambiosPagina = false;
@@ -813,9 +667,9 @@ public class ControlTipoSueldo implements Serializable {
 
         if (confirmarCambio.equalsIgnoreCase("CONCEPTOTE")) {
             if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indice).getConcepto().setDescripcion(concepto);
+                teFormulaTablaSeleccionado.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             } else {
-                filtrarListaTEFormulasConceptos.get(indice).getConcepto().setDescripcion(concepto);
+                teFormulaTablaSeleccionado.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             }
             for (int i = 0; i < lovConceptos.size(); i++) {
                 if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -825,9 +679,9 @@ public class ControlTipoSueldo implements Serializable {
             }
             if (coincidencias == 1) {
                 if (tipoListaTEFormulas == 0) {
-                    listaTEFormulasConceptos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
+                    teFormulaTablaSeleccionado.setConcepto(lovConceptos.get(indiceUnicoElemento));
                 } else {
-                    filtrarListaTEFormulasConceptos.get(indice).setConcepto(lovConceptos.get(indiceUnicoElemento));
+                    teFormulaTablaSeleccionado.setConcepto(lovConceptos.get(indiceUnicoElemento));
                 }
                 lovConceptos.clear();
                 getLovConceptos();
@@ -843,9 +697,9 @@ public class ControlTipoSueldo implements Serializable {
 
         if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
             if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indice).getTipoentidad().setNombre(tipoEntidad);
+                teFormulaTablaSeleccionado.getTipoentidad().setNombre(teFormulaTablaSeleccionado.getTipoentidad().getNombre());
             } else {
-                filtrarListaTEFormulasConceptos.get(indice).getTipoentidad().setNombre(concepto);
+                teFormulaTablaSeleccionado.getTipoentidad().setNombre(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             }
             for (int i = 0; i < lovTiposEntidades.size(); i++) {
                 if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -854,11 +708,7 @@ public class ControlTipoSueldo implements Serializable {
                 }
             }
             if (coincidencias == 1) {
-                if (tipoListaTEFormulas == 0) {
-                    listaTEFormulasConceptos.get(indice).setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
-                } else {
-                    filtrarListaTEFormulasConceptos.get(indice).setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
-                }
+                teFormulaTablaSeleccionado.setTipoentidad(lovTiposEntidades.get(indiceUnicoElemento));
                 lovTiposEntidades.clear();
                 getLovTiposEntidades();
                 cambiosPagina = false;
@@ -872,29 +722,15 @@ public class ControlTipoSueldo implements Serializable {
         }
 
         if (coincidencias == 1) {
-            if (tipoListaTEFormulas == 0) {
-                if (!listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indice))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indice));
-                    } else if (!listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indice))) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTEFormulas == true) {
-                        guardadoTEFormulas = false;
-                    }
+            if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
+                if (listTEFormulasConceptosModificar.isEmpty()) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                 }
-            }
-            if (tipoListaTEFormulas == 1) {
-                if (!listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indice))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indice));
-                    } else if (!listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indice))) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indice));
-                    }
-                    if (guardadoTEFormulas == true) {
-                        guardadoTEFormulas = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
-                    }
+                if (guardadoTEFormulas == true) {
+                    guardadoTEFormulas = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -908,7 +744,8 @@ public class ControlTipoSueldo implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndiceTSFormula(indice, columna);
+        tsFormulaTablaSeleccionado = listaTSFormulasConceptos.get(indice);
+        cambiarIndiceTSFormula(tsFormulaTablaSeleccionado, columna);
     }
 
     public void posicionTEFormula() {
@@ -918,197 +755,106 @@ public class ControlTipoSueldo implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndiceTEFormula(indice, columna);
+        teFormulaTablaSeleccionado = listaTEFormulasConceptos.get(indice);
+        cambiarIndiceTEFormula(teFormulaTablaSeleccionado, columna);
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        if (guardadoTSFormulas == true && guardadoTSGrupos == true && guardadoTEFormulas == true) {
-            cualCelda = celda;
-            indexAux = indice;
-            index = indice;
-            indexTSFormulas = -1;
-            indexTSGrupos = -1;
-            indexAuxTSGrupos = -1;
-            indexTEFormulas = -1;
-            if (tipoLista == 0) {
-                auxCodigoTipoSueldo = listaTiposSueldos.get(index).getCodigo();
-                secRegistro = listaTiposSueldos.get(index).getSecuencia();
-                auxDescripcionTipoSueldo = listaTiposSueldos.get(index).getDescripcion();
-            }
-            if (tipoLista == 1) {
-                auxCodigoTipoSueldo = filtrarListaTiposSueldos.get(index).getCodigo();
-                secRegistro = filtrarListaTiposSueldos.get(index).getSecuencia();
-                auxDescripcionTipoSueldo = filtrarListaTiposSueldos.get(index).getDescripcion();
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            listaTSFormulasConceptos = null;
-            getListaTSFormulasConceptos();
-            RequestContext.getCurrentInstance().update("form:datosTSFormula");
-            listaTSGruposTiposEntidades = null;
-            getListaTSGruposTiposEntidades();
-            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-            listaTEFormulasConceptos = null;
-            RequestContext.getCurrentInstance().update("form:datosTEFormula");
-            if (banderaTSFormulas == 1) {
-                altoTablaTSFormulas = "230";
-                tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
-                tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
-                tsFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
-                tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
-                tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
-                banderaTSFormulas = 0;
-                filtrarListaTSFormulasConceptos = null;
-                tipoListaTSFormulas = 0;
-            }
-            if (banderaTSGrupos == 1) {
-                altoTablaTSGrupos = "73";
-                tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-                banderaTSGrupos = 0;
-                filtrarListaTSGruposTiposEntidades = null;
-                tipoListaTSGrupos = 0;
-            }
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+    public void cambiarIndice(TiposSueldos tipoS, int celda) {
+        deshabiltiarBotonLov();
+        cualtabla = 1;
+        cualCelda = celda;
+        tipoSueldoTablaSeleccionado = tipoS;
+        tipoSueldoTablaSeleccionado.getSecuencia();
+        if (cualCelda == 0) {
+            tipoSueldoTablaSeleccionado.getCodigo();
+        } else if (cualCelda == 1) {
+            tipoSueldoTablaSeleccionado.getDescripcion();
         }
+        cargarDatos();
+        contarRegistrosFormulas();
+        contarRegistrosGrupos();
+        contarRegistrosTipoEntidades();
+        RequestContext.getCurrentInstance().update("form:datosTSFormula");
+        RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+        RequestContext.getCurrentInstance().update("form:datosTEFormula");
     }
 
-    public void cambiarIndiceTSFormula(int indice, int celda) {
-        if (guardadoTEFormulas == true) {
-            if (permitirIndexTSFormulas == true) {
-                indexTSFormulas = indice;
-                index = indice;
-                index = -1;
-                indexTSGrupos = -1;
-                indexTEFormulas = -1;
-                indexAuxTSGrupos = -1;
-                cualCeldaTSFormulas = celda;
-                if (tipoListaTSFormulas == 0) {
-                    secRegistroTSFormulas = listaTSFormulasConceptos.get(indexTSFormulas).getSecuencia();
-                    formula = listaTSFormulasConceptos.get(indexTSFormulas).getFormula().getNombrelargo();
-                    concepto = listaTSFormulasConceptos.get(indexTSFormulas).getConcepto().getDescripcion();
-                }
-                if (tipoListaTSFormulas == 1) {
-                    secRegistroTSFormulas = filtrarListaTSFormulasConceptos.get(indexTSFormulas).getSecuencia();
-                    formula = filtrarListaTSFormulasConceptos.get(indexTSFormulas).getFormula().getNombrelargo();
-                    concepto = filtrarListaTSFormulasConceptos.get(indexTSFormulas).getConcepto().getDescripcion();
-                }
-
-            }
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-        }
-    }
-
-    public void cambiarIndiceTSGrupo(int indice, int celda) {
-        if (guardadoTEFormulas == true) {
-            if (permitirIndexTSGrupos == true) {
-                indexTSGrupos = indice;
-                indexAuxTSGrupos = indexTSGrupos;
-                index = -1;
-                indexTEFormulas = -1;
-                indexTSFormulas = -1;
-                cualCeldaTSGrupos = celda;
-                if (tipoListaTSGrupos == 0) {
-                    secRegistroTSGrupos = listaTSGruposTiposEntidades.get(indexTSGrupos).getSecuencia();
-                    grupo = listaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad().getNombre();
-                }
-                if (tipoListaTSGrupos == 1) {
-                    secRegistroTSGrupos = filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getSecuencia();
-                    grupo = filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad().getNombre();
-                }
-                if (banderaTSFormulas == 1) {
-                    altoTablaTSFormulas = "230";
-                    tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
-                    tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
-                    tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
-                    tsFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
-                    tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
-                    tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                    tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
-                    tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTSFormula");
-                    banderaTSFormulas = 0;
-                    filtrarListaTSFormulasConceptos = null;
-                    tipoListaTSFormulas = 0;
-                }
-                if (banderaTEFormulas == 1) {
-                    altoTablaTEFormulas = "73";
-                    teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
-                    teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
-                    teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
-                    teFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
-                    teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
-                    teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                    teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
-                    teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTEFormula");
-                    banderaTEFormulas = 0;
-                    filtrarListaTEFormulasConceptos = null;
-                    tipoListaTEFormulas = 0;
-                }
-
+    public void cargarDatos() {
+        listaTSGruposTiposEntidades = null;
+        listaTSGruposTiposEntidades = administrarTipoSueldo.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
+        listaTSFormulasConceptos = null;
+        listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
+        listaTEFormulasConceptos = null;
+        if (listaTSGruposTiposEntidades != null) {
+            if (!listaTSGruposTiposEntidades.isEmpty()) {
+                listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(listaTSGruposTiposEntidades.get(0).getSecuencia());
+            } else {
                 listaTEFormulasConceptos = null;
-                getListaTEFormulasConceptos();
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('form:lovTipoEntidad').clearFilters()");
-                RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-                RequestContext.getCurrentInstance().update("form:lovTipoEntidad");
-                RequestContext.getCurrentInstance().update("form:datosTEFormula");
-                lovTiposEntidades = null;
-                getLovTiposEntidades();
             }
         } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+            listaTEFormulasConceptos = null;
         }
     }
 
-    public void cambiarIndiceTEFormula(int indice, int celda) {
+    public void cambiarIndiceTSFormula(TSFormulasConceptos tsformcon, int celda) {
+        cualCeldaTSFormulas = celda;
+        System.out.println("cambiarIndiceTSFormula celda " + cualCeldaTSFormulas);
+        cualtabla = 2;
+        if (permitirIndexTSFormulas == true) {
+            tsFormulaTablaSeleccionado = tsformcon;
+            tsFormulaTablaSeleccionado.getSecuencia();
+            if (cualCeldaTSFormulas == 0) {
+                tsFormulaTablaSeleccionado.getFormula().getNombrelargo();
+                habilitarBotonLov();
+            } else if (cualCeldaTSFormulas == 1) {
+                tsFormulaTablaSeleccionado.getConcepto().getDescripcion();
+                habilitarBotonLov();
+            } else if (cualCeldaTSFormulas == 2) {
+                tsFormulaTablaSeleccionado.getConcepto().getEmpresa().getNombre();
+                deshabiltiarBotonLov();
+            }
+        }
+    }
+
+    public void cambiarIndiceTSGrupo(TSGruposTiposEntidades tsgrupo, int celda) {
+        cualtabla = 3;
+        if (permitirIndexTSGrupos == true) {
+            tsGrupoTablaSeleccionado = tsgrupo;
+            cualCeldaTSGrupos = celda;
+            tsGrupoTablaSeleccionado.getSecuencia();
+            if (listaTSGruposTiposEntidades != null) {
+                if (!listaTSGruposTiposEntidades.isEmpty()) {
+                    listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(tsGrupoTablaSeleccionado.getSecuencia());
+                } else {
+                    listaTEFormulasConceptos = null;
+                }
+            } else {
+                listaTEFormulasConceptos = null;
+            }
+            habilitarBotonLov();
+        }
+    }
+
+    public void cambiarIndiceTEFormula(TEFormulasConceptos teformcon, int celda) {
         if (permitirIndexTEFormulas == true) {
-            indexTEFormulas = indice;
-            index = -1;
-            indexTSFormulas = -1;
-            indexTSGrupos = -1;
+            teFormulaTablaSeleccionado = teformcon;
             cualCeldaTEFormulas = celda;
-            lovTiposEntidades = null;
-            getLovTiposEntidades();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('form:lovTipoEntidad').clearFilters()");
-            RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-            RequestContext.getCurrentInstance().update("form:lovTipoEntidad");
-            if (tipoListaTEFormulas == 0) {
-                secRegistroTEFormulas = listaTEFormulasConceptos.get(indexTEFormulas).getSecuencia();
-                formula = listaTEFormulasConceptos.get(indexTEFormulas).getFormula().getNombrelargo();
-                concepto = listaTEFormulasConceptos.get(indexTEFormulas).getConcepto().getDescripcion();
-                tipoEntidad = listaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad().getNombre();
-                auxTipoEntidadTE = listaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad();
-                auxConceptoTE = listaTEFormulasConceptos.get(indexTEFormulas).getConcepto();
+            cualtabla = 4;
+            teFormulaTablaSeleccionado.getSecuencia();
+            if (cualCeldaTEFormulas == 0) {
+                teFormulaTablaSeleccionado.getTipoentidad().getNombre();
+                habilitarBotonLov();
+            } else if (cualCeldaTEFormulas == 1) {
+                teFormulaTablaSeleccionado.getFormula().getNombrelargo();
+                habilitarBotonLov();
+            } else if (cualCeldaTEFormulas == 2) {
+                teFormulaTablaSeleccionado.getConcepto().getDescripcion();
+                habilitarBotonLov();
+            } else if (cualCeldaTEFormulas == 3) {
+                teFormulaTablaSeleccionado.getConcepto().getEmpresa().getNombre();
+                deshabiltiarBotonLov();
             }
-            if (tipoListaTEFormulas == 1) {
-                secRegistroTEFormulas = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getSecuencia();
-                formula = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getFormula().getNombrelargo();
-                concepto = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getConcepto().getDescripcion();
-                tipoEntidad = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad().getNombre();
-                auxTipoEntidadTE = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad();
-                auxConceptoTE = filtrarListaTEFormulasConceptos.get(indexTEFormulas).getConcepto();
-            }
-            if (banderaTSGrupos == 1) {
-                altoTablaTSGrupos = "73";
-                tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-                banderaTSGrupos = 0;
-                filtrarListaTSGruposTiposEntidades = null;
-                tipoListaTSGrupos = 0;
-            }
+
         }
     }
     //GUARDAR
@@ -1124,26 +870,16 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public void guardarGeneral() {
-        if (guardado == false || guardadoTSFormulas == false || guardadoTSGrupos == false || guardadoTEFormulas == false) {
-            if (guardado == false) {
-                guardarCambiosTipoSueldo();
-            }
-            if (guardadoTSFormulas == false) {
-                guardarCambiosTSFormula();
-            }
-            if (guardadoTSGrupos == false) {
-                guardarCambiosTSGrupo();
-            }
-            if (guardadoTEFormulas == false) {
-                guardarCambiosTEFormula();
-            }
-            FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            cambiosPagina = true;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
+        guardarCambiosTipoSueldo();
+        guardarCambiosTSFormula();
+        guardarCambiosTSGrupo();
+        guardarCambiosTEFormula();
+        FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        RequestContext.getCurrentInstance().update("form:growl");
+        cambiosPagina = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void guardarCambiosTipoSueldo() {
@@ -1165,13 +901,13 @@ public class ControlTipoSueldo implements Serializable {
             listTiposSueldosModificar.clear();
         }
         listaTiposSueldos = null;
+        getListaTiposSueldos();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         k = 0;
-        index = -1;
-        secRegistro = null;
+        contarRegistrosTipoSueldos();
 
     }
 
@@ -1189,13 +925,13 @@ public class ControlTipoSueldo implements Serializable {
             listTSFormulasConceptosModificar.clear();
         }
         listaTSFormulasConceptos = null;
+        getListaTSFormulasConceptos();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTSFormula");
         guardadoTSFormulas = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         k = 0;
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
+        contarRegistrosFormulas();
     }
 
     public void guardarCambiosTSGrupo() {
@@ -1212,13 +948,13 @@ public class ControlTipoSueldo implements Serializable {
             listTSGruposTiposEntidadesModificar.clear();
         }
         listaTSGruposTiposEntidades = null;
+        getListaTSGruposTiposEntidades();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTSGrupo");
         guardadoTSGrupos = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         k = 0;
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
+        contarRegistrosGrupos();
     }
 
     public void guardarCambiosTEFormula() {
@@ -1234,14 +970,12 @@ public class ControlTipoSueldo implements Serializable {
             administrarTipoSueldo.editarTEFormulasConceptos(listTEFormulasConceptosModificar);
             listTEFormulasConceptosModificar.clear();
         }
-        listaTEFormulasConceptos = null;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTEFormula");
         guardadoTEFormulas = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         k = 0;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
+        contarRegistrosTipoEntidades();
     }
     //CANCELAR MODIFICACIONES
 
@@ -1249,39 +983,17 @@ public class ControlTipoSueldo implements Serializable {
      * Cancela las modificaciones realizas en la pagina
      */
     public void cancelarModificacionGeneral() {
-        if (guardado == false) {
-            cancelarModificacionTipoSueldo();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-        }
-        if (guardadoTSFormulas == false) {
-            cancelarModificacionTSFormula();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTSFormula");
-        }
-        if (guardadoTSGrupos == false) {
-            cancelarModificacionTSGrupo();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-        }
-        if (guardadoTEFormulas == false) {
-            cancelarModificacionTEFormula();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTEFormula");
-        }
-        indexAuxTSGrupos = -1;
-        lovTiposEntidades = null;
-        listaTEFormulasConceptos = null;
-        getListaTEFormulasConceptos();
+        cancelarModificacionTipoSueldo();
+        cancelarModificacionTSFormula();
+        cancelarModificacionTSGrupo();
+        cancelarModificacionTEFormula();
         cambiosPagina = true;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosTEFormula");
     }
 
     public void cancelarModificacionTipoSueldo() {
         if (bandera == 1) {
-            altoTablaTiposSueldos = "80";
+            altoTablaTiposSueldos = "60";
             tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
             tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
             tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
@@ -1300,18 +1012,18 @@ public class ControlTipoSueldo implements Serializable {
         listTiposSueldosBorrar.clear();
         listTiposSueldosCrear.clear();
         listTiposSueldosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        tipoSueldoTablaSeleccionado = null;
         k = 0;
         listaTiposSueldos = null;
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosTipoSueldos();
         RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
     }
 
     public void cancelarModificacionTSFormula() {
         if (banderaTSFormulas == 1) {
-            altoTablaTSFormulas = "160";
+            altoTablaTSFormulas = "200";
             tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
             tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
             tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
@@ -1328,19 +1040,19 @@ public class ControlTipoSueldo implements Serializable {
         listTSFormulasConceptosBorrar.clear();
         listTSFormulasConceptosCrear.clear();
         listTSFormulasConceptosModificar.clear();
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
+        tsFormulaTablaSeleccionado = null;
         k = 0;
         listaTSFormulasConceptos = null;
         guardadoTSFormulas = true;
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosFormulas();
         RequestContext.getCurrentInstance().update("form:datosTSFormula");
     }
 
     public void cancelarModificacionTSGrupo() {
         if (banderaTSGrupos == 1) {
-            altoTablaTSGrupos = "73";
+            altoTablaTSGrupos = "60";
             tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
             tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosTSGrupo");
@@ -1351,19 +1063,18 @@ public class ControlTipoSueldo implements Serializable {
         listTSGruposTiposEntidadesBorrar.clear();
         listTSGruposTiposEntidadesCrear.clear();
         listTSGruposTiposEntidadesModificar.clear();
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
+        tsGrupoTablaSeleccionado = null;
         k = 0;
         listaTSGruposTiposEntidades = null;
         guardadoTSGrupos = true;
         permitirIndexTSGrupos = true;
-        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosGrupos();
         RequestContext.getCurrentInstance().update("form:datosTSGrupo");
     }
 
     public void cancelarModificacionTEFormula() {
         if (banderaTEFormulas == 1) {
-            altoTablaTEFormulas = "73";
+            altoTablaTEFormulas = "60";
             teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
             teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
             teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
@@ -1380,24 +1091,18 @@ public class ControlTipoSueldo implements Serializable {
         listTEFormulasConceptosBorrar.clear();
         listTEFormulasConceptosCrear.clear();
         listTEFormulasConceptosModificar.clear();
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
+        teFormulaTablaSeleccionado = null;
         k = 0;
         listaTEFormulasConceptos = null;
         guardadoTEFormulas = true;
         permitirIndexTEFormulas = true;
-        RequestContext context = RequestContext.getCurrentInstance();
+        contarRegistrosTipoEntidades();
         RequestContext.getCurrentInstance().update("form:datosTEFormula");
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarTipoSueldo = listaTiposSueldos.get(index);
-            }
-            if (tipoLista == 1) {
-                editarTipoSueldo = filtrarListaTiposSueldos.get(index);
-            }
+        if (cualtabla == 1) {
+            editarTipoSueldo = tipoSueldoTablaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigoTipoSueldoD");
@@ -1408,16 +1113,9 @@ public class ControlTipoSueldo implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarDescripcionTipoSueldoD').show()");
                 cualCelda = -1;
             }
-            index = -1;
-            secRegistro = null;
         }
-        if (indexTSFormulas >= 0) {
-            if (tipoListaTSFormulas == 0) {
-                editarTSFormulaConcepto = listaTSFormulasConceptos.get(indexTSFormulas);
-            }
-            if (tipoListaTSFormulas == 1) {
-                editarTSFormulaConcepto = listaTSFormulasConceptos.get(indexTSFormulas);
-            }
+        if (cualtabla == 2) {
+            editarTSFormulaConcepto = tsFormulaTablaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTSFormulas == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaTSFormulaD");
@@ -1432,32 +1130,18 @@ public class ControlTipoSueldo implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarEmpresaTSFormulaD').show()");
                 cualCeldaTSFormulas = -1;
             }
-            indexTSFormulas = -1;
-            secRegistroTSFormulas = null;
         }
-        if (indexTSGrupos >= 0) {
-            if (tipoListaTSGrupos == 0) {
-                editarTSGrupoTipoEntidad = listaTSGruposTiposEntidades.get(indexTSGrupos);
-            }
-            if (tipoListaTSGrupos == 1) {
-                editarTSGrupoTipoEntidad = listaTSGruposTiposEntidades.get(indexTSGrupos);
-            }
+        if (cualtabla == 3) {
+            editarTSGrupoTipoEntidad = tsGrupoTablaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTSGrupos == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarGrupoTSGrupoD");
                 RequestContext.getCurrentInstance().execute("PF('editarGrupoTSGrupoD').show()");
                 cualCeldaTSGrupos = -1;
             }
-            indexTSGrupos = -1;
-            secRegistroTSGrupos = null;
         }
-        if (indexTEFormulas >= 0) {
-            if (tipoListaTEFormulas == 0) {
-                editarTEFormulaConcepto = listaTEFormulasConceptos.get(indexTEFormulas);
-            }
-            if (tipoListaTEFormulas == 1) {
-                editarTEFormulaConcepto = listaTEFormulasConceptos.get(indexTEFormulas);
-            }
+        if (cualtabla == 4) {
+            editarTEFormulaConcepto = teFormulaTablaSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCeldaTEFormulas == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaTETipoEntidadD");
@@ -1476,59 +1160,28 @@ public class ControlTipoSueldo implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarEmpresaTEFormulaD').show()");
                 cualCeldaTEFormulas = -1;
             }
-            indexTEFormulas = -1;
-            secRegistroTEFormulas = null;
         }
     }
 
     public void dialogoNuevoRegistro() {
-        if (guardado == false || guardadoTSFormulas == false || guardadoTSGrupos == false || guardadoTEFormulas == false) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            int tam1 = listaTiposSueldos.size();
-            int tam2 = listaTSFormulasConceptos.size();
-            int tam3 = listaTSGruposTiposEntidades.size();
-            int tam4 = listaTEFormulasConceptos.size();
-            if (tam1 == 0 || tam2 == 0 || tam3 == 0) {
-                activoFormulaConcepto = false;
-                activoGrupoDistribucion = false;
-                activoTipoEntidad = true;
-                RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-                RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()");
-            } else {
-                if (index >= 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoSueldo");
-                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoSueldo').show()");
-                }
-                if (indexTSFormulas >= 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTSFormula");
-                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTSFormula').show()");
-                }
-                if (indexTSGrupos >= 0) {
-                    if (tam4 > 0) {
-                        lovTiposEntidades = null;
-                        getLovTiposEntidades();
-                        RequestContext.getCurrentInstance().execute("PF('form:lovTipoEntidad').clearFilters()");
-                        RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-                        RequestContext.getCurrentInstance().update("form:lovTipoEntidad");
-                        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTSGrupo");
-                        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTSGrupo').show()");
-
-                    } else {
-                        activoFormulaConcepto = false;
-                        activoGrupoDistribucion = false;
-                        activoTipoEntidad = false;
-                        RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-                        RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()");
-                    }
-                }
-                if (indexTEFormulas >= 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTEFormula");
-                    RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTEFormula').show()");
-                }
+        if (tipoSueldoTablaSeleccionado != null) {
+            activoFormulaConcepto = false;
+            activoGrupoDistribucion = false;
+            activoTipoEntidad = true;
+            if (listaTSGruposTiposEntidades != null) {
+                activoTipoEntidad = false;
             }
+            RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
+            RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()");
+        } else {
+            activoFormulaConcepto = true;
+            activoGrupoDistribucion = true;
+            activoTipoEntidad = true;
+            RequestContext.getCurrentInstance().update("formularioDialogos:nrFormula");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nrGrupo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nrteFormula");
+            RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
+            RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()");
         }
     }
 
@@ -1540,7 +1193,7 @@ public class ControlTipoSueldo implements Serializable {
             tamDes = nuevoTipoSueldo.getDescripcion().length();
             if (tamDes >= 1 && tamDes <= 30) {
                 if (bandera == 1) {
-                    altoTablaTiposSueldos = "80";
+                    altoTablaTiposSueldos = "60";
                     tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
                     tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
                     tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
@@ -1564,18 +1217,15 @@ public class ControlTipoSueldo implements Serializable {
                 nuevoTipoSueldo.setSecuencia(l);
                 listTiposSueldosCrear.add(nuevoTipoSueldo);
                 listaTiposSueldos.add(nuevoTipoSueldo);
+                tipoSueldoTablaSeleccionado = nuevoTipoSueldo;
                 nuevoTipoSueldo = new TiposSueldos();
                 cambiosPagina = false;
+                contarRegistrosTipoSueldos();
                 RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoSueldo').hide()");
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
-                }
-                index = -1;
-                secRegistro = null;
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoSueldo').show()");
@@ -1590,7 +1240,7 @@ public class ControlTipoSueldo implements Serializable {
         boolean respueta = validarCamposNulosTSFormula(1);
         if (respueta == true) {
             if (banderaTSFormulas == 1) {
-                altoTablaTSFormulas = "230";
+                altoTablaTSFormulas = "220";
                 tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
                 tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
@@ -1607,33 +1257,24 @@ public class ControlTipoSueldo implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoTSFormulaConcepto.setSecuencia(l);
-            if (tipoLista == 0) {
-                nuevoTSFormulaConcepto.setTiposueldo(listaTiposSueldos.get(indexAux));
-            }
-            if (tipoLista == 1) {
-                nuevoTSFormulaConcepto.setTiposueldo(filtrarListaTiposSueldos.get(indexAux));
-            }
+            nuevoTSFormulaConcepto.setTiposueldo(tipoSueldoTablaSeleccionado);
             if (listaTSFormulasConceptos.size() == 0) {
                 listaTSFormulasConceptos = new ArrayList<TSFormulasConceptos>();
             }
             listTSFormulasConceptosCrear.add(nuevoTSFormulaConcepto);
             listaTSFormulasConceptos.add(nuevoTSFormulaConcepto);
+            tsFormulaTablaSeleccionado = nuevoTSFormulaConcepto;
+            contarRegistrosFormulas();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            index = indexAux;
             RequestContext.getCurrentInstance().update("form:datosTSFormula");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTSFormula').hide()");
+            guardadoTSFormulas = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             nuevoTSFormulaConcepto = new TSFormulasConceptos();
             nuevoTSFormulaConcepto.setFormula(new Formulas());
             nuevoTSFormulaConcepto.setConcepto(new Conceptos());
             nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
-            if (guardadoTSFormulas == true) {
-                guardadoTSFormulas = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
-            }
-            indexTSFormulas = -1;
-            secRegistroTSFormulas = null;
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullTSFormula').show()");
@@ -1643,7 +1284,7 @@ public class ControlTipoSueldo implements Serializable {
     public void agregarNuevoTSGrupo() {
         if (nuevoTSGrupoTipoEntidad.getGrupotipoentidad().getSecuencia() != null) {
             if (banderaTSGrupos == 1) {
-                altoTablaTSGrupos = "73";
+                altoTablaTSGrupos = "60";
                 tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
                 tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosTSGrupo");
@@ -1654,31 +1295,23 @@ public class ControlTipoSueldo implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoTSGrupoTipoEntidad.setSecuencia(l);
-            if (tipoLista == 0) {
-                nuevoTSGrupoTipoEntidad.setTiposueldo(listaTiposSueldos.get(indexAux));
-            }
-            if (tipoLista == 1) {
-                nuevoTSGrupoTipoEntidad.setTiposueldo(filtrarListaTiposSueldos.get(indexAux));
-            }
+            nuevoTSGrupoTipoEntidad.setTiposueldo(tipoSueldoTablaSeleccionado);
             if (listaTSGruposTiposEntidades.size() == 0) {
                 listaTSGruposTiposEntidades = new ArrayList<TSGruposTiposEntidades>();
             }
             listTSGruposTiposEntidadesCrear.add(nuevoTSGrupoTipoEntidad);
             listaTSGruposTiposEntidades.add(nuevoTSGrupoTipoEntidad);
+            tsGrupoTablaSeleccionado = nuevoTSGrupoTipoEntidad;
+            contarRegistrosGrupos();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            index = indexAux;
             RequestContext.getCurrentInstance().update("form:datosTSGrupo");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTSGrupo').hide()");
             nuevoTSGrupoTipoEntidad = new TSGruposTiposEntidades();
             nuevoTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
-            if (guardadoTSGrupos == true) {
-                guardadoTSGrupos = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
-            }
-            indexTSGrupos = -1;
-            secRegistroTSGrupos = null;
+            guardadoTSGrupos = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullTSGrupo').show()");
@@ -1690,7 +1323,7 @@ public class ControlTipoSueldo implements Serializable {
         if (respueta == true) {
             if (validarTipoEntidadYEmpresaNuevoRegistro(1) == true) {
                 if (banderaTEFormulas == 1) {
-                    altoTablaTEFormulas = "73";
+                    altoTablaTEFormulas = "60";
                     teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
                     teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
                     teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
@@ -1707,21 +1340,15 @@ public class ControlTipoSueldo implements Serializable {
                 k++;
                 l = BigInteger.valueOf(k);
                 nuevoTEFormulaConcepto.setSecuencia(l);
-                if (tipoListaTSGrupos == 0) {
-                    nuevoTEFormulaConcepto.setTsgrupotipoentidad(listaTSGruposTiposEntidades.get(indexAuxTSGrupos));
-                }
-                if (tipoListaTSGrupos == 1) {
-                    nuevoTEFormulaConcepto.setTsgrupotipoentidad(listaTSGruposTiposEntidades.get(indexAuxTSGrupos));
-                }
+                nuevoTEFormulaConcepto.setTsgrupotipoentidad(tsGrupoTablaSeleccionado);
                 if (listaTEFormulasConceptos.size() == 0) {
                     listaTEFormulasConceptos = new ArrayList<TEFormulasConceptos>();
                 }
                 listTEFormulasConceptosCrear.add(nuevoTEFormulaConcepto);
                 listaTEFormulasConceptos.add(nuevoTEFormulaConcepto);
+                teFormulaTablaSeleccionado = nuevoTEFormulaConcepto;
+                contarRegistrosTipoEntidades();
                 cambiosPagina = false;
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
                 RequestContext.getCurrentInstance().update("form:datosTEFormula");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTEFormula').hide()");
                 nuevoTEFormulaConcepto = new TEFormulasConceptos();
@@ -1729,12 +1356,8 @@ public class ControlTipoSueldo implements Serializable {
                 nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
                 nuevoTEFormulaConcepto.setConcepto(new Conceptos());
                 nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
-                if (guardadoTEFormulas == true) {
-                    guardadoTEFormulas = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
-                }
-                indexTEFormulas = -1;
-                secRegistroTEFormulas = null;
+                guardadoTEFormulas = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().execute("PF('errorNuevoRegistroTEFormula').show()");
@@ -1750,8 +1373,6 @@ public class ControlTipoSueldo implements Serializable {
      */
     public void limpiarNuevaTipoSueldo() {
         nuevoTipoSueldo = new TiposSueldos();
-        index = -1;
-        secRegistro = null;
     }
 
     public void limpiarNuevaTSFormula() {
@@ -1759,15 +1380,11 @@ public class ControlTipoSueldo implements Serializable {
         nuevoTSFormulaConcepto.setFormula(new Formulas());
         nuevoTSFormulaConcepto.setConcepto(new Conceptos());
         nuevoTSFormulaConcepto.getConcepto().setEmpresa(new Empresas());
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
     }
 
     public void limpiarNuevaTSGrupo() {
         nuevoTSGrupoTipoEntidad = new TSGruposTiposEntidades();
         nuevoTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
     }
 
     public void limpiarNuevaTEFormula() {
@@ -1776,24 +1393,22 @@ public class ControlTipoSueldo implements Serializable {
         nuevoTEFormulaConcepto.setTipoentidad(new TiposEntidades());
         nuevoTEFormulaConcepto.setConcepto(new Conceptos());
         nuevoTEFormulaConcepto.getConcepto().setEmpresa(new Empresas());
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
     }
 
     //DUPLICAR VC
     /**
      */
     public void verificarRegistroDuplicar() {
-        if (index >= 0) {
+        if (cualtabla == 1) {
             duplicarTipoSueldoM();
         }
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             duplicarTSFormulaM();
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             duplicarTSGrupoM();
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             duplicarTEFormulaM();
         }
     }
@@ -1802,25 +1417,14 @@ public class ControlTipoSueldo implements Serializable {
         duplicarTipoSueldo = new TiposSueldos();
         k++;
         l = BigInteger.valueOf(k);
-        if (tipoLista == 0) {
-            duplicarTipoSueldo.setCodigo(listaTiposSueldos.get(index).getCodigo());
-            duplicarTipoSueldo.setDescripcion(listaTiposSueldos.get(index).getDescripcion());
-            duplicarTipoSueldo.setBasico(listaTiposSueldos.get(index).getBasico());
-            duplicarTipoSueldo.setCapacidadendeudamiento(listaTiposSueldos.get(index).getCapacidadendeudamiento());
-            duplicarTipoSueldo.setAdicionalbasico(listaTiposSueldos.get(index).getAdicionalbasico());
-        }
-        if (tipoLista == 1) {
-            duplicarTipoSueldo.setCodigo(filtrarListaTiposSueldos.get(index).getCodigo());
-            duplicarTipoSueldo.setDescripcion(filtrarListaTiposSueldos.get(index).getDescripcion());
-            duplicarTipoSueldo.setBasico(filtrarListaTiposSueldos.get(index).getBasico());
-            duplicarTipoSueldo.setCapacidadendeudamiento(filtrarListaTiposSueldos.get(index).getCapacidadendeudamiento());
-            duplicarTipoSueldo.setAdicionalbasico(filtrarListaTiposSueldos.get(index).getAdicionalbasico());
-        }
+        duplicarTipoSueldo.setCodigo(tipoSueldoTablaSeleccionado.getCodigo());
+        duplicarTipoSueldo.setDescripcion(tipoSueldoTablaSeleccionado.getDescripcion());
+        duplicarTipoSueldo.setBasico(tipoSueldoTablaSeleccionado.getBasico());
+        duplicarTipoSueldo.setCapacidadendeudamiento(tipoSueldoTablaSeleccionado.getCapacidadendeudamiento());
+        duplicarTipoSueldo.setAdicionalbasico(tipoSueldoTablaSeleccionado.getAdicionalbasico());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoSueldo");
         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoSueldo').show()");
-        index = -1;
-        secRegistro = null;
 
     }
 
@@ -1828,21 +1432,12 @@ public class ControlTipoSueldo implements Serializable {
         duplicarTSFormulaConcepto = new TSFormulasConceptos();
         k++;
         l = BigInteger.valueOf(k);
-        if (tipoListaTSFormulas == 0) {
-            duplicarTSFormulaConcepto.setOrigen(listaTSFormulasConceptos.get(indexTSFormulas).getOrigen());
-            duplicarTSFormulaConcepto.setFormula(listaTSFormulasConceptos.get(indexTSFormulas).getFormula());
-            duplicarTSFormulaConcepto.setConcepto(listaTSFormulasConceptos.get(indexTSFormulas).getConcepto());
-        }
-        if (tipoListaTSFormulas == 1) {
-            duplicarTSFormulaConcepto.setOrigen(filtrarListaTSFormulasConceptos.get(indexTSFormulas).getOrigen());
-            duplicarTSFormulaConcepto.setFormula(filtrarListaTSFormulasConceptos.get(indexTSFormulas).getFormula());
-            duplicarTSFormulaConcepto.setConcepto(filtrarListaTSFormulasConceptos.get(indexTSFormulas).getConcepto());
-        }
+        duplicarTSFormulaConcepto.setOrigen(tsFormulaTablaSeleccionado.getOrigen());
+        duplicarTSFormulaConcepto.setFormula(tsFormulaTablaSeleccionado.getFormula());
+        duplicarTSFormulaConcepto.setConcepto(tsFormulaTablaSeleccionado.getConcepto());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTSFormula");
         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTSFormula').show()");
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
 
     }
 
@@ -1850,40 +1445,22 @@ public class ControlTipoSueldo implements Serializable {
         duplicarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
         k++;
         l = BigInteger.valueOf(k);
-        if (tipoListaTSGrupos == 0) {
-            duplicarTSGrupoTipoEntidad.setGrupotipoentidad(listaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad());
-        }
-        if (tipoListaTSGrupos == 1) {
-            duplicarTSGrupoTipoEntidad.setGrupotipoentidad(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad());
-        }
+        duplicarTSGrupoTipoEntidad.setGrupotipoentidad(tsGrupoTablaSeleccionado.getGrupotipoentidad());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTSGrupo");
         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTSGrupo').show()");
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
 
     }
 
     public void duplicarTEFormulaM() {
         duplicarTEFormulaConcepto = new TEFormulasConceptos();
 
-        if (tipoListaTEFormulas == 0) {
-
-            duplicarTEFormulaConcepto.setTipoentidad(listaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad());
-            duplicarTEFormulaConcepto.setFormula(listaTEFormulasConceptos.get(indexTEFormulas).getFormula());
-            duplicarTEFormulaConcepto.setConcepto(listaTEFormulasConceptos.get(indexTEFormulas).getConcepto());
-        }
-        if (tipoListaTEFormulas == 1) {
-
-            duplicarTEFormulaConcepto.setTipoentidad(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getTipoentidad());
-            duplicarTEFormulaConcepto.setFormula(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getFormula());
-            duplicarTEFormulaConcepto.setConcepto(filtrarListaTEFormulasConceptos.get(indexTEFormulas).getConcepto());
-        }
+        duplicarTEFormulaConcepto.setTipoentidad(teFormulaTablaSeleccionado.getTipoentidad());
+        duplicarTEFormulaConcepto.setFormula(teFormulaTablaSeleccionado.getFormula());
+        duplicarTEFormulaConcepto.setConcepto(teFormulaTablaSeleccionado.getConcepto());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTEFormula");
         RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTEFormula').show()");
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
 
     }
 
@@ -1893,49 +1470,41 @@ public class ControlTipoSueldo implements Serializable {
     public void confirmarDuplicarTipoSueldo() {
         boolean respueta = validarCamposNulosTipoSueldo(2);
         if (respueta == true) {
-            int tamDes = 0;
-            tamDes = nuevoTipoSueldo.getDescripcion().length();
-            if (tamDes >= 1 && tamDes <= 30) {
-                if (bandera == 1) {
-                    altoTablaTiposSueldos = "80";
-                    tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
-                    tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
-                    tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
-                    tipoSueldoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                    tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
-                    tipoSueldoCap.setFilterStyle("display: none; visibility: hidden;");
-                    tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
-                    tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
-                    tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
-                    tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-                    RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-                    bandera = 0;
-                    filtrarListaTiposSueldos = null;
-                    tipoLista = 0;
-                }
-                k++;
-                l = BigInteger.valueOf(k);
-                duplicarTipoSueldo.setSecuencia(l);
-                String text = duplicarTipoSueldo.getDescripcion().toUpperCase();
-                duplicarTipoSueldo.setDescripcion(text);
-                listaTiposSueldos.add(duplicarTipoSueldo);
-                listTiposSueldosCrear.add(duplicarTipoSueldo);
-                cambiosPagina = false;
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            if (bandera == 1) {
+                altoTablaTiposSueldos = "60";
+                tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
+                tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
+                tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
+                tipoSueldoDescripcion.setFilterStyle("display: none; visibility: hidden;");
+                tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
+                tipoSueldoCap.setFilterStyle("display: none; visibility: hidden;");
+                tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
+                tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
+                tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
+                tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoSueldo').hide()");
-                index = -1;
-                secRegistro = null;
-                if (guardado == true) {
-                    guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
-                }
-                duplicarTipoSueldo = new TiposSueldos();
-            } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoSueldo').show()");
+                bandera = 0;
+                filtrarListaTiposSueldos = null;
+                tipoLista = 0;
             }
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarTipoSueldo.setSecuencia(l);
+            String text = duplicarTipoSueldo.getDescripcion().toUpperCase();
+            duplicarTipoSueldo.setDescripcion(text);
+            listaTiposSueldos.add(duplicarTipoSueldo);
+            listTiposSueldosCrear.add(duplicarTipoSueldo);
+            tipoSueldoTablaSeleccionado = duplicarTipoSueldo;
+            cambiosPagina = false;
+            contarRegistrosTipoSueldos();
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoSueldo').hide()");
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            duplicarTipoSueldo = new TiposSueldos();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoSueldo').show()");
@@ -1946,7 +1515,7 @@ public class ControlTipoSueldo implements Serializable {
         boolean respueta = validarCamposNulosTSFormula(2);
         if (respueta == true) {
             if (banderaTSFormulas == 1) {
-                altoTablaTSFormulas = "230";
+                altoTablaTSFormulas = "220";
                 tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
                 tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
                 tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
@@ -1963,24 +1532,18 @@ public class ControlTipoSueldo implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             duplicarTSFormulaConcepto.setSecuencia(l);
-            if (tipoLista == 0) {
-                duplicarTSFormulaConcepto.setTiposueldo(listaTiposSueldos.get(indexAux));
-            }
-            if (tipoLista == 1) {
-                duplicarTSFormulaConcepto.setTiposueldo(filtrarListaTiposSueldos.get(indexAux));
-            }
+            duplicarTSFormulaConcepto.setTiposueldo(tipoSueldoTablaSeleccionado);
             listaTSFormulasConceptos.add(duplicarTSFormulaConcepto);
             listTSFormulasConceptosCrear.add(duplicarTSFormulaConcepto);
+            tsFormulaTablaSeleccionado = duplicarTSFormulaConcepto;
+            contarRegistrosFormulas();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTSFormula");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTSFormula').hide()");
-            indexTSFormulas = -1;
-            secRegistroTSFormulas = null;
             if (guardadoTSFormulas == true) {
                 guardadoTSFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             duplicarTSFormulaConcepto = new TSFormulasConceptos();
@@ -1994,41 +1557,53 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public void confirmarDuplicarTSGrupo() {
+
         if (duplicarTSGrupoTipoEntidad.getGrupotipoentidad().getSecuencia() != null) {
-            if (banderaTSGrupos == 1) {
-                altoTablaTSGrupos = "73";
-                tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-                banderaTSGrupos = 0;
-                filtrarListaTSGruposTiposEntidades = null;
-                tipoListaTSGrupos = 0;
-            }
-            if (tipoLista == 0) {
-                duplicarTSGrupoTipoEntidad.setTiposueldo(listaTiposSueldos.get(indexAux));
-            }
-            if (tipoLista == 1) {
-                duplicarTSGrupoTipoEntidad.setTiposueldo(filtrarListaTiposSueldos.get(indexAux));
-            }
-            k++;
-            l = BigInteger.valueOf(k);
-            duplicarTSGrupoTipoEntidad.setSecuencia(l);
-            listaTSGruposTiposEntidades.add(duplicarTSGrupoTipoEntidad);
-            listTSGruposTiposEntidadesCrear.add(duplicarTSGrupoTipoEntidad);
-            cambiosPagina = false;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTSGrupo').hide()");
-            indexTSGrupos = -1;
-            secRegistroTSGrupos = null;
-            if (guardadoTSGrupos == true) {
-                guardadoTSGrupos = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+            int duplicados = 0;
+            int contador = 0;
+            for (int i = 0; i < listaTSGruposTiposEntidades.size(); i++) {
+                if (duplicarTSGrupoTipoEntidad.getGrupotipoentidad() == listaTSGruposTiposEntidades.get(i).getGrupotipoentidad()) {
+                    duplicados++;
+                }
             }
 
-            duplicarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
-            duplicarTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
+            if (duplicados == 0) {
+                contador++;
+            }
+
+            if (contador == 1) {
+                if (banderaTSGrupos == 1) {
+                    altoTablaTSGrupos = "60";
+                    tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
+                    tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
+                    RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                    banderaTSGrupos = 0;
+                    filtrarListaTSGruposTiposEntidades = null;
+                    tipoListaTSGrupos = 0;
+                }
+                duplicarTSGrupoTipoEntidad.setTiposueldo(tipoSueldoTablaSeleccionado);
+                k++;
+                l = BigInteger.valueOf(k);
+                duplicarTSGrupoTipoEntidad.setSecuencia(l);
+                listaTSGruposTiposEntidades.add(duplicarTSGrupoTipoEntidad);
+                listTSGruposTiposEntidadesCrear.add(duplicarTSGrupoTipoEntidad);
+                tsGrupoTablaSeleccionado = duplicarTSGrupoTipoEntidad;
+                contarRegistrosGrupos();
+                cambiosPagina = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTSGrupo').hide()");
+                if (guardadoTSGrupos == true) {
+                    guardadoTSGrupos = false;
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+
+                duplicarTSGrupoTipoEntidad = new TSGruposTiposEntidades();
+                duplicarTSGrupoTipoEntidad.setGrupotipoentidad(new Grupostiposentidades());
+            } else {
+                RequestContext.getCurrentInstance().execute("PF('errorGrupoRepetido').show()");
+            }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorDatosNullTSGrupo').show()");
@@ -2040,7 +1615,7 @@ public class ControlTipoSueldo implements Serializable {
         if (respueta == true) {
             if (validarTipoEntidadYEmpresaNuevoRegistro(2) == true) {
                 if (banderaTEFormulas == 1) {
-                    altoTablaTEFormulas = "73";
+                    altoTablaTEFormulas = "60";
                     teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
                     teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
                     teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
@@ -2057,24 +1632,19 @@ public class ControlTipoSueldo implements Serializable {
                 k++;
                 l = BigInteger.valueOf(k);
                 duplicarTEFormulaConcepto.setSecuencia(l);
-                if (tipoListaTSGrupos == 0) {
-                    duplicarTEFormulaConcepto.setTsgrupotipoentidad(listaTSGruposTiposEntidades.get(indexAuxTSGrupos));
-                }
-                if (tipoListaTSGrupos == 1) {
-                    duplicarTEFormulaConcepto.setTsgrupotipoentidad(listaTSGruposTiposEntidades.get(indexAuxTSGrupos));
-                }
+                duplicarTEFormulaConcepto.setTsgrupotipoentidad(tsGrupoTablaSeleccionado);
                 listaTEFormulasConceptos.add(duplicarTEFormulaConcepto);
                 listTEFormulasConceptosCrear.add(duplicarTEFormulaConcepto);
+                teFormulaTablaSeleccionado = duplicarTEFormulaConcepto;
+                contarRegistrosTipoEntidades();
                 cambiosPagina = false;
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:datosTEFormula");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTEFormula').hide()");
-                indexTEFormulas = -1;
-                secRegistroTEFormulas = null;
                 if (guardadoTEFormulas == true) {
                     guardadoTEFormulas = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 duplicarTEFormulaConcepto = new TEFormulasConceptos();
                 duplicarTEFormulaConcepto.setFormula(new Formulas());
@@ -2129,7 +1699,7 @@ public class ControlTipoSueldo implements Serializable {
     /**
      */
     public void verificarRegistroBorrar() {
-        if (index >= 0) {
+        if (cualtabla == 1) {
             int tam = listaTSFormulasConceptos.size();
             if (tam == 0) {
                 borrarTipoSueldo();
@@ -2138,10 +1708,10 @@ public class ControlTipoSueldo implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistro').show()");
             }
         }
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             borrarTSFormula();
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             int tam = listaTEFormulasConceptos.size();
             if (tam == 0) {
                 borrarTSGrupo();
@@ -2150,187 +1720,126 @@ public class ControlTipoSueldo implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorBorrarRegistroTSGrupo').show()");
             }
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             borrarTEFormula();
         }
     }
 
     public void borrarTipoSueldo() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listTiposSueldosModificar.isEmpty() && listTiposSueldosModificar.contains(listaTiposSueldos.get(index))) {
-                    int modIndex = listTiposSueldosModificar.indexOf(listaTiposSueldos.get(index));
-                    listTiposSueldosModificar.remove(modIndex);
-                    listTiposSueldosBorrar.add(listaTiposSueldos.get(index));
-                } else if (!listTiposSueldosCrear.isEmpty() && listTiposSueldosCrear.contains(listaTiposSueldos.get(index))) {
-                    int crearIndex = listTiposSueldosCrear.indexOf(listaTiposSueldos.get(index));
-                    listTiposSueldosCrear.remove(crearIndex);
-                } else {
-                    listTiposSueldosBorrar.add(listaTiposSueldos.get(index));
-                }
-                listaTiposSueldos.remove(index);
+        if (tipoSueldoTablaSeleccionado != null) {
+            if (!listTiposSueldosModificar.isEmpty() && listTiposSueldosModificar.contains(tipoSueldoTablaSeleccionado)) {
+                int modIndex = listTiposSueldosModificar.indexOf(tipoSueldoTablaSeleccionado);
+                listTiposSueldosModificar.remove(modIndex);
+                listTiposSueldosBorrar.add(tipoSueldoTablaSeleccionado);
+            } else if (!listTiposSueldosCrear.isEmpty() && listTiposSueldosCrear.contains(tipoSueldoTablaSeleccionado)) {
+                int crearIndex = listTiposSueldosCrear.indexOf(tipoSueldoTablaSeleccionado);
+                listTiposSueldosCrear.remove(crearIndex);
+            } else {
+                listTiposSueldosBorrar.add(tipoSueldoTablaSeleccionado);
             }
+            listaTiposSueldos.remove(tipoSueldoTablaSeleccionado);
             if (tipoLista == 1) {
-                if (!listTiposSueldosModificar.isEmpty() && listTiposSueldosModificar.contains(filtrarListaTiposSueldos.get(index))) {
-                    int modIndex = listTiposSueldosModificar.indexOf(filtrarListaTiposSueldos.get(index));
-                    listTiposSueldosModificar.remove(modIndex);
-                    listTiposSueldosBorrar.add(filtrarListaTiposSueldos.get(index));
-                } else if (!listTiposSueldosCrear.isEmpty() && listTiposSueldosCrear.contains(filtrarListaTiposSueldos.get(index))) {
-                    int crearIndex = listTiposSueldosCrear.indexOf(filtrarListaTiposSueldos.get(index));
-                    listTiposSueldosCrear.remove(crearIndex);
-                } else {
-                    listTiposSueldosBorrar.add(filtrarListaTiposSueldos.get(index));
-                }
-                int VCIndex = listaTiposSueldos.indexOf(filtrarListaTiposSueldos.get(index));
-                listaTiposSueldos.remove(VCIndex);
-                filtrarListaTiposSueldos.remove(index);
+                filtrarListaTiposSueldos.remove(tipoSueldoTablaSeleccionado);
             }
-
+            tipoSueldoTablaSeleccionado = null;
+            contarRegistrosTipoSueldos();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-            index = -1;
-            secRegistro = null;
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
             }
         }
     }
 
     public void borrarTSFormula() {
-        if (indexTSFormulas >= 0) {
-            if (tipoListaTSFormulas == 0) {
-                if (!listTSFormulasConceptosModificar.isEmpty() && listTSFormulasConceptosModificar.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
-                    int modIndex = listTSFormulasConceptosModificar.indexOf(listaTSFormulasConceptos.get(indexTSFormulas));
-                    listTSFormulasConceptosModificar.remove(modIndex);
-                    listTSFormulasConceptosBorrar.add(listaTSFormulasConceptos.get(indexTSFormulas));
-                } else if (!listTSFormulasConceptosCrear.isEmpty() && listTSFormulasConceptosCrear.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
-                    int crearIndex = listTSFormulasConceptosCrear.indexOf(listaTSFormulasConceptos.get(indexTSFormulas));
-                    listTSFormulasConceptosCrear.remove(crearIndex);
-                } else {
-                    listTSFormulasConceptosBorrar.add(listaTSFormulasConceptos.get(indexTSFormulas));
-                }
-                listaTSFormulasConceptos.remove(indexTSFormulas);
+        if (tsFormulaTablaSeleccionado != null) {
+            if (!listTSFormulasConceptosModificar.isEmpty() && listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                int modIndex = listTSFormulasConceptosModificar.indexOf(tsFormulaTablaSeleccionado);
+                listTSFormulasConceptosModificar.remove(modIndex);
+                listTSFormulasConceptosBorrar.add(tsFormulaTablaSeleccionado);
+            } else if (!listTSFormulasConceptosCrear.isEmpty() && listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
+                int crearIndex = listTSFormulasConceptosCrear.indexOf(tsFormulaTablaSeleccionado);
+                listTSFormulasConceptosCrear.remove(crearIndex);
+            } else {
+                listTSFormulasConceptosBorrar.add(tsFormulaTablaSeleccionado);
             }
+            listaTSFormulasConceptos.remove(tsFormulaTablaSeleccionado);
             if (tipoListaTSFormulas == 1) {
-                if (!listTSFormulasConceptosModificar.isEmpty() && listTSFormulasConceptosModificar.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
-                    int modIndex = listTSFormulasConceptosModificar.indexOf(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                    listTSFormulasConceptosModificar.remove(modIndex);
-                    listTSFormulasConceptosBorrar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                } else if (!listTSFormulasConceptosCrear.isEmpty() && listTSFormulasConceptosCrear.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
-                    int crearIndex = listTSFormulasConceptosCrear.indexOf(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                    listTSFormulasConceptosCrear.remove(crearIndex);
-                } else {
-                    listTSFormulasConceptosBorrar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                }
-                int VCIndex = listaTSFormulasConceptos.indexOf(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                listaTSFormulasConceptos.remove(VCIndex);
-                filtrarListaTSFormulasConceptos.remove(indexTSFormulas);
+                filtrarListaTSFormulasConceptos.remove(tsFormulaTablaSeleccionado);
             }
-
+            tsFormulaTablaSeleccionado = null;
+            contarRegistrosFormulas();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTSFormula");
-            indexTSFormulas = -1;
-            secRegistroTSFormulas = null;
 
             if (guardadoTSFormulas == true) {
                 guardadoTSFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
 
     public void borrarTSGrupo() {
-        if (indexTSGrupos >= 0) {
-            if (tipoListaTSGrupos == 0) {
-                if (!listTSGruposTiposEntidadesModificar.isEmpty() && listTSGruposTiposEntidadesModificar.contains(listaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                    int modIndex = listTSGruposTiposEntidadesModificar.indexOf(listaTSGruposTiposEntidades.get(indexTSGrupos));
-                    listTSGruposTiposEntidadesModificar.remove(modIndex);
-                    listTSGruposTiposEntidadesBorrar.add(listaTSGruposTiposEntidades.get(indexTSGrupos));
-                } else if (!listTSGruposTiposEntidadesCrear.isEmpty() && listTSGruposTiposEntidadesCrear.contains(listaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                    int crearIndex = listTSGruposTiposEntidadesCrear.indexOf(listaTSGruposTiposEntidades.get(indexTSGrupos));
-                    listTSGruposTiposEntidadesCrear.remove(crearIndex);
-                } else {
-                    listTSGruposTiposEntidadesBorrar.add(listaTSGruposTiposEntidades.get(indexTSGrupos));
-                }
-                listaTSGruposTiposEntidades.remove(indexTSGrupos);
+        if (tsGrupoTablaSeleccionado != null) {
+            if (!listTSGruposTiposEntidadesModificar.isEmpty() && listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                int modIndex = listTSGruposTiposEntidadesModificar.indexOf(tsGrupoTablaSeleccionado);
+                listTSGruposTiposEntidadesModificar.remove(modIndex);
+                listTSGruposTiposEntidadesBorrar.add(tsGrupoTablaSeleccionado);
+            } else if (!listTSGruposTiposEntidadesCrear.isEmpty() && listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
+                int crearIndex = listTSGruposTiposEntidadesCrear.indexOf(tsGrupoTablaSeleccionado);
+                listTSGruposTiposEntidadesCrear.remove(crearIndex);
+            } else {
+                listTSGruposTiposEntidadesBorrar.add(tsGrupoTablaSeleccionado);
             }
+            listaTSGruposTiposEntidades.remove(tsGrupoTablaSeleccionado);
             if (tipoListaTSGrupos == 1) {
-                if (!listTSGruposTiposEntidadesModificar.isEmpty() && listTSGruposTiposEntidadesModificar.contains(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                    int modIndex = listTSGruposTiposEntidadesModificar.indexOf(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                    listTSGruposTiposEntidadesModificar.remove(modIndex);
-                    listTSGruposTiposEntidadesBorrar.add(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                } else if (!listTSGruposTiposEntidadesCrear.isEmpty() && listTSGruposTiposEntidadesCrear.contains(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                    int crearIndex = listTSGruposTiposEntidadesCrear.indexOf(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                    listTSGruposTiposEntidadesCrear.remove(crearIndex);
-                } else {
-                    listTSGruposTiposEntidadesBorrar.add(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                }
-                int VCIndex = listaTSGruposTiposEntidades.indexOf(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                listaTSGruposTiposEntidades.remove(VCIndex);
-                filtrarListaTSGruposTiposEntidades.remove(indexTSGrupos);
+                filtrarListaTSGruposTiposEntidades.remove(tsGrupoTablaSeleccionado);
             }
-
+            tsGrupoTablaSeleccionado = null;
+            contarRegistrosGrupos();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-            indexTSGrupos = -1;
-            secRegistroTSGrupos = null;
 
             if (guardadoTSGrupos == true) {
                 guardadoTSGrupos = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
 
     public void borrarTEFormula() {
-        if (indexTEFormulas >= 0) {
-            if (tipoListaTEFormulas == 0) {
-                if (!listTEFormulasConceptosModificar.isEmpty() && listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                    int modIndex = listTEFormulasConceptosModificar.indexOf(listaTEFormulasConceptos.get(indexTEFormulas));
-                    listTEFormulasConceptosModificar.remove(modIndex);
-                    listTEFormulasConceptosBorrar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                } else if (!listTEFormulasConceptosCrear.isEmpty() && listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                    int crearIndex = listTEFormulasConceptosCrear.indexOf(listaTEFormulasConceptos.get(indexTEFormulas));
-                    listTEFormulasConceptosCrear.remove(crearIndex);
-                } else {
-                    listTEFormulasConceptosBorrar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                }
-                listaTEFormulasConceptos.remove(indexTEFormulas);
+        if (teFormulaTablaSeleccionado != null) {
+            if (!listTEFormulasConceptosModificar.isEmpty() && listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                int modIndex = listTEFormulasConceptosModificar.indexOf(teFormulaTablaSeleccionado);
+                listTEFormulasConceptosModificar.remove(modIndex);
+                listTEFormulasConceptosBorrar.add(teFormulaTablaSeleccionado);
+            } else if (!listTEFormulasConceptosCrear.isEmpty() && listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
+                int crearIndex = listTEFormulasConceptosCrear.indexOf(teFormulaTablaSeleccionado);
+                listTEFormulasConceptosCrear.remove(crearIndex);
+            } else {
+                listTEFormulasConceptosBorrar.add(teFormulaTablaSeleccionado);
             }
+            listaTEFormulasConceptos.remove(teFormulaTablaSeleccionado);
             if (tipoListaTEFormulas == 1) {
-                if (!listTEFormulasConceptosModificar.isEmpty() && listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                    int modIndex = listTEFormulasConceptosModificar.indexOf(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    listTEFormulasConceptosModificar.remove(modIndex);
-                    listTEFormulasConceptosBorrar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                } else if (!listTEFormulasConceptosCrear.isEmpty() && listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                    int crearIndex = listTEFormulasConceptosCrear.indexOf(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    listTEFormulasConceptosCrear.remove(crearIndex);
-                } else {
-                    listTEFormulasConceptosBorrar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                }
-                int VCIndex = listaTEFormulasConceptos.indexOf(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                listaTEFormulasConceptos.remove(VCIndex);
-                filtrarListaTEFormulasConceptos.remove(indexTEFormulas);
+                filtrarListaTEFormulasConceptos.remove(teFormulaTablaSeleccionado);
             }
-
+            teFormulaTablaSeleccionado = null;
+            contarRegistrosTipoEntidades();
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosTEFormula");
-            indexTEFormulas = -1;
-            secRegistroTEFormulas = null;
 
             if (guardadoTEFormulas == true) {
                 guardadoTEFormulas = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -2341,113 +1850,105 @@ public class ControlTipoSueldo implements Serializable {
      * medio de la tecla Crtl+F11
      */
     public void activarCtrlF11() {
-        if (index >= 0) {
-            if (bandera == 0) {
-                altoTablaTiposSueldos = "60";
-                tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
-                tipoSueldoCodigo.setFilterStyle("width: 85% !important;");
-                tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
-                tipoSueldoDescripcion.setFilterStyle("width: 85% !important;");
-                tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
-                tipoSueldoCap.setFilterStyle("width: 85% !important;");
-                tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
-                tipoSueldoBas.setFilterStyle("width: 85% !important;");
-                tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
-                tipoSueldoAdi.setFilterStyle("width: 85% !important;");
-                RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-                bandera = 1;
-            } else {
-                altoTablaTiposSueldos = "80";
-                tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
-                tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
-                tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
-                tipoSueldoDescripcion.setFilterStyle("display: none; visibility: hidden;");
-                tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
-                tipoSueldoCap.setFilterStyle("display: none; visibility: hidden;");
-                tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
-                tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
-                tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
-                tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
-                bandera = 0;
-                filtrarListaTiposSueldos = null;
-                tipoLista = 0;
-            }
+        if (bandera == 0) {
+            altoTablaTiposSueldos = "40";
+            tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
+            tipoSueldoCodigo.setFilterStyle("width: 85% !important;");
+            tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
+            tipoSueldoDescripcion.setFilterStyle("width: 85% !important;");
+            tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
+            tipoSueldoCap.setFilterStyle("width: 85% !important;");
+            tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
+            tipoSueldoBas.setFilterStyle("width: 85% !important;");
+            tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
+            tipoSueldoAdi.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+            bandera = 1;
+        } else {
+            altoTablaTiposSueldos = "60";
+            tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
+            tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
+            tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
+            tipoSueldoDescripcion.setFilterStyle("display: none; visibility: hidden;");
+            tipoSueldoCap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCap");
+            tipoSueldoCap.setFilterStyle("display: none; visibility: hidden;");
+            tipoSueldoBas = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoBas");
+            tipoSueldoBas.setFilterStyle("display: none; visibility: hidden;");
+            tipoSueldoAdi = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoAdi");
+            tipoSueldoAdi.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTipoSueldo");
+            bandera = 0;
+            filtrarListaTiposSueldos = null;
+            tipoLista = 0;
         }
-        if (indexTSFormulas >= 0) {
-            if (banderaTSFormulas == 0) {
-                altoTablaTSFormulas = "208";
-                tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
-                tsFormulaConcepto.setFilterStyle("width: 85% !important;");
-                tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
-                tsFormulaFormula.setFilterStyle("width: 85% !important;");
-                tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
-                tsFormulaEmpresa.setFilterStyle("width: 85% !important;");
-                tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
-                tsFormulaOrigen.setFilterStyle("width: 85% !important;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
-                banderaTSFormulas = 1;
-            } else {
-                altoTablaTSFormulas = "230";
-                tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
-                tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
-                tsFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
-                tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
-                tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSFormula");
-                banderaTSFormulas = 0;
-                filtrarListaTSFormulasConceptos = null;
-                tipoListaTSFormulas = 0;
-            }
+        if (banderaTSFormulas == 0) {
+            altoTablaTSFormulas = "200";
+            tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
+            tsFormulaConcepto.setFilterStyle("width: 85% !important;");
+            tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
+            tsFormulaFormula.setFilterStyle("width: 85% !important;");
+            tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
+            tsFormulaEmpresa.setFilterStyle("width: 85% !important;");
+            tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
+            tsFormulaOrigen.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTSFormula");
+            banderaTSFormulas = 1;
+        } else {
+            altoTablaTSFormulas = "220";
+            tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
+            tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
+            tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
+            tsFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
+            tsFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaEmpresa");
+            tsFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
+            tsFormulaOrigen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaOrigen");
+            tsFormulaOrigen.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTSFormula");
+            banderaTSFormulas = 0;
+            filtrarListaTSFormulasConceptos = null;
+            tipoListaTSFormulas = 0;
         }
-        if (indexTSGrupos >= 0) {
-            if (banderaTSGrupos == 0) {
-                altoTablaTSGrupos = "51";
-                tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("width: 85% !important;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-                banderaTSGrupos = 1;
-            } else {
-                altoTablaTSGrupos = "73";
-                tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
-                tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTSGrupo");
-                banderaTSGrupos = 0;
-                filtrarListaTSGruposTiposEntidades = null;
-                tipoListaTSGrupos = 0;
-            }
+        if (banderaTSGrupos == 0) {
+            altoTablaTSGrupos = "40";
+            tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
+            tsGrupoGrupo.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+            banderaTSGrupos = 1;
+        } else {
+            altoTablaTSGrupos = "60";
+            tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
+            tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTSGrupo");
+            banderaTSGrupos = 0;
+            filtrarListaTSGruposTiposEntidades = null;
+            tipoListaTSGrupos = 0;
         }
-        if (indexTEFormulas >= 0) {
-            if (banderaTEFormulas == 0) {
-                altoTablaTEFormulas = "51";
-                teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
-                teFormulaConcepto.setFilterStyle("width: 85% !important;");
-                teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
-                teFormulaFormula.setFilterStyle("width: 85% !important;");
-                teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
-                teFormulaEmpresa.setFilterStyle("width: 85% !important;");
-                teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
-                teFormulaTipoEntidad.setFilterStyle("width: 85% !important;");
-                RequestContext.getCurrentInstance().update("form:datosTEFormula");
-                banderaTEFormulas = 1;
-            } else {
-                altoTablaTEFormulas = "73";
-                teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
-                teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
-                teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
-                teFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
-                teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
-                teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
-                teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
-                teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTEFormula");
-                banderaTEFormulas = 0;
-                filtrarListaTEFormulasConceptos = null;
-                tipoListaTEFormulas = 0;
-            }
+        if (banderaTEFormulas == 0) {
+            altoTablaTEFormulas = "40";
+            teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
+            teFormulaConcepto.setFilterStyle("width: 85% !important;");
+            teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
+            teFormulaFormula.setFilterStyle("width: 85% !important;");
+            teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
+            teFormulaEmpresa.setFilterStyle("width: 85% !important;");
+            teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
+            teFormulaTipoEntidad.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosTEFormula");
+            banderaTEFormulas = 1;
+        } else {
+            altoTablaTEFormulas = "60";
+            teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
+            teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
+            teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
+            teFormulaFormula.setFilterStyle("display: none; visibility: hidden;");
+            teFormulaEmpresa = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaEmpresa");
+            teFormulaEmpresa.setFilterStyle("display: none; visibility: hidden;");
+            teFormulaTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaTipoEntidad");
+            teFormulaTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTEFormula");
+            banderaTEFormulas = 0;
+            filtrarListaTEFormulasConceptos = null;
+            tipoListaTEFormulas = 0;
         }
     }
 
@@ -2457,7 +1958,7 @@ public class ControlTipoSueldo implements Serializable {
      */
     public void salir() {
         if (bandera == 1) {
-            altoTablaTiposSueldos = "80";
+            altoTablaTiposSueldos = "60";
             tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");
             tipoSueldoCodigo.setFilterStyle("display: none; visibility: hidden;");
             tipoSueldoDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoDescripcion");
@@ -2474,7 +1975,7 @@ public class ControlTipoSueldo implements Serializable {
             tipoLista = 0;
         }
         if (banderaTSFormulas == 1) {
-            altoTablaTSFormulas = "230";
+            altoTablaTSFormulas = "220";
             tsFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaConcepto");
             tsFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
             tsFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSFormula:tsFormulaFormula");
@@ -2489,7 +1990,7 @@ public class ControlTipoSueldo implements Serializable {
             tipoListaTSFormulas = 0;
         }
         if (banderaTSGrupos == 1) {
-            altoTablaTSGrupos = "73";
+            altoTablaTSGrupos = "60";
             tsGrupoGrupo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTSGrupo:tsGrupoGrupo");
             tsGrupoGrupo.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosTSGrupo");
@@ -2498,7 +1999,7 @@ public class ControlTipoSueldo implements Serializable {
             tipoListaTSGrupos = 0;
         }
         if (banderaTEFormulas == 1) {
-            altoTablaTEFormulas = "73";
+            altoTablaTEFormulas = "60";
             teFormulaConcepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaConcepto");
             teFormulaConcepto.setFilterStyle("display: none; visibility: hidden;");
             teFormulaFormula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTEFormula:teFormulaFormula");
@@ -2524,16 +2025,10 @@ public class ControlTipoSueldo implements Serializable {
         listTEFormulasConceptosBorrar.clear();
         listTEFormulasConceptosCrear.clear();
         listTEFormulasConceptosModificar.clear();
-        index = -1;
-        indexAux = -1;
-        indexTSFormulas = -1;
-        indexTSGrupos = -1;
-        indexAuxTSGrupos = -1;
-        indexTEFormulas = -1;
-        secRegistro = null;
-        secRegistroTSFormulas = null;
-        secRegistroTEFormulas = null;
-        secRegistroTSGrupos = null;
+        tipoSueldoTablaSeleccionado = null;
+        tsFormulaTablaSeleccionado = null;
+        teFormulaTablaSeleccionado = null;
+        tsGrupoTablaSeleccionado = null;
         k = 0;
         listaTiposSueldos = null;
         listaTSFormulasConceptos = null;
@@ -2548,13 +2043,17 @@ public class ControlTipoSueldo implements Serializable {
         lovFormulas = null;
         lovGruposTiposEntidades = null;
         lovTiposEntidades = null;
+        contarRegistrosTipoSueldos();
+        contarRegistrosFormulas();
+        contarRegistrosGrupos();
+        contarRegistrosTipoEntidades();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             if (cualCeldaTSFormulas == 0) {
                 RequestContext.getCurrentInstance().update("form:FormulaDialogo");
                 RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
@@ -2566,14 +2065,14 @@ public class ControlTipoSueldo implements Serializable {
                 tipoActualizacion = 0;
             }
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             if (cualCeldaTSGrupos == 0) {
                 RequestContext.getCurrentInstance().update("form:GrupoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
                 tipoActualizacion = 0;
             }
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             if (cualCeldaTEFormulas == 0) {
                 RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
                 RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
@@ -2592,106 +2091,44 @@ public class ControlTipoSueldo implements Serializable {
         }
     }
 
-    public void asignarIndex(Integer indice, int dlg, int LND, int tabla) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tabla == 1) {
-            if (LND == 0) {
-                indexTSFormulas = indice;
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-            if (dlg == 0) {
-                RequestContext.getCurrentInstance().update("form:FormulaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
-            }
-            if (dlg == 1) {
-                RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
-                RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
-            }
+    public void asignarIndexTsGrupos(TSGruposTiposEntidades tsgrupo, int dlg, int LND) {
+        tsGrupoTablaSeleccionado = tsgrupo;
+        tipoActualizacion = LND;
+        if (dlg == 0) {
+            RequestContext.getCurrentInstance().update("form:GrupoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
         }
-        if (tabla == 2) {
-            if (LND == 0) {
-                indexTSGrupos = indice;
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-            if (dlg == 0) {
-                RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-                RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').show()");
-            }
+
+    }
+
+    public void asignarIndexTeFormulas(TEFormulasConceptos teformcon, int dlg, int LND) {
+        teFormulaTablaSeleccionado = teformcon;
+        tipoActualizacion = LND;
+        if (dlg == 0) {
+            RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
+            RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
         }
-        if (tabla == 3) {
-            if (LND == 0) {
-                indexTEFormulas = indice;
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-            if (dlg == 0) {
-                RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-                RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
-            }
-            if (dlg == 1) {
-                RequestContext.getCurrentInstance().update("form:FormulaTEDialogo");
-                RequestContext.getCurrentInstance().execute("PF('FormulaTEDialogo').show()");
-            }
-            if (dlg == 2) {
-                RequestContext.getCurrentInstance().update("form:ConceptoTEDialogo");
-                RequestContext.getCurrentInstance().execute("PF('ConceptoTEDialogo').show()");
-            }
+        if (dlg == 1) {
+            RequestContext.getCurrentInstance().update("form:FormulaTEDialogo");
+            RequestContext.getCurrentInstance().execute("PF('FormulaTEDialogo').show()");
+        }
+        if (dlg == 2) {
+            RequestContext.getCurrentInstance().update("form:ConceptoTEDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ConceptoTEDialogo').show()");
         }
     }
 
-    public void valoresBackupAutocompletarGeneral(int tipoNuevo, String Campo) {
-        if (Campo.equals("FORMULA")) {
-            if (tipoNuevo == 1) {
-                formula = nuevoTSFormulaConcepto.getFormula().getNombrelargo();
-            } else if (tipoNuevo == 2) {
-                formula = duplicarTSFormulaConcepto.getFormula().getNombrelargo();
-            }
+    public void asignarIndexTsFormulas(TSFormulasConceptos tsformulacon, int dlg, int LND) {
+        RequestContext context = RequestContext.getCurrentInstance();
+        tsFormulaTablaSeleccionado = tsformulacon;
+        tipoActualizacion = LND;
+        if (dlg == 0) {
+            RequestContext.getCurrentInstance().update("form:FormulaDialogo");
+            RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').show()");
         }
-        if (Campo.equals("CONCEPTO")) {
-            if (tipoNuevo == 1) {
-                concepto = nuevoTSFormulaConcepto.getConcepto().getDescripcion();
-            } else if (tipoNuevo == 2) {
-                concepto = duplicarTSFormulaConcepto.getConcepto().getDescripcion();
-            }
-        }
-        if (Campo.equals("GRUPO")) {
-            if (tipoNuevo == 1) {
-                grupo = nuevoTSGrupoTipoEntidad.getGrupotipoentidad().getNombre();
-            } else if (tipoNuevo == 2) {
-                grupo = nuevoTSGrupoTipoEntidad.getGrupotipoentidad().getNombre();
-            }
-        }
-        if (Campo.equals("FORMULATE")) {
-            if (tipoNuevo == 1) {
-                formula = nuevoTSFormulaConcepto.getFormula().getNombrelargo();
-            } else if (tipoNuevo == 2) {
-                formula = duplicarTSFormulaConcepto.getFormula().getNombrelargo();
-            }
-        }
-        if (Campo.equals("CONCEPTOTE")) {
-            if (tipoNuevo == 1) {
-                concepto = nuevoTSFormulaConcepto.getConcepto().getDescripcion();
-            } else if (tipoNuevo == 2) {
-                concepto = duplicarTSFormulaConcepto.getConcepto().getDescripcion();
-            }
-        }
-        if (Campo.equals("TIPOENTIDAD")) {
-            if (tipoNuevo == 1) {
-                tipoEntidad = nuevoTEFormulaConcepto.getTipoentidad().getNombre();
-            } else if (tipoNuevo == 2) {
-                tipoEntidad = duplicarTEFormulaConcepto.getTipoentidad().getNombre();
-            }
+        if (dlg == 1) {
+            RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').show()");
         }
     }
 
@@ -2701,9 +2138,9 @@ public class ControlTipoSueldo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
             if (tipoNuevo == 1) {
-                nuevoTSFormulaConcepto.getFormula().setNombrelargo(formula);
+                nuevoTSFormulaConcepto.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             } else if (tipoNuevo == 2) {
-                duplicarTSFormulaConcepto.getFormula().setNombrelargo(formula);
+                duplicarTSFormulaConcepto.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             }
             for (int i = 0; i < lovFormulas.size(); i++) {
                 if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
@@ -2734,9 +2171,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         if (confirmarCambio.equalsIgnoreCase("CONCEPTO")) {
             if (tipoNuevo == 1) {
-                nuevoTSFormulaConcepto.getConcepto().setDescripcion(concepto);
+                nuevoTSFormulaConcepto.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             } else if (tipoNuevo == 2) {
-                duplicarTSFormulaConcepto.getConcepto().setDescripcion(concepto);
+                duplicarTSFormulaConcepto.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             }
             for (int i = 0; i < lovConceptos.size(); i++) {
                 if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -2775,9 +2212,9 @@ public class ControlTipoSueldo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("GRUPO")) {
             if (tipoNuevo == 1) {
-                nuevoTSGrupoTipoEntidad.getGrupotipoentidad().setNombre(grupo);
+                nuevoTSGrupoTipoEntidad.getGrupotipoentidad().setNombre(tsGrupoTablaSeleccionado.getGrupotipoentidad().getNombre());
             } else if (tipoNuevo == 2) {
-                duplicarTSGrupoTipoEntidad.getGrupotipoentidad().setNombre(grupo);
+                duplicarTSGrupoTipoEntidad.getGrupotipoentidad().setNombre(tsGrupoTablaSeleccionado.getGrupotipoentidad().getNombre());
             }
             for (int i = 0; i < lovGruposTiposEntidades.size(); i++) {
                 if (lovGruposTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -2814,9 +2251,9 @@ public class ControlTipoSueldo implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
             if (tipoNuevo == 1) {
-                nuevoTEFormulaConcepto.getTipoentidad().setNombre(formula);
+                nuevoTEFormulaConcepto.getTipoentidad().setNombre(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             } else if (tipoNuevo == 2) {
-                duplicarTEFormulaConcepto.getTipoentidad().setNombre(formula);
+                duplicarTEFormulaConcepto.getTipoentidad().setNombre(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             }
             for (int i = 0; i < lovTiposEntidades.size(); i++) {
                 if (lovTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -2847,9 +2284,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         if (confirmarCambio.equalsIgnoreCase("FORMULATE")) {
             if (tipoNuevo == 1) {
-                nuevoTEFormulaConcepto.getFormula().setNombrelargo(formula);
+                nuevoTEFormulaConcepto.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             } else if (tipoNuevo == 2) {
-                duplicarTEFormulaConcepto.getFormula().setNombrelargo(formula);
+                duplicarTEFormulaConcepto.getFormula().setNombrelargo(tsFormulaTablaSeleccionado.getFormula().getNombrelargo());
             }
             for (int i = 0; i < lovFormulas.size(); i++) {
                 if (lovFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
@@ -2880,9 +2317,9 @@ public class ControlTipoSueldo implements Serializable {
         }
         if (confirmarCambio.equalsIgnoreCase("CONCEPTOTE")) {
             if (tipoNuevo == 1) {
-                nuevoTEFormulaConcepto.getConcepto().setDescripcion(concepto);
+                nuevoTEFormulaConcepto.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             } else if (tipoNuevo == 2) {
-                duplicarTEFormulaConcepto.getConcepto().setDescripcion(concepto);
+                duplicarTEFormulaConcepto.getConcepto().setDescripcion(tsFormulaTablaSeleccionado.getConcepto().getDescripcion());
             }
             for (int i = 0; i < lovConceptos.size(); i++) {
                 if (lovConceptos.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
@@ -2918,21 +2355,21 @@ public class ControlTipoSueldo implements Serializable {
     public void actualizarFormula() {
         if (tipoActualizacion == 0) {
             if (tipoListaTSFormulas == 0) {
-                listaTSFormulasConceptos.get(indexTSFormulas).setFormula(formulaSeleccionado);
-                if (!listTSFormulasConceptosCrear.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
+                tsFormulaTablaSeleccionado.setFormula(formulaSeleccionado);
+                if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
                     if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indexTSFormulas));
-                    } else if (!listTSFormulasConceptosModificar.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indexTSFormulas));
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+                    } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
                     }
                 }
             } else {
-                filtrarListaTSFormulasConceptos.get(indexTSFormulas).setFormula(formulaSeleccionado);
-                if (!listTSFormulasConceptosCrear.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
+                tsFormulaTablaSeleccionado.setFormula(formulaSeleccionado);
+                if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
                     if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                    } else if (!listTSFormulasConceptosModificar.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+                    } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
                     }
                 }
             }
@@ -2956,13 +2393,11 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
         aceptar = true;
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*RequestContext.getCurrentInstance().update("form:FormulaDialogo");
+        RequestContext.getCurrentInstance().update("form:FormulaDialogo");
         RequestContext.getCurrentInstance().update("form:lovFormula");
-        RequestContext.getCurrentInstance().update("form:aceptarF");*/
+        RequestContext.getCurrentInstance().update("form:aceptarF");
         context.reset("form:lovFormula:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovFormula').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('FormulaDialogo').hide()");
@@ -2972,8 +2407,6 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
         aceptar = true;
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -2985,21 +2418,21 @@ public class ControlTipoSueldo implements Serializable {
     public void actualizarConcepto() {
         if (tipoActualizacion == 0) {
             if (tipoListaTSFormulas == 0) {
-                listaTSFormulasConceptos.get(indexTSFormulas).setConcepto(conceptoSeleccionado);
-                if (!listTSFormulasConceptosCrear.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
+                tsFormulaTablaSeleccionado.setConcepto(conceptoSeleccionado);
+                if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
                     if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indexTSFormulas));
-                    } else if (!listTSFormulasConceptosModificar.contains(listaTSFormulasConceptos.get(indexTSFormulas))) {
-                        listTSFormulasConceptosModificar.add(listaTSFormulasConceptos.get(indexTSFormulas));
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+                    } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
                     }
                 }
             } else {
-                filtrarListaTSFormulasConceptos.get(indexTSFormulas).setConcepto(conceptoSeleccionado);
-                if (!listTSFormulasConceptosCrear.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
+                tsFormulaTablaSeleccionado.setConcepto(conceptoSeleccionado);
+                if (!listTSFormulasConceptosCrear.contains(tsFormulaTablaSeleccionado)) {
                     if (listTSFormulasConceptosModificar.isEmpty()) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
-                    } else if (!listTSFormulasConceptosModificar.contains(filtrarListaTSFormulasConceptos.get(indexTSFormulas))) {
-                        listTSFormulasConceptosModificar.add(filtrarListaTSFormulasConceptos.get(indexTSFormulas));
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
+                    } else if (!listTSFormulasConceptosModificar.contains(tsFormulaTablaSeleccionado)) {
+                        listTSFormulasConceptosModificar.add(tsFormulaTablaSeleccionado);
                     }
                 }
             }
@@ -3025,13 +2458,11 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
         aceptar = true;
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
+        RequestContext.getCurrentInstance().update("form:ConceptoDialogo");
         RequestContext.getCurrentInstance().update("form:lovConcepto");
-        RequestContext.getCurrentInstance().update("form:aceptarC");*/
+        RequestContext.getCurrentInstance().update("form:aceptarC");
         context.reset("form:lovConcepto:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovConcepto').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ConceptoDialogo').hide()");
@@ -3041,8 +2472,6 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
         aceptar = true;
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
         tipoActualizacion = -1;
         permitirIndexTSFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -3054,21 +2483,21 @@ public class ControlTipoSueldo implements Serializable {
     public void actualizarGrupo() {
         if (tipoActualizacion == 0) {
             if (tipoListaTSGrupos == 0) {
-                listaTSGruposTiposEntidades.get(indexTSGrupos).setGrupotipoentidad(grupoTipoEntidadSeleccionado);
-                if (!listTSGruposTiposEntidadesCrear.contains(listaTSGruposTiposEntidades.get(indexTSGrupos))) {
+                tsGrupoTablaSeleccionado.setGrupotipoentidad(grupoTipoEntidadSeleccionado);
+                if (!listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
                     if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                        listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indexTSGrupos));
-                    } else if (!listTSGruposTiposEntidadesModificar.contains(listaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                        listTSGruposTiposEntidadesModificar.add(listaTSGruposTiposEntidades.get(indexTSGrupos));
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+                    } else if (!listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
                     }
                 }
             } else {
-                filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).setGrupotipoentidad(grupoTipoEntidadSeleccionado);
-                if (!listTSGruposTiposEntidadesCrear.contains(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos))) {
+                tsGrupoTablaSeleccionado.setGrupotipoentidad(grupoTipoEntidadSeleccionado);
+                if (!listTSGruposTiposEntidadesCrear.contains(tsGrupoTablaSeleccionado)) {
                     if (listTSGruposTiposEntidadesModificar.isEmpty()) {
-                        listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
-                    } else if (!listTSGruposTiposEntidadesModificar.contains(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos))) {
-                        listTSGruposTiposEntidadesModificar.add(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos));
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
+                    } else if (!listTSGruposTiposEntidadesModificar.contains(tsGrupoTablaSeleccionado)) {
+                        listTSGruposTiposEntidadesModificar.add(tsGrupoTablaSeleccionado);
                     }
                 }
             }
@@ -3092,13 +2521,11 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovGruposTiposEntidades = null;
         grupoTipoEntidadSeleccionado = null;
         aceptar = true;
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*RequestContext.getCurrentInstance().update("form:GrupoDialogo");
-         RequestContext.getCurrentInstance().update("form:lovGrupo");
-         RequestContext.getCurrentInstance().update("form:aceptarG");*/
+        RequestContext.getCurrentInstance().update("form:GrupoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovGrupo");
+        RequestContext.getCurrentInstance().update("form:aceptarG");
         context.reset("form:lovGrupo:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovGrupo').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('GrupoDialogo').hide()");
@@ -3108,8 +2535,6 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovGruposTiposEntidades = null;
         grupoTipoEntidadSeleccionado = null;
         aceptar = true;
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
         tipoActualizacion = -1;
         permitirIndexTSGrupos = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -3121,21 +2546,21 @@ public class ControlTipoSueldo implements Serializable {
     public void actualizarTipoEntidad() {
         if (tipoActualizacion == 0) {
             if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indexTEFormulas).setTipoentidad(tipoEntidadSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
+                teFormulaTablaSeleccionado.setTipoentidad(tipoEntidadSeleccionado);
+                if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
                     if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                    } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                     }
                 }
             } else {
-                filtrarListaTEFormulasConceptos.get(indexTEFormulas).setTipoentidad(tipoEntidadSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
+                teFormulaTablaSeleccionado.setTipoentidad(tipoEntidadSeleccionado);
+                if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
                     if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                    } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                     }
                 }
             }
@@ -3159,13 +2584,11 @@ public class ControlTipoSueldo implements Serializable {
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
-         RequestContext.getCurrentInstance().update("form:lovTipoEntidad");
-         RequestContext.getCurrentInstance().update("form:aceptarTE");*/
+        RequestContext.getCurrentInstance().update("form:TipoEntidadDialogo");
+        RequestContext.getCurrentInstance().update("form:lovTipoEntidad");
+        RequestContext.getCurrentInstance().update("form:aceptarTE");
         context.reset("form:lovTipoEntidad:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoEntidad').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').hide()");
@@ -3175,8 +2598,6 @@ public class ControlTipoSueldo implements Serializable {
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -3188,21 +2609,21 @@ public class ControlTipoSueldo implements Serializable {
     public void actualizarFormulaTE() {
         if (tipoActualizacion == 0) {
             if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indexTEFormulas).setFormula(formulaSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
+                teFormulaTablaSeleccionado.setFormula(formulaSeleccionado);
+                if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
                     if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                    } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                     }
                 }
             } else {
-                filtrarListaTEFormulasConceptos.get(indexTEFormulas).setFormula(formulaSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
+                teFormulaTablaSeleccionado.setFormula(formulaSeleccionado);
+                if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
                     if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                    } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                        listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                     }
                 }
             }
@@ -3226,13 +2647,11 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*RequestContext.getCurrentInstance().update("form:FormulaTEDialogo");
-         RequestContext.getCurrentInstance().update("form:lovFormulaTE");
-         RequestContext.getCurrentInstance().update("form:aceptarFTE");*/
+        RequestContext.getCurrentInstance().update("form:FormulaTEDialogo");
+        RequestContext.getCurrentInstance().update("form:lovFormulaTE");
+        RequestContext.getCurrentInstance().update("form:aceptarFTE");
         context.reset("form:lovFormulaTE:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovFormulaTE').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('FormulaTEDialogo').hide()");
@@ -3242,8 +2661,6 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovFormulas = null;
         formulaSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -3254,23 +2671,13 @@ public class ControlTipoSueldo implements Serializable {
 
     public void actualizarConceptoTE() {
         if (tipoActualizacion == 0) {
-            if (tipoListaTEFormulas == 0) {
-                listaTEFormulasConceptos.get(indexTEFormulas).setConcepto(conceptoSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(listaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(listaTEFormulasConceptos.get(indexTEFormulas));
-                    }
-                }
-            } else {
-                filtrarListaTEFormulasConceptos.get(indexTEFormulas).setConcepto(conceptoSeleccionado);
-                if (!listTEFormulasConceptosCrear.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                    if (listTEFormulasConceptosModificar.isEmpty()) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    } else if (!listTEFormulasConceptosModificar.contains(filtrarListaTEFormulasConceptos.get(indexTEFormulas))) {
-                        listTEFormulasConceptosModificar.add(filtrarListaTEFormulasConceptos.get(indexTEFormulas));
-                    }
+            teFormulaTablaSeleccionado.setConcepto(conceptoSeleccionado);
+            teFormulaTablaSeleccionado.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
+            if (!listTEFormulasConceptosCrear.contains(teFormulaTablaSeleccionado)) {
+                if (listTEFormulasConceptosModificar.isEmpty()) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
+                } else if (!listTEFormulasConceptosModificar.contains(teFormulaTablaSeleccionado)) {
+                    listTEFormulasConceptosModificar.add(teFormulaTablaSeleccionado);
                 }
             }
             if (guardadoTEFormulas == true) {
@@ -3283,11 +2690,13 @@ public class ControlTipoSueldo implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTEFormula");
         } else if (tipoActualizacion == 1) {
             nuevoTEFormulaConcepto.setConcepto(conceptoSeleccionado);
+            nuevoTEFormulaConcepto.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTEFormulaCConcepto");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTEFormulaEmpresa");
         } else if (tipoActualizacion == 2) {
             duplicarTEFormulaConcepto.setConcepto(conceptoSeleccionado);
+            duplicarTEFormulaConcepto.getConcepto().getEmpresa().setNombre(conceptoSeleccionado.getEmpresa().getNombre());
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTEFormulaCConcepto");
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTEFormulaEmpresa");
@@ -3295,14 +2704,12 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        /*
-         RequestContext.getCurrentInstance().update("form:ConceptoTEDialogo");
-         RequestContext.getCurrentInstance().update("form:lovConceptoTE");
-         RequestContext.getCurrentInstance().update("form:aceptarCTE");*/
+
+        RequestContext.getCurrentInstance().update("form:ConceptoTEDialogo");
+        RequestContext.getCurrentInstance().update("form:lovConceptoTE");
+        RequestContext.getCurrentInstance().update("form:aceptarCTE");
         context.reset("form:lovConceptoTE:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovConceptoTE').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ConceptoTEDialogo').hide()");
@@ -3312,8 +2719,6 @@ public class ControlTipoSueldo implements Serializable {
         filtrarLovConceptos = null;
         conceptoSeleccionado = null;
         aceptar = true;
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
         tipoActualizacion = -1;
         permitirIndexTEFormulas = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -3331,19 +2736,19 @@ public class ControlTipoSueldo implements Serializable {
     //EXPORTAR
 
     public String exportXML() {
-        if (index >= 0) {
+        if (cualtabla == 1) {
             nombreTabla = ":formExportarTS:datosTipoSueldoExportar";
             nombreXML = "TiposSueldos_XML";
         }
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             nombreTabla = ":formExportarTSF:datosTSFormulaExportar";
             nombreXML = "FormulasConceptos_XML";
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             nombreTabla = ":formExportarTSG:datosTSGrupoExportar";
             nombreXML = "GruposDistribucion_XML";
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             nombreTabla = ":formExportarTEF:datosTEFormulaExportar";
             nombreXML = "TiposEntidadesDistribucion_XML";
         }
@@ -3356,16 +2761,16 @@ public class ControlTipoSueldo implements Serializable {
      * @throws IOException Excepcion de In-Out de datos
      */
     public void validarExportPDF() throws IOException {
-        if (index >= 0) {
+        if (cualtabla == 1) {
             exportPDF_TS();
         }
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             exportPDF_TSF();
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             exportPDF_TSG();
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             exportPDF_TEF();
         }
     }
@@ -3376,8 +2781,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TiposSueldos_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportPDF_TSF() throws IOException {
@@ -3386,8 +2789,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "FormulasConceptos_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
     }
 
     public void exportPDF_TSG() throws IOException {
@@ -3396,8 +2797,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "GruposDistribucion_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
     }
 
     public void exportPDF_TEF() throws IOException {
@@ -3406,8 +2805,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TiposEntidadesDistribucion_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
     }
 
     /**
@@ -3416,16 +2813,16 @@ public class ControlTipoSueldo implements Serializable {
      * @throws IOException Excepcion de In-Out de datos
      */
     public void validarExportXLS() throws IOException {
-        if (index >= 0) {
+        if (cualtabla == 1) {
             exportXLS_TS();
         }
-        if (indexTSFormulas >= 0) {
+        if (cualtabla == 2) {
             exportXLS_TSF();
         }
-        if (indexTSGrupos >= 0) {
+        if (cualtabla == 3) {
             exportXLS_TSG();
         }
-        if (indexTEFormulas >= 0) {
+        if (cualtabla == 4) {
             exportXLS_TEF();
         }
     }
@@ -3436,8 +2833,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TiposSueldos_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS_TSF() throws IOException {
@@ -3446,8 +2841,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "FormulasConceptos_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTSFormulas = -1;
-        secRegistroTSFormulas = null;
     }
 
     public void exportXLS_TSG() throws IOException {
@@ -3456,8 +2849,6 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "GruposDistribucion_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTSGrupos = -1;
-        secRegistroTSGrupos = null;
     }
 
     public void exportXLS_TEF() throws IOException {
@@ -3466,74 +2857,83 @@ public class ControlTipoSueldo implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TiposEntidadesDistribucion_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexTEFormulas = -1;
-        secRegistroTEFormulas = null;
     }
     //EVENTO FILTRAR
 
     /**
      * Evento que cambia la lista reala a la filtrada
      */
-    public void eventoFiltrar() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-        }
-        if (indexTSFormulas >= 0) {
-            if (tipoListaTSFormulas == 0) {
-                tipoListaTSFormulas = 1;
-            }
-        }
-        if (indexTSGrupos >= 0) {
-            if (tipoListaTSGrupos == 0) {
-                tipoListaTSGrupos = 1;
-            }
-        }
-        if (indexTEFormulas >= 0) {
-            if (tipoListaTEFormulas == 0) {
-                tipoListaTEFormulas = 1;
-            }
-        }
+    public void contarRegistrosTipoSueldos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTS");
     }
-    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
+
+    public void contarRegistrosFormulas() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTSFormulas");
+    }
+
+    public void contarRegistrosGrupos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTSGrupos");
+    }
+
+    public void contarRegistrosTipoEntidades() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTE");
+    }
+
+    public void contarRegistrosLovFormulas() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroFormula");
+    }
+
+    public void contarRegistrosLovFormulasConceptos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroConcepto");
+    }
+
+    public void contarRegistrosLovGrupos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroGrupo");
+    }
+
+    public void contarRegistrosLovTipoEntidad() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTipoEntidad");
+    }
+
+    public void contarRegistrosLovFormulasTE() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroFormulaTE");
+    }
+
+    public void contarRegistrosLovTEConceptos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroConceptoTE");
+    }
+
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabiltiarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
 
     public void verificarRastro() {
-        int tam = listaTiposSueldos.size();
-        int tam1 = listaTSFormulasConceptos.size();
-        int tam2 = listaTSGruposTiposEntidades.size();
-        int tam3 = listaTEFormulasConceptos.size();
-        if (tam == 0 || tam1 == 0 || tam2 == 0 || tam3 == 0) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
-        } else {
-            if (index >= 0) {
-                verificarRastroTipoSueldo();
-                index = -1;
-            }
-            if (indexTSFormulas >= 0) {
-                verificarRastroTSFormula();
-                indexTSFormulas = -1;
-            }
-            if (indexTSGrupos >= 0) {
-                verificarRastroTSGrupo();
-                indexTSGrupos = -1;
-            }
-            if (indexTEFormulas >= 0) {
-                verificarRastroTEFormula();
-                indexTEFormulas = -1;
-            }
+        if (cualtabla == 1) {
+            verificarRastroTipoSueldo();
+        }
+        if (cualtabla == 2) {
+            verificarRastroTSFormula();
+        }
+        if (cualtabla == 3) {
+            verificarRastroTSGrupo();
+        }
+        if (cualtabla == 4) {
+            verificarRastroTEFormula();
         }
     }
 
     public void verificarRastroTipoSueldo() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaTiposSueldos != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSSUELDOS");
-                backUpSecRegistro = secRegistro;
-                backUp = secRegistro;
-                secRegistro = null;
+            if (tipoSueldoTablaSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(tipoSueldoTablaSeleccionado.getSecuencia(), "TIPOSSUELDOS");
+                backup = tipoSueldoTablaSeleccionado.getSecuencia();
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -3551,138 +2951,107 @@ public class ControlTipoSueldo implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSSUELDOS")) {
+            nombreTablaRastro = "TiposSueldos";
+            msnConfirmarRastroHistorico = "La tabla TIPOSSUELDOS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSSUELDOS")) {
-                nombreTablaRastro = "TiposSueldos";
-                msnConfirmarRastroHistorico = "La tabla TIPOSSUELDOS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
     public void verificarRastroTSFormula() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listaTSFormulasConceptos != null) {
-            if (secRegistroTSFormulas != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistroTSFormulas, "TSFORMULASCONCEPTOS");
-                backUpSecRegistroTSFormulas = secRegistroTSFormulas;
-                backUp = secRegistroTSFormulas;
-                secRegistroTSFormulas = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "TSFormulasConceptos";
-                    msnConfirmarRastro = "La tabla TSFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("TSFORMULASCONCEPTOS")) {
+        if (tsFormulaTablaSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(tsFormulaTablaSeleccionado.getSecuencia(), "TSFORMULASCONCEPTOS");
+            backup = tsFormulaTablaSeleccionado.getSecuencia();
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "TSFormulasConceptos";
-                msnConfirmarRastroHistorico = "La tabla TSFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+                msnConfirmarRastro = "La tabla TSFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TSFORMULASCONCEPTOS")) {
+            nombreTablaRastro = "TSFormulasConceptos";
+            msnConfirmarRastroHistorico = "La tabla TSFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        indexTSFormulas = -1;
     }
 
     public void verificarRastroTSGrupo() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaTSGruposTiposEntidades != null) {
-            if (secRegistroTSGrupos != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistroTSGrupos, "TSGRUPOSTIPOSENTIDADES");
-                backUpSecRegistroTSGrupos = secRegistroTSGrupos;
-                backUp = backUpSecRegistroTSGrupos;
-                secRegistroTSGrupos = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "TSGruposTiposEntidades";
-                    msnConfirmarRastro = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("TSGRUPOSTIPOSENTIDADES")) {
+            int resultado = administrarRastros.obtenerTabla(tsGrupoTablaSeleccionado.getSecuencia(), "TSGRUPOSTIPOSENTIDADES");
+            backup = tsGrupoTablaSeleccionado.getSecuencia();
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "TSGruposTiposEntidades";
-                msnConfirmarRastroHistorico = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+                msnConfirmarRastro = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros para el registro seleccionado, ¿desea continuar?";
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TSGRUPOSTIPOSENTIDADES")) {
+            nombreTablaRastro = "TSGruposTiposEntidades";
+            msnConfirmarRastroHistorico = "La tabla TSGRUPOSTIPOSENTIDADES tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        indexTSGrupos = -1;
     }
 
     public void verificarRastroTEFormula() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listaTEFormulasConceptos != null) {
-            if (secRegistroTEFormulas != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistroTEFormulas, "TEFORMULASCONCEPTOS");
-                backUpSecRegistroTEFormulas = secRegistroTEFormulas;
-                backUp = secRegistroTEFormulas;
-                secRegistroTEFormulas = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    nombreTablaRastro = "TEFormulasConceptos";
-                    msnConfirmarRastro = "La tabla TEFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-                    RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-            }
-        } else {
-            if (administrarRastros.verificarHistoricosTabla("TEFORMULASCONCEPTOS")) {
+        if (teFormulaTablaSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(teFormulaTablaSeleccionado.getSecuencia(), "TEFORMULASCONCEPTOS");
+            backup = teFormulaTablaSeleccionado.getSecuencia();
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
                 nombreTablaRastro = "TEFormulasConceptos";
-                msnConfirmarRastroHistorico = "La tabla TEFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+                msnConfirmarRastro = "La tabla TEFORMULASCONCEPTOS tiene rastros para el registro seleccionado, ¿desea continuar?";
+                RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TEFORMULASCONCEPTOS")) {
+            nombreTablaRastro = "TEFormulasConceptos";
+            msnConfirmarRastroHistorico = "La tabla TEFORMULASCONCEPTOS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        indexTEFormulas = -1;
     }
 
     //GETTERS AND SETTERS
     public List<TiposSueldos> getListaTiposSueldos() {
         try {
             if (listaTiposSueldos == null) {
-                listaTiposSueldos = new ArrayList<TiposSueldos>();
                 listaTiposSueldos = administrarTipoSueldo.listaTiposSueldos();
                 return listaTiposSueldos;
             } else {
@@ -3734,33 +3103,10 @@ public class ControlTipoSueldo implements Serializable {
         this.duplicarTipoSueldo = setDuplicarTipoSueldo;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
-    public BigInteger getBackUpSecRegistro() {
-        return backUpSecRegistro;
-    }
-
-    public void setBackUpSecRegistro(BigInteger BackUpSecRegistro) {
-        this.backUpSecRegistro = BackUpSecRegistro;
-    }
-
     public List<TSFormulasConceptos> getListaTSFormulasConceptos() {
         if (listaTSFormulasConceptos == null) {
-            listaTSFormulasConceptos = new ArrayList<TSFormulasConceptos>();
-            if (index >= 0) {
-
-                if (tipoLista == 0) {
-                    listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(listaTiposSueldos.get(index).getSecuencia());
-                }
-                if (tipoLista == 1) {
-                    listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(filtrarListaTiposSueldos.get(index).getSecuencia());
-                }
+            if (tipoSueldoTablaSeleccionado != null) {
+                listaTSFormulasConceptos = administrarTipoSueldo.listaTSFormulasConceptosParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
             }
         }
         return listaTSFormulasConceptos;
@@ -3850,22 +3196,6 @@ public class ControlTipoSueldo implements Serializable {
         this.duplicarTSFormulaConcepto = setDuplicarTSFormulaConcepto;
     }
 
-    public BigInteger getSecRegistroTSFormulas() {
-        return secRegistroTSFormulas;
-    }
-
-    public void setSecRegistroTSFormulas(BigInteger setSecRegistroTSFormulas) {
-        this.secRegistroTSFormulas = setSecRegistroTSFormulas;
-    }
-
-    public BigInteger getBackUpSecRegistroTSFormulas() {
-        return backUpSecRegistroTSFormulas;
-    }
-
-    public void setBackUpSecRegistroTSFormulas(BigInteger setBackUpSecRegistroTSFormulas) {
-        this.backUpSecRegistroTSFormulas = setBackUpSecRegistroTSFormulas;
-    }
-
     public String getMsnConfirmarRastro() {
         return msnConfirmarRastro;
     }
@@ -3880,14 +3210,6 @@ public class ControlTipoSueldo implements Serializable {
 
     public void setMsnConfirmarRastroHistorico(String msnConfirmarRastroHistorico) {
         this.msnConfirmarRastroHistorico = msnConfirmarRastroHistorico;
-    }
-
-    public BigInteger getBackUp() {
-        return backUp;
-    }
-
-    public void setBackUp(BigInteger backUp) {
-        this.backUp = backUp;
     }
 
     public String getNombreTablaRastro() {
@@ -3965,7 +3287,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public List<Conceptos> getLovConceptos() {
-        lovConceptos = administrarTipoSueldo.lovConceptos();
+        if (lovConceptos == null) {
+            lovConceptos = administrarTipoSueldo.lovConceptos();
+        }
 
         return lovConceptos;
     }
@@ -3992,14 +3316,8 @@ public class ControlTipoSueldo implements Serializable {
 
     public List<TSGruposTiposEntidades> getListaTSGruposTiposEntidades() {
         if (listaTSGruposTiposEntidades == null) {
-            listaTSGruposTiposEntidades = new ArrayList<TSGruposTiposEntidades>();
-            if (index >= 0) {
-                if (tipoLista == 0) {
-                    listaTSGruposTiposEntidades = administrarTipoSueldo.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(listaTiposSueldos.get(index).getSecuencia());
-                }
-                if (tipoLista == 1) {
-                    listaTSGruposTiposEntidades = administrarTipoSueldo.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(filtrarListaTiposSueldos.get(index).getSecuencia());
-                }
+            if (tipoSueldoTablaSeleccionado != null) {
+                listaTSGruposTiposEntidades = administrarTipoSueldo.listaTSGruposTiposEntidadesParaTipoSueldoSecuencia(tipoSueldoTablaSeleccionado.getSecuencia());
             }
 
         }
@@ -4074,22 +3392,6 @@ public class ControlTipoSueldo implements Serializable {
         this.duplicarTSGrupoTipoEntidad = duplicarTSGrupoTipoEntidad;
     }
 
-    public BigInteger getSecRegistroTSGrupos() {
-        return secRegistroTSGrupos;
-    }
-
-    public void setSecRegistroTSGrupos(BigInteger secRegistroTSGrupos) {
-        this.secRegistroTSGrupos = secRegistroTSGrupos;
-    }
-
-    public BigInteger getBackUpSecRegistroTSGrupos() {
-        return backUpSecRegistroTSGrupos;
-    }
-
-    public void setBackUpSecRegistroTSGrupos(BigInteger backUpSecRegistroTSGrupos) {
-        this.backUpSecRegistroTSGrupos = backUpSecRegistroTSGrupos;
-    }
-
     public List<Grupostiposentidades> getLovGruposTiposEntidades() {
         lovGruposTiposEntidades = administrarTipoSueldo.lovGruposTiposEntidades();
 
@@ -4126,23 +3428,9 @@ public class ControlTipoSueldo implements Serializable {
 
     public List<TEFormulasConceptos> getListaTEFormulasConceptos() {
         if (listaTEFormulasConceptos == null) {
-            listaTEFormulasConceptos = new ArrayList<TEFormulasConceptos>();
-
-            if (indexTSGrupos >= 0) {
-                if (tipoListaTSGrupos == 0) {
-                    int tam = listaTSGruposTiposEntidades.size();
-                    if (tam > 0) {
-                        listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(listaTSGruposTiposEntidades.get(indexTSGrupos).getSecuencia());
-                    }
-                }
-                if (tipoListaTSGrupos == 1) {
-                    int tam = filtrarListaTSGruposTiposEntidades.size();
-                    if (tam > 0) {
-                        listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getSecuencia());
-                    }
-                }
+            if (tsGrupoTablaSeleccionado != null) {
+                listaTEFormulasConceptos = administrarTipoSueldo.listaTEFormulasConceptosParaTSGrupoTipoEntidadSecuencia(tsGrupoTablaSeleccionado.getSecuencia());
             }
-
         }
         return listaTEFormulasConceptos;
     }
@@ -4207,37 +3495,10 @@ public class ControlTipoSueldo implements Serializable {
         this.duplicarTEFormulaConcepto = duplicarTEFormulaConcepto;
     }
 
-    public BigInteger getSecRegistroTEFormulas() {
-        return secRegistroTEFormulas;
-    }
-
-    public void setSecRegistroTEFormulas(BigInteger secRegistroTEFormulas) {
-        this.secRegistroTEFormulas = secRegistroTEFormulas;
-    }
-
-    public BigInteger getBackUpSecRegistroTEFormulas() {
-        return backUpSecRegistroTEFormulas;
-    }
-
-    public void setBackUpSecRegistroTEFormulas(BigInteger backUpSecRegistroTEFormulas) {
-        this.backUpSecRegistroTEFormulas = backUpSecRegistroTEFormulas;
-    }
-
     public List<TiposEntidades> getLovTiposEntidades() {
         if (lovTiposEntidades == null) {
-            if (indexTSGrupos >= 0) {
-                if (tipoListaTSGrupos == 0) {
-                    int tam = listaTSGruposTiposEntidades.size();
-                    if (tam > 0) {
-                        lovTiposEntidades = administrarTipoSueldo.lovTiposEntidades(listaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad().getSecuencia());
-                    }
-                }
-                if (tipoListaTSGrupos == 1) {
-                    int tam = listaTSGruposTiposEntidades.size();
-                    if (tam > 0) {
-                        lovTiposEntidades = administrarTipoSueldo.lovTiposEntidades(filtrarListaTSGruposTiposEntidades.get(indexTSGrupos).getGrupotipoentidad().getSecuencia());
-                    }
-                }
+            if (tsGrupoTablaSeleccionado != null) {
+                lovTiposEntidades = administrarTipoSueldo.lovTiposEntidades(tsGrupoTablaSeleccionado.getGrupotipoentidad().getSecuencia());
             }
         }
         return lovTiposEntidades;
@@ -4304,13 +3565,6 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public TiposSueldos getTipoSueldoTablaSeleccionado() {
-        getListaTiposSueldos();
-        if (listaTiposSueldos != null) {
-            int tam = listaTiposSueldos.size();
-            if (tam > 0) {
-                tipoSueldoTablaSeleccionado = listaTiposSueldos.get(0);
-            }
-        }
         return tipoSueldoTablaSeleccionado;
     }
 
@@ -4319,13 +3573,6 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public TSFormulasConceptos getTsFormulaTablaSeleccionado() {
-        getListaTSFormulasConceptos();
-        if (listaTSFormulasConceptos != null) {
-            int tam = listaTSFormulasConceptos.size();
-            if (tam > 0) {
-                tsFormulaTablaSeleccionado = listaTSFormulasConceptos.get(0);
-            }
-        }
         return tsFormulaTablaSeleccionado;
     }
 
@@ -4334,13 +3581,6 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public TSGruposTiposEntidades getTsGrupoTablaSeleccionado() {
-        getListaTSGruposTiposEntidades();
-        if (listaTSGruposTiposEntidades != null) {
-            int tam = listaTSGruposTiposEntidades.size();
-            if (tam > 0) {
-                tsGrupoTablaSeleccionado = listaTSGruposTiposEntidades.get(0);
-            }
-        }
         return tsGrupoTablaSeleccionado;
     }
 
@@ -4349,13 +3589,6 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public TEFormulasConceptos getTeFormulaTablaSeleccionado() {
-        getListaTEFormulasConceptos();
-        if (listaTEFormulasConceptos != null) {
-            int tam = listaTEFormulasConceptos.size();
-            if (tam > 0) {
-                teFormulaTablaSeleccionado = listaTEFormulasConceptos.get(0);
-            }
-        }
         return teFormulaTablaSeleccionado;
     }
 
@@ -4364,12 +3597,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroFormula() {
-        getLovFormulas();
-        if (lovFormulas != null) {
-            infoRegistroFormula = "Cantidad de registros : " + lovFormulas.size();
-        } else {
-            infoRegistroFormula = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovFormula");
+        infoRegistroFormula = String.valueOf(tabla.getRowCount());
         return infoRegistroFormula;
     }
 
@@ -4378,12 +3608,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroConcepto() {
-        getLovConceptos();
-        if (lovConceptos != null) {
-            infoRegistroConcepto = "Cantidad de registros : " + lovConceptos.size();
-        } else {
-            infoRegistroConcepto = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovConcepto");
+        infoRegistroConcepto = String.valueOf(tabla.getRowCount());
         return infoRegistroConcepto;
     }
 
@@ -4392,12 +3619,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroGrupo() {
-        getLovGruposTiposEntidades();
-        if (lovGruposTiposEntidades != null) {
-            infoRegistroGrupo = "Cantidad de registros : " + lovGruposTiposEntidades.size();
-        } else {
-            infoRegistroGrupo = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovGrupo");
+        infoRegistroGrupo = String.valueOf(tabla.getRowCount());
         return infoRegistroGrupo;
     }
 
@@ -4406,12 +3630,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroTipoEntidad() {
-        getLovTiposEntidades();
-        if (lovTiposEntidades != null) {
-            infoRegistroTipoEntidad = "Cantidad de registros : " + lovTiposEntidades.size();
-        } else {
-            infoRegistroTipoEntidad = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoEntidad");
+        infoRegistroTipoEntidad = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoEntidad;
     }
 
@@ -4420,12 +3641,9 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroFormulaTE() {
-        getLovFormulas();
-        if (lovFormulas != null) {
-            infoRegistroFormulaTE = "Cantidad de registros : " + lovFormulas.size();
-        } else {
-            infoRegistroFormulaTE = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovFormulaTE");
+        infoRegistroFormulaTE = String.valueOf(tabla.getRowCount());
         return infoRegistroFormulaTE;
     }
 
@@ -4434,17 +3652,74 @@ public class ControlTipoSueldo implements Serializable {
     }
 
     public String getInfoRegistroConceptoTE() {
-        getLovConceptos();
-        if (lovConceptos != null) {
-            infoRegistroConceptoTE = "Cantidad de registros : " + lovConceptos.size();
-        } else {
-            infoRegistroConceptoTE = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovConceptoTE");
+        infoRegistroConceptoTE = String.valueOf(tabla.getRowCount());
         return infoRegistroConceptoTE;
     }
 
     public void setInfoRegistroConceptoTE(String infoRegistroConceptoTe) {
         this.infoRegistroConceptoTE = infoRegistroConceptoTe;
+    }
+
+    public BigInteger getBackup() {
+        return backup;
+    }
+
+    public void setBackup(BigInteger backup) {
+        this.backup = backup;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public String getInfoRegistroTS() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTipoSueldo");
+        infoRegistroTS = String.valueOf(tabla.getRowCount());
+        return infoRegistroTS;
+    }
+
+    public void setInfoRegistroTS(String infoRegistroTS) {
+        this.infoRegistroTS = infoRegistroTS;
+    }
+
+    public String getInfoRegistroTSFormulas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTSFormula");
+        infoRegistroTSFormulas = String.valueOf(tabla.getRowCount());
+        return infoRegistroTSFormulas;
+    }
+
+    public void setInfoRegistroTSFormulas(String infoRegistroTSFormulas) {
+        this.infoRegistroTSFormulas = infoRegistroTSFormulas;
+    }
+
+    public String getInfoRegistroTSGrupos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTSGrupo");
+        infoRegistroTSGrupos = String.valueOf(tabla.getRowCount());
+        return infoRegistroTSGrupos;
+    }
+
+    public void setInfoRegistroTSGrupos(String infoRegistroTSGrupos) {
+        this.infoRegistroTSGrupos = infoRegistroTSGrupos;
+    }
+
+    public String getInfoRegistroTE() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTEFormula");
+        infoRegistroTE = String.valueOf(tabla.getRowCount());
+        return infoRegistroTE;
+    }
+
+    public void setInfoRegistroTE(String infoRegistroTE) {
+        this.infoRegistroTE = infoRegistroTE;
     }
 
 }
