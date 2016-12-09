@@ -680,7 +680,8 @@ public class ControlParametroAutoliq implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndice(listaParametrosAutoliq.get(indice), columna);
+        parametroTablaSeleccionado = listaParametrosAutoliq.get(indice);
+        cambiarIndice(parametroTablaSeleccionado, columna);
 //        System.out.println("parametrotablaseleccionado: " + parametroTablaSeleccionado);
 
     }
@@ -692,7 +693,8 @@ public class ControlParametroAutoliq implements Serializable {
         String type = map.get("t"); // type attribute of node
         int indice = Integer.parseInt(type);
         int columna = Integer.parseInt(name);
-        cambiarIndiceAporteEntidad(listaAportesEntidades.get(indice), columna);
+        aporteEntidadSeleccionado = listaAportesEntidades.get(indice);
+        cambiarIndiceAporteEntidad(aporteEntidadSeleccionado, columna);
     }
 
     public void cambiarIndice(ParametrosAutoliq parametro, int celda) {
