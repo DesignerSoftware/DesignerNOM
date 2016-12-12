@@ -6494,6 +6494,23 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+        <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>antecedentes</from-outcome>
+            <to-view-id>/antecedentes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/antecedentes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>antecedentes</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>
 

@@ -92,7 +92,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
     public List<SoAntecedentes> listaAntecedentes(EntityManager em) {
         try {
             em.clear();
-            String sql = "SELECT * FROM SOANTECEDENTES";
+            String sql = "SELECT * FROM SOANTECEDENTES ORDER BY CODIGO";
             Query query = em.createNativeQuery(sql, SoAntecedentes.class);
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;

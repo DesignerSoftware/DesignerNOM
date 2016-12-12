@@ -353,11 +353,11 @@
                                 <h:outputText value="#{ciudad.nombre}" />  
                             </p:column>  
                         </p:dataTable> 
-                        
+
                         <div class="cssBotonesLOV">
-                        <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroCiudad}" class="cssinfoRegistroLOV"/>   
-                        <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarCiudad()}" process="@this"/>
-                        <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerTelefonos.cancelarCambioCiudad()}" process="@this"/>
+                            <h:outputText id="infoRegistroCiudades" value="#{msg['infoRegistros']} #{controlPerTelefonos.infoRegistroCiudad}" class="cssinfoRegistroLOV"/>   
+                            <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlPerTelefonos.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlPerTelefonos.actualizarCiudad()}" process="@this"/>
+                            <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlPerTelefonos.cancelarCambioCiudad()}" process="@this"/>
                         </div>
                     </p:dialog>
                     <!-- DIALOGOS EDITAR -->

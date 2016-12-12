@@ -534,6 +534,7 @@
 
                                         </p:cellEditor>
                                         <f:facet name="footer">
+                                             <p:commandButton style="width: 215px;" id="fooAntecedente" value=" " action="antecedentes" onclick="#{controlSoAntecedentes.recibirPagina('antecedentes')}" process="@this"/>
                                         </f:facet>
                                     </p:column> 
 
@@ -1063,7 +1064,7 @@
                             </fieldset>    
 
 
-                            <fieldset style="position: absolute;top: 1000px;left: 10px;height: 80px;width: 750px; border-radius: 10px; text-align: left">
+                            <fieldset style="position: absolute;top: 1010px;left: 10px;height: 60px;width: 750px; border-radius: 10px; text-align: left">
                                 <legend style="color: blue"><strong>Relaciones Familiares</strong></legend>
                                 <h:outputText value="#{msg['calificacionF']}" style="position: relative; left: 10px;"/>
                                 <p:selectOneMenu id="editarCalificacionF"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.calificacionfamiliar}" style="width: 160px; height: 20px; position: absolute; left: 10px; top :35px;">  

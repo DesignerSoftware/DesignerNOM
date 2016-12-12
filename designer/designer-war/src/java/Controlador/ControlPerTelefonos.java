@@ -724,7 +724,6 @@ public class ControlPerTelefonos implements Serializable {
                     }
                 }
                 deshabilitarBotonLov();
-                telefonoSeleccionado = null;
 
             } else {
                 if (!listaTelefonosCrear.contains(telefonoSeleccionado)) {
@@ -740,7 +739,6 @@ public class ControlPerTelefonos implements Serializable {
                     }
                 }
                 deshabilitarBotonLov();
-                telefonoSeleccionado = null;
             }
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOTELEFONO")) {
@@ -812,7 +810,6 @@ public class ControlPerTelefonos implements Serializable {
                     }
                 }
                 deshabilitarBotonLov();
-                telefonoSeleccionado = null;
             } else {
                 if (!listaTelefonosCrear.contains(telefonoSeleccionado)) {
 
@@ -826,7 +823,6 @@ public class ControlPerTelefonos implements Serializable {
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
-                telefonoSeleccionado = null;
             }
         }
         RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
