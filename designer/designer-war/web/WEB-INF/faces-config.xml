@@ -6511,6 +6511,42 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tiposantecedentes</from-outcome>
+            <to-view-id>/tiposantecedentes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tiposantecedentes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tiposantecedentes</from-outcome>
+            <to-view-id>/pervigenciadomiciliaria.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
+
+        <navigation-rule>
+        <from-view-id>/antecedentes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sotiposantecedentes</from-outcome>
+            <to-view-id>/tiposantecedentes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/antecedentes.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>sotiposantecedentes</from-outcome>
+            <to-view-id>/tiposantecedentes.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+
 
 </faces-config>
 

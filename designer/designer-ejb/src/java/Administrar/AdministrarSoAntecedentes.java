@@ -18,10 +18,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author user
- */
 @Stateful
 public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInterface {
 
@@ -29,7 +25,7 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
     AdministrarSesionesInterface administrarSesiones;
     @EJB
     PersistenciaSoAntecedentesInterface persistenciaAntecedentes;
-     @EJB
+    @EJB
     PersistenciaSoTiposAntecedentesInterface persistenciaTiposAntecedentes;
     private EntityManager em;
 
@@ -47,7 +43,7 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
 
     @Override
     public void crearAntecedente(List<SoAntecedentes> listaCrear) {
-       for (int i = 0; i < listaCrear.size(); i++) {
+        for (int i = 0; i < listaCrear.size(); i++) {
             persistenciaAntecedentes.crear(em, listaCrear.get(i));
         }
     }
@@ -61,20 +57,36 @@ public class AdministrarSoAntecedentes implements AdministrarSoAntecedentesInter
 
     @Override
     public List<SoAntecedentes> consultarAntecedentesPorTipo(BigInteger secTipoAntecedente) {
+        try{
         List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.lovAntecedentes(em, secTipoAntecedente);
         return listAntecedentes;
+        }catch(Exception e){
+            System.out.println("error en consultarAntecedentesPorTipo : " + e.toString());
+            return null;    
+        }
     }
 
     @Override
     public List<SoAntecedentes> consultarAntecedentes() {
-       List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.listaAntecedentes(em);
-       return listAntecedentes;
+        try {
+            List<SoAntecedentes> listAntecedentes = persistenciaAntecedentes.listaAntecedentes(em);
+            return listAntecedentes;
+        } catch (Exception e) {
+            System.out.println("error en consultarAntecedentes : " + e.toString());
+            return null;
+        }
+
     }
 
     @Override
     public List<SoTiposAntecedentes> consultarTiposAntecedentes() {
-        List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
-        return lovTiposAntecedentes;
+        try {
+            List<SoTiposAntecedentes> lovTiposAntecedentes = persistenciaTiposAntecedentes.listaTiposAntecedentes(em);
+            return lovTiposAntecedentes;
+        } catch (Exception e) {
+            System.out.println("error en consultarTiposAntecedentes");
+            return null;
+        }
     }
 
 }

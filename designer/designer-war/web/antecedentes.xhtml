@@ -39,7 +39,7 @@
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlSoAntecedentes.limpiarNuevoAntecedente()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTelefonosExportar" fileName="TelefonosXML" encoding="UTF-8"/> 
+                                    <p:dataExporter type="xml"  target=":formExportar:datosAntecedentesExportar" fileName="SoAntecedentesXML" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
@@ -84,18 +84,14 @@
                                          emptyMessage="#{msg['vacio']}" widgetVar="datosAntecedentes"
                                          editable="true" editMode="cell"
                                          selection="#{controlSoAntecedentes.antecedenteSeleccionado}" selectionMode="single">
-
-
                                 <p:ajax event="filter" listener="#{controlSoAntecedentes.eventoFiltrar()}"/>
-
-
-
+                                
                                 <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                <p:keyFilter for="editarNumeroTelefono" mask="num"/>
+                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                                <p:keyFilter for="editarCodAntecedente" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 0)}" />
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.modificarAntecedentes(info)}"/>
                                             </p:inputText>
@@ -111,7 +107,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.modificarAntecedentes(info)}"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 1)}" />
                                             </p:inputText>
@@ -127,7 +123,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipoantecedente.descripcion}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipoantecedente.descripcion}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.tipoantecedente.descripcion}" id="editarTipoAntecedentee" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.actualizarTiposAntecedentes()}"/>
                                                 <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 2)}" />
                                                 <p:ajax event="dblclick" listener="#{controlSoAntecedentes.asignarIndex(info, 0, 0)}"/>
@@ -137,7 +133,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 295px;" id="fooTipoTelefono" value=" " />
+                                        <p:commandButton style="width: 295px;" id="fooTipoAntecedente" value=" " action="sotiposantecedentes"  onclick="#{controlSoTiposAntecedentes.recibirPagina('sotiposantecedentes')}" process="@this" />
                                     </f:facet>
                                 </p:column>
 
@@ -205,9 +201,9 @@
                             <p:commandButton style="position: absolute; left: 285px; top: 113px;" class="cssBotonLovDialogos" id="btnDuplicarTipo" actionListener="#{controlSoAntecedentes.asignarIndex(info, 0, 2)}" value=" " process="@this" />
 
 
-                            <p:commandButton id="limpiarDuplicadoTelefono" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 160px;" actionListener="#{controlSoAntecedentes.limpiarDuplicarAntecedente()}" update="duplicarAntecedente" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoTelefono" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 160px;"  process="@this" actionListener="#{controlSoAntecedentes.confirmarDuplicar()}" />
-                            <p:commandButton id="cancelarDuplicadoTelefono" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 160px;" actionListener="#{controlSoAntecedentes.limpiarDuplicarAntecedente()}" update="duplicarAntecedente" onclick="PF('DuplicarRegistroAntecedente').hide();"  process="@this"/>
+                            <p:commandButton id="limpiarDuplicadoSoAntecedente" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 160px;" actionListener="#{controlSoAntecedentes.limpiarDuplicarAntecedente()}" update="duplicarAntecedente" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoSoAntecedente" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 110px; top: 160px;"  process="@this" actionListener="#{controlSoAntecedentes.confirmarDuplicar()}" />
+                            <p:commandButton id="cancelarDuplicadoSoAntecedente" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 210px; top: 160px;" actionListener="#{controlSoAntecedentes.limpiarDuplicarAntecedente()}" update="duplicarAntecedente" onclick="PF('DuplicarRegistroAntecedente').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
@@ -292,7 +288,7 @@
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Telefonos', 'telefonos')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="rastro" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 

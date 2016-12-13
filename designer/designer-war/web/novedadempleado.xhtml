@@ -453,6 +453,235 @@
                         <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlNovedadesEmpleados.salir()}" action="novedad" process="@this"/>
                     </p:panel>
                 </h:form>
+                
+                 <!-- L.O.V FORMULAS-->
+
+                    <h:form id="formLovFormulas">
+                        <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" id="formulasDialogo" closable="false"  
+                                  showEffect="fade" hideEffect="fade" modal="true" width="380">
+
+                            <p:dataTable id="LOVFormulas" var="formulas" value="#{controlNovedadesEmpleados.listaFormulas}"
+                                         scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVFormulas"
+                                         filteredValue="#{controlNovedadesEmpleados.filtradoslistaFormulas}" emptyMessage="#{msg['lovvacio']}"
+                                         rowKey="#{formulas.secuencia}" selection="#{controlNovedadesEmpleados.seleccionFormulas}" selectionMode="single">
+
+                                <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formLovFormulas:aceptarF"/>
+                                <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarFormulas()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosFormulas()}"/>
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarF']}"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVFormulas').filter();" class="cssFiltroLOV"/>  
+                                </f:facet>
+
+                                <p:column sortBy="#{formulas.nombrecorto}" filterBy="#{formulas.nombrecorto}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                    <f:facet name="header">
+                                        <h:outputText value="N Corto"/>
+                                    </f:facet>
+                                    <h:outputText value="#{formulas.nombrecorto}" />  
+                                </p:column>
+
+                                <p:column sortBy="#{formulas.nombrelargo}" filterBy="#{formulas.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombreF']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{formulas.nombrelargo}" />  
+                                </p:column>
+                            </p:dataTable>
+
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroFormulas" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroFormulas}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarF" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarFormulas()}" process="@this"/>
+                                <p:commandButton id="atrasF" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNovedadesEmpleados.cancelarCambioFormulas()}" process="@this"/>
+                            </div>
+                        </p:dialog>
+                    </h:form>
+
+                    <!-- L.O.V CONCEPTOS-->
+                    <h:form id="formLovConceptos">
+                        <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
+                                  showEffect="fade" hideEffect="fade" modal="true" width="650">
+
+                            <p:dataTable id="LOVConceptos" var="conceptos" value="#{controlNovedadesEmpleados.listaConceptos}"
+                                         scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVConceptos"
+                                         filteredValue="#{controlNovedadesEmpleados.filtradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}"
+                                         rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesEmpleados.seleccionConceptos}" selectionMode="single">
+
+                                <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formLovConceptos:aceptarC"/>
+                                <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarConceptos()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosConceptos()}"/>
+
+                                <f:facet name="header">  
+                                    <h:outputText value="#{msg['buscarC']}"/>  
+                                    <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVConceptos').filter();" class="cssFiltroLOV"/>
+                                </f:facet>
+
+                                <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="70" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['codigoC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{conceptos.codigo}" />  
+                                </p:column>
+
+                                <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['descripcionC']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{conceptos.descripcion}" />  
+                                </p:column>
+
+                                <p:column sortBy="#{conceptos.empresa.nombre}" filterBy="#{conceptos.empresa.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['nombreEm']}" />
+                                    </f:facet>
+                                    <h:outputText value="#{conceptos.empresa.nombre}" />  
+                                </p:column>
+
+                            </p:dataTable>
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroConceptos" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroConceptos}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarConceptos()}" process="@this"/>
+                                <p:commandButton id="atrasC" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNovedadesEmpleados.cancelarCambioConceptos()}" process="@this"/>
+                            </div>
+                        </p:dialog>
+                    </h:form>
+
+                    <!-- L.O.V PERIODICIDAD-->
+                    <h:form id="formLovPeriodicidad">
+                    <p:dialog header="#{msg['periodicidadesP']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" id="periodicidadesDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="390">
+
+                        <p:dataTable id="LOVPeriodicidades" var="periodicidades" value="#{controlNovedadesEmpleados.listaPeriodicidades}"
+                                     scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVPeriodicidades" 
+                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaPeriodicidades}" emptyMessage="#{msg['lovvacio']}"
+                                     rowKey="#{periodicidades.secuencia}" selection="#{controlNovedadesEmpleados.seleccionPeriodicidades}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formLovPeriodicidad:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosPeriodicidad()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarP']}"/>
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" class="cssFiltroLOV"/>
+                            </f:facet>
+
+                            <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="30" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigoP']}"/>
+                                </f:facet>
+                                <h:outputText value="#{periodicidades.codigo}"/>  
+                            </p:column>
+
+                            <p:column sortBy="#{periodicidades.nombre}" filterBy="#{periodicidades.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreP']}"/>
+                                </f:facet>
+                                <h:outputText value="#{periodicidades.nombre}"/>  
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroPeriodicidad" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroPeriodicidad}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this"/>
+                            <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlNovedadesEmpleados.cancelarCambioPeriodicidades()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                    </h:form>
+
+                    
+                    <!-- L.O.V TERCEROS-->
+                    <h:form id="formLovTerceros">
+                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="390">
+
+                        <p:dataTable id="LOVTerceros" var="terceros" value="#{controlNovedadesEmpleados.listaTerceros}"
+                                     scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVTerceros" 
+                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
+                                     rowKey="#{terceros.secuencia}" selection="#{controlNovedadesEmpleados.seleccionTerceros}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formLovTerceros:aceptarT"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosTerceros()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarT']}"/>
+                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVTerceros').filter();" class="cssFiltroLOV"/>
+                            </f:facet>
+
+                            <p:column sortBy="#{terceros.nitalternativo}" filterStyle="width: 85% !important;" filterBy="#{terceros.nitalternativo}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nitT']}" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.nitalternativo}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombreT']}" />
+                                </f:facet>
+                                <h:outputText value="#{terceros.nombre}" />  
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroTerceros" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroTerceros}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarTerceros()}" process="@this"/>
+                            <p:commandButton id="atrasT" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlNovedadesEmpleados.cancelarCambioTerceros()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                    </h:form>
+                    
+                    
+                    <!-- L.O.V Empleado-->
+                    <h:form id="formLovEmpleados">
+                    <p:dialog header="#{msg['buscar']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="645">
+
+                        <p:dataTable id="LOVEmpleados" var="emp" value="#{controlNovedadesEmpleados.lovEmpleados}"
+                                     scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" selectionMode="single"
+                                     filteredValue="#{controlNovedadesEmpleados.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                     rowKey="#{emp.id}" selection="#{controlNovedadesEmpleados.empleadoSeleccionadoLov}">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formLovEmpleados:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosLovEmpleados()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['nombre']}:"/>
+                                <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>
+                            </f:facet>
+
+                            <p:column sortBy="#{emp.nombre}" filterBy="#{emp.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{emp.nombre}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.codigo}" filterBy="#{emp.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText value="#{emp.codigo}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.tipo}" filterBy="#{emp.tipo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['tipo']}" />
+                                </f:facet>
+                                <h:outputText value="#{emp.tipo}" />  
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroEmpleadosLOV}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}"
+                                             disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}"
+                                             actionListener="#{controlNovedadesEmpleados.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                    </h:form>
+                
 
                 <h:form id="formularioDialogos">
                     <!-- DIALOGO NUEVO REGISTRO -->
@@ -811,222 +1040,6 @@
                         <p:inputTextarea value="#{controlNovedadesEmpleados.editarNovedades.tipo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <!-- L.O.V FORMULAS-->
-                    <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" id="formulasDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="380">
-
-                        <p:dataTable id="LOVFormulas" var="formulas" value="#{controlNovedadesEmpleados.listaFormulas}"
-                                     scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVFormulas"
-                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaFormulas}" emptyMessage="#{msg['lovvacio']}"
-                                     rowKey="#{formulas.secuencia}" selection="#{controlNovedadesEmpleados.seleccionFormulas}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarF"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarFormulas()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosFormulas()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarF']}"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVFormulas').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-
-                            <p:column sortBy="#{formulas.nombrecorto}" filterBy="#{formulas.nombrecorto}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="N Corto"/>
-                                </f:facet>
-                                <h:outputText value="#{formulas.nombrecorto}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{formulas.nombrelargo}" filterBy="#{formulas.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreF']}" />
-                                </f:facet>
-                                <h:outputText value="#{formulas.nombrelargo}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroFormulas" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroFormulas}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarF" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarFormulas()}" process="@this"/>
-                            <p:commandButton id="atrasF" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNovedadesEmpleados.cancelarCambioFormulas()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V CONCEPTOS-->
-                    <p:dialog header="#{msg['conceptosC']}" widgetVar="conceptosDialogo" draggable="true" resizable="false" id="conceptosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="650">
-
-                        <p:dataTable id="LOVConceptos" var="conceptos" value="#{controlNovedadesEmpleados.listaConceptos}"
-                                     scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVConceptos"
-                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaConceptos}" emptyMessage="#{msg['lovvacio']}"
-                                     rowKey="#{conceptos.secuencia}" selection="#{controlNovedadesEmpleados.seleccionConceptos}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarConceptos()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosConceptos()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarC']}"/>  
-                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVConceptos').filter();" class="cssFiltroLOV"/>
-                            </f:facet>
-
-                            <p:column sortBy="#{conceptos.codigo}" filterBy="#{conceptos.codigo}" width="70" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoC']}" />
-                                </f:facet>
-                                <h:outputText value="#{conceptos.codigo}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{conceptos.descripcion}" filterBy="#{conceptos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcionC']}" />
-                                </f:facet>
-                                <h:outputText value="#{conceptos.descripcion}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{conceptos.empresa.nombre}" filterBy="#{conceptos.empresa.nombre}" filterStyle="width: 85% !important;" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEm']}" />
-                                </f:facet>
-                                <h:outputText value="#{conceptos.empresa.nombre}" />  
-                            </p:column>
-
-                        </p:dataTable>
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroConceptos" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroConceptos}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarC" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarConceptos()}" process="@this"/>
-                            <p:commandButton id="atrasC" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlNovedadesEmpleados.cancelarCambioConceptos()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-
-                    <!-- L.O.V PERIODICIDAD-->
-                    <p:dialog header="#{msg['periodicidadesP']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" id="periodicidadesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="390">
-
-                        <p:dataTable id="LOVPeriodicidades" var="periodicidades" value="#{controlNovedadesEmpleados.listaPeriodicidades}"
-                                     scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVPeriodicidades" 
-                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaPeriodicidades}" emptyMessage="#{msg['lovvacio']}"
-                                     rowKey="#{periodicidades.secuencia}" selection="#{controlNovedadesEmpleados.seleccionPeriodicidades}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosPeriodicidad()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}"/>
-                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVPeriodicidades').filter();" class="cssFiltroLOV"/>
-                            </f:facet>
-
-                            <p:column sortBy="#{periodicidades.codigo}" filterBy="#{periodicidades.codigo}" width="30" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoP']}"/>
-                                </f:facet>
-                                <h:outputText value="#{periodicidades.codigo}"/>  
-                            </p:column>
-
-                            <p:column sortBy="#{periodicidades.nombre}" filterBy="#{periodicidades.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreP']}"/>
-                                </f:facet>
-                                <h:outputText value="#{periodicidades.nombre}"/>  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroPeriodicidad" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroPeriodicidad}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this"/>
-                            <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlNovedadesEmpleados.cancelarCambioPeriodicidades()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V TERCEROS-->
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="390">
-
-                        <p:dataTable id="LOVTerceros" var="terceros" value="#{controlNovedadesEmpleados.listaTerceros}"
-                                     scrollable="true" scrollHeight="200" scrollWidth="360" widgetVar="LOVTerceros" 
-                                     filteredValue="#{controlNovedadesEmpleados.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
-                                     rowKey="#{terceros.secuencia}" selection="#{controlNovedadesEmpleados.seleccionTerceros}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarPeriodicidades()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosTerceros()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"/>
-                                <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('LOVTerceros').filter();" class="cssFiltroLOV"/>
-                            </f:facet>
-
-                            <p:column sortBy="#{terceros.nitalternativo}" filterStyle="width: 85% !important;" filterBy="#{terceros.nitalternativo}" width="100" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nitT']}" />
-                                </f:facet>
-                                <h:outputText value="#{terceros.nitalternativo}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important;"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreT']}" />
-                                </f:facet>
-                                <h:outputText value="#{terceros.nombre}" />  
-                            </p:column>
-                        </p:dataTable>
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroTerceros" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroTerceros}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarTerceros()}" process="@this"/>
-                            <p:commandButton id="atrasT" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlNovedadesEmpleados.cancelarCambioTerceros()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V Empleado-->
-                    <p:dialog header="#{msg['buscar']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="645">
-
-                        <p:dataTable id="LOVEmpleados" var="emp" value="#{controlNovedadesEmpleados.lovEmpleados}"
-                                     scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" selectionMode="single"
-                                     filteredValue="#{controlNovedadesEmpleados.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
-                                     rowKey="#{emp.id}" selection="#{controlNovedadesEmpleados.empleadoSeleccionadoLov}">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesEmpleados.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesEmpleados.contarRegistrosLovEmpleados()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['nombre']}:"/>
-                                <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV"/>
-                            </f:facet>
-
-                            <p:column sortBy="#{emp.nombre}" filterBy="#{emp.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText value="#{emp.nombre}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{emp.codigo}" filterBy="#{emp.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigo']}" />
-                                </f:facet>
-                                <h:outputText value="#{emp.codigo}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{emp.tipo}" filterBy="#{emp.tipo}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important;" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['tipo']}" />
-                                </f:facet>
-                                <h:outputText value="#{emp.tipo}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV">
-                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistro']} #{controlNovedadesEmpleados.infoRegistroEmpleadosLOV}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}"
-                                             disabled="#{controlNovedadesEmpleados.aceptar}" actionListener="#{controlNovedadesEmpleados.actualizarEmpleadosNovedad()}" process="@this"/>
-                            <p:commandButton id="atrasE" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']}"
-                                             actionListener="#{controlNovedadesEmpleados.cancelarCambioEmpleados()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
                     <!-- DIALOGO SOLUCIONES FORMULAS-->
                     <p:dialog id="solucionesFormulas" header="#{msg['error']}" widgetVar="solucionesFormulas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
@@ -1095,10 +1108,8 @@
 
                     <!--HotKey-->
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadesEmpleados.activarCtrlF11()}" process="@this"/> 
-
-
                 </h:form>
-
+                
                 <h:form id="formExportar">
                     <p:dataTable id="datosNovedadesExportar" var="novedades" style="visibility: hidden; display: none;"                           
                                  value="#{controlNovedadesEmpleados.listaNovedades}"> 

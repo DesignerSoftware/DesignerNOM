@@ -471,6 +471,8 @@ public class ControlTercero implements Serializable {
                 terceroTablaSeleccionado.getCodigoalternativo();
             }
         }
+        listTercerosSucursales = null;
+        getListTercerosSucursales();
         RequestContext.getCurrentInstance().update("form:datosTercerosSucursales");
         contarRegistrosTSucur();
     }
