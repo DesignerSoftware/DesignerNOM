@@ -45,24 +45,23 @@ public class ControlHistoriaFormula implements Serializable {
    private Formulas formulaActual;
    ///////////Formulascontratos////////////
    private List<Historiasformulas> listHistoriasFormulas;
+   private Historiasformulas historiaFormulaSeleccionada;
    private List<Historiasformulas> filtrarListHistoriasFormulas;
    ///////////Formulascontratos/////////////
    private int banderaHistoriasFormulas;
-   private int indexHistoriasFormulas, indexAuxHistoriasFormulas;
+//   private int indexHistoriasFormulas, indexAuxHistoriasFormulas;
    private List<Historiasformulas> listHistoriasFormulasModificar;
    private Historiasformulas nuevaHistoriaFormula;
    private List<Historiasformulas> listHistoriasFormulasCrear;
    private List<Historiasformulas> listHistoriasFormulasBorrar;
    private Historiasformulas editarHistoriaFormula;
-   private int cualCeldaHistoriasFormulas, tipoListaHistoriasFormulas;
+   private int cualCeldaHistoriasFormulas, tipoLista;
    private Historiasformulas duplicarHistoriaFormula;
    private boolean cambiosHistoriaFormula;
-   private BigInteger secRegistroHistoriaFormula;
    private BigInteger backUpSecRegistroHistoriaFormula;
    private String observacion;
    private Date fechaIni, fechaFin;
    private Column historiaFechaInicial, historiaFechaFinal, historiaNota;
-   private boolean permitirIndexNodos;
    //////////////Otros////////////////Otros////////////////////
    private boolean aceptar;
    private boolean guardado;
@@ -112,7 +111,9 @@ public class ControlHistoriaFormula implements Serializable {
    private boolean visibilidadBtnP, visibilidadBtnS;
    private ScrollPanel panelNodosPrincipal, panelNodosSecundario;
 
+   private DataTable tabla;
    private String paginaAnterior;
+   private String infoRegistro, infoRegistroOperador, infoRegistroOperando;
 
    public ControlHistoriaFormula() {
       visibilidadBtnP = false;
@@ -200,7 +201,6 @@ public class ControlHistoriaFormula implements Serializable {
       formulaActual = new Formulas();
       listHistoriasFormulas = null;
       fechaParametro = new Date(1, 1, 0);
-      permitirIndexNodos = true;
 
       nombreExportar = "";
       nombreTablaRastro = "";
@@ -208,7 +208,7 @@ public class ControlHistoriaFormula implements Serializable {
       msnConfirmarRastro = "";
       msnConfirmarRastroHistorico = "";
 
-      secRegistroHistoriaFormula = null;
+      historiaFormulaSeleccionada = null;
       backUpSecRegistroHistoriaFormula = null;
       aceptar = true;
       k = 0;
@@ -218,10 +218,9 @@ public class ControlHistoriaFormula implements Serializable {
       listHistoriasFormulasModificar = new ArrayList<Historiasformulas>();
       editarHistoriaFormula = new Historiasformulas();
       cualCeldaHistoriasFormulas = -1;
-      tipoListaHistoriasFormulas = 0;
+      tipoLista = 0;
       guardado = true;
       nuevaHistoriaFormula = new Historiasformulas();
-      indexHistoriasFormulas = -1;
       banderaHistoriasFormulas = 0;
       nombreTabla = ":formExportarHistoria:datosHistoriaFormulasExportar";
       nombreXML = "HistoriaFormula_XML";
@@ -230,6 +229,9 @@ public class ControlHistoriaFormula implements Serializable {
       cambiosNodos = false;
 
       paginaAnterior = "";
+      infoRegistro = "";
+      infoRegistroOperador = "";
+      infoRegistroOperando = "";
    }
 
    @PostConstruct
@@ -314,112 +316,87 @@ public class ControlHistoriaFormula implements Serializable {
       return retorno;
    }
 
-   public void recibirFormulaYPagina(Formulas formula, String Pagina) {
+   public void recibirFormulaYPagina(Formulas formula, String pagina) {
 //      formulaActual = administrarHistoriaFormula.actualFormula(secuencia);
       System.out.println("Controlador.ControlHistoriaFormula.recibirFormulaYPagina()");
-      paginaAnterior = Pagina;
+      System.out.println("formula" + formula);
+      System.out.println("formula.getNombrecorto()" + formula.getNombrecorto());
+      paginaAnterior = pagina;
       formulaActual = formula;
       listHistoriasFormulas = null;
       listEstructurasFormulas = null;
-      indexHistoriasFormulas = 0;
-      indexAuxHistoriasFormulas = 0;
       getListHistoriasFormulas();
+      if (listHistoriasFormulas != null) {
+         if (!listHistoriasFormulas.isEmpty()) {
+            historiaFormulaSeleccionada = listHistoriasFormulas.get(0);
+         }
+      }
       getListNodosHistoriaFormula();
       cargarDatosParaNodos2();
       listNodosParaExportar = null;
       getListEstructurasFormulas();
+
+      FacesContext fc = FacesContext.getCurrentInstance();
+      fc.getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "historiaFormula");
    }
 
    public String retornarPagina() {
       return paginaAnterior;
    }
 
-   public void modificarHistoriaFormula(int indice) {
+   public void modificarHistoriaFormula(Historiasformulas historiaformula) {
+      historiaFormulaSeleccionada = historiaformula;
       boolean retorno = validarSolapamientoFechas(0);
       if (retorno == true) {
          int aux = 0;
-         if (tipoListaHistoriasFormulas == 0) {
-            String nota = listHistoriasFormulas.get(indice).getObservaciones();
-            if (!nota.isEmpty()) {
-               aux = nota.length();
-            }
-         }
-         if (tipoListaHistoriasFormulas == 1) {
-            String nota = filtrarListHistoriasFormulas.get(indice).getObservaciones();
-            if (!nota.isEmpty()) {
-               aux = nota.length();
-            }
+         String nota = historiaFormulaSeleccionada.getObservaciones();
+         if (!nota.isEmpty()) {
+            aux = nota.length();
          }
          if (aux >= 0 && aux <= 200) {
-            if (tipoListaHistoriasFormulas == 0) {
-               if (!listHistoriasFormulasCrear.contains(listHistoriasFormulas.get(indice))) {
-                  if (listHistoriasFormulasModificar.isEmpty()) {
-                     listHistoriasFormulasModificar.add(listHistoriasFormulas.get(indice));
-                  } else if (!listHistoriasFormulasModificar.contains(listHistoriasFormulas.get(indice))) {
-                     listHistoriasFormulasModificar.add(listHistoriasFormulas.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
+            if (!listHistoriasFormulasCrear.contains(historiaFormulaSeleccionada)) {
+               if (listHistoriasFormulasModificar.isEmpty()) {
+                  listHistoriasFormulasModificar.add(historiaFormulaSeleccionada);
+               } else if (!listHistoriasFormulasModificar.contains(historiaFormulaSeleccionada)) {
+                  listHistoriasFormulasModificar.add(historiaFormulaSeleccionada);
                }
-               indexHistoriasFormulas = -1;
-               secRegistroHistoriaFormula = null;
-            } else {
-               if (!listHistoriasFormulasCrear.contains(filtrarListHistoriasFormulas.get(indice))) {
-                  if (listHistoriasFormulasModificar.isEmpty()) {
-                     listHistoriasFormulasModificar.add(filtrarListHistoriasFormulas.get(indice));
-                  } else if (!listHistoriasFormulasModificar.contains(filtrarListHistoriasFormulas.get(indice))) {
-                     listHistoriasFormulasModificar.add(filtrarListHistoriasFormulas.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
+               if (guardado == true) {
+                  guardado = false;
                }
-               indexHistoriasFormulas = -1;
-               secRegistroHistoriaFormula = null;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
             cambiosHistoriaFormula = true;
          } else {
-            if (tipoListaHistoriasFormulas == 0) {
-               listHistoriasFormulas.get(indice).setObservaciones(observacion);
-            }
-            if (tipoListaHistoriasFormulas == 1) {
-               filtrarListHistoriasFormulas.get(indice).setObservaciones(observacion);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
+            historiaFormulaSeleccionada.setObservaciones(observacion);
             RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
             RequestContext.getCurrentInstance().execute("PF('errorNotaHF').show()");
          }
       }
    }
 
-   public void cambiarIndiceHistoriaFormula(int indice, int celda) {
+   public void cambiarIndiceHistoriaFormula(Historiasformulas historiaFormula, int celda) {
       if (cambiosNodos == false) {
-         if (permitirIndexNodos == true) {
-            cualCeldaHistoriasFormulas = celda;
-            indexHistoriasFormulas = indice;
-            indexAuxHistoriasFormulas = indice;
-            secRegistroHistoriaFormula = listHistoriasFormulas.get(indexHistoriasFormulas).getSecuencia();
-            fechaIni = listHistoriasFormulas.get(indexHistoriasFormulas).getFechainicial();
-            fechaFin = listHistoriasFormulas.get(indexHistoriasFormulas).getFechafinal();
-            observacion = listHistoriasFormulas.get(indexHistoriasFormulas).getObservaciones();
-            listNodosParaExportar = null;
-            listEstructurasFormulas = null;
-            listNodosHistoriaFormula = null;
-            getListEstructurasFormulas();
-            cargarDatosParaNodos();
-            indexNodoSeleecionado = -1;
-            indexEstructuraFormula = -1;
-            if (!listEstructurasFormulas.isEmpty()) {
-               seleccionEstructuraF = listEstructurasFormulas.get(0);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosEstructuraFormula");
+         cualCeldaHistoriasFormulas = celda;
+         historiaFormulaSeleccionada = historiaFormula;
+         fechaIni = historiaFormulaSeleccionada.getFechainicial();
+         fechaFin = historiaFormulaSeleccionada.getFechafinal();
+         observacion = historiaFormulaSeleccionada.getObservaciones();
+         listNodosParaExportar = null;
+         listEstructurasFormulas = null;
+         listNodosHistoriaFormula = null;
+         cargarDatosParaNodos();
+         indexNodoSeleecionado = -1;
+         indexEstructuraFormula = -1;
+         System.out.println("Controlador.ControlHistoriaFormula.cambiarIndiceHistoriaFormula()");
+         System.out.println("historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
+         getListEstructurasFormulas();
+         if (listEstructurasFormulas != null) {
+            System.out.println("listEstructurasFormulas.size() : " + listEstructurasFormulas.size());
+         } else {
+            System.out.println("listEstructurasFormulas : " + listEstructurasFormulas);
          }
+         RequestContext.getCurrentInstance().update("form:datosEstructuraFormula");
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
    }
@@ -445,63 +422,32 @@ public class ControlHistoriaFormula implements Serializable {
       return retorno;
    }
 
-   public void modificacionesFechaHistoriaFormula(int i, int c) {
-      Historiasformulas auxiliar = null;
-      if (tipoListaHistoriasFormulas == 0) {
-         auxiliar = listHistoriasFormulas.get(i);
-      }
-      if (tipoListaHistoriasFormulas == 1) {
-         auxiliar = filtrarListHistoriasFormulas.get(i);
-      }
-      if ((auxiliar.getFechainicial() != null) && (auxiliar.getFechafinal() != null)) {
+   public void modificacionesFechaHistoriaFormula(Historiasformulas historiaformula, int c) {
+      historiaFormulaSeleccionada = historiaformula;
+      if ((historiaFormulaSeleccionada.getFechainicial() != null) && (historiaFormulaSeleccionada.getFechafinal() != null)) {
          boolean validacion = validarFechasRegistroHistoriaFormula(0);
          if (validacion == true) {
             if (validarSolapamientoFechas(0) == true) {
-               cambiarIndiceHistoriaFormula(i, c);
-               modificarHistoriaFormula(i);
-               indexAuxHistoriasFormulas = i;
-               RequestContext context = RequestContext.getCurrentInstance();
+               cambiarIndiceHistoriaFormula(historiaFormulaSeleccionada, c);
+               modificarHistoriaFormula(historiaFormulaSeleccionada);
                RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
             } else {
-               if (tipoListaHistoriasFormulas == 0) {
-                  listHistoriasFormulas.get(i).setFechafinal(fechaFin);
-                  listHistoriasFormulas.get(i).setFechainicial(fechaIni);
-               }
-               if (tipoListaHistoriasFormulas == 1) {
-                  filtrarListHistoriasFormulas.get(i).setFechafinal(fechaFin);
-                  filtrarListHistoriasFormulas.get(i).setFechainicial(fechaIni);
-               }
-               RequestContext context = RequestContext.getCurrentInstance();
+               historiaFormulaSeleccionada.setFechafinal(fechaFin);
+               historiaFormulaSeleccionada.setFechainicial(fechaIni);
                RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
                RequestContext.getCurrentInstance().execute("PF('errorSolapamientoFechas').show()");
             }
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (tipoListaHistoriasFormulas == 0) {
-               listHistoriasFormulas.get(indexHistoriasFormulas).setFechainicial(fechaIni);
-               listHistoriasFormulas.get(indexHistoriasFormulas).setFechafinal(fechaFin);
-            }
-            if (tipoListaHistoriasFormulas == 1) {
-               filtrarListHistoriasFormulas.get(indexHistoriasFormulas).setFechainicial(fechaIni);
-               filtrarListHistoriasFormulas.get(indexHistoriasFormulas).setFechafinal(fechaFin);
-            }
+            historiaFormulaSeleccionada.setFechainicial(fechaIni);
+            historiaFormulaSeleccionada.setFechafinal(fechaFin);
             RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
             RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
-            indexHistoriasFormulas = -1;
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
-         if (tipoListaHistoriasFormulas == 0) {
-            listHistoriasFormulas.get(i).setFechainicial(fechaIni);
-            listHistoriasFormulas.get(i).setFechafinal(fechaFin);
-         }
-         if (tipoListaHistoriasFormulas == 1) {
-            filtrarListHistoriasFormulas.get(i).setFechainicial(fechaIni);
-            filtrarListHistoriasFormulas.get(i).setFechafinal(fechaFin);
-         }
+         historiaFormulaSeleccionada.setFechainicial(fechaIni);
+         historiaFormulaSeleccionada.setFechafinal(fechaFin);
          RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
          RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
-         indexHistoriasFormulas = -1;
       }
    }
 
@@ -519,15 +465,16 @@ public class ControlHistoriaFormula implements Serializable {
          guardarCambiosNodos();
       }
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:aceptar");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    public void guardarCambiosHistoriaFormula() {
+      System.out.println("Controlador.ControlHistoriaFormula.guardarCambiosHistoriaFormula()");
       FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-      RequestContext context = RequestContext.getCurrentInstance();
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
       if (!listHistoriasFormulasBorrar.isEmpty()) {
+         System.out.println("listHistoriasFormulasBorrar : " + listHistoriasFormulasBorrar);
          administrarHistoriaFormula.borrarHistoriasFormulas(listHistoriasFormulasBorrar);
          listHistoriasFormulasBorrar.clear();
       }
@@ -541,8 +488,6 @@ public class ControlHistoriaFormula implements Serializable {
       }
       listHistoriasFormulas = null;
       k = 0;
-      indexHistoriasFormulas = -1;
-      secRegistroHistoriaFormula = null;
       cambiosHistoriaFormula = false;
 
       RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
@@ -552,7 +497,6 @@ public class ControlHistoriaFormula implements Serializable {
 
    public void guardarCambiosNodos() {
       FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-      RequestContext context = RequestContext.getCurrentInstance();
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
       if (!listNodosBorrar.isEmpty()) {
@@ -573,8 +517,8 @@ public class ControlHistoriaFormula implements Serializable {
       cargarDatosParaNodos();
       RequestContext.getCurrentInstance().update("form:growl");
       k = 0;
-      indexNodoSeleecionado = -1;
-      secuenciaRegistroNodos = null;
+//      indexNodoSeleecionado = -1;
+//      secuenciaRegistroNodos = null;
       cambiosNodos = false;
    }
 
@@ -585,7 +529,6 @@ public class ControlHistoriaFormula implements Serializable {
    public void cancelarModificacion() {
       cancelarModificacionesHistoriaFormula();
       cancelarModificacionNodos();
-
    }
 
    public void cancelarModificacionesHistoriaFormula() {
@@ -599,19 +542,17 @@ public class ControlHistoriaFormula implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
          banderaHistoriasFormulas = 0;
          filtrarListHistoriasFormulas = null;
-         tipoListaHistoriasFormulas = 0;
+         tipoLista = 0;
       }
       listHistoriasFormulasBorrar.clear();
       listHistoriasFormulasCrear.clear();
       listHistoriasFormulasModificar.clear();
-      indexHistoriasFormulas = -1;
-      secRegistroHistoriaFormula = null;
+      historiaFormulaSeleccionada = null;
       k = 0;
       listHistoriasFormulas = null;
       guardado = true;
       cambiosHistoriaFormula = false;
       getListHistoriasFormulas();
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
    }
 
@@ -625,21 +566,37 @@ public class ControlHistoriaFormula implements Serializable {
       listNodosHistoriaFormula = null;
       guardado = true;
       cambiosNodos = false;
-      permitirIndexNodos = true;
       listNodosParaExportar = null;
+//      getListNodosHistoriaFormula();
       cambiarVisibilidadPaneles(1);
       cargarDatosParaNodos();
+      listEstructurasFormulas = null;
+      RequestContext.getCurrentInstance().update("form:datosEstructuraFormula");
+//      getListEstructurasFormulas();
+   }
+
+   public void darSeleccion() {
+      System.out.println("Controlador.ControlHistoriaFormula.darSeleccion() historiaFormulaSeleccionada : " + historiaFormulaSeleccionada);
+      if (historiaFormulaSeleccionada != null) {
+         if (listHistoriasFormulas.contains(historiaFormulaSeleccionada)) {
+            FacesContext c = FacesContext.getCurrentInstance();
+            tabla = (DataTable) c.getViewRoot().findComponent("form:datosHistoriaFormula");
+            tabla.setSelection(historiaFormulaSeleccionada);
+            int n = listHistoriasFormulas.indexOf(historiaFormulaSeleccionada);
+            RequestContext.getCurrentInstance().execute("PF('datosHistoriaFormula').unselectAllRows();PF('datosHistoriaFormula').selectRow(" + n + ");");
+//            FacesContext c = FacesContext.getCurrentInstance();
+//            tabla = (DataTable) c.getViewRoot().findComponent("form:datosHistoriaFormula");
+//            tabla.setSelection(historiaFormulaSeleccionada);
+//            if (listHistoriasFormulas.indexOf(historiaFormulaSeleccionada) == 0) {
+//               RequestContext.getCurrentInstance().execute("PF('datosHistoriaFormula').unselectAllRows();PF('datosHistoriaFormula').selectRow(0);");
+//            }
+         }
+      }
    }
 
    public void editarCelda() {
-      if (indexHistoriasFormulas >= 0) {
-         if (tipoListaHistoriasFormulas == 0) {
-            editarHistoriaFormula = listHistoriasFormulas.get(indexHistoriasFormulas);
-         }
-         if (tipoListaHistoriasFormulas == 1) {
-            editarHistoriaFormula = filtrarListHistoriasFormulas.get(indexHistoriasFormulas);
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
+      if (historiaFormulaSeleccionada != null) {
+         editarHistoriaFormula = historiaFormulaSeleccionada;
          if (cualCeldaHistoriasFormulas == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialHFD");
             RequestContext.getCurrentInstance().execute("PF('editarFechaInicialHFD').show()");
@@ -653,11 +610,8 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarObservacionHFD').show()");
             cualCeldaHistoriasFormulas = -1;
          }
-         indexHistoriasFormulas = -1;
-         secRegistroHistoriaFormula = null;
       }
       if (indexNodoSeleecionado >= 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
          editarNodo = listNodosHistoriaFormula.get(indexNodoSeleecionado);
          if (editarNodo.getOperador().getSecuencia() != null) {
             String aux = editarNodo.getOperador().getSigno();
@@ -671,12 +625,11 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarOperandoNodoD");
             RequestContext.getCurrentInstance().execute("PF('editarOperandoNodoD').show()");
          }
-         indexNodoSeleecionado = -1;
-         secuenciaRegistroNodos = null;
+//         indexNodoSeleecionado = -1;
+//         secuenciaRegistroNodos = null;
       }
       if (indexEstructuraFormula >= 0) {
          editarEstructura = listEstructurasFormulas.get(indexEstructuraFormula);
-         RequestContext context = RequestContext.getCurrentInstance();
          if (celdaEstructuraFormula == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFormulaEFD");
             RequestContext.getCurrentInstance().execute("PF('editarFormulaEFD').show()");
@@ -694,68 +647,71 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarIdHijoEFD').show()");
             celdaEstructuraFormula = -1;
          }
-         indexEstructuraFormula = -1;
+//         indexEstructuraFormula = -1;
       }
    }
 
    public void ingresoNuevoRegistro() {
-      int tam1 = listHistoriasFormulas.size();
-      int tam2 = listNodosHistoriaFormula.size();
-      if (tam1 == 0 || tam2 == 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
-      } else {
-         if (indexHistoriasFormulas >= 0) {
-            RequestContext context = RequestContext.getCurrentInstance();
+      if (listHistoriasFormulas != null) {
+         if (listHistoriasFormulas.size() == 0) {
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroHistoria').show()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroPagina').show()");
          }
-         if (indexNodoSeleecionado >= 0) {
-            dispararDialogoNodoNuevo();
-         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroHistoria').show()");
       }
-
    }
 
    public void validarIngresoNuevaHistoriaFormula() {
-      RequestContext context = RequestContext.getCurrentInstance();
       limpiarNuevoHistoriaFormula();
-      RequestContext.getCurrentInstance().update("form:nuevaHF");
+      RequestContext.getCurrentInstance().update("formularioDialogos:nuevaHF");
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroHistoria");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroHistoria').show()");
-
    }
 
    public void validarDuplicadoRegistro() {
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null) {
          duplicarHistoriaFormulaM();
       } else if (indexNodoSeleecionado >= 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorDuplicarNodo').show()");
-         indexNodoSeleecionado = -1;
       } else if (indexEstructuraFormula >= 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorDuplicarNodo').show()");
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
    public void validarBorradoRegistro() {
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null && indexNodoSeleecionado < 0 && indexEstructuraFormula < 0) {
          if (listNodosHistoriaFormula.isEmpty()) {
             borrarHistoriaFormula();
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorBorradoHistoriaF').show()");
          }
-      } else if (indexNodoSeleecionado >= 0) {
-         borrarNodo();
-      } else if (indexEstructuraFormula >= 0) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('errorEliminarEF').show()");
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().execute("PF('verificarBorrarRegistros').show()");
+      }
+   }
+
+   public void validarBorradoHistoriaF() {
+      if (historiaFormulaSeleccionada != null) {
+         if (listNodosHistoriaFormula == null) {
+            borrarHistoriaFormula();
+         } else if (listNodosHistoriaFormula.isEmpty()) {
+            borrarHistoriaFormula();
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorBorradoHistoriaF').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void validarBorradoNodo() {
+      if (indexNodoSeleecionado >= 0) {
+         borrarNodo();
+      } else {
          RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
@@ -799,7 +755,7 @@ public class ControlHistoriaFormula implements Serializable {
                      RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
                      banderaHistoriasFormulas = 0;
                      filtrarListHistoriasFormulas = null;
-                     tipoListaHistoriasFormulas = 0;
+                     tipoLista = 0;
                   }
                   k++;
 
@@ -808,59 +764,43 @@ public class ControlHistoriaFormula implements Serializable {
                   nuevaHistoriaFormula.setFormula(formulaActual);
                   listHistoriasFormulasCrear.add(nuevaHistoriaFormula);
                   listHistoriasFormulas.add(nuevaHistoriaFormula);
+                  historiaFormulaSeleccionada = listHistoriasFormulas.get(listHistoriasFormulas.indexOf(nuevaHistoriaFormula));
                   ////------////
                   nuevaHistoriaFormula = new Historiasformulas();
                   ////-----////
-                  RequestContext context = RequestContext.getCurrentInstance();
                   RequestContext.getCurrentInstance().execute("PF('NuevoRegistroHistoria').hide()");
                   RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
+                  contarRegistros();
                   if (guardado == true) {
                      guardado = false;
-                     RequestContext.getCurrentInstance().update("form:aceptar");
+                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                   }
                   cambiosHistoriaFormula = true;
-                  indexHistoriasFormulas = -1;
-                  secRegistroHistoriaFormula = null;
                } else {
-                  RequestContext context = RequestContext.getCurrentInstance();
                   RequestContext.getCurrentInstance().execute("PF('errorSolapamientoFechas').show()");
                }
             } else {
-               RequestContext context = RequestContext.getCurrentInstance();
                RequestContext.getCurrentInstance().execute("PF('errorNotaHF').show()");
             }
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
       }
    }
 
    public void limpiarNuevoHistoriaFormula() {
       nuevaHistoriaFormula = new Historiasformulas();
-      indexHistoriasFormulas = -1;
-      secRegistroHistoriaFormula = null;
    }
 
    public void duplicarHistoriaFormulaM() {
-
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null) {
          duplicarHistoriaFormula = new Historiasformulas();
-         if (tipoListaHistoriasFormulas == 0) {
-            duplicarHistoriaFormula.setObservaciones(listHistoriasFormulas.get(indexHistoriasFormulas).getObservaciones());
-            duplicarHistoriaFormula.setFechafinal(listHistoriasFormulas.get(indexHistoriasFormulas).getFechafinal());
-            duplicarHistoriaFormula.setFechainicial(listHistoriasFormulas.get(indexHistoriasFormulas).getFechainicial());
+         duplicarHistoriaFormula.setObservaciones(historiaFormulaSeleccionada.getObservaciones());
+         duplicarHistoriaFormula.setFechafinal(historiaFormulaSeleccionada.getFechafinal());
+         duplicarHistoriaFormula.setFechainicial(historiaFormulaSeleccionada.getFechainicial());
 
-         }
-         if (tipoListaHistoriasFormulas == 1) {
-            duplicarHistoriaFormula.setObservaciones(filtrarListHistoriasFormulas.get(indexHistoriasFormulas).getObservaciones());
-            duplicarHistoriaFormula.setFechafinal(filtrarListHistoriasFormulas.get(indexHistoriasFormulas).getFechafinal());
-            duplicarHistoriaFormula.setFechainicial(filtrarListHistoriasFormulas.get(indexHistoriasFormulas).getFechainicial());
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroHistoria");
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroHistoria').show()");
 
@@ -888,7 +828,7 @@ public class ControlHistoriaFormula implements Serializable {
                      historiaNota.setFilterStyle("display: none; visibility: hidden;");
                      banderaHistoriasFormulas = 0;
                      filtrarListHistoriasFormulas = null;
-                     tipoListaHistoriasFormulas = 0;
+                     tipoLista = 0;
                   }
                   k++;
                   BigInteger var = BigInteger.valueOf(k);
@@ -897,79 +837,53 @@ public class ControlHistoriaFormula implements Serializable {
                   duplicarHistoriaFormula.setFormula(formulaActual);
                   listHistoriasFormulasCrear.add(duplicarHistoriaFormula);
                   listHistoriasFormulas.add(duplicarHistoriaFormula);
+                  historiaFormulaSeleccionada = listHistoriasFormulas.get(listHistoriasFormulas.indexOf(duplicarHistoriaFormula));
                   duplicarHistoriaFormula = new Historiasformulas();
 
-                  RequestContext context = RequestContext.getCurrentInstance();
                   RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
+                  contarRegistros();
                   if (guardado == true) {
                      guardado = false;
-                     RequestContext.getCurrentInstance().update("form:aceptar");
+                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                   }
-                  RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormula').hide()");
+                  RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroHistoria').hide()");
                   cambiosHistoriaFormula = true;
-                  indexHistoriasFormulas = -1;
-                  secRegistroHistoriaFormula = null;
                } else {
-                  RequestContext context = RequestContext.getCurrentInstance();
                   RequestContext.getCurrentInstance().execute("PF('errorSolapamientoFechas').show()");
                }
             } else {
-               RequestContext context = RequestContext.getCurrentInstance();
                RequestContext.getCurrentInstance().execute("PF('errorNotaHF').show()");
             }
-
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('errorFechasHF').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorRegNuevo').show()");
       }
    }
 
    public void limpiarDuplicarHistoriaFormula() {
       duplicarHistoriaFormula = new Historiasformulas();
-      indexHistoriasFormulas = -1;
-      secRegistroHistoriaFormula = null;
    }
 
    ///////////////////////////////////////////////////////////////
    public void borrarHistoriaFormula() {
-
-      if (indexHistoriasFormulas >= 0) {
-         if (tipoListaHistoriasFormulas == 0) {
-            if (!listHistoriasFormulasModificar.isEmpty() && listHistoriasFormulasModificar.contains(listHistoriasFormulas.get(indexHistoriasFormulas))) {
-               int modIndex = listHistoriasFormulasModificar.indexOf(listHistoriasFormulas.get(indexHistoriasFormulas));
-               listHistoriasFormulasModificar.remove(modIndex);
-               listHistoriasFormulasBorrar.add(listHistoriasFormulas.get(indexHistoriasFormulas));
-            } else if (!listHistoriasFormulasCrear.isEmpty() && listHistoriasFormulasCrear.contains(listHistoriasFormulas.get(indexHistoriasFormulas))) {
-               int crearIndex = listHistoriasFormulasCrear.indexOf(listHistoriasFormulas.get(indexHistoriasFormulas));
-               listHistoriasFormulasCrear.remove(crearIndex);
-            } else {
-               listHistoriasFormulasBorrar.add(listHistoriasFormulas.get(indexHistoriasFormulas));
-            }
-            listHistoriasFormulas.remove(indexHistoriasFormulas);
+      if (historiaFormulaSeleccionada != null) {
+         if (!listHistoriasFormulasModificar.isEmpty() && listHistoriasFormulasModificar.contains(historiaFormulaSeleccionada)) {
+            listHistoriasFormulasModificar.remove(historiaFormulaSeleccionada);
+            listHistoriasFormulasBorrar.add(historiaFormulaSeleccionada);
+         } else if (!listHistoriasFormulasCrear.isEmpty() && listHistoriasFormulasCrear.contains(historiaFormulaSeleccionada)) {
+            listHistoriasFormulasCrear.remove(historiaFormulaSeleccionada);
+         } else {
+            listHistoriasFormulasBorrar.add(historiaFormulaSeleccionada);
          }
-         if (tipoListaHistoriasFormulas == 1) {
-            if (!listHistoriasFormulasModificar.isEmpty() && listHistoriasFormulasModificar.contains(filtrarListHistoriasFormulas.get(indexHistoriasFormulas))) {
-               int modIndex = listHistoriasFormulasModificar.indexOf(filtrarListHistoriasFormulas.get(indexHistoriasFormulas));
-               listHistoriasFormulasModificar.remove(modIndex);
-               listHistoriasFormulasBorrar.add(filtrarListHistoriasFormulas.get(indexHistoriasFormulas));
-            } else if (!listHistoriasFormulasCrear.isEmpty() && listHistoriasFormulasCrear.contains(filtrarListHistoriasFormulas.get(indexHistoriasFormulas))) {
-               int crearIndex = listHistoriasFormulasCrear.indexOf(filtrarListHistoriasFormulas.get(indexHistoriasFormulas));
-               listHistoriasFormulasCrear.remove(crearIndex);
-            } else {
-               listHistoriasFormulasBorrar.add(filtrarListHistoriasFormulas.get(indexHistoriasFormulas));
-            }
-            int VLIndex = listHistoriasFormulas.indexOf(filtrarListHistoriasFormulas.get(indexHistoriasFormulas));
-            listHistoriasFormulas.remove(VLIndex);
-            filtrarListHistoriasFormulas.remove(indexHistoriasFormulas);
+         listHistoriasFormulas.remove(historiaFormulaSeleccionada);
+         if (tipoLista == 1) {
+            filtrarListHistoriasFormulas.remove(historiaFormulaSeleccionada);
          }
-         RequestContext context = RequestContext.getCurrentInstance();
+         historiaFormulaSeleccionada = null;
          RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
-         indexHistoriasFormulas = -1;
-         secRegistroHistoriaFormula = null;
+         contarRegistros();
          cambiosHistoriaFormula = true;
          if (guardado == true) {
             guardado = false;
@@ -1010,7 +924,7 @@ public class ControlHistoriaFormula implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
          banderaHistoriasFormulas = 0;
          filtrarListHistoriasFormulas = null;
-         tipoListaHistoriasFormulas = 0;
+         tipoLista = 0;
       }
    }
    //SALIR
@@ -1029,16 +943,14 @@ public class ControlHistoriaFormula implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosHistoriaFormula");
          banderaHistoriasFormulas = 0;
          filtrarListHistoriasFormulas = null;
-         tipoListaHistoriasFormulas = 0;
+         tipoLista = 0;
       }
       listHistoriasFormulasBorrar.clear();
       listHistoriasFormulasCrear.clear();
       listHistoriasFormulasModificar.clear();
-      indexHistoriasFormulas = -1;
-      secRegistroHistoriaFormula = null;
+      historiaFormulaSeleccionada = null;
       formulaActual = null;
       k = 0;
-      indexAuxHistoriasFormulas = -1;
       listHistoriasFormulas = null;
       guardado = true;
       cambiosHistoriaFormula = false;
@@ -1071,7 +983,7 @@ public class ControlHistoriaFormula implements Serializable {
     * @return Nombre del dialogo a exportar en XML
     */
    public String exportXML() {
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null) {
          nombreTabla = ":formExportarHistoria:datosHistoriaFormulasExportar";
          nombreXML = "HistoriaFormula_XML";
       }
@@ -1091,25 +1003,20 @@ public class ControlHistoriaFormula implements Serializable {
     * @throws IOException Excepcion de In-Out de datos
     */
    public void validarExportPDF() throws IOException {
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null) {
          nombreTabla = ":formExportarHistoria:datosHistoriaFormulasExportar";
          nombreExportar = "HistoriaFormula_PDF";
          exportPDF_Tabla();
-         indexHistoriasFormulas = -1;
-         secRegistroHistoriaFormula = null;
       }
       if (indexNodoSeleecionado >= 0) {
          nombreTabla = ":formExportarNodos:datosNodosExportar";
          nombreExportar = "GenerarFormula_PDF";
          exportPDF_Tabla();
-         indexNodoSeleecionado = -1;
-         secuenciaRegistroNodos = null;
       }
       if (indexEstructuraFormula >= 0) {
          nombreTabla = ":formExportarEstructura:datosEstructuraExportar";
          nombreExportar = "EstructuraFormula_PDF";
          exportPDF_Tabla();
-         indexEstructuraFormula = -1;
       }
    }
 
@@ -1132,26 +1039,20 @@ public class ControlHistoriaFormula implements Serializable {
     * @throws IOException
     */
    public void verificarExportXLS() throws IOException {
-      if (indexHistoriasFormulas >= 0) {
+      if (historiaFormulaSeleccionada != null) {
          nombreTabla = ":formExportarHistoria:datosHistoriaFormulasExportar";
          nombreExportar = "HistoriaFormula_XLS";
          exportXLS_Tabla();
-         indexHistoriasFormulas = -1;
-         indexAuxHistoriasFormulas = -1;
-         secRegistroHistoriaFormula = null;
       }
       if (indexNodoSeleecionado >= 0) {
          nombreTabla = ":formExportarNodos:datosNodosExportar";
          nombreExportar = "GenerarFormula_XLS";
          exportXLS_Tabla();
-         indexNodoSeleecionado = -1;
-         secuenciaRegistroNodos = null;
       }
       if (indexEstructuraFormula >= 0) {
          nombreTabla = ":formExportarEstructura:datosEstructuraExportar";
          nombreExportar = "EstructuraFormula_PDF";
          exportXLS_Tabla();
-         indexEstructuraFormula = -1;
       }
    }
 
@@ -1173,55 +1074,49 @@ public class ControlHistoriaFormula implements Serializable {
     * Evento que cambia la lista real a la filtrada
     */
    public void eventoFiltrar() {
-      if (tipoListaHistoriasFormulas == 0) {
-         tipoListaHistoriasFormulas = 1;
+      if (tipoLista == 0) {
+         tipoLista = 1;
       }
+      historiaFormulaSeleccionada = null;
+      contarRegistros();
    }
 
    public void verificarRastroTabla() {
-      if (indexHistoriasFormulas >= 0) {
-         verificarRastroHistoriaFormula();
-         indexHistoriasFormulas = -1;
-         indexAuxHistoriasFormulas = -1;
-      }
       if (indexNodoSeleecionado >= 0) {
          verificarRastroNodos();
-         indexNodoSeleecionado = -1;
-      }
-      if (indexEstructuraFormula >= 0) {
-         indexEstructuraFormula = -1;
-         RequestContext context = RequestContext.getCurrentInstance();
+      } else if (indexEstructuraFormula >= 0) {
          RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+      } else if (historiaFormulaSeleccionada != null) {
+         verificarRastroHistoriaFormula();
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       }
-
    }
 
    public void verificarRastroHistoriaFormula() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listHistoriasFormulas != null) {
-         if (secRegistroHistoriaFormula != null) {
-            int resultado = administrarRastros.obtenerTabla(secRegistroHistoriaFormula, "HISTORIASFORMULAS");
-            backUpSecRegistroHistoriaFormula = secRegistroHistoriaFormula;
-            backUp = secRegistroHistoriaFormula;
-            secRegistroHistoriaFormula = null;
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               nombreTablaRastro = "Historiasformulas";
-               msnConfirmarRastro = "La tabla HISTORIASFORMULAS tiene rastros para el registro seleccionado, ¿desea continuar?";
-               RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      if (historiaFormulaSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(historiaFormulaSeleccionada.getSecuencia(), "HISTORIASFORMULAS");
+         backUpSecRegistroHistoriaFormula = historiaFormulaSeleccionada.getSecuencia();
+         backUp = historiaFormulaSeleccionada.getSecuencia();
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            nombreTablaRastro = "Historiasformulas";
+            msnConfirmarRastro = "La tabla HISTORIASFORMULAS tiene rastros para el registro seleccionado, ¿desea continuar?";
+            RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
-      } else if (administrarRastros.verificarHistoricosTabla("HISTORIASFORMULAS")) {
+      }
+   }
+
+   public void verificarRastroHistoriaFormulaHist() {
+      if (administrarRastros.verificarHistoricosTabla("HISTORIASFORMULAS")) {
          nombreTablaRastro = "Historiasformulas";
          msnConfirmarRastroHistorico = "La tabla HISTORIASFORMULAS tiene rastros historicos, ¿Desea continuar?";
          RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
@@ -1229,35 +1124,33 @@ public class ControlHistoriaFormula implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
-      indexHistoriasFormulas = -1;
    }
 
    public void verificarRastroNodos() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listNodosHistoriaFormula != null) {
-         if (secuenciaRegistroNodos != null) {
-            int resultado = administrarRastros.obtenerTabla(secuenciaRegistroNodos, "NODOS");
-            backUpSecuenciaRegistroNodo = secuenciaRegistroNodos;
-            backUp = secuenciaRegistroNodos;
-            secuenciaRegistroNodos = null;
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               nombreTablaRastro = "Nodos";
-               msnConfirmarRastro = "La tabla NODOS tiene rastros para el registro seleccionado, ¿desea continuar?";
-               RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      if (secuenciaRegistroNodos != null) {
+         int resultado = administrarRastros.obtenerTabla(secuenciaRegistroNodos, "NODOS");
+         backUpSecuenciaRegistroNodo = secuenciaRegistroNodos;
+         backUp = secuenciaRegistroNodos;
+         secuenciaRegistroNodos = null;
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            nombreTablaRastro = "Nodos";
+            msnConfirmarRastro = "La tabla NODOS tiene rastros para el registro seleccionado, ¿desea continuar?";
+            RequestContext.getCurrentInstance().update("form:msnConfirmarRastro");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
-      } else if (administrarRastros.verificarHistoricosTabla("NODOS")) {
+      }
+   }
+
+   public void verificarRastroNodosHist() {
+      if (administrarRastros.verificarHistoricosTabla("NODOS")) {
          nombreTablaRastro = "Nodos";
          msnConfirmarRastroHistorico = "La tabla NODOS tiene rastros historicos, ¿Desea continuar?";
          RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
@@ -1265,7 +1158,6 @@ public class ControlHistoriaFormula implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
-      indexNodoSeleecionado = -1;
    }
 
    public void limpiarMSNRastros() {
@@ -1346,7 +1238,7 @@ public class ControlHistoriaFormula implements Serializable {
       if (cambiosHistoriaFormula == false) {
          indexNodoSeleecionado = i;
          secuenciaRegistroNodos = listNodosHistoriaFormula.get(indexNodoSeleecionado).getSecuencia();
-         indexHistoriasFormulas = -1;
+//         historiaFormulaSeleccionada = null;
          indexEstructuraFormula = -1;
          if (listNodosHistoriaFormula.get(indexNodoSeleecionado).getOperador().getSecuencia() != null) {
             auxNodoSeleccionado = listNodosHistoriaFormula.get(indexNodoSeleecionado).getOperador().getSigno();
@@ -1362,299 +1254,303 @@ public class ControlHistoriaFormula implements Serializable {
    public void cargarDatosParaNodos() {
       getListNodosHistoriaFormula();
       limpiarIformacionNodo();
-      int tam = listNodosHistoriaFormula.size();
-      int aux = 0;
-      while (aux < tam) {
-         if (aux == 0) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+      if (listNodosHistoriaFormula != null) {
+         if (!listNodosHistoriaFormula.isEmpty()) {
+
+            int aux = 0;
+            while (aux < listNodosHistoriaFormula.size()) {
+               if (aux == 0) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo1");
+               }
+               if (aux == 1) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo2 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo2 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo2RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo2");
+               }
+               if (aux == 2) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo3 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo3 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo3RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo3");
+               }
+               if (aux == 3) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo4 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo4 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo4RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo4");
+               }
+               if (aux == 4) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo5 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo5 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo5RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo5");
+               }
+               if (aux == 5) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo6 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo6 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo6RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo6");
+               }
+               if (aux == 6) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo7 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo7 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo7RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo7");
+               }
+               if (aux == 7) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo8 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo8 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo8RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo8");
+               }
+               if (aux == 8) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo9 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo9 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo9RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo9");
+               }
+               if (aux == 9) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo10 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo10 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo10RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo10");
+               }
+               if (aux == 10) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo11 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo11 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo11RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo11");
+               }
+               if (aux == 11) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo12 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo12 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo12RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo12");
+               }
+               if (aux == 12) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo13 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo13 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo13RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo13");
+               }
+               if (aux == 13) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo14 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo14 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo14RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo14");
+               }
+               if (aux == 14) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo15 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo15 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo15RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo15");
+               }
+               if (aux == 15) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo16 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo16 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo16RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo16");
+               }
+               //pagina secundaria//
+               if (aux == 16) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo1_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo1_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo1_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo1_1");
+               }
+               if (aux == 17) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo2_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo2_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo2_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo2_1");
+               }
+               if (aux == 18) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo3_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo3_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo3_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo3_1");
+               }
+               if (aux == 19) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo4_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo4_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo4_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo4_1");
+               }
+               if (aux == 20) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo5_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo5_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo5_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo5_1");
+               }
+               if (aux == 21) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo6_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo6_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo6_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo6_1");
+               }
+               if (aux == 22) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo7_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo7_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo7_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo7_1");
+               }
+               if (aux == 23) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo8_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo8_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo8_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo8_1");
+               }
+               if (aux == 24) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo9_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo9_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo9_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo9_1");
+               }
+               if (aux == 25) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo10_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo10_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo10_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo10_1");
+               }
+               if (aux == 26) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo11_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo11_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo11_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo11_1");
+               }
+               if (aux == 27) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo12_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo12_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo12_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo12_1");
+               }
+               if (aux == 28) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo13_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo13_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo13_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo13_1");
+               }
+               if (aux == 29) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo14_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo14_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo14_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo14_1");
+               }
+               if (aux == 30) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo15_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo15_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo15_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo15_1");
+               }
+               if (aux == 31) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo16_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo16_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo16_1RO = false;
+                  RequestContext.getCurrentInstance().update("form:nodo16_1");
+               }
+               aux++;
             }
-            nodo1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo1");
          }
-         if (aux == 1) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo2 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo2 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo2RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo2");
-         }
-         if (aux == 2) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo3 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo3 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo3RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo3");
-         }
-         if (aux == 3) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo4 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo4 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo4RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo4");
-         }
-         if (aux == 4) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo5 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo5 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo5RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo5");
-         }
-         if (aux == 5) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo6 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo6 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo6RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo6");
-         }
-         if (aux == 6) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo7 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo7 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo7RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo7");
-         }
-         if (aux == 7) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo8 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo8 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo8RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo8");
-         }
-         if (aux == 8) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo9 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo9 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo9RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo9");
-         }
-         if (aux == 9) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo10 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo10 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo10RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo10");
-         }
-         if (aux == 10) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo11 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo11 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo11RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo11");
-         }
-         if (aux == 11) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo12 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo12 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo12RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo12");
-         }
-         if (aux == 12) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo13 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo13 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo13RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo13");
-         }
-         if (aux == 13) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo14 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo14 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo14RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo14");
-         }
-         if (aux == 14) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo15 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo15 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo15RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo15");
-         }
-         if (aux == 15) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo16 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo16 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo16RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo16");
-         }
-         //pagina secundaria//
-         if (aux == 16) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo1_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo1_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo1_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo1_1");
-         }
-         if (aux == 17) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo2_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo2_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo2_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo2_1");
-         }
-         if (aux == 18) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo3_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo3_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo3_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo3_1");
-         }
-         if (aux == 19) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo4_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo4_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo4_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo4_1");
-         }
-         if (aux == 20) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo5_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo5_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo5_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo5_1");
-         }
-         if (aux == 21) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo6_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo6_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo6_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo6_1");
-         }
-         if (aux == 22) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo7_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo7_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo7_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo7_1");
-         }
-         if (aux == 23) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo8_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo8_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo8_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo8_1");
-         }
-         if (aux == 24) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo9_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo9_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo9_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo9_1");
-         }
-         if (aux == 25) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo10_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo10_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo10_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo10_1");
-         }
-         if (aux == 26) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo11_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo11_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo11_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo11_1");
-         }
-         if (aux == 27) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo12_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo12_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo12_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo12_1");
-         }
-         if (aux == 28) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo13_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo13_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo13_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo13_1");
-         }
-         if (aux == 29) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo14_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo14_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo14_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo14_1");
-         }
-         if (aux == 30) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo15_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo15_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo15_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo15_1");
-         }
-         if (aux == 31) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo16_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo16_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo16_1RO = false;
-            RequestContext.getCurrentInstance().update("form:nodo16_1");
-         }
-         aux++;
       }
       getFormulaCompleta();
       RequestContext.getCurrentInstance().update("form:formulaComplete");
@@ -1663,315 +1559,284 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public void cargarDatosParaNodos2() {
-      getListNodosHistoriaFormula();
       limpiarIformacionNodo();
-      int tam = listNodosHistoriaFormula.size();
-      int aux = 0;
-      while (aux < tam) {
-         if (aux == 0) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+      if (listNodosHistoriaFormula != null) {
+         if (!listNodosHistoriaFormula.isEmpty()) {
+
+            int aux = 0;
+            while (aux < listNodosHistoriaFormula.size()) {
+               if (aux == 0) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo1RO = false;
+               }
+               if (aux == 1) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo2 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo2 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo2RO = false;
+               }
+               if (aux == 2) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo3 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo3 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo3RO = false;
+               }
+               if (aux == 3) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo4 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo4 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo4RO = false;
+               }
+               if (aux == 4) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo5 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo5 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo5RO = false;
+               }
+               if (aux == 5) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo6 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo6 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo6RO = false;
+               }
+               if (aux == 6) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo7 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo7 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo7RO = false;
+               }
+               if (aux == 7) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo8 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo8 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo8RO = false;
+               }
+               if (aux == 8) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo9 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo9 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo9RO = false;
+               }
+               if (aux == 9) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo10 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo10 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo10RO = false;
+               }
+               if (aux == 10) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo11 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo11 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo11RO = false;
+               }
+               if (aux == 11) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo12 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo12 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo12RO = false;
+               }
+               if (aux == 12) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo13 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo13 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo13RO = false;
+               }
+               if (aux == 13) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo14 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo14 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo14RO = false;
+               }
+               if (aux == 14) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo15 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo15 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo15RO = false;
+               }
+               if (aux == 15) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo16 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo16 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo16RO = false;
+               }
+               if (aux == 16) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo1_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo1_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo1_1RO = false;
+               }
+               if (aux == 17) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo2_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo2_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo2_1RO = false;
+               }
+               if (aux == 18) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo3_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo3_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo3_1RO = false;
+               }
+               if (aux == 19) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo4_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo4_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo4_1RO = false;
+               }
+               if (aux == 20) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo5_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo5_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo5_1RO = false;
+               }
+               if (aux == 21) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo6_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo6_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo6_1RO = false;
+               }
+               if (aux == 22) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo7_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo7_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo7_1RO = false;
+               }
+               if (aux == 23) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo8_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo8_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo8_1RO = false;
+               }
+               if (aux == 24) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo9_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo9_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo9_1RO = false;
+               }
+               if (aux == 25) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo10_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo10_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo10_1RO = false;
+               }
+               if (aux == 26) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo11_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo11_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo11_1RO = false;
+               }
+               if (aux == 27) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo12_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo12_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo12_1RO = false;
+               }
+               if (aux == 28) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo13_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo13_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo13_1RO = false;
+               }
+               if (aux == 29) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo14_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo14_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo14_1RO = false;
+               }
+               if (aux == 30) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo15_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo15_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo15_1RO = false;
+               }
+               if (aux == 31) {
+                  if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
+                     nodo16_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
+                  } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
+                     nodo16_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
+                  }
+                  nodo16_1RO = false;
+               }
+               aux++;
             }
-            nodo1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo1");
          }
-         if (aux == 1) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo2 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo2 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo2RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo2");
-         }
-         if (aux == 2) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo3 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo3 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo3RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo3");
-         }
-         if (aux == 3) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo4 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo4 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo4RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo4");
-         }
-         if (aux == 4) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo5 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo5 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo5RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo5");
-         }
-         if (aux == 5) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo6 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo6 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo6RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo6");
-         }
-         if (aux == 6) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo7 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo7 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo7RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo7");
-         }
-         if (aux == 7) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo8 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo8 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo8RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo8");
-         }
-         if (aux == 8) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo9 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo9 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo9RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo9");
-         }
-         if (aux == 9) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo10 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo10 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo10RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo10");
-         }
-         if (aux == 10) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo11 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo11 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo11RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo11");
-         }
-         if (aux == 11) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo12 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo12 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo12RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo12");
-         }
-         if (aux == 12) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo13 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo13 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo13RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo13");
-         }
-         if (aux == 13) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo14 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo14 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo14RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo14");
-         }
-         if (aux == 14) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo15 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo15 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo15RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo15");
-         }
-         if (aux == 15) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo16 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo16 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo16RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo16");
-         }
-         //pagina secundaria//
-         if (aux == 16) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo1_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo1_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo1_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo1_1");
-         }
-         if (aux == 17) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo2_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo2_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo2_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo2_1");
-         }
-         if (aux == 18) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo3_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo3_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo3_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo3_1");
-         }
-         if (aux == 19) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo4_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo4_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo4_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo4_1");
-         }
-         if (aux == 20) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo5_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo5_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo5_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo5_1");
-         }
-         if (aux == 21) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo6_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo6_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo6_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo6_1");
-         }
-         if (aux == 22) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo7_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo7_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo7_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo7_1");
-         }
-         if (aux == 23) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo8_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo8_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo8_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo8_1");
-         }
-         if (aux == 24) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo9_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo9_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo9_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo9_1");
-         }
-         if (aux == 25) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo10_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo10_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo10_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo10_1");
-         }
-         if (aux == 26) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo11_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo11_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo11_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo11_1");
-         }
-         if (aux == 27) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo12_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo12_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo12_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo12_1");
-         }
-         if (aux == 28) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo13_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo13_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo13_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo13_1");
-         }
-         if (aux == 29) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo14_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo14_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo14_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo14_1");
-         }
-         if (aux == 30) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo15_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo15_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo15_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo15_1");
-         }
-         if (aux == 31) {
-            if (listNodosHistoriaFormula.get(aux).getOperador().getSecuencia() != null) {
-               nodo16_1 = listNodosHistoriaFormula.get(aux).getOperador().getSigno();
-            } else if (listNodosHistoriaFormula.get(aux).getOperando().getSecuencia() != null) {
-               nodo16_1 = listNodosHistoriaFormula.get(aux).getOperando().getNombre();
-            }
-            nodo16_1RO = false;
-//                RequestContext.getCurrentInstance().update("form:nodo16_1");
-         }
-         aux++;
       }
       getFormulaCompleta();
-//        RequestContext.getCurrentInstance().update("form:formulaComplete");
-//        RequestContext.getCurrentInstance().update("form:panelNodosPrincipal");
-//        RequestContext.getCurrentInstance().update("form:panelNodosSecundario");
    }
 
    public void dispararDialogoNodoNuevo() {
       if (cambiosHistoriaFormula == false) {
-         actualizacionNodo = 1;
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('SeleccionRegGenerarFormula').show()");
+         if (historiaFormulaSeleccionada != null) {
+            actualizacionNodo = 1;
+            RequestContext.getCurrentInstance().execute("PF('SeleccionRegGenerarFormula').show()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+         }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
    }
@@ -1979,19 +1844,16 @@ public class ControlHistoriaFormula implements Serializable {
    public void dispararDialogoNodo() {
       if (indexNodoSeleecionado >= 0) {
          actualizacionNodo = 0;
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('SeleccionRegGenerarFormula').show()");
       }
    }
 
    public void dialogoNuevoOperando() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:OperandoDialogo");
       RequestContext.getCurrentInstance().execute("PF('OperandoDialogo').show()");
    }
 
    public void dialogoNuevoOperandor() {
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:OperadorDialogo");
       RequestContext.getCurrentInstance().execute("PF('OperadorDialogo').show()");
    }
@@ -2008,7 +1870,7 @@ public class ControlHistoriaFormula implements Serializable {
          Nodos nuevo = new Nodos(var);
          nuevo.setOperador(new Operadores());
          nuevo.setOperando(new Operandos());
-         nuevo.setHistoriaformula(listHistoriasFormulas.get(indexAuxHistoriasFormulas));
+         nuevo.setHistoriaformula(historiaFormulaSeleccionada);
          short posicion = (short) (listNodosHistoriaFormula.size() + 1);
          nuevo.setPosicion(posicion);
          nuevo.setOperando(operandoSeleccionado);
@@ -2021,10 +1883,8 @@ public class ControlHistoriaFormula implements Serializable {
          cambiosNodos = true;
          int tam = listNodosHistoriaFormula.size();
          if (tam > 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: visible");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
             panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
@@ -2036,10 +1896,8 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:panelNodosPrincipal");
          }
          if (tam <= 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: hidden");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
             panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
@@ -2058,9 +1916,9 @@ public class ControlHistoriaFormula implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       //RequestContext.getCurrentInstance().update("formularioDialogos:OperandoDialogo");
       context.reset("formularioDialogos:lovOperando:globalFilter");
-      RequestContext.getCurrentInstance().update("lovOperando').clearFilters()");
-      RequestContext.getCurrentInstance().update("OperandoDialogo').hide()");
-      indexNodoSeleecionado = -1;
+      RequestContext.getCurrentInstance().execute("PF('lovOperando').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OperandoDialogo').hide()");
+//      indexNodoSeleecionado = -1;
    }
 
    public void cancelarCambioOperando() {
@@ -2068,10 +1926,10 @@ public class ControlHistoriaFormula implements Serializable {
       operandoSeleccionado = new Operandos();
       RequestContext context = RequestContext.getCurrentInstance();
       aceptar = true;
-      indexNodoSeleecionado = -1;
+//      indexNodoSeleecionado = -1;
       context.reset("formularioDialogos:lovOperando:globalFilter");
-      RequestContext.getCurrentInstance().update("lovOperando').clearFilters()");
-      RequestContext.getCurrentInstance().update("OperandoDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovOperando').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OperandoDialogo').hide()");
    }
 
    public void actualizarOperador() {
@@ -2088,7 +1946,7 @@ public class ControlHistoriaFormula implements Serializable {
          nuevo.setOperando(new Operandos());
          short aux = (short) (listNodosHistoriaFormula.size() + 1);
          nuevo.setPosicion(aux);
-         nuevo.setHistoriaformula(listHistoriasFormulas.get(indexAuxHistoriasFormulas));
+         nuevo.setHistoriaformula(historiaFormulaSeleccionada);
 
          nuevo.setOperador(operadorSeleccionado);
          listNodosHistoriaFormula.add(nuevo);
@@ -2096,15 +1954,12 @@ public class ControlHistoriaFormula implements Serializable {
          listNodosParaExportar = null;
          cambiosNodos = true;
          cargarDatosParaNodos();
-         int tam = listNodosHistoriaFormula.size();
-         if (tam > 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
+         if (listNodosHistoriaFormula.size() > 16) {
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px; border: none; visibility: visible;");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
-            panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
+            panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px; border: none; visibility: hidden;");
 
             visibilidadBtnS = true;
             visibilidadBtnP = false;
@@ -2112,14 +1967,12 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:panelNodosSecundario");
             RequestContext.getCurrentInstance().update("form:panelNodosPrincipal");
          }
-         if (tam <= 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
+         if (listNodosHistoriaFormula.size() <= 16) {
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 825px; height: 83px; border: none; visibility: hidden;");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
-            panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
+            panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width: 825px; height: 83px; border: none; visibility: visible;");
 
             visibilidadBtnS = true;
             visibilidadBtnP = true;
@@ -2134,9 +1987,9 @@ public class ControlHistoriaFormula implements Serializable {
       aceptar = true;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:lovOperador:globalFilter");
-      RequestContext.getCurrentInstance().update("lovOperador').clearFilters()");
-      RequestContext.getCurrentInstance().update("OperadorDialogo').hide()");
-      indexNodoSeleecionado = -1;
+      RequestContext.getCurrentInstance().execute("PF('lovOperador').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OperadorDialogo').hide()");
+//      indexNodoSeleecionado = -1;
    }
 
    public void cancelarCambioOperador() {
@@ -2144,10 +1997,10 @@ public class ControlHistoriaFormula implements Serializable {
       operadorSeleccionado = new Operadores();
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:lovOperador:globalFilter");
-      RequestContext.getCurrentInstance().update("lovOperador').clearFilters()");
-      RequestContext.getCurrentInstance().update("OperadorDialogo').hide()");
+      RequestContext.getCurrentInstance().execute("PF('lovOperador').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('OperadorDialogo').hide()");
       aceptar = true;
-      indexNodoSeleecionado = -1;
+//      indexNodoSeleecionado = -1;
    }
 
    public void modificacionesCambiosNodos(int indice, int tipoCambio) {
@@ -2167,8 +2020,8 @@ public class ControlHistoriaFormula implements Serializable {
          }
       }
       cambiosNodos = true;
-      indexNodoSeleecionado = -1;
-      secuenciaRegistroNodos = null;
+//      indexNodoSeleecionado = -1;
+//      secuenciaRegistroNodos = null;
       listNodosParaExportar = null;
    }
 
@@ -2182,7 +2035,6 @@ public class ControlHistoriaFormula implements Serializable {
       }
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (tipoCambio == 0) {
          listNodosHistoriaFormula.get(indexNodoSeleecionado).getOperando().setDescripcion(auxNodoSeleccionado);
          for (int i = 0; i < listOperandos.size(); i++) {
@@ -2193,10 +2045,9 @@ public class ControlHistoriaFormula implements Serializable {
          }
          if (coincidencias == 1) {
             listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperando(listOperandos.get(indiceUnicoElemento));
-            listOperandos.clear();
-            getListOperandos();
+//            listOperandos.clear();
+//            getListOperandos();
          } else {
-            permitirIndexNodos = false;
             RequestContext.getCurrentInstance().update("form:OperandoDialogo");
             RequestContext.getCurrentInstance().execute("PF('OperandoDialogo').show()");
             actualizacionNodo = 0;
@@ -2212,10 +2063,9 @@ public class ControlHistoriaFormula implements Serializable {
          }
          if (coincidencias == 1) {
             listNodosHistoriaFormula.get(indexNodoSeleecionado).setOperador(listOperadores.get(indiceUnicoElemento));
-            listOperadores.clear();
-            getListOperadores();
+//            listOperadores.clear();
+//            getListOperadores();
          } else {
-            permitirIndexNodos = false;
             RequestContext.getCurrentInstance().update("form:OperadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('OperadorDialogo').show()");
             actualizacionNodo = 0;
@@ -2233,7 +2083,7 @@ public class ControlHistoriaFormula implements Serializable {
             }
          }
          cambiosNodos = true;
-         indexNodoSeleecionado = -1;
+//         indexNodoSeleecionado = -1;
          secuenciaRegistroNodos = null;
       }
       listNodosParaExportar = null;
@@ -2243,12 +2093,10 @@ public class ControlHistoriaFormula implements Serializable {
    public void borrarNodo() {
       if (indexNodoSeleecionado >= 0) {
          if (!listNodosModificar.isEmpty() && listNodosModificar.contains(listNodosHistoriaFormula.get(indexNodoSeleecionado))) {
-            int modIndex = listNodosModificar.indexOf(listNodosHistoriaFormula.get(indexNodoSeleecionado));
-            listNodosModificar.remove(modIndex);
+            listNodosModificar.remove(listNodosHistoriaFormula.get(indexNodoSeleecionado));
             listNodosBorrar.add(listNodosHistoriaFormula.get(indexNodoSeleecionado));
          } else if (!listNodosCrear.isEmpty() && listNodosCrear.contains(listNodosHistoriaFormula.get(indexNodoSeleecionado))) {
-            int crearIndex = listNodosCrear.indexOf(listNodosHistoriaFormula.get(indexNodoSeleecionado));
-            listNodosCrear.remove(crearIndex);
+            listNodosCrear.remove(listNodosHistoriaFormula.get(indexNodoSeleecionado));
          } else {
             listNodosBorrar.add(listNodosHistoriaFormula.get(indexNodoSeleecionado));
          }
@@ -2263,10 +2111,8 @@ public class ControlHistoriaFormula implements Serializable {
          cargarDatosParaNodos();
          int tam = listNodosHistoriaFormula.size();
          if (tam > 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: visible");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
             panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
@@ -2278,10 +2124,8 @@ public class ControlHistoriaFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:panelNodosPrincipal");
          }
          if (tam <= 16) {
-            RequestContext context = RequestContext.getCurrentInstance();
-
             panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
+            panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: hidden");
 
             panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
             panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
@@ -2299,7 +2143,7 @@ public class ControlHistoriaFormula implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (i == 1) {
          panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-         panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
+         panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: hidden");
 
          panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
          panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
@@ -2309,7 +2153,7 @@ public class ControlHistoriaFormula implements Serializable {
       }
       if (i == 2) {
          panelNodosSecundario = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosSecundario");
-         panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: visible");
+         panelNodosSecundario.setStyle("position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: visible");
 
          panelNodosPrincipal = (ScrollPanel) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:panelNodosPrincipal");
          panelNodosPrincipal.setStyle("position: absolute; left: 3px; top: 15px; width:825px; height:83px;border: none;visibility: hidden");
@@ -2329,10 +2173,8 @@ public class ControlHistoriaFormula implements Serializable {
          auxEF_Formula = listEstructurasFormulas.get(indexEstructuraFormula).getNombreNodo();
          auxEF_IdFormula = listEstructurasFormulas.get(indexEstructuraFormula).getFormula();
          auxEF_IdHijo = listEstructurasFormulas.get(indexEstructuraFormula).getFormulaHijo();
-         indexNodoSeleecionado = -1;
-         indexHistoriasFormulas = -1;
+//         indexNodoSeleecionado = -1;
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
    }
@@ -2371,11 +2213,22 @@ public class ControlHistoriaFormula implements Serializable {
       }
    }
 
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
+
+   public void contarRegistrosOpdo() {
+      RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroOpdo");
+   }
+
+   public void contarRegistrosOpor() {
+      RequestContext.getCurrentInstance().update("formularioDialogos:informacionRegistroOpor");
+   }
+
    //GET - SET 
    public List<Historiasformulas> getListHistoriasFormulas() {
       try {
          if (listHistoriasFormulas == null) {
-            listHistoriasFormulas = new ArrayList<Historiasformulas>();
             listHistoriasFormulas = administrarHistoriaFormula.listHistoriasFormulasParaFormula(formulaActual.getSecuencia());
          }
          if (!listHistoriasFormulas.isEmpty()) {
@@ -2425,10 +2278,6 @@ public class ControlHistoriaFormula implements Serializable {
 
    public void setAceptar(boolean aceptar) {
       this.aceptar = aceptar;
-   }
-
-   public void setSecRegistroHistoriaFormula(BigInteger secRegistro) {
-      this.secRegistroHistoriaFormula = secRegistro;
    }
 
    public BigInteger getBackUpSecRegistroHistoriaFormula() {
@@ -2487,10 +2336,6 @@ public class ControlHistoriaFormula implements Serializable {
       this.duplicarHistoriaFormula = setDuplicarHistoriaFormula;
    }
 
-   public BigInteger getSecRegistroHistoriaFormula() {
-      return secRegistroHistoriaFormula;
-   }
-
    public String getMsnConfirmarRastro() {
       return msnConfirmarRastro;
    }
@@ -2532,22 +2377,21 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public List<Nodos> getListNodosHistoriaFormula() {
-      if (listNodosHistoriaFormula == null) {
-         listNodosHistoriaFormula = administrarHistoriaFormula.listNodosDeHistoriaFormula(listHistoriasFormulas.get(indexAuxHistoriasFormulas).getSecuencia());
+      if (listNodosHistoriaFormula == null && historiaFormulaSeleccionada != null) {
+         listNodosHistoriaFormula = administrarHistoriaFormula.listNodosDeHistoriaFormula(historiaFormulaSeleccionada.getSecuencia());
       }
       if (listNodosHistoriaFormula != null) {
          if (!listNodosHistoriaFormula.isEmpty()) {
-            int tam = listNodosHistoriaFormula.size();
-            if (tam <= 16) {
+            System.out.println("Controlador.ControlHistoriaFormula.getListNodosHistoriaFormula() listNodosHistoriaFormula.size() : " + listNodosHistoriaFormula.size());
+            if (listNodosHistoriaFormula.size() <= 16) {
                visibilidadBtnS = true;
                visibilidadBtnP = true;
             }
-            if (tam > 16) {
+            if (listNodosHistoriaFormula.size() > 16) {
                visibilidadBtnS = false;
                visibilidadBtnP = true;
             }
             for (int i = 0; i < listNodosHistoriaFormula.size(); i++) {
-
                if (listNodosHistoriaFormula.get(i).getOperador() == null) {
                   listNodosHistoriaFormula.get(i).setOperador(new Operadores());
                }
@@ -2565,13 +2409,15 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public String getFormulaCompleta() {
+      formulaCompleta = "";
       if (listNodosHistoriaFormula != null) {
-         formulaCompleta = "";
-         for (int i = 0; i < listNodosHistoriaFormula.size(); i++) {
-            if (listNodosHistoriaFormula.get(i).getOperador().getSecuencia() != null) {
-               formulaCompleta = formulaCompleta + listNodosHistoriaFormula.get(i).getOperador().getSigno() + " ";
-            } else if (listNodosHistoriaFormula.get(i).getOperando().getSecuencia() != null) {
-               formulaCompleta = formulaCompleta + listNodosHistoriaFormula.get(i).getOperando().getNombre() + " ";
+         if (!listNodosHistoriaFormula.isEmpty()) {
+            for (int i = 0; i < listNodosHistoriaFormula.size(); i++) {
+               if (listNodosHistoriaFormula.get(i).getOperador().getSecuencia() != null) {
+                  formulaCompleta = formulaCompleta + listNodosHistoriaFormula.get(i).getOperador().getSigno() + " ";
+               } else if (listNodosHistoriaFormula.get(i).getOperando().getSecuencia() != null) {
+                  formulaCompleta = formulaCompleta + listNodosHistoriaFormula.get(i).getOperando().getNombre() + " ";
+               }
             }
          }
       }
@@ -3175,17 +3021,19 @@ public class ControlHistoriaFormula implements Serializable {
    public List<Nodos> getListNodosParaExportar() {
       if (listNodosParaExportar == null) {
          listNodosParaExportar = new ArrayList<Nodos>();
-         if (!listNodosHistoriaFormula.isEmpty()) {
-            for (int i = 0; i < listNodosHistoriaFormula.size(); i++) {
-               if (listNodosHistoriaFormula.get(i).getOperador().getSecuencia() != null) {
-                  String aux = listNodosHistoriaFormula.get(i).getOperador().getSigno();
-                  listNodosHistoriaFormula.get(i).setDescripcionNodo(aux);
-                  listNodosParaExportar.add(listNodosHistoriaFormula.get(i));
-               }
-               if (listNodosHistoriaFormula.get(i).getOperando().getSecuencia() != null) {
-                  String aux = listNodosHistoriaFormula.get(i).getOperando().getNombre();
-                  listNodosHistoriaFormula.get(i).setDescripcionNodo(aux);
-                  listNodosParaExportar.add(listNodosHistoriaFormula.get(i));
+         if (listNodosHistoriaFormula != null) {
+            if (!listNodosHistoriaFormula.isEmpty()) {
+               for (int i = 0; i < listNodosHistoriaFormula.size(); i++) {
+                  if (listNodosHistoriaFormula.get(i).getOperador().getSecuencia() != null) {
+                     String aux = listNodosHistoriaFormula.get(i).getOperador().getSigno();
+                     listNodosHistoriaFormula.get(i).setDescripcionNodo(aux);
+                     listNodosParaExportar.add(listNodosHistoriaFormula.get(i));
+                  }
+                  if (listNodosHistoriaFormula.get(i).getOperando().getSecuencia() != null) {
+                     String aux = listNodosHistoriaFormula.get(i).getOperando().getNombre();
+                     listNodosHistoriaFormula.get(i).setDescripcionNodo(aux);
+                     listNodosParaExportar.add(listNodosHistoriaFormula.get(i));
+                  }
                }
             }
          }
@@ -3222,8 +3070,8 @@ public class ControlHistoriaFormula implements Serializable {
    }
 
    public List<EstructurasFormulas> getListEstructurasFormulas() {
-      if (listEstructurasFormulas == null) {
-         listEstructurasFormulas = administrarHistoriaFormula.listEstructurasFormulasParaHistoriaFormula(listHistoriasFormulas.get(indexAuxHistoriasFormulas).getSecuencia());
+      if (listEstructurasFormulas == null && historiaFormulaSeleccionada != null) {
+         listEstructurasFormulas = administrarHistoriaFormula.listEstructurasFormulasParaHistoriaFormula(historiaFormulaSeleccionada.getSecuencia());
       }
       if (listEstructurasFormulas != null) {
          if (!listEstructurasFormulas.isEmpty()) {
@@ -3280,6 +3128,55 @@ public class ControlHistoriaFormula implements Serializable {
 
    public void setVisibilidadBtnS(boolean visibilidadBtnS) {
       this.visibilidadBtnS = visibilidadBtnS;
+   }
+
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosHistoriaFormula");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
+
+   public void setInfoRegistro(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
+
+   public String getInfoRegistroOperador() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovOperador");
+      infoRegistroOperador = String.valueOf(tabla.getRowCount());
+      return infoRegistroOperador;
+   }
+
+   public void setInfoRegistroOperador(String infoRegistroOperador) {
+      this.infoRegistroOperador = infoRegistroOperador;
+   }
+
+   public String getInfoRegistroOperando() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovOperando");
+      infoRegistroOperando = String.valueOf(tabla.getRowCount());
+      return infoRegistroOperando;
+   }
+
+   public void setInfoRegistroOperando(String infoRegistroOperando) {
+      this.infoRegistroOperando = infoRegistroOperando;
+   }
+
+   public Historiasformulas getHistoriaFormulaSeleccionada() {
+      return historiaFormulaSeleccionada;
+   }
+
+   public void setHistoriaFormulaSeleccionada(Historiasformulas historiaFormulaSeleccionada) {
+      this.historiaFormulaSeleccionada = historiaFormulaSeleccionada;
+   }
+
+   public boolean isGuardado() {
+      return guardado;
+   }
+
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
    }
 
 }

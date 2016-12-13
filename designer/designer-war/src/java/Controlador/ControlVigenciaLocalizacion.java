@@ -3235,7 +3235,6 @@ public class ControlVigenciaLocalizacion implements Serializable {
    public void verificarRastroTabla() {
       //Si no hay registros eleccionado
       if (vigenciaLocalizacionSeleccionada == null && vigenciaProrrateoSeleccionada == null && vigenciaProrrateoProyectoSeleccionada == null) {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
       } else if (vigenciaProrrateoSeleccionada != null) {
          //Metodo Rastro Vigencias Afiliaciones

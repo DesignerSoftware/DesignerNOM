@@ -10,58 +10,74 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">   
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
             <h:form id="form"> 
                <p:growl id="growl" showDetail="true"/>
                <p:panel  id="PanelTotal" header="Formulacion" styleClass="panelTotal">  
 
                   <p:toolbar styleClass="cssToolbar">
-                     <p:toolbarGroup align="left"> 
-                        <p:commandButton id="guardarRapido" value="" style="background-size: 100% 100%; background-image: url(Imagenes/Iconos/guardar.png); background-repeat: no-repeat; border: none; width: 25px; height: 25px;" process="@this" actionListener="#{controlHistoriaFormula.guardadoGeneral()}"/>
+                     <p:toolbarGroup align="left">
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         process="@this" actionListener="#{controlHistoriaFormula.guardadoGeneral()}"/>
                         <p:tooltip style="font-size: 12px;" for="guardarRapido" value="Guardar"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlHistoriaFormula.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlHistoriaFormula.editarCelda()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="editar" value="Editar"/>
 
-                        <p:separator />
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlHistoriaFormula.dispararDialogoNodo()}" process="@this"/>
+                        <p:separator/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         actionListener="#{controlHistoriaFormula.dispararDialogoNodo()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="Lista de Valores"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlHistoriaFormula.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlHistoriaFormula.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="filtrar" value="Activar filtrado"/>
 
-                        <p:separator />
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlHistoriaFormula.verificarExportXLS()}" ajax="false"/>
+                        <p:separator/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         actionListener="#{controlHistoriaFormula.verificarExportXLS()}" ajax="false"/>
                         <p:tooltip style="font-size: 12px;" for="exportarXLS" value="Exportar a XLS"/>
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         ajax="false">
                            <p:dataExporter type="xml"  target="#{controlHistoriaFormula.exportXML()}" fileName="#{controlHistoriaFormula.nombreXML}" encoding="UTF-8"/>
                         </p:commandButton> 
                         <p:tooltip style="font-size: 12px;" for="exportarXML" value="Exportar a XML"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlHistoriaFormula.validarExportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlHistoriaFormula.validarExportPDF()}" ajax="false"/>
                         <p:tooltip style="font-size: 12px;" for="exportarPDF" value="Exportar a PDF"/>
 
-                        <p:separator /> 
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlHistoriaFormula.ingresoNuevoRegistro()}"  process="@this"/> 
+                        <p:separator/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         actionListener="#{controlHistoriaFormula.ingresoNuevoRegistro()}"  process="@this"/> 
                         <p:tooltip style="font-size: 12px;" for="insertar" value="Nuevo Registro"/>
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlHistoriaFormula.validarBorradoRegistro()}" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlHistoriaFormula.validarBorradoRegistro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="eliminar" value="Eliminar Registro"/>
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlHistoriaFormula.validarDuplicadoRegistro()}" process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlHistoriaFormula.validarDuplicadoRegistro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="duplicar" value="Duplicar Registro"/>
 
-                        <p:separator /> 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlHistoriaFormula.verificarRastroTabla()}" process="@this"/>  
+                        <p:separator/> 
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlHistoriaFormula.verificarRastroTabla()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="Rastro"/>
 
-                        <p:separator /> 
+                        <p:separator/> 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" 
                                          id="refrescar" value="" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
-                        <p:separator /> 
+                        <p:separator/> 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlHistoriaFormula.retornarPagina()}"
                                          id="salir" value="" actionListener="#{controlHistoriaFormula.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -80,30 +96,31 @@
 
                      <p:dataTable id="datosHistoriaFormula" var="infoHF" rowKey="#{infoHF.secuencia}" rowIndexVar="indiceHF" style="font-size: 10px; border: 1px; width: 830px;"
                                   value="#{controlHistoriaFormula.listHistoriasFormulas}" scrollable="true" scrollHeight="48" scrollWidth="815"
+                                  selection="#{controlHistoriaFormula.historiaFormulaSeleccionada}"
                                   filteredValue="#{controlHistoriaFormula.filtrarListHistoriasFormulas}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                  editable="true" editMode="cell" paginator="false" widgetVar="datosHistoriaFormula"
-                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                  editable="true" editMode="cell" widgetVar="datosHistoriaFormula">
 
                         <p:ajax event="filter" listener="#{controlHistoriaFormula.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlHistoriaFormula.darSeleccion()}"/>
 
                         <p:column headerText="Fecha Inicial" sortBy="#{infoHF.strFechaIni}" filterBy="#{infoHF.strFechaIni}" filterMatchMode="contains"
                                   id="historiaFechaInicial" width="50" filterStyle="display: none; visibility: hidden;" style="width: 50px; font-size: 11px;">
                            <p:cellEditor>
                               <f:facet name="header">
-                                 <h:outputText id="headerFechaInicial" value="Fecha Inicial" />
+                                 <h:outputText id="headerFechaInicial" value="Fecha Inicial"/>
                                  <p:tooltip style="font-size: 12px;" for="headerFechaInicial" value="Ingrese la fecha inicial."/>
                               </f:facet>
                               <f:facet name="output">
-                                 <h:outputText value="#{infoHF.fechainicial}" style="width: 50px; font-size: 11px;text-transform: uppercase;">
+                                 <h:outputText value="#{infoHF.fechainicial}" style="width: 50px; font-size: 11px; text-transform: uppercase;">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{infoHF.fechainicial}">
-                                    <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(indiceHF,0)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(infoHF,0)}" process="@this"
                                             onstart="PF('datosHistoriaFormula').unselectAllRows();PF('datosHistoriaFormula').selectRow(#{indiceHF});"/>
-                                    <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,0)}" process="@this"/>
-                                    <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,0)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(infoHF,0)}" process="@this"/>
+                                    <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(infoHF,0)}" process="@this"/>
                                  </p:calendar>
                               </f:facet>
                            </p:cellEditor>
@@ -116,20 +133,20 @@
                                   id="historiaFechaFinal" width="50" filterStyle="display: none; visibility: hidden;" style="width: 50px; font-size: 11px;">
                            <p:cellEditor>
                               <f:facet name="header">
-                                 <h:outputText id="headerFechaFinal" value="Fecha Final" />
+                                 <h:outputText id="headerFechaFinal" value="Fecha Final"/>
                                  <p:tooltip style="font-size: 12px;" for="headerFechaFinal" value="Ingrese la fecha final."/>
                               </f:facet>
                               <f:facet name="output">
-                                 <h:outputText value="#{infoHF.fechafinal}" style="width: 50px; font-size: 11px;text-transform: uppercase">
+                                 <h:outputText value="#{infoHF.fechafinal}" style="width: 50px; font-size: 11px; text-transform: uppercase">
                                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>
                               <f:facet name="input">
                                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFecha" value="#{infoHF.fechafinal}">
-                                    <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(indiceHF,1)}" process="@this"
+                                    <p:ajax event="select" listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(infoHF,1)}" process="@this"
                                             onstart="PF('datosHistoriaFormula').unselectAllRows();PF('datosHistoriaFormula').selectRow(#{indiceHF});"/>
-                                    <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,1)}" process="@this" update="dateFecha"/>
-                                    <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(indiceHF,1)}" process="@this" update="dateFecha"/>
+                                    <p:ajax event="change" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(infoHF,1)}" process="@this" update="dateFecha"/>
+                                    <p:ajax event="dateSelect" listener="#{controlHistoriaFormula.modificacionesFechaHistoriaFormula(infoHF,1)}" process="@this" update="dateFecha"/>
                                  </p:calendar>
                               </f:facet>
                            </p:cellEditor>
@@ -148,9 +165,9 @@
                               <f:facet name="output"><h:outputText value="#{infoHF.observaciones}" style="text-transform: uppercase;"/></f:facet>
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off"  value="#{infoHF.observaciones}" id="editarNotaHistoria" style="font-size: 10px; border-radius: 0px;  width: 99%; text-transform: uppercase;">
-                                    <p:ajax event="select"  listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(indiceHF, 2)}" process="@this"
+                                    <p:ajax event="select"  listener="#{controlHistoriaFormula.cambiarIndiceHistoriaFormula(infoHF, 2)}" process="@this"
                                             onstart="PF('datosHistoriaFormula').unselectAllRows();PF('datosHistoriaFormula').selectRow(#{indiceHF});"/>
-                                    <p:ajax event="change" update="editarNotaHistoria" listener="#{controlHistoriaFormula.modificarHistoriaFormula(indiceHF)}" process="@this"/>
+                                    <p:ajax event="change" update="editarNotaHistoria" listener="#{controlHistoriaFormula.modificarHistoriaFormula(infoHF)}" process="@this"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -159,7 +176,7 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="Registros: XX" style="position: relative; left: 10px; top: 3px; font-weight: bold;"/>
+                     <h:outputText id="informacionRegistro" value="Registros: #{controlHistoriaFormula.infoRegistro}" style="position: relative; left: 10px; top: 3px; font-weight: bold;"/>
                   </fieldset>
 
                   <fieldset style="position: absolute; top: 230px; font-size: 10px; width: 815px; height: 80px; border-radius: 10px; text-align: left; left: 10px; padding-top: 0px;">
@@ -167,194 +184,195 @@
                      <p:scrollPanel id="panelNodosPrincipal" style="position: relative; left: 0px; padding-top: 0px; padding-left: 10px; padding-right: 0px; top: 0px; background-color: transparent; width: 830px; height: 83px; border: none;  visibility: visible" mode="native">
 
                         <div style="display: block; top: 5px; margin: 0px; padding: 0px;">
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 1px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 1px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo1}" readonly="#{controlHistoriaFormula.nodo1RO}" disabled="#{controlHistoriaFormula.nodo1RO}" id="nodo1" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(0)}"/> 
                               <p:ajax event="dblclick" process="@this" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(0,controlHistoriaFormula.nodo1)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 51px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 51px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo2}" readonly="#{controlHistoriaFormula.nodo2RO}" disabled="#{controlHistoriaFormula.nodo2RO}"  id="nodo2" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(1)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(1,controlHistoriaFormula.nodo2)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 101px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 101px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo3}" readonly="#{controlHistoriaFormula.nodo3RO}" disabled="#{controlHistoriaFormula.nodo3RO}"  id="nodo3" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(2)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(2,controlHistoriaFormula.nodo3)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 151px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 151px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo4}" readonly="#{controlHistoriaFormula.nodo4RO}" disabled="#{controlHistoriaFormula.nodo4RO}"  id="nodo4" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(3)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(3,controlHistoriaFormula.nodo4)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 201px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 201px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo5}" readonly="#{controlHistoriaFormula.nodo5RO}"  disabled="#{controlHistoriaFormula.nodo5RO}" id="nodo5" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(4)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(4,controlHistoriaFormula.nodo5)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 251px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 251px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo6}" readonly="#{controlHistoriaFormula.nodo6RO}"  disabled="#{controlHistoriaFormula.nodo6RO}" id="nodo6" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(5)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(5,controlHistoriaFormula.nodo6)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 301px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 301px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo7}" readonly="#{controlHistoriaFormula.nodo7RO}"  disabled="#{controlHistoriaFormula.nodo7RO}" id="nodo7" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(6)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(6,controlHistoriaFormula.nodo7)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 351px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 351px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo8}" readonly="#{controlHistoriaFormula.nodo8RO}"  disabled="#{controlHistoriaFormula.nodo8RO}" id="nodo8" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(7)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(7,controlHistoriaFormula.nodo8)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 401px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 401px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo9}" readonly="#{controlHistoriaFormula.nodo9RO}"  disabled="#{controlHistoriaFormula.nodo9RO}" id="nodo9" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(8)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(8,controlHistoriaFormula.nodo9)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 451px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 451px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo10}" readonly="#{controlHistoriaFormula.nodo10RO}"  disabled="#{controlHistoriaFormula.nodo10RO}" id="nodo10" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(9)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(9,controlHistoriaFormula.nodo10)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 501px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 501px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo11}" readonly="#{controlHistoriaFormula.nodo11RO}"  disabled="#{controlHistoriaFormula.nodo11RO}" id="nodo11" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(10)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(10,controlHistoriaFormula.nodo11)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 551px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 551px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo12}" readonly="#{controlHistoriaFormula.nodo12RO}"  disabled="#{controlHistoriaFormula.nodo12RO}" id="nodo12" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(11)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(11,controlHistoriaFormula.nodo12)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 601px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 601px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo13}" readonly="#{controlHistoriaFormula.nodo13RO}"  disabled="#{controlHistoriaFormula.nodo13RO}" id="nodo13" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(12)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(12,controlHistoriaFormula.nodo13)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 651px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 651px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo14}" readonly="#{controlHistoriaFormula.nodo14RO}"  disabled="#{controlHistoriaFormula.nodo14RO}" id="nodo14" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(13)}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(13,controlHistoriaFormula.nodo14)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 701px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 701px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo15}" readonly="#{controlHistoriaFormula.nodo15RO}" disabled="#{controlHistoriaFormula.nodo15RO}" id="nodo15" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(14)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(14,controlHistoriaFormula.nodo15)}"/>
                            </p:inputText>
-                           <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 751px;width: 40px;text-align: center;text-transform: uppercase"
+                           <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 751px;width: 40px; text-align: center; text-transform: uppercase"
                                          value="#{controlHistoriaFormula.nodo16}" readonly="#{controlHistoriaFormula.nodo16RO}"  disabled="#{controlHistoriaFormula.nodo16RO}" id="nodo16" onclick="select();">
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(15)}"/>
                               <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(15,controlHistoriaFormula.nodo16)}"/>
                            </p:inputText>
 
-                           <p:commandButton value="" icon="ui-icon-arrow-1-w"  style="position: absolute; top: 40px; left: 801px; height: 18px; width: 24px;text-align: left" disabled="#{controlHistoriaFormula.visibilidadBtnP}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(1)}" process="@this"/>
-                           <p:commandButton value="" icon="ui-icon-arrow-1-e"  style="position: absolute; top: 20px; left: 801px; height: 18px; width: 24px;text-align: left" disabled="#{controlHistoriaFormula.visibilidadBtnS}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(2)}" process="@this"/>
-                           <p:inputTextarea style="position: absolute; top: 30px; left: 1px; width: 790px; height: 25px; text-align: left; font-size: 10px;" value="#{controlHistoriaFormula.formulaCompleta}"  autoResize="false" readonly="true" id="formulaComplete" />
-
+                           <p:commandButton value="" icon="ui-icon-arrow-1-w" style="position: absolute; top: 40px; left: 801px; height: 18px; width: 24px; text-align: left;"
+                                            disabled="#{controlHistoriaFormula.visibilidadBtnP}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(1)}" process="@this"/>
+                           <p:commandButton value="" icon="ui-icon-arrow-1-e" style="position: absolute; top: 20px; left: 801px; height: 18px; width: 24px; text-align: left;"
+                                            disabled="#{controlHistoriaFormula.visibilidadBtnS}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(2)}" process="@this"/>
+                           <p:inputTextarea style="position: absolute; top: 30px; left: 1px; width: 790px; height: 25px; text-align: left; font-size: 10px;" value="#{controlHistoriaFormula.formulaCompleta}"  autoResize="false" readonly="true" id="formulaComplete"/>
                         </div>
                      </p:scrollPanel>
 
                      <p:scrollPanel id="panelNodosSecundario" style="position: absolute; left: 3px; top: 15px; width: 835px; height: 83px; border: none; visibility: hidden" mode="native">
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 1px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo1_1}" readonly="#{controlHistoriaFormula.nodo1_1RO}" disabled="#{controlHistoriaFormula.nodo1_1RO}"  id="nodo1_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 1px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo1_1}" readonly="#{controlHistoriaFormula.nodo1_1RO}" disabled="#{controlHistoriaFormula.nodo1_1RO}"  id="nodo1_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(16)}"/>
                            <p:ajax event="dblclick" process="@this" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(16,controlHistoriaFormula.nodo1_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 51px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo2_1}" readonly="#{controlHistoriaFormula.nodo2_1RO}" disabled="#{controlHistoriaFormula.nodo2_1RO}"  id="nodo2_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 51px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo2_1}" readonly="#{controlHistoriaFormula.nodo2_1RO}" disabled="#{controlHistoriaFormula.nodo2_1RO}"  id="nodo2_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(17)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(17,controlHistoriaFormula.nodo2_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 101px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo3_1}" readonly="#{controlHistoriaFormula.nodo3_1RO}" disabled="#{controlHistoriaFormula.nodo3_1RO}"  id="nodo3_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 101px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo3_1}" readonly="#{controlHistoriaFormula.nodo3_1RO}" disabled="#{controlHistoriaFormula.nodo3_1RO}"  id="nodo3_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(18)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(18,controlHistoriaFormula.nodo3_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 151px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo4_1}" readonly="#{controlHistoriaFormula.nodo4_1RO}" disabled="#{controlHistoriaFormula.nodo4_1RO}"  id="nodo4_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 151px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo4_1}" readonly="#{controlHistoriaFormula.nodo4_1RO}" disabled="#{controlHistoriaFormula.nodo4_1RO}"  id="nodo4_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(19)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(19,controlHistoriaFormula.nodo4_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 201px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo5_1}" readonly="#{controlHistoriaFormula.nodo5_1RO}" disabled="#{controlHistoriaFormula.nodo5_1RO}"  id="nodo5_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 201px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo5_1}" readonly="#{controlHistoriaFormula.nodo5_1RO}" disabled="#{controlHistoriaFormula.nodo5_1RO}"  id="nodo5_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(20)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(20,controlHistoriaFormula.nodo5_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 251px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo6_1}" readonly="#{controlHistoriaFormula.nodo6_1RO}" disabled="#{controlHistoriaFormula.nodo6_1RO}"  id="nodo6_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 251px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo6_1}" readonly="#{controlHistoriaFormula.nodo6_1RO}" disabled="#{controlHistoriaFormula.nodo6_1RO}"  id="nodo6_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(21)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(21,controlHistoriaFormula.nodo6_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 301px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo7_1}" readonly="#{controlHistoriaFormula.nodo7_1RO}" disabled="#{controlHistoriaFormula.nodo7_1RO}"  id="nodo7_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 301px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo7_1}" readonly="#{controlHistoriaFormula.nodo7_1RO}" disabled="#{controlHistoriaFormula.nodo7_1RO}"  id="nodo7_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(22)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(22,controlHistoriaFormula.nodo7_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 351px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo8_1}" readonly="#{controlHistoriaFormula.nodo8_1RO}" disabled="#{controlHistoriaFormula.nodo8_1RO}"  id="nodo8_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 351px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo8_1}" readonly="#{controlHistoriaFormula.nodo8_1RO}" disabled="#{controlHistoriaFormula.nodo8_1RO}"  id="nodo8_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(23)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(23,controlHistoriaFormula.nodo8_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 401px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo9_1}" readonly="#{controlHistoriaFormula.nodo9_1RO}" disabled="#{controlHistoriaFormula.nodo9_1RO}"  id="nodo9_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 401px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo9_1}" readonly="#{controlHistoriaFormula.nodo9_1RO}" disabled="#{controlHistoriaFormula.nodo9_1RO}"  id="nodo9_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(24)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(24,controlHistoriaFormula.nodo9_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 451px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo10_1}" readonly="#{controlHistoriaFormula.nodo10_1RO}" disabled="#{controlHistoriaFormula.nodo10_1RO}"  id="nodo10_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 451px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo10_1}" readonly="#{controlHistoriaFormula.nodo10_1RO}" disabled="#{controlHistoriaFormula.nodo10_1RO}"  id="nodo10_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(25)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(25,controlHistoriaFormula.nodo10_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 501px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo11_1}" readonly="#{controlHistoriaFormula.nodo11_1RO}" disabled="#{controlHistoriaFormula.nodo11_1RO}"  id="nodo11_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 501px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo11_1}" readonly="#{controlHistoriaFormula.nodo11_1RO}" disabled="#{controlHistoriaFormula.nodo11_1RO}"  id="nodo11_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(26)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(26,controlHistoriaFormula.nodo11_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 551px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo12_1}" readonly="#{controlHistoriaFormula.nodo12_1RO}" disabled="#{controlHistoriaFormula.nodo12_1RO}"  id="nodo12_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 551px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo12_1}" readonly="#{controlHistoriaFormula.nodo12_1RO}" disabled="#{controlHistoriaFormula.nodo12_1RO}"  id="nodo12_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(27)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(27,controlHistoriaFormula.nodo12_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 601px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo13_1}" readonly="#{controlHistoriaFormula.nodo13_1RO}" disabled="#{controlHistoriaFormula.nodo13_1RO}"  id="nodo13_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 601px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo13_1}" readonly="#{controlHistoriaFormula.nodo13_1RO}" disabled="#{controlHistoriaFormula.nodo13_1RO}"  id="nodo13_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(28)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(28,controlHistoriaFormula.nodo13_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 651px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo14_1}" readonly="#{controlHistoriaFormula.nodo14_1RO}" disabled="#{controlHistoriaFormula.nodo14_1RO}"  id="nodo14_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 651px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo14_1}" readonly="#{controlHistoriaFormula.nodo14_1RO}" disabled="#{controlHistoriaFormula.nodo14_1RO}"  id="nodo14_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(29)}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(29,controlHistoriaFormula.nodo14_1)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 701px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo15_1}" readonly="#{controlHistoriaFormula.nodo15_1RO}" disabled="#{controlHistoriaFormula.nodo15_1RO}"  id="nodo15_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 701px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo15_1}" readonly="#{controlHistoriaFormula.nodo15_1RO}" disabled="#{controlHistoriaFormula.nodo15_1RO}"  id="nodo15_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(30)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(30,controlHistoriaFormula.nodo15_1)}"/>
                         </p:inputText>
-                        <p:inputText  autocomplete="off"  style="position: absolute; top: 5px; left: 751px;width: 40px;text-align: center;text-transform: uppercase" value="#{controlHistoriaFormula.nodo16_1}" readonly="#{controlHistoriaFormula.nodo16_1RO}" disabled="#{controlHistoriaFormula.nodo16_1RO}"  id="nodo16_1" onclick="select();">
+                        <p:inputText  autocomplete="off" style="position: absolute; top: 5px; left: 751px;width: 40px; text-align: center; text-transform: uppercase;" value="#{controlHistoriaFormula.nodo16_1}" readonly="#{controlHistoriaFormula.nodo16_1RO}" disabled="#{controlHistoriaFormula.nodo16_1RO}"  id="nodo16_1" onclick="select();">
                            <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.posicionNodo(31)}"/>
                            <p:ajax process="@this"  event="dblclick" listener="#{controlHistoriaFormula.dispararDialogoNodo()}"/>
                            <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificacionesAutoCompletarNodos(31,controlHistoriaFormula.nodo16_1)}"/>
                         </p:inputText>
 
-                        <p:commandButton value="" icon="ui-icon-arrow-1-w"  style="position: absolute; top: 40px; left: 801px; height: 18px; width: 24px;text-align: left" disabled="#{controlHistoriaFormula.visibilidadBtnP}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(1)}" process="@this"/>
-                        <p:commandButton value="" icon="ui-icon-arrow-1-e"  style="position: absolute; top: 20px; left: 801px; height: 18px; width: 24px;text-align: left" disabled="#{controlHistoriaFormula.visibilidadBtnS}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(2)}" process="@this"/>
+                        <p:commandButton value="" icon="ui-icon-arrow-1-w" style="position: absolute; top: 40px; left: 805px; height: 18px; width: 24px; text-align: left;" disabled="#{controlHistoriaFormula.visibilidadBtnP}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(1)}" process="@this"/>
+                        <p:commandButton value="" icon="ui-icon-arrow-1-e" style="position: absolute; top: 20px; left: 805px; height: 18px; width: 24px; text-align: left;" disabled="#{controlHistoriaFormula.visibilidadBtnS}" actionListener="#{controlHistoriaFormula.cambiarVisibilidadPaneles(2)}" process="@this"/>
 
                         <p:inputTextarea style="position: absolute; top: 30px; left: 1px; width: 790px; height: 25px; text-align: left; font-size: 10px;" value="#{controlHistoriaFormula.formulaCompleta}"  autoResize="false" readonly="true" id="formulaCompleteS" styleClass="textarea"/>
 
@@ -364,17 +382,16 @@
                   <fieldset style="position: absolute; top: 322px; font-size: 10px; width: 840px; height: 136px; border-radius: 10px; text-align: left; left: 10px;">
                      <legend style="font-size: 12px; color: blue"><strong>Estructura de la Formula</strong></legend>
 
-                     <p:dataTable id="datosEstructuraFormula" var="infoEF" rowKey="#{infoEF.id}" widgetVar="datosEstructuraFormula" rowIndexVar="indiceEF"  style="font-size: 10px; border: 1px;width: 810px;"   
+                     <p:dataTable id="datosEstructuraFormula" var="infoEF" rowKey="#{infoEF.id}" widgetVar="datosEstructuraFormula" rowIndexVar="indiceEF" style="font-size: 10px; border: 1px;width: 810px;"   
                                   value="#{controlHistoriaFormula.listEstructurasFormulas}" scrollable="true" scrollHeight="90" scrollWidth="830"
                                   filteredValue="#{controlHistoriaFormula.filtrarListEstructurasFormulas}" selectionMode="single" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                  editable="true" editMode="cell" selection="#{controlHistoriaFormula.seleccionEstructuraF}" 
-                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                  editable="true" editMode="cell" selection="#{controlHistoriaFormula.seleccionEstructuraF}" >
 
                         <p:ajax event="filter" listener="#{controlHistoriaFormula.eventoFiltrar()}"/>
 
                         <p:column headerText="Formula"
                                   filterMatchMode="contains" id="EFFormula" width="150" filterStyle="display: none; visibility: hidden" style="font-size: 11px; padding: 2px">                                  
-                           <p:inputText  autocomplete="off"  value="#{infoEF.nombreNodo}"   id="editarFormulaEF" style="font-size: 10px; border-radius: 0px;  width: 100%; height: 100%;text-transform: uppercase;border: none;" onclick="select();"> 
+                           <p:inputText  autocomplete="off"  value="#{infoEF.nombreNodo}"   id="editarFormulaEF" style="font-size: 10px; border-radius: 0px;  width: 100%; height: 100%; text-transform: uppercase;border: none;" onclick="select();"> 
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.cambiarIndiceEstructuraFormula(indiceEF, 0)}"
                                       onstart="PF('datosEstructuraFormula').unselectAllRows();PF('datosEstructuraFormula').selectRow(#{indiceEF});"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificaEstructuraFormula(indiceEF)}"/>
@@ -385,7 +402,7 @@
 
                         <p:column headerText="Descripcion"
                                   filterMatchMode="contains" id="EFDescripcion" filterStyle="display: none; visibility: hidden" style="font-size: 11px;padding: 2px">                                  
-                           <p:inputText  autocomplete="off"  value="#{infoEF.descripcion}"  id="editarDescripcionEF" style="font-size: 10px; border-radius: 0px;  width: 100%; height: 100%;text-transform: uppercase;border: none" onclick="select();"> 
+                           <p:inputText  autocomplete="off"  value="#{infoEF.descripcion}"  id="editarDescripcionEF" style="font-size: 10px; border-radius: 0px;  width: 100%; height: 100%; text-transform: uppercase;border: none" onclick="select();"> 
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.cambiarIndiceEstructuraFormula(indiceEF, 1)}"
                                       onstart="PF('datosEstructuraFormula').unselectAllRows();PF('datosEstructuraFormula').selectRow(#{indiceEF});"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificaEstructuraFormula(indiceEF)}"/>
@@ -396,7 +413,7 @@
 
                         <p:column headerText="Id Formula"
                                   filterMatchMode="contains" id="EFIdFormula" width="100" filterStyle="display: none; visibility: hidden" style="font-size: 11px;padding: 2px">                                  
-                           <p:inputText  autocomplete="off"  value="#{infoEF.formula}"  id="editarIDFormulaEF"  style="font-size: 10px; border-radius: 0px; width: 100%; height: 100%;text-transform: uppercase; border: none" onclick="select();"> 
+                           <p:inputText  autocomplete="off"  value="#{infoEF.formula}"  id="editarIDFormulaEF" style="font-size: 10px; border-radius: 0px; width: 100%; height: 100%; text-transform: uppercase; border: none" onclick="select();"> 
                               <p:ajax event="select" process="@this" listener="#{controlHistoriaFormula.cambiarIndiceEstructuraFormula(indiceEF, 2)}"
                                       onstart="PF('datosEstructuraFormula').unselectAllRows();PF('datosEstructuraFormula').selectRow(#{indiceEF});"/>
                               <p:ajax event="change" process="@this" listener="#{controlHistoriaFormula.modificaEstructuraFormula(indiceEF)}"/>
@@ -426,117 +443,134 @@
                   <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 350px; top: 475px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%;
                                    background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="VALORESUNIT" value="Valores Un. Concep" action="valoresconceptos" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="VALORESUNIT" value="Visualizar Operandos."/>
-                  <!--<p:separator style="position: absolute; left: 400px; top: 510px;width: 2px; height: 30px;"  />--> 
-                  <!--<p:commandButton style="position: absolute; left: 415px; top: 480px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="Refrescar" icon="ui-icon-refresh" actionListener="#/{controlHistoriaFormula.cancelarModificacion()}" process="@this" />-->
+                  <!--<p:separator style="position: absolute; left: 400px; top: 510px;width: 2px; height: 30px;"/>--> 
+                  <!--<p:commandButton style="position: absolute; left: 415px; top: 480px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="Refrescar" icon="ui-icon-refresh" actionListener="#/{controlHistoriaFormula.cancelarModificacion()}" process="@this"/>-->
 
-                  <p:commandButton style="position: absolute; left: 685px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
-                                   id="ACEPTAR" value="" actionListener="#{controlHistoriaFormula.dispararDialogoGuardarCambios()}" update=":form:datosHistoriaFormula" process="@this" />
-                  <p:commandButton style="position: absolute; left: 775px; top: 502px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
-                                   id="ATRAS" value="" actionListener="#{controlHistoriaFormula.salir()}" action="#{controlHistoriaFormula.retornarPagina()}" process="@this" />
-                  <p:tooltip style="font-size: 12px;" for="formulaComplete" value="De click en cada una de las casillas para adicionar operadores y operandos." />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlHistoriaFormula.dispararDialogoGuardarCambios()}"
+                                   update=":form:datosHistoriaFormula" process="@this" disabled="#{controlHistoriaFormula.guardado}"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoriaFormula.salir()}"
+                                   action="#{controlHistoriaFormula.retornarPagina()}" process="@this"/>
+                  <!--<p:tooltip style="font-size: 12px;" for="formulaComplete" value="De click en cada una de las casillas para adicionar operadores y operandos."/>-->
 
                </p:panel>
 
-               <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               <p:dialog id="verificarBorrarRegistros" widgetVar="verificarBorrarRegistros" header="Borrar Registro" resizable="false" draggable="true" modal="true" height="170" width="400" >
+                  <h:outputText value="Seleccione la tabla de la cual quiere borrar el registro seleccionado." style="position: absolute; left: 10px; top: 20px; color: blue; font-weight: bold; width: 380px; text-align: center;"/>
+                  <p:commandButton value="HISTORIA FORMULA" onclick="PF('verificarBorrarRegistros').hide();" 
+                                   style="position: absolute; left: 100px; top: 70px; width: 200px; height: 27px;" actionListener="#{controlHistoriaFormula.validarBorradoHistoriaF()}" process="@this"/>
+                  <p:commandButton value="NODO" onclick="PF('verificarBorrarRegistros').hide();" 
+                                   style="position: absolute; left: 100px; top: 100px; width: 200px; height: 27px;" actionListener="#{controlHistoriaFormula.validarBorradoNodo()}" process="@this"/>
+                  <h:outputText value="La opcion Eliminar no esta habilitada para Extructura Formula." style="position: absolute; left: 10px; top: 150px; color: blue; width: 380px; text-align: center;"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="Rastros Historicos" resizable="false" draggable="true" modal="true" height="140" width="350" >
+                  <h:outputText value="Seleccione la tabla para consultar rastros Historicos" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+                  <p:commandButton value="HISTORIAS FORMULAS" onclick="PF('verificarRastrosTablas').hide();" 
+                                   style="position: absolute; left: 80px; top: 60px; width: 200px; height: 27px;"  actionListener="#{controlHistoriaFormula.verificarRastroHistoriaFormulaHist()}" process="@this"/>
+                  <p:commandButton value="NODOS" onclick="PF('verificarRastrosTablas').hide();" 
+                                   style="position: absolute; left: 80px; top: 90px; width: 200px; height: 27px;" actionListener="#{controlHistoriaFormula.verificarRastroNodosHist()}" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="ATENCIÓN" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" onclick="PF('confirmarRastro').hide();"/>
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
+                                   icon="ui-icon-close" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="ATENCIÓN" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
+                  <p:commandButton value="Si" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                                   style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
+                  <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
+                                   style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               <p:dialog id="errorRastroHistorico" header="¡Error!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="ATENCIÓN" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+               <p:dialog id="errorRegistroRastro" header="¡Error!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="ATENCIÓN" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+               <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
+                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                                   style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
+                  <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
+                                   style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="ATENCIÓN" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La tabla no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+               <p:dialog id="errorTablaSinRastro" header="¡Error!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorRegNuevo" header="ATENCIÓN" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Los campos Fecha Inicial y Fecha Final son obligatorios." style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;" />
+               <p:dialog id="seleccionarRegistro" header="¡Error!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorFechasHF" header="ATENCIÓN" widgetVar="errorFechasHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La fecha inicial es menor a 01/01/1990 y/o la fecha final es menor a la fecha inicial." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               <p:dialog id="errorObjetosDB" header="¡Error!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="300" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La tabla no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 80px; top: 10px; width: 200px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorRegNuevo" header="¡Error!" widgetVar="errorRegNuevo"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Los campos Fecha Inicial y Fecha Final son obligatorios." style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechasHF" header="¡Error!" widgetVar="errorFechasHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La fecha inicial es menor a 01/01/1990 y/o la fecha final es menor a la fecha inicial." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorSolapamientoFechas" header="ATENCIÓN" widgetVar="errorSolapamientoFechas"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Error de solapamiento de fechas. Verifique las fechas del registro" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Error de solapamiento de fechas. Verifique las fechas del registro" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorNotaHF" header="ATENCIÓN" widgetVar="errorNotaHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="El campo Nota no puede ser mayor a 200 caracteres." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               <p:dialog id="errorNotaHF" header="¡Error!" widgetVar="errorNotaHF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="El campo Nota no puede ser mayor a 200 caracteres." style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistroNodo" header="ATENCIÓN" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Por favor seleccione un registro tipo : Generar Formula." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
+               <p:dialog id="seleccionarRegistroNodo" header="¡Error!" widgetVar="seleccionarRegistroNodo"  resizable="false" draggable="true" modal="true" height="60" width="280" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Por favor seleccione un registro tipo : Generar Formula." style="position: absolute; left: 70px; top: 18px; width: 200px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorDuplicarNodo" header="ATENCIÓN" widgetVar="errorDuplicarNodo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La opcion Duplicar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
+               <p:dialog id="errorDuplicarNodo" header="¡Error!" widgetVar="errorDuplicarNodo"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="La opcion Duplicar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorEliminarEF" header="ATENCIÓN" widgetVar="errorEliminarEF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="La opcion Eliminar no esta habilitada." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
+               <p:dialog id="errorModificacionEF" header="¡Error!" widgetVar="errorModificacionEF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Los datos de la tabla no pueden ser modificados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorModificacionEF" header="ATENCIÓN" widgetVar="errorModificacionEF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Los datos de la tabla no pueden ser modificados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
+               <p:dialog id="errorBorradoHistoriaF" header="¡Error!" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="Para eliminar el registro es necesario que no tenga Nodos asociados." style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-
-               <p:dialog id="errorBorradoHistoriaF" header="ATENCIÓN" widgetVar="errorBorradoHistoriaF"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="Para eliminar el registro es necesario que no tenga Nodos asociados." style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
-               </p:dialog>
-
-
-
-               <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}" style="position: absolute; top: 60px; left: 215px;" action="#{controlHistoriaFormula.retornarPagina()}" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlHistoriaFormula.retornarPagina()}" style="position: absolute; top: 60px; left: 255px;" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this" />
-                  <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               <p:dialog id="confirmarGuardar" header="ATENCIÓN...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="90" width="400" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="55" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
+                  <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}"
+                                   style="position: absolute; top: 60px; left: 125px;" action="#{controlHistoriaFormula.retornarPagina()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlHistoriaFormula.retornarPagina()}"
+                                   style="position: absolute; top: 60px; left: 185px;" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this"/>
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlHistoriaFormula.activarCtrlF11()}"/>
@@ -546,211 +580,218 @@
             <h:form id="formularioDialogos">
 
                <p:dialog id="NuevoRegistroPagina" header="Ingreso Nuevo Registro" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="400" style="font-size: 12px; padding: 0px">  
-                  <center><strong><h:outputText value="Seleccione la tabla para el nuevo registro" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-                  <h:outputText value="Historia Formula" style="position: absolute; top: 47px;left: 60px"/>
-                  <p:commandButton id="NuevoRegHistoriaFormula" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 300px; height: 25px; width: 40px;" actionListener="#{controlHistoriaFormula.validarIngresoNuevaHistoriaFormula()}" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
-
-                  <h:outputText value="Generar Formula" style="position: absolute; top: 92px;left: 60px"/>
-                  <p:commandButton id="NuevoregGenerarFormula" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 300px; height: 25px; width: 40px;" onclick="PF('NuevoRegistroPagina').hide();" actionListener="#{controlHistoriaFormula.dispararDialogoNodoNuevo()}" process="@this"/>
-
-                  <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="Cancelar" style="position: absolute; top: 137px;left: 280px"/>
+                  <center><strong><h:outputText value="Seleccione la tabla para el nuevo registro" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:commandButton value="Historia Formula" id="NuevoRegHistoriaFormula" style="position: absolute; top: 55px; left: 100px; height: 25px; width: 200px;"
+                                   actionListener="#{controlHistoriaFormula.validarIngresoNuevaHistoriaFormula()}" onclick="PF('NuevoRegistroPagina').hide();" process="@this"/>
+                  <p:commandButton value="Generar Formula" id="NuevoregGenerarFormula" style="position: absolute; top: 90px; left: 100px; height: 25px; width: 200px;"
+                                   onclick="PF('NuevoRegistroPagina').hide();" actionListener="#{controlHistoriaFormula.dispararDialogoNodoNuevo()}" process="@this"/>
+                  <p:commandButton id="CancelarNuevosRegistros" onclick="PF('NuevoRegistroPagina').hide();"  process="@this" value="Cancelar" style="position: absolute; top: 137px; left: 280px;" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="SeleccionRegGenerarFormula" header="Tipo de Nodo" widgetVar="SeleccionRegGenerarFormula" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="280" style="font-size: 12px; padding: 0px">  
-                  <center><strong><h:outputText value="Seleccione el tipo de nodo a crear" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-                  <h:outputText value="Operador" style="position: absolute; top: 47px;left: 60px"/>
-                  <p:commandButton id="NuevoRegOperador" icon="ui-icon-circle-check" style="position: absolute; top: 45px;left: 200px; height: 25px; width: 40px;"  onclick="PF('SeleccionRegGenerarFormula').hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperandor()}" process="@this"/>
-
-                  <h:outputText value="Operando" style="position: absolute; top: 92px;left: 60px"/>
-                  <p:commandButton id="NuevoRegOperando" icon="ui-icon-circle-check" style="position: absolute; top: 90px;left: 200px; height: 25px; width: 40px;" onclick="PF('SeleccionRegGenerarFormula').hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperando()}" process="@this"/>
-
-                  <p:commandButton id="CancelarNuevoRegGenerarFormula" onclick="PF('SeleccionRegGenerarFormula').hide();"  process="@this" value="Cancelar" style="position: absolute; top: 125px;left: 180px"/>
+               <p:dialog id="SeleccionRegGenerarFormula" header="Tipo de Nodo" widgetVar="SeleccionRegGenerarFormula" closable="false" resizable="false"  draggable="true" modal="true" height="160" width="300" style="font-size: 12px; padding: 0px">  
+                  <center><strong><h:outputText value="Seleccione el tipo de nodo a crear" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:commandButton value="Operador" id="NuevoRegOperador" style="position: absolute; top: 55px; left: 60px; height: 25px; width: 180px;"
+                                   onclick="PF('SeleccionRegGenerarFormula').hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperandor()}" process="@this"/>
+                  <p:commandButton value="Operando" id="NuevoRegOperando" style="position: absolute; top: 85px; left: 60px; height: 25px; width: 180px;"
+                                   onclick="PF('SeleccionRegGenerarFormula').hide();" actionListener="#{controlHistoriaFormula.dialogoNuevoOperando()}" process="@this"/>
+                  <p:commandButton id="CancelarNuevoRegGenerarFormula" onclick="PF('SeleccionRegGenerarFormula').hide();" icon="ui-icon-arrowreturnthick-1-w" process="@this" value="Cancelar" style="position: absolute; top: 135px; left: 180px"/>
                </p:dialog>
 
                <p:dialog header="Operandos" widgetVar="OperandoDialogo" draggable="true" resizable="false" closable="false" id="OperandoDialogo"  
-                         showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
-                  <p:dataTable id="lovOperando" style="font-size: 11px; width: 560px;" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
-                               selection="#{controlHistoriaFormula.operandoSeleccionado}" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" scrollWidth="560"
-                               filteredValue="#{controlHistoriaFormula.filtrarListOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">              
+                         showEffect="fade" hideEffect="fade" width="725" modal="true" style="font-size: 11px;">
+
+                  <p:dataTable id="lovOperando" var="operando" value="#{controlHistoriaFormula.listOperandos}" rowKey="#{operando.secuencia}"
+                               selection="#{controlHistoriaFormula.operandoSeleccionado}" selectionMode="single" widgetVar="lovOperando" scrollable="true" scrollHeight="250" scrollWidth="710"
+                               filteredValue="#{controlHistoriaFormula.filtrarListOperandos}" emptyMessage="No se encontrarón resultados para la búsqueda">  
+
+                     <p:ajax event="filter" listener="#{controlHistoriaFormula.contarRegistrosOpdo()}"/>
                      <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperando"/>
-                     <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperando()}" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperando()}" process="@this"/>
+
                      <f:facet name="header">  
-                        <h:outputText value="Buscar Operando:"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovOperando').filter();" style="width:140px; position: relative; left: 70px;" />  
+                        <h:outputText value="Buscar Operando:"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovOperando').filter();" class="cssFiltroLOV"/>
                      </f:facet>
-                     <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" width="120" filterMatchMode="contains" >
+
+                     <p:column filterBy="#{operando.nombre}" sortBy="#{operando.nombre}" width="200" filterStyle="width: 85% !important" filterMatchMode="contains" >
                         <f:facet name="header">
-                           <h:outputText style="text-align: center" value="Nombre" />
+                           <h:outputText value="Nombre"/>
                         </f:facet>
-                        <h:outputText  value="#{operando.nombre}" />
+                        <h:outputText  value="#{operando.nombre}"/>
                      </p:column>
-                     <p:column filterBy="#{operando.tipo}" sortBy="#{operando.tipo}" width="120"  filterMatchMode="contains">
+
+                     <p:column filterBy="#{operando.tipo}" sortBy="#{operando.tipo}" width="100" filterStyle="width: 85% !important" filterMatchMode="contains">
                         <f:facet name="header">
-                           <h:outputText value="Tipo" />
+                           <h:outputText value="Tipo"/>
                         </f:facet>
-                        <h:outputText value="#{operando.tipo}" />
+                        <h:outputText value="#{operando.tipo}"/>
                      </p:column>
-                     <p:column filterBy="#{operando.descripcion}" sortBy="#{operando.descripcion}" width="120" filterMatchMode="contains" >
+
+                     <p:column filterBy="#{operando.descripcion}" sortBy="#{operando.descripcion}" filterStyle="width: 85% !important" filterMatchMode="contains">
                         <f:facet name="header">
-                           <h:outputText style="text-align: center" value="Descripcion" />
+                           <h:outputText style="text-align: center" value="Descripcion"/>
                         </f:facet>
-                        <h:outputText  value="#{operando.descripcion}" />
+                        <h:outputText  value="#{operando.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" width="120"  filterMatchMode="contains">
+
+                     <p:column filterBy="#{operando.codigo}" sortBy="#{operando.codigo}" width="60" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
-                           <h:outputText value="Codigo Operando" />
+                           <h:outputText value="Codigo"/>
                         </f:facet>
-                        <h:outputText value="#{operando.codigo}" />
+                        <h:outputText value="#{operando.codigo}"/>
                      </p:column>
                   </p:dataTable>
-                  <p:commandButton id="aceptarOperando" style="position: relative; left: 190px;" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperando()}"  process="@this"/>
 
-                  <p:commandButton id="cancelarOperando" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperando()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="informacionRegistroOpdo" value="Registros: #{controlHistoriaFormula.infoRegistroOperando}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarOperando" class="cssAceptarLOV" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlHistoriaFormula.actualizarOperando()}" process="@this"/>
+                     <p:commandButton id="cancelarOperando" class="cssAtrasLOV" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperando()}" icon="ui-icon-close" process="@this"/>
+                  </div>
                </p:dialog> 
 
                <p:dialog header="Operadores" widgetVar="OperadorDialogo" draggable="true" resizable="false" closable="false" id="OperadorDialogo"  
-                         showEffect="fade" hideEffect="fade" width="575" modal="true" style="font-size: 11px;">
-                  <p:dataTable id="lovOperador" style="font-size: 11px; width: 560px;" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
-                               selection="#{controlHistoriaFormula.operadorSeleccionado}" selectionMode="single" widgetVar="lovOperador" scrollable="true" scrollHeight="250" scrollWidth="560"
+                         showEffect="fade" hideEffect="fade" width="475" modal="true" style="font-size: 11px;">
+
+                  <p:dataTable id="lovOperador" var="operador" value="#{controlHistoriaFormula.listOperadores}" rowKey="#{operador.secuencia}"
+                               selection="#{controlHistoriaFormula.operadorSeleccionado}" selectionMode="single" widgetVar="lovOperador" scrollable="true" scrollHeight="200" scrollWidth="450"
                                filteredValue="#{controlHistoriaFormula.filtrarListOperadores}" emptyMessage="No se encontrarón resultados para la búsqueda">              
+
+                     <p:ajax event="filter" listener="#{controlHistoriaFormula.contarRegistrosOpor()}"/>
                      <p:ajax event="rowSelect" listener="#{controlHistoriaFormula.activarAceptar()}" update=":formularioDialogos:aceptarOperador"/>
-                     <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperador()}" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlHistoriaFormula.actualizarOperador()}" process="@this"/>
+
                      <f:facet name="header">  
-                        <h:outputText value="Buscar Operador:"  style="position: absolute; left: 27px; top: 14px"/>  
-                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovOperador').filter();" style="width:140px; position: relative; left: 70px;" />  
+                        <h:outputText value="Buscar Operador:"/>
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovOperador').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     <p:column filterBy="#{operador.descripcion}" width="120" filterMatchMode="contains" >
+
+                     <p:column filterBy="#{operador.descripcion}" filterStyle="width: 85% !important" filterMatchMode="contains" >
                         <f:facet name="header">
-                           <h:outputText style="text-align: center" value="Descripcion" />
+                           <h:outputText style="text-align: center" value="Descripcion"/>
                         </f:facet>
-                        <h:outputText  value="#{operador.descripcion}" />
+                        <h:outputText  value="#{operador.descripcion}"/>
                      </p:column>
-                     <p:column filterBy="#{operador.signo}" width="120"  filterMatchMode="contains">
+
+                     <p:column filterBy="#{operador.signo}" style="text-align: center !important;" width="70" filterStyle="width: 80% !important" filterMatchMode="contains">
                         <f:facet name="header">
-                           <h:outputText value="Signo" />
+                           <h:outputText value="Signo"/>
                         </f:facet>
-                        <h:outputText value="#{operador.signo}" />
+                        <h:outputText value="#{operador.signo}"/>
                      </p:column>
                   </p:dataTable>
-                  <p:commandButton id="aceptarOperador" style="position: relative; left: 190px;" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" actionListener="#{controlHistoriaFormula.actualizarOperador()}"  process="@this"/>
 
-                  <p:commandButton id="cancelarOperador" style="position: relative; left: 230px;" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperador()}" process="@this"/>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="informacionRegistroOpor" value="Registros: #{controlHistoriaFormula.infoRegistroOperador}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarOperador" class="cssAceptarLOV" value="Aceptar" disabled="#{controlHistoriaFormula.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlHistoriaFormula.actualizarOperador()}" process="@this"/>
+                     <p:commandButton id="cancelarOperador" class="cssAtrasLOV" value="Atras" actionListener="#{controlHistoriaFormula.cancelarCambioOperador()}" icon="ui-icon-close" process="@this"/>
+                  </div>
                </p:dialog> 
 
-               <p:dialog id="NuevoRegistroHistoria" header="Nuevo Registro Historia Formula" widgetVar="NuevoRegistroHistoria" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="NuevoRegistroHistoria" header="Nuevo Registro Historia Formula" widgetVar="NuevoRegistroHistoria" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
 
-                  <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="nuevaHF" style="border: none;">
 
-                     <strong><h:outputText value="Fecha Inicial: " style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
-                     <div id="posicionHistoriaFechaIniNuevoReg" style="font-size: 10px; position: absolute; top: 70px; left: 220px">
+                     <strong><h:outputText value="Fecha Inicial: " style="position: absolute; top: 60px; left: 50px;"/></strong>
+                     <div id="posicionHistoriaFechaIniNuevoReg" style="position: absolute; top: 60px; left: 190px">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateHistoriaFechaInicial" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechainicial}" >
                            <p:ajax event="dateSelect" update="nuevaDateHistoriaFechaInicial" process="@this"/>
                            <p:ajax event="change" update="nuevaDateHistoriaFechaInicial" process="@this"/>
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="Fecha Final: " style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
-                     <div id="posicionHistoriaFechaFinNuevoReg" style="font-size: 10px; position: absolute; top: 110px; left: 220px">
+                     <strong><h:outputText value="Fecha Final: " style="position: absolute; top: 90px; left: 50px;"/></strong>
+                     <div id="posicionHistoriaFechaFinNuevoReg" style="position: absolute; top: 90px; left: 190px">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaDateHistoriaFechaFinal" value="#{controlHistoriaFormula.nuevaHistoriaFormula.fechafinal}" >
                            <p:ajax event="dateSelect" update="nuevaDateHistoriaFechaFinal" process="@this"/>
                            <p:ajax event="change" update="nuevaDateHistoriaFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
-                     <p:inputTextarea id="nuevaHistoriaOrden" value="#{controlHistoriaFormula.nuevaHistoriaFormula.observaciones}" style="font-size: 12px; width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();" autoResize="false" >
+                     <strong><h:outputText value="Observaciones: " style="position: absolute; top: 120px; left: 50px;"/></strong>
+                     <p:inputTextarea id="nuevaHistoriaOrden" value="#{controlHistoriaFormula.nuevaHistoriaFormula.observaciones}" style="width: 150px; position: absolute; left: 190px; top: 120px; text-transform: uppercase;" onclick="select();" autoResize="false" >
                         <p:ajax event="change" update="nuevaHistoriaOrden" process="@this"/>
                      </p:inputTextarea>
-                     <p:watermark for="nuevaHistoriaOrden" value="Observaciones" />
+                     <p:watermark for="nuevaHistoriaOrden" value="Observaciones"/>
 
-                     <p:commandButton id="limpiarNHF" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarNuevoHistoriaFormula()}" update="nuevaHF" process="@this"/>
-                     <p:commandButton id="agregarNHF" value="Agregar" style="font-size: 11px; position: absolute; left: 190px; top: 210px;"  process="@this" actionListener="#{controlHistoriaFormula.agregarNuevoHistoriaFormula()}"  />
-                     <p:commandButton id="cancelarNHF" value="Cancelar" style="font-size: 11px; position: absolute; left: 280px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarNuevoHistoriaFormula()}" update="nuevaHF" onclick="PF('NuevoRegistroHistoria').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarNHF" icon="ui-icon-trash" value="Limpiar" style="position: absolute; left: 20px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarNuevoHistoriaFormula()}" update="nuevaHF" process="@this"/>
+                     <p:commandButton id="agregarNHF" icon="ui-icon-check" value="Agregar" style="position: absolute; left: 180px; top: 210px;" process="@this" actionListener="#{controlHistoriaFormula.agregarNuevoHistoriaFormula()}"/>
+                     <p:commandButton id="cancelarNHF" icon="ui-icon-close" value="Cancelar" style="position: absolute; left: 280px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarNuevoHistoriaFormula()}" update="nuevaHF" onclick="PF('NuevoRegistroHistoria').hide();" process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="DuplicarRegistroHistoria" header="Duplicar Registro Historia Formula" widgetVar="DuplicarRegistroHistoria" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="400" style="font-size: 12px; padding: 0px">  
+               <p:dialog id="DuplicarRegistroHistoria" header="Duplicar Registro Historia Formula" widgetVar="DuplicarRegistroHistoria" closable="false" resizable="false" draggable="true" modal="true" height="240" width="400" style="padding: 0px">  
 
-                  <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <center><strong><h:outputText value="Ingresar nueva información" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
 
                   <p:panel id="duplicarHF" style="border: none;">
 
-                     <strong><h:outputText value="Fecha Inicial: " style="font-size: 14px; position: absolute; top: 70px; left: 50px;" /></strong>
-                     <div id="posicionHistoriaFechaIniDuplicarReg" style="font-size: 10px; position: absolute; top: 70px; left: 220px">
+                     <strong><h:outputText value="Fecha Inicial: " style="position: absolute; top: 60px; left: 50px;"/></strong>
+                     <div id="posicionHistoriaFechaIniDuplicarReg" style="position: absolute; top: 60px; left: 190px">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateHistoriaFechaInicial" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechainicial}" >
                            <p:ajax event="dateSelect" update="duplicarDateHistoriaFechaInicial" process="@this"/>
                            <p:ajax event="change" update="duplicarDateHistoriaFechaInicial" process="@this"/>
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="Fecha Final: " style="font-size: 14px; position: absolute; top: 110px; left: 50px;" /></strong>
-                     <div id="posicionHistoriaFechaFinDuplicarReg" style="font-size: 10px; position: absolute; top: 110px; left: 220px">
+                     <strong><h:outputText value="Fecha Final: " style="position: absolute; top: 90px; left: 50px;"/></strong>
+                     <div id="posicionHistoriaFechaFinDuplicarReg" style="position: absolute; top: 90px; left: 190px">
                         <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarDateHistoriaFechaFinal" value="#{controlHistoriaFormula.duplicarHistoriaFormula.fechafinal}" >
                            <p:ajax event="dateSelect" update="duplicarDateHistoriaFechaFinal" process="@this"/>
                            <p:ajax event="change" update="duplicarDateHistoriaFechaFinal" process="@this"/>
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="Observaciones: " style="font-size: 14px; position: absolute; top: 150px; left: 50px;" /></strong>
-                     <p:inputTextarea id="duplicarHistoriaNota" value="#{controlHistoriaFormula.duplicarHistoriaFormula.observaciones}" style="font-size: 12px; width: 122px; position: absolute; left: 220px; top: 150px; text-transform: uppercase" onclick="select();" autoResize="false" >
+                     <strong><h:outputText value="Observaciones: " style="position: absolute; top: 120px; left: 50px;"/></strong>
+                     <p:inputTextarea id="duplicarHistoriaNota" value="#{controlHistoriaFormula.duplicarHistoriaFormula.observaciones}" style="width: 150px; position: absolute; left: 190px; top: 120px; text-transform: uppercase;" onclick="select();" autoResize="false" >
                         <p:ajax event="change" update="duplicarHistoriaNota" process="@this"/>
                      </p:inputTextarea>
                      <p:watermark for="duplicarHistoriaNota" value="Observaciones"/>
 
-                     <p:commandButton id="limpiarDHF" value="Limpiar" style=" font-size: 11px ;position: absolute; left: 20px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarDuplicarHistoriaFormula()}" update="duplicarHF" process="@this"/>
-                     <p:commandButton id="agregarDHF" value="Agregar" style="font-size: 11px; position: absolute; left: 190px; top: 210px;"  process="@this" actionListener="#{controlHistoriaFormula.confirmarDuplicarHistoriaFormula()}"  />
-                     <p:commandButton id="cancelarDHF" value="Cancelar" style="font-size: 11px; position: absolute; left: 280px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarDuplicarHistoriaFormula()}" update="duplicarHF" onclick="PF('DuplicarRegistroHistoria').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDHF" icon="ui-icon-trash" value="Limpiar" style="position: absolute; left: 20px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarDuplicarHistoriaFormula()}" update="duplicarHF" process="@this"/>
+                     <p:commandButton id="agregarDHF" icon="ui-icon-check" value="Agregar" style="position: absolute; left: 180px; top: 210px;" process="@this" actionListener="#{controlHistoriaFormula.confirmarDuplicarHistoriaFormula()}"/>
+                     <p:commandButton id="cancelarDHF" icon="ui-icon-close" value="Cancelar" style="position: absolute; left: 280px; top: 210px;" actionListener="#{controlHistoriaFormula.limpiarDuplicarHistoriaFormula()}" update="duplicarHF" onclick="PF('DuplicarRegistroHistoria').hide();" process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="editarFechaInicialHFD" header="Fecha Inicial - Historia Formula" widgetVar="editarFechaInicialHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaIni}" style="overflow: auto; width: 200px; height: 40px;text-transform: uppercase" readonly="true"/>
-                  <p:commandButton id="cancelarFechaInicialHFD" value="Atras" onclick="PF('editarFechaInicialHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+               <p:dialog id="editarFechaInicialHFD" header="Fecha Inicial - Historia Formula" widgetVar="editarFechaInicialHFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaIni}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarFechaFinalHFD" header="Fecha Final - Historia Formula" widgetVar="editarFechaFinalHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarFechaFinalHFD" header="Fecha Final - Historia Formula" widgetVar="editarFechaFinalHFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.strFechaFin}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarFechaFinalHFD" value="Atras" onclick="PF('editarFechaFinalHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarObservacionHFD" header="Nota - Historia Formula" widgetVar="editarObservacionHFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarObservacionHFD" header="Nota - Historia Formula" widgetVar="editarObservacionHFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarHistoriaFormula.observaciones}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarObservacionHFD" value="Atras" onclick="PF('editarObservacionHFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarOperandoNodoD" header="Operando - Generar Formula" widgetVar="editarOperandoNodoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarOperandoNodoD" header="Operando - Generar Formula" widgetVar="editarOperandoNodoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarOperandoNodoD" value="Atras" onclick="PF('editarOperandoNodoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarOperadorNodoD" header="Operador - Generar Formula" widgetVar="editarOperadorNodoD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarOperadorNodoD" header="Operador - Generar Formula" widgetVar="editarOperadorNodoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarNodo.descripcionNodo}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarOperadorNodoD" value="Atras" onclick="PF('editarOperadorNodoD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-
-               <p:dialog id="editarDescripcionEFD" header="Descripcion - Estructura Formula" widgetVar="editarDescripcionEFD" resizable="false" draggable="true" modal="true" height="93" width="255" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.descripcion}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarDescripcionEFD" value="Atras" onclick="PF('editarDescripcionEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+               <p:dialog id="editarDescripcionEFD" header="Descripcion - Estructura Formula" widgetVar="editarDescripcionEFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarIdFormulaEFD" header="ID Formula - Estructura Formula" widgetVar="editarIdFormulaEFD" resizable="false" draggable="true" modal="true" height="93" width="255" style="font-size: 12px">  
-                  <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strFormula}" style="overflow: auto; width: 215px; height: 40px;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarIdFormulaEFD" value="Atras" onclick="PF('editarIdFormulaEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
+               <p:dialog id="editarIdFormulaEFD" header="ID Formula - Estructura Formula" widgetVar="editarIdFormulaEFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                  <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strFormula}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editarIdHijoEFD" header="ID Hijo - Estructura Formula" widgetVar="editarIdHijoEFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarIdHijoEFD" header="ID Hijo - Estructura Formula" widgetVar="editarIdHijoEFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.strHijo}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarIdHijoEFD" value="Atras" onclick="PF('editarIdHijoEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="editarFormulaEFD" header="Formula - Estructura Formula" widgetVar="editarFormulaEFD" resizable="false" draggable="true" modal="true" height="93" width="240" style="font-size: 12px">  
+               <p:dialog id="editarFormulaEFD" header="Formula - Estructura Formula" widgetVar="editarFormulaEFD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                   <p:inputTextarea value="#{controlHistoriaFormula.editarEstructura.nombreNodo}" style="overflow: auto;" readonly="true"/>
-                  <p:commandButton id="cancelarEditarFormulaEFD" value="Atras" onclick="PF('editarFormulaEFD').hide();" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                </p:dialog>
-
             </h:form>
 
             <h:form id="formExportarHistoria">
@@ -760,20 +801,20 @@
                   <p:column headerText="Fecha_Inicial">                                  
                      <f:facet name="header"><h:outputText value="Fecha_Inicial"/> </f:facet> 
                      <h:outputText value="#{infoExp.fechainicial}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="Fecha_Final">                                  
                      <f:facet name="header"><h:outputText value="Fecha_Final"/> </f:facet> 
                      <h:outputText value="#{infoExp.fechafinal}" >
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
                      </h:outputText>
                   </p:column>
 
                   <p:column headerText="Nota">                                  
                      <f:facet name="header"><h:outputText value="Nota"/> </f:facet> 
-                     <h:outputText value="#{infoExp.observaciones}" />
+                     <h:outputText value="#{infoExp.observaciones}"/>
                   </p:column>
 
                </p:dataTable>

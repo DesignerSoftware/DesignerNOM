@@ -96,7 +96,7 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
     public List<Historiasformulas> historiasFormulasParaFormulaSecuencia(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
-            Query queryFinal = em.createQuery("SELECT hf FROM Historiasformulas hf WHERE hf.formula.secuencia=:secuencia");
+            Query queryFinal = em.createQuery("SELECT hf FROM Historiasformulas hf WHERE hf.formula.secuencia=:secuencia ORDER BY hf.fechafinal DESC");
             queryFinal.setParameter("secuencia", secuencia);
             queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Historiasformulas> historiasformulas = queryFinal.getResultList();

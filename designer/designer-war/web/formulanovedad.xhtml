@@ -11,6 +11,11 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">                  
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
             <h:form id="form"> 
 
                <f:loadBundle basename="Recursos.formulanovedad" var="msg"/>

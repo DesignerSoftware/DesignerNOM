@@ -10,7 +10,12 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.formulaconcepto" var="msg"/>
                <p:growl id="growl" showDetail="true" />

@@ -82,7 +82,7 @@ public class ControlFormula implements Serializable {
    //
    private DataTable tabla;
    private boolean unaVez;
-   private int regSolucion;
+//   private int regSolucion;
    private String nombreLargoMientras;
 
    public ControlFormula() {
@@ -113,7 +113,7 @@ public class ControlFormula implements Serializable {
 
       formulaSeleccionada = null;
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       tipoLista = 0;
    }
@@ -143,9 +143,9 @@ public class ControlFormula implements Serializable {
 
    public boolean activarSelec() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       return false;
    }
@@ -190,9 +190,9 @@ public class ControlFormula implements Serializable {
    //SELECCIONAR NATURALEZA
    public void seleccionarItem(Formulas formula) {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
       if (!listaFormulasCrear.contains(formulaSeleccionada)) {
@@ -217,7 +217,7 @@ public class ControlFormula implements Serializable {
    //MOSTRAR DATOS CELDA
    public void editarCelda() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       if (formulaSeleccionada != null) {
          editarFormula = formulaSeleccionada;
@@ -242,7 +242,7 @@ public class ControlFormula implements Serializable {
 
    public void modificarFormula(Formulas formula) {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
       if (!listaFormulasCrear.contains(formulaSeleccionada)) {
@@ -281,7 +281,7 @@ public class ControlFormula implements Serializable {
 
    public void lovFomula(int quien) {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       if (quien == 0) {
@@ -312,7 +312,7 @@ public class ControlFormula implements Serializable {
 
    public void mostrarTodasFormulas() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       if (guardado) {
          if (bandera == 1) {
@@ -340,7 +340,7 @@ public class ControlFormula implements Serializable {
 
    public void seleccionFormula() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       if (cambioFormula == 0) {
@@ -371,7 +371,7 @@ public class ControlFormula implements Serializable {
 
    public void cancelarSeleccionFormula() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       filtradoListaFormulasLOV = null;
       formulaSeleccionadaLOV = null;
@@ -385,7 +385,7 @@ public class ControlFormula implements Serializable {
 
    public void borrarFormula() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       if (formulaSeleccionada != null) {
 
@@ -431,7 +431,7 @@ public class ControlFormula implements Serializable {
    //GUARDAR
    public void guardarCambios() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       try {
@@ -501,7 +501,7 @@ public class ControlFormula implements Serializable {
    //CTRL + F11 ACTIVAR/DESACTIVAR
    public void activarCtrlF11() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       FacesContext c = FacesContext.getCurrentInstance();
@@ -534,7 +534,7 @@ public class ControlFormula implements Serializable {
 
    public void dialogoIngresoNuevoRegistro() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       activoDetalleFormula = true;
       RequestContext context = RequestContext.getCurrentInstance();
@@ -544,7 +544,7 @@ public class ControlFormula implements Serializable {
 
    public void agregarNuevaFormula() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       int pasa = 0;
       mensajeValidacion = "";
@@ -603,7 +603,7 @@ public class ControlFormula implements Serializable {
 
    public void duplicarRegistro() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       if (formulaSeleccionada != null) {
@@ -626,7 +626,7 @@ public class ControlFormula implements Serializable {
 
    public void confirmarDuplicar() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       int pasa = 0;
       mensajeValidacion = "";
@@ -723,7 +723,6 @@ public class ControlFormula implements Serializable {
 
    public void refrescar() {
       unaVez = true;
-      regSolucion = -1;
       tipoLista = 0;
       nombreLargoMientras = "0";
       if (bandera == 1) {
@@ -763,16 +762,13 @@ public class ControlFormula implements Serializable {
       RequestContext.getCurrentInstance().update("form:nombreCortoFormulaClon");
       RequestContext.getCurrentInstance().update("form:observacionFormulaClon");
       RequestContext.getCurrentInstance().update("form:descripcionClon");
-
    }
 
    public void cargarTablaDefault() {
       unaVez = true;
-      regSolucion = -1;
       tipoLista = 0;
       nombreLargoMientras = "0";
       FacesContext c = FacesContext.getCurrentInstance();
-//      altoTabla = "204";
       columnaNombreLargo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreLargo");
       columnaNombreLargo.setFilterStyle("display: none; visibility: hidden;");
       columnaNombreCorto = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreCorto");
@@ -792,7 +788,7 @@ public class ControlFormula implements Serializable {
    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
    public void verificarRastro() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       activoDetalleFormula = true;
 
@@ -819,7 +815,7 @@ public class ControlFormula implements Serializable {
    //EXPORTAR
    public void exportPDF() throws IOException {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosFormulasExportar");
       FacesContext context = FacesContext.getCurrentInstance();
@@ -833,7 +829,7 @@ public class ControlFormula implements Serializable {
 
    public void exportXLS() throws IOException {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       DataTable tablaE = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosFormulasExportar");
       FacesContext context = FacesContext.getCurrentInstance();
@@ -851,7 +847,7 @@ public class ControlFormula implements Serializable {
          tipoLista = 1;
       }
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       formulaSeleccionada = null;
       contarRegistros();
@@ -868,11 +864,12 @@ public class ControlFormula implements Serializable {
    public void verDetalle(Formulas formula) {
       System.out.println("Controlador.ControlFormula.verDetalle()");
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
       FacesContext fc = FacesContext.getCurrentInstance();
-      fc.getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "historiaFormula");
+      ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
+      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "retornoFormula");
    }
 
    public void activarAceptar() {
@@ -882,7 +879,7 @@ public class ControlFormula implements Serializable {
    //CLONAR
    public void clonarFormula() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       if (formulaClon.getNombrelargo() != null && formulaClon.getNombrecorto() != null && formulaOriginal.getSecuencia() != null) {
          administrarFormula.clonarFormula(formulaOriginal.getNombrecorto(), formulaClon.getNombrecorto(), formulaClon.getNombrelargo(), formulaClon.getObservaciones());
@@ -920,7 +917,7 @@ public class ControlFormula implements Serializable {
    public void formulaOperando(Formulas formula) {
       formulaSeleccionada = formula;
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().execute("PF('confirmarOperandoFormula').show();");
@@ -932,7 +929,7 @@ public class ControlFormula implements Serializable {
 
    public String paginaRetorno() {
       unaVez = true;
-      regSolucion = -1;
+//      regSolucion = -1;
       nombreLargoMientras = "0";
       String paginaRetorno = "";
       if (llamadoPrevioPagina == 1) {
