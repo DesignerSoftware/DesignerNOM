@@ -697,7 +697,7 @@ public class ControlEstructuraPlanta implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosOrganigramas");
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:aceptar");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       k = 0;
       organigramaSeleccionado = null;
    }
@@ -719,7 +719,7 @@ public class ControlEstructuraPlanta implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosEstructura");
       guardadoEstructura = true;
-      RequestContext.getCurrentInstance().update("form:aceptar");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       k = 0;
       estructuraSeleccionada = null;
    }
@@ -939,7 +939,7 @@ public class ControlEstructuraPlanta implements Serializable {
             RequestContext.getCurrentInstance().update("form:listaValores");
             if (guardadoEstructura == true) {
                guardadoEstructura = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1014,7 +1014,7 @@ public class ControlEstructuraPlanta implements Serializable {
             estructuraSeleccionada = null;
             if (guardadoEstructura == true) {
                guardadoEstructura = false;
-               //RequestContext.getCurrentInstance().update("form:aceptar");
+               //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             duplicarEstructura = new Estructuras();
@@ -1067,7 +1067,7 @@ public class ControlEstructuraPlanta implements Serializable {
 
       if (guardadoEstructura == true) {
          guardadoEstructura = false;
-         //RequestContext.getCurrentInstance().update("form:aceptar");
+         //RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
    }
    //CREAR ORGANIGRAMA

@@ -581,7 +581,7 @@
 
             <h:form id="formularioDialogos" > 
 
-               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevo']}" resizable="false" draggable="true" modal="true" height="130" width="380px;" >
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevo']}" resizable="false" draggable="true" modal="true" height="130" width="380" >
                   <h:outputText value="#{msg['seleccionarTabla']}" style="position: absolute; left: 10px; top: 20px; color: blue; font-weight: bold; width: 360px; text-align: center;"/>
                   <p:commandButton value="#{msg['organigramas']}" style="position: absolute; left: 90px; top: 50px; width: 200px; height: 28px;" 
                                    oncomplete="PF('NuevoRegistroOrganigramas').show()" onclick="PF('verificarNuevoRegistro').hide();" process="@this"/>

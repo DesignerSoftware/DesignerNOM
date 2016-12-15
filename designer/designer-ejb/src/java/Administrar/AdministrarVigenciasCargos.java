@@ -1,12 +1,15 @@
 package Administrar;
 
+import Entidades.ClasesRiesgos;
 import Entidades.Empleados;
 //import Entidades.VWActualesTiposTrabajadores;
 import Entidades.VigenciasCargos;
 import Entidades.VwTiposEmpleados;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarVigenciasCargosInterface;
+import InterfacePersistencia.PersistenciaClasesRiesgosInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
+import InterfacePersistencia.PersistenciaVigenciasArpsInterface;
 //import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
 import InterfacePersistencia.PersistenciaVwTiposEmpleadosInterface;
@@ -31,6 +34,10 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     PersistenciaEmpleadoInterface persistenciaEmpleado;
     @EJB
     PersistenciaVwTiposEmpleadosInterface persistenciaTiposEmpleados;
+    @EJB
+    PersistenciaClasesRiesgosInterface persistenciaClasesRiesgos;
+    @EJB
+    PersistenciaVigenciasArpsInterface persistenciaVigenciaArp;
     //PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
     /**
      * Enterprise JavaBean.<br>
@@ -80,20 +87,7 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     @Override
     public List<VigenciasCargos> vigenciasEmpleado(BigInteger secEmpleado) {
         try {
-            //System.out.println("Método AdministrarVigenciasCargos.vigenciasEmpleado.");
-            //SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             vigenciasCargos = persistenciaVigenciasCargos.buscarVigenciasCargosEmpleado(em, secEmpleado);
-            /*if (vigenciasCargos != null) {
-                //for (VigenciasCargos vigenciasCargosEmpleadoRow : vigenciasCargos) {
-                for (int i = 0; i < vigenciasCargos.size(); i++) {
-                    //if (vigenciasCargosEmpleadoRow.getEmpleadojefe() == null) {
-                    if (vigenciasCargos.get(i).getEmpleadojefe() == null) {
-                        System.out.println("ENTROOOOOOOOOOOOOO");
-                        //vigenciasCargosEmpleadoRow.setEmpleadojefe(new Empleados());
-                        vigenciasCargos.get(i).setEmpleadojefe(new Empleados());
-                    }
-                }
-            }*/
         } catch (Exception e) {
             vigenciasCargos = null;
         }
@@ -163,5 +157,16 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     @Remove
     public void salir() {
         vigenciasCargos = null;
+    }
+
+    @Override
+    public List<ClasesRiesgos> lovClasesRiesgos() {
+        try{
+        List<ClasesRiesgos> listaClasesRiesgos = persistenciaClasesRiesgos.consultarListaClasesRiesgos(em);
+        return listaClasesRiesgos;
+        }catch(Exception e){
+            System.out.println("error en AdministrarVigenciasCargos.lovClasesRiesgos : " + e.toString());   
+         return null;
+        }
     }
 }

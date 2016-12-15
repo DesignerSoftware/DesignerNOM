@@ -41,15 +41,9 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         System.out.println("vigenciasCargos Persona Nombre: " + vigenciasCargos.getEmpleado().getPersona().getNombre());
-         System.out.println("vigenciasCargos Persona Secuencia: " + vigenciasCargos.getEmpleado().getPersona().getSecuencia());
-         System.out.println("vigenciasCargos Empleado Secuencia: " + vigenciasCargos.getEmpleado().getSecuencia());
          tx.begin();
-         System.out.println("TX Begin");
-         em.persist(vigenciasCargos);
-         System.out.println("Persist");
+         em.merge(vigenciasCargos);
          tx.commit();
-         System.out.println("commitea");
       } catch (Exception e) {
          System.out.println("Error PersistenciaVigenciasCargos.crear: " + e.toString());
          if (tx.isActive()) {
@@ -143,16 +137,15 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
    @Override
    public List<VigenciasCargos> buscarVigenciasCargosEmpleado(EntityManager em, BigInteger secEmpleado) {
       try {
+          
          em.clear();
-         //em.flush();
-         //em.getTransaction().begin();
-         Query query2 = em.createQuery("SELECT v FROM VigenciasCargos v where v.empleado.secuencia = :secuencia order by v.fechavigencia desc");
-         query2.setParameter("secuencia", secEmpleado);
-         query2.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         String sql="SELECT * FROM VIGENCIASCARGOS WHERE EMPLEADO = ? ORDER BY FECHAVIGENCIA DESC";
+         Query query2 = em.createNativeQuery(sql, VigenciasCargos.class);
+         query2.setParameter(1, secEmpleado);
          List<VigenciasCargos> vigenciasCargos = (List<VigenciasCargos>) query2.getResultList();
-         //em.getTransaction().commit();
          return vigenciasCargos;
       } catch (Exception e) {
+          System.out.println("error en buscarVigenciasCargosEmpleado : " + e.toString());
          List<VigenciasCargos> vigenciasCargos = null;
          return vigenciasCargos;
       }

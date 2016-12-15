@@ -6,6 +6,7 @@
 
 package InterfacePersistencia;
 
+import Entidades.VigenciasArps;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -15,5 +16,8 @@ import javax.persistence.EntityManager;
  * @author Administrador
  */
 public interface PersistenciaVigenciasArpsInterface {
+    public void crear(EntityManager em,VigenciasArps vigarp);
+    public void borrar(EntityManager em,VigenciasArps vigarp);
+    public void editar(EntityManager em,VigenciasArps vigarp);
     public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta);
 }

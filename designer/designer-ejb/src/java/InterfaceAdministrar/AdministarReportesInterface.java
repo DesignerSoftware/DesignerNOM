@@ -50,4 +50,7 @@ public interface AdministarReportesInterface {
     public void cancelarReporte();
     
      public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas);
+     
+   public String generarReporteFuncionesCargo(String nombreReporte,String tipoReporte,Map parametros);  
+     
 }

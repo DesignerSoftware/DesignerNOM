@@ -55,6 +55,13 @@ public class VigenciasCargos implements Serializable {
     @JoinColumn(name = "CARGO", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Cargos cargo;
+    @JoinColumn(name = "CLASERIESGO", referencedColumnName = "SECUENCIA")
+    @ManyToOne(optional = false)
+    private ClasesRiesgos claseRiesgo;
+    @Transient
+    private String descClase;
+    @Transient
+    private String nombreEmplJefe;
 
     public VigenciasCargos() {
     }
@@ -133,12 +140,7 @@ public class VigenciasCargos implements Serializable {
     }
 
     public Empleados getEmpleadojefe() {
-        if (empleadojefe == null) {
-            empleadojefe = new Empleados();
-            return empleadojefe;
-        } else {
-            return empleadojefe;
-        }
+        return empleadojefe;
     }
 
     public void setEmpleadojefe(Empleados empleadojefe) {
@@ -159,6 +161,42 @@ public class VigenciasCargos implements Serializable {
 
     public void setCargo(Cargos cargo) {
         this.cargo = cargo;
+    }
+
+    public ClasesRiesgos getClaseRiesgo() {
+        return claseRiesgo;
+    }
+
+    public void setClaseRiesgo(ClasesRiesgos claseRiesgo) {
+        this.claseRiesgo = claseRiesgo;
+    }
+
+    public String getDescClase() {
+        getClaseRiesgo();
+        if (claseRiesgo == null) {
+            descClase = "";
+        } else if (claseRiesgo.getPorcentaje() != null && claseRiesgo.getDescripcion() != null) {
+            descClase = claseRiesgo.getPorcentaje().toString() + " - " + claseRiesgo.getDescripcion();
+        }
+        return descClase;
+    }
+
+    public void setDescClase(String descClase) {
+        this.descClase = descClase;
+    }
+
+    public String getNombreEmplJefe() {
+        getEmpleadojefe();
+        if (empleadojefe == null) {
+            nombreEmplJefe = "";
+        } else {
+            nombreEmplJefe = empleadojefe.getPersona().getNombreCompleto();
+        }
+        return nombreEmplJefe;
+    }
+
+    public void setNombreEmplJefe(String nombreEmplJefe) {
+        this.nombreEmplJefe = nombreEmplJefe;
     }
 
     @Override

@@ -28,7 +28,7 @@ public class ClasesRiesgos implements Serializable {
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Column(name = "PORCENTAJE")
-    private BigInteger porcentaje;
+    private BigDecimal porcentaje;
 
     public ClasesRiesgos() {
     }
@@ -61,11 +61,11 @@ public class ClasesRiesgos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public BigInteger getPorcentaje() {
+    public BigDecimal getPorcentaje() {
         return porcentaje;
     }
 
-    public void setPorcentaje(BigInteger porcentaje) {
+    public void setPorcentaje(BigDecimal porcentaje) {
         this.porcentaje = porcentaje;
     }
 

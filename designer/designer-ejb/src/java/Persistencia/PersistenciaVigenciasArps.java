@@ -1,5 +1,6 @@
 package Persistencia;
 
+import Entidades.VigenciasArps;
 import InterfacePersistencia.PersistenciaVigenciasArpsInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,6 +16,12 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
 
     @Override
     public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
+        System.out.println("em: "+ em);
+        System.out.println("secEstructura : "+ secEstructura);
+        System.out.println("secCargo : "+ secCargo);
+        System.out.println("fechaHasta : "+ fechaHasta);
+        
+        
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -26,6 +33,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             query.setParameter(2, secCargo);
             query.setParameter(3, fecha);
             String actualARP = (String) query.getSingleResult().toString();
+            System.out.println("actual ARP : " + actualARP );
             tx.commit();
             return actualARP;
         } catch (Exception e) {
@@ -36,4 +44,53 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             return null;
         }
     }
+
+    @Override
+    public void crear(EntityManager em, VigenciasArps vigarp) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(vigarp);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaVigenciasArps.crear: " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, VigenciasArps vigarp) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(vigarp));
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaVigenciasArps.borrar: " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, VigenciasArps vigarp) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(vigarp);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaVigenciasArps.editar: " + e.toString());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
 }

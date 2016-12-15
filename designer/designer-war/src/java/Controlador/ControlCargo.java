@@ -1099,7 +1099,7 @@ public class ControlCargo implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosCargo");
          guardado = true;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Los datos de Cargos se guardaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1131,7 +1131,7 @@ public class ControlCargo implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
          guardadoSueldoMercado = true;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Los datos de Sueldos Mercados se guardaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1165,7 +1165,7 @@ public class ControlCargo implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
          guardadoCompetencia = true;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Los datos de Competencias se guardaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1196,7 +1196,7 @@ public class ControlCargo implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
          guardadoTipoDetalle = true;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Los datos de Propiedades Cargo se guardaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -1560,7 +1560,7 @@ public class ControlCargo implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').hide()");
             if (guardado == true) {
                guardado = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1599,7 +1599,7 @@ public class ControlCargo implements Serializable {
          nuevoSueldoMercado.setTipoempresa(new TiposEmpresas());
          if (guardadoSueldoMercado == true) {
             guardadoSueldoMercado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       } else {
          RequestContext context = RequestContext.getCurrentInstance();
@@ -1675,7 +1675,7 @@ public class ControlCargo implements Serializable {
             nuevoTipoDetalle.setEnfoque(new Enfoques());
             if (guardadoTipoDetalle == true) {
                guardadoTipoDetalle = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
          } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1846,7 +1846,7 @@ public class ControlCargo implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCargo').hide()");
             if (guardado == true) {
                guardado = false;
-               //RequestContext.getCurrentInstance().update("form:aceptar");
+               //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             duplicarCargo = new Cargos();
          } else {
@@ -1879,7 +1879,7 @@ public class ControlCargo implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSueldoMercado').hide()");
          if (guardadoSueldoMercado == true) {
             guardadoSueldoMercado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
 
          duplicarSueldoMercado = new SueldosMercados();
@@ -1908,7 +1908,7 @@ public class ControlCargo implements Serializable {
          RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCompetenciaCargo').hide()");
          if (guardadoCompetencia == true) {
             guardadoCompetencia = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
 
          duplicarCompetenciaCargo = new Competenciascargos();
@@ -1940,7 +1940,7 @@ public class ControlCargo implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoDetalle').hide()");
             if (guardadoTipoDetalle == true) {
                guardadoTipoDetalle = false;
-               //RequestContext.getCurrentInstance().update("form:aceptar");
+               //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             duplicarTipoDetalle = new TiposDetalles();
          } else {
@@ -2077,7 +2077,7 @@ public class ControlCargo implements Serializable {
 
          if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
    }
@@ -2111,7 +2111,7 @@ public class ControlCargo implements Serializable {
 
          if (guardadoSueldoMercado == true) {
             guardadoSueldoMercado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
    }
@@ -2144,7 +2144,7 @@ public class ControlCargo implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
          if (guardadoCompetencia == true) {
             guardadoCompetencia = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
    }

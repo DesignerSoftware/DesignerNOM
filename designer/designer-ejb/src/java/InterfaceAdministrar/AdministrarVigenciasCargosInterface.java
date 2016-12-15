@@ -1,5 +1,6 @@
 package InterfaceAdministrar;
 
+import Entidades.ClasesRiesgos;
 import Entidades.Empleados;
 import Entidades.VigenciasCargos;
 import Entidades.VwTiposEmpleados;
@@ -34,4 +35,6 @@ public interface AdministrarVigenciasCargosInterface {
     public void salir();
 
     public List<VwTiposEmpleados> FiltrarTipoTrabajador();
+    
+    public List<ClasesRiesgos> lovClasesRiesgos();
 }
