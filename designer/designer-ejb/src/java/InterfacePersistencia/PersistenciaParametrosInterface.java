@@ -3,7 +3,9 @@
  */
 package InterfacePersistencia;
 
+import Entidades.CambiosMasivos;
 import Entidades.Parametros;
+import Entidades.ParametrosCambiosMasivos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -61,4 +63,17 @@ public interface PersistenciaParametrosInterface {
      * @param parametro Parámetro que se quiere crear.
      */
     public void crear(EntityManager em, Parametros parametro);
+        
+   // Para Cambios Masivos : 
+   public void crearCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo);
+
+   public void editarCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo);
+
+   public void borrarCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo);
+
+   public CambiosMasivos buscarCambioMasivoSecuencia(EntityManager em, BigInteger secuencia);
+
+   public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em);
+
+   public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario);
 }

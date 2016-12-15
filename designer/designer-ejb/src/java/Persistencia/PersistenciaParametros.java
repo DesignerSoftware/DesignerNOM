@@ -3,14 +3,15 @@
  */
 package Persistencia;
 
+import Entidades.CambiosMasivos;
 import Entidades.Parametros;
+import Entidades.ParametrosCambiosMasivos;
 import InterfacePersistencia.PersistenciaParametrosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -86,7 +87,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          System.out.println("query: " + query);
          List<Parametros> listaParametros = query.getResultList();
-         if(listaParametros != null){
+         if (listaParametros != null) {
             System.out.println("listaParametros.size() : " + listaParametros.size());
          }
          return listaParametros;
@@ -111,6 +112,109 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
+      }
+   }
+
+   // Para Cambios Masivos : 
+   @Override
+   public void crearCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.persist(cambioMasivo);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void editarCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(cambioMasivo);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void borrarCambiosMasivos(EntityManager em, CambiosMasivos cambioMasivo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(cambioMasivo));
+         tx.commit();
+      } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("Error PersistenciaCambiosMasivos.borrar: " + e);
+      }
+   }
+
+   @Override
+   public CambiosMasivos buscarCambioMasivoSecuencia(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         return em.find(CambiosMasivos.class, secuencia);
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e);
+         return null;
+      }
+   }
+
+   /**
+    *
+    * @param em
+    * @return
+    */
+   @Override
+   public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em) {
+      System.out.println("Persistencia.PersistenciaParametros.consultarCambiosMasivos()");
+      try {
+         em.clear();
+         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
+                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
+         System.out.println("q : " + q);
+         Query query = em.createNativeQuery(q, CambiosMasivos.class);
+         List<CambiosMasivos> lista = query.getResultList();
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+         return null;
+      }
+   }
+
+   /**
+    *
+    * @param em
+    * @param usuario
+    * @return
+    */
+   public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
+      System.out.println("Persistencia.PersistenciaParametros.consultarParametroCambiosMasivos()");
+      try {
+         em.clear();
+         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
+         Query query = em.createNativeQuery(q);
+         System.out.println("q : " + q);
+         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
+         return parametro;
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+         return null;
       }
    }
 }

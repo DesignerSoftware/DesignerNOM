@@ -16,7 +16,7 @@ import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaSolucionesNodosInterface;
 import InterfacePersistencia.PersistenciaTercerosInterface;
 import InterfacePersistencia.PersistenciaUnidadesInterface;
-import Persistencia.PersistenciaSolucionesNodos;
+//import Persistencia.PersistenciaSolucionesNodos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;

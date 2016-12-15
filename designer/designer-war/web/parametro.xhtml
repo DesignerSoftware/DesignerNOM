@@ -322,7 +322,8 @@
                      <p:tooltip  for="quitarTodos" value="#{msg['quitartodos']}" />
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                      background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="cambiosMasivos" value="Masivos" process="@this"/>
+                                      background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="cambiosMasivos" value="Masivos" process="@this"
+                                      actionListener="#{controlCambiosMasivos.recibirPagina('parametro')}" action="cambiosmasivos"/>
                      <p:tooltip  for="cambiosMasivos" value="#{msg['cambiosmasivos']}" />
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -474,7 +475,7 @@
                      <f:facet name="header" >  
                         <h:outputText value="#{msg['buscarEM']}"/>
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
-                     <h:outputText id="informacionSeleccion" value="#{msg['seleccionMultiple']}" style="position: relative; top: 0px; display: block; color: white; font-weight: normal; margin-top: 5px;"/>
+                        <h:outputText id="informacionSeleccion" value="#{msg['seleccionMultiple']}" style="position: relative; top: 0px; display: block; color: white; font-weight: normal; margin-top: 5px;"/>
                         <p:watermark for="globalFilter" value="#{msg['ingresarvalorabuscar']}"/>
                      </f:facet>
 
@@ -498,7 +499,7 @@
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroEmpleado" value="#{msg['infoRegistro']} #{controlParametro.infoRegistroEmpleado}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarEm" class="cssAceptarLOV" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
-                          icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleados()}" process="@this" />
+                                      icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlParametro.aceptar}" actionListener="#{controlParametro.seleccionarEmpleados()}" process="@this" />
                      <p:commandButton id="atras" class="cssAtrasLOV" icon="ui-icon-close" value="#{msg['cancelar']}" actionListener="#{controlParametro.cancelarSeleccionEmpleado()}" process="@this"/>
                   </div>
                </p:dialog>

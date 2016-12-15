@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <f:loadBundle basename="Recursos.cambiosmasivos" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass='panelTotal'>  
+
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left;"> 
+
+                        <p:commandButton id="guardarRapido" value="" process="@this" style="background-image: url(Imagenes/Iconos/guardar.png);"/>
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
+
+                        <p:commandButton id="editar" value="" process="@this" style="background-image: url(Imagenes/Iconos/editar.png);"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+
+                        <p:commandButton id="listaValores" value="" process="@this" style="background-image: url(Imagenes/Iconos/lupa.png);"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
+
+                        <p:commandButton id="filtrar" value="" process="@this" style="background-image: url(Imagenes/Iconos/embudo.png);"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+
+                        <p:commandButton id="exportarXLS" value="" ajax="false" style="background-image: url(Imagenes/Iconos/excel.png);"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
+
+                        <p:commandButton id="exportarXML" value="" ajax="false" style="background-image: url(Imagenes/Iconos/xml.png);">
+                           <!--<p:dataExporter type="xml" target="#/{controlCargo.exportXML()}" fileName="#/{controlCargo.nombreXML}" encoding="UTF-8"/>--> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
+
+                        <p:commandButton id="exportarPDF" value="" ajax="false" style="background-image: url(Imagenes/Iconos/pdf.png);"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="insertar" value="" process="@this" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
+
+                        <p:commandButton id="eliminar" value="" process="@this" style="background-image: url(Imagenes/Iconos/delete.png);"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
+
+                        <p:commandButton id="duplicar" value="" process="@this" style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="rastro" value="" process="@this" style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="refrescar" value="" process="@this" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png)"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="salir" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" process="@this" 
+                                         style="background-image: url(Imagenes/Iconos/salir.png)"/>
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 180px; width: 300px; border-radius: 10px; text-align: left;">
+                     <legend style=" color: blue"><strong>#{msg['titulo1']}</strong></legend>
+
+                     <p:dataTable id="datosEmpleadosParametros" widgetVar="datosEmpleadosParametros" var="empleadoParametro" rowKey="#{empleadoParametro.secuencia}"
+                                  rowIndexVar="indice" style="font-size: 11px; border: 1px;"                            
+                                  value="#{controlCambiosMasivos.listaParametros}" scrollable="true" scrollHeight="100" scrollWidth="290"
+                                  filteredValue="#{controlCambiosMasivos.filtradoParametros}" emptyMessage="#{msg['vacio']}"
+                                  liveScroll="true" scrollRows="20" selectionMode="single">
+
+                           <!--<p:ajax event="filter" listener="#{controlParametro.eventoFiltrar()}"/>-->
+
+                        <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
+                                  filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
+                           <!--                           <p:cellEditor>  
+                                                         <f:facet name="output">-->
+                           <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
+                           <!--                              </f:facet>  
+                                                         <f:facet name="input">
+                                                            <p:inputText  autocomplete="off"  value="#/{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                                                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
+                                                                          onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#/{indice}'}]));"
+                                                                          onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#/{indice});"/> 
+                                                         </f:facet>  
+                                                      </p:cellEditor>
+                                                      <f:facet name="footer">
+                                                         <h:outputText value=""/>
+                                                      </f:facet>-->
+                        </p:column>  
+
+
+                     </p:dataTable>
+                  </fieldset>
+
+                  <fieldset style="position: absolute; top: 70px; left: 340px; height: 180px; width: 400px; border-radius: 10px; text-align: left;">
+                     <legend style=" color: blue"><strong>#{msg['titulo2']}</strong></legend>
+
+                     <p:dataTable id="datosCambiosMasivos" widgetVar="datosCambiosMasivos" var="cambioM" rowKey="#{cambioM.secuencia}"
+                                  rowIndexVar="indice" style="font-size: 11px; border: 1px;"                            
+                                  value="#{controlCambiosMasivos.listaCambiosMasivos}" scrollable="true" scrollHeight="100" scrollWidth="290"
+                                  filteredValue="#{controlCambiosMasivos.filtradoCambiosMasivos}" emptyMessage="#{msg['vacio']}"
+                                  liveScroll="true" scrollRows="20" selectionMode="single">
+
+                           <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
+
+                        <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{cambioM.empleado}" filterBy="#{cambioM.empleado}" 
+                                  filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
+                           <!--                           <p:cellEditor>  
+                                                         <f:facet name="output">-->
+                           <h:outputText value="#{cambioM.empleado}"/>
+                           <!--                              </f:facet>  
+                                                         <f:facet name="input">
+                                                            <p:inputText  autocomplete="off"  value="#/{cambioM.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
+                                                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
+                                                                          onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#/{indice}'}]));"
+                                                                          onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#/{indice});"/> 
+                                                         </f:facet>  
+                                                      </p:cellEditor>
+                                                      <f:facet name="footer">
+                                                         <h:outputText value=""/>
+                                                      </f:facet>-->
+                        </p:column>  
+
+
+                     </p:dataTable>
+                  </fieldset>
+
+                  <fieldset style="position: absolute; top: 270px; left: 10px; height: 180px; width: 800px; border-radius: 10px; text-align: left;">
+                     <legend style=" color: blue"><strong>#{msg['titulo3']}</strong></legend>
+
+
+                     <h:outputText value="JAJAJAJA : #{controlCambiosMasivos.parametroCambioMasivoActual.cargoEstructura}"/>
+
+                  </fieldset>
+               </p:panel>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
+</html>
+
