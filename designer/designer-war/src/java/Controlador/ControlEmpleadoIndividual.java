@@ -15,6 +15,7 @@ import Entidades.HvEntrevistas;
 import Entidades.HvExperienciasLaborales;
 import Entidades.HvReferencias;
 import Entidades.IdiomasPersonas;
+import Entidades.Inforeportes;
 import Entidades.InformacionesAdicionales;
 import Entidades.Personas;
 import Entidades.Telefonos;
@@ -29,6 +30,7 @@ import Entidades.VigenciasIndicadores;
 import Entidades.VigenciasProyectos;
 import Exportar.ExportarPDFTablasAnchas;
 import Exportar.ExportarXLS;
+import InterfaceAdministrar.AdministarReportesInterface;
 import InterfaceAdministrar.AdministrarEmpleadoIndividualInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import com.sun.xml.ws.security.opt.impl.util.SOAPUtil;
@@ -40,10 +42,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -57,6 +62,11 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import org.primefaces.model.DefaultStreamedContent;
 
 @ManagedBean
 @SessionScoped
@@ -66,6 +76,8 @@ public class ControlEmpleadoIndividual implements Serializable {
     AdministrarEmpleadoIndividualInterface administrarEmpleadoIndividual;
     @EJB
     AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministarReportesInterface administarReportes;
 
     private Empleados empleado;
     private Personas persona;
@@ -143,6 +155,14 @@ public class ControlEmpleadoIndividual implements Serializable {
     private boolean paraRecargar;
     //
     private String infoRegistroTipoDocumento, infoRegistroCiudad, infoRegistroCargo, infoRegistroCiudadDocumento;
+    //reporte
+    private StreamedContent reporte;
+    private String pathReporteGenerado = null;
+    private String nombreReporte, tipoReporte;
+    private Inforeportes hojaVidaR;
+    private String cabezeraVisor;
+    private boolean estadoReporte;
+    private String resultadoReporte;
 
     public ControlEmpleadoIndividual() {
         imprimir("0: constructor.", null);
@@ -165,6 +185,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarEmpleadoIndividual.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -180,7 +201,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         persona = administrarEmpleadoIndividual.obtenerPersonaPorEmpleado(sec);
         getEmpleado();
         datosEmpleado();
-//        getFotoEmpleado();
+        getFotoEmpleado();
         listaTiposDocumentos = null;
         listaCiudades = null;
         listaCiudadesDocumento = null;
@@ -196,11 +217,11 @@ public class ControlEmpleadoIndividual implements Serializable {
         }
         BigInteger secEmpleado = empleado.getSecuencia();
         hojaDeVidaPersona = administrarEmpleadoIndividual.hvHojaDeVidaPersona(secPersona);
-        if(hojaDeVidaPersona == null){
+        if (hojaDeVidaPersona == null) {
             hojaDeVidaPersona = new HVHojasDeVida();
             hojaDeVidaPersona.setCargo(new Cargos());
         }
-       
+
         if (hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
             BigInteger secHv = hojaDeVidaPersona.getSecuencia();
 
@@ -210,11 +231,11 @@ public class ControlEmpleadoIndividual implements Serializable {
             experienciaLaboralP = administrarEmpleadoIndividual.consultarPrimeraExpLaboral(secHv);
             entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
             existenHV = false;
-        } else{
-        referenciasPersonalesP = "";
-        referenciasFamiliaresP = "";
-        experienciaLaboralP = "";
-        entrevistasP = "";
+        } else {
+            referenciasPersonalesP = "";
+            referenciasFamiliaresP = "";
+            experienciaLaboralP = "";
+            entrevistasP = "";
         }
 
         telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);
@@ -268,10 +289,10 @@ public class ControlEmpleadoIndividual implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:tipo");
-            context.reset("formDialogos:lovTiposDocumentos:globalFilter");
+            context.reset("formularioDialogos:lovTiposDocumentos:globalFilter");
             RequestContext.getCurrentInstance().execute("PF('lovTiposDocumentos').clearFilters()");
             RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').hide()");
-            //RequestContext.getCurrentInstance().update("formDialogos:lovTiposDocumentos");
+            //RequestContext.getCurrentInstance().update("formularioDialogos:lovTiposDocumentos");
         }
     }
 
@@ -282,7 +303,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         aceptar = true;
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovTiposDocumentos:globalFilter");
+        context.reset("formularioDialogos:lovTiposDocumentos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTiposDocumentos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').hide()");
     }
@@ -293,11 +314,11 @@ public class ControlEmpleadoIndividual implements Serializable {
         modificacionCiudad = modificacion;
         if (modificacionCiudad == 0) {
             cabezeraDialogoCiudad = "Ciudad documento";
-            RequestContext.getCurrentInstance().update("formDialogos:CiudadesDocumentoDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:CiudadesDocumentoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').show()");
         } else if (modificacionCiudad == 1) {
             cabezeraDialogoCiudad = "Ciudad nacimiento";
-            RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:CiudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
         }
     }
@@ -319,10 +340,10 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
             filtradoListaCiudades = null;
             aceptar = true;
-            context.reset("formDialogos:lovCiudades:globalFilter");
+            context.reset("formularioDialogos:lovCiudades:globalFilter");
             RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
             RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').hide()");
-            //RequestContext.getCurrentInstance().update("formDialogos:lovCiudades");
+            //RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudades");
             modificacionCiudad = -1;
             dialogo = -1;
         }
@@ -335,7 +356,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         modificacionCiudad = -1;
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovCiudades:globalFilter");
+        context.reset("formularioDialogos:lovCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCiudades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').hide()");
     }
@@ -361,10 +382,10 @@ public class ControlEmpleadoIndividual implements Serializable {
                 }
                 filtradoCiudadesDocumento = null;
                 aceptar = true;
-                context.reset("formDialogos:lovCiudades:globalFilter");
+                context.reset("formularioDialogos:lovCiudades:globalFilter");
                 RequestContext.getCurrentInstance().execute("PF('lovCiudadesDocumento').clearFilters()");
                 RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').hide()");
-                //RequestContext.getCurrentInstance().update("formDialogos:lovCiudades");
+                //RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudades");
                 modificacionCiudad = -1;
                 dialogo = -1;
             } else {
@@ -383,7 +404,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         modificacionCiudad = -1;
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovCiudades:globalFilter");
+        context.reset("formularioDialogos:lovCiudades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCiudadesDocumento').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').hide()");
     }
@@ -405,10 +426,10 @@ public class ControlEmpleadoIndividual implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:cargoPostulado");
-            context.reset("formDialogos:lovCargos:globalFilter");
+            context.reset("formularioDialogos:lovCargos:globalFilter");
             RequestContext.getCurrentInstance().execute("PF('lovCargos').clearFilters()");
             RequestContext.getCurrentInstance().execute("PF('CargosDialogo').hide()");
-            //RequestContext.getCurrentInstance().update("formDialogos:lovCargos");
+            //RequestContext.getCurrentInstance().update("formularioDialogos:lovCargos");
         }
     }
 
@@ -419,7 +440,7 @@ public class ControlEmpleadoIndividual implements Serializable {
         aceptar = true;
         dialogo = -1;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovCargos:globalFilter");
+        context.reset("formularioDialogos:lovCargos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovCargos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('CargosDialogo').hide()");
     }
@@ -474,7 +495,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
-                RequestContext.getCurrentInstance().update("formDialogos:TiposDocumentosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:TiposDocumentosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('TiposDocumentosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:tipo");
             }
@@ -510,10 +531,11 @@ public class ControlEmpleadoIndividual implements Serializable {
                     cabezeraDialogoCiudad = "Ciudad nacimiento";
                     RequestContext.getCurrentInstance().update("formularioDialogos:lugarNacimiento");
                 }
-                RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:CiudadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
             }
-        } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
+        } /*
+        else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
             if (modificacionCiudad == 0) {
                 persona.getCiudaddocumento().setNombre(ciudaddocumento);
             }
@@ -543,10 +565,12 @@ public class ControlEmpleadoIndividual implements Serializable {
                     cabezeraDialogoCiudad = "Ciudad documento";
                     RequestContext.getCurrentInstance().update("form:lugarExpedicion");
                 }
-                RequestContext.getCurrentInstance().update("formDialogos:CiudadesDocumentoDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:CiudadesDocumentoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('CiudadesDocumentoDialogo').show()");
             }
-        } else if (confirmarCambio.equalsIgnoreCase("CARGOPOSTULADO")) {
+        }
+        
+         */ else if (confirmarCambio.equalsIgnoreCase("CARGOPOSTULADO")) {
             hojaDeVidaPersona.getCargo().setNombre(cargoPostulado);
             for (int i = 0; i < listaCargos.size(); i++) {
                 if (listaCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -567,7 +591,7 @@ public class ControlEmpleadoIndividual implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
-                RequestContext.getCurrentInstance().update("formDialogos:CargosDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:CargosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('CargosDialogo').show()");
                 RequestContext.getCurrentInstance().update("form:cargoPostulado");
             }
@@ -586,7 +610,7 @@ public class ControlEmpleadoIndividual implements Serializable {
             } else if (modificacionCiudad == 1) {
                 cabezeraDialogoCiudad = "Ciudad nacimiento";
             }
-            RequestContext.getCurrentInstance().update("formDialogos:CiudadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:CiudadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadesDialogo').show()");
         } else if (dialogo == 2) {
             RequestContext.getCurrentInstance().execute("PF('CargosDialogo').show()");
@@ -646,19 +670,19 @@ public class ControlEmpleadoIndividual implements Serializable {
                 resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
             }
             if (resultado == 1) {
-                RequestContext.getCurrentInstance().update("formDialogos:errorObjetosDB");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorObjetosDB");
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
-                RequestContext.getCurrentInstance().update("formDialogos:confirmarRastro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:confirmarRastro");
                 RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
             } else if (resultado == 3) {
-                RequestContext.getCurrentInstance().update("formDialogos:errorRegistroRastro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorRegistroRastro");
                 RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
             } else if (resultado == 4) {
-                RequestContext.getCurrentInstance().update("formDialogos:errorTablaConRastro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaConRastro");
                 RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
             } else if (resultado == 5) {
-                RequestContext.getCurrentInstance().update("formDialogos:errorTablaSinRastro");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaSinRastro");
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else {
@@ -810,9 +834,9 @@ public class ControlEmpleadoIndividual implements Serializable {
     //SUBIR FOTO EMPLEADO
     public void subirFotoEmpleado(FileUploadEvent event) throws IOException {
         RequestContext context = RequestContext.getCurrentInstance();
-        String extencion = event.getFile().getFileName().split("[.]")[1];
+        String extension = event.getFile().getFileName().split("[.]")[1];
         Long tamanho = event.getFile().getSize();
-        if (extencion.equals("jpg") || extencion.equals("JPG")) {
+        if (extension.equals("jpg") || extension.equals("JPG")) {
             if (tamanho <= 307200) {
                 Generales general = administrarEmpleadoIndividual.obtenerRutaFoto();
                 if (general != null && persona != null) {
@@ -855,9 +879,9 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void transformarArchivo(long size, InputStream in) {
         imprimir("27: transformarArchivo.", "secuencia: " + secuencia);
         try {
-            //extencion = fileName.split("[.]")[1];
-            //System.out.println(extencion); 
-            OutputStream out = new FileOutputStream(new File(destino + identificacionEmpleado + ".png"));
+            //extension = fileName.split("[.]")[1];
+            //System.out.println(extension); 
+            OutputStream out = new FileOutputStream(new File(destino + identificacionEmpleado + ".jpg"));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
             while ((reader = in.read(bytes)) != -1) {
@@ -899,8 +923,134 @@ public class ControlEmpleadoIndividual implements Serializable {
             }
         }
     }
-//GETTER AND SETTER
 
+    public AsynchronousFilllListener listener() {
+        System.out.println(this.getClass().getName() + ".listener()");
+        return new AsynchronousFilllListener() {
+            //RequestContext context = c;
+
+            @Override
+            public void reportFinished(JasperPrint jp) {
+                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+                try {
+                    estadoReporte = true;
+                    resultadoReporte = "Exito";
+                } catch (Exception e) {
+                    System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+                }
+            }
+
+            @Override
+            public void reportCancelled() {
+                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+                estadoReporte = true;
+                resultadoReporte = "Cancelación";
+            }
+
+            @Override
+            public void reportFillError(Throwable e) {
+                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+                if (e.getCause() != null) {
+                    pathReporteGenerado = "ControlEmpleadoIndividual reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
+                } else {
+                    pathReporteGenerado = "ControlEmpleadoIndividual reportFillError Error: " + e.toString();
+                }
+                estadoReporte = true;
+                resultadoReporte = "Se estallo";
+            }
+        };
+    }
+
+    public void validarDescargaReporte() {
+        try {
+            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+            RequestContext context = RequestContext.getCurrentInstance();
+            nombreReporte = "HojaVidaPorEmpleado";
+            tipoReporte = "PDF";
+            System.out.println("nombre reporte : " + nombreReporte);
+            System.out.println("tipo reporte: " + tipoReporte);
+            BigDecimal secPersona = new BigDecimal(persona.getSecuencia());
+
+            Map param = new HashMap();
+            param.put("secEmpleado", secPersona);
+
+            pathReporteGenerado = administarReportes.generarReporteHojaVida(nombreReporte, tipoReporte, param);
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("validar descarga reporte - ingreso al if 1");
+                if (tipoReporte.equals("PDF")) {
+
+                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                        System.out.println("reporte despues de esto : " + reporte);
+                        System.out.println("nombre reporte : " + nombreReporte);
+                        cabezeraVisor = "Reporte - " + nombreReporte;
+                        System.out.println("cabezera visor : " + cabezeraVisor);
+                        RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                        RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        pathReporteGenerado = null;
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("validar descarga reporte - ingreso al catch 1");
+                        System.out.println(ex);
+                        reporte = null;
+                    }
+                }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en validar descargar Reporte" + e.toString());
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        }
+    }
+
+    public void reiniciarStreamedContent() {
+        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        reporte = null;
+    }
+
+    public void cancelarReporte() {
+        System.out.println(this.getClass().getName() + ".cancelarReporte()");
+        administarReportes.cancelarReporte();
+    }
+
+    public void exportarReporte() throws IOException {
+        System.out.println(this.getClass().getName() + ".exportarReporte()");
+        if (pathReporteGenerado != null) {
+
+            File reporteF = new File(pathReporteGenerado);
+            System.out.println("reporteF:  " + reporteF);
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            System.out.println("ctx:  " + ctx);
+            FileInputStream fis = new FileInputStream(reporteF);
+            System.out.println("fis:   " + fis);
+            byte[] bytes = new byte[1024];
+            int read;
+            if (!ctx.getResponseComplete()) {
+                String fileName = reporteF.getName();
+                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                ServletOutputStream out = response.getOutputStream();
+
+                while ((read = fis.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.flush();
+                out.close();
+                ctx.responseComplete();
+            }
+        }
+    }
+
+//GETTER AND SETTER
     public Empleados getEmpleado() {
         imprimir("30: getEmpleado.", "secuencia: " + secuencia);
         if (empleado == null) {
@@ -1301,7 +1451,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public StreamedContent getFotoEmpleado() {
         imprimir("105: getFotoEmpleado.", "secuencia: " + secuencia);
         obtenerFotoEmpleado();
-        refrescarDatos();
+//        refrescarDatos();
         return fotoEmpleado;
     }
 
@@ -1312,9 +1462,6 @@ public class ControlEmpleadoIndividual implements Serializable {
 
     public Personas getPersona() {
         imprimir("107: getPersona.", "secuencia: " + secuencia);
-        if (persona.getCiudaddocumento() == null) {
-            persona.setCiudaddocumento(new Ciudades());
-        }
         return persona;
     }
 
@@ -1335,6 +1482,8 @@ public class ControlEmpleadoIndividual implements Serializable {
                 fotoEmpleado = null;
                 System.out.println("Foto del empleado no encontrada. \n" + e);
             }
+        } else {
+            System.out.println("la ruta de la foto del empleado es nula");
         }
     }
 
@@ -1350,7 +1499,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public String getInfoRegistroTipoDocumento() {
         imprimir("111: getInfoRegistroTipoDocumento.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovTiposDocumentos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovTiposDocumentos");
         infoRegistroTipoDocumento = String.valueOf(tabla.getRowCount());
         return infoRegistroTipoDocumento;
     }
@@ -1363,7 +1512,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public String getInfoRegistroCiudad() {
         imprimir("113: getInfoRegistroCiudad.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovCiudades");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudades");
         infoRegistroCiudad = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudad;
     }
@@ -1376,7 +1525,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public String getInfoRegistroCargo() {
         imprimir("115: getInfoRegistroCargo.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovCargos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCargos");
         infoRegistroCargo = String.valueOf(tabla.getRowCount());
         return infoRegistroCargo;
     }
@@ -1412,7 +1561,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     public String getInfoRegistroCiudadDocumento() {
         imprimir("121: getInfoRegistroCiudadDocumento.", "secuencia: " + secuencia);
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovCiudadesDocumento");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadesDocumento");
         infoRegistroCiudadDocumento = String.valueOf(tabla.getRowCount());
         return infoRegistroCiudadDocumento;
     }
@@ -1461,4 +1610,77 @@ public class ControlEmpleadoIndividual implements Serializable {
             System.out.println(etiqueta + " " + texto);
         }
     }
+
+    public FileInputStream getFis() {
+        return fis;
+    }
+
+    public void setFis(FileInputStream fis) {
+        this.fis = fis;
+    }
+
+    public StreamedContent getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(StreamedContent reporte) {
+        this.reporte = reporte;
+    }
+
+    public String getPathReporteGenerado() {
+        return pathReporteGenerado;
+    }
+
+    public void setPathReporteGenerado(String pathReporteGenerado) {
+        this.pathReporteGenerado = pathReporteGenerado;
+    }
+
+    public String getNombreReporte() {
+        return nombreReporte;
+    }
+
+    public void setNombreReporte(String nombreReporte) {
+        this.nombreReporte = nombreReporte;
+    }
+
+    public String getTipoReporte() {
+        return tipoReporte;
+    }
+
+    public void setTipoReporte(String tipoReporte) {
+        this.tipoReporte = tipoReporte;
+    }
+
+    public Inforeportes getHojaVidaR() {
+        return hojaVidaR;
+    }
+
+    public void setHojaVidaR(Inforeportes hojaVidaR) {
+        this.hojaVidaR = hojaVidaR;
+    }
+
+    public String getCabezeraVisor() {
+        return cabezeraVisor;
+    }
+
+    public void setCabezeraVisor(String cabezeraVisor) {
+        this.cabezeraVisor = cabezeraVisor;
+    }
+
+    public boolean isEstadoReporte() {
+        return estadoReporte;
+    }
+
+    public void setEstadoReporte(boolean estadoReporte) {
+        this.estadoReporte = estadoReporte;
+    }
+
+    public String getResultadoReporte() {
+        return resultadoReporte;
+    }
+
+    public void setResultadoReporte(String resultadoReporte) {
+        this.resultadoReporte = resultadoReporte;
+    }
+
 }

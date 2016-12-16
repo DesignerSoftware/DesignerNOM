@@ -3,6 +3,7 @@
  */
 package InterfaceAdministrar;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
@@ -52,5 +53,7 @@ public interface AdministarReportesInterface {
      public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas);
      
    public String generarReporteFuncionesCargo(String nombreReporte,String tipoReporte,Map parametros);  
+   
+   public String generarReporteHojaVida(String nombreReporte,String tipoReporte,Map parametros);
      
 }

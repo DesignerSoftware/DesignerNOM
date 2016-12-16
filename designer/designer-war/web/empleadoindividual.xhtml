@@ -83,8 +83,8 @@
 
                         <div id="seca" style="position: absolute; left: 10px; top: 80px;">
                             <p:graphicImage id="btnFoto"  height="120" width="105" 
-                                            alt="Foto empleado" onclick="PF('subirFoto').show();"
-                                            style="position: relative; top: 0px; left: 0px;"/> <!--value="#/{controlEmpleadoIndividual.fotoEmpleado}"-->
+                                            alt="Foto empleado" value="#{controlEmpleadoIndividual.fotoEmpleado}" onclick="PF('subirFoto').show();"
+                                            style="position: relative; top: 0px; left: 0px;"/> 
 
                             <p:commandButton value="#{msg['tallas']}" process="@this" action="adelanteVigenciaTalla" 
                                              actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
@@ -125,7 +125,7 @@
                                               style="position: absolute; left: 150px; top: 48px; width: 38px; text-transform: uppercase; height: 12px;" 
                                               onclick="select();" maxlength="3">
                                     <p:ajax event="dblclick" onstart="PF('TiposDocumentosDialogo').show()"/>
-                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('TIPODOCUMENTO')}"/>
+                                    <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('TIPODOCUMENTO')}"/>-->
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('TIPODOCUMENTO', controlEmpleadoIndividual.persona.tipodocumento.nombrecorto)}"/>
                                 </p:inputText>
                                 <p:watermark for="tipo" value="#{msg['tipowm']}" /> 
@@ -169,7 +169,7 @@
                                               style="position: absolute; left: 150px; top: 144px; width: 120px; text-transform: uppercase; height: 12px;" 
                                               onclick="select();">
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(1)}"/>
-                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADNACIMIENTO')}"/>
+                                    <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADNACIMIENTO')}"/>-->
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDAD', controlEmpleadoIndividual.persona.ciudadnacimiento.nombre)}"/>
                                 </p:inputText>
                                 <p:watermark for="lugarNacimiento" value="#{msg['lugarnacimientowm']}" />
@@ -236,7 +236,7 @@
                                               style="position: absolute; left: 150px; top: 312px; width: 160px; text-transform: uppercase; height: 12px;" 
                                               onclick="select();">
                                     <p:ajax event="dblclick" onstart="PF('CargosDialogo').show()"/>
-                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CARGOPOSTULADO')}"/>
+                                    <!--<p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CARGOPOSTULADO')}"/>-->
                                     <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CARGOPOSTULADO', controlEmpleadoIndividual.hojaDeVidaPersona.cargo.nombre)}"/>
                                 </p:inputText>
                                 <p:watermark for="cargoPostulado" value="#{msg['cargopostuladowm']}" />
@@ -275,11 +275,10 @@
                                 <br/>
                                 <h:outputText value="#{msg['ciudaddocumento']}" 
                                               style="position: absolute; left: 370px; top: 77px; font-weight: bold; color: #14388B; width: 135px; text-align: right;"/>
-                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.ciudaddocumento.nombre}"
+                                <p:inputText  autocomplete="off"  id="lugarExpedicion" value="#{controlEmpleadoIndividual.persona.nombreCiudadDocumento}"
                                               style="position: absolute; left: 510px; top: 72px; width: 120px; text-transform: uppercase; height: 12px;" >
                                     <p:ajax event="dblclick" listener="#{controlEmpleadoIndividual.dialogoCiudad(0)}"/>
-<!--                                    <p:ajax event="select" listener="#{controlEmpleadoIndividual.valoresBackupAutocompletar('CIUDADDOCUMENTO')}"/>-->
-                                    <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDADDOCUMENTO', controlEmpleadoIndividual.persona.ciudaddocumento.nombre)}"/>
+                                    <p:ajax event="change" listener="#{controlEmpleadoIndividual.autocompletar('CIUDADDOCUMENTO', controlEmpleadoIndividual.persona.nombreCiudadDocumento)}"/>
                                     <!--<p:ajax event="change" update="@this" />-->
                                 </p:inputText>
                                 <p:watermark for="lugarExpedicion" value="#{msg['lugarexpedicionwm']}" />
@@ -556,7 +555,7 @@
                         <p:commandButton id="imprimirhojavida" icon="ui-icon-extlink" 
                                          style="position: absolute; left: 12px; top: 495px; height: 32px; width: 181px; color: white;
                                          background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
-                                         value="#{msg['imprimirhojadevida']}" process="@this"/>
+                                         value="#{msg['imprimirhojadevida']}" process="@this" actionListener="#{controlEmpleadoIndividual.validarDescargaReporte()}"/>
                         <p:commandButton id="reportespersonal" icon="ui-icon-extlink"
                                          style="position: absolute; left: 200px; top: 495px; height: 32px; width: 181px; color: white; 
                                          background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
@@ -584,13 +583,13 @@
 <!--                    <p:remoteCommand name="iniciarcomponentes" update="#{controlEmpleadoIndividual.iniciarComponentes()}" />-->
                 </h:form>
                 <!-- ********************************************************************** -->
-                <h:form id="formDialogos">
+                <h:form id="formularioDialogos">
                     <p:dialog id="TiposDocumentosDialogo" header="#{msg['tiposdedocumentosTD']}" widgetVar="TiposDocumentosDialogo" draggable="true" resizable="false" closable="false"   
                               showEffect="fade" hideEffect="fade" width="431" modal="true" style="position: absolute; top: 0px; left: 0px;">
                         <p:dataTable id="lovTiposDocumentos" style="width: 400px;" var="tipoDocumento" value="#{controlEmpleadoIndividual.listaTiposDocumentos}" rowKey="#{tipoDocumento.secuencia}"
                                      selection="#{controlEmpleadoIndividual.seleccionTipoDocumento}" selectionMode="single" widgetVar="lovTiposDocumentos" scrollable="true" scrollWidth="416" scrollHeight="180"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaTiposDocumentos}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarTD"/>
+                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarTD"/>
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarTipoDocumento()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarTD']}" />  
@@ -625,7 +624,7 @@
                                      selection="#{controlEmpleadoIndividual.seleccionCiudades}" selectionMode="single" widgetVar="lovCiudades" scrollable="true" scrollWidth="418" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaCiudades}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                      scrollRows="15">              
-                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarC" />
+                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarC" />
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudad()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
@@ -668,7 +667,7 @@
                                      selection="#{controlEmpleadoIndividual.seleccionCiudadDocumento}" selectionMode="single" widgetVar="lovCiudadesDocumento" scrollable="true" scrollWidth="418" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoCiudadesDocumento}" emptyMessage="#{msg['lovvacio']}" liveScroll="true"
                                      scrollRows="15">              
-                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarCD" />
+                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCD" />
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCiudadDocumento()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarC']}" />  
@@ -709,7 +708,7 @@
                         <p:dataTable id="lovCargos" style="width: 446px;" var="cargo" value="#{controlEmpleadoIndividual.listaCargos}" rowKey="#{cargo.secuencia}"
                                      selection="#{controlEmpleadoIndividual.seleccionCargo}" selectionMode="single" widgetVar="lovCargos" scrollable="true" scrollWidth="464" scrollHeight="250"
                                      filteredValue="#{controlEmpleadoIndividual.filtradoListaCargos}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formDialogos:aceptarCA"/>
+                            <p:ajax event="rowSelect" listener="#{controlEmpleadoIndividual.activarAceptar()}" update=":formularioDialogos:aceptarCA"/>
                             <p:ajax event="rowDblselect" process="@this" listener="#{controlEmpleadoIndividual.seleccionarCargo()}" />
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscarCP']}" />  
@@ -830,8 +829,7 @@
                         </div>
                     </p:dialog>
                     <!-- ********************************************************************** -->
-                    <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="true" modal="true" height="80" width="350" closable="true"
-                              >  
+                    <p:dialog id="subirFoto" header="#{msg['subirfotoempleado']}" widgetVar="subirFoto" resizable="false" draggable="true" modal="true" height="80" width="350" closable="true"  >  
                         <div style="text-align: center;">
                             <h:outputText value="#{msg['infCargueFoto']}" style="position: relative; left: 0px; top: 0px; font-weight: bold; width: 335px"/>
                         </div>
@@ -847,6 +845,22 @@
                         <h:outputText value="#{msg['validarPerfilProfesional']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
+                       <p:dialog  id="verReportePDF" header="#{controlEmpleadoIndividual.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                        <p:media value="#{controlEmpleadoIndividual.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlEmpleadoIndividual.reporte != null}"/>
+                    </p:dialog>
+                    <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlEmpleadoIndividual.reiniciarStreamedContent()}"/>
+
+                    <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                        <p:inputTextarea value="#{controlEmpleadoIndividual.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+                    </p:dialog>
+
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                        <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEmpleadoIndividual.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
+                    </p:dialog>
+                    
+                    
                 </h:form>
 
 

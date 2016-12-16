@@ -2,6 +2,7 @@ package Reportes;
 
 import java.io.File;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Connection;
 //import java.sql.DriverManager;
 //import java.sql.SQLException;
@@ -338,6 +339,50 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             if (param != null && !param.isEmpty()) {
                 parametros.put("estructura", param.get("estructura"));
                 parametros.put("cargo", param.get("cargo"));
+            }
+            JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
+            System.out.println("INICIARREPORTE lleno reporte ");
+            String outFileName = rutaGenerado + nombreArchivo;
+            System.out.println("INICIARREPORTE outFileName: " + outFileName);
+            JRExporter exporter = null;
+            if (tipoReporte.equals("PDF")) {
+                exporter = new JRPdfExporter();
+            }
+            if (exporter != null) {
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, imprimir);
+                exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
+                exporter.exportReport();
+            }
+            System.out.println("fin. " + outFileName);
+            return outFileName;
+        } catch (JRException e) {
+            System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
+            System.out.println("************************************");
+            if (e.getCause() != null) {
+                return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
+            } else {
+                return "INICIARREPORTE Error: " + e.toString();
+            }
+        }
+    }
+
+    @Override
+    public String ejecutarReporteHojaVida(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map param) {
+        try {
+            System.out.println("INICIARREPORTE NombreReporte: " + nombreReporte);
+            System.out.println("INICIARREPORTE rutaReporte: " + rutaReporte);
+            System.out.println("INICIARREPORTE rutaGenerado: " + rutaGenerado);
+            System.out.println("INICIARREPORTE nombreArchivo: " + nombreArchivo);
+            System.out.println("INICIARREPORTE tipoReporte: " + tipoReporte);
+            System.out.println("INICIARREPORTE Parametros : " + param);
+            File archivo = new File(rutaReporte + nombreReporte + ".jasper");
+            JasperReport masterReport;
+            masterReport = (JasperReport) JRLoader.loadObject(archivo);
+            System.out.println("INICIARREPORTE creo master ");
+            Map parametros = new HashMap();
+            parametros.put("RutaReportes", rutaReporte);
+            if (param != null && !param.isEmpty()) {
+                parametros.put("secEmpleado", param.get("secEmpleado"));
             }
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");

@@ -105,6 +105,8 @@ public class Personas implements Serializable {
     private int edad;
     @Transient
     private String strNumeroDocumento;
+    @Transient
+    private String nombreCiudadDocumento;
 
     public Personas() {
     }
@@ -459,4 +461,20 @@ public class Personas implements Serializable {
     public void setNumerodocumento(BigInteger numerodocumento) {
         this.numerodocumento = numerodocumento;
     }
+
+    public String getNombreCiudadDocumento() {
+        getCiudaddocumento();
+        if(ciudaddocumento != null){
+          nombreCiudadDocumento = ciudaddocumento.getNombre();
+        }else{
+         nombreCiudadDocumento ="";   
+        }
+        
+        return nombreCiudadDocumento;
+    }
+
+    public void setNombreCiudadDocumento(String nombreCiudadDocumento) {
+        this.nombreCiudadDocumento = nombreCiudadDocumento;
+    }
+    
 }
