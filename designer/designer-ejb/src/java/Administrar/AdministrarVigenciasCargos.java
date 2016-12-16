@@ -2,6 +2,7 @@ package Administrar;
 
 import Entidades.ClasesRiesgos;
 import Entidades.Empleados;
+import Entidades.Papeles;
 //import Entidades.VWActualesTiposTrabajadores;
 import Entidades.VigenciasCargos;
 import Entidades.VwTiposEmpleados;
@@ -9,10 +10,13 @@ import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarVigenciasCargosInterface;
 import InterfacePersistencia.PersistenciaClasesRiesgosInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
+import InterfacePersistencia.PersistenciaEmpresasInterface;
+import InterfacePersistencia.PersistenciaPapelesInterface;
 import InterfacePersistencia.PersistenciaVigenciasArpsInterface;
 //import InterfacePersistencia.PersistenciaVWActualesTiposTrabajadoresInterface;
 import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
 import InterfacePersistencia.PersistenciaVwTiposEmpleadosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -38,6 +42,10 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     PersistenciaClasesRiesgosInterface persistenciaClasesRiesgos;
     @EJB
     PersistenciaVigenciasArpsInterface persistenciaVigenciaArp;
+    @EJB
+    PersistenciaPapelesInterface persistenciaPapeles;
+    @EJB
+    PersistenciaEmpresasInterface persistenciaEmpresas;
     //PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
     /**
      * Enterprise JavaBean.<br>
@@ -58,6 +66,7 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
+
     /*
      public AdministrarVigenciasCargos() {
      persistenciaVigenciasCargos = new PersistenciaVigenciasCargos();
@@ -161,12 +170,35 @@ public class AdministrarVigenciasCargos implements AdministrarVigenciasCargosInt
 
     @Override
     public List<ClasesRiesgos> lovClasesRiesgos() {
-        try{
-        List<ClasesRiesgos> listaClasesRiesgos = persistenciaClasesRiesgos.consultarListaClasesRiesgos(em);
-        return listaClasesRiesgos;
-        }catch(Exception e){
-            System.out.println("error en AdministrarVigenciasCargos.lovClasesRiesgos : " + e.toString());   
-         return null;
+        try {
+            List<ClasesRiesgos> listaClasesRiesgos = persistenciaClasesRiesgos.consultarListaClasesRiesgos(em);
+            return listaClasesRiesgos;
+        } catch (Exception e) {
+            System.out.println("error en AdministrarVigenciasCargos.lovClasesRiesgos : " + e.toString());
+            return null;
         }
+    }
+
+    @Override
+    public List<Papeles> lovPapeles(BigInteger secEmpresa) {
+        try {
+            System.out.println("secuencia de la empresa en lovPapeles : " + secEmpresa);
+            List<Papeles> lovPapeles  = persistenciaPapeles.consultarPapelesEmpresa(em, secEmpresa);
+            return lovPapeles;
+        } catch (Exception e) {
+            System.out.println("error en AdministrarVigenciasCargos.lovPapeles: " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarEmpresaPorEmpl(BigInteger secEmpl) {
+       try{
+        BigDecimal sec = persistenciaEmpresas.consultarEmpresaPorEmpleado(em, secEmpl);
+        return sec;
+       }catch(Exception e){
+           System.out.println("error en AdministrarVigenciasCargos.consultarEmpresaPorEmpl : " + e.toString());
+           return null;
+       }
     }
 }

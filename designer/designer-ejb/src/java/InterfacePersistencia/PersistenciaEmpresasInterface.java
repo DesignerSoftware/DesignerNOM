@@ -4,6 +4,7 @@
 package InterfacePersistencia;
 
 import Entidades.Empresas;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -109,4 +110,6 @@ public interface PersistenciaEmpresasInterface {
     public Empresas consultarEmpresaPorCodigo(EntityManager em, short codigo);
 
     public String obtenerEnvioInterfaseContabilidadEmpresa(EntityManager em, short codigoEmpresa);
+    
+    public BigDecimal consultarEmpresaPorEmpleado(EntityManager em, BigInteger secEmpleado);
 }

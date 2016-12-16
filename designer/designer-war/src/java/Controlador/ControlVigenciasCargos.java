@@ -87,7 +87,7 @@ public class ControlVigenciasCargos implements Serializable {
     private int tipoActualizacion;//Activo/Desactivo Crtl + F11
     private int bandera;
     //Columnas Tabla VC
-    private Column vcFecha, vcEstructura, vcMotivo, vcNombreCargo, vcCentrosC, vcNombreJefe;
+    private Column vcFecha, vcEstructura, vcMotivo, vcNombreCargo, vcCentrosC, vcNombreJefe, vcClaseRiesgo, vcPapel;
     //Estructuras
     private List<Estructuras> dlgEstructuras;
     private List<Estructuras> filterEstructuras;
@@ -105,6 +105,10 @@ public class ControlVigenciasCargos implements Serializable {
     private List<ClasesRiesgos> lovClasesRiesgos;
     private List<ClasesRiesgos> lovClasesRiesgosFiltrar;
     private ClasesRiesgos claseRiesgoSeleccionada;
+    //Papel
+    private List<Papeles> lovPapeles;
+    private List<Papeles> lovPapelesFiltrar;
+    private Papeles papelSeleccionado;
 
     //Otros
     private boolean aceptar;
@@ -145,6 +149,7 @@ public class ControlVigenciasCargos implements Serializable {
     private String infoRegistroMotivos;
     private String infoRegistroCargos;
     private String infoRegistroClaseR;
+    private String infoRegistroPapel;
     /// variables del dialogo vigencias arp
     private String porcentaje;
     private VigenciasArps nuevaVigArp;
@@ -210,6 +215,7 @@ public class ControlVigenciasCargos implements Serializable {
         nombreReporte = "funciones_cargo";
         tipoReporte = "PDF";
         estadoReporte = false;
+        lovPapeles = null;
 
     }
 
@@ -539,10 +545,14 @@ public class ControlVigenciasCargos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         activarLOV = false;
         if (dlg == 0) {
+            motivosCambiosCargos = null;
+            getMotivosCambiosCargos();
             contarRegistrosMotivos();
             RequestContext.getCurrentInstance().update("form:dlgMotivos");
             RequestContext.getCurrentInstance().execute("PF('dlgMotivos').show()");
         } else if (dlg == 1) {
+            cargos = null;
+            getCargos();
             contarRegistrosCargos();
             RequestContext.getCurrentInstance().update("form:dlgCargos");
             RequestContext.getCurrentInstance().execute("PF('dlgCargos').show()");
@@ -551,9 +561,17 @@ public class ControlVigenciasCargos implements Serializable {
             RequestContext.getCurrentInstance().update("form:dialogoEmpleadoJefe");
             RequestContext.getCurrentInstance().execute("PF('dialogoEmpleadoJefe').show()");
         } else if (dlg == 3) {
+            lovClasesRiesgos = null;
+            getLovClasesRiesgos();
             contarRegistrosClasesRiesgos();
             RequestContext.getCurrentInstance().update("form:dialogoClasesRiesgos");
             RequestContext.getCurrentInstance().execute("PF('dialogoClasesRiesgos').show()");
+        } else if (dlg == 4) {
+            lovPapeles = null;
+            getLovPapeles();
+            contarRegistrosPapel();
+            RequestContext.getCurrentInstance().update("form:dialogoPapel");
+            RequestContext.getCurrentInstance().execute("PF('dialogoPapel').show()");
 
         }
     }
@@ -606,6 +624,10 @@ public class ControlVigenciasCargos implements Serializable {
             vcCentrosC.setFilterStyle("display: none; visibility: hidden;");
             vcNombreJefe = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcNombreJefe");
             vcNombreJefe.setFilterStyle("display: none; visibility: hidden;");
+            vcClaseRiesgo = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcClaseRiesgo");
+            vcClaseRiesgo.setFilterStyle("display: none; visibility: hidden;");
+            vcPapel = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcPapel");
+            vcPapel.setFilterStyle("display: none; visibility: hidden;");
             altoTabla = "292";
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
             bandera = 0;
@@ -1035,14 +1057,16 @@ public class ControlVigenciasCargos implements Serializable {
                 activarLOV = false;
                 nombreCompleto = "";
                 vigenciaSeleccionada.getNombreEmplJefe();
-                if(vigenciaSeleccionada.getNombreEmplJefe() != null){
-                nombreCompleto = vigenciaSeleccionada.getNombreEmplJefe();
-                }else{
-                nombreCompleto ="";
+                if (vigenciaSeleccionada.getNombreEmplJefe() != null) {
+                    nombreCompleto = vigenciaSeleccionada.getNombreEmplJefe();
+                } else {
+                    nombreCompleto = "";
                 }
-                
+
             } else if (cualCelda == 6) {
                 vigenciaSeleccionada.getDescClase();
+            } else if (cualCelda == 7) {
+                vigenciaSeleccionada.getNombrePapel();
             }
         }
         RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1099,6 +1123,7 @@ public class ControlVigenciasCargos implements Serializable {
                 nuevaVigencia.setMotivocambiocargo(new MotivosCambiosCargos());
                 nuevaVigencia.setCargo(new Cargos());
                 nuevaVigencia.setClaseRiesgo(new ClasesRiesgos());
+                nuevaVigencia.setPapel(new Papeles());
                 contarRegistros();
                 RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
                 RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1154,6 +1179,10 @@ public class ControlVigenciasCargos implements Serializable {
             } else if (cualCelda == 6) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClaseRiesgo");
                 RequestContext.getCurrentInstance().execute("PF('editarClaseRiesgo').show()");
+                cualCelda = -1;
+            }else if (cualCelda == 7) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarPapelCargo");
+                RequestContext.getCurrentInstance().execute("PF('editarPapelCargo').show()");
                 cualCelda = -1;
             }
         } else {
@@ -1222,6 +1251,7 @@ public class ControlVigenciasCargos implements Serializable {
             duplicarVC.setLiquidahe(vigenciaSeleccionada.getLiquidahe());
             duplicarVC.setTurnorotativo(vigenciaSeleccionada.getTurnorotativo());
             duplicarVC.setClaseRiesgo(vigenciaSeleccionada.getClaseRiesgo());
+            duplicarVC.setPapel(vigenciaSeleccionada.getPapel());
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVC");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroVC').show()");
@@ -1300,6 +1330,7 @@ public class ControlVigenciasCargos implements Serializable {
         duplicarVC.setMotivocambiocargo(new MotivosCambiosCargos());
         duplicarVC.setCargo(new Cargos());
         duplicarVC.setClaseRiesgo(new ClasesRiesgos());
+        duplicarVC.setPapel(new Papeles());
     }
 
     //LISTA DE VALORES DINAMICA
@@ -1337,6 +1368,11 @@ public class ControlVigenciasCargos implements Serializable {
                 contarRegistrosClasesRiesgos();
                 RequestContext.getCurrentInstance().update("form:dialogoClasesRiesgos");
                 RequestContext.getCurrentInstance().execute("PF('dialogoClasesRiesgos').show()");
+            } else if (cualCelda == 7) {
+                tipoActualizacion = 0;
+                contarRegistrosPapel();
+                RequestContext.getCurrentInstance().update("form:dialogoPapel");
+                RequestContext.getCurrentInstance().execute("PF('dialogoPapel').show()");
             }
         }
     }
@@ -1376,6 +1412,8 @@ public class ControlVigenciasCargos implements Serializable {
         nuevaVigencia.setEstructura(new Estructuras());
         nuevaVigencia.setMotivocambiocargo(new MotivosCambiosCargos());
         nuevaVigencia.setCargo(new Cargos());
+        nuevaVigencia.setClaseRiesgo(new ClasesRiesgos());
+        nuevaVigencia.setPapel(new Papeles());
     }
 
     //CTRL + F11 ACTIVAR/DESACTIVAR
@@ -1395,6 +1433,10 @@ public class ControlVigenciasCargos implements Serializable {
             vcCentrosC.setFilterStyle("width: 85% !important;");
             vcNombreJefe = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcNombreJefe");
             vcNombreJefe.setFilterStyle("width: 85% !important;");
+            vcClaseRiesgo = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcClaseRiesgo");
+            vcClaseRiesgo.setFilterStyle("width: 85% !important;");
+            vcPapel = (Column) c.getViewRoot().findComponent("form:datosVCEmpleado:vcPapel");
+            vcPapel.setFilterStyle("width: 85% !important;");
             altoTabla = "272";
             RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
             bandera = 1;
@@ -1459,6 +1501,10 @@ public class ControlVigenciasCargos implements Serializable {
 
     public void contarRegistrosClasesRiesgos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroClaseR");
+    }
+
+    public void contarRegistrosPapel() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroPapel");
     }
 
     public void recordarSeleccion() {
@@ -1532,6 +1578,61 @@ public class ControlVigenciasCargos implements Serializable {
         context.reset("form:lovClasesRiesgos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovClasesRiesgos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('dialogoClasesRiesgos').hide()");
+    }
+
+    public void actualizarPapel() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            vigenciaSeleccionada.setPapel(papelSeleccionado);
+            if (!listVCCrear.contains(vigenciaSeleccionada)) {
+                if (listVCModificar.isEmpty()) {
+                    listVCModificar.add(vigenciaSeleccionada);
+                } else if (!listVCModificar.contains(vigenciaSeleccionada)) {
+                    listVCModificar.add(vigenciaSeleccionada);
+                }
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            permitirIndex = true;
+            deshabilitarBotonLov();
+            RequestContext.getCurrentInstance().update("form:datosVCEmpleado");
+        } else if (tipoActualizacion == 1) {
+            nuevaVigencia.setPapel(papelSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaVC");
+        } else if (tipoActualizacion == 2) {
+            duplicarVC.setPapel(papelSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarVC");
+        }
+        lovPapelesFiltrar = null;
+        papelSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("form:dialogoPapel");
+        RequestContext.getCurrentInstance().update("form:lovPapeles");
+        RequestContext.getCurrentInstance().update("form:aceptarPapel");
+
+        context.reset("form:lovPapeles:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovPapeles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('dialogoPapel').hide()");
+    }
+
+    public void cancelarCambioPapel() {
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        lovPapelesFiltrar = null;
+        papelSeleccionado = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:dialogoPapel");
+        RequestContext.getCurrentInstance().update("form:lovPapeles");
+        RequestContext.getCurrentInstance().update("form:aceptarPapel");
+
+        context.reset("form:lovPapeles:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovPapeles').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('dialogoPapel').hide()");
     }
 
     public void mostrarDialogoAdicionarPorcentaje() {
@@ -1620,7 +1721,7 @@ public class ControlVigenciasCargos implements Serializable {
             System.out.println("nombre reporte : " + nombreReporte);
             System.out.println("tipo reporte: " + tipoReporte);
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            String estructura =vigenciaSeleccionada.getEstructura().getSecuencia().toString();
+            String estructura = vigenciaSeleccionada.getEstructura().getSecuencia().toString();
             String cargo = vigenciaSeleccionada.getCargo().getSecuencia().toString();
 
             Map param = new HashMap();
@@ -2073,7 +2174,45 @@ public class ControlVigenciasCargos implements Serializable {
     public void setPathReporteGenerado(String pathReporteGenerado) {
         this.pathReporteGenerado = pathReporteGenerado;
     }
-    
-    
-    
+
+    public List<Papeles> getLovPapeles() {
+        if (lovPapeles == null) {
+           BigDecimal secEmpresa = administrarVigenciasCargos.consultarEmpresaPorEmpl(empleado.getSecuencia());
+            System.out.println("sec empresa : " + secEmpresa);
+            lovPapeles = administrarVigenciasCargos.lovPapeles(secEmpresa.toBigInteger());
+        }
+        return lovPapeles;
+    }
+
+    public void setLovPapeles(List<Papeles> lovPapeles) {
+        this.lovPapeles = lovPapeles;
+    }
+
+    public List<Papeles> getLovPapelesFiltrar() {
+        return lovPapelesFiltrar;
+    }
+
+    public void setLovPapelesFiltrar(List<Papeles> lovPapelesFiltrar) {
+        this.lovPapelesFiltrar = lovPapelesFiltrar;
+    }
+
+    public Papeles getPapelSeleccionado() {
+        return papelSeleccionado;
+    }
+
+    public void setPapelSeleccionado(Papeles papelSeleccionado) {
+        this.papelSeleccionado = papelSeleccionado;
+    }
+
+    public String getInfoRegistroPapel() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovPapeles");
+        infoRegistroPapel = String.valueOf(tabla.getRowCount());
+        return infoRegistroPapel;
+    }
+
+    public void setInfoRegistroPapel(String infoRegistroPapel) {
+        this.infoRegistroPapel = infoRegistroPapel;
+    }
+
 }

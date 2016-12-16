@@ -2,8 +2,10 @@ package InterfaceAdministrar;
 
 import Entidades.ClasesRiesgos;
 import Entidades.Empleados;
+import Entidades.Papeles;
 import Entidades.VigenciasCargos;
 import Entidades.VwTiposEmpleados;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -37,4 +39,8 @@ public interface AdministrarVigenciasCargosInterface {
     public List<VwTiposEmpleados> FiltrarTipoTrabajador();
     
     public List<ClasesRiesgos> lovClasesRiesgos();
+    
+    public List<Papeles> lovPapeles(BigInteger secEmpresa);
+    
+    public BigDecimal consultarEmpresaPorEmpl(BigInteger secEmpl);
 }

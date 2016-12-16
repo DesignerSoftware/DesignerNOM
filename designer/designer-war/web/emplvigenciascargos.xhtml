@@ -235,6 +235,23 @@
                                     </f:facet>
                                 </p:column>
 
+                                <p:column headerText="Papel" sortBy="#{info.nombrePapel}" filterBy="#{info.nombrePapel}"
+                                          filterMatchMode="contains" id="vcPapel" width="180" filterStyle="display: none; visibility: hidden;">
+                                    <p:cellEditor>  
+                                        <f:facet name="output"> <h:outputText value="#{info.nombrePapel}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText autocomplete="off" value="#{info.nombrePapel}" id="editPapel"
+                                                         style="border-radius: 0px; text-transform: uppercase; height: 12px; width: 94%;">
+                                                <p:ajax event="change" listener="#{controlVigenciasCargos.modificarVC(info)}"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasCargos.cambiarIndice(info, 7)}"
+                                                        onstart="PF('datosVCEmpleado').unselectAllRows();PF('datosVCEmpleado').selectRow(#{indice});"/>
+                                                <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 4,0)}"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column> 
+                                
                                 <p:column headerText="Clase Riesgo" sortBy="#{info.descClase}" filterBy="#{info.descClase}"
                                           filterMatchMode="contains" id="vcClaseRiesgo" width="180" filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>  
@@ -494,8 +511,6 @@
                             </div>
                         </p:dialog>
 
-
-
                         <p:dialog header="Clases Riesgos" widgetVar="dialogoClasesRiesgos" draggable="true" resizable="false" closable="false" id="dialogoClasesRiesgos"  
                                   showEffect="fade" hideEffect="fade" width="430" modal="true" >
                             <p:dataTable id="lovClasesRiesgos" var="clase" value="#{controlVigenciasCargos.lovClasesRiesgos}" rowKey="#{clase.secuencia}"
@@ -537,6 +552,50 @@
                                                  actionListener="#{controlVigenciasCargos.cancelarCambioClaseRiesgo()}"  process="@this"/>    
                             </div>
                         </p:dialog> 
+                        
+                        
+                           <p:dialog header="Papeles" widgetVar="dialogoPapel" draggable="true" resizable="false" closable="false" id="dialogoPapel"  
+                                  showEffect="fade" hideEffect="fade" width="430" modal="true" >
+                               <p:dataTable id="lovPapeles" var="papel" value="#{controlVigenciasCargos.lovPapeles}" rowKey="#{papel.secuencia}"
+                                            selection="#{controlVigenciasCargos.papelSeleccionado}" selectionMode="single" widgetVar="lovPapeles" scrollable="true" scrollWidth="410" scrollHeight="250"
+                                            filteredValue="#{controlVigenciasCargos.lovPapelesFiltrar}" emptyMessage="#{msg['lovvacio']}">              
+
+                                   <p:ajax event="filter" listener="#{controlVigenciasCargos.contarRegistrosPapel()}"/>
+                                <p:ajax event="rowSelect" listener="#{controlVigenciasCargos.activarAceptar()}" update=":form:aceptarPapel"/>
+                                <p:ajax event="rowDblselect" listener="#{controlVigenciasCargos.actualizarPapel()}" process="@this"/>
+
+                                <f:facet name="header">  
+                                    <h:outputText value="Buscar Papeles :"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPapeles').filter();" value="#{filtrado}" class="cssFiltroLOV"/>  
+                                </f:facet>
+
+                                <p:column filterBy="#{papel.codigo}" filterValue="" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                                    <f:facet name="header">
+                                        <h:outputText style="text-align: center" value="Código" />
+                                    </f:facet>
+                                    <h:outputText  value="#{papel.codigo}" />
+                                </p:column>
+
+                                <p:column filterBy="#{papel.descripcion}" filterValue="" filterStyle="width: 80% !important" filterMatchMode="contains">
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripción" />
+                                    </f:facet>
+                                    <h:outputText value="#{papel.descripcion}" />
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <div class="cssBotonesLOV">
+                                <h:outputText id="infoRegistroPapel" value="#{msg['infoRegistro']} #{controlVigenciasCargos.infoRegistroPapel}" class="cssinfoRegistroLOV"/>
+
+                                <p:commandButton id="aceptarPapel" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlVigenciasCargos.aceptar}" icon="ui-icon-check"
+                                                 actionListener="#{controlVigenciasCargos.actualizarPapel()}" process="@this"/>
+
+                                <p:commandButton id="atrasPapel" class="cssAtrasLOV" value="#{msg['atras']}"  icon="ui-icon-arrowreturnthick-1-w" 
+                                                 actionListener="#{controlVigenciasCargos.cancelarCambioPapel()}"  process="@this"/>    
+                            </div>
+                        </p:dialog>
+                        
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
@@ -667,11 +726,18 @@
                             <p:commandButton value="" style="position: absolute; left: 262px; top: 235px;" class="cssBotonLovDialogos" id="NuevoEmplJ" actionListener="#{controlVigenciasCargos.asignarIndex(info, 2, 1)}" process="@this" />
                             <p:watermark for="nuevoJefe" value="#{msg['nombrejefe']}"/>
 
-                            <strong><h:outputText value="Clase Riesgo : " style=" position: absolute; top: 280px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaClaseR" value="#{controlVigenciasCargos.nuevaVigencia.descClase}" style=" width: 122px; position: absolute; left: 130px; top: 275px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="Papel : " style=" position: absolute; top: 275px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoPapel" value="#{controlVigenciasCargos.nuevaVigencia.nombrePapel}" style=" width: 122px; position: absolute; left: 130px; top: 270px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 4, 1)}" />
+                            </p:inputText>
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 270px;" class="cssBotonLovDialogos" id="btnNuevoPapel" actionListener="#{controlVigenciasCargos.asignarIndex(info, 4, 1)}" process="@this" />
+                            <p:watermark for="nuevoPapel" value="Papel"/>
+                            
+                            <strong><h:outputText value="Clase Riesgo : " style=" position: absolute; top: 310px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaClaseR" value="#{controlVigenciasCargos.nuevaVigencia.descClase}" style=" width: 122px; position: absolute; left: 130px; top: 305px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 3, 1)}" />
                             </p:inputText>
-                            <p:commandButton value="" style="position: absolute; left: 262px; top: 275px;" class="cssBotonLovDialogos" id="btnNuevaClaseR" actionListener="#{controlVigenciasCargos.asignarIndex(info, 3, 1)}" process="@this" />
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 305px;" class="cssBotonLovDialogos" id="btnNuevaClaseR" actionListener="#{controlVigenciasCargos.asignarIndex(info, 3, 1)}" process="@this" />
                             <p:watermark for="nuevaClaseR" value="Clase Riesgo"/>
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style="position: absolute; left: 15px; top: 340px;" actionListener="#{controlVigenciasCargos.limpiarNuevaVC()}" update="nuevaVC" process="@this" icon="ui-icon-trash"/>
@@ -697,8 +763,7 @@
                                 <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('ESTRUCTURA', controlVigenciasCargos.duplicarVC.estructura.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasCargos.cargarEstructurasNuevoRegistro(1)}" update=":form:estructurasLOV"/>
                             </p:inputText>
-                            <p:commandButton value="" style="position: absolute; left: 262px; top: 95px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                             width: 23px; height: 23px;" id="btnDuplicarEstructura" process="@this" update=":form:estructurasLOV" actionListener="#{controlVigenciasCargos.cargarEstructurasNuevoRegistro(1)}"/>   
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 95px;" class="cssBotonLovDialogos" id="btnDuplicarEstructura" process="@this" update=":form:estructurasLOV" actionListener="#{controlVigenciasCargos.cargarEstructurasNuevoRegistro(1)}"/>   
                             <p:watermark for="duplicarEstructura" value="#{msg['estructura']}" />
 
                             <strong><h:outputText value="*#{msg['motivoN']}" style=" position: absolute; top: 135px;" /></strong>
@@ -707,8 +772,7 @@
                                 <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 0, 2)}" />
                             </p:inputText>
                             <p:watermark for="duplicarMotivo" value="#{msg['motivo']}" />
-                            <p:commandButton value="" style="position: absolute; left: 262px; top: 130px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                             width: 23px; height: 23px;" id="btnDuplicarMot" process="@this" actionListener="#{controlVigenciasCargos.asignarIndex(info, 0, 2)}"/>
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 130px;" class="cssBotonLovDialogos" id="btnDuplicarMot" process="@this" actionListener="#{controlVigenciasCargos.asignarIndex(info, 0, 2)}"/>
 
                             <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 170px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarNombreCargo" value="#{controlVigenciasCargos.duplicarVC.cargo.nombre}" style=" width: 122px; position: absolute; left: 130px; top: 165px; text-transform: uppercase" onclick="select();">
@@ -727,15 +791,21 @@
                                 <p:ajax event="change" listener="#{controlVigenciasCargos.autocompletarNuevoyDuplicado('EMPLEADOJ', controlVigenciasCargos.duplicarVC.nombreEmplJefe, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 2, 2)}" />
                             </p:inputText>
-                            <p:commandButton value="" style="position: absolute; left: 262px; top: 235px; background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                             width: 23px; height: 23px;" id="btnduplicarJefe" actionListener="#{controlVigenciasCargos.asignarIndex(info, 2, 2)}" process="@this" />
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 235px;" class="cssBotonLovDialogos" id="btnduplicarJefe" actionListener="#{controlVigenciasCargos.asignarIndex(info, 2, 2)}" process="@this" />
                             <p:watermark for="duplicarJefe" value="#{msg['nombrejefe']}"/>
+                            
+                             <strong><h:outputText value="Papel : " style=" position: absolute; top: 275px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarPapel" value="#{controlVigenciasCargos.duplicarVC.nombrePapel}" style=" width: 122px; position: absolute; left: 130px; top: 270px; text-transform: uppercase" onclick="select();">
+                                <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 4, 2)}" />
+                            </p:inputText>
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 270px;" class="cssBotonLovDialogos" id="btnDuplicarPapel" actionListener="#{controlVigenciasCargos.asignarIndex(info, 4, 2)}" process="@this" />
+                            <p:watermark for="duplicarPapel" value="Papel"/>
 
-                            <strong><h:outputText value="Clase Riesgo : " style=" position: absolute; top: 280px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarClaseR" value="#{controlVigenciasCargos.duplicarVC.descClase}" style=" width: 122px; position: absolute; left: 130px; top: 275px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="Clase Riesgo : " style=" position: absolute; top: 310px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarClaseR" value="#{controlVigenciasCargos.duplicarVC.descClase}" style=" width: 122px; position: absolute; left: 130px; top: 305px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlVigenciasCargos.asignarIndex(info, 3, 2)}" />
                             </p:inputText>
-                            <p:commandButton value="" style="position: absolute; left: 262px; top: 275px;" class="cssBotonLovDialogos" id="btnDuplicarClaseR" actionListener="#{controlVigenciasCargos.asignarIndex(info, 3, 1)}" process="@this" />
+                            <p:commandButton value="" style="position: absolute; left: 262px; top: 305px;" class="cssBotonLovDialogos" id="btnDuplicarClaseR" actionListener="#{controlVigenciasCargos.asignarIndex(info, 3, 1)}" process="@this" />
                             <p:watermark for="nuevaClaseR" value="Clase Riesgo"/>
 
 
@@ -863,6 +933,10 @@
 
                     <p:dialog id="editarClaseRiesgo" header="Clase Riesgo" widgetVar="editarClaseRiesgo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
                         <p:inputTextarea value="#{controlVigenciasCargos.editarVC.descClase}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    
+                    <p:dialog id="editarPapelCargo" header="Papel" widgetVar="editarPapelCargo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="padding: 0px;">  
+                        <p:inputTextarea value="#{controlVigenciasCargos.editarVC.papel.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="necesitaFecha" header="#{msg['alerta']}" widgetVar="necesitaFecha"  resizable="false" draggable="true" modal="true" height="70" width="310" closable="true">  

@@ -103,11 +103,11 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
     public List<Papeles> consultarPapelesEmpresa(EntityManager em, BigInteger secEmpresa) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT papelillo FROM Papeles papelillo WHERE papelillo.empresa.secuencia = :secuenciaEmpr ORDER BY papelillo.codigo ASC");
-            query.setParameter("secuenciaEmpr", secEmpresa);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<Papeles> centrosCostos = query.getResultList();
-            return centrosCostos;
+            String sql="SELECT * FROM PAPELES WHERE EMPRESA = ?";
+            Query query = em.createNativeQuery(sql, Papeles.class);
+            query.setParameter(1, secEmpresa);
+            List<Papeles> listPapeles = query.getResultList();
+            return listPapeles;
         } catch (Exception e) {
             System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELESEMPRESA ERROR " + e);
             return null;

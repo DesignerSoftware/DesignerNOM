@@ -186,7 +186,8 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
                 query.setHint("javax.persistence.cache.storeMode", "REFRESH");
                 codigoEmpresa = (Short) query.getSingleResult();
                 //return codigoEmpresa;
-            } /*else {
+            }
+            /*else {
              return 1;
              }*/
             return codigoEmpresa;
@@ -326,6 +327,22 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
             return retorno;
         } catch (Exception e) {
             System.out.println("Error obtenerEnvioInterfaseContabilidadEmpresa PersistenciaEmpresas : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarEmpresaPorEmpleado(EntityManager em, BigInteger secEmpleado) {
+        try {
+            em.clear();
+            String sql = "select e.secuencia from empleados emp,empresas e where e.secuencia = emp.empresa and emp.secuencia = ? ";
+            Query query = em.createNativeQuery(sql);
+             query.setParameter(1, secEmpleado);
+            BigDecimal secEmpresa = (BigDecimal) query.getSingleResult();
+            return secEmpresa;
+
+        } catch (Exception e) {
+            System.out.println("Error en consultarEmpresaPorEmpleado : " + e.toString());
             return null;
         }
     }

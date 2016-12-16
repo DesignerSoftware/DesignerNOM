@@ -62,6 +62,8 @@ public class VigenciasCargos implements Serializable {
     private String descClase;
     @Transient
     private String nombreEmplJefe;
+    @Transient
+    private String nombrePapel;
 
     public VigenciasCargos() {
     }
@@ -197,6 +199,20 @@ public class VigenciasCargos implements Serializable {
 
     public void setNombreEmplJefe(String nombreEmplJefe) {
         this.nombreEmplJefe = nombreEmplJefe;
+    }
+
+    public String getNombrePapel() {
+        getPapel();
+        if(papel == null){
+            nombrePapel="";
+        }else{
+            nombrePapel = papel.getDescripcion();
+        }
+        return nombrePapel;
+    }
+
+    public void setNombrePapel(String nombrePapel) {
+        this.nombrePapel = nombrePapel;
     }
 
     @Override
