@@ -27,7 +27,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 disabled="#{controlPryPlataformas.activarLOV}" actionListener="#{controlPryPlataformas.listaValoresBoton()}"   process="@this"/>
+                                                 disabled="#{controlPryPlataformas.activarLOV}"  process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPryPlataformas.activarCtrlF11()}"  process="@this"/>
@@ -76,20 +76,21 @@
                                          editable="true" editMode="cell" paginator="false"  selection="#{controlPryPlataformas.pryPlataformaSeleccionada}"
                                          selectionMode="single"   >
                                 <p:ajax event="filter" listener="#{controlPryPlataformas.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlPryPlataformas.recordarSeleccionPryPlataforma()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                 <p:keyFilter for="codigo" mask="num"/>
+                                                <p:keyFilter for="codigo" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPryPlataformas.cambiarIndice(info, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlPryPlataformas.modificarEvalPlataforma(info, 'N', info.codigo)}"  update="codigo"/>
+                                                <p:ajax event="change" listener="#{controlPryPlataformas.modificarEvalPlataforma(info)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
@@ -98,11 +99,14 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="100" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryPlataformas.cambiarIndice(info, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlPryPlataformas.modificarEvalPlataforma(info, 'M', info.descripcion)}" update="descripcion"/>
+                                                <p:ajax event="change"  listener="#{controlPryPlataformas.modificarEvalPlataforma(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    
                                 </p:column>
 
                                 <p:column headerText="Observación" sortBy="#{info.observacion}" filterBy="#{info.observacion}" filterMatchMode="contains" id="observacion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
@@ -111,11 +115,13 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.observacion}" maxlength="100" id="editarobservacion" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryPlataformas.cambiarIndice(info, 2)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlPryPlataformas.modificarEvalPlataforma(info, 'O', info.observacion)}" update="observacion"/>
+                                                <p:ajax event="change"  listener="#{controlPryPlataformas.modificarEvalPlataforma(info)}" update="observacion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="infoRegistro" value="Registros: #{controlPryPlataformas.infoRegistro}" style="position: relative; left: 15px; top: 25px; font-weight: bold"/>
@@ -230,7 +236,7 @@
 
                             <strong><h:outputText value="*Código: "  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlPryPlataformas.nuevoPryPlataforma.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
+                                <p:keyFilter for="nuevoCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigo" value="Código" />
@@ -260,7 +266,7 @@
                         <p:panel id="duplicarPPL" style="border: none;">
                             <strong><h:outputText value="código "  style=" position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlPryPlataformas.duplicarPryPlataforma.codigo}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
-                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
+                                <p:keyFilter for="duplicarCodigo" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />

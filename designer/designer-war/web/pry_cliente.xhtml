@@ -26,8 +26,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 disabled="#{controlPryClientes.activarLOV}" actionListener="#{controlPryClientes.listaValoresBoton()}"   process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"  disabled="#{controlPryClientes.activarLOV}" process="@this"/>
                                 <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPryClientes.activarCtrlF11()}"  process="@this"/>
@@ -85,7 +84,6 @@
                                          selectionMode="single"
                                          >
                                 <p:ajax event="filter" listener="#{controlPryClientes.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlPryClientes.recordarSeleccionMotivoCambioCargo()}"/>
 
                                 <p:column headerText="Nombre" sortBy="#{info.nombre}" style="text-transform: uppercase" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -93,11 +91,14 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="50" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.nombre)}"  update="nombre"/>
+                                                <p:ajax event="change" listener="#{controlPryClientes.modificarPryCliente(info)}"  update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
                                 </p:column>
                                 <p:column headerText="Dirección" sortBy="#{info.direccion}" filterBy="#{info.direccion}" filterMatchMode="contains" id="direccion" width="200" filterStyle="display: none; visibility: hidden;" >                                  
@@ -106,11 +107,13 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.direccion}" maxlength="50" id="editarDireccion" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.direccion)}" update="direccion"/>
+                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="direccion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
                                 </p:column>
 
@@ -119,13 +122,16 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.telefono}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.telefono}" maxlength="30" id="editarTelefono" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                 <p:keyFilter for="telefono" mask="num"/>
+                                                <p:keyFilter for="telefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 2)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.telefono)}" update="telefono"/>
+                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="telefono"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                                 <p:column headerText="Nombre Contacto" sortBy="#{info.contacto}" filterBy="#{info.contacto}" filterMatchMode="contains" id="contacto" width="175" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -133,10 +139,13 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.contacto}" maxlength="30" id="editarContacto" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 3)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info, 'N', info.contacto)}" update="contacto"/>
+                                                <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="contacto"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="infoRegistro" value="Registros: #{controlPryClientes.infoRegistro}" style="position: relative; left: 15px; top: 40px; font-weight: bold"/>
@@ -269,7 +278,7 @@
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
-                                 <p:keyFilter for="nuevoTelefono" mask="num"/>
+                                <p:keyFilter for="nuevoTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoTelefono" value="Telefono" />
@@ -305,7 +314,7 @@
 
                             <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
-                                 <p:keyFilter for="duplicarTelefono" mask="num"/>
+                                <p:keyFilter for="duplicarTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarTelefono" value="Telefono" />

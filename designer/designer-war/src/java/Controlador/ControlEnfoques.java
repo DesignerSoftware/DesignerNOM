@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Enfoques;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -51,21 +50,18 @@ public class ControlEnfoques implements Serializable {
     private Enfoques editarEnfoque;
     private Enfoques enfoqueSeleccionado;
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
     //AutoCompletar
     private boolean permitirIndex;
     //RASTRO
-    private BigInteger secRegistro;
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
     private String mensajeValidacion;
     private int tamano;
-
-    private String backUpDescripcion;
-    private Integer backUpCodigo;
+    private boolean activarLov;
     private String infoRegistro;
 
     public ControlEnfoques() {
@@ -79,6 +75,8 @@ public class ControlEnfoques implements Serializable {
         duplicarEnfoque = new Enfoques();
         tamano = 270;
         guardado = true;
+        activarLov = true;
+        tipoLista = 0;
     }
 
     @PostConstruct
@@ -94,61 +92,17 @@ public class ControlEnfoques implements Serializable {
         }
     }
 
-    public void eventoFiltrar() {
-        try {
-            System.out.println("\n ENTRE A CONTROLENFOQUES.eventoFiltrar \n");
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + filtrarEnfoques.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLENFOQUES eventoFiltrar ERROR===" + e.getMessage());
-        }
-    }
-
-    public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
-
+    public void cambiarIndice(Enfoques enfoque, int celda) {
         if (permitirIndex == true) {
-            index = indice;
+            enfoqueSeleccionado = enfoque;
             cualCelda = celda;
-            secRegistro = listEnfoques.get(index).getSecuencia();
+            enfoqueSeleccionado.getSecuencia();
             if (cualCelda == 0) {
-                if (tipoLista == 0) {
-                    backUpCodigo = listEnfoques.get(index).getCodigo();
-                } else {
-                    backUpCodigo = filtrarEnfoques.get(index).getCodigo();
-                }
+                enfoqueSeleccionado.getCodigo();
             }
             if (cualCelda == 1) {
-                if (tipoLista == 0) {
-                    backUpDescripcion = listEnfoques.get(index).getDescripcion();
-                } else {
-                    backUpDescripcion = filtrarEnfoques.get(index).getDescripcion();
-                }
+                enfoqueSeleccionado.getDescripcion();
             }
-        }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlMotivosLocalizaciones.asignarIndex \n");
-            index = indice;
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlMotivosLocalizaciones.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
@@ -156,13 +110,9 @@ public class ControlEnfoques implements Serializable {
         aceptar = false;
     }
 
-    public void listaValoresBoton() {
-    }
-
     public void cancelarModificacion() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
-            //CERRAR FILTRADO
             codigo = (Column) c.getViewRoot().findComponent("form:datosEnfoque:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
@@ -171,25 +121,19 @@ public class ControlEnfoques implements Serializable {
             bandera = 0;
             filtrarEnfoques = null;
             tipoLista = 0;
+            tamano = 270;
         }
 
         borrarEnfoques.clear();
         crearEnfoques.clear();
         modificarEnfoques.clear();
-        index = -1;
-        secRegistro = null;
+        enfoqueSeleccionado = null;
         k = 0;
         listEnfoques = null;
         guardado = true;
         permitirIndex = true;
         getListEnfoques();
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listEnfoques == null || listEnfoques.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosEnfoque");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -197,7 +141,6 @@ public class ControlEnfoques implements Serializable {
     public void salir() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
-            //CERRAR FILTRADO
             codigo = (Column) c.getViewRoot().findComponent("form:datosEnfoque:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosEnfoque:descripcion");
@@ -206,25 +149,19 @@ public class ControlEnfoques implements Serializable {
             bandera = 0;
             filtrarEnfoques = null;
             tipoLista = 0;
+            tamano = 270;
         }
-
         borrarEnfoques.clear();
         crearEnfoques.clear();
         modificarEnfoques.clear();
-        index = -1;
-        secRegistro = null;
+        enfoqueSeleccionado = null;
         k = 0;
         listEnfoques = null;
         guardado = true;
         permitirIndex = true;
         getListEnfoques();
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listEnfoques == null || listEnfoques.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosEnfoque");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -249,324 +186,61 @@ public class ControlEnfoques implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosEnfoque");
             bandera = 0;
             filtrarEnfoques = null;
-            tipoLista = 0;
             tamano = 270;
         }
     }
 
-    public void modificarEnfoques(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR MOTIVOS LOCALIZACIONES");
-        index = indice;
-
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR MOTIVOS LOCALIZACIONES, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearEnfoques.contains(listEnfoques.get(indice))) {
-                    if (listEnfoques.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listEnfoques.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (listEnfoques.get(indice).getCodigo() == listEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            listEnfoques.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (listEnfoques.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (listEnfoques.get(indice).getDescripcion().equals(" ")) {
-                        banderita = false;
-                        listEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    }
-                    if (banderita == true) {
-                        if (modificarEnfoques.isEmpty()) {
-                            modificarEnfoques.add(listEnfoques.get(indice));
-                        } else if (!modificarEnfoques.contains(listEnfoques.get(indice))) {
-                            modificarEnfoques.add(listEnfoques.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (listEnfoques.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listEnfoques.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (listEnfoques.get(indice).getCodigo() == listEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            listEnfoques.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (listEnfoques.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (listEnfoques.get(indice).getDescripcion().equals(" ")) {
-                        banderita = false;
-                        listEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    }
-                    if (banderita == true) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-            } else {
-
-                if (!crearEnfoques.contains(filtrarEnfoques.get(indice))) {
-                    if (filtrarEnfoques.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarEnfoques.get(indice).getCodigo() == listEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < filtrarEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarEnfoques.get(indice).getCodigo() == filtrarEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarEnfoques.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (filtrarEnfoques.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (filtrarEnfoques.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarEnfoques.isEmpty()) {
-                            modificarEnfoques.add(filtrarEnfoques.get(indice));
-                        } else if (!modificarEnfoques.contains(filtrarEnfoques.get(indice))) {
-                            modificarEnfoques.add(filtrarEnfoques.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (filtrarEnfoques.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarEnfoques.get(indice).getCodigo() == listEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < filtrarEnfoques.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarEnfoques.get(indice).getCodigo() == filtrarEnfoques.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarEnfoques.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (filtrarEnfoques.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                    }
-                    if (filtrarEnfoques.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarEnfoques.get(indice).setDescripcion(backUpDescripcion);
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-
+    public void modificarEnfoques(Enfoques enfoque) {
+        enfoqueSeleccionado = enfoque;
+        if (!crearEnfoques.contains(enfoqueSeleccionado)) {
+            if (modificarEnfoques.isEmpty()) {
+                modificarEnfoques.add(enfoqueSeleccionado);
+            } else if (!modificarEnfoques.contains(enfoqueSeleccionado)) {
+                modificarEnfoques.add(enfoqueSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosEnfoque");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            if (guardado == true) {
+                guardado = false;
+            }
         }
-
+        RequestContext.getCurrentInstance().update("form:datosEnfoque");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void borrandoEnfoques() {
 
-        if (index >= 0) {
-
-            if (tipoLista == 0) {
-                System.out.println("Entro a borrardatosEnfoques");
-                if (!modificarEnfoques.isEmpty() && modificarEnfoques.contains(listEnfoques.get(index))) {
-                    int modIndex = modificarEnfoques.indexOf(listEnfoques.get(index));
-                    modificarEnfoques.remove(modIndex);
-                    borrarEnfoques.add(listEnfoques.get(index));
-                } else if (!crearEnfoques.isEmpty() && crearEnfoques.contains(listEnfoques.get(index))) {
-                    int crearIndex = crearEnfoques.indexOf(listEnfoques.get(index));
-                    crearEnfoques.remove(crearIndex);
-                } else {
-                    borrarEnfoques.add(listEnfoques.get(index));
-                }
-                listEnfoques.remove(index);
+        if (enfoqueSeleccionado != null) {
+            System.out.println("Entro a borrardatosEnfoques");
+            if (!modificarEnfoques.isEmpty() && modificarEnfoques.contains(enfoqueSeleccionado)) {
+                int modIndex = modificarEnfoques.indexOf(enfoqueSeleccionado);
+                modificarEnfoques.remove(modIndex);
+                borrarEnfoques.add(enfoqueSeleccionado);
+            } else if (!crearEnfoques.isEmpty() && crearEnfoques.contains(enfoqueSeleccionado)) {
+                int crearIndex = crearEnfoques.indexOf(enfoqueSeleccionado);
+                crearEnfoques.remove(crearIndex);
+            } else {
+                borrarEnfoques.add(enfoqueSeleccionado);
             }
+            listEnfoques.remove(enfoqueSeleccionado);
             if (tipoLista == 1) {
-                System.out.println("borrardatosEnfoques ");
-                if (!modificarEnfoques.isEmpty() && modificarEnfoques.contains(filtrarEnfoques.get(index))) {
-                    int modIndex = modificarEnfoques.indexOf(filtrarEnfoques.get(index));
-                    modificarEnfoques.remove(modIndex);
-                    borrarEnfoques.add(filtrarEnfoques.get(index));
-                } else if (!crearEnfoques.isEmpty() && crearEnfoques.contains(filtrarEnfoques.get(index))) {
-                    int crearIndex = crearEnfoques.indexOf(filtrarEnfoques.get(index));
-                    crearEnfoques.remove(crearIndex);
-                } else {
-                    borrarEnfoques.add(filtrarEnfoques.get(index));
-                }
-                int VCIndex = listEnfoques.indexOf(filtrarEnfoques.get(index));
-                listEnfoques.remove(VCIndex);
-                filtrarEnfoques.remove(index);
+                filtrarEnfoques.remove(enfoqueSeleccionado);
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            enfoqueSeleccionado = null;
+            contarRegistros();
             if (guardado == true) {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:datosEnfoque");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            index = -1;
-            secRegistro = null;
-        }
-
-    }
-
-    private BigInteger verificarTablasAuxilios;
-
-    public void verificarBorrado() {
-        try {
-            System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-            System.out.println("secuencia borrado : " + listEnfoques.get(index).getSecuencia());
-            if (tipoLista == 0) {
-                System.out.println("secuencia borrado : " + listEnfoques.get(index).getSecuencia());
-                verificarTablasAuxilios = administrarEnfoques.verificarTiposDetalles(listEnfoques.get(index).getSecuencia());
-            } else {
-                System.out.println("secuencia borrado : " + filtrarEnfoques.get(index).getSecuencia());
-                verificarTablasAuxilios = administrarEnfoques.verificarTiposDetalles(filtrarEnfoques.get(index).getSecuencia());
-            }
-            if (!verificarTablasAuxilios.equals(new BigInteger("0"))) {
-                System.out.println("Borrado>0");
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
-
-                verificarTablasAuxilios = new BigInteger("-1");
-
-            } else {
-                System.out.println("Borrado==0");
-                borrandoEnfoques();
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR CONTROLENFOQUES verificarBorrado ERROR " + e);
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistros').show()");
         }
     }
 
     public void guardarEnfoques() {
         RequestContext context = RequestContext.getCurrentInstance();
-
         if (guardado == false) {
-            System.out.println("Realizando Operaciones Motivos Localizacion");
             if (!borrarEnfoques.isEmpty()) {
                 administrarEnfoques.borrarEnfoques(borrarEnfoques);
                 registrosBorrados = borrarEnfoques.size();
@@ -584,29 +258,20 @@ public class ControlEnfoques implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listEnfoques = null;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:datosEnfoque");
             k = 0;
             guardado = true;
         }
-        index = -1;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarEnfoque = listEnfoques.get(index);
-            }
-            if (tipoLista == 1) {
-                editarEnfoque = filtrarEnfoques.get(index);
-            }
-
+        if (enfoqueSeleccionado != null) {
+            editarEnfoque = enfoqueSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -616,54 +281,40 @@ public class ControlEnfoques implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistros').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void agregarNuevoEnfoque() {
-        System.out.println("Agregar Motivo Localizacion");
         int contador = 0;
         int duplicados = 0;
-
         Integer a = 0;
         a = null;
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoEnfoque.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEnfoque.getCodigo());
-
             for (int x = 0; x < listEnfoques.size(); x++) {
                 if (listEnfoques.get(x).getCodigo() == nuevoEnfoque.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado ya existe, por favor ingrese otro ";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoEnfoque.getDescripcion() == (null)) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
 
         }
-
-        System.out.println("contador " + contador);
-
         if (contador == 2) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
@@ -678,20 +329,15 @@ public class ControlEnfoques implements Serializable {
                 filtrarEnfoques = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoEnfoque.setSecuencia(l);
-
             crearEnfoques.add(nuevoEnfoque);
-
             listEnfoques.add(nuevoEnfoque);
-            nuevoEnfoque = new Enfoques();
-
+            enfoqueSeleccionado = nuevoEnfoque;
             RequestContext.getCurrentInstance().update("form:datosEnfoque");
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
+            nuevoEnfoque = new Enfoques();
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -699,54 +345,37 @@ public class ControlEnfoques implements Serializable {
             System.out.println("Despues de la bandera guardado");
 
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroEnfoque').hide()");
-            index = -1;
-            secRegistro = null;
-            System.out.println("Despues de nuevoRegistroEnfoque");
-            nuevoEnfoque = new Enfoques();
         } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionNuevoEnfoque");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoEnfoque').show()");
         }
     }
 
     public void limpiarNuevoEnfoque() {
         System.out.println("limpiarnuevoEnfoques");
         nuevoEnfoque = new Enfoques();
-        secRegistro = null;
-        index = -1;
-
     }
 
-    //------------------------------------------------------------------------------
     public void duplicarEnfoques() {
         System.out.println("duplicarEnfoques");
-        if (index >= 0) {
+        if (enfoqueSeleccionado != null) {
             duplicarEnfoque = new Enfoques();
             k++;
             l = BigInteger.valueOf(k);
 
-            if (tipoLista == 0) {
-                duplicarEnfoque.setSecuencia(l);
-                duplicarEnfoque.setCodigo(listEnfoques.get(index).getCodigo());
-                duplicarEnfoque.setDescripcion(listEnfoques.get(index).getDescripcion());
-            }
-            if (tipoLista == 1) {
-                duplicarEnfoque.setSecuencia(l);
-                duplicarEnfoque.setCodigo(filtrarEnfoques.get(index).getCodigo());
-                duplicarEnfoque.setDescripcion(filtrarEnfoques.get(index).getDescripcion());
-            }
+            duplicarEnfoque.setSecuencia(l);
+            duplicarEnfoque.setCodigo(enfoqueSeleccionado.getCodigo());
+            duplicarEnfoque.setDescripcion(enfoqueSeleccionado.getDescripcion());
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEnfoques");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEnfoque').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR ControlEnfoques");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
@@ -757,8 +386,7 @@ public class ControlEnfoques implements Serializable {
         System.err.println("ConfirmarDuplicar descripcion " + duplicarEnfoque.getDescripcion());
 
         if (duplicarEnfoque.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listEnfoques.size(); x++) {
                 if (listEnfoques.get(x).getCodigo() == duplicarEnfoque.getCodigo()) {
@@ -766,8 +394,7 @@ public class ControlEnfoques implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = " El código ingresado ya existe. Por favor ingrese otro código";
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -775,27 +402,18 @@ public class ControlEnfoques implements Serializable {
             }
         }
         if (duplicarEnfoque.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + "   *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
-
-            System.out.println("Datos Duplicando: " + duplicarEnfoque.getSecuencia() + "  " + duplicarEnfoque.getCodigo());
-            if (crearEnfoques.contains(duplicarEnfoque)) {
-                System.out.println("Ya lo contengo.");
-            }
             listEnfoques.add(duplicarEnfoque);
             crearEnfoques.add(duplicarEnfoque);
             RequestContext.getCurrentInstance().update("form:datosEnfoque");
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            secRegistro = null;
+            contarRegistros();
+            enfoqueSeleccionado = duplicarEnfoque;
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -832,8 +450,6 @@ public class ControlEnfoques implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "Enfoque", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -842,41 +458,40 @@ public class ControlEnfoques implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "Enfoque", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listEnfoques.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "ENFOQUES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (enfoqueSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(enfoqueSeleccionado.getSecuencia(), "ENFOQUES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("ENFOQUES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("ENFOQUES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
+    }
+
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistros();
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+
     }
 
     //--/-*/-*/-*/-*/*/*/*/*/****/////-----*****/////-*/-*/*/*/-*/-*/-*/-*/-*/-*/-*/
@@ -884,13 +499,6 @@ public class ControlEnfoques implements Serializable {
         if (listEnfoques == null) {
             listEnfoques = administrarEnfoques.consultarEnfoques();
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listEnfoques == null || listEnfoques.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listEnfoques.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listEnfoques;
     }
 
@@ -946,14 +554,6 @@ public class ControlEnfoques implements Serializable {
         this.nuevoEnfoque = nuevoEnfoque;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public boolean isGuardado() {
         return guardado;
     }
@@ -979,11 +579,30 @@ public class ControlEnfoques implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEnfoque");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
     public void setInfoRegistro(String infoRegistro) {
         this.infoRegistro = infoRegistro;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public boolean isAceptar() {
+        return aceptar;
+    }
+
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
     }
 
 }

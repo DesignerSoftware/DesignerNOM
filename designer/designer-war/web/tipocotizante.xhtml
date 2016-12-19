@@ -66,7 +66,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"/> 
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTipoCotizante.salir()}" action="#{controlTipoCotizante.retornarPagina()}" process="@this"/> 
                                 <!-- actionListener="#/{controlTiposTrabajadores.salir()}" action="#/{controlTiposTrabajadores.retornarPagina()}" process="@this"  -->
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  

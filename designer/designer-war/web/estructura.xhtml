@@ -228,7 +228,7 @@
                                       background-repeat: no-repeat; border: none; color: white;"/>
                      <p:tooltip  for="btnRiesgosProfesionales" value="#{msg['riesgosprofesionales']}"/>
                      <p:commandButton id="btnReportePlanta" value="Reporte Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;"/>
+                                      background-repeat: no-repeat; border: none; color: white;" actionListener="#{controlEstructura.validarDescargaReporte()}"/>
                      <p:tooltip  for="btnReportePlanta" value="#{msg['reporteplantapersonal']}"/>
                   </fieldset>
                </p:panel>
@@ -478,7 +478,24 @@
                <p:dialog id="editarEs" header="#{msg['estadoE']}" widgetVar="editarEs" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEstructura.editarOrganigrama.estado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
+                
+                
+                 <p:dialog  id="verReportePDF" header="#{controlEstructura.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                  <p:media value="#{controlEstructura.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlEstructura.reporte != null}"/>
+               </p:dialog>
+               <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlEstructura.reiniciarStreamedContent()}"/>
 
+               <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlEstructura.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+               </p:dialog>
+
+               <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                  <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEstructura.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
+               </p:dialog>
+                
+                
             </h:form>
             <h:form id="formExportar">
                <p:dataTable id="datosOrganigramasExportar" var="infoExp" style="visibility: hidden; display: none;"                           

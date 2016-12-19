@@ -31,5 +31,7 @@ public interface IniciarReporteInterface {
     
     public String ejecutarReporteHojaVida(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map codEmpl);
     
+    public String ejecutarReportePlanta1(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn);
+    
     
 }

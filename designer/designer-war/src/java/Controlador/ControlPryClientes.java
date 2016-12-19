@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.PryClientes;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -100,13 +99,11 @@ public class ControlPryClientes implements Serializable {
         paginaAnterior = pagina;
         listPryClientes = null;
         getListPryClientes();
-        contarRegistros();
-        if(listPryClientes == null || listPryClientes.isEmpty()){
-            pryClienteSeleccionado= null;
-        } else {
-        pryClienteSeleccionado = listPryClientes.get(0);
+        if (listPryClientes != null) {
+            if (!listPryClientes.isEmpty()) {
+                pryClienteSeleccionado = listPryClientes.get(0);
+            }
         }
-        
     }
 
     public String redirigirPaginaAnterior() {
@@ -114,68 +111,29 @@ public class ControlPryClientes implements Serializable {
     }
 
     public void cambiarIndice(PryClientes pryCliente, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
 
         if (permitirIndex == true) {
             pryClienteSeleccionado = pryCliente;
             cualCelda = celda;
             pryClienteSeleccionado.getSecuencia();
             if (cualCelda == 0) {
-                if (tipoLista == 0) {
-                    backUpDescripcion = pryClienteSeleccionado.getNombre();
-                } else {
-                    backUpDescripcion = pryClienteSeleccionado.getNombre();
-                }
+                backUpDescripcion = pryClienteSeleccionado.getNombre();
             }
             if (cualCelda == 1) {
-                if (tipoLista == 0) {
-                    backUpDireccion = pryClienteSeleccionado.getDireccion();
-                } else {
-                    backUpDireccion = pryClienteSeleccionado.getDireccion();
-                }
+                backUpDireccion = pryClienteSeleccionado.getDireccion();
             }
             if (cualCelda == 2) {
-                if (tipoLista == 0) {
-                    backUpTelefono = pryClienteSeleccionado.getTelefono();
-                } else {
-                    backUpTelefono = pryClienteSeleccionado.getTelefono();
-                }
+                backUpTelefono = pryClienteSeleccionado.getTelefono();
             }
             if (cualCelda == 3) {
-                if (tipoLista == 0) {
-                    backUpNombreContacto = pryClienteSeleccionado.getContacto();
-                } else {
-                    backUpNombreContacto = pryClienteSeleccionado.getContacto();
-                }
+                backUpNombreContacto = pryClienteSeleccionado.getContacto();
             }
 
-        }
-        System.out.println("Indice: " + pryClienteSeleccionado + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(PryClientes pryCliente, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlPryClientes.asignarIndex \n");
-            pryClienteSeleccionado = pryCliente;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlPryClientes.asignarIndex ERROR======" + e.getMessage());
         }
     }
 
     public void activarAceptar() {
         aceptar = false;
-    }
-
-    public void listaValoresBoton() {
     }
 
     public void cancelarModificacion() {
@@ -206,7 +164,6 @@ public class ControlPryClientes implements Serializable {
         getListPryClientes();
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosPryCliente");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -239,7 +196,6 @@ public class ControlPryClientes implements Serializable {
         getListPryClientes();
         contarRegistros();
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosPryCliente");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -278,143 +234,20 @@ public class ControlPryClientes implements Serializable {
         }
     }
 
-    public void modificarPryCliente(PryClientes pryCliente, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR PRY CLIENTE");
+    public void modificarPryCliente(PryClientes pryCliente) {
         pryClienteSeleccionado = pryCliente;
-
-        int contador = 0;
-        boolean banderita = false;
-        Short a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR PRY CLIENTE, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearPryClientes.contains(pryClienteSeleccionado)) {
-
-                    if (pryClienteSeleccionado.getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        System.err.println("nombre");
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                    } else if (pryClienteSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        System.err.println("nombre");
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                    } else {
-                        banderita = true;
-                    }
-
-                    System.err.println("VALIDACION BANDERITA == " + banderita);
-                    if (banderita == true) {
-                        if (modificarPryClientes.isEmpty()) {
-                            modificarPryClientes.add(pryClienteSeleccionado);
-                        } else if (!modificarPryClientes.contains(pryClienteSeleccionado)) {
-                            modificarPryClientes.add(pryClienteSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                } else {
-
-                    if (pryClienteSeleccionado.getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        System.err.println("nombre");
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                    } else if (pryClienteSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        System.err.println("nombre");
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                    } else {
-                        banderita = true;
-                    }
-
-                    System.err.println("VALIDACION BANDERITA == " + banderita);
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                }
-            } else {
-
-                if (!crearPryClientes.contains(pryClienteSeleccionado)) {
-
-                    if (pryClienteSeleccionado.getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                        System.err.println("nombre");
-                    } else if (pryClienteSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                        banderita = false;
-                        System.err.println("nombre");
-                    } else {
-                        banderita = true;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarPryClientes.isEmpty()) {
-                            modificarPryClientes.add(pryClienteSeleccionado);
-                        } else if (!modificarPryClientes.contains(pryClienteSeleccionado)) {
-                            modificarPryClientes.add(pryClienteSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                } else {
-
-                    if (pryClienteSeleccionado.getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                        System.err.println("nombre");
-                    } else if (pryClienteSeleccionado.getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        pryClienteSeleccionado.setNombre(backUpDescripcion);
-                        banderita = false;
-                        System.err.println("nombre");
-                    } else {
-                        banderita = true;
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                }
-
+        if (!crearPryClientes.contains(pryClienteSeleccionado)) {
+            if (modificarPryClientes.isEmpty()) {
+                modificarPryClientes.add(pryClienteSeleccionado);
+            } else if (!modificarPryClientes.contains(pryClienteSeleccionado)) {
+                modificarPryClientes.add(pryClienteSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosPryCliente");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        if (guardado == true) {
+            guardado = false;
+        }
+        RequestContext.getCurrentInstance().update("form:datosPryCliente");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void borrandoPryCliente() {
@@ -434,8 +267,7 @@ public class ControlPryClientes implements Serializable {
                 filtrarPryClientes.remove(pryClienteSeleccionado);
                 listPryClientes.remove(pryClienteSeleccionado);
             }
-            modificarInfoRegistro(listPryClientes.size());
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosPryCliente");
             if (guardado == true) {
                 guardado = false;
@@ -604,9 +436,7 @@ public class ControlPryClientes implements Serializable {
             nuevoPryCliente.setSecuencia(l);
             crearPryClientes.add(nuevoPryCliente);
             listPryClientes.add(nuevoPryCliente);
-            modificarInfoRegistro(listPryClientes.size());
-            RequestContext.getCurrentInstance().update("form:datosPryCliente");
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
             nuevoPryCliente = new PryClientes();
             if (guardado == true) {
                 guardado = false;
@@ -687,9 +517,8 @@ public class ControlPryClientes implements Serializable {
             }
             listPryClientes.add(duplicarPryCliente);
             crearPryClientes.add(duplicarPryCliente);
-            modificarInfoRegistro(listPryClientes.size());
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosPryCliente");
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
             pryClienteSeleccionado = duplicarPryCliente;
             if (guardado == true) {
                 guardado = false;
@@ -747,9 +576,7 @@ public class ControlPryClientes implements Serializable {
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pryClienteSeleccionado != null) {
-            System.out.println("lol 2");
             int resultado = administrarRastros.obtenerTabla(pryClienteSeleccionado.getSecuencia(), "PRY_CLIENTES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -762,13 +589,10 @@ public class ControlPryClientes implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
 
+        } else if (administrarRastros.verificarHistoricosTabla("PRY_CLIENTES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PRY_CLIENTES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -777,32 +601,14 @@ public class ControlPryClientes implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            modificarInfoRegistro(filtrarPryClientes.size());
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlPryClientes eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void modificarInfoRegistro(int valor) {
-        infoRegistro = String.valueOf(valor);
-    }
-
     public void contarRegistros() {
-        if (listPryClientes != null) {
-            modificarInfoRegistro(listPryClientes.size());
-        } else {
-            modificarInfoRegistro(0);
-        }
-    }
-
-    public void recordarSeleccionMotivoCambioCargo() {
-        if (pryClienteSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosPryCliente");
-            tablaC.setSelection(pryClienteSeleccionado);
-        }
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
@@ -882,6 +688,9 @@ public class ControlPryClientes implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosPryCliente");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 

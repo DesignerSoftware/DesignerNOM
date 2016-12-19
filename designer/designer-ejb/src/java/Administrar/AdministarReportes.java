@@ -366,4 +366,43 @@ public class AdministarReportes implements AdministarReportesInterface {
             return null;
         } 
     }
+
+    @Override
+    public String generarReportePlanta1(String nombreReporte, String tipoReporte) {
+        System.out.println("Administrar.AdministarReportes.generarReportePlanta1()");
+         try {
+            general = persistenciaGenerales.obtenerRutas(em);
+            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+            String pathReporteGenerado = null;
+            System.out.println("general:  " + general);
+            System.out.println("nombreusuario: " + nombreUsuario);
+            if (general != null && nombreUsuario != null) {
+                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+                String fechaActual = formato.format(new Date());
+                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
+                String rutaReporte = general.getPathreportes();
+                String rutaGenerado = general.getUbicareportes();
+                System.out.println("general.getPathreportes() : " + general.getPathreportes());
+                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+                if (tipoReporte.equals("PDF")) {
+                    System.out.println("entró a PDF");
+                    nombreArchivo = nombreArchivo + ".pdf";
+                } 
+                consultarDatosConexion();
+                System.out.println("conexion: " + conexion);
+                if (conexion != null && !conexion.isClosed()) {
+                    pathReporteGenerado = reporte.ejecutarReportePlanta1(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion);
+                    //conexion.close();
+                    return pathReporteGenerado;
+                }
+                return pathReporteGenerado;
+            }
+            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+            System.out.println("Sali sin Errores");
+            return pathReporteGenerado;
+        } catch (SQLException ex) {
+            System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
+            return null;
+        } 
+    }
     }

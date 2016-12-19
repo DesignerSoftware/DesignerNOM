@@ -55,5 +55,7 @@ public interface AdministarReportesInterface {
    public String generarReporteFuncionesCargo(String nombreReporte,String tipoReporte,Map parametros);  
    
    public String generarReporteHojaVida(String nombreReporte,String tipoReporte,Map parametros);
+   
+   public String generarReportePlanta1(String nombreReporte,String tipoReporte);
      
 }
