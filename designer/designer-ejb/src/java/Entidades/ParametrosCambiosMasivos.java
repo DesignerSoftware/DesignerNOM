@@ -11,8 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -146,6 +144,52 @@ public class ParametrosCambiosMasivos implements Serializable {
    @Transient
    private String str_sueldoUnidadPago;
 
+   @Transient
+   private boolean bul_indemniza;
+   @Transient
+   private boolean bul_retroactivo;
+
+   @Transient
+   private BigInteger trans_baseLiquidacion;
+   @Transient
+   private BigInteger trans_porcentaje;
+   @Transient
+   private BigInteger trans_dias;
+   @Transient
+   private BigInteger trans_horas;
+
+   @Transient
+   private Date trans_fechaReingreso;
+   @Transient
+   private Date trans_fechaFinContrato;
+   @Transient
+   private Date trans_fechaEmplJefe;
+   @Transient
+   private Date trans_fechaInicialAusent;
+   @Transient
+   private Date trans_fechaFinalAusent;
+   @Transient
+   private Date trans_fechaExpedicionAusent;
+   @Transient
+   private Date trans_fechaInicialPagoAusent;
+   @Transient
+   private Date trans_fechaFinalPagoAusent;
+   @Transient
+   private Date trans_fechaPapel;
+
+   @Transient
+   private String trans_nombreJefe;
+   @Transient
+   private String trans_tipoAusentismo;
+   @Transient
+   private String trans_clase;
+   @Transient
+   private String trans_causa;
+   @Transient
+   private String trans_formaLiquidacion;
+   @Transient
+   private String trans_papel;
+
    public BigInteger getSecuencia() {
       return secuencia;
    }
@@ -267,6 +311,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getAfiliaTipoEntidad() {
+      if (afiliaTipoEntidad == null) {
+         afiliaTipoEntidad = new BigInteger("0");
+      }
       return afiliaTipoEntidad;
    }
 
@@ -275,6 +322,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getAfiliaTerceroSucursal() {
+      if (afiliaTerceroSucursal == null) {
+         afiliaTerceroSucursal = new BigInteger("0");
+      }
       return afiliaTerceroSucursal;
    }
 
@@ -283,6 +333,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getCargoEstructura() {
+      if (cargoEstructura == null) {
+         cargoEstructura = new BigInteger("0");
+      }
       return cargoEstructura;
    }
 
@@ -291,6 +344,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getLocaliEstructura() {
+      if (localiEstructura == null) {
+         localiEstructura = new BigInteger("0");
+      }
       return localiEstructura;
    }
 
@@ -299,6 +355,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getRetiMotivoDefinitiva() {
+      if (retiMotivoDefinitiva == null) {
+         retiMotivoDefinitiva = new BigInteger("0");
+      }
       return retiMotivoDefinitiva;
    }
 
@@ -307,6 +366,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getRetiMotivoRetiro() {
+      if (retiMotivoRetiro == null) {
+         retiMotivoRetiro = new BigInteger("0");
+      }
       return retiMotivoRetiro;
    }
 
@@ -339,6 +401,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveConcepto() {
+      if (noveConcepto == null) {
+         noveConcepto = new BigInteger("0");
+      }
       return noveConcepto;
    }
 
@@ -347,6 +412,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNovePeriodicidad() {
+      if (novePeriodicidad == null) {
+         novePeriodicidad = new BigInteger("0");
+      }
       return novePeriodicidad;
    }
 
@@ -355,6 +423,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveTercero() {
+      if (noveTercero == null) {
+         noveTercero = new BigInteger("0");
+      }
       return noveTercero;
    }
 
@@ -363,6 +434,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveFormula() {
+      if (noveFormula == null) {
+         noveFormula = new BigInteger("0");
+      }
       return noveFormula;
    }
 
@@ -387,6 +461,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoMotivoCambioSueldo() {
+      if (sueldoMotivoCambioSueldo == null) {
+         sueldoMotivoCambioSueldo = new BigInteger("0");
+      }
       return sueldoMotivoCambioSueldo;
    }
 
@@ -395,6 +472,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoTipoSueldo() {
+      if (sueldoTipoSueldo == null) {
+         sueldoTipoSueldo = new BigInteger("0");
+      }
       return sueldoTipoSueldo;
    }
 
@@ -403,6 +483,9 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoUnidadPago() {
+      if (sueldoUnidadPago == null) {
+         sueldoUnidadPago = new BigInteger("0");
+      }
       return sueldoUnidadPago;
    }
 
@@ -520,6 +603,192 @@ public class ParametrosCambiosMasivos implements Serializable {
 
    public void setStr_sueldoUnidadPago(String str_sueldoUnidadPago) {
       this.str_sueldoUnidadPago = str_sueldoUnidadPago;
+   }
+
+   public boolean isBul_indemniza() {
+      if (retiIndemniza != null) {
+         if (retiIndemniza.equalsIgnoreCase("S")) {
+            bul_indemniza = true;
+         } else {
+            bul_indemniza = false;
+         }
+      } else {
+         bul_indemniza = false;
+      }
+      return bul_indemniza;
+   }
+
+   public void setBul_indemniza(boolean bul_indemniza) {
+      this.bul_indemniza = bul_indemniza;
+   }
+
+   public boolean isBul_retroactivo() {
+      if (sueldoRetroactivo != null) {
+         if (sueldoRetroactivo.equalsIgnoreCase("S")) {
+            bul_retroactivo = true;
+         } else {
+            bul_retroactivo = false;
+         }
+      } else {
+         bul_retroactivo = false;
+      }
+      return bul_retroactivo;
+   }
+
+   public void setBul_retroactivo(boolean bul_retroactivo) {
+      this.bul_retroactivo = bul_retroactivo;
+   }
+
+   public BigInteger getTrans_baseLiquidacion() {
+      return trans_baseLiquidacion;
+   }
+
+   public void setTrans_baseLiquidacion(BigInteger trans_baseLiquidacion) {
+      this.trans_baseLiquidacion = trans_baseLiquidacion;
+   }
+
+   public BigInteger getTrans_porcentaje() {
+      return trans_porcentaje;
+   }
+
+   public void setTrans_porcentaje(BigInteger trans_porcentaje) {
+      this.trans_porcentaje = trans_porcentaje;
+   }
+
+   public BigInteger getTrans_dias() {
+      return trans_dias;
+   }
+
+   public void setTrans_dias(BigInteger trans_dias) {
+      this.trans_dias = trans_dias;
+   }
+
+   public BigInteger getTrans_horas() {
+      return trans_horas;
+   }
+
+   public void setTrans_horas(BigInteger trans_horas) {
+      this.trans_horas = trans_horas;
+   }
+
+   public Date getTrans_fechaReingreso() {
+      return trans_fechaReingreso;
+   }
+
+   public void setTrans_fechaReingreso(Date trans_fechaReingreso) {
+      this.trans_fechaReingreso = trans_fechaReingreso;
+   }
+
+   public Date getTrans_fechaFinContrato() {
+      return trans_fechaFinContrato;
+   }
+
+   public void setTrans_fechaFinContrato(Date trans_fechaFinContrato) {
+      this.trans_fechaFinContrato = trans_fechaFinContrato;
+   }
+
+   public Date getTrans_fechaEmplJefe() {
+      return trans_fechaEmplJefe;
+   }
+
+   public void setTrans_fechaEmplJefe(Date trans_fechaEmplJefe) {
+      this.trans_fechaEmplJefe = trans_fechaEmplJefe;
+   }
+
+   public Date getTrans_fechaInicialAusent() {
+      return trans_fechaInicialAusent;
+   }
+
+   public void setTrans_fechaInicialAusent(Date trans_fechaInicialAusent) {
+      this.trans_fechaInicialAusent = trans_fechaInicialAusent;
+   }
+
+   public Date getTrans_fechaFinalAusent() {
+      return trans_fechaFinalAusent;
+   }
+
+   public void setTrans_fechaFinalAusent(Date trans_fechaFinalAusent) {
+      this.trans_fechaFinalAusent = trans_fechaFinalAusent;
+   }
+
+   public Date getTrans_fechaExpedicionAusent() {
+      return trans_fechaExpedicionAusent;
+   }
+
+   public void setTrans_fechaExpedicionAusent(Date trans_fechaExpedicionAusent) {
+      this.trans_fechaExpedicionAusent = trans_fechaExpedicionAusent;
+   }
+
+   public Date getTrans_fechaInicialPagoAusent() {
+      return trans_fechaInicialPagoAusent;
+   }
+
+   public void setTrans_fechaInicialPagoAusent(Date trans_fechaInicialPagoAusent) {
+      this.trans_fechaInicialPagoAusent = trans_fechaInicialPagoAusent;
+   }
+
+   public Date getTrans_fechaFinalPagoAusent() {
+      return trans_fechaFinalPagoAusent;
+   }
+
+   public void setTrans_fechaFinalPagoAusent(Date trans_fechaFinalPagoAusent) {
+      this.trans_fechaFinalPagoAusent = trans_fechaFinalPagoAusent;
+   }
+
+   public Date getTrans_fechaPapel() {
+      return trans_fechaPapel;
+   }
+
+   public void setTrans_fechaPapel(Date trans_fechaPapel) {
+      this.trans_fechaPapel = trans_fechaPapel;
+   }
+
+   public String getTrans_nombreJefe() {
+      return trans_nombreJefe;
+   }
+
+   public void setTrans_nombreJefe(String trans_nombreJefe) {
+      this.trans_nombreJefe = trans_nombreJefe;
+   }
+
+   public String getTrans_tipoAusentismo() {
+      return trans_tipoAusentismo;
+   }
+
+   public void setTrans_tipoAusentismo(String trans_tipoAusentismo) {
+      this.trans_tipoAusentismo = trans_tipoAusentismo;
+   }
+
+   public String getTrans_clase() {
+      return trans_clase;
+   }
+
+   public void setTrans_clase(String trans_clase) {
+      this.trans_clase = trans_clase;
+   }
+
+   public String getTrans_causa() {
+      return trans_causa;
+   }
+
+   public void setTrans_causa(String trans_causa) {
+      this.trans_causa = trans_causa;
+   }
+
+   public String getTrans_formaLiquidacion() {
+      return trans_formaLiquidacion;
+   }
+
+   public void setTrans_formaLiquidacion(String trans_formaLiquidacion) {
+      this.trans_formaLiquidacion = trans_formaLiquidacion;
+   }
+
+   public String getTrans_papel() {
+      return trans_papel;
+   }
+
+   public void setTrans_papel(String trans_papel) {
+      this.trans_papel = trans_papel;
    }
 
    @Override

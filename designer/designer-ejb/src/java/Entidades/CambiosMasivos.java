@@ -6,13 +6,12 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -51,6 +50,8 @@ public class CambiosMasivos implements Serializable {
    
    @Transient
    private String nombreEmpleado;
+   @Transient
+   private BigDecimal codigoEmpleado;
 
    public BigInteger getSecuencia() {
       return secuencia;
@@ -108,6 +109,14 @@ public class CambiosMasivos implements Serializable {
       this.nombreEmpleado = nombreEmpleado;
    }
 
+   public BigDecimal getCodigoEmpleado() {
+      return codigoEmpleado;
+   }
+
+   public void setCodigoEmpleado(BigDecimal codigoEmpleado) {
+      this.codigoEmpleado = codigoEmpleado;
+   }
+   
    @Override
    public int hashCode() {
       int hash = 0;

@@ -33,15 +33,19 @@ import InterfaceAdministrar.AdministrarCambiosMasivosInterface;
 @Stateful
 public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInterface {
 
+   private EntityManager em;
    @EJB
    AdministrarSesionesInterface administrarSesiones;
    @EJB
    PersistenciaParametrosInterface persistenciaParametros;
-   private EntityManager em;
    @EJB
    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
 
 //   private String usuarioBD = " ";
+   /**
+    *
+    * @param idSesion
+    */
    @Override
    public void obtenerConexion(String idSesion) {
       System.out.println("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
@@ -56,9 +60,7 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    public List<Parametros> consultarEmpleadosParametros() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
       try {
-//         if (usuarioBD.equals(" ")) {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-//         }
          return persistenciaParametros.empleadosParametros(em, usuarioBD);
       } catch (Exception e) {
          System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
@@ -67,11 +69,15 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       }
    }
 
+   /**
+    *
+    * @return
+    */
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
       try {
-         return persistenciaParametros.consultarCambiosMasivos(em);
+         return persistenciaParametros.listcambiosmasivos(em);
       } catch (Exception e) {
          System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
          System.out.println("ERROR : " + e);
@@ -79,19 +85,25 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       }
    }
 
+   /**
+    *
+    * @return
+    */
    @Override
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
-//         if (usuarioBD.equals(" ")) {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-//         }
-         return persistenciaParametros.consultarParametroCambiosMasivos(em, usuarioBD);
+         return persistenciaParametros.parametrosCambiosMasivos(em, usuarioBD);
       } catch (Exception e) {
          System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
          System.out.println("ERROR : " + e);
          return null;
       }
+   }
+
+   public boolean actualizarParametroCambioM(ParametrosCambiosMasivos parametro) {
+      return persistenciaParametros.actualizarParametroCambioMasivo(em, parametro);
    }
 }
 //

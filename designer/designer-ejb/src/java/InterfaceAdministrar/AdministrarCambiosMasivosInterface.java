@@ -27,11 +27,13 @@ import Entidades.ParametrosCambiosMasivos;
 //import Entidades.Tiposausentismos;
 //import Entidades.Unidades;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author user
  */
+@Local
 public interface AdministrarCambiosMasivosInterface {
 
    public void obtenerConexion(String idSesion);
@@ -41,6 +43,8 @@ public interface AdministrarCambiosMasivosInterface {
    public List<CambiosMasivos> consultarUltimosCambiosMasivos();
 
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos();
+
+   public boolean actualizarParametroCambioM(ParametrosCambiosMasivos parametro);
 }
 
 //   public List<Estructuras> consultarLovCargos_Extructuras();

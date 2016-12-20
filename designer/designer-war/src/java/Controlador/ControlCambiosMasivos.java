@@ -13,11 +13,14 @@ import InterfaceAdministrar.AdministrarRastrosInterface;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -27,7 +30,6 @@ import javax.servlet.http.HttpSession;
 @Named(value = "controlCambiosMasivos")
 @SessionScoped
 public class ControlCambiosMasivos {
-//
 
    @EJB
    AdministrarCambiosMasivosInterface administrarCambiosMasivos;
@@ -42,14 +44,22 @@ public class ControlCambiosMasivos {
    private ParametrosCambiosMasivos parametroCambioMasivoActual;
 
    private String paginaAnterior;
+   private boolean guardado;
+   private String infoRegistroParametros, infoRegistroCambiosMasivos;
 
    public ControlCambiosMasivos() {
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;
       parametroCambioMasivoActual = null;
-
       paginaAnterior = "";
+   }
+
+   public void salir() {
+      listaParametros = null;
+      listaCambiosMasivos = null;
+      cambioMasivoSeleccionado = null;
+      parametroCambioMasivoActual = null;
    }
 
    @PostConstruct
@@ -72,6 +82,30 @@ public class ControlCambiosMasivos {
 
    public String valorPaginaAnterior() {
       return paginaAnterior;
+   }
+
+   public void modificarParametros() {
+      guardado = false;
+   }
+
+   public void guardarCambiosParametros() {
+      if (!guardado) {
+         administrarCambiosMasivos.actualizarParametroCambioM(parametroCambioMasivoActual);
+      }
+      parametroCambioMasivoActual = null;
+      administrarCambiosMasivos.consultarEmpleadosParametros();
+      RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
+      FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito.");
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+      RequestContext.getCurrentInstance().update("form:growl");
+   }
+
+   public void contarRegistrosCM() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistroCM");
+   }
+
+   public void contarRegistrosP() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistroP");
    }
 
    //GETS AND SETS
@@ -140,6 +174,28 @@ public class ControlCambiosMasivos {
 
    public void setParametroCambioMasivoActual(ParametrosCambiosMasivos parametroCambioMasivoActual) {
       this.parametroCambioMasivoActual = parametroCambioMasivoActual;
+   }
+
+   public String getInfoRegistroParametros() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosEmpleadosParametros");
+      infoRegistroParametros = String.valueOf(tabla.getRowCount());
+      return infoRegistroParametros;
+   }
+
+   public void setInfoRegistroParametros(String infoRegistroParametros) {
+      this.infoRegistroParametros = infoRegistroParametros;
+   }
+
+   public String getInfoRegistroCambiosMasivos() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosCambiosMasivos");
+      infoRegistroCambiosMasivos = String.valueOf(tabla.getRowCount());
+      return infoRegistroCambiosMasivos;
+   }
+
+   public void setInfoRegistroCambiosMasivos(String infoRegistroCambiosMasivos) {
+      this.infoRegistroCambiosMasivos = infoRegistroCambiosMasivos;
    }
 
 }

@@ -19,7 +19,8 @@
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" process="@this" style="background-image: url(Imagenes/Iconos/guardar.png);"/>
+                        <p:commandButton id="guardarRapido" value="" process="@this" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlCambiosMasivos.guardarCambiosParametros()}"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                         <p:commandButton id="editar" value="" process="@this" style="background-image: url(Imagenes/Iconos/editar.png);"/>
@@ -66,25 +67,25 @@
 
                         <p:separator style="position: relative; top: -9px"/> 
                         <p:commandButton id="salir" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" process="@this" 
-                                         style="background-image: url(Imagenes/Iconos/salir.png)"/>
+                                         actionListener="#{controlCambiosMasivos.salir()}" style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 180px; width: 300px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 70px; left: 8px; height: 165px; width: 250px; border-radius: 10px; text-align: left;">
                      <legend style=" color: blue"><strong>#{msg['titulo1']}</strong></legend>
 
                      <p:dataTable id="datosEmpleadosParametros" widgetVar="datosEmpleadosParametros" var="empleadoParametro" rowKey="#{empleadoParametro.secuencia}"
-                                  rowIndexVar="indice" style="font-size: 11px; border: 1px;"                            
-                                  value="#{controlCambiosMasivos.listaParametros}" scrollable="true" scrollHeight="100" scrollWidth="290"
+                                  rowIndexVar="indice" style="font-size: 11px;"                            
+                                  value="#{controlCambiosMasivos.listaParametros}" scrollable="true" scrollHeight="100" scrollWidth="250"
                                   filteredValue="#{controlCambiosMasivos.filtradoParametros}" emptyMessage="#{msg['vacio']}"
                                   liveScroll="true" scrollRows="20" selectionMode="single">
 
-                           <!--<p:ajax event="filter" listener="#{controlParametro.eventoFiltrar()}"/>-->
+                        <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
 
                         <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
-                                  filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
+                                  filterMatchMode="contains" id="Codigo" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
                            <!--                           <p:cellEditor>  
                                                          <f:facet name="output">-->
@@ -100,54 +101,564 @@
                                                       <f:facet name="footer">
                                                          <h:outputText value=""/>
                                                       </f:facet>-->
-                        </p:column>  
-
+                        </p:column>
 
                      </p:dataTable>
+                     <h:outputText id="informacionRegistroP" value="#{msg['infoRegistro']} #{controlCambiosMasivos.infoRegistroParametros}" style="position: relative; left: 10px; top: 4px; font-weight: bold; margin: 0px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 70px; left: 340px; height: 180px; width: 400px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 70px; left: 285px; height: 165px; width: 557px; border-radius: 10px; text-align: left;">
                      <legend style=" color: blue"><strong>#{msg['titulo2']}</strong></legend>
 
                      <p:dataTable id="datosCambiosMasivos" widgetVar="datosCambiosMasivos" var="cambioM" rowKey="#{cambioM.secuencia}"
-                                  rowIndexVar="indice" style="font-size: 11px; border: 1px;"                            
-                                  value="#{controlCambiosMasivos.listaCambiosMasivos}" scrollable="true" scrollHeight="100" scrollWidth="290"
+                                  rowIndexVar="indice" style="font-size: 11px;"                            
+                                  value="#{controlCambiosMasivos.listaCambiosMasivos}" scrollable="true" scrollHeight="100" scrollWidth="555"
                                   filteredValue="#{controlCambiosMasivos.filtradoCambiosMasivos}" emptyMessage="#{msg['vacio']}"
                                   liveScroll="true" scrollRows="20" selectionMode="single">
 
-                           <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
+                        <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
 
-                        <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{cambioM.empleado}" filterBy="#{cambioM.empleado}" 
+                        <p:column sortBy="#{cambioM.codigoEmpleado}" filterBy="#{cambioM.codigoEmpleado}"
                                   filterMatchMode="contains" id="Codigo" width="80" filterStyle="display: none; visibility: hidden;">                                  
-                           <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
-                           <!--                           <p:cellEditor>  
-                                                         <f:facet name="output">-->
-                           <h:outputText value="#{cambioM.empleado}"/>
-                           <!--                              </f:facet>  
-                                                         <f:facet name="input">
-                                                            <p:inputText  autocomplete="off"  value="#/{cambioM.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
-                                                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
-                                                                          onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#/{indice}'}]));"
-                                                                          onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#/{indice});"/> 
-                                                         </f:facet>  
-                                                      </p:cellEditor>
-                                                      <f:facet name="footer">
-                                                         <h:outputText value=""/>
-                                                      </f:facet>-->
+                           <f:facet name="header"><h:outputText value="#{msg['codigo']}"/> </f:facet> 
+                           <h:outputText value="#{cambioM.codigoEmpleado}"/>
                         </p:column>  
 
+                        <p:column sortBy="#{cambioM.nombreEmpleado}" filterBy="#{cambioM.nombreEmpleado}"
+                                  filterMatchMode="contains" id="nombre" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
+                           <h:outputText value="#{cambioM.nombreEmpleado}"/>
+                        </p:column>  
+
+                        <p:column sortBy="#{cambioM.marca}" filterBy="#{cambioM.marca}" 
+                                  filterMatchMode="contains" id="marca" width="100" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header"><h:outputText value="#{msg['marca']}"/> </f:facet> 
+                           <h:outputText value="#{cambioM.marca}"/>
+                        </p:column>  
+
+                        <p:column sortBy="#{cambioM.ultimaModificacion}" filterBy="#{cambioM.ultimaModificacion}" 
+                                  filterMatchMode="contains" id="ultimaModificacion" width="72" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="headerUM" value="U M"/>
+                              <p:tooltip for="headerUM" value="#{msg['ultimamod']}"/>
+                           </f:facet> 
+                           <h:outputText value="#{cambioM.ultimaModificacion}">
+                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                           </h:outputText>
+                        </p:column>  
 
                      </p:dataTable>
+                     <h:outputText id="informacionRegistroCM" value="#{msg['infoRegistro']} #{controlCambiosMasivos.infoRegistroCambiosMasivos}"
+                                   style="position: relative; left: 10px; top: 4px; font-weight: bold; margin: 0px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; top: 270px; left: 10px; height: 180px; width: 800px; border-radius: 10px; text-align: left;">
+                  <fieldset style="position: absolute; top: 253px; left: 8px; height: 230px; width: 837px; border-radius: 10px; text-align: left;">
                      <legend style=" color: blue"><strong>#{msg['titulo3']}</strong></legend>
 
+                     <p:scrollPanel id="scrollPanelPrincipal" widgetVar="scrollPanelPrincipal" mode="native" class="cssScrollPanelsBusquedaAv" style=" width: 830px; height: 220px;">
 
-                     <h:outputText value="JAJAJAJA : #{controlCambiosMasivos.parametroCambioMasivoActual.cargoEstructura}"/>
+                        <p:accordionPanel>
+                           <p:tab title="#{msg['estructuracargo']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/cargoDesempenado.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaCargoCambio}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['cargoestructura']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_cargoEstructura}"
+                                                 style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['vacaciones']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/vacaciones.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaVacaCambio}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 80px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['fechapago']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaVacaPago}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 220px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['dias']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.vacaDias}"
+                                                 style="position: relative; display: block; width: 80px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['retiros']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/tipoTrabajador.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 10px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaRetiCambio}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 70px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['motivoDef']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoDefinitiva}"
+                                                 style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 270px; padding-left: 20px;">
+                                    <h:outputText value="#{msg['motivoRet']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoRetiro}"
+                                                 style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 430px; padding-left: 40px; padding-top: 16px;">
+                                    <div style="display: inline-block; position: absolute;">
+                                       <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_indemniza}">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:selectBooleanCheckbox>
+                                    </div>
+                                    <div style="margin-left: 20px;">
+                                       <h:outputText value="#{msg['indemnizacion']}" styleClass="textoNombres"/>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['afiliaciones']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/afiliaciones.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 10px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaAfiliaCambio}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 70px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['tipoent']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTipoEntidad}"
+                                                 style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 280px; padding-left: 20px;">
+                                    <h:outputText value="#{msg['terceroSuc']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTerceroSucursal}"
+                                                 style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['centroc']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/centroCosto.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaLocaliCambio}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:calendar>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['estructura']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_localiEstructura}"
+                                                 style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                    </p:inputText>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['novedades']}">
+                              <h:outputText value="" style="margin-bottom: 135px; background-image: url(Imagenes/Iconos/novedadEmpleado.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 300px;">
+                                    <div style="display: table; width: 300px; display: block;">
+                                       <h:outputText value="#{msg['concepto']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveConcepto}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['periodicidad']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_novePeriodicidad}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['tercero']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveTercero}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['formula']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveFormula}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 230px; padding-left: 40px;">
+                                    <div style="display: table; width: 300px; display: block;">
+                                       <div style="width: 140px; display: inline-block;">
+                                          <h:outputText value="#{msg['fechainicial']}" styleClass="textoNombres"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaNoveCambioInicial}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:calendar>
+                                       </div>
+                                       <div style="width: 140px; display: inline-block; position: absolute;">
+                                          <h:outputText value="#{msg['fechafinal']}" styleClass="textoNombres"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaNoveCambioFinal}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:calendar>
+                                       </div>
+                                    </div>
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <div style="width: 140px; display: inline-block;">
+                                          <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveValor}"
+                                                       style="position: relative; display: block; width: 80px;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:inputText>
+                                       </div>
+                                       <div style="width: 140px; display: inline-block; position: absolute;">
+                                          <h:outputText value="#{msg['saldo']}" styleClass="textoNombres"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveSaldo}"
+                                                       style="position: relative; display: block; width: 80px;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:inputText>
+                                       </div>
+                                    </div>
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <div style="width: 140px; display: inline-block;">
+                                          <h:outputText value="#{msg['horas']}" styleClass="textoNombres"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveUnidadParteEntera}"
+                                                       style="position: relative; display: block; width: 80px;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:inputText>
+                                       </div>
+                                       <div style="width: 140px; display: inline-block; position: absolute;">
+                                          <h:outputText value="#{msg['minutos']}" styleClass="textoNombres"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveUnidadParteFraccion}"
+                                                       style="position: relative; display: block; width: 80px;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:inputText>
+                                       </div>
+                                    </div>
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['tipo']}" styleClass="textoNombres"/>
+                                       <p:selectOneMenu value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveTipo}"
+                                                        style="position: relative; display: block; width: 100px;">
+                                          <f:selectItem itemLabel="FIJA" itemValue="FIJA"/>
+                                          <f:selectItem itemLabel="OCASIONAL" itemValue="OCASIONAL"/>  
+                                          <f:selectItem itemLabel="PAGO POR FUERA" itemValue="PAGO POR FUERA"/>
+                                          <f:selectItem itemLabel=" " itemValue=""/>
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:selectOneMenu>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['sueldos']}">
+                              <h:outputText value="" style="margin-bottom: 100px; background-image: url(Imagenes/Iconos/sueldo.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 300px;">
+                                    <div style="width: 140px;">
+                                       <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
+                                       <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaSueldoCambio}"
+                                                   pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:calendar>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.sueldoValor}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['tiposueldo']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoTipoSueldo}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 230px; padding-left: 40px;">
+                                    <div style="display: table; width: 300px; display: block;">
+                                       <h:outputText value="#{msg['motivosueldo']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoMotivoCambioSueldo}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['unidad']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoUnidadPago}"
+                                                    style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                       </p:inputText>
+                                    </div>
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <div style="width: 40px; display: inline-block;">
+                                          <h:outputText value="R" styleClass="textoNombres" id="txt_R"/>
+                                          <p:tooltip for="txt_R" value="#{msg['aplicaR']}"/>
+                                          <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_retroactivo}" style="position: relative; display: block;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:selectBooleanCheckbox>
+                                       </div>
+                                       <div style="width: 200px; display: inline-block; position: absolute;">
+                                          <h:outputText value="#{msg['vigenciaR']}" styleClass="textoNombres"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaSueldoVigenciaRetroactivo}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:calendar>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['reingresos']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/aspirantes.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fechareingreso']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaReingreso}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['fechafincontrato']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinContrato}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <!--<p:commandButton styleClass="botonDeshacer" value="Deshacer"/>-->
+                           </p:tab>
+
+                           <p:tab title="#{msg['empleadoj']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/cargoDesempenado.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fecha']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaEmplJefe}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['nombrejefe']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_nombreJefe}"
+                                                 style="position: relative; display: block; width: 200px;"/>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <!--<p:commandButton styleClass="botonDeshacer" value="Deshacer"/>-->
+                           </p:tab>
+
+                           <p:tab title="#{msg['ausentismos']}">
+                              <h:outputText value="" style="margin-bottom: 130px; background-image: url(Imagenes/Iconos/novedad05.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 300px;">
+                                    <div style="display: table; width: 300px; display: block;">
+                                       <h:outputText value="#{msg['tipoausentismo']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_tipoAusentismo}"
+                                                    style="position: relative; display: block; width: 200px;"/>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['clase']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_clase}"
+                                                    style="position: relative; display: block; width: 200px;"/>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['causa']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_causa}"
+                                                    style="position: relative; display: block; width: 200px;"/>
+                                    </div>
+                                    <div style="display: table; width: 300px; display: block; margin-top: 5px;">
+                                       <h:outputText value="#{msg['formaliquidacion']}" styleClass="textoNombres"/>
+                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_formaLiquidacion}"
+                                                    style="position: relative; display: block; width: 200px;"/>
+                                    </div>
+                                 </div>
+
+                                 <div style="display: table; position: absolute; margin-left: 230px; padding-left: 40px;">
+                                    <div style="display: table; display: block;">
+
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['baseliq']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_baseLiquidacion}"
+                                                       style="position: relative; display: block; width: 80px;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['fechainicial']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialAusent}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['fechafinal']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalAusent}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                       </div>
+                                    </div>
+
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['fexpedicion']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaExpedicionAusent}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['fechainicialP']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialPagoAusent}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['fechafinalP']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalPagoAusent}"
+                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                       </div>
+                                    </div>
+
+                                    <div style="display: table; width: 200px; display: block; margin-top: 5px;">
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="%" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_porcentaje}"
+                                                       style="position: relative; display: block; width: 80px;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['dias']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_dias}"
+                                                       style="position: relative; display: block; width: 80px;"/>
+                                       </div>
+                                       <div style="display: table-cell; position: relative;">
+                                          <h:outputText value="#{msg['horas']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_horas}"
+                                                       style="position: relative; display: block; width: 80px;"/>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+
+                           <p:tab title="#{msg['papel']}">
+                              <h:outputText value="" style="background-image: url(Imagenes/Iconos/comprobantePago.png);" styleClass="imagenesAcordion"/>
+                              <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
+                                 <div style="display: table; position: absolute; width: 200px;">
+                                    <h:outputText value="#{msg['fecha']}" styleClass="textoNombres"/>
+                                    <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaPapel}"
+                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                 </div>
+                                 <div style="display: table; position: absolute; margin-left: 120px; padding-left: 40px;">
+                                    <h:outputText value="#{msg['papel']}" styleClass="textoNombres"/>
+                                    <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_papel}"
+                                                 style="position: relative; display: block; width: 200px;"/>
+                                 </div>
+                              </div>
+                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                           </p:tab>
+                        </p:accordionPanel>
+                     </p:scrollPanel>
 
                   </fieldset>
+                  <p:commandButton class="cssBotonAceptar" value=""/>
+                  <p:commandButton class="cssBotonCancelar" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" actionListener="#{controlCambiosMasivos.salir()}" process="@this"/>
                </p:panel>
+
+               <style>
+                  .textoNombres {
+                     position: relative;
+                     display: block;
+                     font-weight: bold;
+                     color: blue;
+                     font-size: 11px;
+                     width: 200px;
+                  }
+
+                  .imagenesAcordion {
+                     position: relative;
+                     width: 50px;
+                     height: 50px;
+                     top: 0px;
+                     left: 10px;
+                     background-repeat: no-repeat;
+                     border: none;
+                     background-size: 100% 100%;
+                     border: outset;
+                     border-width: 2px;
+                     display: inline-block;
+                     margin-bottom: 10px;
+                  }
+
+                  .botonProcesar {
+                     position: absolute;
+                     margin-top: 10px;
+                     right: 125px;
+                     width: 100px;
+                     bottom: 7px;
+                     width: 110px;
+                     height: 22px;
+                  }
+
+                  .botonDeshacer{
+                     position: absolute;
+                     margin-top: 10px;
+                     right: 10px;
+                     width: 100px;
+                     bottom: 7px;
+                     width: 110px;
+                     height: 22px;
+                  }
+
+                  .ui-inputfield, input, .ui-inputtext {
+                     height: 11px;
+                  }
+               </style>
             </h:form>
          </ui:define>
       </ui:composition>

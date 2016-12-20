@@ -6,7 +6,9 @@ package Persistencia;
 import Entidades.CambiosMasivos;
 import Entidades.Parametros;
 import Entidades.ParametrosCambiosMasivos;
+import Entidades.ParametrosCambiosMasivosAux;
 import InterfacePersistencia.PersistenciaParametrosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -166,8 +168,8 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
 
    @Override
    public CambiosMasivos buscarCambioMasivoSecuencia(EntityManager em, BigInteger secuencia) {
+      em.clear();
       try {
-         em.clear();
          return em.find(CambiosMasivos.class, secuencia);
       } catch (Exception e) {
          System.out.println("Error PersistenciaCambiosMasivos.buscarCambioMasivoSecuencia(): " + e);
@@ -183,18 +185,18 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
    @Override
    public List<CambiosMasivos> consultarCambiosMasivos(EntityManager em) {
       System.out.println("Persistencia.PersistenciaParametros.consultarCambiosMasivos()");
-      try {
-         em.clear();
-         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
-                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
-         System.out.println("q : " + q);
-         Query query = em.createNativeQuery(q, CambiosMasivos.class);
-         List<CambiosMasivos> lista = query.getResultList();
-         return lista;
-      } catch (Exception e) {
-         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
-         return null;
-      }
+//         em.clear();
+//      try {
+//         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
+//                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
+//         System.out.println("q : " + q);
+//         Query query = em.createNativeQuery(q, CambiosMasivos.class);
+//         List<CambiosMasivos> lista = query.getResultList();
+//         return lista;
+//      } catch (Exception e) {
+//         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+      return null;
+//      }
    }
 
    /**
@@ -205,16 +207,155 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
     */
    public ParametrosCambiosMasivos consultarParametroCambiosMasivos(EntityManager em, String usuario) {
       System.out.println("Persistencia.PersistenciaParametros.consultarParametroCambiosMasivos()");
+//         em.clear();
+//      try {
+//         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
+//         Query query = em.createNativeQuery(q);
+//         System.out.println("q : " + q);
+//         ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
+//         return parametro;
+//      } catch (Exception e) {
+//         System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
+      return null;
+//      }
+   }
+
+   @Override
+   public List<CambiosMasivos> listcambiosmasivos(EntityManager em) {
+      System.out.println("Persistencia.PersistenciaParametros.listcambiosmasivos()");
+      em.clear();
       try {
-         em.clear();
-         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + usuario + "'";
-         Query query = em.createNativeQuery(q);
+         String q = "SELECT CM.* FROM CAMBIOSMASIVOS CM \n"
+                 + "WHERE EXISTS(SELECT 'X' FROM EMPLEADOS E WHERE E.SECUENCIA = CM.EMPLEADO)";
+         System.out.println("q : " + q);
+         Query query = em.createNativeQuery(q, CambiosMasivos.class);
+         List<CambiosMasivos> lista = query.getResultList();
+         if (lista != null) {
+            if (!lista.isEmpty()) {
+               for (int i = 0; i < lista.size(); i++) {
+                  em.clear();
+                  try {
+//                     String q1 = "SELECT E.CODIGOEMPLEADO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
+                     String q2 = "SELECT P.NOMBRE ||' '|| P.PRIMERAPELLIDO ||' '|| P.SEGUNDOAPELLIDO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
+                     if (i == 0) {
+//                        System.out.println("q1 : " + q1);
+                        System.out.println("q2 : " + q2);
+                     }
+//                     Query query1 = em.createNativeQuery(q1, BigDecimal.class);
+                     Query query2 = em.createNativeQuery(q2);
+//                     BigDecimal cod = (BigDecimal) query1.getSingleResult();
+                     String nom = (String) query2.getSingleResult();
+//                     lista.get(i).setCodigoEmpleado(cod);
+                     lista.get(i).setNombreEmpleado(nom);
+                  } catch (Exception e2) {
+                     System.out.println("Error consultando Transients : " + e2);
+                  }
+                  em.clear();
+                  try {
+                     String q1 = "SELECT E.CODIGOEMPLEADO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
+//                     String q2 = "SELECT P.NOMBRE ||' '|| P.PRIMERAPELLIDO ||' '|| P.SEGUNDOAPELLIDO FROM EMPLEADOS E, PERSONAS P WHERE E.PERSONA = P.SECUENCIA AND E.SECUENCIA  = " + lista.get(i).getEmpleado();
+                     if (i == 0) {
+                        System.out.println("q1 : " + q1);
+//                        System.out.println("q2 : " + q2);
+                     }
+                     Query query1 = em.createNativeQuery(q1);
+//                     Query query2 = em.createNativeQuery(q2, String.class);
+                     BigDecimal cod = (BigDecimal) query1.getSingleResult();
+//                     String nom = (String) query2.getSingleResult();
+                     lista.get(i).setCodigoEmpleado(cod);
+//                     lista.get(i).setNombreEmpleado(nom);
+                  } catch (Exception e3) {
+                     System.out.println("Error consultando Transients : " + e3);
+                  }
+               }
+            }
+         }
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCambiosMasivos.consultarCambiosMasivos: " + e);
+         return null;
+      }
+   }
+
+   @Override
+   public ParametrosCambiosMasivos parametrosCambiosMasivos(EntityManager em, String user) {
+      System.out.println("Persistencia.PersistenciaParametros.parametrosCambiosMasivos()");
+      em.clear();
+      try {
+         String q = "SELECT * FROM PARAMETROSCAMBIOSMASIVOS WHERE usuariobd = '" + user + "' AND ROWNUM < 2";
+         Query query = em.createNativeQuery(q, ParametrosCambiosMasivos.class);
          System.out.println("q : " + q);
          ParametrosCambiosMasivos parametro = (ParametrosCambiosMasivos) query.getSingleResult();
+         if (parametro != null) {
+            if (parametro.getSecuencia() != null) {
+               try {
+                  String q2 = "SELECT PM.SECUENCIA, \n"
+                          + "(SELECT TE.NOMBRE FROM TIPOSENTIDADES TE WHERE TE.SECUENCIA = " + parametro.getAfiliaTipoEntidad() + ") AFILIATIPOENTIDAD, \n"
+                          + "(SELECT TS.DESCRIPCION FROM TERCEROSSUCURSALES TS WHERE TS.SECUENCIA = " + parametro.getAfiliaTerceroSucursal() + ") AFILIATERCEROSUCURSAL, \n"
+                          + "(SELECT E.NOMBRE FROM ESTRUCTURAS E WHERE E.SECUENCIA =" + parametro.getCargoEstructura() + ") CARGOESTRUCTURA, \n"
+                          + "(SELECT MD.NOMBRE FROM MOTIVOSDEFINITIVAS MD WHERE MD.SECUENCIA =" + parametro.getRetiMotivoDefinitiva() + ") MOTIVODEFINITIVA, \n"
+                          + "(SELECT C.DESCRIPCION FROM CONCEPTOS C WHERE C.SECUENCIA = " + parametro.getNoveConcepto() + ") NOVEDADCONCEPTO, \n"
+                          + "(SELECT P.NOMBRE FROM PERIODICIDADES P WHERE P.SECUENCIA = " + parametro.getNovePeriodicidad() + ") NOVEDADPERIODICIDAD, \n"
+                          + "(SELECT T.NOMBRE FROM TERCEROS T WHERE T.SECUENCIA = " + parametro.getNoveTercero() + ") NOVEDADTERCERO, \n"
+                          + "(SELECT F.NOMBRELARGO FROM FORMULAS F WHERE F.SECUENCIA = " + parametro.getNoveFormula() + ") NOVEDADFORMULA, \n"
+                          + "(SELECT MCS.NOMBRE FROM MOTIVOSCAMBIOSSUELDOS MCS WHERE MCS.SECUENCIA = " + parametro.getSueldoMotivoCambioSueldo() + ") MOTIVOCAMBIOSUELDO, \n"
+                          + "(SELECT TSU.DESCRIPCION FROM TIPOSSUELDOS TSU WHERE TSU.SECUENCIA = " + parametro.getSueldoTipoSueldo() + ") TIPOSUELDO, \n"
+                          + "(SELECT UN.NOMBRE FROM UNIDADES UN WHERE UN.SECUENCIA = " + parametro.getSueldoUnidadPago() + ") SUELDOUNIDADPAGO, \n"
+                          + "(SELECT MR.NOMBRE FROM MOTIVOSRETIROS MR WHERE MR.SECUENCIA = " + parametro.getRetiMotivoRetiro() + ") MOTIVORETIRO, \n"
+                          + "(SELECT EXT.NOMBRE FROM ESTRUCTURAS EXT WHERE SECUENCIA = " + parametro.getLocaliEstructura() + ") LOCALIESTRUCTURA \n"
+                          + "FROM PARAMETROSCAMBIOSMASIVOS PM \n"
+                          + "WHERE usuariobd = 'NMCB'";
+                  Query query2 = em.createNativeQuery(q2, ParametrosCambiosMasivosAux.class);
+                  ParametrosCambiosMasivosAux objAux = (ParametrosCambiosMasivosAux) query2.getSingleResult();
+                  if (objAux != null) {
+                     if (objAux.getSecuencia() != null) {
+                        parametro.setStr_afiliaTerceroSucursal(objAux.getStr_afiliaTerceroSucursal());
+                        parametro.setStr_afiliaTipoEntidad(objAux.getStr_afiliaTipoEntidad());
+                        parametro.setStr_cargoEstructura(objAux.getStr_cargoEstructura());
+                        parametro.setStr_localiEstructura(objAux.getStr_localiEstructura());
+                        parametro.setStr_noveConcepto(objAux.getStr_noveConcepto());
+                        parametro.setStr_noveFormula(objAux.getStr_noveFormula());
+                        parametro.setStr_novePeriodicidad(objAux.getStr_novePeriodicidad());
+                        parametro.setStr_noveTercero(objAux.getStr_noveTercero());
+                        parametro.setStr_retiMotivoDefinitiva(objAux.getStr_retiMotivoDefinitiva());
+                        parametro.setStr_retiMotivoRetiro(objAux.getStr_retiMotivoRetiro());
+                        parametro.setStr_sueldoMotivoCambioSueldo(objAux.getStr_sueldoMotivoCambioSueldo());
+                        parametro.setStr_sueldoTipoSueldo(objAux.getStr_sueldoTipoSueldo());
+                        parametro.setStr_sueldoUnidadPago(objAux.getStr_sueldoUnidadPago());
+                     }
+                  }
+               } catch (Exception e2) {
+                  System.out.println("ERROR al consultar @transients : " + e2);
+               }
+            }
+         }
          return parametro;
       } catch (Exception e) {
          System.out.println("Error PersistenciaCambiosMasivos.consultarParametroCambiosMasivos: " + e);
          return null;
+      }
+   }
+
+   /**
+    *
+    * @param em
+    * @param parametro
+    * @return
+    */
+   public boolean actualizarParametroCambioMasivo(EntityManager em, ParametrosCambiosMasivos parametro) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(parametro);
+         tx.commit();
+         return true;
+      } catch (Exception e) {
+         System.out.println("ERROR PersistenciaParametros.actualizarParametroCambioMasivo: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return false;
       }
    }
 }

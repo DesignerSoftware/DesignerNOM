@@ -1059,7 +1059,6 @@ public class ControlConcepto implements Serializable {
 
    //GUARDAR
    public void guardarCambios() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (guardado == false) {
             if (!listaConceptosBorrar.isEmpty()) {

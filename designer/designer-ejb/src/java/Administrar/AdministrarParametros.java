@@ -12,7 +12,6 @@ import Entidades.Usuarios;
 import InterfaceAdministrar.AdministrarParametrosInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaActualUsuarioInterface;
-import InterfacePersistencia.PersistenciaCambiosMasivosInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaParametrosEstadosInterface;

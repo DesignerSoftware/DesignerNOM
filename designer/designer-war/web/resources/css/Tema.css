@@ -714,8 +714,10 @@ button .ui-widget-header{
 }
 
 .cssAtrasLOV {
-   position: absolute; margin-top: 10px;
-   right: 10px; width: 100px;
+   position: absolute;
+   margin-top: 10px;
+   right: 10px;
+   width: 100px;
 }
 
 .cssTextAreaEdit {

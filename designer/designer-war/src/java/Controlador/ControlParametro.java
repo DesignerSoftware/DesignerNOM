@@ -1,6 +1,5 @@
 package Controlador;
 
-import Entidades.CentrosCostos;
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.Estructuras;
