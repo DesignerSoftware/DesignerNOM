@@ -1,9 +1,9 @@
 package Controlador;
 
-
 import Entidades.TiposEntidades;
 import Entidades.TiposCotizantes;
 import Entidades.DetallesTiposCotizantes;
+import Exportar.ExportarPDF;
 import Exportar.ExportarPDFTablasAnchas;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarRastrosInterface;
@@ -45,7 +45,7 @@ public class ControlTipoCotizante implements Serializable {
     //LISTA DETALLES TIPO COTIZANTE
     private List<DetallesTiposCotizantes> listaDetallesTiposCotizantes;
     private List<DetallesTiposCotizantes> filtradosListaDetallesTiposCotizantes;
-    private List<DetallesTiposCotizantes> detalleTipoCotizanteSeleccionado;
+    private DetallesTiposCotizantes detalleTipoCotizanteSeleccionado;
     //L.O.V ListaEntidades
     private List<TiposEntidades> lovListaTiposEntidades;
     private List<TiposEntidades> filtradoslovListaTiposEntidades;
@@ -56,8 +56,6 @@ public class ControlTipoCotizante implements Serializable {
     private TiposCotizantes lovTipoCotizanteSeleccionado;
     //OTROS
     private boolean aceptar;
-    private int index;
-    private int indexNF;
     private int tipoActualizacion; //Activo/Desactivo Crtl + F11
     private int bandera;
     private int banderaNF;
@@ -88,10 +86,6 @@ public class ControlTipoCotizante implements Serializable {
     private DetallesTiposCotizantes editarDetallesTiposCotizantes;
     private boolean cambioEditor, aceptarEditar;
     private int cualCelda, tipoLista, tipoListaNF;
-    //AUTOCOMPLETAR
-    private String TipoEntidad;
-    //RASTRO
-    private BigInteger secRegistro;
     //Columnas Tabla Tipos Cotizantes
     private Column tcCodigo, tcDescripcion, tcPension, tcSalud, tcRiesgo, tcParafiscal, tcEsap, tcMen, tcExtranjero, tcSubtipoCotizante, tcCodigoAlternativo;
     //Columnas Tabla Detalles Tipos Cotizantes
@@ -103,21 +97,15 @@ public class ControlTipoCotizante implements Serializable {
     private int CualTabla;
     //Tabla a Imprimir
     private String tablaImprimir, nombreArchivo;
-    //Cual Insertar
-    private String cualInsertar;
-    //Cual Nuevo Update
-    private String cualNuevo;
-    private BigInteger secuenciaTipoCotizante;
     //Cambian del Clonar
+    private BigInteger secuenciaClonado;
     private BigInteger clonarCodigo;
     private String clonarDescripcion;
-    //ALTO SCROLL TABLA
     private String altoTabla;
     private String altoTablaNF;
-    //
     private boolean cambiosPagina;
-    //
-    private String paginaAnterior;
+    private String paginaAnterior, infoRegistroTipoC, infoRegistroDetalleTC;
+    private String infoRegistroLovTE, infoRegistroLovTC;
 
     public ControlTipoCotizante() {
         cambiosPagina = true;
@@ -132,9 +120,7 @@ public class ControlTipoCotizante implements Serializable {
         listaTiposCotizantesBorrar = new ArrayList<TiposCotizantes>();
         listaTiposCotizantesCrear = new ArrayList<TiposCotizantes>();
         listaTiposCotizantesModificar = new ArrayList<TiposCotizantes>();
-        //Inicializar LOVS
-        secRegistro = null;
-        //editar
+        tipoCotizanteSeleccionado = null;
         editarTiposCotizantes = new TiposCotizantes();
         editarDetallesTiposCotizantes = new DetallesTiposCotizantes();
         cambioEditor = false;
@@ -142,7 +128,6 @@ public class ControlTipoCotizante implements Serializable {
         cualCelda = -1;
         tipoLista = 0;
         tipoListaNF = 0;
-        //Crear Vigencia Formal
         nuevoTipoCotizante = new TiposCotizantes();
         clonarTipoCotizante = new TiposCotizantes();
         duplicarTipoCotizante = new TiposCotizantes();
@@ -154,8 +139,6 @@ public class ControlTipoCotizante implements Serializable {
         tablaImprimir = ":formExportar:datosTiposCotizantesExportar";
         nombreArchivo = "TiposCotizantesXML";
         k = 0;
-        cualInsertar = ":formularioDialogos:NuevoRegistroTipoCotizante";
-        cualNuevo = ":formularioDialogos:nuevoRegistroTipoCotizante";
         m = 0;
         paginaAnterior = "";
     }
@@ -173,277 +156,86 @@ public class ControlTipoCotizante implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
-    public void recibirPagina(String pagina){
+
+    public void recibirPagina(String pagina) {
+        listaTiposCotizantes = null;
+        getListaTiposCotizantes();
+        if (listaTiposCotizantes != null) {
+            if (!listaTiposCotizantes.isEmpty()) {
+                tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
+                listaDetallesTiposCotizantes = null;
+                getListaDetallesTiposCotizantes();
+            }
+        }
         paginaAnterior = pagina;
     }
 
-    public String retornarPagina(){
+    public String retornarPagina() {
         return paginaAnterior;
     }
-    //Ubicacion Celda Arriba 
+
     public void cambiarTipoCotizante() {
-        //Si ninguna de las 3 listas (crear,modificar,borrar) tiene algo, hace esto
-        //{
         CualTabla = 0;
         if (listaDetallesTiposCotizantesCrear.isEmpty() && listaDetallesTiposCotizantesBorrar.isEmpty() && listaDetallesTiposCotizantesModificar.isEmpty()) {
-            secuenciaTipoCotizante = tipoCotizanteSeleccionado.getSecuencia();
+            tipoCotizanteSeleccionado.getSecuencia();
             listaDetallesTiposCotizantes = null;
             getListaDetallesTiposCotizantes();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
-            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
-        }
-    }
-
-    //EVENTO FILTRAR
-    public void eventoFiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-        }
-    }
-
-    //EVENTO FILTRARNF
-    public void eventoFiltrarNF() {
-        if (tipoListaNF == 0) {
-            tipoListaNF = 1;
         }
     }
 
     //Ubicacion Celda.
-    public void cambiarIndice(int indice, int celda) {
-        if (permitirIndex == true) {
-            indexNF = -1;
-            index = indice;
-            cualCelda = celda;
-            CualTabla = 0;
+    public void cambiarIndice(TiposCotizantes tipo, int celda) {
 
-            tablaImprimir = ":formExportar:datosTiposCotizantesExportar";
-            nombreArchivo = "TiposCotizantesXML";
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:exportarXML");
-            if (tipoLista == 0) {
-                secRegistro = listaTiposCotizantes.get(index).getSecuencia();
-
-            } else {
-                secRegistro = filtradosListaTiposCotizantes.get(index).getSecuencia();
-
-            }
+        tipoCotizanteSeleccionado = tipo;
+        detalleTipoCotizanteSeleccionado = null;
+        cualCelda = celda;
+        CualTabla = 0;
+        tipoCotizanteSeleccionado.getSecuencia();
+        tablaImprimir = ":formExportar:datosTiposCotizantesExportar";
+        nombreArchivo = "TiposCotizantesXML";
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:exportarXML");
+        if (cualCelda == 0) {
+            tipoCotizanteSeleccionado.getCodigo();
+        } else if (cualCelda == 1) {
+            tipoCotizanteSeleccionado.getDescripcion();
+        } else if (cualCelda == 2) {
+            tipoCotizanteSeleccionado.getCodigoalternativo();
         }
+        cambiarTipoCotizante();
+        contarRegistrosDetallesTipoC();
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
 
-    public void cancelarCambioLovTipoCotizante() {
-        lovFiltradosListaTiposCotizantes = null;
-        lovTipoCotizanteSeleccionado = null;
-        aceptar = true;
-        index = -1;
-        secRegistro = null;
-        tipoActualizacion = -1;
-        cualCelda = -1;
-        permitirIndex = true;
+    public void modificarTiposCotizantes(TiposCotizantes tipo) {
+        tipoCotizanteSeleccionado = tipo;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:LOVTiposCotizantes:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('LOVTiposCotizantes').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('tiposCotizantesDialogo').hide()");
-    }
-
-    public void cancelarCambioTipoEntidad() {
-        filtradoslovListaTiposEntidades = null;
-        seleccionTiposEntidades = null;
-        aceptar = true;
-        index = -1;
-        secRegistro = null;
-        tipoActualizacion = -1;
-        cualCelda = -1;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:LOVTiposEntidades:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('LOVTiposEntidades').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').hide()");
-    }
-
-    public void modificarTiposCotizantes(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaTiposCotizantesCrear.contains(listaTiposCotizantes.get(indice))) {
-
-                    if (listaTiposCotizantesModificar.isEmpty()) {
-                        listaTiposCotizantesModificar.add(listaTiposCotizantes.get(indice));
-                    } else if (!listaTiposCotizantesModificar.contains(listaTiposCotizantes.get(indice))) {
-                        listaTiposCotizantesModificar.add(listaTiposCotizantes.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                indexNF = -1;
-                secRegistro = null;
-
-            } else {
-                if (!listaTiposCotizantesCrear.contains(filtradosListaTiposCotizantes.get(indice))) {
-
-                    if (listaTiposCotizantesModificar.isEmpty()) {
-                        listaTiposCotizantesModificar.add(filtradosListaTiposCotizantes.get(indice));
-                    } else if (!listaTiposCotizantesModificar.contains(filtradosListaTiposCotizantes.get(indice))) {
-                        listaTiposCotizantesModificar.add(filtradosListaTiposCotizantes.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
-                }
-                indexNF = -1;
-                secRegistro = null;
-            }
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-        }
-    }
-
-    public void seleccionarSubTipoCotizante(String estadoSubTipoCotizante, int indice, int celda) {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (tipoLista == 0) {
-            if (estadoSubTipoCotizante != null) {
-
-                if (estadoSubTipoCotizante.equals(" ")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(null);
-                } else if (estadoSubTipoCotizante.equals("1")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("1"));
-                } else if (estadoSubTipoCotizante.equals("2")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("2"));
-                } else if (estadoSubTipoCotizante.equals("3")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("3"));
-                } else if (estadoSubTipoCotizante.equals("4")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("4"));
-                } else if (estadoSubTipoCotizante.equals("5")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("5"));
-                } else if (estadoSubTipoCotizante.equals("6")) {
-                    listaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("6"));
-                }
-            } else {
-                listaTiposCotizantes.get(indice).setSubtipocotizante(null);
-            }
-            if (!listaTiposCotizantesCrear.contains(listaTiposCotizantes.get(indice))) {
-                if (listaTiposCotizantesModificar.isEmpty()) {
-                    listaTiposCotizantesModificar.add(listaTiposCotizantes.get(indice));
-                } else if (!listaTiposCotizantesModificar.contains(listaTiposCotizantes.get(indice))) {
-                    listaTiposCotizantesModificar.add(listaTiposCotizantes.get(indice));
-                }
-            }
-        } else {
-            if (estadoSubTipoCotizante != null) {
-                if (estadoSubTipoCotizante.equals(" ")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(null);
-                } else if (estadoSubTipoCotizante.equals("1")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("1"));
-                } else if (estadoSubTipoCotizante.equals("2")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("2"));
-                } else if (estadoSubTipoCotizante.equals("3")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("3"));
-                } else if (estadoSubTipoCotizante.equals("4")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("4"));
-                } else if (estadoSubTipoCotizante.equals("5")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("5"));
-                } else if (estadoSubTipoCotizante.equals("6")) {
-                    filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(Short.valueOf("6"));
-                }
-            } else {
-                filtradosListaTiposCotizantes.get(indice).setSubtipocotizante(null);
-            }
-            if (!listaTiposCotizantesCrear.contains(filtradosListaTiposCotizantes.get(indice))) {
-                if (listaTiposCotizantesModificar.isEmpty()) {
-                    listaTiposCotizantesModificar.add(filtradosListaTiposCotizantes.get(indice));
-                } else if (!listaTiposCotizantesModificar.contains(filtradosListaTiposCotizantes.get(indice))) {
-                    listaTiposCotizantesModificar.add(filtradosListaTiposCotizantes.get(indice));
-                }
+        if (!listaTiposCotizantesCrear.contains(tipoCotizanteSeleccionado)) {
+            if (listaTiposCotizantesModificar.isEmpty()) {
+                listaTiposCotizantesModificar.add(tipoCotizanteSeleccionado);
+            } else if (!listaTiposCotizantesModificar.contains(tipoCotizanteSeleccionado)) {
+                listaTiposCotizantesModificar.add(tipoCotizanteSeleccionado);
             }
         }
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-        System.out.println("Subtipo: " + listaTiposCotizantes.get(indice).getSubtipocotizante());
-    }
-
-    public void seleccionarTipoNuevoTipoCotizante(String estadoSubTipoCotizante, int tipoNuevo) {
-
-        if (tipoNuevo == 1) {
-            if (estadoSubTipoCotizante != null) {
-
-                if (estadoSubTipoCotizante.equals(" ")) {
-                    nuevoTipoCotizante.setSubtipocotizante(null);
-                } else if (estadoSubTipoCotizante.equals("1")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("1"));
-                } else if (estadoSubTipoCotizante.equals("2")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("2"));
-                } else if (estadoSubTipoCotizante.equals("3")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("3"));
-                } else if (estadoSubTipoCotizante.equals("4")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("4"));
-                } else if (estadoSubTipoCotizante.equals("5")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("5"));
-                } else if (estadoSubTipoCotizante.equals("6")) {
-                    nuevoTipoCotizante.setSubtipocotizante(new Short("6"));
-                }
-            } else {
-
-                nuevoTipoCotizante.setSubtipocotizante(null);
-            }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSubTipoCotizacion");
-        } else {
-            if (estadoSubTipoCotizante != null) {
-                if (estadoSubTipoCotizante.equals(" ")) {
-                    duplicarTipoCotizante.setSubtipocotizante(null);
-                } else if (estadoSubTipoCotizante.equals("1")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("1"));
-                } else if (estadoSubTipoCotizante.equals("2")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("2"));
-                } else if (estadoSubTipoCotizante.equals("3")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("3"));
-                } else if (estadoSubTipoCotizante.equals("4")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("4"));
-                } else if (estadoSubTipoCotizante.equals("5")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("5"));
-                } else if (estadoSubTipoCotizante.equals("6")) {
-                    duplicarTipoCotizante.setSubtipocotizante(new Short("6"));
-                }
-
-            } else {
-                duplicarTipoCotizante.setSubtipocotizante(null);
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSubTipoCotizacion");
-        }
-
+        System.out.println("tipo cotizante Subtipo: " + tipoCotizanteSeleccionado.getSubtipocotizante());
+        System.out.println("tipo cotizante Subtipo String: " + tipoCotizanteSeleccionado.getEstadoSubTipoCotizante());
     }
 
     //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (index >= 0 && CualTabla == 0) {
-            if (tipoLista == 0) {
-                editarTiposCotizantes = listaTiposCotizantes.get(index);
-            }
-            if (tipoLista == 1) {
-                editarTiposCotizantes = filtradosListaTiposCotizantes.get(index);
-            }
-
+        if (CualTabla == 0) {
+            editarTiposCotizantes = tipoCotizanteSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editarCodigo').show()");
@@ -457,18 +249,8 @@ public class ControlTipoCotizante implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarCodigoAlternativo').show()");
                 cualCelda = -1;
             }
-            index = -1;
-        } else if (indexNF >= 0 && CualTabla == 1) {
-            if (tipoListaNF == 0) {
-                editarDetallesTiposCotizantes = listaDetallesTiposCotizantes.get(indexNF);
-            }
-            if (tipoListaNF == 1) {
-                editarDetallesTiposCotizantes = filtradosListaDetallesTiposCotizantes.get(indexNF);
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
-            System.out.println("Cual Tabla: " + CualTabla);
+        } else if (CualTabla == 1) {
+            editarDetallesTiposCotizantes = detalleTipoCotizanteSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEntidad");
                 RequestContext.getCurrentInstance().execute("PF('editarTipoEntidad').show()");
@@ -482,15 +264,14 @@ public class ControlTipoCotizante implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarMaximo').show()");
                 cualCelda = -1;
             }
-            indexNF = -1;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-
-        secRegistro = null;
     }
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (indexNF >= 0 && CualTabla == 1) {
+        if (CualTabla == 1) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
@@ -503,8 +284,9 @@ public class ControlTipoCotizante implements Serializable {
     //FILTRADO
     public void activarCtrlF11() {
         System.out.println("TipoLista= " + tipoLista);
-        if (bandera == 0 && CualTabla == 0) {
+        if (bandera == 0 && banderaNF == 0) {
             altoTabla = "75";
+            altoTablaNF = "75";
             System.out.println("Activar");
             System.out.println("TipoLista= " + tipoLista);
             tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
@@ -529,11 +311,22 @@ public class ControlTipoCotizante implements Serializable {
             tcSubtipoCotizante.setFilterStyle("width: 85% !important;");
             tcCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigoAlternativo");
             tcCodigoAlternativo.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+            dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
+            dtcTipoEntidad.setFilterStyle("width: 85% !important;");
+            dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
+            dtcMinimo.setFilterStyle("width: 85% !important;");
+            dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
+            dtcMaximo.setFilterStyle("width: 85% !important;");
             bandera = 1;
+            banderaNF = 1;
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+            tipoLista = 1;
+            tipoListaNF = 1;
 
-        } else if (bandera == 1 && CualTabla == 0) {
+        } else if (bandera == 1 && banderaNF == 1) {
             altoTabla = "95";
+            altoTablaNF = "95";
             tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
             tcCodigo.setFilterStyle("display: none; visibility: hidden;");
             tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
@@ -554,32 +347,21 @@ public class ControlTipoCotizante implements Serializable {
             tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
             tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
             tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-            bandera = 0;
-            filtradosListaTiposCotizantes = null;
-            tipoLista = 0;
-        } else if (banderaNF == 0 && CualTabla == 1) {
-            altoTablaNF = "71";
-            dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
-            dtcTipoEntidad.setFilterStyle("width: 85% !important;");
-            dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
-            dtcMinimo.setFilterStyle("width: 85% !important;");
-            dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
-            dtcMaximo.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-            banderaNF = 1;
-
-        } else if (banderaNF == 1 && CualTabla == 1) {
-            altoTablaNF = "95";
+            tcCodigoAlternativo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigoAlternativo");
+            tcCodigoAlternativo.setFilterStyle("display: none; visibility: hidden;");
             dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
             dtcTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
             dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
             dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
             dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
             dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+            bandera = 0;
             banderaNF = 0;
+            filtradosListaTiposCotizantes = null;
             filtradosListaDetallesTiposCotizantes = null;
+            tipoLista = 0;
             tipoListaNF = 0;
         }
     }
@@ -589,19 +371,15 @@ public class ControlTipoCotizante implements Serializable {
         if (CualTabla == 0) {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTiposCotizantesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
-            Exporter exporter = new ExportarPDFTablasAnchas();
+            Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "TiposCotizantesPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
-            index = -1;
-            secRegistro = null;
-        } else {
+        } else if (CualTabla == 1) {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosDetallesTiposCotizantesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
-            Exporter exporter = new ExportarPDFTablasAnchas();
+            Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "DetallesTiposCotizantesPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
-            indexNF = -1;
-            secRegistro = null;
         }
     }
 
@@ -612,16 +390,12 @@ public class ControlTipoCotizante implements Serializable {
             Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "TiposCotizantesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
-            index = -1;
-            secRegistro = null;
-        } else {
+        } else if (CualTabla == 1) {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosDetallesTiposCotizantesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
             Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "DetallesTiposCotizantesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
-            indexNF = -1;
-            secRegistro = null;
         }
     }
 
@@ -630,38 +404,37 @@ public class ControlTipoCotizante implements Serializable {
         nuevoTipoCotizante = new TiposCotizantes();
         nuevoTipoCotizante.setCodigo(BigInteger.valueOf(0));
         nuevoTipoCotizante.setDescripcion(" ");
-        index = -1;
-        secRegistro = null;
-
     }
 
     public void limpiarNuevoDetalleTipoCotizante() {
-
         nuevoRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
-        indexNF = -1;
-        secRegistro = null;
     }
 
 // Agregar Nuevo Tipo Cotizante
     public void agregarNuevoTipoCotizante() {
         int pasa = 0;
+        int duplicados = 0;
         mensajeValidacion = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (nuevoTipoCotizante.getCodigo() == BigInteger.valueOf(0)) {
-            mensajeValidacion = " * Codigo \n";
-            pasa++;
+        if (nuevoTipoCotizante.getCodigo().equals(BigInteger.valueOf(0)) == true) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int i = 0; i < listaTiposCotizantes.size(); i++) {
+                if (nuevoTipoCotizante.getCodigo().equals(listaTiposCotizantes.get(i).getCodigo()) == true) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
+            } else {
+                pasa++;
+            }
         }
         if (nuevoTipoCotizante.getDescripcion().equals(" ")) {
-            mensajeValidacion = mensajeValidacion + " * Descripcion\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
             pasa++;
         }
-
-        if (pasa != 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoCotizante");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCotizante').show()");
-        }
-
-        if (pasa == 0) {
+        if (pasa == 2) {
             if (bandera == 1) {
                 altoTabla = "95";
                 tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
@@ -688,7 +461,6 @@ public class ControlTipoCotizante implements Serializable {
                 bandera = 0;
                 filtradosListaTiposCotizantes = null;
                 tipoLista = 0;
-
             }
             //AGREGAR REGISTRO A LA LISTA VIGENCIAS FORMALES.
             k++;
@@ -696,7 +468,8 @@ public class ControlTipoCotizante implements Serializable {
             nuevoTipoCotizante.setSecuencia(l);
             listaTiposCotizantesCrear.add(nuevoTipoCotizante);
             listaTiposCotizantes.add(nuevoTipoCotizante);
-            System.out.println("Nuevo tipo cotizante Subtipo: " + nuevoTipoCotizante.getSubtipocotizante());
+            tipoCotizanteSeleccionado = nuevoTipoCotizante;
+            contarRegistrosTipoC();
             nuevoTipoCotizante = new TiposCotizantes();
             nuevoTipoCotizante.setCodigo(BigInteger.valueOf(0));
             nuevoTipoCotizante.setDescripcion(" ");
@@ -707,230 +480,190 @@ public class ControlTipoCotizante implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoCotizante').hide()");
-            index = -1;
-            secRegistro = null;
         } else {
-
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoCotizante");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCotizante').show()");
+            mensajeValidacion = " ";
         }
     }
 
 //BORRAR VIGENCIA FORMAL
     public void borrarTipoCotizante() {
 
-        if (index >= 0 && CualTabla == 0) {
-            if (tipoLista == 0) {
-                if (!listaTiposCotizantesModificar.isEmpty() && listaTiposCotizantesModificar.contains(listaTiposCotizantes.get(index))) {
-                    int modIndex = listaTiposCotizantesModificar.indexOf(listaTiposCotizantes.get(index));
+        if (CualTabla == 0) {
+            if (listaDetallesTiposCotizantes.size() > 0) {
+                if (!listaDetallesTiposCotizantes.isEmpty()) {
+                    RequestContext.getCurrentInstance().execute("PF('errorBorrado').show()");
+                }
+            } else {
+                if (!listaTiposCotizantesModificar.isEmpty() && listaTiposCotizantesModificar.contains(tipoCotizanteSeleccionado)) {
+                    int modIndex = listaTiposCotizantesModificar.indexOf(tipoCotizanteSeleccionado);
                     listaTiposCotizantesModificar.remove(modIndex);
-                    listaTiposCotizantesBorrar.add(listaTiposCotizantes.get(index));
-                } else if (!listaTiposCotizantesCrear.isEmpty() && listaTiposCotizantesCrear.contains(listaTiposCotizantes.get(index))) {
-                    int crearIndex = listaTiposCotizantesCrear.indexOf(listaTiposCotizantes.get(index));
+                    listaTiposCotizantesBorrar.add(tipoCotizanteSeleccionado);
+                } else if (!listaTiposCotizantesCrear.isEmpty() && listaTiposCotizantesCrear.contains(tipoCotizanteSeleccionado)) {
+                    int crearIndex = listaTiposCotizantesCrear.indexOf(tipoCotizanteSeleccionado);
                     listaTiposCotizantesCrear.remove(crearIndex);
                 } else {
-                    listaTiposCotizantesBorrar.add(listaTiposCotizantes.get(index));
+                    listaTiposCotizantesBorrar.add(tipoCotizanteSeleccionado);
                 }
-                listaTiposCotizantes.remove(index);
-            }
-
-            if (tipoLista == 1) {
-                if (!listaTiposCotizantesModificar.isEmpty() && listaTiposCotizantesModificar.contains(filtradosListaTiposCotizantes.get(index))) {
-                    int modIndex = listaTiposCotizantesModificar.indexOf(filtradosListaTiposCotizantes.get(index));
-                    listaTiposCotizantesModificar.remove(modIndex);
-                    listaTiposCotizantesBorrar.add(filtradosListaTiposCotizantes.get(index));
-                } else if (!listaTiposCotizantesCrear.isEmpty() && listaTiposCotizantesCrear.contains(filtradosListaTiposCotizantes.get(index))) {
-                    int crearIndex = listaTiposCotizantesCrear.indexOf(filtradosListaTiposCotizantes.get(index));
-                    listaTiposCotizantesCrear.remove(crearIndex);
-                } else {
-                    listaTiposCotizantesBorrar.add(filtradosListaTiposCotizantes.get(index));
+                listaTiposCotizantes.remove(tipoCotizanteSeleccionado);
+                if (tipoLista == 1) {
+                    filtradosListaTiposCotizantes.remove(tipoCotizanteSeleccionado);
                 }
-                int CIndex = listaTiposCotizantes.indexOf(filtradosListaTiposCotizantes.get(index));
-                listaTiposCotizantes.remove(CIndex);
-                filtradosListaTiposCotizantes.remove(index);
-                System.out.println("Realizado");
-            }
 
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-            index = -1;
-            secRegistro = null;
-
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            if (guardado == true) {
-                guardado = false;
+                RequestContext context = RequestContext.getCurrentInstance();
+                RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+                tipoCotizanteSeleccionado = null;
+                contarRegistrosTipoC();
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-        } else if (indexNF >= 0 && CualTabla == 1) {
 
-            if (tipoListaNF == 0) {
-                if (!listaDetallesTiposCotizantesModificar.isEmpty() && listaDetallesTiposCotizantesModificar.contains(listaDetallesTiposCotizantesModificar.get(indexNF))) {
-                    int modIndex = listaDetallesTiposCotizantesModificar.indexOf(listaDetallesTiposCotizantes.get(indexNF));
-                    listaDetallesTiposCotizantesModificar.remove(modIndex);
-                    listaDetallesTiposCotizantesBorrar.add(listaDetallesTiposCotizantes.get(indexNF));
-                } else if (!listaDetallesTiposCotizantesCrear.isEmpty() && listaDetallesTiposCotizantesCrear.contains(listaDetallesTiposCotizantes.get(indexNF))) {
-                    int crearIndex = listaDetallesTiposCotizantesCrear.indexOf(listaDetallesTiposCotizantes.get(indexNF));
-                    listaDetallesTiposCotizantesCrear.remove(crearIndex);
-                } else {
-                    listaDetallesTiposCotizantesBorrar.add(listaDetallesTiposCotizantes.get(indexNF));
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
-                listaDetallesTiposCotizantes.remove(indexNF);
             }
 
+        } else if (CualTabla == 1) {
+
+            if (!listaDetallesTiposCotizantesModificar.isEmpty() && listaDetallesTiposCotizantesModificar.contains(detalleTipoCotizanteSeleccionado)) {
+                int modIndex = listaDetallesTiposCotizantesModificar.indexOf(detalleTipoCotizanteSeleccionado);
+                listaDetallesTiposCotizantesModificar.remove(modIndex);
+                listaDetallesTiposCotizantesBorrar.add(detalleTipoCotizanteSeleccionado);
+            } else if (!listaDetallesTiposCotizantesCrear.isEmpty() && listaDetallesTiposCotizantesCrear.contains(detalleTipoCotizanteSeleccionado)) {
+                int crearIndex = listaDetallesTiposCotizantesCrear.indexOf(detalleTipoCotizanteSeleccionado);
+                listaDetallesTiposCotizantesCrear.remove(crearIndex);
+            } else {
+                listaDetallesTiposCotizantesBorrar.add(detalleTipoCotizanteSeleccionado);
+            }
+            listaDetallesTiposCotizantes.remove(detalleTipoCotizanteSeleccionado);
             if (tipoListaNF == 1) {
-                if (!listaDetallesTiposCotizantesModificar.isEmpty() && listaDetallesTiposCotizantesModificar.contains(filtradosListaDetallesTiposCotizantes.get(indexNF))) {
-                    int modIndex = listaDetallesTiposCotizantesModificar.indexOf(filtradosListaDetallesTiposCotizantes.get(indexNF));
-                    listaDetallesTiposCotizantesModificar.remove(modIndex);
-                    listaDetallesTiposCotizantesBorrar.add(filtradosListaDetallesTiposCotizantes.get(indexNF));
-                } else if (!listaDetallesTiposCotizantesCrear.isEmpty() && listaDetallesTiposCotizantesCrear.contains(filtradosListaDetallesTiposCotizantes.get(indexNF))) {
-                    int crearIndex = listaDetallesTiposCotizantesCrear.indexOf(filtradosListaDetallesTiposCotizantes.get(indexNF));
-                    listaDetallesTiposCotizantesCrear.remove(crearIndex);
-                } else {
-                    listaDetallesTiposCotizantesBorrar.add(filtradosListaDetallesTiposCotizantes.get(indexNF));
-                }
-                int CIndex = listaDetallesTiposCotizantes.indexOf(filtradosListaDetallesTiposCotizantes.get(indexNF));
-                listaDetallesTiposCotizantes.remove(CIndex);
-                filtradosListaDetallesTiposCotizantes.remove(indexNF);
-                System.out.println("Realizado");
+                filtradosListaDetallesTiposCotizantes.remove(detalleTipoCotizanteSeleccionado);
             }
-
+            detalleTipoCotizanteSeleccionado = null;
+            contarRegistrosDetallesTipoC();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
 
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            indexNF = -1;
-            secRegistro = null;
-
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
     //DUPLICAR TIPO COTIZANTE
     public void duplicarTC() {
-        if (index >= 0 && CualTabla == 0) {
+        if (CualTabla == 0) {
             duplicarTipoCotizante = new TiposCotizantes();
             k++;
             l = BigInteger.valueOf(k);
-
-            if (tipoLista == 0) {
-                duplicarTipoCotizante.setSecuencia(l);
-                duplicarTipoCotizante.setCodigo(listaTiposCotizantes.get(index).getCodigo());
-                duplicarTipoCotizante.setDescripcion(listaTiposCotizantes.get(index).getDescripcion());
-                duplicarTipoCotizante.setCotizapension(listaTiposCotizantes.get(index).getCotizapension());
-                duplicarTipoCotizante.setCotizasalud(listaTiposCotizantes.get(index).getCotizasalud());
-                duplicarTipoCotizante.setCotizariesgo(listaTiposCotizantes.get(index).getCotizariesgo());
-                duplicarTipoCotizante.setCotizaparafiscal(listaTiposCotizantes.get(index).getCotizaparafiscal());
-                duplicarTipoCotizante.setCotizaesap(listaTiposCotizantes.get(index).getCotizaesap());
-                duplicarTipoCotizante.setCotizamen(listaTiposCotizantes.get(index).getCotizamen());
-                duplicarTipoCotizante.setExtranjero(listaTiposCotizantes.get(index).getExtranjero());
-                duplicarTipoCotizante.setSubtipocotizante(listaTiposCotizantes.get(index).getSubtipocotizante());
-                duplicarTipoCotizante.setCodigoalternativo(listaTiposCotizantes.get(index).getCodigoalternativo());
-            }
-            if (tipoLista == 1) {
-                duplicarTipoCotizante.setSecuencia(l);
-                duplicarTipoCotizante.setCodigo(filtradosListaTiposCotizantes.get(index).getCodigo());
-                duplicarTipoCotizante.setDescripcion(filtradosListaTiposCotizantes.get(index).getDescripcion());
-                duplicarTipoCotizante.setCotizapension(filtradosListaTiposCotizantes.get(index).getCotizapension());
-                duplicarTipoCotizante.setCotizasalud(filtradosListaTiposCotizantes.get(index).getCotizasalud());
-                duplicarTipoCotizante.setCotizariesgo(filtradosListaTiposCotizantes.get(index).getCotizariesgo());
-                duplicarTipoCotizante.setCotizaparafiscal(filtradosListaTiposCotizantes.get(index).getCotizaparafiscal());
-                duplicarTipoCotizante.setCotizaesap(filtradosListaTiposCotizantes.get(index).getCotizaesap());
-                duplicarTipoCotizante.setCotizamen(filtradosListaTiposCotizantes.get(index).getCotizamen());
-                duplicarTipoCotizante.setExtranjero(filtradosListaTiposCotizantes.get(index).getExtranjero());
-                duplicarTipoCotizante.setSubtipocotizante(filtradosListaTiposCotizantes.get(index).getSubtipocotizante());
-                duplicarTipoCotizante.setCodigoalternativo(filtradosListaTiposCotizantes.get(index).getCodigoalternativo());
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarTipoCotizante.setSecuencia(l);
+            duplicarTipoCotizante.setCodigo(tipoCotizanteSeleccionado.getCodigo());
+            duplicarTipoCotizante.setDescripcion(tipoCotizanteSeleccionado.getDescripcion());
+            duplicarTipoCotizante.setCotizapension(tipoCotizanteSeleccionado.getCotizapension());
+            duplicarTipoCotizante.setCotizasalud(tipoCotizanteSeleccionado.getCotizasalud());
+            duplicarTipoCotizante.setCotizariesgo(tipoCotizanteSeleccionado.getCotizariesgo());
+            duplicarTipoCotizante.setCotizaparafiscal(tipoCotizanteSeleccionado.getCotizaparafiscal());
+            duplicarTipoCotizante.setCotizaesap(tipoCotizanteSeleccionado.getCotizaesap());
+            duplicarTipoCotizante.setCotizamen(tipoCotizanteSeleccionado.getCotizamen());
+            duplicarTipoCotizante.setExtranjero(tipoCotizanteSeleccionado.getExtranjero());
+            duplicarTipoCotizante.setSubtipocotizante(tipoCotizanteSeleccionado.getSubtipocotizante());
+            duplicarTipoCotizante.setCodigoalternativo(tipoCotizanteSeleccionado.getCodigoalternativo());
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoCotizante').show()");
-            index = -1;
-            secRegistro = null;
-        } else if (indexNF >= 0 && CualTabla == 1) {
+        } else if (CualTabla == 1) {
             System.out.println("Entra Duplicar NF");
-
             duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
             m++;
             n = BigInteger.valueOf(m);
-
-            if (tipoListaNF == 0) {
-                duplicarRegistroDetalleTipoCotizante.setSecuencia(n);
-                duplicarRegistroDetalleTipoCotizante.setTipoentidad(listaDetallesTiposCotizantes.get(indexNF).getTipoentidad());
-                duplicarRegistroDetalleTipoCotizante.setMinimosml(listaDetallesTiposCotizantes.get(indexNF).getMinimosml());
-                duplicarRegistroDetalleTipoCotizante.setMaximosml(listaDetallesTiposCotizantes.get(indexNF).getMaximosml());
-            }
-            if (tipoListaNF == 1) {
-                duplicarRegistroDetalleTipoCotizante.setSecuencia(n);
-                duplicarRegistroDetalleTipoCotizante.setTipoentidad(filtradosListaDetallesTiposCotizantes.get(indexNF).getTipoentidad());
-                duplicarRegistroDetalleTipoCotizante.setMinimosml(filtradosListaDetallesTiposCotizantes.get(indexNF).getMinimosml());
-                duplicarRegistroDetalleTipoCotizante.setMaximosml(filtradosListaDetallesTiposCotizantes.get(indexNF).getMaximosml());
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarRegistroDetalleTipoCotizante.setSecuencia(n);
+            duplicarRegistroDetalleTipoCotizante.setTipoentidad(detalleTipoCotizanteSeleccionado.getTipoentidad());
+            duplicarRegistroDetalleTipoCotizante.setMinimosml(detalleTipoCotizanteSeleccionado.getMinimosml());
+            duplicarRegistroDetalleTipoCotizante.setMaximosml(detalleTipoCotizanteSeleccionado.getMaximosml());
             RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroDetalleTipoCotizante");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDetalleTipoCotizante').show()");
-            indexNF = -1;
-            secRegistro = null;
-
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
 
-        listaTiposCotizantes.add(duplicarTipoCotizante);
-        listaTiposCotizantesCrear.add(duplicarTipoCotizante);
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        index = -1;
-        secRegistro = null;
-        if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        int pasa = 0;
+        int duplicados = 0;
+        mensajeValidacion = " ";
+        if (duplicarTipoCotizante.getCodigo().equals(BigInteger.valueOf(0)) == true) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            for (int i = 0; i < listaTiposCotizantes.size(); i++) {
+                if (duplicarTipoCotizante.getCodigo().equals(listaTiposCotizantes.get(i).getCodigo()) == true) {
+                    duplicados++;
+                }
+            }
+            if (duplicados > 0) {
+                mensajeValidacion = "El código ingresado ya existe. Por favor ingrese un código válido";
+            } else {
+                pasa++;
+            }
         }
-        if (bandera == 1) {
-            altoTabla = "73";
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
-            tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
-            tcCodigo.setFilterStyle("display: none; visibility: hidden;");
-            tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
-            tcDescripcion.setFilterStyle("display: none; visibility: hidden;");
-            tcPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcPension");
-            tcPension.setFilterStyle("display: none; visibility: hidden;");
-            tcSalud = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSalud");
-            tcSalud.setFilterStyle("display: none; visibility: hidden;");
-            tcRiesgo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcRiesgo");
-            tcRiesgo.setFilterStyle("display: none; visibility: hidden;");
-            tcParafiscal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcParafiscal");
-            tcParafiscal.setFilterStyle("display: none; visibility: hidden;");
-            tcEsap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcEsap");
-            tcEsap.setFilterStyle("display: none; visibility: hidden;");
-            tcMen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcMen");
-            tcMen.setFilterStyle("display: none; visibility: hidden;");
-            tcExtranjero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcExtranjero");
-            tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
-            tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
-            tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
+        if (duplicarTipoCotizante.getDescripcion().equals(" ")) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+        } else {
+            pasa++;
+        }
+
+        if (pasa == 2) {
+            listaTiposCotizantes.add(duplicarTipoCotizante);
+            listaTiposCotizantesCrear.add(duplicarTipoCotizante);
+            tipoCotizanteSeleccionado = duplicarTipoCotizante;
+            contarRegistrosTipoC();
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                altoTabla = "73";
+                System.out.println("Desactivar");
+                System.out.println("TipoLista= " + tipoLista);
+                tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
+                tcCodigo.setFilterStyle("display: none; visibility: hidden;");
+                tcDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcDescripcion");
+                tcDescripcion.setFilterStyle("display: none; visibility: hidden;");
+                tcPension = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcPension");
+                tcPension.setFilterStyle("display: none; visibility: hidden;");
+                tcSalud = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSalud");
+                tcSalud.setFilterStyle("display: none; visibility: hidden;");
+                tcRiesgo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcRiesgo");
+                tcRiesgo.setFilterStyle("display: none; visibility: hidden;");
+                tcParafiscal = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcParafiscal");
+                tcParafiscal.setFilterStyle("display: none; visibility: hidden;");
+                tcEsap = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcEsap");
+                tcEsap.setFilterStyle("display: none; visibility: hidden;");
+                tcMen = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcMen");
+                tcMen.setFilterStyle("display: none; visibility: hidden;");
+                tcExtranjero = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcExtranjero");
+                tcExtranjero.setFilterStyle("display: none; visibility: hidden;");
+                tcSubtipoCotizante = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcSubtipoCotizante");
+                tcSubtipoCotizante.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+                bandera = 0;
+                filtradosListaTiposCotizantes = null;
+                tipoLista = 0;
+            }
             RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-            bandera = 0;
-            filtradosListaTiposCotizantes = null;
-            tipoLista = 0;
-
+            duplicarTipoCotizante = new TiposCotizantes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoCotizante').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarTipoCotizante");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarTipoCotizante').show()");
+            mensajeValidacion = "";
         }
-        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-        duplicarTipoCotizante = new TiposCotizantes();
-        RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoCotizante");
-        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoCotizante').hide()");
-
     }
-    //LIMPIAR DUPLICAR
 
     public void limpiarduplicarTipoCotizante() {
         duplicarTipoCotizante = new TiposCotizantes();
     }
-    //LIMPIAR DUPLICAR NO FORMAL
 
     public void limpiarduplicarRegistroDetalleTipoCotizante() {
         duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
@@ -939,72 +672,50 @@ public class ControlTipoCotizante implements Serializable {
     public void verificarRastro() {
         if (CualTabla == 0) {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("lol");
-            if (!listaTiposCotizantes.isEmpty()) {
-                if (secRegistro != null) {
-                    System.out.println("lol 2");
-                    int resultado = administrarRastros.obtenerTabla(secRegistro, "TIPOSCOTIZANTES");
-                    System.out.println("resultado: " + resultado);
-                    if (resultado == 1) {
-                        RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                    } else if (resultado == 2) {
-                        RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                    } else if (resultado == 3) {
-                        RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                    } else if (resultado == 4) {
-                        RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                    } else if (resultado == 5) {
-                        RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                    }
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+            if (tipoCotizanteSeleccionado != null) {
+                int resultado = administrarRastros.obtenerTabla(tipoCotizanteSeleccionado.getSecuencia(), "TIPOSCOTIZANTES");
+                System.out.println("resultado: " + resultado);
+                if (resultado == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+                } else if (resultado == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+                } else if (resultado == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+                } else if (resultado == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+                } else if (resultado == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("TIPOSCOTIZANTES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("TIPOSCOTIZANTES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
-            index = -1;
-        } else {
+        } else if (CualTabla == 1) {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("NF");
-            if (!listaDetallesTiposCotizantes.isEmpty()) {
-                if (secRegistro != null) {
-                    System.out.println("NF2");
-                    int resultadoNF = administrarRastros.obtenerTabla(secRegistro, "DETALLESTIPOSCOTIZANTES");
-                    System.out.println("resultado: " + resultadoNF);
-                    if (resultadoNF == 1) {
-                        RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
-                    } else if (resultadoNF == 2) {
-                        RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
-                    } else if (resultadoNF == 3) {
-                        RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
-                    } else if (resultadoNF == 4) {
-                        RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
-                    } else if (resultadoNF == 5) {
-                        RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
-                    }
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroNF').show()");
+            if (detalleTipoCotizanteSeleccionado != null) {
+                int resultadoNF = administrarRastros.obtenerTabla(detalleTipoCotizanteSeleccionado.getSecuencia(), "DETALLESTIPOSCOTIZANTES");
+                System.out.println("resultado: " + resultadoNF);
+                if (resultadoNF == 1) {
+                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
+                } else if (resultadoNF == 2) {
+                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroNF').show()");
+                } else if (resultadoNF == 3) {
+                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastroNF').show()");
+                } else if (resultadoNF == 4) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastroNF').show()");
+                } else if (resultadoNF == 5) {
+                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("DETALLESTIPOSCOTIZANTES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("DETALLESTIPOSCOTIZANTES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
             }
-            index = -1;
         }
-
     }
 
     public void salir() {
-
         if (bandera == 1) {
             altoTabla = "95";
             tcCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTiposCotizantes:tcCodigo");
@@ -1050,21 +761,17 @@ public class ControlTipoCotizante implements Serializable {
         listaTiposCotizantesBorrar.clear();
         listaTiposCotizantesCrear.clear();
         listaTiposCotizantesModificar.clear();
-        index = -1;
-        secRegistro = null;
-
+        tipoCotizanteSeleccionado = null;
         listaTiposCotizantes = null;
-
         listaDetallesTiposCotizantesBorrar.clear();
         listaDetallesTiposCotizantesCrear.clear();
         listaDetallesTiposCotizantesModificar.clear();
-        indexNF = -1;
-
         listaDetallesTiposCotizantes = null;
+        detalleTipoCotizanteSeleccionado = null;
         guardado = true;
         permitirIndex = true;
         cambiosPagina = true;
-
+        limpiarCamposClonar();
     }
 
     //CANCELAR MODIFICACIONES
@@ -1115,17 +822,16 @@ public class ControlTipoCotizante implements Serializable {
         listaTiposCotizantesBorrar.clear();
         listaTiposCotizantesCrear.clear();
         listaTiposCotizantesModificar.clear();
-        index = -1;
-        secRegistro = null;
-
+        tipoCotizanteSeleccionado = null;
         listaTiposCotizantes = null;
-
         listaDetallesTiposCotizantesBorrar.clear();
         listaDetallesTiposCotizantesCrear.clear();
         listaDetallesTiposCotizantesModificar.clear();
-        indexNF = -1;
-
+        detalleTipoCotizanteSeleccionado = null;
         listaDetallesTiposCotizantes = null;
+        contarRegistrosDetallesTipoC();
+        contarRegistrosTipoC();
+        limpiarCamposClonar();
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
@@ -1135,75 +841,37 @@ public class ControlTipoCotizante implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
     }
 
-    //GUARDAR
-    public void guardarCambiosTiposCotizantes() {
-        if (CualTabla == 0) {
-            System.out.println("Guardado: " + guardado);
-            if (guardado == false) {
-                System.out.println("Realizando Operaciones TiposCotizantes");
-                if (!listaTiposCotizantesBorrar.isEmpty()) {
-                    for (int i = 0; i < listaTiposCotizantesBorrar.size(); i++) {
-                        System.out.println("Borrando...");
-                        administrarTiposCotizantes.borrarTipoCotizante(listaTiposCotizantesBorrar.get(i));
-                    }
-
-                    System.out.println("Entra");
-                    listaTiposCotizantesBorrar.clear();
-                }
+    //GUARDAR TODO
+    public void guardarTodo() {
+        try {
+            if (!listaTiposCotizantesBorrar.isEmpty()) {
+                administrarTiposCotizantes.borrarTipoCotizante(listaTiposCotizantesBorrar);
+                listaTiposCotizantesBorrar.clear();
             }
             if (!listaTiposCotizantesCrear.isEmpty()) {
-                for (int i = 0; i < listaTiposCotizantesCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaTiposCotizantesCrear.size());
-                    administrarTiposCotizantes.crearTipoCotizante(listaTiposCotizantesCrear.get(i));
-                }
-
+                System.out.println(listaTiposCotizantesCrear.size());
+                administrarTiposCotizantes.crearTipoCotizante(listaTiposCotizantesCrear);
+                listaTiposCotizantesCrear.clear();
             }
-
-            System.out.println("LimpiaLista");
-            listaTiposCotizantesCrear.clear();
 
             if (!listaTiposCotizantesModificar.isEmpty()) {
                 administrarTiposCotizantes.modificarTipoCotizante(listaTiposCotizantesModificar);
                 listaTiposCotizantesModificar.clear();
             }
-
-            System.out.println("Se guardaron los datos con exito");
             listaTiposCotizantes = null;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-            guardado = true;
-            permitirIndex = true;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            RequestContext.getCurrentInstance().update("form:aceptar");
-            index = -1;
-            secRegistro = null;
-            //  k = 0;
-        } else {
+            getListaTiposCotizantes();
+//            if (listaTiposCotizantes != null) {
+//                if (!listaTiposCotizantes.isEmpty()) {
+//                    tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
+//                }
+//            }
 
-            System.out.println("Está en la Tabla de Abajo");
-
-            if (guardado == false) {
-                System.out.println("Realizando Operaciones DetallesTiposCotizantes");
-                if (!listaDetallesTiposCotizantesBorrar.isEmpty()) {
-                    for (int i = 0; i < listaDetallesTiposCotizantesBorrar.size(); i++) {
-                        System.out.println("Borrando...");
-                        administrarDetallesTiposCotizantes.borrarDetalleTipoCotizante(listaDetallesTiposCotizantesBorrar.get(i));
-                        System.out.println("Entra");
-                        listaDetallesTiposCotizantesBorrar.clear();
-                    }
-                }
-                if (!listaDetallesTiposCotizantesCrear.isEmpty()) {
-                    for (int i = 0; i < listaDetallesTiposCotizantesCrear.size(); i++) {
-                        System.out.println("Creando...");
-                        System.out.println(listaDetallesTiposCotizantesCrear.size());
-                        administrarDetallesTiposCotizantes.crearDetalleTipoCotizante(listaDetallesTiposCotizantesCrear.get(i));
-                    }
-                }
-
-                System.out.println("LimpiaLista");
+            if (!listaDetallesTiposCotizantesBorrar.isEmpty()) {
+                administrarDetallesTiposCotizantes.borrarDetalleTipoCotizante(listaDetallesTiposCotizantesBorrar);
+                listaDetallesTiposCotizantesBorrar.clear();
+            }
+            if (!listaDetallesTiposCotizantesCrear.isEmpty()) {
+                administrarDetallesTiposCotizantes.crearDetalleTipoCotizante(listaDetallesTiposCotizantesCrear);
                 listaDetallesTiposCotizantesCrear.clear();
             }
             if (!listaDetallesTiposCotizantesModificar.isEmpty()) {
@@ -1211,95 +879,27 @@ public class ControlTipoCotizante implements Serializable {
                 listaDetallesTiposCotizantesModificar.clear();
             }
 
-            System.out.println("Se guardaron los datos con exito");
             listaDetallesTiposCotizantes = null;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+            getListaDetallesTiposCotizantes();
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
-            //  k = 0;
+            k = 0;
+            detalleTipoCotizanteSeleccionado = null;
+            limpiarCamposClonar();
+            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } catch (Exception e) {
+            System.out.println("entró al catch de guardarTodo : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Hubo un error en el guardado, por favor intente nuevamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-        System.out.println("Valor k: " + k);
-        indexNF = -1;
-        secRegistro = null;
-    }
-
-    //GUARDAR TODO
-    public void guardarTodo() {
-
-        System.out.println("Guardado: " + guardado);
-        System.out.println("Guardando Primera Tabla: ");
-        if (guardado == false) {
-            System.out.println("Realizando Operaciones TiposCotizantes");
-            if (!listaTiposCotizantesBorrar.isEmpty()) {
-                for (int i = 0; i < listaTiposCotizantesBorrar.size(); i++) {
-                    System.out.println("Borrando...");
-
-                    administrarTiposCotizantes.borrarTipoCotizante(listaTiposCotizantesBorrar.get(i));
-
-                    listaTiposCotizantesBorrar.clear();
-                }
-            }
-            if (!listaDetallesTiposCotizantesBorrar.isEmpty()) {
-                for (int i = 0; i < listaDetallesTiposCotizantesBorrar.size(); i++) {
-                    System.out.println("Borrando...");
-                    administrarDetallesTiposCotizantes.borrarDetalleTipoCotizante(listaDetallesTiposCotizantesBorrar.get(i));
-                    System.out.println("Entra");
-                    listaDetallesTiposCotizantesBorrar.clear();
-                }
-            }
-            if (!listaTiposCotizantesCrear.isEmpty()) {
-                for (int i = 0; i < listaTiposCotizantesCrear.size(); i++) {
-                    System.out.println("Creando...");
-                    System.out.println(listaTiposCotizantesCrear.size());
-
-                    administrarTiposCotizantes.crearTipoCotizante(listaTiposCotizantesCrear.get(i));
-                }
-
-            }
-            System.out.println("LimpiaLista");
-            listaTiposCotizantesCrear.clear();
-        }
-
-        if (!listaDetallesTiposCotizantesCrear.isEmpty()) {
-            for (int i = 0; i < listaDetallesTiposCotizantesCrear.size(); i++) {
-                System.out.println("Creando...");
-                System.out.println(listaDetallesTiposCotizantesCrear.size());
-
-                administrarDetallesTiposCotizantes.crearDetalleTipoCotizante(listaDetallesTiposCotizantesCrear.get(i));
-
-            }
-
-            System.out.println("LimpiaLista");
-            listaDetallesTiposCotizantesCrear.clear();
-        }
-
-        if (!listaTiposCotizantesModificar.isEmpty()) {
-            administrarTiposCotizantes.modificarTipoCotizante(listaTiposCotizantesModificar);
-            listaTiposCotizantesModificar.clear();
-        }
-        if (!listaDetallesTiposCotizantesModificar.isEmpty()) {
-            administrarDetallesTiposCotizantes.modificarDetalleTipoCotizante(listaDetallesTiposCotizantesModificar);
-            listaDetallesTiposCotizantesModificar.clear();
-        }
-
-        System.out.println("Se guardaron los datos con exito");
-        listaTiposCotizantes = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        cambiosPagina = true;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
-        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-        guardado = true;
-        permitirIndex = true;
-        FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        RequestContext.getCurrentInstance().update("form:growl");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        indexNF = -1;
-        secRegistro = null;
-        index = -1;
 
     }
 
@@ -1331,156 +931,67 @@ public class ControlTipoCotizante implements Serializable {
         RequestContext.getCurrentInstance().update("form:ClonarTipoCotizanteDescripcion");
     }
 
-    //<--------------------------------------------METODOS VIGENCIAS NO FORMALES--------------------------------------------->
-    //AUTOCOMPLETAR
-    public void modificarDetallesTiposCotizantes(int indiceNF, String confirmarCambio, String valorConfirmar) {
-        indexNF = indiceNF;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoListaNF == 0) {
-                if (!listaDetallesTiposCotizantesCrear.contains(listaDetallesTiposCotizantes.get(indiceNF))) {
+    public void modificarDetallesTiposCotizantes(DetallesTiposCotizantes detalle) {
+        detalleTipoCotizanteSeleccionado = detalle;
+        if (!listaDetallesTiposCotizantesCrear.contains(detalleTipoCotizanteSeleccionado)) {
 
-                    if (listaDetallesTiposCotizantesModificar.isEmpty()) {
-                        listaDetallesTiposCotizantesModificar.add(listaDetallesTiposCotizantes.get(indiceNF));
-                    } else if (!listaDetallesTiposCotizantesModificar.contains(listaDetallesTiposCotizantes.get(indiceNF))) {
-                        listaDetallesTiposCotizantesModificar.add(listaDetallesTiposCotizantes.get(indiceNF));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
-                }
-                indexNF = -1;
-                secRegistro = null;
-
-            } else {
-                if (!listaDetallesTiposCotizantesCrear.contains(filtradosListaDetallesTiposCotizantes.get(indiceNF))) {
-
-                    if (listaDetallesTiposCotizantesModificar.isEmpty()) {
-                        listaDetallesTiposCotizantesModificar.add(filtradosListaDetallesTiposCotizantes.get(indiceNF));
-                    } else if (!listaDetallesTiposCotizantesModificar.contains(filtradosListaDetallesTiposCotizantes.get(indiceNF))) {
-                        listaDetallesTiposCotizantesModificar.add(filtradosListaDetallesTiposCotizantes.get(indiceNF));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
-                }
-                indexNF = -1;
-                secRegistro = null;
+            if (listaDetallesTiposCotizantesModificar.isEmpty()) {
+                listaDetallesTiposCotizantesModificar.add(detalleTipoCotizanteSeleccionado);
+            } else if (!listaDetallesTiposCotizantesModificar.contains(detalleTipoCotizanteSeleccionado)) {
+                listaDetallesTiposCotizantesModificar.add(detalleTipoCotizanteSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-        } else if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
-            if (tipoListaNF == 0) {
-                listaDetallesTiposCotizantes.get(indiceNF).getTipoentidad().setNombre(TipoEntidad);
-            } else {
-                filtradosListaDetallesTiposCotizantes.get(indiceNF).getTipoentidad().setNombre(TipoEntidad);
+            if (guardado == true) {
+                guardado = false;
             }
-
-            for (int i = 0; i < lovListaTiposEntidades.size(); i++) {
-                if (lovListaTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoListaNF == 0) {
-                    listaDetallesTiposCotizantes.get(indiceNF).setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
-                } else {
-                    filtradosListaDetallesTiposCotizantes.get(indiceNF).setTipoentidad(lovListaTiposEntidades.get(indiceUnicoElemento));
-                }
-                lovListaTiposEntidades.clear();
-                getLovListaTiposEntidades();
-
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').show()");
-                tipoActualizacion = 0;
-            }
-
         }
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
     }
 
     //Ubicacion Celda.
-    public void cambiarIndiceNF(int indiceNF, int celdaNF) {
+    public void cambiarIndiceNF(DetallesTiposCotizantes detalle, int celdaNF) {
 
         if (permitirIndex == true) {
-            indexNF = indiceNF;
+            detalleTipoCotizanteSeleccionado = detalle;
             cualCelda = celdaNF;
             CualTabla = 1;
+            detalleTipoCotizanteSeleccionado.getSecuencia();
+            tipoCotizanteSeleccionado = null;
             tablaImprimir = ":formExportar:datosDetallesTiposCotizantesExportar";
-            cualNuevo = ":formularioDialogos:nuevoDetalleTipoCotizante";
-            cualInsertar = "formularioDialogos:NuevoRegistroDetalleTipoCotizante";
             nombreArchivo = "DetallesTiposCotizantesXML";
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:exportarXML");
 
-            if (tipoListaNF == 0) {
-                secRegistro = listaDetallesTiposCotizantes.get(indexNF).getSecuencia();
-                if (cualCelda == 0) {
-                    TipoEntidad = listaDetallesTiposCotizantes.get(indexNF).getTipoentidad().getNombre();
-                }
-            } else {
-                secRegistro = filtradosListaDetallesTiposCotizantes.get(indexNF).getSecuencia();
-                if (cualCelda == 0) {
-                    TipoEntidad = filtradosListaDetallesTiposCotizantes.get(indexNF).getTipoentidad().getNombre();
-                }
+            if (cualCelda == 0) {
+                detalleTipoCotizanteSeleccionado.getTipoentidad().getNombre();
+            } else if (cualCelda == 1) {
+                detalleTipoCotizanteSeleccionado.getMinimosml();
+            } else if (cualCelda == 2) {
+                detalleTipoCotizanteSeleccionado.getMaximosml();
             }
         }
     }
 
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
-    public void asignarIndexNF(Integer indiceNF, int dlg, int LND) {
-        index = indiceNF;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
+    public void asignarIndexNF(DetallesTiposCotizantes detalle, int dlg, int LND) {
+        detalleTipoCotizanteSeleccionado = detalle;
+        tipoActualizacion = LND;
         if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').show()");
         } else if (dlg == 1) {
-            RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposCotizantesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposCotizantesDialogo').show()");
         }
 
     }
 
     public void asignarIndexC(int dlg, int LND) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').show()");
         } else if (dlg == 1) {
-            RequestContext.getCurrentInstance().update("form:tiposCotizantesDialogo");
+            RequestContext.getCurrentInstance().update("formularioDialogos:tiposCotizantesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposCotizantesDialogo').show()");
         }
 
@@ -1494,37 +1005,40 @@ public class ControlTipoCotizante implements Serializable {
         context.reset("formularioDialogos:LOVTiposCotizantes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTiposCotizantes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposCotizantesDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposCotizantes");
-
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+    }
+
+    public void cancelarCambioLovTipoCotizante() {
+        lovFiltradosListaTiposCotizantes = null;
+        lovTipoCotizanteSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVTiposCotizantes:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposCotizantes').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposCotizantesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposCotizantesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposCotizantes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTC");
+
     }
 
     public void actualizarTipoEntidad() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoListaNF == 0) {
-                listaDetallesTiposCotizantes.get(index).setTipoentidad(seleccionTiposEntidades);
-                if (!listaDetallesTiposCotizantesCrear.contains(listaDetallesTiposCotizantes.get(index))) {
-                    if (listaDetallesTiposCotizantesModificar.isEmpty()) {
-                        listaDetallesTiposCotizantesModificar.add(listaDetallesTiposCotizantes.get(index));
-                    } else if (!listaDetallesTiposCotizantesModificar.contains(listaDetallesTiposCotizantes.get(index))) {
-                        listaDetallesTiposCotizantesModificar.add(listaDetallesTiposCotizantes.get(index));
-                    }
-                }
-            } else {
-                filtradosListaDetallesTiposCotizantes.get(index).setTipoentidad(seleccionTiposEntidades);
-                if (!listaDetallesTiposCotizantesCrear.contains(filtradosListaDetallesTiposCotizantes.get(index))) {
-                    if (listaDetallesTiposCotizantesModificar.isEmpty()) {
-                        listaDetallesTiposCotizantesModificar.add(filtradosListaDetallesTiposCotizantes.get(index));
-                    } else if (!listaDetallesTiposCotizantesModificar.contains(filtradosListaDetallesTiposCotizantes.get(index))) {
-                        listaDetallesTiposCotizantesModificar.add(filtradosListaDetallesTiposCotizantes.get(index));
-                    }
+            detalleTipoCotizanteSeleccionado.setTipoentidad(seleccionTiposEntidades);
+            if (!listaDetallesTiposCotizantesCrear.contains(detalleTipoCotizanteSeleccionado)) {
+                if (listaDetallesTiposCotizantesModificar.isEmpty()) {
+                    listaDetallesTiposCotizantesModificar.add(detalleTipoCotizanteSeleccionado);
+                } else if (!listaDetallesTiposCotizantesModificar.contains(detalleTipoCotizanteSeleccionado)) {
+                    listaDetallesTiposCotizantesModificar.add(detalleTipoCotizanteSeleccionado);
                 }
             }
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
             }
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
@@ -1538,14 +1052,30 @@ public class ControlTipoCotizante implements Serializable {
         filtradoslovListaTiposEntidades = null;
         seleccionTiposEntidades = null;
         aceptar = true;
-        indexNF = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVTiposEntidades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTiposEntidades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').hide()");
-        //RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEntidades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEntidades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTE");
+    }
+
+    public void cancelarCambioTipoEntidad() {
+        filtradoslovListaTiposEntidades = null;
+        seleccionTiposEntidades = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        cualCelda = -1;
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formularioDialogos:LOVTiposEntidades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('LOVTiposEntidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTiposEntidades");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTE");
     }
 
     public void autocompletarNuevoyDuplicadoNF(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -1554,9 +1084,9 @@ public class ControlTipoCotizante implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (confirmarCambio.equalsIgnoreCase("TIPOENTIDAD")) {
             if (tipoNuevo == 1) {
-                nuevoRegistroDetalleTipoCotizante.getTipoentidad().setNombre(TipoEntidad);
+                nuevoRegistroDetalleTipoCotizante.getTipoentidad().setNombre(detalleTipoCotizanteSeleccionado.getTipoentidad().getNombre());
             } else if (tipoNuevo == 2) {
-                duplicarRegistroDetalleTipoCotizante.getTipoentidad().setNombre(TipoEntidad);
+                duplicarRegistroDetalleTipoCotizante.getTipoentidad().setNombre(detalleTipoCotizanteSeleccionado.getTipoentidad().getNombre());
             }
             for (int i = 0; i < lovListaTiposEntidades.size(); i++) {
                 if (lovListaTiposEntidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -1577,7 +1107,7 @@ public class ControlTipoCotizante implements Serializable {
 
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                RequestContext.getCurrentInstance().update("form:tiposEntidadesDialogo");
+                RequestContext.getCurrentInstance().update("formularioDialogos:tiposEntidadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposEntidadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1587,26 +1117,17 @@ public class ControlTipoCotizante implements Serializable {
                 }
             }
         }
-
     }
 
-    public void valoresBackupAutocompletarNF(int tipoNuevo, String Campo) {
-        if (Campo.equals("TIPOENTIDAD")) {
-            if (tipoNuevo == 1) {
-                TipoEntidad = nuevoRegistroDetalleTipoCotizante.getTipoentidad().getNombre();
-            } else if (tipoNuevo == 2) {
-                TipoEntidad = duplicarRegistroDetalleTipoCotizante.getTipoentidad().getNombre();
-            }
-        }
-    }
-
-    //CREAR NUEVA VIGENCIA NO FORMAL
     public void agregarNuevaDetalleTipoCotizante() {
         int pasa = 0;
         mensajeValidacionNF = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("Tamaño Lista Vigencias NF Modificar" + listaDetallesTiposCotizantesModificar.size());
-
+        for (int i = 0; i < listaDetallesTiposCotizantes.size(); i++) {
+            if (nuevoRegistroDetalleTipoCotizante.getTipoentidad().getSecuencia().equals(listaDetallesTiposCotizantes.get(i).getTipoentidad().getSecuencia()) == true) {
+                pasa++;
+                mensajeValidacionNF = "El Tipo Cotizante ya tiene un registro con ese tipo de entidad. Por favor seleccione otro ";
+            }
+        }
         if (pasa == 0) {
             if (bandera == 1 && CualTabla == 1) {
                 altoTablaNF = "95";
@@ -1627,17 +1148,10 @@ public class ControlTipoCotizante implements Serializable {
             l = BigInteger.valueOf(k);
             nuevoRegistroDetalleTipoCotizante.setSecuencia(l);
             nuevoRegistroDetalleTipoCotizante.setTipocotizante(tipoCotizanteSeleccionado);
-
-            if (nuevoRegistroDetalleTipoCotizante.getMinimosml() == null) {
-                nuevoRegistroDetalleTipoCotizante.setMinimosml(null);
-            }
-            if (nuevoRegistroDetalleTipoCotizante.getMaximosml() == null) {
-                nuevoRegistroDetalleTipoCotizante.setMaximosml(null);
-            }
-
             listaDetallesTiposCotizantesCrear.add(nuevoRegistroDetalleTipoCotizante);
             listaDetallesTiposCotizantes.add(nuevoRegistroDetalleTipoCotizante);
-
+            contarRegistrosDetallesTipoC();
+            detalleTipoCotizanteSeleccionado = nuevoRegistroDetalleTipoCotizante;
             nuevoRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
 
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
@@ -1645,10 +1159,7 @@ public class ControlTipoCotizante implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDetalleTipoCotizante').hide()");
-            indexNF = -1;
-            secRegistro = null;
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDetalleTipoCotizante");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoDetalleTipoCotizante').show()");
@@ -1656,89 +1167,147 @@ public class ControlTipoCotizante implements Serializable {
     }
 
     public void tablaNuevoRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("Cual Tabla: " + CualTabla);
-        if (tipoCotizanteSeleccionado != null && listaDetallesTiposCotizantes.isEmpty()) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
-        }
-
-        if ((listaTiposCotizantes.isEmpty() || listaDetallesTiposCotizantes.isEmpty())) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
-            RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
-        } else if (CualTabla == 0) {
-            System.out.println("cual = 0");
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoCotizante");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoCotizante').show()");
-        } else if (CualTabla == 1) {
-            System.out.println("cual = 1");
-            RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroDetalleTipoCotizante");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDetalleTipoCotizante').show()");
-        }
+        RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
+        RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
     }
 
     public void confirmarDuplicarNF() {
 
-        listaDetallesTiposCotizantes.add(duplicarRegistroDetalleTipoCotizante);
-        listaDetallesTiposCotizantesCrear.add(duplicarRegistroDetalleTipoCotizante);
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-        indexNF = -1;
-        secRegistro = null;
-        if (guardado == true) {
-            guardado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        int pasa = 0;
+        mensajeValidacionNF = " ";
+        for (int i = 0; i < listaDetallesTiposCotizantes.size(); i++) {
+            if (duplicarRegistroDetalleTipoCotizante.getTipoentidad().getSecuencia().equals(listaDetallesTiposCotizantes.get(i).getTipoentidad().getSecuencia()) == true) {
+                pasa++;
+                mensajeValidacionNF = "El Tipo Cotizante ya tiene un registro con ese tipo de entidad. Por favor seleccione otro ";
+            }
         }
-        if (bandera == 1) {
-            altoTablaNF = "95";
-            dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
-            dtcTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
-            dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
-            dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
-            dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
-            dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
+
+        if (pasa == 0) {
+            listaDetallesTiposCotizantes.add(duplicarRegistroDetalleTipoCotizante);
+            listaDetallesTiposCotizantesCrear.add(duplicarRegistroDetalleTipoCotizante);
+            detalleTipoCotizanteSeleccionado = duplicarRegistroDetalleTipoCotizante;
+            contarRegistrosDetallesTipoC();
+            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-            bandera = 0;
-            filtradosListaDetallesTiposCotizantes = null;
-            tipoListaNF = 0;
-
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+            if (bandera == 1) {
+                altoTablaNF = "95";
+                dtcTipoEntidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcTipoEntidad");
+                dtcTipoEntidad.setFilterStyle("display: none; visibility: hidden;");
+                dtcMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMinimo");
+                dtcMinimo.setFilterStyle("display: none; visibility: hidden;");
+                dtcMaximo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDetallesTiposCotizantes:dtcMaximo");
+                dtcMaximo.setFilterStyle("display: none; visibility: hidden;");
+                RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+                bandera = 0;
+                filtradosListaDetallesTiposCotizantes = null;
+                tipoListaNF = 0;
+            }
+            RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroDetalleTipoCotizante");
+            duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDetalleTipoCotizante').hide()");
+        } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionDuplicarDetalleTipoCotizante");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarDetalleTipoCotizante').show()");
         }
-        RequestContext.getCurrentInstance().update("form:DuplicarRegistroDetalleTipoCotizante");
-        duplicarRegistroDetalleTipoCotizante = new DetallesTiposCotizantes();
-        RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroDetalleTipoCotizante");
-        RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDetalleTipoCotizante').hide()");
-
     }
 
     public void dialogoTiposCotizantes() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoCotizante");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoCotizante').show()");
     }
 
     public void dialogoDetallesTiposCotizantes() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroDetalleTipoCotizante");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDetalleTipoCotizante').show()");
 
     }
 
-    //<--------------------------------------------FIN METODOS VIGENCIAS NO FORMALES ----------------------------------------->
+    public void eventoFiltrar() {
+        if (tipoLista == 0) {
+            tipoLista = 1;
+        }
+        contarRegistrosTipoC();
+    }
+
+    public void eventoFiltrarNF() {
+        if (tipoListaNF == 0) {
+            tipoListaNF = 1;
+        }
+        contarRegistrosDetallesTipoC();
+    }
+
+    public void contarRegistrosTipoC() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroTipoC");
+    }
+
+    public void contarRegistrosDetallesTipoC() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroDetallesTC");
+    }
+
+    public void contarRegistrosLovTE() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovTE");
+    }
+
+    public void contarRegistrosLovTC() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovTC");
+    }
+
+    public void clonarTipoCotizante() {
+        int auxiliar = 0;
+
+        for (int i = 0; i < listaTiposCotizantes.size(); i++) {
+            if (clonarCodigo.equals(listaTiposCotizantes.get(i).getCodigo()) == true) {
+                auxiliar++;
+            }
+        }
+        if (auxiliar == 0) {
+            BigInteger auxsecuenciaClonado;
+            auxsecuenciaClonado = administrarTiposCotizantes.clonarTipoCotizante(clonarTipoCotizante.getCodigo(), clonarCodigo, clonarDescripcion, secuenciaClonado);
+            System.out.println("secuenciaClonado : " + auxsecuenciaClonado);
+            RequestContext.getCurrentInstance().execute("PF('confirmarClonar').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('datosClonadoRepetidos').show()");
+        }
+
+    }
+
+    public void recargarTablas() {
+        listaTiposCotizantes = null;
+        getListaTiposCotizantes();
+        if (listaTiposCotizantes != null) {
+            if (!listaTiposCotizantes.isEmpty()) {
+                tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
+            }
+        }
+        listaDetallesTiposCotizantes = null;
+        getListaDetallesTiposCotizantes();
+        contarRegistrosTipoC();
+        contarRegistrosDetallesTipoC();
+        RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
+        RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
+        limpiarCamposClonar();
+
+    }
+
+    public void limpiarCamposClonar() {
+        clonarTipoCotizante = new TiposCotizantes();
+        clonarCodigo = null;
+        clonarDescripcion = "";
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizante");
+        RequestContext.getCurrentInstance().update("form:ClonarTipoCotizanteDescripcion");
+        RequestContext.getCurrentInstance().update("form:ClonarNuevoTipoCotizante");
+        RequestContext.getCurrentInstance().update("form:ClonarDescripcionNuevoTipoCotizante");
+    }
+
 //GETTER & SETTER
-    public BigInteger getSecuenciaTipoCotizante() {
-        return secuenciaTipoCotizante;
-    }
-
-    public void setSecuenciaTipoCotizante(BigInteger secuenciaTipoCotizante) {
-        this.secuenciaTipoCotizante = secuenciaTipoCotizante;
-    }
-
     public List<TiposCotizantes> getListaTiposCotizantes() {
         if (listaTiposCotizantes == null) {
-            RequestContext context = RequestContext.getCurrentInstance();
             listaTiposCotizantes = administrarTiposCotizantes.tiposCotizantes();
-            tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
-            RequestContext.getCurrentInstance().update("form:datosTiposCotizantes");
         }
         return listaTiposCotizantes;
     }
@@ -1822,22 +1391,11 @@ public class ControlTipoCotizante implements Serializable {
         this.duplicarTipoCotizante = duplicarTipoCotizante;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
-    // Cosas de Vigencias No Formales
     public List<DetallesTiposCotizantes> getListaDetallesTiposCotizantes() {
         if (listaDetallesTiposCotizantes == null) {
-            listaDetallesTiposCotizantes = new ArrayList<DetallesTiposCotizantes>();
-            listaDetallesTiposCotizantes = administrarDetallesTiposCotizantes.detallesTiposCotizantes(tipoCotizanteSeleccionado.getSecuencia());
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosDetallesTiposCotizantes");
-
+            if (tipoCotizanteSeleccionado != null) {
+                listaDetallesTiposCotizantes = administrarDetallesTiposCotizantes.detallesTiposCotizantes(tipoCotizanteSeleccionado.getSecuencia());
+            }
         }
         return listaDetallesTiposCotizantes;
     }
@@ -1884,14 +1442,6 @@ public class ControlTipoCotizante implements Serializable {
 
     public void setMensajeValidacionNF(String mensajeValidacionNF) {
         this.mensajeValidacionNF = mensajeValidacionNF;
-    }
-
-    public String getCualInsertar() {
-        return cualInsertar;
-    }
-
-    public String getCualNuevo() {
-        return cualNuevo;
     }
 
     public DetallesTiposCotizantes getDuplicarDetalleTipoCotizante() {
@@ -1985,11 +1535,11 @@ public class ControlTipoCotizante implements Serializable {
         this.cambiosPagina = cambiosPagina;
     }
 
-    public List<DetallesTiposCotizantes> getDetalleTipoCotizanteSeleccionado() {
+    public DetallesTiposCotizantes getDetalleTipoCotizanteSeleccionado() {
         return detalleTipoCotizanteSeleccionado;
     }
 
-    public void setDetalleTipoCotizanteSeleccionado(List<DetallesTiposCotizantes> detalleTipoCotizanteSeleccionado) {
+    public void setDetalleTipoCotizanteSeleccionado(DetallesTiposCotizantes detalleTipoCotizanteSeleccionado) {
         this.detalleTipoCotizanteSeleccionado = detalleTipoCotizanteSeleccionado;
     }
 
@@ -2001,4 +1551,55 @@ public class ControlTipoCotizante implements Serializable {
         this.guardado = guardado;
     }
 
+    public String getInfoRegistroTipoC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposCotizantes");
+        infoRegistroTipoC = String.valueOf(tabla.getRowCount());
+        return infoRegistroTipoC;
+    }
+
+    public void setInfoRegistroTipoC(String infoRegistroTipoC) {
+        this.infoRegistroTipoC = infoRegistroTipoC;
+    }
+
+    public String getInfoRegistroDetalleTC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDetallesTiposCotizantes");
+        infoRegistroDetalleTC = String.valueOf(tabla.getRowCount());
+        return infoRegistroDetalleTC;
+    }
+
+    public void setInfoRegistroDetalleTC(String infoRegistroDetalleTC) {
+        this.infoRegistroDetalleTC = infoRegistroDetalleTC;
+    }
+
+    public String getInfoRegistroLovTE() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposEntidades");
+        infoRegistroLovTE = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovTE;
+    }
+
+    public void setInfoRegistroLovTE(String infoRegistroLovTE) {
+        this.infoRegistroLovTE = infoRegistroLovTE;
+    }
+
+    public String getInfoRegistroLovTC() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTiposCotizantes");
+        infoRegistroLovTC = String.valueOf(tabla.getRowCount());
+        return infoRegistroLovTC;
+    }
+
+    public void setInfoRegistroLovTC(String infoRegistroLovTC) {
+        this.infoRegistroLovTC = infoRegistroLovTC;
+    }
+
+    public BigInteger getSecuenciaClonado() {
+        return secuenciaClonado;
+    }
+
+    public void setSecuenciaClonado(BigInteger secuenciaClonado) {
+        this.secuenciaClonado = secuenciaClonado;
+    }
 }

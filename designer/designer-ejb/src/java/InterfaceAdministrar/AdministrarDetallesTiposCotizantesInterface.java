@@ -26,9 +26,9 @@ public interface AdministrarDetallesTiposCotizantesInterface {
 
     public List<DetallesTiposCotizantes> detallesTiposCotizantes(BigInteger secuenciaTipoCotizante);
 
-    public void borrarDetalleTipoCotizante(DetallesTiposCotizantes detallesTiposCotizantes);
+    public void borrarDetalleTipoCotizante(List<DetallesTiposCotizantes> listBorrar);
 
-    public void crearDetalleTipoCotizante(DetallesTiposCotizantes detallesTiposCotizantes);
+    public void crearDetalleTipoCotizante(List<DetallesTiposCotizantes> listCrear);
 
     public void modificarDetalleTipoCotizante(List<DetallesTiposCotizantes> listaDetallesTiposCotizantesModificar);
 

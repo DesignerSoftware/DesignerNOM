@@ -146,14 +146,12 @@
                                 <p:column headerText="#{msg['porcentaje']}" sortBy="#{info.porcentaje}" filterBy="#{info.porcentaje}" filterMatchMode="contains" id="setsPorcentaje" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.porcentaje}" >
-                                                <f:convertNumber type="percent" />
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.porcentaje}" id="editarPorcentaje" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; height:12px"> 
                                                 <p:ajax event="change" listener="#{controlSets.modificarSets(info)}"/>
                                                 <p:ajax event="select" listener="#{controlSets.cambiarIndice(info, 2)}"
                                                         onstart="PF('datosSetsEmpleado').unselectAllRows();PF('datosSetsEmpleado').selectRow(#{indice});"/>
-                                                <f:convertNumber type="percent" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

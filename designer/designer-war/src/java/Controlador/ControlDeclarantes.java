@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Declarantes;
 import Entidades.Personas;
 import Entidades.RetencionesMinimas;
@@ -39,85 +38,61 @@ public class ControlDeclarantes implements Serializable {
     AdministrarDeclarantesInterface administrarDeclarantes;
     @EJB
     AdministrarRastrosInterface administrarRastros;
-    
-    
 
-    //Lista Declarantes
     private List<Declarantes> listaDeclarantes;
     private List<Declarantes> filtradoListaDeclarantes;
     private Declarantes declaranteSeleccionado;
     private Personas persona;
-    //Columnas Tabla VC
     private Column declarantesFechaInicial, declarantesFechaFinal, declarantesBooleano, declarantesPromedio, declarantesTarifa;
-    //OTROS
-    private int tipoActualizacion; //Activo/Desactivo Crtl + F11
+    private int tipoActualizacion;
     private int bandera;
     private boolean permitirIndex;
     private boolean aceptar;
-    private int index;
-    //AUTOCOMPLETAR
     private BigInteger Minima;
     private String altoScrollDeclarantes;
-    //modificar
     private List<Declarantes> listaDeclarantesModificar;
     private boolean guardado, guardarOk;
-    //crear VC
     public Declarantes nuevoDeclarante;
     private List<Declarantes> listaDeclarantesCrear;
     private BigInteger l;
     private int k;
     private String mensajeValidacion;
-    //borrar VC
     private List<Declarantes> listaDeclarantesBorrar;
-    //editar celda
     private Declarantes editarDeclarantes;
     private int cualCelda, tipoLista;
     private boolean cambioEditor, aceptarEditar;
-    //duplicar
     private Declarantes duplicarDeclarante;
-    //RASTROS
-    private BigInteger secRegistro;
-    private BigInteger secRegistroD;
     private boolean cambiosPagina;
-    //L.O.V Terceros
     private List<TarifaDeseo> lovlistaRetenciones;
     private List<TarifaDeseo> lovfiltradoslistaRetenciones;
     private TarifaDeseo retencionesSeleccionado;
     private Date fechaFinal;
     private Date fechaInicial;
     private Date fechaParametro;
+    private String infoRegistro, infoRegistroLov;
 
-    /**
-     * Constructor de ControlDeclarante
-     */
     public ControlDeclarantes() {
         altoScrollDeclarantes = "270";
         permitirIndex = true;
         listaDeclarantes = null;
-        //Otros
         aceptar = true;
-        //borrar aficiones
         listaDeclarantesBorrar = new ArrayList<Declarantes>();
-        //crear aficiones
         listaDeclarantesCrear = new ArrayList<Declarantes>();
         k = 0;
-        //modificar aficiones
         listaDeclarantesModificar = new ArrayList<Declarantes>();
-        //editar
         editarDeclarantes = new Declarantes();
         cambioEditor = false;
         aceptarEditar = true;
         cualCelda = -1;
         tipoLista = 0;
-        //guardar
         guardado = true;
-        //Crear VC
         nuevoDeclarante = new Declarantes();
         duplicarDeclarante = new Declarantes();
-        secRegistro = null;
+        declaranteSeleccionado = null;
         cambiosPagina = true;
+        fechaFinal = new Date("31/12/9999");
     }
-    
+
     @PostConstruct
     public void inicializarAdministrador() {
         try {
@@ -126,7 +101,7 @@ public class ControlDeclarantes implements Serializable {
             administrarDeclarantes.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct "+ this.getClass().getName() +": " + e);
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
@@ -149,23 +124,12 @@ public class ControlDeclarantes implements Serializable {
             }
         }
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaDeclarantes.get(index).setRetencionminima(seleccionado);
-                if (!listaDeclarantesCrear.contains(listaDeclarantes.get(index))) {
-                    if (listaDeclarantesModificar.isEmpty()) {
-                        listaDeclarantesModificar.add(listaDeclarantes.get(index));
-                    } else if (!listaDeclarantesModificar.contains(listaDeclarantes.get(index))) {
-                        listaDeclarantesModificar.add(listaDeclarantes.get(index));
-                    }
-                }
-            } else {
-                filtradoListaDeclarantes.get(index).setRetencionminima(seleccionado);
-                if (!listaDeclarantesCrear.contains(filtradoListaDeclarantes.get(index))) {
-                    if (listaDeclarantesModificar.isEmpty()) {
-                        listaDeclarantesModificar.add(filtradoListaDeclarantes.get(index));
-                    } else if (!listaDeclarantesModificar.contains(filtradoListaDeclarantes.get(index))) {
-                        listaDeclarantesModificar.add(filtradoListaDeclarantes.get(index));
-                    }
+            declaranteSeleccionado.setRetencionminima(seleccionado);
+            if (!listaDeclarantesCrear.contains(declaranteSeleccionado)) {
+                if (listaDeclarantesModificar.isEmpty()) {
+                    listaDeclarantesModificar.add(declaranteSeleccionado);
+                } else if (!listaDeclarantesModificar.contains(declaranteSeleccionado)) {
+                    listaDeclarantesModificar.add(declaranteSeleccionado);
                 }
             }
             if (guardado == true) {
@@ -184,8 +148,7 @@ public class ControlDeclarantes implements Serializable {
         filtradoListaDeclarantes = null;
         retencionesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        declaranteSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         context.reset("formularioDialogos:LOVMinimas:globalFilter");
@@ -196,9 +159,12 @@ public class ControlDeclarantes implements Serializable {
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (declaranteSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 3) {
+                lovlistaRetenciones = null;
+                getLovlistaRetenciones();
+                contarRegistrosLov();
                 RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
                 tipoActualizacion = 0;
@@ -209,20 +175,24 @@ public class ControlDeclarantes implements Serializable {
     public void recibirPersona(Personas per) {
         persona = per;
         listaDeclarantes = null;
+        getListaDeclarantes();
+        if (listaDeclarantes != null) {
+            if (!listaDeclarantes.isEmpty()) {
+                declaranteSeleccionado = listaDeclarantes.get(0);
+            }
+        }
     }
 
     //AUTOCOMPLETAR
-    public void modificarDeclarantes(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
+    public void modificarDeclarantes(Declarantes declarante, String confirmarCambio, String valorConfirmar) {
+        declaranteSeleccionado = declarante;
         int coincidencias = 0;
         int indiceUnicoElemento = 0;
         System.out.println("Entro a Modificar Declarantes");
 
-        RequestContext context = RequestContext.getCurrentInstance();
-
         for (int i = 0; i < listaDeclarantes.size(); i++) {
-            if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && listaDeclarantes.get(index).getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
-                listaDeclarantes.get(index).setFechainicial(fechaInicial);
+            if (declaranteSeleccionado.getFechainicial().after(declaranteSeleccionado.getFechainicial()) && declaranteSeleccionado.getFechainicial().before(declaranteSeleccionado.getFechafinal())) {
+                declaranteSeleccionado.setFechainicial(fechaInicial);
                 RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
                 RequestContext.getCurrentInstance().execute("PF('fechasTraslapadas').show()");
                 RequestContext.getCurrentInstance().update("form:datosDeclarantes");
@@ -230,60 +200,36 @@ public class ControlDeclarantes implements Serializable {
             }
         }
 
-        if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
-            listaDeclarantes.get(index).setFechafinal(fechaFinal);
+        if (declaranteSeleccionado.getFechafinal().before(declaranteSeleccionado.getFechainicial())) {
+            declaranteSeleccionado.setFechafinal(fechaFinal);
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
         }
 
-        if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(index).getFechafinal())) {
-            listaDeclarantes.get(index).setFechainicial(fechaInicial);
+        if (declaranteSeleccionado.getFechainicial().after(declaranteSeleccionado.getFechafinal())) {
+            declaranteSeleccionado.setFechainicial(fechaInicial);
             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
         }
         if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaDeclarantesCrear.contains(listaDeclarantes.get(index))) {
+            if (!listaDeclarantesCrear.contains(declaranteSeleccionado)) {
 
-                    if (listaDeclarantesModificar.isEmpty()) {
-                        listaDeclarantesModificar.add(listaDeclarantes.get(index));
-                    } else if (!listaDeclarantesModificar.contains(listaDeclarantes.get(index))) {
-                        listaDeclarantesModificar.add(listaDeclarantes.get(index));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                    cambiosPagina = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (listaDeclarantesModificar.isEmpty()) {
+                    listaDeclarantesModificar.add(declaranteSeleccionado);
+                } else if (!listaDeclarantesModificar.contains(declaranteSeleccionado)) {
+                    listaDeclarantesModificar.add(declaranteSeleccionado);
                 }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaDeclarantesCrear.contains(filtradoListaDeclarantes.get(index))) {
-
-                    if (listaDeclarantesCrear.isEmpty()) {
-                        listaDeclarantesCrear.add(filtradoListaDeclarantes.get(index));
-                    } else if (!listaDeclarantesCrear.contains(filtradoListaDeclarantes.get(index))) {
-                        listaDeclarantesCrear.add(filtradoListaDeclarantes.get(index));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                    cambiosPagina = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                if (guardado == true) {
+                    guardado = false;
                 }
-                index = -1;
-                secRegistro = null;
+                cambiosPagina = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
         } else if (confirmarCambio.equalsIgnoreCase("MINIMA")) {
-            if (tipoLista == 0) {
-                listaDeclarantes.get(indice).getRetencionminima().setRetencion(Minima);
-            } else {
-                filtradoListaDeclarantes.get(indice).getRetencionminima().setRetencion(Minima);
-            }
+            declaranteSeleccionado.getRetencionminima().setRetencion(Minima);
 
             for (int i = 0; i < lovlistaRetenciones.size(); i++) {
                 if ((lovlistaRetenciones.get(i).getRetencion().toString()).startsWith(valorConfirmar.toString().toUpperCase())) {
@@ -301,11 +247,7 @@ public class ControlDeclarantes implements Serializable {
                         break;
                     }
                 }
-                if (tipoLista == 0) {
-                    listaDeclarantes.get(indice).setRetencionminima(seleccionado);
-                } else {
-                    filtradoListaDeclarantes.get(indice).setRetencionminima(seleccionado);
-                }
+                declaranteSeleccionado.setRetencionminima(seleccionado);
                 lovlistaRetenciones.clear();
                 getLovlistaRetenciones();
             } else {
@@ -317,80 +259,40 @@ public class ControlDeclarantes implements Serializable {
         }
     }
 
-    public void modificarFechas(int i, int c) {
+    public void modificarFechas(Declarantes declarante, int c) {
         Declarantes auxiliar = null;
         RequestContext context = RequestContext.getCurrentInstance();
-
-        if (tipoLista == 0) {
-            auxiliar = listaDeclarantes.get(i);
-        }
-        if (tipoLista == 1) {
-            auxiliar = filtradoListaDeclarantes.get(i);
-        }
-
+        auxiliar = declaranteSeleccionado;
         if (auxiliar.getFechainicial() != null && auxiliar.getFechafinal() != null) {
             boolean solapado = false;
             for (int y = 0; y < listaDeclarantes.size(); y++) {
-                if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(y).getFechainicial()) && listaDeclarantes.get(index).getFechainicial().before(listaDeclarantes.get(y).getFechafinal())) {
+                if (declaranteSeleccionado.getFechainicial().after(listaDeclarantes.get(y).getFechainicial()) && declaranteSeleccionado.getFechainicial().before(listaDeclarantes.get(y).getFechafinal())) {
                     solapado = true;
                     break;
                 }
             }
-            /*
-             if (listaDeclarantes.get(index).getFechafinal().before(listaDeclarantes.get(index).getFechainicial())) {
-             listaDeclarantes.get(index).setFechafinal(fechaFinal);
-             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
-             }
-
-             if (listaDeclarantes.get(index).getFechainicial().after(listaDeclarantes.get(index).getFechafinal())) {
-             listaDeclarantes.get(index).setFechainicial(fechaInicial);
-             RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-             RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
-             }
-             */
             if (solapado == false) {
                 boolean retorno = false;
-                index = i;
+                declaranteSeleccionado = declarante;
                 retorno = validarFechasRegistro(0);
                 if (retorno == true) {
-                    cambiarIndice(i, c);
-                    modificarDeclarantes(i, "N", "");
+                    cambiarIndice(declaranteSeleccionado, c);
+                    modificarDeclarantes(declaranteSeleccionado, "N", "");
                 } else {
-                    if (tipoLista == 0) {
-                        listaDeclarantes.get(i).setFechafinal(fechaFinal);
-                        listaDeclarantes.get(i).setFechainicial(fechaInicial);
-                    }
-                    if (tipoLista == 1) {
-                        filtradoListaDeclarantes.get(i).setFechafinal(fechaFinal);
-                        filtradoListaDeclarantes.get(i).setFechainicial(fechaInicial);
-
-                    }
+                    declaranteSeleccionado.setFechafinal(fechaFinal);
+                    declaranteSeleccionado.setFechainicial(fechaInicial);
                     RequestContext.getCurrentInstance().update("form:datosDeclarantes");
                     RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
                 }
             } else {
-                if (tipoLista == 0) {
-                    listaDeclarantes.get(index).setFechainicial(fechaInicial);
-                }
-                if (tipoLista == 1) {
-                    filtradoListaDeclarantes.get(index).setFechainicial(fechaInicial);
-                }
+                declaranteSeleccionado.setFechainicial(fechaInicial);
                 RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
                 RequestContext.getCurrentInstance().execute("PF('fechasTraslapadas').show()");
                 RequestContext.getCurrentInstance().update("form:datosDeclarantes");
             }
         } else {
-            if (tipoLista == 0) {
-                listaDeclarantes.get(i).setFechainicial(fechaInicial);
-                listaDeclarantes.get(i).setFechafinal(fechaFinal);
-            }
-            if (tipoLista == 1) {
-                filtradoListaDeclarantes.get(i).setFechainicial(fechaInicial);
-                filtradoListaDeclarantes.get(i).setFechafinal(fechaFinal);
-            }
+            declaranteSeleccionado.setFechainicial(fechaInicial);
+            declaranteSeleccionado.setFechafinal(fechaFinal);
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
             RequestContext.getCurrentInstance().execute("PF('errorRegNew').show()");
         }
@@ -406,10 +308,10 @@ public class ControlDeclarantes implements Serializable {
         if (i == 0) {
             Declarantes auxiliar = null;
             if (tipoLista == 0) {
-                auxiliar = listaDeclarantes.get(index);
+                auxiliar = declaranteSeleccionado;
             }
             if (tipoLista == 1) {
-                auxiliar = filtradoListaDeclarantes.get(index);
+                auxiliar = declaranteSeleccionado;
             }
             if (auxiliar.getFechainicial().before(auxiliar.getFechafinal())) {
                 retorno = true;
@@ -424,7 +326,6 @@ public class ControlDeclarantes implements Serializable {
             } else {
                 retorno = false;
             }
-
         }
         if (i == 2) {
             if (duplicarDeclarante.getFechainicial().before(duplicarDeclarante.getFechafinal())) {
@@ -444,27 +345,16 @@ public class ControlDeclarantes implements Serializable {
      * @param celda Columna de la tabla
      */
     //UBICACION CELDA
-    public void cambiarIndice(int indice, int celda) {
+    public void cambiarIndice(Declarantes declarante, int celda) {
         if (permitirIndex == true) {
-            index = indice;
+            declaranteSeleccionado = declarante;
             cualCelda = celda;
-            declaranteSeleccionado = listaDeclarantes.get(index);
-            fechaFinal = listaDeclarantes.get(index).getFechafinal();
-            fechaInicial = listaDeclarantes.get(index).getFechainicial();
-            System.out.println("Declarante Seleccionado Fecha Final: " + declaranteSeleccionado.getFechafinal());
-
-            if (tipoLista == 0) {
-                secRegistro = listaDeclarantes.get(index).getSecuencia();
-                if (cualCelda == 3) {
-                    Minima = listaDeclarantes.get(index).getRetencionminima().getRetencion();
-                }
-            } else {
-                secRegistro = filtradoListaDeclarantes.get(index).getSecuencia();
-                if (cualCelda == 3) {
-                    Minima = filtradoListaDeclarantes.get(index).getRetencionminima().getRetencion();
-                }
+            fechaFinal = declaranteSeleccionado.getFechafinal();
+            fechaInicial = declaranteSeleccionado.getFechainicial();
+            declaranteSeleccionado.getSecuencia();
+            if (cualCelda == 3) {
+                Minima = declaranteSeleccionado.getRetencionminima().getRetencion();
             }
-
             RequestContext context = RequestContext.getCurrentInstance();
             context.reset("formularioDialogos:LOVMinimas:globalFilter");
             RequestContext.getCurrentInstance().update("formularioDialogos:LOVMinimas");
@@ -472,46 +362,15 @@ public class ControlDeclarantes implements Serializable {
     }
     //FALTA GUARDAR
 
-    public void asignarIndex(Integer indice, int dlg, int LND) {
-        index = indice;
-        RequestContext context = RequestContext.getCurrentInstance();
+    public void asignarIndex(Declarantes declarante, int dlg, int LND) {
+        System.out.println("Controlador.ControlDeclarantes.asignarIndex()");
+        declaranteSeleccionado = declarante;
+        tipoActualizacion = LND;
 
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            if (nuevoDeclarante.getFechafinal() == null) {
-                System.out.println("La fecha final es nula");
-                RequestContext.getCurrentInstance().update("formularioDialogos:fechaNula");
-                RequestContext.getCurrentInstance().execute("PF('fechaNula').show()");
-            } else {
-                lovlistaRetenciones = administrarDeclarantes.retencionesMinimas(nuevoDeclarante.getFechafinal());
-                RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
-
-            }
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            if (duplicarDeclarante.getFechafinal() == null) {
-                System.out.println("La fecha final es nula");
-                RequestContext.getCurrentInstance().update("formularioDialogos:fechaNula");
-                RequestContext.getCurrentInstance().execute("PF('fechaNula').show()");
-            } else {
-                lovlistaRetenciones = administrarDeclarantes.retencionesMinimas(duplicarDeclarante.getFechafinal());
-                RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
-
-            }
-        }
         if (dlg == 0) {
             lovlistaRetenciones = null;
             getLovlistaRetenciones();
+            contarRegistrosLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:minimasDialogo");
             RequestContext.getCurrentInstance().execute("PF('minimasDialogo').show()");
         }
@@ -532,10 +391,10 @@ public class ControlDeclarantes implements Serializable {
         listaDeclarantesModificar.clear();
         cambiosPagina = true;
         declaranteSeleccionado = null;
-        index = -1;
-        secRegistro = null;
         k = 0;
         listaDeclarantes = null;
+        getListaDeclarantes();
+        contarRegistros();
         guardado = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosDeclarantes");
@@ -546,8 +405,7 @@ public class ControlDeclarantes implements Serializable {
         lovfiltradoslistaRetenciones = null;
         retencionesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
+        declaranteSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
@@ -557,21 +415,9 @@ public class ControlDeclarantes implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('minimasDialogo').hide()");
     }
 
-    //MOSTRAR DATOS CELDA
-    /**
-     * Metodo que muestra los dialogos de editar con respecto a la lista real o
-     * la lista filtrada y a la columna
-     */
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarDeclarantes = listaDeclarantes.get(index);
-            }
-            if (tipoLista == 1) {
-                editarDeclarantes = filtradoListaDeclarantes.get(index);
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+        if (declaranteSeleccionado != null) {
+            editarDeclarantes = declaranteSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaInicial').show()");
@@ -589,67 +435,22 @@ public class ControlDeclarantes implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarMinima').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
-    //CREAR DECLARANTE
-    /**
-     * Metodo que se encarga de agregar un nuevo Declarante
-     */
     public void agregarNuevoDeclarante() {
 
         mensajeValidacion = new String();
         RequestContext context = RequestContext.getCurrentInstance();
-        /*
-         
 
-         if (nuevoDeclarante.getFechainicial() == null) {
-         mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
-         pasa++;
-         }
-         if (nuevoDeclarante.getFechafinal() == null) {
-         mensajeValidacion = mensajeValidacion + " * Fecha Final\n";
-         pasa++;
-         }
-
-         for (int i = 0; i < listaDeclarantes.size(); i++) {
-         if (nuevoDeclarante.getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && nuevoDeclarante.getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
-         RequestContext.getCurrentInstance().execute("PF('fechasTraslapadas').show()");
-         pasa2++;
-         break;
-         }
-         }
-
-         if (nuevoDeclarante.getFechafinal() != null && nuevoDeclarante.getFechainicial() != null) {
-         if (nuevoDeclarante.getFechafinal().before(nuevoDeclarante.getFechainicial())) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-         RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-         nuevoDeclarante.setFechafinal(null);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaFinal");
-         pasa2++;
-         } else if (nuevoDeclarante.getFechainicial().after(nuevoDeclarante.getFechafinal())) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:fecha");
-         RequestContext.getCurrentInstance().execute("PF('fecha').show()");
-         nuevoDeclarante.setFechainicial(null);
-         RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaInicio");
-         pasa2++;
-         }
-         }
-
-         if (pasa != 0) {
-         RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoDeclarante");
-         RequestContext.getCurrentInstance().execute("PF('validacionNuevoDeclarante').show()");
-         }
-         */
         if (nuevoDeclarante.getFechainicial() != null && nuevoDeclarante.getFechafinal() != null) {
             boolean validacion1 = validarFechasRegistro(1);
             if (validacion1 == true) {
                 boolean validacion2 = true;
                 for (int i = 0; i < listaDeclarantes.size(); i++) {
-                    if (nuevoDeclarante.getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && nuevoDeclarante.getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
+                    if (nuevoDeclarante.getFechainicial().before(declaranteSeleccionado.getFechafinal())) {
                         validacion2 = false;
                         break;
                     }
@@ -668,15 +469,15 @@ public class ControlDeclarantes implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     listaDeclarantesCrear.add(nuevoDeclarante);
                     listaDeclarantes.add(nuevoDeclarante);
+                    declaranteSeleccionado = nuevoDeclarante;
+                    contarRegistros();
                     nuevoDeclarante = new Declarantes();
                     RequestContext.getCurrentInstance().update("form:datosDeclarantes");
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:aceptar");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     RequestContext.getCurrentInstance().execute("PF('NuevoRegistroDeclarantes').hide()");
-                    index = -1;
-                    secRegistro = null;
                 } else {
                     System.out.println("traslapacion de fechas");
                     RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
@@ -690,16 +491,6 @@ public class ControlDeclarantes implements Serializable {
         } else {
             System.out.println("fechas obligatorias");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoDeclarante').show()");
-        }
-    }
-
-    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-        if (Campo.equals("MINIMA")) {
-            if (tipoNuevo == 1) {
-                Minima = nuevoDeclarante.getRetencionminima().getRetencion();
-            } else if (tipoNuevo == 2) {
-                Minima = duplicarDeclarante.getRetencionminima().getRetencion();
-            }
         }
     }
 
@@ -757,8 +548,7 @@ public class ControlDeclarantes implements Serializable {
      */
     public void limpiarNuevaDeclarantes() {
         nuevoDeclarante = new Declarantes();
-        index = -1;
-        secRegistro = null;
+        declaranteSeleccionado = null;
     }
 
     //DUPLICAR VC
@@ -767,37 +557,24 @@ public class ControlDeclarantes implements Serializable {
      * fila
      */
     public void duplicarDeclarantes() {
-        if (index >= 0) {
+        if (declaranteSeleccionado != null) {
             duplicarDeclarante = new Declarantes();
             k++;
             l = BigInteger.valueOf(k);
 
-            if (tipoLista == 0) {
-                duplicarDeclarante.setSecuencia(l);
-                duplicarDeclarante.setPersona(persona);
-                duplicarDeclarante.setFechainicial(listaDeclarantes.get(index).getFechainicial());
-                duplicarDeclarante.setFechafinal(listaDeclarantes.get(index).getFechafinal());
-                duplicarDeclarante.setRetenciondeseada(listaDeclarantes.get(index).getRetenciondeseada());
-                duplicarDeclarante.setRetencionminima(listaDeclarantes.get(index).getRetencionminima());
-                duplicarDeclarante.setDeclarante(listaDeclarantes.get(index).getDeclarante());
-
-            }
-            if (tipoLista == 1) {
-
-                duplicarDeclarante.setSecuencia(l);
-                duplicarDeclarante.setPersona(persona);
-                duplicarDeclarante.setFechainicial(filtradoListaDeclarantes.get(index).getFechainicial());
-                duplicarDeclarante.setFechafinal(filtradoListaDeclarantes.get(index).getFechafinal());
-                duplicarDeclarante.setRetenciondeseada(filtradoListaDeclarantes.get(index).getRetenciondeseada());
-                duplicarDeclarante.setRetencionminima(filtradoListaDeclarantes.get(index).getRetencionminima());
-                duplicarDeclarante.setDeclarante(filtradoListaDeclarantes.get(index).getDeclarante());
-            }
+            duplicarDeclarante.setSecuencia(l);
+            duplicarDeclarante.setPersona(persona);
+            duplicarDeclarante.setFechainicial(declaranteSeleccionado.getFechainicial());
+            duplicarDeclarante.setFechafinal(declaranteSeleccionado.getFechafinal());
+            duplicarDeclarante.setRetenciondeseada(declaranteSeleccionado.getRetenciondeseada());
+            duplicarDeclarante.setRetencionminima(declaranteSeleccionado.getRetencionminima());
+            duplicarDeclarante.setDeclarante(declaranteSeleccionado.getDeclarante());
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDeclarante");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDeclarantes').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -814,14 +591,14 @@ public class ControlDeclarantes implements Serializable {
             if (validacion1 == true) {
                 boolean validacion2 = true;
                 for (int i = 0; i < listaDeclarantes.size(); i++) {
-                    if (duplicarDeclarante.getFechainicial().after(listaDeclarantes.get(i).getFechainicial()) && duplicarDeclarante.getFechainicial().before(listaDeclarantes.get(i).getFechafinal())) {
+                    if (duplicarDeclarante.getFechainicial().after(declaranteSeleccionado.getFechainicial()) && duplicarDeclarante.getFechainicial().before(declaranteSeleccionado.getFechafinal())) {
                         validacion2 = false;
                         break;
                     }
                 }
                 if (validacion2 == true) {
                     if (bandera == 1) {
-                       cerrarFiltrado();
+                        cerrarFiltrado();
                     }
                     //AGREGAR REGISTRO A LA LISTA NOVEDADES .
                     k++;
@@ -833,15 +610,14 @@ public class ControlDeclarantes implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     listaDeclarantesCrear.add(duplicarDeclarante);
                     listaDeclarantes.add(duplicarDeclarante);
+                    declaranteSeleccionado = duplicarDeclarante;
                     duplicarDeclarante = new Declarantes();
                     RequestContext.getCurrentInstance().update("form:datosDeclarantes");
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:aceptar");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDeclarantes').hide()");
-                    index = -1;
-                    secRegistro = null;
                 } else {
                     System.out.println("traslapacion de fechas");
                     RequestContext.getCurrentInstance().update("formularioDialogos:fechasTraslapadas");
@@ -859,54 +635,31 @@ public class ControlDeclarantes implements Serializable {
         duplicarDeclarante = new Declarantes();
     }
 
-    //LIMPIAR DUPLICAR
-    /**
-     * Metodo que limpia los datos de un duplicar Declarante
-     */
     public void limpiarDuplicarDeclarantes() {
         duplicarDeclarante = new Declarantes();
     }
 
-    //BORRAR VC
-    /**
-     * Metodo que borra los Declarantes seleccionados
-     */
     public void borrarDeclarantes() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listaDeclarantesModificar.isEmpty() && listaDeclarantesModificar.contains(listaDeclarantes.get(index))) {
-                    int modIndex = listaDeclarantesModificar.indexOf(listaDeclarantes.get(index));
-                    listaDeclarantesModificar.remove(modIndex);
-                    listaDeclarantesBorrar.add(listaDeclarantes.get(index));
-                } else if (!listaDeclarantesCrear.isEmpty() && listaDeclarantesCrear.contains(listaDeclarantes.get(index))) {
-                    int crearIndex = listaDeclarantesCrear.indexOf(listaDeclarantes.get(index));
-                    listaDeclarantesCrear.remove(crearIndex);
-                } else {
-                    listaDeclarantesBorrar.add(listaDeclarantes.get(index));
-                }
-                listaDeclarantes.remove(index);
+        if (declaranteSeleccionado != null) {
+            if (!listaDeclarantesModificar.isEmpty() && listaDeclarantesModificar.contains(declaranteSeleccionado)) {
+                int modIndex = listaDeclarantesModificar.indexOf(declaranteSeleccionado);
+                listaDeclarantesModificar.remove(modIndex);
+                listaDeclarantesBorrar.add(declaranteSeleccionado);
+            } else if (!listaDeclarantesCrear.isEmpty() && listaDeclarantesCrear.contains(declaranteSeleccionado)) {
+                int crearIndex = listaDeclarantesCrear.indexOf(declaranteSeleccionado);
+                listaDeclarantesCrear.remove(crearIndex);
+            } else {
+                listaDeclarantesBorrar.add(declaranteSeleccionado);
             }
+            listaDeclarantes.remove(declaranteSeleccionado);
             if (tipoLista == 1) {
-                if (!listaDeclarantesModificar.isEmpty() && listaDeclarantesModificar.contains(filtradoListaDeclarantes.get(index))) {
-                    int modIndex = listaDeclarantesModificar.indexOf(filtradoListaDeclarantes.get(index));
-                    listaDeclarantesModificar.remove(modIndex);
-                    listaDeclarantesBorrar.add(filtradoListaDeclarantes.get(index));
-                } else if (!listaDeclarantesCrear.isEmpty() && listaDeclarantesCrear.contains(filtradoListaDeclarantes.get(index))) {
-                    int crearIndex = listaDeclarantesCrear.indexOf(filtradoListaDeclarantes.get(index));
-                    listaDeclarantesCrear.remove(crearIndex);
-                } else {
-                    listaDeclarantesBorrar.add(filtradoListaDeclarantes.get(index));
-                }
-                int VCIndex = listaDeclarantes.indexOf(filtradoListaDeclarantes.get(index));
-                listaDeclarantes.remove(VCIndex);
-                filtradoListaDeclarantes.remove(index);
+                filtradoListaDeclarantes.remove(declaranteSeleccionado);
             }
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDeclarantes");
-            index = -1;
-            secRegistro = null;
+            declaranteSeleccionado = null;
+            contarRegistros();
 
             if (guardado == true) {
                 guardado = false;
@@ -914,12 +667,7 @@ public class ControlDeclarantes implements Serializable {
             }
         }
     }
-    //CTRL + F11 ACTIVAR/DESACTIVAR
 
-    /**
-     * Metodo que activa el filtrado por medio de la opcion en el tollbar o por
-     * medio de la tecla Crtl+F11
-     */
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
 
@@ -943,10 +691,6 @@ public class ControlDeclarantes implements Serializable {
         }
     }
 
-    //SALIR
-    /**
-     * Metodo que cierra la sesion y limpia los datos en la pagina
-     */
     public void salir() {
         if (bandera == 1) {
             cerrarFiltrado();
@@ -954,30 +698,29 @@ public class ControlDeclarantes implements Serializable {
         listaDeclarantesBorrar.clear();
         listaDeclarantesCrear.clear();
         listaDeclarantesModificar.clear();
-        index = -1;
-        secRegistro = null;
+        declaranteSeleccionado = null;
         k = 0;
         listaDeclarantes = null;
         guardado = true;
     }
-    
-    private void cerrarFiltrado(){
+
+    private void cerrarFiltrado() {
         FacesContext c = FacesContext.getCurrentInstance();
-            declarantesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaInicial");
-            declarantesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-            declarantesFechaFinal = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaFinal");
-            declarantesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-            declarantesBooleano = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesBooleano");
-            declarantesBooleano.setFilterStyle("display: none; visibility: hidden;");
-            declarantesPromedio = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesPromedio");
-            declarantesPromedio.setFilterStyle("display: none; visibility: hidden;");
-            declarantesTarifa = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesTarifa");
-            declarantesTarifa.setFilterStyle("display: none; visibility: hidden;");
-            altoScrollDeclarantes = "270";
-            RequestContext.getCurrentInstance().update("form:datosDeclarantes");
-            bandera = 0;
-            filtradoListaDeclarantes = null;
-            tipoLista = 0;
+        declarantesFechaInicial = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaInicial");
+        declarantesFechaInicial.setFilterStyle("display: none; visibility: hidden;");
+        declarantesFechaFinal = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesFechaFinal");
+        declarantesFechaFinal.setFilterStyle("display: none; visibility: hidden;");
+        declarantesBooleano = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesBooleano");
+        declarantesBooleano.setFilterStyle("display: none; visibility: hidden;");
+        declarantesPromedio = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesPromedio");
+        declarantesPromedio.setFilterStyle("display: none; visibility: hidden;");
+        declarantesTarifa = (Column) c.getViewRoot().findComponent("form:datosDeclarantes:declarantesTarifa");
+        declarantesTarifa.setFilterStyle("display: none; visibility: hidden;");
+        altoScrollDeclarantes = "270";
+        RequestContext.getCurrentInstance().update("form:datosDeclarantes");
+        bandera = 0;
+        filtradoListaDeclarantes = null;
+        tipoLista = 0;
     }
 
     /**
@@ -999,68 +742,45 @@ public class ControlDeclarantes implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "DeclarantesPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
-    /**
-     * Metodo que exporta datos a XLS
-     *
-     * @throws IOException Excepcion de In-Out de datos
-     */
     public void exportXLS() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosDeclarantesExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "DeclarantesXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
-    //EVENTO FILTRAR
 
-    /**
-     * Evento que cambia la lista reala a la filtrada
-     */
     public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
+        contarRegistros();
     }
-    //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
     public void verificarRastro() {
 
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listaDeclarantes.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "DECLARANTES");
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (declaranteSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(declaranteSeleccionado.getSecuencia(), "DECLARANTES");
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("DECLARANTES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("DECLARANTES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
     //GUARDAR
@@ -1097,7 +817,6 @@ public class ControlDeclarantes implements Serializable {
                     }
                     administrarDeclarantes.crearDeclarantes(listaDeclarantesCrear.get(i));
                 }
-                System.out.println("LimpiaLista");
                 listaDeclarantesCrear.clear();
             }
             if (!listaDeclarantesModificar.isEmpty()) {
@@ -1107,7 +826,8 @@ public class ControlDeclarantes implements Serializable {
 
             System.out.println("Se guardaron los datos con exito");
             listaDeclarantes = null;
-
+            getListaDeclarantes();
+            contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             cambiosPagina = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1120,18 +840,18 @@ public class ControlDeclarantes implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;
         }
-        index = -1;
-        secRegistro = null;
+        declaranteSeleccionado = null;
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:infoRegistro");
+    }
+
+    public void contarRegistrosLov() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLov");
     }
 
     //GETTERS AND SETTERS
-    /**
-     * Metodo que obtiene la lista de Declarantes de un Empleado, en caso de que
-     * sea null hace el llamado al metodo de obtener Declarantes del empleado,
-     * en caso contrario no genera operaciones
-     *
-     * @return listS Lista de Declarantes de una Persona
-     */
     public List<Declarantes> getListaDeclarantes() {
         if (listaDeclarantes == null && persona != null) {
             listaDeclarantes = administrarDeclarantes.declarantesPersona(persona.getSecuencia());
@@ -1146,12 +866,6 @@ public class ControlDeclarantes implements Serializable {
         this.listaDeclarantes = listaDeclarantes;
     }
 
-    /**
-     * Get del empleado, en caso de existir lo retorna en caso contrario lo
-     * obtiene y retorna
-     *
-     * @return empleado Empleado que esta usado en el momento
-     */
     public Personas getPersona() {
         return persona;
     }
@@ -1192,17 +906,9 @@ public class ControlDeclarantes implements Serializable {
         this.duplicarDeclarante = duplicarDeclarante;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
-    }
-
     public List<TarifaDeseo> getLovlistaRetenciones() {
-        if (lovlistaRetenciones == null && declaranteSeleccionado != null) {
-            lovlistaRetenciones = administrarDeclarantes.retencionesMinimas(declaranteSeleccionado.getFechafinal());
+        if (lovlistaRetenciones == null) {
+            lovlistaRetenciones = administrarDeclarantes.retencionesMinimas();
         }
         return lovlistaRetenciones;
     }
@@ -1257,6 +963,28 @@ public class ControlDeclarantes implements Serializable {
 
     public void setDeclaranteSeleccionado(Declarantes declaranteSeleccionado) {
         this.declaranteSeleccionado = declaranteSeleccionado;
+    }
+
+    public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosDeclarantes");
+        infoRegistro = String.valueOf(tabla.getRowCount());
+        return infoRegistro;
+    }
+
+    public void setInfoRegistro(String infoRegistro) {
+        this.infoRegistro = infoRegistro;
+    }
+
+    public String getInfoRegistroLov() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVMinimas");
+        infoRegistroLov = String.valueOf(tabla.getRowCount());
+        return infoRegistroLov;
+    }
+
+    public void setInfoRegistroLov(String infoRegistroLov) {
+        this.infoRegistroLov = infoRegistroLov;
     }
 
 }

@@ -4,7 +4,9 @@
 package InterfacePersistencia;
 
 import Entidades.TiposCotizantes;
+import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
@@ -12,6 +14,7 @@ import javax.persistence.EntityManager;
  * de la base de datos.
  * @author betelgeuse
  */
+@Local
 public interface PersistenciaTiposCotizantesInterface {
     /**
      * Método encargado de buscar todos los TiposCotizantes existentes en la base de datos, ordenados por código.
@@ -41,5 +44,5 @@ public interface PersistenciaTiposCotizantesInterface {
      */
     public void borrar(EntityManager em, TiposCotizantes tiposCotizantes);
 
-        
+   public BigInteger clonarTipoCotizante (EntityManager em, BigInteger codOrigen, BigInteger codDestino, String descripcion, BigInteger secClonado);     
 }

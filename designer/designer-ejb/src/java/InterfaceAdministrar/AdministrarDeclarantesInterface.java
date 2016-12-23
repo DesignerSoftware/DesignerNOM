@@ -26,7 +26,7 @@ public interface AdministrarDeclarantesInterface {
 
     public void crearDeclarantes(Declarantes declarantes);
 
-    public List<TarifaDeseo> retencionesMinimas(Date fechaFinal);
+    public List<TarifaDeseo> retencionesMinimas();
 
     public List<RetencionesMinimas> retencionesMinimasLista();
 

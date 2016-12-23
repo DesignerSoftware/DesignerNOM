@@ -1114,7 +1114,7 @@
                                         <f:selectItem itemLabel="MADERA" itemValue="MADERA" />  
                                         <f:selectItem itemLabel="OBRA NEGRA" itemValue="OBRA NEGRA" />  
                                         <f:selectItem itemLabel="OBRA BLANCA" itemValue="OBRA BLANCA" />  
-                                        <p:ajax listener="#{controlPerVigenciaDomiciliaria.seleccionarConstruccion(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.construccion, controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this" />
+                                        <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.seleccionarConstruccion(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.construccion, controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" update="@this" />
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 6)}" />
                                     </p:selectOneMenu>
 

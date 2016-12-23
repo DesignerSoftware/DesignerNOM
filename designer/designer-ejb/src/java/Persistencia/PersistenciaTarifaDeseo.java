@@ -29,7 +29,7 @@ public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface
 */
 
     @Override
-    public List<TarifaDeseo> retenciones(EntityManager em, Date fechaFinal) {
+    public List<TarifaDeseo> retenciones(EntityManager em) {
         try {
             em.clear();
             String sqlQuery = ("select rownum id,rm.retencion retencion,rm.secuencia secuenciaretencion, vrm.fechavigencia vigencia,\n"
@@ -42,10 +42,9 @@ public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface
                     + "from retencionesminimas rm,vigenciasretencionesminimas vrm \n"
                     + "where rm.vigenciaretencionminima = vrm.secuencia \n"
                     + "and vrm.fechavigencia=(select max(vrmi.fechavigencia)\n"
-                    + "from vigenciasretencionesminimas vrmi where vrmi.fechavigencia<=nvl(?,sysdate))\n"
+                    + "from vigenciasretencionesminimas vrmi where vrmi.fechavigencia<=nvl('31129999',sysdate))\n"
                     + "order by decode(rm.mensualizado,0,0,decode(rm.retencion,0,9999999,rm.retencion))");
             Query query = em.createNativeQuery(sqlQuery, "TarifaDeseoRetencionMinima");
-            query.setParameter(1, fechaFinal);
             List<TarifaDeseo> resultado = query.getResultList();
             return resultado;
 

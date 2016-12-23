@@ -50,7 +50,7 @@ public class TiposCotizantes implements Serializable {
     @Column(name = "CODIGOALTERNATIVO")
     private BigInteger codigoalternativo;
     @Column(name = "SUBTIPOCOTIZANTE")
-    private Short subtipocotizante;
+    private BigInteger subtipocotizante;
     @Size(max = 1)
     @Column(name = "EXTRANJERO")
     private String extranjero;
@@ -190,12 +190,20 @@ public class TiposCotizantes implements Serializable {
         this.codigoalternativo = codigoalternativo;
     }
 
-    public Short getSubtipocotizante() {
+    public BigInteger getSubtipocotizante() {
         return subtipocotizante;
     }
 
-    public void setSubtipocotizante(Short subtipocotizante) {
+    public void setSubtipocotizante(BigInteger subtipocotizante) {
         this.subtipocotizante = subtipocotizante;
+    }
+
+    public boolean isCodigoalternativoBool() {
+        return codigoalternativoBool;
+    }
+
+    public void setCodigoalternativoBool(boolean codigoalternativoBool) {
+        this.codigoalternativoBool = codigoalternativoBool;
     }
 
     public String getExtranjero() {
@@ -361,20 +369,26 @@ public class TiposCotizantes implements Serializable {
         if (subtipocotizante == null) {
             estadoSubTipoCotizante = "";
         } else {
-
-            int value = subtipocotizante.intValue();
-            if (value == 1) {
-                estadoSubTipoCotizante = "1";
-            } else if (value == 2) {
-                estadoSubTipoCotizante = "2";
-            } else if (value == 3) {
-                estadoSubTipoCotizante = "3";
-            } else if (value == 4) {
-                estadoSubTipoCotizante = "4";
-            } else if (value == 5) {
-                estadoSubTipoCotizante = "5";
-            } else if (value == 6) {
-                estadoSubTipoCotizante = "6";
+            if (subtipocotizante.intValue() == 0) {
+                estadoSubTipoCotizante = "0. Valor desconocido";
+            }
+            if (subtipocotizante.intValue() == 1) {
+                estadoSubTipoCotizante = "1. Dependiente pensionado por vejez activo";
+            }
+            if (subtipocotizante.intValue() == 2) {
+                estadoSubTipoCotizante = "2. Independiente pensionado por vejez activo";
+            }
+            if (subtipocotizante.intValue() == 3) {
+                estadoSubTipoCotizante = "3. Cotizante no obligado a cotización a pensiones por edad";
+            }
+            if (subtipocotizante.intValue() == 4) {
+                estadoSubTipoCotizante = "4. Cotizante con requisitos cumplidos para pensión";
+            }
+            if (subtipocotizante.intValue() == 5) {
+                estadoSubTipoCotizante = "5. Cotizante a quien se le ha reconocido indemnización sustitutiva o devolución de saldos";
+            }
+            if (subtipocotizante.intValue() == 6) {
+                estadoSubTipoCotizante = "6. Cotizante perteneciente a un régimen exceptuado de pensiones o a entidades autorizadas para recibir aportes exclusivamente de un grupo de sus propios trabajadores";
             }
         }
         return estadoSubTipoCotizante;
@@ -382,22 +396,22 @@ public class TiposCotizantes implements Serializable {
 
     public void setEstadoSubTipoCotizante(String estadoSubTipoCotizante) {
 
-        if (estadoSubTipoCotizante.equals(" ")) {
-            setSubtipocotizante(null);
-        } else if (estadoSubTipoCotizante.equals("1")) {
-            setSubtipocotizante(new Short("1"));
-        } else if (estadoSubTipoCotizante.equals("2")) {
-            setSubtipocotizante(new Short("2"));
-        } else if (estadoSubTipoCotizante.equals("3")) {
-            setSubtipocotizante(new Short("3"));
-        } else if (estadoSubTipoCotizante.equals("4")) {
-            setSubtipocotizante(new Short("4"));
-        } else if (estadoSubTipoCotizante.equals("5")) {
-            setSubtipocotizante(new Short("5"));
-        } else if (estadoSubTipoCotizante.equals("6")) {
-            setSubtipocotizante(new Short("6"));
-        }
         this.estadoSubTipoCotizante = estadoSubTipoCotizante;
+//        if (estadoSubTipoCotizante.equals("null")) {
+//            setSubtipocotizante(null);
+//        } else if (estadoSubTipoCotizante.equals("1")) {
+//            setSubtipocotizante(new Short("1"));
+//        } else if (estadoSubTipoCotizante.equals("2")) {
+//            setSubtipocotizante(new Short("2"));
+//        } else if (estadoSubTipoCotizante.equals("3")) {
+//            setSubtipocotizante(new Short("3"));
+//        } else if (estadoSubTipoCotizante.equals("4")) {
+//            setSubtipocotizante(new Short("4"));
+//        } else if (estadoSubTipoCotizante.equals("5")) {
+//            setSubtipocotizante(new Short("5"));
+//        } else if (estadoSubTipoCotizante.equals("6")) {
+//            setSubtipocotizante(new Short("6"));
+//        }
     }
 
     public void setExtranjeroBool(boolean extranjeroBool) {

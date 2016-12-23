@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class TarifaDeseo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private BigInteger secuenciaRetencion;
-    private Integer retencion;
+    private BigDecimal retencion;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date vigencia;
     private String equivalencia;
@@ -46,11 +47,11 @@ public class TarifaDeseo implements Serializable {
         this.id = id;
     }
 
-    public Integer getRetencion() {
+    public BigDecimal getRetencion() {
         return retencion;
     }
 
-    public void setRetencion(Integer retencion) {
+    public void setRetencion(BigDecimal retencion) {
         this.retencion = retencion;
     }
 

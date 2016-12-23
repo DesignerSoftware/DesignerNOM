@@ -17,6 +17,6 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaTarifaDeseoInterface {
     
-    public List<TarifaDeseo> retenciones(EntityManager em, Date fechaFinal);
+    public List<TarifaDeseo> retenciones(EntityManager em);
     
 }

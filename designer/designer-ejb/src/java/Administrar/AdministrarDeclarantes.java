@@ -90,8 +90,8 @@ public class AdministrarDeclarantes implements AdministrarDeclarantesInterface {
         persistenciaDeclarantes.crear(em,declarantes);
     }
 
-    public List<TarifaDeseo> retencionesMinimas(Date fechaFinal) {
-        retencionesLista = persistenciaTarifaDeseo.retenciones(em,fechaFinal);
+    public List<TarifaDeseo> retencionesMinimas() {
+        retencionesLista = persistenciaTarifaDeseo.retenciones(em);
         return retencionesLista;
     }
 

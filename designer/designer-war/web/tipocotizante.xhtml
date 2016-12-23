@@ -12,10 +12,9 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
+                    <p:growl id="growl" showDetail="true"/> 
                     <f:loadBundle basename="Recursos.tipocotizante" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">    
-                        <p:commandButton style="position: absolute; left: 25px; top: 480px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlTipoCotizante.cancelarModificacion()}" process="@this" />
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -60,19 +59,18 @@
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"/>
-                                <!--                                                 actionListener="#/{controlTiposTrabajadores.cancelarModificaciones()}" oncomplete="window.location.reload()" process="@this"  -->
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlTipoCotizante.cancelarModificacion()}" process="@this"
+                                                 oncomplete="window.location.reload()" />
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTipoCotizante.salir()}" action="#{controlTipoCotizante.retornarPagina()}" process="@this"/> 
-                                <!-- actionListener="#/{controlTiposTrabajadores.salir()}" action="#/{controlTiposTrabajadores.retornarPagina()}" process="@this"  -->
                                 <p:tooltip  for="salir" value="Salir"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; left: 10px; top: 70px;  width: 830px; height: 145px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 70px;  width: 830px; height: 150px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['tiposcotizantes']}</strong></legend>
 
                             <p:dataTable id="datosTiposCotizantes" var="tipos" value="#{controlTipoCotizante.listaTiposCotizantes}"
@@ -93,7 +91,8 @@
                                         <f:facet name="output"><h:outputText value="#{tipos.codigo}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{tipos.codigo}" id="editarCodigo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 0)}" />
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(tipos, 0)}" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -107,7 +106,8 @@
                                         <f:facet name="output"><h:outputText value="#{tipos.descripcion}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{tipos.descripcion}" id="editarDescripcion" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 1)}" />
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(tipos, 1)}" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -121,8 +121,8 @@
                                         <h:outputText id="pensionHead" value="P" />
                                         <p:tooltip for="pensionHead" value="#{msg['cotizacionpension']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizapensionBool}" id="editarCotizapension" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizapensionBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizapensionBool}" id="editarCotizapension" style="height :12px; top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -134,8 +134,8 @@
                                         <h:outputText id="saludHead" value="S" />
                                         <p:tooltip for="saludHead" value="#{msg['cotizacionsalud']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizasaludBool}" id="editarCotizasalud" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizasaludBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizasaludBool}" id="editarCotizasalud" style="height :12px;top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -148,8 +148,8 @@
                                         <h:outputText id="riesgoHead" value="R" />
                                         <p:tooltip for="riesgoHead" value="#{msg['cotizacionriesgo']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizariesgoBool}" id="editarCotizariesgo" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizariesgoBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizariesgoBool}" id="editarCotizariesgo" style="height :12px;top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -161,8 +161,8 @@
                                         <h:outputText id="parafiscalHead" value="F" />
                                         <p:tooltip for="parafiscalHead" value="#{msg['cotizacionparafiscal']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizaparafiscalBool}" id="editarCotizaparafiscal" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizaparafiscalBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizaparafiscalBool}" id="editarCotizaparafiscal" style="height :12px; top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -174,8 +174,8 @@
                                         <h:outputText id="esapHead" value="A" />
                                         <p:tooltip for="esapHead" value="#{msg['cotizacionesap']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizaesapBool}" id="editarCotizaesap" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizaesapBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizaesapBool}" id="editarCotizaesap" style="height :12px; top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -187,8 +187,8 @@
                                         <h:outputText id="menHead" value="M" />
                                         <p:tooltip for="menHead" value="#{msg['cotizacionmen']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.cotizamenBool}" id="editarCotizamen" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.cotizamenBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.cotizamenBool}" id="editarCotizamen" style="height :12px; top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -200,8 +200,8 @@
                                         <h:outputText id="extranjeroHead" value="E" />
                                         <p:tooltip for="extranjeroHead" value="#{msg['extranjero']}" showEffect="fade" hideEffect="fade"/>
                                     </f:facet>       
-                                    <p:selectBooleanCheckbox value="#{tipos.extranjeroBool}" id="editarExtranjero" style="height :12px; position: relative;top: -3px"> 
-                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(indice, 'N', tipos.extranjeroBool)}" update="@this"/>
+                                    <p:selectBooleanCheckbox value="#{tipos.extranjeroBool}" id="editarExtranjero" style="height: 12px; top: -3px"> 
+                                        <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" update="@this"/>
                                     </p:selectBooleanCheckbox>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
@@ -210,16 +210,25 @@
 
                                 <p:column style="width: 100%; padding: 0px;"  width="200" headerText="#{msg['subtipocotizante']}" sortBy="#{tipos.estadoSubTipoCotizante}" filterBy="#{tipos.estadoSubTipoCotizante}" filterMatchMode="contains" id="tcSubtipoCotizante" filterStyle="display: none; visibility: hidden;" >                                  
 
-                                    <p:selectOneMenu  id="editarSubTipoCotizante" value="#{tipos.estadoSubTipoCotizante}" style="width: 100%;height: 20px">  
-                                        <f:selectItem itemLabel="" itemValue=" " />  
-                                        <f:selectItem itemLabel="1. Dependiente Pensionado por Vejez Activo." itemValue="1" />  
-                                        <f:selectItem itemLabel="2. Independiente Pensionado por Vejez Activo" itemValue="2" />  
-                                        <f:selectItem itemLabel="3. Cotizante no obligado a cotización a pensiones por edad" itemValue="3" />  
-                                        <f:selectItem itemLabel="4. Cotizante con requisitos cumplidos para pensión" itemValue="4" />  
-                                        <f:selectItem itemLabel="5. Cotizante a quien se le ha reconocido indemnización sustitutiva o devolución de saldos" itemValue="5" />    
-                                        <f:selectItem itemLabel="6. Cotizante perteneciente a un régimen exceptuado de pensiones o a entidades autori..." itemValue="6" />
-                                        <p:ajax listener="#{controlTipoCotizante.seleccionarSubTipoCotizante(tipos.estadoSubTipoCotizante, indice, celda)}" event="change" update="@this" />
-                                    </p:selectOneMenu>
+                                    <p:cellEditor>
+                                        <f:facet name="output" >
+                                            <h:outputText value="#{tipos.estadoSubTipoCotizante}" style="text-transform: uppercase" />   
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu  value="#{tipos.subtipocotizante}" style="width: 87%;height: 20px">  
+                                                <f:selectItem itemLabel="" itemValue="" />  
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4" />  
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante5']}" itemValue="5" />    
+                                                <f:selectItem itemLabel="#{msg['subTipoCotizante6']}" itemValue="6" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}"  update="tcSubtipoCotizante"  />
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>    
+
+
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
@@ -230,7 +239,8 @@
                                         <f:facet name="output"><h:outputText value="#{tipos.codigoalternativo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{tipos.codigoalternativo}" id="editarCodigoalternativo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" > 
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(indice, 2)}" />
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndice(tipos, 2)}" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarTiposCotizantes(tipos)}" process="@this" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -240,9 +250,10 @@
                                 </p:column>
 
                             </p:dataTable>
+                            <h:outputText id="infoRegistroTipoC" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroTipoC}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 230px;  width: 830px; height: 165px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 235px;  width: 830px; height: 150px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['detallestiposcotizantes']}</strong></legend>
 
                             <p:dataTable id="datosDetallesTiposCotizantes" var="detallesTipos" value="#{controlTipoCotizante.listaDetallesTiposCotizantes}"
@@ -259,15 +270,15 @@
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.tipoentidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{detallesTipos.tipoentidad.nombre}" id="editarTipoEntidad" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px"> 
-                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF, 'TIPOENTIDAD', detallesTipos.tipoentidad.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,0)}" />
-                                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF,0,0)}"/>
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(detallesTipos)}"/>
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(detallesTipos,0)}" />
+                                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(detallesTipos,0,0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooTipoEntidad" value="#{msg['tipoentidad']}" />
+                                        <p:commandButton style="width: 350px;" id="fooTipoEntidad" action="tipoentidadcot" value="" actionListener="#{controlTiposEntidades.recibirPagina('tipoentidadcot')}" />
                                     </f:facet>
                                 </p:column>
 
@@ -276,14 +287,14 @@
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.minimosml}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{detallesTipos.minimosml}" id="editarMinimo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,1)}" />
-                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF,'N',detallesTipos.minimosml)}"/>
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(detallesTipos,1)}" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(detallesTipos)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['minimosml']}"  />
+                                        <h:outputText value=""  />
                                     </f:facet>
 
                                 </p:column>
@@ -293,45 +304,48 @@
                                         <f:facet name="output"><h:outputText value="#{detallesTipos.maximosml}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{detallesTipos.maximosml}" id="editarMaximo" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height:12px;" > 
-                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(indiceNF,2)}" />
-                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(indiceNF,'N',detallesTipos.maximosml)}"/>
+                                                <p:ajax event="select" listener="#{controlTipoCotizante.cambiarIndiceNF(detallesTipos,2)}" />
+                                                <p:ajax event="change" listener="#{controlTipoCotizante.modificarDetallesTiposCotizantes(detallesTipos)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="#{msg['maximosml']}"  />
+                                        <h:outputText value=""  />
                                     </f:facet>
                                 </p:column>
 
                             </p:dataTable>  
+                            <h:outputText id="infoRegistroDetallesTC" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroDetalleTC}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 410px;  width: 830px; height: 50px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; left: 10px; top: 410px;  width: 830px; height: 60px; border-radius: 10px; ">
                             <legend style="font-size: 14px; color: #14388B"><strong>Tipos Cotizantes</strong></legend>
                             <h:outputText value="#{msg['codigo']}" style=" top: 15px; position: absolute" />
-                            <p:inputText  autocomplete="off"  id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                            <p:inputText  autocomplete="off"  id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 5px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <h:outputText value="#{msg['nombredelnuevotipocotizante']}" style="top: 15px; position: absolute; left: 150px;" />
+                            <p:inputText  autocomplete="off"  id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            
+                            
+                            <h:outputText value="#{msg['codigo']}" style=" top: 15px; position: absolute; left: 380px;" />
+                            <p:inputText  autocomplete="off"  id="ClonarTipoCotizante" value="#{controlTipoCotizante.clonarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                                 <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexC(1, 0)}" update="@this"/>
                             </p:inputText>
-                            <h:outputText value="#{msg['nombredeltipocotizanteorigen']}" style=" top: 15px; position: absolute; left: 150px;" />
-                            <p:inputText  autocomplete="off"  readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 140px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
+                            <h:outputText value="#{msg['nombredeltipocotizanteorigen']}" style=" top: 15px; position: absolute; left: 520px;" />
+                            <p:inputText  autocomplete="off"  readonly="true" id="ClonarTipoCotizanteDescripcion" value="#{controlTipoCotizante.clonarTipoCotizante.descripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
                             </p:inputText>
 
-                            <h:outputText value="#{msg['codigo']}" style=" top: 15px; left: 380px; position: absolute" />
-                            <p:inputText  autocomplete="off"  id="ClonarNuevoTipoCotizante" value="#{controlTipoCotizante.clonarCodigo}" style=" width: 122px; position: absolute; left: 380px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <h:outputText value="#{msg['nombredelnuevotipocotizante']}" style="top: 15px; position: absolute; left: 520px;" />
-                            <p:inputText  autocomplete="off"  id="ClonarDescripcionNuevoTipoCotizante" value="#{controlTipoCotizante.clonarDescripcion}" style=" width: 222px; position: absolute; left: 515px; top: 31px; text-transform: uppercase;height:12px;" onclick="select();">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
 
-                            <p:commandButton style="width: 75px; height: 45px; position: absolute; left: 760px; top: 12px;  " id="btnClonar" value="#{msg['clonar']}" process="@this"/>   
+                            <p:commandButton style="width: 75px; height: 45px; position: absolute; left: 760px; top: 12px;  " id="btnClonar" value="#{msg['clonar']}" actionListener="#{controlTipoCotizante.clonarTipoCotizante()}" process="@this"/>   
                         </fieldset>
 
 
-                        <p:commandButton style="position: absolute; left: 700px; top: 480px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoCotizante.guardado}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposCotizantes, :form:datosDetallesTiposCotizantes" process="@this" />
-                        <p:commandButton style="position: absolute; left: 790px; top: 480px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.salir()}" action="#{controlTipoCotizante.retornarPagina()}" process="@this" />
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" disabled="#{controlTipoCotizante.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposCotizantes, :form:datosDetallesTiposCotizantes" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoCotizante.salir()}" action="#{controlTipoCotizante.retornarPagina()}" process="@this" />
 
                     </p:panel> 
                 </h:form>
@@ -340,9 +354,9 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoCotizante.guardarTodo()}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoCotizante.cancelarModificacion()}" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoCotizante.guardarTodo()}" style="position: absolute; top: 60px; left: 140px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoCotizante.cancelarModificacion()}" style="position: absolute; top: 60px; left: 205px;" process="@this" />
+                        <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 275px;" process="@this" />
                     </p:dialog>
 
                     <!-- DIALOGOS EDITAR -->
@@ -373,68 +387,94 @@
 
                     <!-- DIALOGO L.O.V TIPOS ENTIDADES-->
                     <p:dialog header="#{msg['tiposentidadesTE']}"  widgetVar="tiposEntidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposEntidadesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="390" height="350" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="390" height="345" modal="true" >
                         <p:dataTable id="LOVTiposEntidades" style=" width: 340px;" var="tiposEntidades" value="#{controlTipoCotizante.lovListaTiposEntidades}" rowKey="#{tiposEntidades.secuencia}"
                                      selection="#{controlTipoCotizante.seleccionTiposEntidades}" selectionMode="single" widgetVar="LOVTiposEntidades" scrollable="true" scrollHeight="200" scrollWidth="360"
                                      filteredValue="#{controlTipoCotizante.filtradoslovListaTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlTipoCotizante.activarAceptar()}" update=":formularioDialogos:aceptarTE"/>
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoEntidad()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlTipoCotizante.contarRegistrosLovTE()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTE']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposEntidades').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                <h:outputText value="#{msg['buscarTE']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposEntidades').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{tiposEntidades.codigo}" width="80"  filterMatchMode="contains">
+                            <p:column filterBy="#{tiposEntidades.codigo}" width="80"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoTE']}" />
                                 </f:facet>
                                 <h:outputText value="#{tiposEntidades.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{tiposEntidades.nombre}" width="150"  filterMatchMode="contains">
+                            <p:column filterBy="#{tiposEntidades.nombre}" width="150"  filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreTE']}" />
                                 </f:facet>
                                 <h:outputText value="#{tiposEntidades.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarTE" value="#{msg['aceptar']}" disabled="#{controlTipoCotizante.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 150px; " actionListener="#{controlTipoCotizante.actualizarTipoEntidad()}"  process="@this"/>
-                        <p:commandButton id="atrasTE" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.cancelarCambioTipoEntidad()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroLovTE" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroLovTE}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarTE" value="#{msg['aceptar']}" disabled="#{controlTipoCotizante.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlTipoCotizante.actualizarTipoEntidad()}"  process="@this"/>
+                        <p:commandButton id="atrasTE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.cancelarCambioTipoEntidad()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <!-- DIALOGO L.O.V TIPOS Cotizantes-->
                     <p:dialog header="#{msg['tiposcotizantesTC']}"  widgetVar="tiposCotizantesDialogo" draggable="true" resizable="false" closable="false" id="tiposCotizantesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="390" height="350" modal="true">
+                              showEffect="fade" hideEffect="fade" width="390" height="345" modal="true">
                         <p:dataTable id="LOVTiposCotizantes" style=" width: 340px;" var="tiposCotizantes" value="#{controlTipoCotizante.lovListaTiposCotizantes}" rowKey="#{tiposCotizantes.secuencia}"
                                      selection="#{controlTipoCotizante.lovTipoCotizanteSeleccionado}" selectionMode="single" widgetVar="LOVTiposCotizantes" scrollable="true" scrollHeight="200" scrollWidth="360"
                                      filteredValue="#{controlTipoCotizante.lovFiltradosListaTiposCotizantes}" emptyMessage="#{msg['lovvacio']}">              
                             <p:ajax event="rowSelect" listener="#{controlTipoCotizante.activarAceptar()}" update=":formularioDialogos:aceptarTC"/>
                             <p:ajax event="rowDblselect" listener="#{controlTipoCotizante.actualizarTipoCotizante()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlTipoCotizante.contarRegistrosLovTC()}" process="@this"/>
                             <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTC']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposCotizantes').filter();" style="width:150px; position: relative; left: 65px;" />  
+                                <h:outputText value="#{msg['buscarTC']}" />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposCotizantes').filter();" class="cssFiltroLOV" />  
                             </f:facet>
-                            <p:column filterBy="#{tiposCotizantes.codigo}" width="80"  filterMatchMode="contains">
+                            <p:column filterBy="#{tiposCotizantes.codigo}" width="80"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoTC']}" />
                                 </f:facet>
                                 <h:outputText value="#{tiposCotizantes.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{tiposCotizantes.descripcion}" width="150"  filterMatchMode="contains">
+                            <p:column filterBy="#{tiposCotizantes.descripcion}" width="150"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['descripcionTC']}" />
                                 </f:facet>
                                 <h:outputText value="#{tiposCotizantes.descripcion}" />
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton id="aceptarTC" value="#{msg['aceptar']}" disabled="#{controlTipoCotizante.aceptar}" icon="ui-icon-check" style="position: absolute; top: 305px; left: 150px; " actionListener="#{controlTipoCotizante.actualizarTipoCotizante()}"  process="@this"/>
-                        <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" style="position: absolute; top: 305px; left: 250px;" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.cancelarCambioLovTipoCotizante()}" process="@this"/>
+                        <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroLovTC" value="#{msg['infoRegistro']} #{controlTipoCotizante.infoRegistroLovTC}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarTC" value="#{msg['aceptar']}" disabled="#{controlTipoCotizante.aceptar}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlTipoCotizante.actualizarTipoCotizante()}"  process="@this"/>
+                        <p:commandButton id="atrasTC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoCotizante.cancelarCambioLovTipoCotizante()}" process="@this"/>
+                        </div>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevoTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoCotizante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']} #{controlTipoCotizante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoCotizante').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <h:outputText value="#{controlTipoCotizante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoTipoCotizante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionDuplicarTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionDuplicarTipoCotizante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value=" #{controlTipoCotizante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionDuplicarTipoCotizante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevoDetalleTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionNuevoDetalleTipoCotizante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{controlTipoCotizante.mensajeValidacionNF}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevoDetalleTipoCotizante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionDuplicarDetalleTipoCotizante" header="#{msg['atencion']}" widgetVar="validacionDuplicarDetalleTipoCotizante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{controlTipoCotizante.mensajeValidacionNF}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionDuplicarDetalleTipoCotizante').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <!-- Nuevo Registro Tipo Cotizante--> 
@@ -445,12 +485,12 @@
 
                         <p:panel id="nuevoRegistroTipoCotizante" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
+                            <strong><h:outputText value="*#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigoTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
+                            <strong><h:outputText value="*#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaDescripcionTipoCotizante" value="#{controlTipoCotizante.nuevoTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -491,15 +531,15 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['subtipocotizanteNTC']}" style=" position: absolute; left:350px; top: 165px;" /></strong>
-                            <p:selectOneMenu id="nuevoSubTipoCotizacion" value="#{controlTipoCotizante.nuevoTipoCotizante.estadoSubTipoCotizante}"  style=" width: 122px; position: absolute; left: 470px; top: 160px; text-transform: uppercase">
-                                <f:selectItem itemLabel="" itemValue=" " />  
-                                <f:selectItem itemLabel="1. Dependiente Pensionado por Vejez Activo." itemValue="1" />  
-                                <f:selectItem itemLabel="2. Independiente Pensionado por Vejez Activo" itemValue="2" />  
-                                <f:selectItem itemLabel="3. Cotizante no obligado a cotización a pensiones por edad" itemValue="3" />  
-                                <f:selectItem itemLabel="4. Cotizante con requisitos cumplidos para pensión" itemValue="4" />  
-                                <f:selectItem itemLabel="5. Cotizante a quien se le ha reconocido indemnización sustitutiva o devolución de saldos" itemValue="5" />    
-                                <f:selectItem itemLabel="6. Cotizante perteneciente a un régimen exceptuado de pensiones o a entidades autori..." itemValue="6" />
-                                <p:ajax event="change" update="nuevoSubTipoCotizacion" listener="#{controlTipoCotizante.seleccionarTipoNuevoTipoCotizante(controlTipoCotizante.nuevoTipoCotizante.estadoSubTipoCotizante,1)}" process="@this"/>
+                            <p:selectOneMenu id="nuevoSubTipoCotizacion" value="#{controlTipoCotizante.nuevoTipoCotizante.subtipocotizante}"  style=" width: 122px; position: absolute; left: 470px; top: 160px; text-transform: uppercase">
+                                <f:selectItem itemLabel=" " itemValue="null" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante5']}" itemValue="5" />    
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante6']}" itemValue="6" />
+                                <p:ajax event="change"  update="nuevoRegistroTipoCotizante" />
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
@@ -523,11 +563,10 @@
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoTipoEntidad" value="#{controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(1, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 1)}" />
+                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(detallesTipos, 0, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 312px; top: 80px;  " id="btnNuevoTipoEntidad" icon="ui-icon-search" process="@this"  actionListener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 1)}"/>   
+                            <p:commandButton style=" position: absolute; left: 312px; top: 80px;" class="cssBotonLovDialogos" id="btnNuevoTipoEntidad" process="@this" value=" " actionListener="#{controlTipoCotizante.asignarIndexNF(detallesTipos, 0, 1)}"/>   
 
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
@@ -541,7 +580,7 @@
                             </p:inputText>
 
                             <p:commandButton id="limpiarDTC" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 200px;" actionListener="#{controlTipoCotizante.limpiarNuevoDetalleTipoCotizante()}" update="nuevoRegistroDetalleTipoCotizante" process="@this"/>
-                            <p:commandButton id="agregarDTC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 200px;"  actionListener="#{controlTipoCotizante.agregarNuevaDetalleTipoCotizante()}" process="@this"/>
+                            <p:commandButton id="agregarDTC" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 140px; top: 200px;"  actionListener="#{controlTipoCotizante.agregarNuevaDetalleTipoCotizante()}" process="@this"/>
                             <p:commandButton id="cancelarDTC" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 200px;" actionListener="#{controlTipoCotizante.limpiarNuevoDetalleTipoCotizante()}" update="nuevoRegistroDetalleTipoCotizante" onclick="PF('NuevoRegistroDetalleTipoCotizante').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -550,8 +589,8 @@
                     <p:dialog id="elegirTabla" header="#{msg['atencion']}" widgetVar="elegirTabla"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['elegirTabla']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['tipocotizanteET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlTipoCotizante.dialogoTiposCotizantes()}" style="position: absolute; top: 60px; left: 20px;" process="@this" />
-                        <p:commandButton value="#{msg['detalletipocotizanteET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlTipoCotizante.dialogoDetallesTiposCotizantes()}" style="position: absolute; top: 50px; left: 220px;" process="@this" />
+                        <p:commandButton value="#{msg['tipocotizanteET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlTipoCotizante.dialogoTiposCotizantes()}" style="position: absolute; top: 70px; left: 20px;" process="@this" />
+                        <p:commandButton value="#{msg['detalletipocotizanteET']}" onclick="PF('elegirTabla').hide();" actionListener="#{controlTipoCotizante.dialogoDetallesTiposCotizantes()}" style="position: absolute; top: 70px; left: 180px;" process="@this" />
 
                     </p:dialog>
 
@@ -563,12 +602,12 @@
 
                         <p:panel id="duplicarRegistroTipoCotizante" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
+                            <strong><h:outputText value="*#{msg['codigoNTC']}" style=" position: absolute; top: 85px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.codigo}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
+                            <strong><h:outputText value="*#{msg['descripcionNTC']}" style=" position: absolute; top: 125px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcionTipoCotizante" value="#{controlTipoCotizante.duplicarTipoCotizante.descripcion}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -609,15 +648,15 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['subtipocotizanteNTC']}" style=" position: absolute; left:350px; top: 165px;" /></strong>
-                            <p:selectOneMenu id="duplicarSubTipoCotizacion" value="#{controlTipoCotizante.duplicarTipoCotizante.estadoSubTipoCotizante}"  style=" width: 122px; position: absolute; left: 470px; top: 160px; text-transform: uppercase">
-                                <f:selectItem itemLabel="" itemValue=" " />  
-                                <f:selectItem itemLabel="1. Dependiente Pensionado por Vejez Activo." itemValue="1" />  
-                                <f:selectItem itemLabel="2. Independiente Pensionado por Vejez Activo" itemValue="2" />  
-                                <f:selectItem itemLabel="3. Cotizante no obligado a cotización a pensiones por edad" itemValue="3" />  
-                                <f:selectItem itemLabel="4. Cotizante con requisitos cumplidos para pensión" itemValue="4" />  
-                                <f:selectItem itemLabel="5. Cotizante a quien se le ha reconocido indemnización sustitutiva o devolución de saldos" itemValue="5" />    
-                                <f:selectItem itemLabel="6. Cotizante perteneciente a un régimen exceptuado de pensiones o a entidades autori..." itemValue="6" />
-                                <p:ajax event="change" update="duplicarSubTipoCotizacion" listener="#{controlTipoCotizante.seleccionarTipoNuevoTipoCotizante(controlTipoCotizante.duplicarTipoCotizante.estadoSubTipoCotizante,2)}" process="@this"/>
+                            <p:selectOneMenu id="duplicarSubTipoCotizacion" value="#{controlTipoCotizante.duplicarTipoCotizante.subtipocotizante}"  style=" width: 122px; position: absolute; left: 470px; top: 160px; text-transform: uppercase">
+                                <f:selectItem itemLabel=" " itemValue="null" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4" />  
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante5']}" itemValue="5" />    
+                                <f:selectItem itemLabel="#{msg['subTipoCotizante6']}" itemValue="6" />
+                                <p:ajax event="change" update="duplicarSubTipoCotizacion"  process="@this"/>
                             </p:selectOneMenu>
 
                             <strong><h:outputText value="#{msg['codigoalternativoNTC']}" style=" position: absolute;left:350px; top: 205px;" /></strong>
@@ -641,11 +680,10 @@
 
                             <strong><h:outputText value="#{msg['tipoentidadNDTC']}" style=" position: absolute; top: 85px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTipoEntidad" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.tipoentidad.nombre}" style=" width: 122px; position: absolute; left: 180px; top: 80px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlTipoCotizante.valoresBackupAutocompletarNF(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlTipoCotizante.autocompletarNuevoyDuplicadoNF('TIPOENTIDAD', controlTipoCotizante.nuevaDetalleTipoCotizante.tipoentidad.nombre, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}" />
+                                <p:ajax event="dblclick" listener="#{controlTipoCotizante.asignarIndexNF(detallesTipos, 0, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 312px; top: 80px;  " id="btnDuplicarTipoEntidad" icon="ui-icon-search" process="@this"  actionListener="#{controlTipoCotizante.asignarIndexNF(indiceNF, 0, 2)}"/>   
+                            <p:commandButton style="position: absolute; left: 312px; top: 80px;" class="cssBotonLovDialogos" id="btnDuplicarTipoEntidad" value=" " process="@this"  actionListener="#{controlTipoCotizante.asignarIndexNF(detallesTipos, 0, 2)}"/>   
 
                             <strong><h:outputText value="#{msg['minimosmlNDTC']}" style=" position: absolute; top: 125px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarMinimoSML" value="#{controlTipoCotizante.duplicarDetalleTipoCotizante.minimosml}" style=" width: 122px; position: absolute; left: 180px; top: 120px; text-transform: uppercase" onclick="select();" >
@@ -658,111 +696,135 @@
                             </p:inputText>
 
                             <p:commandButton id="limpiarDDTC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 200px;" icon="ui-icon-trash" actionListener="#{controlTipoCotizante.limpiarduplicarRegistroDetalleTipoCotizante()}" update="duplicarRegistroDetalleTipoCotizante" process="@this"/>
-                            <p:commandButton id="agregarDDTC" value="#{msg['agregar']}" style=" position: absolute; left: 150px; top: 200px;" icon="ui-icon-circle-check" actionListener="#{controlTipoCotizante.confirmarDuplicarNF()}" process="@this"/>
+                            <p:commandButton id="agregarDDTC" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 200px;" icon="ui-icon-circle-check" actionListener="#{controlTipoCotizante.confirmarDuplicarNF()}" process="@this"/>
                             <p:commandButton id="cancelarDDTC" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 200px;" icon="ui-icon-circle-close" actionListener="#{controlTipoCotizante.limpiarduplicarRegistroDetalleTipoCotizante()}" update="duplicarRegistroDetalleTipoCotizante" onclick="PF('DuplicarRegistroDetalleTipoCotizante').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.tipoCotizanteSeleccionado.secuencia, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.tipoCotizanteSeleccionado.secuencia, 'TiposCotizantes', 'tiposcotizantes')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                </h:form>
 
-                <!-- DIALOGOS Detalles tipos Cotizantes-->
-                <h:form>
-                    <p:dialog id="confirmarRastroNF" header="#{msg['atencion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroNF" header="#{msg['informacion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCotizantes.secRegistro, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.detalleTipoCotizanteSeleccionado.secuencia, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
 
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['infomacion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistoricoNF" header="#{msg['atencion']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRastroHistoricoNF" header="#{msg['error']}" widgetVar="errorRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastroNF" header="#{msg['atencion']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorRegistroRastroNF" header="#{msg['error']}" widgetVar="errorRegistroRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorRegistroRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                    <p:dialog id="errorTablaConRastroNF" header="#{msg['informacion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.secRegistro, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTipoCotizante.detalleTipoCotizanteSeleccionado.secuencia, 'DetallesTiposCotizantes', 'detallestiposcotizantes')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastroNF" header="#{msg['atencion']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                    <p:dialog id="errorTablaSinRastroNF" header="#{msg['error']}" widgetVar="errorTablaSinRastroNF"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaSinRastroNF']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistroNF" header="#{msg['atencion']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="seleccionarRegistroNF" header="#{msg['error']}" widgetVar="seleccionarRegistroNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistroNF']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBNF" header="#{msg['atencion']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDBNF" header="#{msg['error']}" widgetVar="errorObjetosDBNF"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDBNF']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
+                    
+                    
+                    <p:dialog id="clonadoConExito" header="#{msg['informacion']}" widgetVar="clonadoConExito"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="El Tipo Cotizante fue clonado con éxito." style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('clonadoConExito').hide();" actionListener="#{controlTipoCotizante.recargarTablas()}" icon="ui-icon-check" process="@this" style="position: absolute; top: 65px; left: 190px;" />
+                    </p:dialog>
+                    
+                    <p:dialog id="errorBorrado" header="#{msg['error']}" widgetVar="errorBorrado"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Para eliminar el tipo cotizante es necesario que primero elimine los detalles asociados al mismo." style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorBorrado').hide();" icon="ui-icon-check" process="@this" style="position: absolute; top: 65px; left: 190px;" />
+                    </p:dialog>
+                    
+                    <p:dialog id="datosClonadoRepetidos" header="#{msg['error']}" widgetVar="datosClonadoRepetidos"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Existe un tipo cotizante con el código ingresado. Por favor ingrese un código válido" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('datosClonadoRepetidos').hide();" icon="ui-icon-check" style="position: absolute; top: 65px; left: 190px;" process="@this" />
+                    </p:dialog>
+                    
+                    <p:dialog id="confirmarClonar" header="#{msg['informacion']}" widgetVar="confirmarClonar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="¿Seguro que quiere clonar este tipo cotizante?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarClonar').hide(); PF('clonadoConExito').show()" icon="ui-icon-check"  style="position: absolute; top: 63px; left: 175px;" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarClonar').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                    </p:dialog>
+                    
+                    
                 </h:form>
 
                 <h:form id="formExportar">

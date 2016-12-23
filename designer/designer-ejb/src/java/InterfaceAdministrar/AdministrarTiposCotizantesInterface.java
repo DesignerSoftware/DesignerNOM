@@ -18,8 +18,9 @@ public interface AdministrarTiposCotizantesInterface {
 
     public void obtenerConexion(String idSesion);
     public List<TiposCotizantes> tiposCotizantes();
-    public void borrarTipoCotizante(TiposCotizantes tiposCotizantes);
-    public void crearTipoCotizante(TiposCotizantes tiposCotizantes);
-    public void modificarTipoCotizante(List<TiposCotizantes> listaTiposCotizantesModificar);
+    public void borrarTipoCotizante(List<TiposCotizantes> listBorrar);
+    public void crearTipoCotizante(List<TiposCotizantes> listCrear);
+    public void modificarTipoCotizante(List<TiposCotizantes> listEditar);
+    public BigInteger clonarTipoCotizante(BigInteger codOrigen, BigInteger codDestino, String descripcion, BigInteger secClonado);
     
 }

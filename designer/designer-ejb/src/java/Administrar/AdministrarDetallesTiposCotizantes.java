@@ -44,19 +44,29 @@ public class AdministrarDetallesTiposCotizantes implements AdministrarDetallesTi
     }
 
     public List<DetallesTiposCotizantes> detallesTiposCotizantes(BigInteger secuenciaTipoCotizante) {
+        try{
         List<DetallesTiposCotizantes> listaDetallesTiposCotizantes;
         listaDetallesTiposCotizantes = persistenciaDetallesTiposCotizantes.detallesTiposCotizantes(em,secuenciaTipoCotizante);
         return listaDetallesTiposCotizantes;
+        }catch(Exception e){
+            System.out.println("error en detallesTiposCotizantes : "  + e.toString());
+            return null;
+        }
     }
 
     @Override
-    public void borrarDetalleTipoCotizante(DetallesTiposCotizantes detallesTiposCotizantes) {
-        persistenciaDetallesTiposCotizantes.borrar(em,detallesTiposCotizantes);
+    public void borrarDetalleTipoCotizante(List<DetallesTiposCotizantes> listaBorrar) {
+        for(int t = 0 ; t< listaBorrar.size();t++){
+        persistenciaDetallesTiposCotizantes.borrar(em,listaBorrar.get(t));
+        }
+        
     }
 
     @Override
-    public void crearDetalleTipoCotizante(DetallesTiposCotizantes detallesTiposCotizantes) {
-        persistenciaDetallesTiposCotizantes.crear(em,detallesTiposCotizantes);
+    public void crearDetalleTipoCotizante(List<DetallesTiposCotizantes> listaCrear) {
+        for(int t = 0 ; t< listaCrear.size();t++){
+        persistenciaDetallesTiposCotizantes.borrar(em,listaCrear.get(t));
+        }
     }
 
     @Override

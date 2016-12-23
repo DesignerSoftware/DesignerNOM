@@ -6580,6 +6580,24 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
+     <navigation-rule>
+      <from-view-id>/tipocotizante.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipoentidadcot</from-outcome>
+         <to-view-id>/tipoentidad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/tipoentidad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipoentidadcot</from-outcome>
+         <to-view-id>/tipocotizante.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
 
 </faces-config>
 

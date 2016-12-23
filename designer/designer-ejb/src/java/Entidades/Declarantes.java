@@ -137,12 +137,12 @@ public class Declarantes implements Serializable {
     }
 
     public void setEstadoDeclarante(boolean estadoDeclarante) {
+        this.estadoDeclarante = estadoDeclarante;
         if (estadoDeclarante == true) {
             declarante = "S";
         } else {
             declarante = "N";
         }
-        this.estadoDeclarante = estadoDeclarante;
     }
 
     @Override
