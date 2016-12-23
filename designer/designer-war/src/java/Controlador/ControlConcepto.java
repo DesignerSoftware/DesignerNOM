@@ -583,7 +583,6 @@ public class ControlConcepto implements Serializable {
 
    public void modificarConcepto(Conceptos conseptoS, String columCambio, String valor) {
       cargarLovs();
-      RequestContext context = RequestContext.getCurrentInstance();
       tipoActualizacion = 0;
       //  Validación: que el concepto no sea usado para ningun registro de empleado
       boolean conceptoUtilizado;
@@ -921,7 +920,6 @@ public class ControlConcepto implements Serializable {
    }
 
    public void lovConcepto(int quien) {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (quien == 0) {
          if (guardado) {
             contarRegistrosLovConceptos();
@@ -948,7 +946,6 @@ public class ControlConcepto implements Serializable {
    }
 
    public void mostrarTodosConceptos() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (guardado) {
          if (bandera == 1) {
             cargarTablaDefault();
@@ -991,7 +988,6 @@ public class ControlConcepto implements Serializable {
       filtradoConceptosEmpresaLOV = null;
       conceptoSeleccionadoLOV = null;
       aceptar = true;
-
       context.reset("formularioDialogos:lovConceptos:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovConceptos').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('ConceptosDialogo').hide()");
@@ -1016,9 +1012,7 @@ public class ControlConcepto implements Serializable {
 
    public void borrarConcepto() {
       unaVez = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       if (conceptoSeleccionado != null) {
-
          if (!listaConceptosEmpresaModificar.isEmpty() && listaConceptosEmpresaModificar.contains(conceptoSeleccionado)) {
             int modIndex = listaConceptosEmpresaModificar.indexOf(conceptoSeleccionado);
             listaConceptosEmpresaModificar.remove(modIndex);
@@ -1033,12 +1027,10 @@ public class ControlConcepto implements Serializable {
          if (tipoLista == 1) {
             filtradoConceptosEmpresa.remove(conceptoSeleccionado);
          }
-
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
          RequestContext.getCurrentInstance().update("form:datosConceptos");
          conceptoSeleccionado = null;
          activoDetalle = true;
-//            RequestContext.getCurrentInstance().update("form:DETALLES");
          if (guardado) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");

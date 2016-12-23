@@ -67,6 +67,8 @@ public interface PersistenciaCentrosCostosInterface {
      * con secCentroCosto igual a la pasada por parametro.
      */
     public List<CentrosCostos> buscarCentrosCostosEmpr(EntityManager em,BigInteger secEmpresa);
+    
+    public List<CentrosCostos> buscarCentrosCostosCM(EntityManager em);
 
     /**
      * Método encargado de revisar si existe una relación entre un CentroCosto

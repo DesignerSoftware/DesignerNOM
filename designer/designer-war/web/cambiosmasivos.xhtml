@@ -9,7 +9,12 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.cambiosmasivos" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -62,7 +67,8 @@
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="refrescar" value="" process="@this" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png)"/>  
+                        <p:commandButton id="refrescar" value="" oncomplete="window.location.reload()" style="background-image: url(Imagenes/Iconos/refrescar.png)"
+                                         actionListener="#{controlCambiosMasivos.cancelarModificaciones()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
@@ -87,20 +93,7 @@
                         <p:column headerText="#{msg['nombreEmpleado']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" filterBy="#{empleadoParametro.empleado.codigoempleado}" 
                                   filterMatchMode="contains" id="Codigo" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header"><h:outputText value="#{msg['nombreEmpleado']}"/> </f:facet> 
-                           <!--                           <p:cellEditor>  
-                                                         <f:facet name="output">-->
                            <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
-                           <!--                              </f:facet>  
-                                                         <f:facet name="input">
-                                                            <p:inputText  autocomplete="off"  value="#/{empleadoParametro.empleado.codigoempleado}" readonly="true" id="inpCodigo" widgetVar="inpCodigo"
-                                                                          style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;"
-                                                                          onfocus="ubicacionTabla(([{name: 'CAMPO', value: 'CODIGO'}, {name: 'INDICE', value: '#/{indice}'}]));"
-                                                                          onselect="PF('empleadosParametros').unselectAllRows(); PF('empleadosParametros').selectRow(#/{indice});"/> 
-                                                         </f:facet>  
-                                                      </p:cellEditor>
-                                                      <f:facet name="footer">
-                                                         <h:outputText value=""/>
-                                                      </f:facet>-->
                         </p:column>
 
                      </p:dataTable>
@@ -115,7 +108,6 @@
                                   value="#{controlCambiosMasivos.listaCambiosMasivos}" scrollable="true" scrollHeight="100" scrollWidth="555"
                                   filteredValue="#{controlCambiosMasivos.filtradoCambiosMasivos}" emptyMessage="#{msg['vacio']}"
                                   liveScroll="true" scrollRows="20" selectionMode="single">
-
                         <!--<p:ajax event="filter" listener="#/{controlParametro.eventoFiltrar()}"/>-->
 
                         <p:column sortBy="#{cambioM.codigoEmpleado}" filterBy="#{cambioM.codigoEmpleado}"
@@ -157,22 +149,26 @@
 
                      <p:scrollPanel id="scrollPanelPrincipal" widgetVar="scrollPanelPrincipal" mode="native" class="cssScrollPanelsBusquedaAv" style=" width: 830px; height: 220px;">
 
-                        <p:accordionPanel>
-                           <p:tab title="#{msg['estructuracargo']}">
+                        <p:accordionPanel id="acordionPanel" widgetVar="acordionPanel">
+                           <p:ajax event="tabChange" listener="#{controlCambiosMasivos.onTabChange}" update=":form:growl"/>
+                           <p:ajax event="tabClose" listener="#{controlCambiosMasivos.onTabClose}" update=":form:growl"/>
+
+                           <p:tab title="#{msg['estructuracargo']}" id="tab1">
                               <h:outputText value="" style="background-image: url(Imagenes/Iconos/cargoDesempenado.png);" styleClass="imagenesAcordion"/>
                               <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaCargoCambio}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaCargoCambio" widgetVar="fechaCargoCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
                                     <h:outputText value="#{msg['cargoestructura']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_cargoEstructura}"
-                                                 style="position: relative; display: block; width: 200px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_cargoEstructura" widgetVar="str_cargoEstructura" style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarEstructura(controlCambiosMasivos.parametroCambioMasivoActual.str_cargoEstructura)}"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(1, 1)}"/>
                                     </p:inputText>
                                  </div>
                               </div>
@@ -186,21 +182,21 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaVacaCambio}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaVacaCambio" widgetVar="fechaVacaCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 80px; padding-left: 40px;">
                                     <h:outputText value="#{msg['fechapago']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaVacaPago}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaVacaPago" widgetVar="fechaVacaPago" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 220px; padding-left: 40px;">
                                     <h:outputText value="#{msg['dias']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.vacaDias}"
-                                                 style="position: relative; display: block; width: 80px;">
+                                                 id="vacaDias" widgetVar="vacaDias" style="position: relative; display: block; width: 80px;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:inputText>
                                  </div>
@@ -215,27 +211,29 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaRetiCambio}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaRetiCambio" widgetVar="fechaRetiCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 70px; padding-left: 40px;">
                                     <h:outputText value="#{msg['motivoDef']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoDefinitiva}"
-                                                 style="position: relative; display: block; width: 150px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_retiMotivoDefinitiva" widgetVar="str_retiMotivoDefinitiva" style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarMotivosDefinitivas(controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoDefinitiva)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(3, 1)}" immediate="true"/>
                                     </p:inputText>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 270px; padding-left: 20px;">
                                     <h:outputText value="#{msg['motivoRet']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoRetiro}"
-                                                 style="position: relative; display: block; width: 150px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_retiMotivoRetiro" widgetVar="str_retiMotivoRetiro" style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarMotivosRetiros(controlCambiosMasivos.parametroCambioMasivoActual.str_retiMotivoRetiro)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(3, 2)}"/>
                                     </p:inputText>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 430px; padding-left: 40px; padding-top: 16px;">
                                     <div style="display: inline-block; position: absolute;">
-                                       <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_indemniza}">
+                                       <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_indemniza}" id="bul_indemniza" widgetVar="bul_indemniza">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                        </p:selectBooleanCheckbox>
                                     </div>
@@ -254,22 +252,24 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaAfiliaCambio}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaAfiliaCambio" widgetVar="fechaAfiliaCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 70px; padding-left: 40px;">
                                     <h:outputText value="#{msg['tipoent']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTipoEntidad}"
-                                                 style="position: relative; display: block; width: 150px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_afiliaTipoEntidad" widgetVar="str_afiliaTipoEntidad" style="position: relative; display: block; width: 150px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTiposEntidades(controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTipoEntidad)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(4, 1)}" process="@this"/>
                                     </p:inputText>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 280px; padding-left: 20px;">
                                     <h:outputText value="#{msg['terceroSuc']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTerceroSucursal}"
-                                                 style="position: relative; display: block; width: 200px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_afiliaTerceroSucursal" widgetVar="str_afiliaTerceroSucursal" style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTercerosSucursales(controlCambiosMasivos.parametroCambioMasivoActual.str_afiliaTerceroSucursal)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(4, 2)}" process="@this"/>
                                     </p:inputText>
                                  </div>
                               </div>
@@ -283,15 +283,16 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaLocaliCambio}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                id="fechaLocaliCambio" widgetVar="fechaLocaliCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                        <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                     </p:calendar>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
                                     <h:outputText value="#{msg['estructura']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_localiEstructura}"
-                                                 style="position: relative; display: block; width: 200px;">
-                                       <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                 id="str_localiEstructura" widgetVar="str_localiEstructura" style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarEstructura(controlCambiosMasivos.parametroCambioMasivoActual.str_localiEstructura)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(5, 1)}" process="@this"/>
                                     </p:inputText>
                                  </div>
                               </div>
@@ -306,29 +307,33 @@
                                     <div style="display: table; width: 300px; display: block;">
                                        <h:outputText value="#{msg['concepto']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveConcepto}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_noveConcepto" widgetVar="str_noveConcepto" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarConceptos(controlCambiosMasivos.parametroCambioMasivoActual.str_noveConcepto)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(6, 1)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['periodicidad']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_novePeriodicidad}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_novePeriodicidad" widgetVar="str_novePeriodicidad" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarPeriodicidades(controlCambiosMasivos.parametroCambioMasivoActual.str_novePeriodicidad)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(6, 2)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['tercero']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveTercero}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_noveTercero" widgetVar="str_noveTercero" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTerceros(controlCambiosMasivos.parametroCambioMasivoActual.str_noveTercero)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(6, 3)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['formula']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_noveFormula}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_noveFormula" widgetVar="str_noveFormula" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarFormulas(controlCambiosMasivos.parametroCambioMasivoActual.str_noveFormula)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(6, 4)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                  </div>
@@ -337,14 +342,14 @@
                                        <div style="width: 140px; display: inline-block;">
                                           <h:outputText value="#{msg['fechainicial']}" styleClass="textoNombres"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaNoveCambioInicial}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                      id="fechaNoveCambioInicial" widgetVar="fechaNoveCambioInicial" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:calendar>
                                        </div>
                                        <div style="width: 140px; display: inline-block; position: absolute;">
                                           <h:outputText value="#{msg['fechafinal']}" styleClass="textoNombres"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaNoveCambioFinal}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                      id="fechaNoveCambioFinal" widgetVar="fechaNoveCambioFinal" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:calendar>
                                        </div>
@@ -353,14 +358,14 @@
                                        <div style="width: 140px; display: inline-block;">
                                           <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveValor}"
-                                                       style="position: relative; display: block; width: 80px;">
+                                                       id="noveValor" widgetVar="noveValor" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:inputText>
                                        </div>
                                        <div style="width: 140px; display: inline-block; position: absolute;">
                                           <h:outputText value="#{msg['saldo']}" styleClass="textoNombres"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveSaldo}"
-                                                       style="position: relative; display: block; width: 80px;">
+                                                       id="noveSaldo" widgetVar="noveSaldo" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:inputText>
                                        </div>
@@ -369,14 +374,14 @@
                                        <div style="width: 140px; display: inline-block;">
                                           <h:outputText value="#{msg['horas']}" styleClass="textoNombres"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveUnidadParteEntera}"
-                                                       style="position: relative; display: block; width: 80px;">
+                                                       id="noveUnidadParteEntera" widgetVar="noveUnidadParteEntera" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:inputText>
                                        </div>
                                        <div style="width: 140px; display: inline-block; position: absolute;">
                                           <h:outputText value="#{msg['minutos']}" styleClass="textoNombres"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveUnidadParteFraccion}"
-                                                       style="position: relative; display: block; width: 80px;">
+                                                       id="noveUnidadParteFraccion" widgetVar="noveUnidadParteFraccion" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:inputText>
                                        </div>
@@ -384,7 +389,7 @@
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['tipo']}" styleClass="textoNombres"/>
                                        <p:selectOneMenu value="#{controlCambiosMasivos.parametroCambioMasivoActual.noveTipo}"
-                                                        style="position: relative; display: block; width: 100px;">
+                                                        id="noveTipo" widgetVar="noveTipo" style="position: relative; display: block; width: 100px;">
                                           <f:selectItem itemLabel="FIJA" itemValue="FIJA"/>
                                           <f:selectItem itemLabel="OCASIONAL" itemValue="OCASIONAL"/>  
                                           <f:selectItem itemLabel="PAGO POR FUERA" itemValue="PAGO POR FUERA"/>
@@ -399,28 +404,29 @@
                            </p:tab>
 
                            <p:tab title="#{msg['sueldos']}">
-                              <h:outputText value="" style="margin-bottom: 100px; background-image: url(Imagenes/Iconos/sueldo.png);" styleClass="imagenesAcordion"/>
+                              <h:outputText value="" style="margin-bottom: 95px; background-image: url(Imagenes/Iconos/sueldo.png);" styleClass="imagenesAcordion"/>
                               <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
                                  <div style="display: table; position: absolute; width: 300px;">
                                     <div style="width: 140px;">
                                        <h:outputText value="#{msg['fechacambio']}" styleClass="textoNombres"/>
                                        <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaSueldoCambio}"
-                                                   pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                   id="fechaSueldoCambio" widgetVar="fechaSueldoCambio" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                        </p:calendar>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['valor']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.sueldoValor}"
-                                                    style="position: relative; display: block; width: 200px;">
+                                                    id="sueldoValor" widgetVar="sueldoValor" style="position: relative; display: block; width: 200px;">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['tiposueldo']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoTipoSueldo}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_sueldoTipoSueldo" widgetVar="str_sueldoTipoSueldo" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTiposSueldos(controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoTipoSueldo)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(7, 1)}" process="@this"/>
                                        </p:inputText>
                                     </div>
 
@@ -429,29 +435,31 @@
                                     <div style="display: table; width: 300px; display: block;">
                                        <h:outputText value="#{msg['motivosueldo']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoMotivoCambioSueldo}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_sueldoMotivoCambioSueldo" widgetVar="str_sueldoMotivoCambioSueldo" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarMotivosSueldos(controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoMotivoCambioSueldo)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(7, 2)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['unidad']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoUnidadPago}"
-                                                    style="position: relative; display: block; width: 200px;">
-                                          <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                                    id="str_sueldoUnidadPago" widgetVar="str_sueldoUnidadPago" style="position: relative; display: block; width: 200px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarUnidades(controlCambiosMasivos.parametroCambioMasivoActual.str_sueldoUnidadPago)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(7, 3)}" process="@this"/>
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="width: 40px; display: inline-block;">
                                           <h:outputText value="R" styleClass="textoNombres" id="txt_R"/>
                                           <p:tooltip for="txt_R" value="#{msg['aplicaR']}"/>
-                                          <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_retroactivo}" style="position: relative; display: block;">
+                                          <p:selectBooleanCheckbox value="#{controlCambiosMasivos.parametroCambioMasivoActual.bul_retroactivo}" style="position: relative; display: block;" id="bul_retroactivo" widgetVar="bul_retroactivo">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:selectBooleanCheckbox>
                                        </div>
                                        <div style="width: 200px; display: inline-block; position: absolute;">
                                           <h:outputText value="#{msg['vigenciaR']}" styleClass="textoNombres"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.fechaSueldoVigenciaRetroactivo}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;">
+                                                      id="fechaSueldoVigenciaRetroactivo" widgetVar="fechaSueldoVigenciaRetroactivo" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
                                           </p:calendar>
                                        </div>
@@ -468,12 +476,12 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fechareingreso']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaReingreso}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                id="trans_fechaReingreso" widgetVar="trans_fechaReingreso" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
                                     <h:outputText value="#{msg['fechafincontrato']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinContrato}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                id="trans_fechaFinContrato" widgetVar="trans_fechaFinContrato" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                  </div>
                               </div>
                               <p:commandButton styleClass="botonProcesar" value="Procesar"/>
@@ -486,12 +494,15 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fecha']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaEmplJefe}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                id="trans_fechaEmplJefe" widgetVar="trans_fechaEmplJefe" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 100px; padding-left: 40px;">
                                     <h:outputText value="#{msg['nombrejefe']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_nombreJefe}"
-                                                 style="position: relative; display: block; width: 200px;"/>
+                                                 id="trans_nombreJefe" widgetVar="trans_nombreJefe" style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarEmpleados(controlCambiosMasivos.parametroCambioMasivoActual.trans_nombreJefe)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(9, 1)}" process="@this"/>
+                                    </p:inputText>
                                  </div>
                               </div>
                               <p:commandButton styleClass="botonProcesar" value="Procesar"/>
@@ -499,28 +510,41 @@
                            </p:tab>
 
                            <p:tab title="#{msg['ausentismos']}">
-                              <h:outputText value="" style="margin-bottom: 130px; background-image: url(Imagenes/Iconos/novedad05.png);" styleClass="imagenesAcordion"/>
+                              <h:outputText value="" style="margin-bottom: 120px; background-image: url(Imagenes/Iconos/novedad05.png);" styleClass="imagenesAcordion"/>
                               <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
                                  <div style="display: table; position: absolute; width: 300px;">
                                     <div style="display: table; width: 300px; display: block;">
                                        <h:outputText value="#{msg['tipoausentismo']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_tipoAusentismo}"
-                                                    style="position: relative; display: block; width: 200px;"/>
+                                                    id="trans_tipoAusentismo" widgetVar="trans_tipoAusentismo" style="position: relative; display: block; width: 220px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTiposausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_tipoAusentismo)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(10, 1)}" process="@this"/>
+                                       </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['clase']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_clase}"
-                                                    style="position: relative; display: block; width: 200px;"/>
+                                                    id="trans_clase" widgetVar="trans_clase" style="position: relative; display: block; width: 220px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarClasesausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_clase)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(10, 2)}" process="@this"/>
+                                       </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['causa']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_causa}"
-                                                    style="position: relative; display: block; width: 200px;"/>
+                                                    id="trans_causa" widgetVar="trans_causa" style="position: relative; display: block; width: 220px;">
+                                          <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarCausasausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_causa)}" process="@this"/>
+                                          <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(10, 3)}" process="@this"/>
+                                       </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
                                        <h:outputText value="#{msg['formaliquidacion']}" styleClass="textoNombres"/>
-                                       <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_formaLiquidacion}"
-                                                    style="position: relative; display: block; width: 200px;"/>
+                                       <!--                                       <p:inputText autocomplete="off" value="#/{controlCambiosMasivos.parametroCambioMasivoActual.trans_formaLiquidacion}"
+                                                                                           style="position: relative; display: block; width: 200px;"/>-->
+                                       <p:selectOneMenu value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_formaLiquidacion}"
+                                                        id="trans_formaLiquidacion" widgetVar="trans_formaLiquidacion" style="width: 200px;">
+                                          <f:selectItems value="#{controlCambiosMasivos.lovIbcs}"/>
+                                       </p:selectOneMenu>
                                     </div>
                                  </div>
 
@@ -530,17 +554,17 @@
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['baseliq']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_baseLiquidacion}"
-                                                       style="position: relative; display: block; width: 80px;"/>
+                                                       id="trans_baseLiquidacion" widgetVar="trans_baseLiquidacion" style="position: relative; display: block; width: 80px;"/>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['fechainicial']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialAusent}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                      id="trans_fechaInicialAusent" widgetVar="trans_fechaInicialAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['fechafinal']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalAusent}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                      id="trans_fechaFinalAusent" widgetVar="trans_fechaFinalAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                        </div>
                                     </div>
 
@@ -548,35 +572,45 @@
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['fexpedicion']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaExpedicionAusent}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                      id="trans_fechaExpedicionAusent" widgetVar="trans_fechaExpedicionAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['fechainicialP']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialPagoAusent}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                      id="trans_fechaInicialPagoAusent" widgetVar="trans_fechaInicialPagoAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['fechafinalP']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalPagoAusent}"
-                                                      pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                      id="trans_fechaFinalPagoAusent" widgetVar="trans_fechaFinalPagoAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                        </div>
                                     </div>
 
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="%" styleClass="textoNombres" style="width: 120px;"/>
-                                          <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_porcentaje}"
-                                                       style="position: relative; display: block; width: 80px;"/>
+                                          <!--                                          <p:inputText autocomplete="off" value="#/{controlCambiosMasivos.parametroCambioMasivoActual.trans_porcentaje}"
+                                                                                                 style="position: relative; display: block; width: 80px;"/>-->
+
+                                          <p:selectOneMenu value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_porcentaje}"
+                                                           id="trans_porcentaje" widgetVar="trans_porcentaje" style="position: relative; display: block; width: 60px;">
+                                             <f:selectItem itemLabel="100" itemValue="100"/>
+                                             <f:selectItem itemLabel="66.666" itemValue="66.666"/>  
+                                             <f:selectItem itemLabel="50" itemValue="50"/>
+                                             <f:selectItem itemLabel="80" itemValue="80"/>
+                                             <f:selectItem itemLabel=" " itemValue=""/>
+                                             <p:ajax event="change" listener="#{controlCambiosMasivos.modificarParametros()}" process="@this"/>
+                                          </p:selectOneMenu>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['dias']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_dias}"
-                                                       style="position: relative; display: block; width: 80px;"/>
+                                                       id="trans_dias" widgetVar="trans_dias" style="position: relative; display: block; width: 80px;"/>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
                                           <h:outputText value="#{msg['horas']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_horas}"
-                                                       style="position: relative; display: block; width: 80px;"/>
+                                                       id="trans_horas" widgetVar="trans_horas" style="position: relative; display: block; width: 80px;"/>
                                        </div>
                                     </div>
                                  </div>
@@ -591,12 +625,15 @@
                                  <div style="display: table; position: absolute; width: 200px;">
                                     <h:outputText value="#{msg['fecha']}" styleClass="textoNombres"/>
                                     <p:calendar autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaPapel}"
-                                                pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
+                                                id="trans_fechaPapel" widgetVar="trans_fechaPapel" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 120px; padding-left: 40px;">
                                     <h:outputText value="#{msg['papel']}" styleClass="textoNombres"/>
                                     <p:inputText autocomplete="off" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_papel}"
-                                                 style="position: relative; display: block; width: 200px;"/>
+                                                 id="trans_papel" widgetVar="trans_papel" style="position: relative; display: block; width: 200px;">
+                                       <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarPapeles(controlCambiosMasivos.parametroCambioMasivoActual.trans_papel)}" process="@this"/>
+                                       <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(11, 1)}" process="@this"/>
+                                    </p:inputText>
                                  </div>
                               </div>
                               <p:commandButton styleClass="botonProcesar" value="Procesar"/>
@@ -606,7 +643,7 @@
                      </p:scrollPanel>
 
                   </fieldset>
-                  <p:commandButton class="cssBotonAceptar" value=""/>
+                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""/>
                   <p:commandButton class="cssBotonCancelar" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" actionListener="#{controlCambiosMasivos.salir()}" process="@this"/>
                </p:panel>
 
@@ -659,6 +696,625 @@
                      height: 11px;
                   }
                </style>
+               <!--Listas de Valor-->
+               <!--1-->
+               <p:dialog widgetVar="EstructurasDialogo" id="EstructurasDialogo" header="#{msg['estructuras']}" draggable="true" resizable="false" closable="false"  
+                         showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovEstructuras" widgetVar="lovEstructuras" var="estructura" value="#{controlCambiosMasivos.lovEstructuras}" rowKey="#{estructura.secuencia}"
+                               selection="#{controlCambiosMasivos.estructuraSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415"
+                               scrollHeight="200" filteredValue="#{controlCambiosMasivos.filtroLovEstructuras}" emptyMessage="#{msg['lovvacio']}">
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarE"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarEstructura()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroEstructura"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarestructura']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuras').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{estructura.codigo}" sortBy="#{estructura.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{estructura.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{estructura.nombre}" sortBy="#{estructura.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{estructura.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEstructura" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroEstructuras}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      oncomplete="PF('EstructurasDialogo').hide()" actionListener="#{controlCambiosMasivos.seleccionarEstructura()}" process="@this"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      oncomplete="PF('EstructurasDialogo').hide()" actionListener="#{controlCambiosMasivos.cancelarEstructura()}" process="@this"/>
+                  </div>
+               </p:dialog>
+               <!--2-->
+               <p:dialog widgetVar="MotivosDefinitivasDialogo" id="MotivosDefinitivasDialogo" header="#{msg['motivosdef']}" draggable="true"
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovMotivosDefinitivas" widgetVar="lovMotivosDefinitivas" var="motivodef" value="#{controlCambiosMasivos.lovMotivosDefinitivas}"
+                               selection="#{controlCambiosMasivos.motivoDefinitivaSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{motivodef.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovMotivosDefinitivas}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarMotDef"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarMotivosDefinitivas()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroMotivosDefinitivas"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarMotdef']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivosDefinitivas').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{motivodef.codigo}" sortBy="#{motivodef.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivodef.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{motivodef.nombre}" sortBy="#{motivodef.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivodef.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroMotivosDefinitivas" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroMotivosDefinitivas}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarMotDef" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarMotivosDefinitivas()}" process="@this" oncomplete="PF('MotivosDefinitivasDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarMotivosDefinitivas()}" process="@this" oncomplete="PF('MotivosDefinitivasDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--3-->
+               <p:dialog widgetVar="MotivosRetirosDialogo" id="MotivosRetirosDialogo" header="#{msg['motivosretiro']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovMotivosRetiros" widgetVar="lovMotivosRetiros" var="motivoret" value="#{controlCambiosMasivos.lovMotivosRetiros}"
+                               selection="#{controlCambiosMasivos.motivoRetiroSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{motivoret.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovMotivosRetiros}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarMotR"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarMotivosRetiros()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroMotivosRetiros"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarMotRet']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivosRetiros').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{motivoret.codigo}" sortBy="#{motivoret.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivoret.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{motivoret.nombre}" sortBy="#{motivoret.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivoret.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroMotivosRetiros" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroMotivosRetiros}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarMotR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarMotivosRetiros()}" process="@this" oncomplete="PF('MotivosRetirosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarMotivosRetiros()}" process="@this" oncomplete="PF('MotivosRetirosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--4-->
+               <p:dialog widgetVar="TiposEntidadesDialogo" id="TiposEntidadesDialogo" header="#{msg['tipoentidades']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovTiposEntidades" widgetVar="lovTiposEntidades" var="tipoentidad" value="#{controlCambiosMasivos.lovTiposEntidades}"
+                               selection="#{controlCambiosMasivos.tipoEntidadSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{tipoentidad.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptartipoEnt"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTiposEntidades()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroTiposEntidades"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartipoentidad']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposEntidades').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{tipoentidad.codigo}" sortBy="#{tipoentidad.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tipoentidad.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{tipoentidad.nombre}" sortBy="#{tipoentidad.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tipoentidad.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTiposEntidades" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroTiposEntidades}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptartipoEnt" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarTiposEntidades()}" process="@this" oncomplete="PF('TiposEntidadesDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarTiposEntidades()}" process="@this" oncomplete="PF('TiposEntidadesDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--5-->
+               <p:dialog widgetVar="TercerosSucursalesDialogo" id="TercerosSucursalesDialogo" header="#{msg['tercerosucursales']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="535" modal="true">
+                  <p:dataTable id="lovTercerosSucursales" widgetVar="lovTercerosSucursales" var="tercerosucursal" value="#{controlCambiosMasivos.lovTercerosSucursales}"
+                               selection="#{controlCambiosMasivos.tercerosSucursalSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="515" scrollHeight="200"
+                               rowKey="#{tercerosucursal.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTercerosSucursales}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarTS"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTercerosSucursales()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroTercerosSucursales"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartercerosucursal']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTercerosSucursales').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{tercerosucursal.tercero.nit}" sortBy="#{tercerosucursal.tercero.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nit']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tercerosucursal.tercero.nit}"/>
+                     </p:column>
+                     <p:column filterBy="#{tercerosucursal.descripcion}" sortBy="#{tercerosucursal.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tercerosucursal.descripcion}"/>
+                     </p:column>
+                     <p:column filterBy="#{tercerosucursal.tercero.empresa.nombre}" sortBy="#{tercerosucursal.tercero.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['empresa']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tercerosucursal.tercero.empresa.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTercerosSucursales" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroTercerosSucursales}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarTS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarTercerosSucursales()}" process="@this" oncomplete="PF('TercerosSucursalesDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarTercerosSucursales()}" process="@this" oncomplete="PF('TercerosSucursalesDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--6-->
+               <p:dialog widgetVar="PeriodicidadesDialogo" id="PeriodicidadesDialogo" header="#{msg['periodicidades']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovPeriodicidades" widgetVar="lovPeriodicidades" var="periodicidad" value="#{controlCambiosMasivos.lovPeriodicidades}"
+                               selection="#{controlCambiosMasivos.periodicidadSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{periodicidad.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovPeriodicidades}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarPer"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarPeriodicidades()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroPeriodicidades"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarperiodicidad']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{periodicidad.codigo}" sortBy="#{periodicidad.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{periodicidad.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{periodicidad.nombre}" sortBy="#{periodicidad.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{periodicidad.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroPeriodicidades" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroPeriodicidades}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarPer" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarPeriodicidades()}" process="@this" oncomplete="PF('PeriodicidadesDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarPeriodicidades()}" process="@this" oncomplete="PF('PeriodicidadesDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--7-->
+               <p:dialog widgetVar="ConceptosDialogo" id="ConceptosDialogo" header="#{msg['conceptos']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovConceptos" widgetVar="lovConceptos" var="concepto" value="#{controlCambiosMasivos.lovConceptos}"
+                               selection="#{controlCambiosMasivos.conceptoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{concepto.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovConceptos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarCon"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarConceptos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroConceptos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarconcepto']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovConceptos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{concepto.codigo}" sortBy="#{concepto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{concepto.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{concepto.descripcion}" sortBy="#{concepto.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{concepto.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroConceptos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroConceptos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarCon" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarConceptos()}" process="@this" oncomplete="PF('ConceptosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarConceptos()}" process="@this" oncomplete="PF('ConceptosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--8-->
+               <p:dialog widgetVar="FormulasDialogo" id="FormulasDialogo" header="#{msg['formulas']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovFormulas" widgetVar="lovFormulas" var="formula" value="#{controlCambiosMasivos.lovFormulas}"
+                               selection="#{controlCambiosMasivos.formulaSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{formula.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovFormulas}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarF"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarFormulas()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroFormulas"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarformula']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormulas').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{formula.nombrecorto}" sortBy="#{formula.nombrecorto}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombrecorto']}"/>
+                        </f:facet>
+                        <h:outputText value="#{formula.nombrecorto}"/>
+                     </p:column>
+                     <p:column filterBy="#{formula.nombrelargo}" sortBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombrelargo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{formula.nombrelargo}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroFormulas" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroFormulas}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarFormulas()}" process="@this" oncomplete="PF('FormulasDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarFormulas()}" process="@this" oncomplete="PF('FormulasDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--9-->
+               <p:dialog widgetVar="TercerosDialogo" id="TercerosDialogo" header="#{msg['terceros']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovTerceros" widgetVar="lovTerceros" var="tercero" value="#{controlCambiosMasivos.lovTerceros}"
+                               selection="#{controlCambiosMasivos.terceroSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{tercero.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTerceros}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarT"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTerceros()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroTerceros"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartercero']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceros').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{tercero.codigo}" sortBy="#{tercero.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tercero.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{tercero.nombre}" sortBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tercero.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTerceros" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroTerceros}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarT" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarTerceros()}" process="@this" oncomplete="PF('TercerosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarTerceros()}" process="@this" oncomplete="PF('TercerosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--10-->
+               <p:dialog widgetVar="MotivosSueldosDialogo" id="MotivosSueldosDialogo" header="#{msg['motivosSueldos']}" draggable="true"
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovMotivosSueldos" widgetVar="lovMotivosSueldos" var="motivosSueldo" value="#{controlCambiosMasivos.lovMotivosSueldos}"
+                               selection="#{controlCambiosMasivos.motivoSueldoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{motivosSueldo.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovMotivosSueldos}" emptyMessage="#{msg['lovvacio']}">
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarMotS"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarMotivosSueldos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroMotivosSueldos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarmotivosSueldo']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivosSueldos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{motivosSueldo.codigo}" sortBy="#{motivosSueldo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivosSueldo.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{motivosSueldo.nombre}" sortBy="#{motivosSueldo.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{motivosSueldo.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroMotivosSueldos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroMotivosSueldos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarMotS" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarMotivosSueldos()}" process="@this" oncomplete="PF('MotivosSueldosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarMotivosSueldos()}" process="@this" oncomplete="PF('MotivosSueldosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--11-->
+               <p:dialog widgetVar="TiposSueldosDialogo" id="TiposSueldosDialogo" header="#{msg['tipossueldos']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovTiposSueldos" widgetVar="lovTiposSueldos" var="tipossueldo" value="#{controlCambiosMasivos.lovTiposSueldos}"
+                               selection="#{controlCambiosMasivos.tipoSueldoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{tipossueldo.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTiposSueldos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarTSu"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTiposSueldos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroTiposSueldos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartipossueldo']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposSueldos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{tipossueldo.codigo}" sortBy="#{tipossueldo.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tipossueldo.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{tipossueldo.descripcion}" sortBy="#{tipossueldo.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tipossueldo.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTiposSueldos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroTiposSueldos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarTSu" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarTiposSueldos()}" process="@this" oncomplete="PF('TiposSueldosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarTiposSueldos()}" process="@this" oncomplete="PF('TiposSueldosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--12-->
+               <p:dialog widgetVar="UnidadesDialogo" id="UnidadesDialogo" header="#{msg['unidades']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovUnidades" widgetVar="lovUnidades" var="unidad" value="#{controlCambiosMasivos.lovUnidades}"
+                               selection="#{controlCambiosMasivos.unidadSeleccionada}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{unidad.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovUnidades}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarU"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarUnidades()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroUnidades"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarunidad']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUnidades').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{unidad.codigo}" sortBy="#{unidad.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{unidad.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{unidad.nombre}" sortBy="#{unidad.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{unidad.nombre}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroUnidades" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroUnidades}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarU" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarUnidades()}" process="@this" oncomplete="PF('UnidadesDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarUnidades()}" process="@this" oncomplete="PF('UnidadesDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--13-->
+               <p:dialog widgetVar="EmpleadosDialogo" id="EmpleadosDialogo" header="#{msg['empleados']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovEmpleados" widgetVar="lovEmpleados" var="empleado" value="#{controlCambiosMasivos.lovEmpleados}"
+                               selection="#{controlCambiosMasivos.empleadoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{empleado.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarEmpl"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarEmpleados()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroEmpleados"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarempleado']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleados').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{empleado.codigoempleado}" sortBy="#{empleado.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{empleado.codigoempleado}"/>
+                     </p:column>
+                     <p:column filterBy="#{empleado.persona.nombreCompleto}" sortBy="#{empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}"/>
+                        </f:facet>
+                        <h:outputText value="#{empleado.persona.nombreCompleto}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroEmpleados}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarEmpl" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarEmpleados()}" process="@this" oncomplete="PF('EmpleadosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarEmpleados()}" process="@this" oncomplete="PF('EmpleadosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--14-->
+               <p:dialog widgetVar="TiposausentismosDialogo" id="TiposausentismosDialogo" header="#{msg['tiposausents']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovTiposausentismos" widgetVar="lovTiposausentismos" var="tiposausent" value="#{controlCambiosMasivos.lovTiposausentismos}"
+                               selection="#{controlCambiosMasivos.tipoausentismoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{tiposausent.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovTiposausentismos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarTAu"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarTiposausentismos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroTiposausentismos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscartiposausent']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTiposausentismos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{tiposausent.codigo}" sortBy="#{tiposausent.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tiposausent.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{tiposausent.descripcion}" sortBy="#{tiposausent.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{tiposausent.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroTiposausentismos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroTiposausentismos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarTAu" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarTiposausentismos()}" process="@this" oncomplete="PF('TiposausentismosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarTiposausentismos()}" process="@this" oncomplete="PF('TiposausentismosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--15-->
+               <p:dialog widgetVar="CausasausentismosDialogo" id="CausasausentismosDialogo" header="#{msg['causasausents']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovCausasausentismos" widgetVar="lovCausasausentismos" var="causasausent" value="#{controlCambiosMasivos.lovCausasausentismos}"
+                               selection="#{controlCambiosMasivos.causaausentismoSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{causasausent.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovCausasausentismos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarCau"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarCausasausentismos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroCausasausentismos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarcausasausent']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCausasausentismos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{causasausent.codigo}" sortBy="#{causasausent.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{causasausent.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{causasausent.descripcion}" sortBy="#{causasausent.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{causasausent.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroCausasausentismos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroCausasausentismos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarCau" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarCausasausentismos()}" process="@this" oncomplete="PF('CausasausentismosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarCausasausentismos()}" process="@this" oncomplete="PF('CausasausentismosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--16-->
+               <p:dialog widgetVar="ClasesausentismosDialogo" id="ClasesausentismosDialogo" header="#{msg['clasesausents']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovClasesausentismos" widgetVar="lovClasesausentismos" var="clasesausent" value="#{controlCambiosMasivos.lovClasesausentismos}"
+                               selection="#{controlCambiosMasivos.clasesausentismosSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{clasesausent.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovClasesausentismos}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarClaseA"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarClasesausentismos()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroClasesausentismos"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarclasesausent']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovClasesausentismos').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{clasesausent.codigo}" sortBy="#{clasesausent.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{clasesausent.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{clasesausent.descripcion}" sortBy="#{clasesausent.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{clasesausent.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroClasesausentismos" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroClasesausentismos}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarClaseA" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarClasesausentismos()}" process="@this" oncomplete="PF('ClasesausentismosDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarClasesausentismos()}" process="@this" oncomplete="PF('ClasesausentismosDialogo').hide()"/>
+                  </div>
+               </p:dialog>
+               <!--17-->
+               <p:dialog widgetVar="PapelesDialogo" id="PapelesDialogo" header="#{msg['papeles']}" draggable="true"  
+                         resizable="false" closable="false" showEffect="fade" hideEffect="fade" width="435" modal="true">
+                  <p:dataTable id="lovPapeles" widgetVar="lovPapeles" var="papel" value="#{controlCambiosMasivos.lovPapeles}"
+                               selection="#{controlCambiosMasivos.papelSeleccionado}" selectionMode="single" scrollable="true" scrollWidth="415" scrollHeight="200"
+                               rowKey="#{papel.secuencia}" filteredValue="#{controlCambiosMasivos.filtroLovPapeles}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlCambiosMasivos.activarAceptar()}" update=":form:aceptarPap"/>
+                     <p:ajax event="rowDblselect" listener="#{controlCambiosMasivos.seleccionarPapeles()}" process="@this"/>
+                     <p:ajax event="filter" update=":form:infoRegistroPapeles"/>
+
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['buscarpapel']}"/>
+                        <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPapeles').filter();" class="cssFiltroLOV"/>
+                     </f:facet>
+                     <p:column filterBy="#{papel.codigo}" sortBy="#{papel.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{papel.codigo}"/>
+                     </p:column>
+                     <p:column filterBy="#{papel.descripcion}" sortBy="#{papel.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['descripcion']}"/>
+                        </f:facet>
+                        <h:outputText value="#{papel.descripcion}"/>
+                     </p:column>
+                  </p:dataTable>
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroPapeles" value="#{msg['infoRegistros']} #{controlCambiosMasivos.infoRegistroPapeles}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarPap" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlCambiosMasivos.aceptar}" icon="ui-icon-check"
+                                      actionListener="#{controlCambiosMasivos.seleccionarPapeles()}" process="@this" oncomplete="PF('PapelesDialogo').hide()"/>
+                     <p:commandButton class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-close"
+                                      actionListener="#{controlCambiosMasivos.cancelarPapeles()}" process="@this" oncomplete="PF('PapelesDialogo').hide()"/>
+                  </div>
+               </p:dialog>
             </h:form>
          </ui:define>
       </ui:composition>

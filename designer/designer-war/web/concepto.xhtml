@@ -17,7 +17,7 @@
             </script>
             <div class="loader"></div>
             <div style="position: static;"></div>
-            <h:form id="form"> 
+            <h:form id="form">
                <f:loadBundle basename="Recursos.concepto" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">
@@ -94,7 +94,7 @@
                            <p:ajax listener="#{controlConcepto.cambiarEstado()}" update="@this, :form:informacionRegistro"/>
                         </p:selectOneRadio>
                      </p:toolbarGroup>  
-                  </p:toolbar> 
+                  </p:toolbar>
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
                      <h:outputText value="#{msg['empresa']}: " style="font-weight: bold; color: #14388B; position: relative; top: 1px; left: 10px;"/>
@@ -229,13 +229,13 @@
                                     <p:ajax event="select" listener="#{controlConcepto.cambiarIndice(concepto, 4)}" process="@this"
                                             onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlConcepto.llamarDialogosLista(concepto, 0)}"/>
-                                 </p:inputText> 
-                              </f:facet>  
+                                 </p:inputText>
+                              </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 90px;" value="" id="footUn" action="unidades" actionListener="#{controlUnidad.recibirPaginaEntrante('atrasConcepto')}" process="@this"/>
                            </f:facet>
-                        </p:column> 
+                        </p:column>
 
                         <p:column headerText="#{msg['codigo']}" sortBy="#{concepto.codigodesprendible}" filterBy="#{concepto.codigodesprendible}" filterMatchMode="contains" 
                                   id="columnaCodigoDesprendible" filterStyle="display: none; visibility: hidden;" width="60" style="text-align: center;">                                                              

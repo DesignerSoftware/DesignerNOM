@@ -1,6 +1,5 @@
 package Administrar;
 
-import ClasesAyuda.ColumnasBusquedaAvanzada;
 import ClasesAyuda.ParametrosQueryBusquedaAvanzada;
 import Entidades.*;
 import InterfaceAdministrar.AdministrarBusquedaAvanzadaInterface;
