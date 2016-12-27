@@ -7,6 +7,7 @@ package InterfacePersistencia;
 
 import Entidades.Papeles;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -76,4 +77,6 @@ public interface PersistenciaPapelesInterface {
      * como secuencia el valor dado por parámetro.
      */
     public BigInteger contarVigenciasCargosPapel(EntityManager em, BigInteger secPapel);
+    
+    public void adicionaPapelCambiosMasivos(EntityManager em, BigInteger secPapel, Date fechaCambio);
 }

@@ -8,12 +8,15 @@ package Persistencia;
 import Entidades.Papeles;
 import InterfacePersistencia.PersistenciaPapelesInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  *
@@ -128,5 +131,29 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             return null;
         }
     }
+        
+   @Override
+   public void adicionaPapelCambiosMasivos(EntityManager em, BigInteger secPapel, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.AdicionaPapel");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, Date.class, ParameterMode.IN);
 
+         query.setParameter(1, secPapel);
+         query.setParameter(2, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".adicionaPapelCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".adicionaPapelCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
+      }
+   }
 }

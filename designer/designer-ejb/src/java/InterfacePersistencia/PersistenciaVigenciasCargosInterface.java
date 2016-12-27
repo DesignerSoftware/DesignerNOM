@@ -5,6 +5,7 @@ package InterfacePersistencia;
 
 import Entidades.VigenciasCargos;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 /**
@@ -51,4 +52,6 @@ public interface PersistenciaVigenciasCargosInterface {
      * asociadas al Empleado cuya secuencia coincide con la del parámetro.
      */
     public List<VigenciasCargos> buscarVigenciasCargosEmpleado(EntityManager em, BigInteger secuencia);
+    
+    public void adicionaEmplJefeCambiosMasivos(EntityManager em, BigInteger secEmpl, Date fechaCambio);
 }

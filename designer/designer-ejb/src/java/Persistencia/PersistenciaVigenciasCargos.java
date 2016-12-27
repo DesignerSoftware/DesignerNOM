@@ -9,12 +9,15 @@ import Entidades.VigenciasCargos;
 import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -148,6 +151,31 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
           System.out.println("error en buscarVigenciasCargosEmpleado : " + e.toString());
          List<VigenciasCargos> vigenciasCargos = null;
          return vigenciasCargos;
+      }
+   }
+   
+   @Override
+   public void adicionaEmplJefeCambiosMasivos(EntityManager em, BigInteger secEmpl, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.AdicionaEmpljefe");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, secEmpl);
+         query.setParameter(2, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
       }
    }
 }

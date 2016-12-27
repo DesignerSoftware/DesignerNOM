@@ -30,4 +30,6 @@ public interface PersistenciaVacacionesInterface {
     public Date anteriorFechaLimiteCalendario(EntityManager em,Date fechafinvaca,BigInteger secPeriodicidad);
     public Date despuesFechaLimiteCalendario(EntityManager em,Date fechafinvaca,BigInteger secPeriodicidad);
     public Date fechaUltimoCorte(EntityManager em, BigInteger secEmpleado,int codigoProceso);
+    public void adicionaVacacionCambiosMasivos(EntityManager em, BigInteger ndias, Date fechaCambio, Date fechaPago);
+    public void undoAdicionaVacacionCambiosMasivos(EntityManager em, BigInteger ndias, Date fechaCambio, Date fechaPago);
 }

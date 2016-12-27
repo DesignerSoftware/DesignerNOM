@@ -150,7 +150,8 @@
                      <p:scrollPanel id="scrollPanelPrincipal" widgetVar="scrollPanelPrincipal" mode="native" class="cssScrollPanelsBusquedaAv" style=" width: 830px; height: 220px;">
 
                         <p:accordionPanel id="acordionPanel" widgetVar="acordionPanel">
-                           <p:ajax event="tabChange" listener="#{controlCambiosMasivos.onTabChange}" update=":form:growl"/>
+                           <p:ajax event="tabChange" listener="#{controlCambiosMasivos.onTabChange}" update=":form:growl"
+                                   onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                            <p:ajax event="tabClose" listener="#{controlCambiosMasivos.onTabClose}" update=":form:growl"/>
 
                            <p:tab title="#{msg['estructuracargo']}" id="tab1">
@@ -172,8 +173,8 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarCargo()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerCargo()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['vacaciones']}">
@@ -201,8 +202,8 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarVacaciones()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerVacaciones()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['retiros']}">
@@ -242,8 +243,8 @@
                                     </div>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarRetiros()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerRetiros()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['afiliaciones']}">
@@ -273,8 +274,8 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarAfiliaciones()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerAfiliaciones()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['centroc']}">
@@ -296,8 +297,8 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarCentrosCostos()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerCentrosCostos()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['novedades']}">
@@ -399,8 +400,8 @@
                                     </div>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarNovedades()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerNovedades()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['sueldos']}">
@@ -429,7 +430,6 @@
                                           <p:ajax event="dblclick" listener="#{controlCambiosMasivos.llamarLOV(7, 1)}" process="@this"/>
                                        </p:inputText>
                                     </div>
-
                                  </div>
                                  <div style="display: table; position: absolute; margin-left: 230px; padding-left: 40px;">
                                     <div style="display: table; width: 300px; display: block;">
@@ -466,8 +466,8 @@
                                     </div>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarSueldos()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerSueldos()}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['reingresos']}">
@@ -484,8 +484,7 @@
                                                 id="trans_fechaFinContrato" widgetVar="trans_fechaFinContrato" pattern="dd/MM/yyyy" style="position: relative; display: block;"/>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <!--<p:commandButton styleClass="botonDeshacer" value="Deshacer"/>-->
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarReingresos()}" value="Procesar"/>
                            </p:tab>
 
                            <p:tab title="#{msg['empleadoj']}">
@@ -505,8 +504,7 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <!--<p:commandButton styleClass="botonDeshacer" value="Deshacer"/>-->
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarEmplJefe()}" value="Procesar"/>
                            </p:tab>
 
                            <p:tab title="#{msg['ausentismos']}">
@@ -615,8 +613,8 @@
                                     </div>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarAusentismos()}" value="Procesar"/>
+                              <p:commandButton styleClass="botonDeshacer" actionListener="#{controlCambiosMasivos.deshacerAusentismos}" value="Deshacer"/>
                            </p:tab>
 
                            <p:tab title="#{msg['papel']}">
@@ -636,14 +634,13 @@
                                     </p:inputText>
                                  </div>
                               </div>
-                              <p:commandButton styleClass="botonProcesar" value="Procesar"/>
-                              <p:commandButton styleClass="botonDeshacer" value="Deshacer"/>
+                              <p:commandButton styleClass="botonProcesar" actionListener="#{controlCambiosMasivos.procesarPapel()}" value="Procesar"/>
                            </p:tab>
                         </p:accordionPanel>
                      </p:scrollPanel>
 
                   </fieldset>
-                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""/>
+                  <p:commandButton id="ACEPTAR" disabled="#{controlCambiosMasivos.guardado}" class="cssBotonAceptar" value=""/>
                   <p:commandButton class="cssBotonCancelar" value="" action="#{controlCambiosMasivos.valorPaginaAnterior()}" actionListener="#{controlCambiosMasivos.salir()}" process="@this"/>
                </p:panel>
 
@@ -1315,6 +1312,18 @@
                                       actionListener="#{controlCambiosMasivos.cancelarPapeles()}" process="@this" oncomplete="PF('PapelesDialogo').hide()"/>
                   </div>
                </p:dialog>
+
+               <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
+               </p:dialog>
+
+               <p:dialog id="validacionCamposVacios" header="#{msg['atencion']}" widgetVar="validacionCamposVacios"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionCamposVacios']}" style="position: absolute; left: 100px; top: 20px; width: 270px;" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionCamposVacios').hide();" style="position: absolute; top: 55px; left: 280px;" icon="ui-icon-check" process="@this"/>
+               </p:dialog>
+
             </h:form>
          </ui:define>
       </ui:composition>

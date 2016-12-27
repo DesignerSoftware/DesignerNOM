@@ -27,6 +27,7 @@ import Entidades.Tiposausentismos;
 import Entidades.Unidades;
 import InterfaceAdministrar.AdministrarCambiosMasivosInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -217,7 +218,7 @@ public class ControlCambiosMasivos {
       lovCausasausentismos = new ArrayList<Causasausentismos>();
       lovClasesausentismos = new ArrayList<Clasesausentismos>();
 
-      panelActivo = 0;
+      panelActivo = 1;
       aceptar = true;
    }
 
@@ -232,6 +233,200 @@ public class ControlCambiosMasivos {
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Error: " + e);
+      }
+   }
+
+   public void procesarCargo() {
+      if (parametroCambioMasivoActual.getCargoEstructura() != null && parametroCambioMasivoActual.getFechaCargoCambio() != null) {
+         System.out.println("ControlCambiosMasivos.procesarCargo() parametroCambioMasivoActual.getCargoEstructura(): " + parametroCambioMasivoActual.getCargoEstructura() +
+                 "  y parametroCambioMasivoActual.getFechaCargoCambio() + " + parametroCambioMasivoActual.getFechaCargoCambio());
+         administrarCambiosMasivos.adicionaEstructuraCM(parametroCambioMasivoActual.getCargoEstructura(), parametroCambioMasivoActual.getFechaCargoCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerCargo() {
+      if (parametroCambioMasivoActual.getCargoEstructura() != null && parametroCambioMasivoActual.getFechaCargoCambio() != null) {
+         administrarCambiosMasivos.undoAdicionaEstructuraCM(parametroCambioMasivoActual.getCargoEstructura(), parametroCambioMasivoActual.getFechaCargoCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarVacaciones() {
+      if (parametroCambioMasivoActual.getVacaDias() != null && parametroCambioMasivoActual.getFechaVacaCambio() != null && parametroCambioMasivoActual.getFechaVacaPago() != null) {
+         administrarCambiosMasivos.adicionaVacacionCM(parametroCambioMasivoActual.getVacaDias(),
+                 parametroCambioMasivoActual.getFechaVacaCambio(), parametroCambioMasivoActual.getFechaVacaPago());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerVacaciones() {
+      if (parametroCambioMasivoActual.getVacaDias() != null && parametroCambioMasivoActual.getFechaVacaCambio() != null && parametroCambioMasivoActual.getFechaVacaPago() != null) {
+         System.out.println("ControlCambiosMasivos.DeshacerVacaciones() parametroCambioMasivoActual.getVacaDias(): " + parametroCambioMasivoActual.getVacaDias());
+         administrarCambiosMasivos.undoAdicionaVacacionCM(parametroCambioMasivoActual.getVacaDias(),
+                 parametroCambioMasivoActual.getFechaVacaCambio(), parametroCambioMasivoActual.getFechaVacaPago());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarRetiros() {
+      if (parametroCambioMasivoActual.getRetiIndemniza() != null && parametroCambioMasivoActual.getRetiMotivoDefinitiva() != null
+              && parametroCambioMasivoActual.getRetiMotivoRetiro() != null && parametroCambioMasivoActual.getFechaRetiCambio() != null) {
+         administrarCambiosMasivos.adicionaRetiroCM(parametroCambioMasivoActual.getRetiIndemniza(), parametroCambioMasivoActual.getRetiMotivoDefinitiva(),
+                 parametroCambioMasivoActual.getRetiMotivoRetiro(), parametroCambioMasivoActual.getFechaRetiCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerRetiros() {
+      if (parametroCambioMasivoActual.getRetiIndemniza() != null && parametroCambioMasivoActual.getRetiMotivoDefinitiva() != null
+              && parametroCambioMasivoActual.getRetiMotivoRetiro() != null && parametroCambioMasivoActual.getFechaRetiCambio() != null) {
+         administrarCambiosMasivos.undoAdicionaRetiroCM(parametroCambioMasivoActual.getRetiIndemniza(), parametroCambioMasivoActual.getRetiMotivoDefinitiva(),
+                 parametroCambioMasivoActual.getRetiMotivoRetiro(), parametroCambioMasivoActual.getFechaRetiCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarAfiliaciones() {
+      if (parametroCambioMasivoActual.getAfiliaTipoEntidad() != null && parametroCambioMasivoActual.getAfiliaTerceroSucursal() != null
+              && parametroCambioMasivoActual.getFechaAfiliaCambio() != null) {
+         administrarCambiosMasivos.adicionaAfiliacionCM(parametroCambioMasivoActual.getAfiliaTipoEntidad(),
+                 parametroCambioMasivoActual.getAfiliaTerceroSucursal(), parametroCambioMasivoActual.getFechaAfiliaCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerAfiliaciones() {
+      if (parametroCambioMasivoActual.getAfiliaTipoEntidad() != null && parametroCambioMasivoActual.getAfiliaTerceroSucursal() != null
+              && parametroCambioMasivoActual.getFechaAfiliaCambio() != null) {
+         administrarCambiosMasivos.undoAdicionaAfiliacionCM(parametroCambioMasivoActual.getAfiliaTipoEntidad(),
+                 parametroCambioMasivoActual.getAfiliaTerceroSucursal(), parametroCambioMasivoActual.getFechaAfiliaCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarCentrosCostos() {
+      if (parametroCambioMasivoActual.getLocaliEstructura() != null && parametroCambioMasivoActual.getFechaLocaliCambio() != null) {
+         administrarCambiosMasivos.adicionaLocalizacionCM(parametroCambioMasivoActual.getLocaliEstructura(), parametroCambioMasivoActual.getFechaLocaliCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerCentrosCostos() {
+      if (parametroCambioMasivoActual.getLocaliEstructura() != null && parametroCambioMasivoActual.getFechaLocaliCambio() != null) {
+         administrarCambiosMasivos.undoAdicionaLocalizacionCM(parametroCambioMasivoActual.getLocaliEstructura(), parametroCambioMasivoActual.getFechaLocaliCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarNovedades() {
+      if (parametroCambioMasivoActual.getNoveTipo() != null && parametroCambioMasivoActual.getNoveConcepto() != null && parametroCambioMasivoActual.getNovePeriodicidad() != null
+              && parametroCambioMasivoActual.getNoveTercero() != null && parametroCambioMasivoActual.getNoveFormula() != null && parametroCambioMasivoActual.getNoveValor() != null
+              && parametroCambioMasivoActual.getNoveSaldo() != null && parametroCambioMasivoActual.getFechaNoveCambioInicial() != null && parametroCambioMasivoActual.getFechaNoveCambioFinal() != null
+              && parametroCambioMasivoActual.getNoveUnidadParteEntera() != null && parametroCambioMasivoActual.getNoveUnidadParteFraccion() != null) {
+         administrarCambiosMasivos.adicionaNovedadCM(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
+                 parametroCambioMasivoActual.getNovePeriodicidad(), parametroCambioMasivoActual.getNoveTercero(), parametroCambioMasivoActual.getNoveFormula(),
+                 parametroCambioMasivoActual.getNoveValor(), parametroCambioMasivoActual.getNoveSaldo(), parametroCambioMasivoActual.getFechaNoveCambioInicial(),
+                 parametroCambioMasivoActual.getFechaNoveCambioFinal(), parametroCambioMasivoActual.getNoveUnidadParteEntera(), parametroCambioMasivoActual.getNoveUnidadParteFraccion());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerNovedades() {
+      if (parametroCambioMasivoActual.getNoveTipo() != null && parametroCambioMasivoActual.getNoveConcepto() != null && parametroCambioMasivoActual.getNovePeriodicidad() != null
+              && parametroCambioMasivoActual.getNoveTercero() != null && parametroCambioMasivoActual.getNoveFormula() != null && parametroCambioMasivoActual.getNoveValor() != null
+              && parametroCambioMasivoActual.getNoveSaldo() != null && parametroCambioMasivoActual.getFechaNoveCambioInicial() != null && parametroCambioMasivoActual.getFechaNoveCambioFinal() != null) {
+         administrarCambiosMasivos.undoAdicionaNovedadCM(parametroCambioMasivoActual.getNoveTipo(), parametroCambioMasivoActual.getNoveConcepto(),
+                 parametroCambioMasivoActual.getNovePeriodicidad(), parametroCambioMasivoActual.getNoveTercero(), parametroCambioMasivoActual.getNoveFormula(),
+                 parametroCambioMasivoActual.getNoveValor(), parametroCambioMasivoActual.getNoveSaldo(), parametroCambioMasivoActual.getFechaNoveCambioInicial(),
+                 parametroCambioMasivoActual.getFechaNoveCambioFinal());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarSueldos() {
+      if (parametroCambioMasivoActual.getSueldoMotivoCambioSueldo() != null && parametroCambioMasivoActual.getSueldoTipoSueldo() != null && parametroCambioMasivoActual.getSueldoUnidadPago() != null
+              && parametroCambioMasivoActual.getSueldoValor() != null && parametroCambioMasivoActual.getFechaSueldoCambio() != null) {
+         administrarCambiosMasivos.adicionaSueldoCM(parametroCambioMasivoActual.getSueldoMotivoCambioSueldo(), parametroCambioMasivoActual.getSueldoTipoSueldo(),
+                 parametroCambioMasivoActual.getSueldoUnidadPago(), parametroCambioMasivoActual.getSueldoValor(), parametroCambioMasivoActual.getFechaSueldoCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerSueldos() {
+      if (parametroCambioMasivoActual.getSueldoMotivoCambioSueldo() != null && parametroCambioMasivoActual.getSueldoTipoSueldo() != null
+              && parametroCambioMasivoActual.getSueldoUnidadPago() != null && parametroCambioMasivoActual.getSueldoValor() != null && parametroCambioMasivoActual.getFechaSueldoCambio() != null) {
+         administrarCambiosMasivos.undoAdicionaSueldoCM(parametroCambioMasivoActual.getSueldoMotivoCambioSueldo(), parametroCambioMasivoActual.getSueldoTipoSueldo(),
+                 parametroCambioMasivoActual.getSueldoUnidadPago(), parametroCambioMasivoActual.getSueldoValor(), parametroCambioMasivoActual.getFechaSueldoCambio());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarReingresos() {
+      if (parametroCambioMasivoActual.getTrans_fechaReingreso() != null && parametroCambioMasivoActual.getTrans_fechaFinContrato() != null) {
+         administrarCambiosMasivos.adicionaReingresoCM(parametroCambioMasivoActual.getTrans_fechaReingreso(), parametroCambioMasivoActual.getTrans_fechaFinContrato());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarEmplJefe() {
+      if (parametroCambioMasivoActual.getTrans_SecEmplJefe() != null && parametroCambioMasivoActual.getTrans_fechaEmplJefe() != null) {
+         administrarCambiosMasivos.adicionaEmplJefeCM(parametroCambioMasivoActual.getTrans_SecEmplJefe(), parametroCambioMasivoActual.getTrans_fechaEmplJefe());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarAusentismos() {
+      if (parametroCambioMasivoActual.getTrans_SecTipoAusentismo() != null && parametroCambioMasivoActual.getTrans_SecClase() != null
+              && parametroCambioMasivoActual.getTrans_SecCausa() != null && parametroCambioMasivoActual.getTrans_dias() != null && parametroCambioMasivoActual.getTrans_horas() != null
+              && parametroCambioMasivoActual.getTrans_fechaInicialAusent() != null && parametroCambioMasivoActual.getTrans_fechaFinalAusent() != null
+              && parametroCambioMasivoActual.getTrans_fechaExpedicionAusent() != null && parametroCambioMasivoActual.getTrans_fechaInicialPagoAusent() != null
+              && parametroCambioMasivoActual.getTrans_fechaFinalPagoAusent() != null && parametroCambioMasivoActual.getTrans_porcentaje() != null
+              && parametroCambioMasivoActual.getTrans_baseLiquidacion() != null && parametroCambioMasivoActual.getTrans_formaLiquidacion() != null) {
+         administrarCambiosMasivos.adicionaAusentismoCM(parametroCambioMasivoActual.getTrans_SecTipoAusentismo(), parametroCambioMasivoActual.getTrans_SecClase(),
+                 parametroCambioMasivoActual.getTrans_SecCausa(), parametroCambioMasivoActual.getTrans_dias(), parametroCambioMasivoActual.getTrans_horas(),
+                 parametroCambioMasivoActual.getTrans_fechaInicialAusent(), parametroCambioMasivoActual.getTrans_fechaFinalAusent(),
+                 parametroCambioMasivoActual.getTrans_fechaExpedicionAusent(), parametroCambioMasivoActual.getTrans_fechaInicialPagoAusent(),
+                 parametroCambioMasivoActual.getTrans_fechaFinalPagoAusent(), parametroCambioMasivoActual.getTrans_porcentaje(),
+                 parametroCambioMasivoActual.getTrans_baseLiquidacion(), parametroCambioMasivoActual.getTrans_formaLiquidacion());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void deshacerAusentismos() {
+      if (parametroCambioMasivoActual.getTrans_SecTipoAusentismo() != null && parametroCambioMasivoActual.getTrans_SecClase() != null
+              && parametroCambioMasivoActual.getTrans_SecCausa() != null && parametroCambioMasivoActual.getTrans_dias() != null
+              && parametroCambioMasivoActual.getTrans_fechaInicialAusent() != null && parametroCambioMasivoActual.getTrans_fechaFinalAusent() != null) {
+         administrarCambiosMasivos.undoAdicionaAusentismoCM(parametroCambioMasivoActual.getTrans_SecTipoAusentismo(), parametroCambioMasivoActual.getTrans_SecClase(),
+                 parametroCambioMasivoActual.getTrans_SecCausa(), parametroCambioMasivoActual.getTrans_dias(),
+                 parametroCambioMasivoActual.getTrans_fechaInicialAusent(), parametroCambioMasivoActual.getTrans_fechaFinalAusent());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
+      }
+   }
+
+   public void procesarPapel() {
+      if (parametroCambioMasivoActual.getTrans_secPapel() != null && parametroCambioMasivoActual.getTrans_fechaPapel() != null) {
+         administrarCambiosMasivos.adicionaPapelCM(parametroCambioMasivoActual.getTrans_secPapel(), parametroCambioMasivoActual.getTrans_fechaPapel());
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('validacionCamposVacios').show()");
       }
    }
 
@@ -288,6 +483,7 @@ public class ControlCambiosMasivos {
     */
    public void autocompletarEstructura(String t) {
       aceptar = true;
+      System.out.println("ControlCambiosMasivos.autocompletarEstructura() t: _" + t + "_   y panelActivo : " + panelActivo);
       if (panelActivo == 1) {
          if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
             parametroCambioMasivoActual.setCargoEstructura(null);
@@ -857,7 +1053,7 @@ public class ControlCambiosMasivos {
       if (lovTiposausentismos != null) {
          if (!lovTiposausentismos.isEmpty()) {
             if (tipoausentismoSeleccionado != null) {
-//               parametroCambioMasivoActual.setTrans_tipoAusentismo(tipoausentismoSeleccionado.getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecTipoAusentismo(tipoausentismoSeleccionado.getSecuencia());
                parametroCambioMasivoActual.setTrans_tipoAusentismo(tipoausentismoSeleccionado.getDescripcion());
                if (guardado) {
                   guardado = false;
@@ -896,7 +1092,7 @@ public class ControlCambiosMasivos {
    public void autocompletarTiposausentismos(String t) {
       aceptar = true;
       if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
-//         parametroCambioMasivoActual.setTrans_tipoAusentismo(null);
+         parametroCambioMasivoActual.setTrans_SecTipoAusentismo(null);
          parametroCambioMasivoActual.setTrans_tipoAusentismo("");
          modificarParametros();
       } else if (lovTiposausentismos != null) {
@@ -910,11 +1106,11 @@ public class ControlCambiosMasivos {
                }
             }
             if (hayUno == 1) {
-//               parametroCambioMasivoActual.setTrans_tipoAusentismo(lovTiposausentismos.get(indexObj).getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecTipoAusentismo(lovTiposausentismos.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setTrans_tipoAusentismo(lovTiposausentismos.get(indexObj).getDescripcion());
                modificarParametros();
             } else {
-               //                  parametroCambioMasivoActual.setTrans_tipoAusentismo(null);
+               parametroCambioMasivoActual.setTrans_SecTipoAusentismo(null);
                parametroCambioMasivoActual.setTrans_tipoAusentismo("");
             }
             RequestContext.getCurrentInstance().update("form:TiposausentismosDialogo");
@@ -1010,7 +1206,7 @@ public class ControlCambiosMasivos {
       if (lovEmpleados != null) {
          if (!lovEmpleados.isEmpty()) {
             if (empleadoSeleccionado != null) {
-//               parametroCambioMasivoActual.setTrans_nombreJefe(empleadoSeleccionado.getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecEmplJefe(empleadoSeleccionado.getSecuencia());
                parametroCambioMasivoActual.setTrans_nombreJefe(empleadoSeleccionado.getPersona().getNombreCompleto());
                if (guardado) {
                   guardado = false;
@@ -1049,7 +1245,7 @@ public class ControlCambiosMasivos {
    public void autocompletarEmpleados(String t) {
       aceptar = true;
       if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
-//         parametroCambioMasivoActual.setTrans_nombreJefe(null);
+         parametroCambioMasivoActual.setTrans_SecEmplJefe(null);
          parametroCambioMasivoActual.setTrans_nombreJefe("");
          modificarParametros();
       } else if (lovEmpleados != null) {
@@ -1063,7 +1259,7 @@ public class ControlCambiosMasivos {
                }
             }
             if (hayUno == 1) {
-//               parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(indexObj).getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecEmplJefe(lovEmpleados.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setTrans_nombreJefe(lovEmpleados.get(indexObj).getPersona().getNombreCompleto());
                modificarParametros();
             } else {
@@ -1075,7 +1271,7 @@ public class ControlCambiosMasivos {
                   }
                }
                if (hayUno != 1) {
-//                  parametroCambioMasivoActual.setTrans_nombreJefe(null);
+                  parametroCambioMasivoActual.setTrans_SecEmplJefe(null);
                   parametroCambioMasivoActual.setTrans_nombreJefe("");
                }
                RequestContext.getCurrentInstance().update("form:EmpleadosDialogo");
@@ -1091,7 +1287,7 @@ public class ControlCambiosMasivos {
       if (lovPapeles != null) {
          if (!lovPapeles.isEmpty()) {
             if (papelSeleccionado != null) {
-//               parametroCambioMasivoActual.setTrans_papel(papelSeleccionado.getSecuencia());
+               parametroCambioMasivoActual.setTrans_secPapel(papelSeleccionado.getSecuencia());
                parametroCambioMasivoActual.setTrans_papel(papelSeleccionado.getDescripcion());
                if (guardado) {
                   guardado = false;
@@ -1130,7 +1326,7 @@ public class ControlCambiosMasivos {
    public void autocompletarPapeles(String t) {
       aceptar = true;
       if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
-//         parametroCambioMasivoActual.setTrans_papel(null);
+         parametroCambioMasivoActual.setTrans_secPapel(null);
          parametroCambioMasivoActual.setTrans_papel("");
          modificarParametros();
       } else if (lovPapeles != null) {
@@ -1144,7 +1340,7 @@ public class ControlCambiosMasivos {
                }
             }
             if (hayUno == 1) {
-//               parametroCambioMasivoActual.setTrans_papel(lovPapeles.get(indexObj).getSecuencia());
+               parametroCambioMasivoActual.setTrans_secPapel(lovPapeles.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setTrans_papel(lovPapeles.get(indexObj).getDescripcion());
                modificarParametros();
             } else {
@@ -1156,7 +1352,7 @@ public class ControlCambiosMasivos {
                   }
                }
                if (hayUno != 1) {
-//                  parametroCambioMasivoActual.setTrans_papel(null);
+                  parametroCambioMasivoActual.setTrans_secPapel(null);
                   parametroCambioMasivoActual.setTrans_papel("");
                }
                RequestContext.getCurrentInstance().update("form:PapelesDialogo");
@@ -1496,7 +1692,7 @@ public class ControlCambiosMasivos {
       if (lovCausasausentismos != null) {
          if (!lovCausasausentismos.isEmpty()) {
             if (causaausentismoSeleccionado != null) {
-//               parametroCambioMasivoActual.setTrans_causa(causaausentismoSeleccionado.getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecCausa(causaausentismoSeleccionado.getSecuencia());
                parametroCambioMasivoActual.setTrans_causa(causaausentismoSeleccionado.getDescripcion());
                if (guardado) {
                   guardado = false;
@@ -1535,7 +1731,7 @@ public class ControlCambiosMasivos {
    public void autocompletarCausasausentismos(String t) {
       aceptar = true;
       if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
-//         parametroCambioMasivoActual.setTrans_causa(null);
+         parametroCambioMasivoActual.setTrans_SecCausa(null);
          parametroCambioMasivoActual.setTrans_causa("");
          modificarParametros();
       } else if (lovCausasausentismos != null) {
@@ -1549,7 +1745,7 @@ public class ControlCambiosMasivos {
                }
             }
             if (hayUno == 1) {
-//               parametroCambioMasivoActual.setTrans_causa(lovCausasausentismos.get(indexObj).getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecCausa(lovCausasausentismos.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setTrans_causa(lovCausasausentismos.get(indexObj).getDescripcion());
                modificarParametros();
             } else {
@@ -1561,7 +1757,7 @@ public class ControlCambiosMasivos {
                   }
                }
                if (hayUno != 1) {
-//                  parametroCambioMasivoActual.setTrans_causa(null);
+                  parametroCambioMasivoActual.setTrans_SecCausa(null);
                   parametroCambioMasivoActual.setTrans_causa("");
                }
                RequestContext.getCurrentInstance().update("form:CausasausentismosDialogo");
@@ -1577,7 +1773,7 @@ public class ControlCambiosMasivos {
       if (lovClasesausentismos != null) {
          if (!lovClasesausentismos.isEmpty()) {
             if (clasesausentismosSeleccionado != null) {
-//               parametroCambioMasivoActual.setTrans_clase(clasesausentismosSeleccionado.getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecClase(clasesausentismosSeleccionado.getSecuencia());
                parametroCambioMasivoActual.setTrans_clase(clasesausentismosSeleccionado.getDescripcion());
                if (guardado) {
                   guardado = false;
@@ -1616,7 +1812,7 @@ public class ControlCambiosMasivos {
    public void autocompletarClasesausentismos(String t) {
       aceptar = true;
       if (t == null || "".equals(t) || " ".equals(t) || t.isEmpty()) {
-//         parametroCambioMasivoActual.setTrans_clase(null);
+         parametroCambioMasivoActual.setTrans_SecClase(null);
          parametroCambioMasivoActual.setTrans_clase("");
          modificarParametros();
       } else if (lovClasesausentismos != null) {
@@ -1630,7 +1826,7 @@ public class ControlCambiosMasivos {
                }
             }
             if (hayUno == 1) {
-//               parametroCambioMasivoActual.setTrans_clase(lovClasesausentismos.get(indexObj).getSecuencia());
+               parametroCambioMasivoActual.setTrans_SecClase(lovClasesausentismos.get(indexObj).getSecuencia());
                parametroCambioMasivoActual.setTrans_clase(lovClasesausentismos.get(indexObj).getDescripcion());
                modificarParametros();
             } else {
@@ -1642,7 +1838,7 @@ public class ControlCambiosMasivos {
                   }
                }
                if (hayUno != 1) {
-//                  parametroCambioMasivoActual.setTrans_clase(null);
+                  parametroCambioMasivoActual.setTrans_SecClase(null);
                   parametroCambioMasivoActual.setTrans_clase("");
                }
                RequestContext.getCurrentInstance().update("form:ClasesausentismosDialogo");
@@ -1683,11 +1879,6 @@ public class ControlCambiosMasivos {
                break;
          }
       } else if (pan == 5 && campo == 1) {
-//         RequestContext.getCurrentInstance().reset("form:lovEstructuras:globalFilter");
-//         RequestContext.getCurrentInstance().execute("PF('lovEstructuras').clearFilters()");
-//         RequestContext.getCurrentInstance().update("form:aceptarE");
-//         RequestContext.getCurrentInstance().update("form:lovEstructuras");
-//         RequestContext.getCurrentInstance().update("form:infoRegistroEstructura");
          RequestContext.getCurrentInstance().update("form:EstructurasDialogo");
          RequestContext.getCurrentInstance().execute("PF('EstructurasDialogo').show()");
       } else if (pan == 6) {
@@ -1791,7 +1982,7 @@ public class ControlCambiosMasivos {
       lovCausasausentismos = new ArrayList<Causasausentismos>();
       lovClasesausentismos = new ArrayList<Clasesausentismos>();
 
-      panelActivo = 0;
+      panelActivo = 1;
       aceptar = true;
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
    }
@@ -2807,6 +2998,14 @@ public class ControlCambiosMasivos {
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovClasesausentismos");
       infoRegistroClasesausentismos = String.valueOf(tabla.getRowCount());
       return infoRegistroClasesausentismos;
+   }
+
+   public boolean isGuardado() {
+      return guardado;
+   }
+
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
    }
 
 }

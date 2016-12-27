@@ -5,6 +5,7 @@ package InterfacePersistencia;
 
 import Entidades.TercerosSucursales;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -59,5 +60,9 @@ public interface PersistenciaTercerosSucursalesInterface {
     * @return
     */
    public List<TercerosSucursales> buscarTercerosSucursalesPorEmpresa(EntityManager em, BigInteger secuencia);
+   
+   public void adicionaAfiliacionCambiosMasivos(EntityManager em, BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio);
+   
+   public void undoAdicionaAfiliacionCambiosMasivos(EntityManager em, BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio);
     
 }

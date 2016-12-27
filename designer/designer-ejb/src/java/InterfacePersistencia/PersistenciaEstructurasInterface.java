@@ -149,5 +149,12 @@ public interface PersistenciaEstructurasInterface {
     public List<Estructuras> consultarEstructurasTurnoEmpleado(EntityManager em);
     
     public List<Estructuras> consultarEstructurasEersCabeceras(EntityManager em, BigInteger secuencia);
+    
+    public void adicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio);
+    
+    public void undoAdicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio);
+    
+    public void adicionaLocalizacionCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio);
 
+    public void undoAdicionaLocalizacionCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio);
 }

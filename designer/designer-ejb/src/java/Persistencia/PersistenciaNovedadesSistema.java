@@ -13,9 +13,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless.<br>
@@ -192,12 +194,12 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
 
    @Override
    public BigDecimal valorCesantias(EntityManager em, BigInteger secuenciaEmpleado) {
-       BigDecimal valorcesantias;
-       try {
-          
+      BigDecimal valorcesantias;
+      try {
+
          em.clear();
-         String qr = "SELECT sn1.SALDO \n"+
-                 "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
+         String qr = "SELECT sn1.SALDO \n"
+                 + "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
                  + "WHERE sn1.EMPLEADO= E.SECUENCIA\n"
                  + "and e.secuencia=vc.empleado\n"
                  + "and vc.estructura=est.secuencia\n"
@@ -220,22 +222,22 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
                  + "AND E.SECUENCIA= ? \n";
          Query query = em.createNativeQuery(qr);
          query.setParameter(1, secuenciaEmpleado);
-        valorcesantias = (BigDecimal) query.getSingleResult();
+         valorcesantias = (BigDecimal) query.getSingleResult();
       } catch (Exception e) {
          System.out.println("entró al catch Error: (valorCesantias)" + e);
          valorcesantias = BigDecimal.ZERO;
       }
-         System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorCesantias: " + valorcesantias);
-         return valorcesantias;
+      System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorCesantias: " + valorcesantias);
+      return valorcesantias;
    }
 
    @Override
    public BigDecimal valorIntCesantias(EntityManager em, BigInteger secuenciaEmpleado) {
-        BigDecimal valorintcesantias;
-       try {
+      BigDecimal valorintcesantias;
+      try {
          em.clear();
-         String qr = "SELECT sn1.SALDO  \n" + 
-                 "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
+         String qr = "SELECT sn1.SALDO  \n"
+                 + "FROM SOLUCIONESNODOS SN1, EMPLEADOS E, vigenciascargos vc, estructuras est, organigramas org\n"
                  + "WHERE sn1.EMPLEADO= E.SECUENCIA\n"
                  + "and e.secuencia=vc.empleado\n"
                  + "and vc.estructura=est.secuencia\n"
@@ -258,13 +260,13 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
                  + "AND E.SECUENCIA= ? \n";
          Query query = em.createNativeQuery(qr);
          query.setParameter(1, secuenciaEmpleado);
-          valorintcesantias = (BigDecimal) query.getSingleResult();
+         valorintcesantias = (BigDecimal) query.getSingleResult();
       } catch (Exception e) {
          System.err.println("Error: (valorIntCesantias)" + e);
-          valorintcesantias = BigDecimal.ZERO;
+         valorintcesantias = BigDecimal.ZERO;
       }
-         System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorIntCesantias: " + valorintcesantias);
-         return valorintcesantias;
+      System.out.println("valor retornado por la funcion PersistenciaNovedadesSistema.valorIntCesantias: " + valorintcesantias);
+      return valorintcesantias;
    }
 
    @Override
@@ -301,6 +303,97 @@ public class PersistenciaNovedadesSistema implements PersistenciaNovedadesSistem
       } catch (Exception e) {
          System.err.println("Error: consultarValorTotalDetalleVacacion : " + e);
          return null;
+      }
+   }
+
+   @Override
+   public void adicionaNovedadCambiosMasivos(EntityManager em,
+           String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
+           BigInteger secTercero, BigInteger secFormula, BigInteger valor,
+           BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal,
+           BigInteger unidadParteEntera, BigInteger unidadParteFraccion) {
+
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.AdicionaNovedad");
+         query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(5, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(6, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(7, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(8, Date.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(9, Date.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(10, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(11, BigInteger.class, ParameterMode.IN);
+
+         query.setParameter(1, tipo);
+         query.setParameter(2, secConcepto);
+         query.setParameter(3, secPeriodicidad);
+         query.setParameter(4, secTercero);
+         query.setParameter(5, secFormula);
+         query.setParameter(6, valor);
+         query.setParameter(7, saldo);
+         query.setParameter(8, fechaCambioInicial);
+         query.setParameter(9, fechaCambioFinal);
+         query.setParameter(10, unidadParteEntera);
+         query.setParameter(11, unidadParteFraccion);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".adicionaNovedadCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".adicionaNovedadCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
+      }
+   }
+
+   @Override
+   public void undoAdicionaNovedadCambiosMasivos(EntityManager em,
+           String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
+           BigInteger secTercero, BigInteger secFormula, BigInteger valor,
+           BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal) {
+
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.UndoAdicionaNovedad");
+         query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(5, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(6, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(7, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(8, Date.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(9, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, tipo);
+         query.setParameter(2, secConcepto);
+         query.setParameter(3, secPeriodicidad);
+         query.setParameter(4, secTercero);
+         query.setParameter(5, secFormula);
+         query.setParameter(6, valor);
+         query.setParameter(7, saldo);
+         query.setParameter(8, fechaCambioInicial);
+         query.setParameter(9, fechaCambioFinal);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".undoAdicionaNovedadCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".undoAdicionaNovedadCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
       }
    }
 

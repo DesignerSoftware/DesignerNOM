@@ -6,11 +6,14 @@ package Persistencia;
 import Entidades.TercerosSucursales;
 import InterfacePersistencia.PersistenciaTercerosSucursalesInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless.<br>
@@ -135,6 +138,60 @@ public class PersistenciaTercerosSucursales implements PersistenciaTercerosSucur
       } catch (Exception e) {
          System.out.println("Error buscarTercerosSucursalesPorEmpresa PersistenciaTerceroSurcusal : " + e.toString());
          return null;
+      }
+   }
+ 
+   @Override
+   public void adicionaAfiliacionCambiosMasivos(EntityManager em, BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.AdicionaAfiliacion");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, secTipoEntidad);
+         query.setParameter(2, secTerceroSuc);
+         query.setParameter(3, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".adicionaAfiliacionCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".adicionaAfiliacionCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
+      }
+   }
+
+   @Override
+   public void undoAdicionaAfiliacionCambiosMasivos(EntityManager em, BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.UndoAdicionaAfiliacion");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, secTipoEntidad);
+         query.setParameter(2, secTerceroSuc);
+         query.setParameter(3, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".undoAdicionaAfiliacionCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".undoAdicionaAfiliacionCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
       }
    }
 }

@@ -157,6 +157,16 @@ public class ParametrosCambiosMasivos implements Serializable {
    private BigInteger trans_dias;
    @Transient
    private BigInteger trans_horas;
+   @Transient
+   private BigInteger trans_SecEmplJefe;
+   @Transient
+   private BigInteger trans_SecTipoAusentismo;
+   @Transient
+   private BigInteger trans_SecCausa;
+   @Transient
+   private BigInteger trans_SecClase;
+   @Transient
+   private BigInteger trans_secPapel;
 
    @Transient
    private Date trans_fechaReingreso;
@@ -789,6 +799,46 @@ public class ParametrosCambiosMasivos implements Serializable {
 
    public void setTrans_papel(String trans_papel) {
       this.trans_papel = trans_papel;
+   }
+
+   public BigInteger getTrans_SecEmplJefe() {
+      return trans_SecEmplJefe;
+   }
+
+   public void setTrans_SecEmplJefe(BigInteger trans_SecEmplJefe) {
+      this.trans_SecEmplJefe = trans_SecEmplJefe;
+   }
+
+   public BigInteger getTrans_SecTipoAusentismo() {
+      return trans_SecTipoAusentismo;
+   }
+
+   public void setTrans_SecTipoAusentismo(BigInteger trans_SecTipoAusentismo) {
+      this.trans_SecTipoAusentismo = trans_SecTipoAusentismo;
+   }
+
+   public BigInteger getTrans_SecCausa() {
+      return trans_SecCausa;
+   }
+
+   public void setTrans_SecCausa(BigInteger trans_SecCausa) {
+      this.trans_SecCausa = trans_SecCausa;
+   }
+
+   public BigInteger getTrans_SecClase() {
+      return trans_SecClase;
+   }
+
+   public void setTrans_SecClase(BigInteger trans_SecClase) {
+      this.trans_SecClase = trans_SecClase;
+   }
+
+   public BigInteger getTrans_secPapel() {
+      return trans_secPapel;
+   }
+
+   public void setTrans_secPapel(BigInteger trans_secPapel) {
+      this.trans_secPapel = trans_secPapel;
    }
 
    @Override

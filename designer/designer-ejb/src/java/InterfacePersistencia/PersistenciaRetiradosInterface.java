@@ -5,6 +5,7 @@ package InterfacePersistencia;
 
 import Entidades.Retirados;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -54,5 +55,11 @@ public interface PersistenciaRetiradosInterface {
      * @return Retorna el Retirado asociado a la vigenciatipotrabajador cuya secuencia coincide con el parámetro.
      */
     public Retirados buscarRetiroVigenciaSecuencia(EntityManager em, BigInteger secVigencia);
+    
+    public void adicionaRetiroCambiosMasivos(EntityManager em, String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio);
+    
+    public void undoAdicionaRetiroCambiosMasivos(EntityManager em, String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio);
+    
+    public void adicionaReingresoCambiosMasivos(EntityManager em, Date fechaInicio, Date fechaFin);
     
 }

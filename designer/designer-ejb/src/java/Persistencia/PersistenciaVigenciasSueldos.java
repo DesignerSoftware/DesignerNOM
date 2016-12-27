@@ -7,11 +7,13 @@ import Entidades.VigenciasSueldos;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import InterfacePersistencia.PersistenciaVigenciasSueldosInterface;
 import java.math.BigInteger;
+import java.util.Date;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless.<br>
@@ -155,4 +157,67 @@ public class PersistenciaVigenciasSueldos implements PersistenciaVigenciasSueldo
          return null;
       }
    }
+
+   @Override
+   public void adicionaSueldoCambiosMasivos(EntityManager em, BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.AdicionaSueldo");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, secMotivoCS);
+         query.setParameter(2, secTipoSueldo);
+         query.setParameter(3, secUnidad);
+         query.setParameter(4, valor);
+         query.setParameter(5, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".adicionaSueldoCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".adicionaSueldoCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
+      }
+   }
+
+   @Override
+   public void undoAdicionaSueldoCambiosMasivos(EntityManager em, BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("CAMBIOSMASIVOS_PKG.UndoAdicionaSueldo");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(4, BigInteger.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(5, Date.class, ParameterMode.IN);
+
+         query.setParameter(1, secMotivoCS);
+         query.setParameter(2, secTipoSueldo);
+         query.setParameter(3, secUnidad);
+         query.setParameter(4, valor);
+         query.setParameter(5, fechaCambio);
+         query.execute();
+         System.out.println(this.getClass().getName() + ".undoAdicionaSueldoCambiosMasivos() Ya ejecuto");
+      } catch (Exception e) {
+         System.err.println(this.getClass().getName() + ".undoAdicionaSueldoCambiosMasivos() ERROR: " + e);
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      } finally {
+         tx.commit();
+      }
+   }
+
 }
