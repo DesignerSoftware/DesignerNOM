@@ -2,16 +2,6 @@ package Administrar;
 
 import Entidades.CambiosMasivos;
 import Entidades.Causasausentismos;
-import Entidades.Parametros;
-import Entidades.ParametrosCambiosMasivos;
-import InterfaceAdministrar.AdministrarSesionesInterface;
-import InterfacePersistencia.PersistenciaActualUsuarioInterface;
-import InterfacePersistencia.PersistenciaParametrosInterface;
-import java.util.List;
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
-import javax.persistence.EntityManager;
-import InterfaceAdministrar.AdministrarCambiosMasivosInterface;
 import Entidades.CentrosCostos;
 import Entidades.Clasesausentismos;
 import Entidades.Conceptos;
@@ -22,6 +12,8 @@ import Entidades.MotivosCambiosSueldos;
 import Entidades.MotivosDefinitivas;
 import Entidades.MotivosRetiros;
 import Entidades.Papeles;
+import Entidades.Parametros;
+import Entidades.ParametrosCambiosMasivos;
 import Entidades.Periodicidades;
 import Entidades.Terceros;
 import Entidades.TercerosSucursales;
@@ -29,6 +21,9 @@ import Entidades.TiposEntidades;
 import Entidades.TiposSueldos;
 import Entidades.Tiposausentismos;
 import Entidades.Unidades;
+import InterfaceAdministrar.AdministrarCambiosMasivosInterface;
+import InterfaceAdministrar.AdministrarSesionesInterface;
+import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaCausasAusentismosInterface;
 import InterfacePersistencia.PersistenciaCentrosCostosInterface;
 import InterfacePersistencia.PersistenciaClasesAusentismosInterface;
@@ -42,6 +37,7 @@ import InterfacePersistencia.PersistenciaMotivosDefinitivasInterface;
 import InterfacePersistencia.PersistenciaMotivosRetirosInterface;
 import InterfacePersistencia.PersistenciaNovedadesSistemaInterface;
 import InterfacePersistencia.PersistenciaPapelesInterface;
+import InterfacePersistencia.PersistenciaParametrosInterface;
 import InterfacePersistencia.PersistenciaPeriodicidadesInterface;
 import InterfacePersistencia.PersistenciaRetiradosInterface;
 import InterfacePersistencia.PersistenciaSoausentismosInterface;
@@ -56,6 +52,10 @@ import InterfacePersistencia.PersistenciaVigenciasCargosInterface;
 import InterfacePersistencia.PersistenciaVigenciasSueldosInterface;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
 
 @Stateful
 public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInterface {
@@ -118,21 +118,12 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
    @EJB
    PersistenciaSoausentismosInterface persistenciaSoausentismos;
 
-//   private String usuarioBD = " ";
-   /**
-    *
-    * @param idSesion
-    */
    @Override
    public void obtenerConexion(String idSesion) {
       System.out.println("Administrar.AdministrarCambiosMasivos.obtenerConexion()");
       em = administrarSesiones.obtenerConexionSesion(idSesion);
    }
 
-   /**
-    *
-    * @return
-    */
    @Override
    public List<Parametros> consultarEmpleadosParametros() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarEmpleadosParametros()");
@@ -146,10 +137,6 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       }
    }
 
-   /**
-    *
-    * @return
-    */
    @Override
    public List<CambiosMasivos> consultarUltimosCambiosMasivos() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarUltimosCambiosMasivos()");
@@ -162,10 +149,6 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       }
    }
 
-   /**
-    *
-    * @return
-    */
    @Override
    public ParametrosCambiosMasivos consultarParametrosCambiosMasivos() {
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
@@ -273,86 +256,106 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       return persistenciaClasesAusentismos.buscarClasesAusentismos(em);
    }
 
-   public void adicionaEstructuraCM(BigInteger secEstructura, Date fechaCambio) {
+   @Override
+   public void adicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaEstructuraCM2()");
       persistenciaEstructuras.adicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
-   public void undoAdicionaEstructuraCM(BigInteger secEstructura, Date fechaCambio) {
+   public void undoAdicionaEstructuraCM2(BigInteger secEstructura, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaEstructuraCM2()");
       persistenciaEstructuras.undoAdicionaEstructuraCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
-   public void adicionaVacacionCM(BigInteger ndias, Date fechaCambio, Date fechaPago) {
+   public void adicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaVacacionCM2()");
       persistenciaVacaciones.adicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
    }
 
-   public void undoAdicionaVacacionCM(BigInteger ndias, Date fechaCambio, Date fechaPago) {
+   public void undoAdicionaVacacionCM2(BigInteger ndias, Date fechaCambio, Date fechaPago) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaVacacionCM2()");
       persistenciaVacaciones.undoAdicionaVacacionCambiosMasivos(em, ndias, fechaCambio, fechaPago);
    }
 
-   public void adicionaRetiroCM(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
+   public void adicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaRetiroCM2()");
       persistenciaRetirados.adicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
    }
 
-   public void undoAdicionaRetiroCM(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
+   public void undoAdicionaRetiroCM2(String indemniza, BigInteger secMotivoDefinitiva, BigInteger secMotivoRetiro, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaRetiroCM2()");
       persistenciaRetirados.undoAdicionaRetiroCambiosMasivos(em, indemniza, BigInteger.TEN, BigInteger.ZERO, fechaCambio);
    }
 
-   public void adicionaAfiliacionCM(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+   public void adicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaAfiliacionCM2()");
       persistenciaTercerosSucursales.adicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
    }
 
-   public void undoAdicionaAfiliacionCM(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+   public void undoAdicionaAfiliacionCM2(BigInteger secTipoEntidad, BigInteger secTerceroSuc, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaAfiliacionCM2()");
       persistenciaTercerosSucursales.undoAdicionaAfiliacionCambiosMasivos(em, secTipoEntidad, secTerceroSuc, fechaCambio);
    }
 
-   public void adicionaLocalizacionCM(BigInteger secEstructura, Date fechaCambio) {
+   public void adicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaLocalizacionCM2()");
       persistenciaEstructuras.adicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
-   public void undoAdicionaLocalizacionCM(BigInteger secEstructura, Date fechaCambio) {
+   public void undoAdicionaLocalizacionCM2(BigInteger secEstructura, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaLocalizacionCM2()");
       persistenciaEstructuras.undoAdicionaLocalizacionCambiosMasivos(em, secEstructura, fechaCambio);
    }
 
-   public void adicionaSueldoCM(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+   public void adicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaSueldoCM2()");
       persistenciaVigenciasSueldos.adicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
    }
 
-   public void undoAdicionaSueldoCM(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+   public void undoAdicionaSueldoCM2(BigInteger secMotivoCS, BigInteger secTipoSueldo, BigInteger secUnidad, BigInteger valor, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaSueldoCM2()");
       persistenciaVigenciasSueldos.undoAdicionaSueldoCambiosMasivos(em, secMotivoCS, secTipoSueldo, secUnidad, valor, fechaCambio);
    }
 
-   public void adicionaNovedadCM(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
+   public void adicionaNovedadCM2(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal,
            BigInteger unidadParteEntera, BigInteger unidadParteFraccion) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaNovedadCM2()");
       persistenciaNovedadesSistema.adicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal, unidadParteEntera, unidadParteFraccion);
    }
 
-   public void undoAdicionaNovedadCM(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
+   public void undoAdicionaNovedadCM2(String tipo, BigInteger secConcepto, BigInteger secPeriodicidad,
            BigInteger secTercero, BigInteger secFormula, BigInteger valor,
            BigInteger saldo, Date fechaCambioInicial, Date fechaCambioFinal) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaNovedadCM2()");
       persistenciaNovedadesSistema.undoAdicionaNovedadCambiosMasivos(em, tipo, secConcepto, secPeriodicidad, secTercero, secFormula, valor, saldo, fechaCambioInicial, fechaCambioFinal);
    }
 
-   public void adicionaReingresoCM(Date fechaIni, Date fechaFin) {
+   public void adicionaReingresoCM2(Date fechaIni, Date fechaFin) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaReingresoCM2()");
       persistenciaRetirados.adicionaReingresoCambiosMasivos(em, fechaIni, fechaFin);
    }
 
-   public void adicionaEmplJefeCM(BigInteger secEmpleado, Date fechaCambio) {
+   public void adicionaEmplJefeCM2(BigInteger secEmpleado, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaEmplJefeCM2()");
       persistenciaVigenciasCargos.adicionaEmplJefeCambiosMasivos(em, secEmpleado, fechaCambio);
    }
 
-   public void adicionaPapelCM(BigInteger secPapel, Date fechaCambio) {
+   public void adicionaPapelCM2(BigInteger secPapel, Date fechaCambio) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaPapelCM2()");
       persistenciaPapeles.adicionaPapelCambiosMasivos(em, secPapel, fechaCambio);
    }
 
-   public void adicionaAusentismoCM(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias,
+   public void adicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias,
            BigInteger horas, Date fechaIniAusen, Date fechaFinAusen, Date fechaExpedicion,
            Date fechaIpago, Date fechaPago, BigInteger porcent, BigInteger baseliq, String forma) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.adicionaAusentismoCM2()");
       persistenciaSoausentismos.adicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, horas, fechaIniAusen, fechaFinAusen, fechaExpedicion, fechaIpago, fechaPago, porcent, baseliq, forma);
    }
 
-   public void undoAdicionaAusentismoCM(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias, Date fechaIniAusen, Date fechaFinAusen) {
+   public void undoAdicionaAusentismoCM2(BigInteger secTipo, BigInteger secClase, BigInteger secCausa, BigInteger dias, Date fechaIniAusen, Date fechaFinAusen) {
+      System.out.println("Administrar.AdministrarCambiosMasivos.undoAdicionaAusentismoCM2()");
       persistenciaSoausentismos.undoAdicionaAusentismoCambiosMasivos(em, secTipo, secClase, secCausa, dias, fechaIniAusen, fechaFinAusen);
    }
 

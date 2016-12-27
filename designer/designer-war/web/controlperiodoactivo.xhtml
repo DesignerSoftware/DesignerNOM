@@ -102,7 +102,7 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.controlinicioperiodoactivo}"> 
                                                 <p:ajax event="select" listener="#{controlPeriodosActivos.cambiarIndice(indice, 0)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlPeriodosActivos.mostrarInfo(indice,0,'INICIO')}" process="@this"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,0,'INICIO')}" process="@this" update="editFecha"/>
+                                                <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,0,'INICIO')}" process="@this"/>
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -120,7 +120,7 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.controlfinperiodoactivo}"> 
                                                 <p:ajax event="select" listener="#{controlPeriodosActivos.cambiarIndice(indice, 1)}" process="@this"/>  
                                                 <p:ajax event="change" listener="#{controlPeriodosActivos.mostrarInfo(indice,1,'FINAL')}" process="@this"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,1,'FINAL')}" process="@this" update="editFecha"/>
+                                                <p:ajax event="dateSelect" listener="#{controlPeriodosActivos.mostrarInfo(indice,1,'FINAL')}" process="@this"/>
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>

@@ -679,13 +679,12 @@ public class ControlPeriodosActivos implements Serializable {
                     backUpEmpresaActual = empresaSeleccionada;
                 }
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             if (listEmpresa == null || listaEmpresas.isEmpty()) {
                 infoRegistroEmpresas = "Cantidad de registros: 0 ";
             } else {
                 infoRegistroEmpresas = "Cantidad de registros: " + listaEmpresas.size();
             }
-            RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
+//            RequestContext.getCurrentInstance().update("form:infoRegistroEmpresas");
             return listaEmpresas;
         } catch (Exception e) {
             System.out.println("ERRO LISTA EMPRESAS " + e);

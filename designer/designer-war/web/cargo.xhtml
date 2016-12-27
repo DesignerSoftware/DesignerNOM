@@ -10,93 +10,92 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
-            <h:form id="form"> 
-               <f:loadBundle basename="Recursos.cargo" var="msg" />
+         <ui:define name="body">
+            <h:form id="form">
+               <f:loadBundle basename="Recursos.cargo" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
 
-               <p:hotkey bind="ctrl+f11" actionListener="#{controlCargo.activarCtrlF11()}" process="@this"/> 
-               <p:hotkey bind="alt+p" actionListener="#{controlCargo.lovEmpresas()}" process="@this"/> 
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlCargo.activarCtrlF11()}" process="@this"/>
+               <p:hotkey bind="alt+p" actionListener="#{controlCargo.lovEmpresas()}" process="@this"/>
 
-               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass='panelTotal' >  
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass='panelTotal'>
 
                   <p:remoteCommand name="posicionCargo" actionListener="#{controlCargo.posicionCargo()}"/>
 
-                  <p:toolbar styleClass="cssToolbar">  
-                     <p:toolbarGroup align="left"> 
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left">
 
-                        <p:commandButton id="guardarRapido" value="" actionListener="#{controlCargo.guardarGeneral()}" process="@this" 
+                        <p:commandButton id="guardarRapido" value="" actionListener="#{controlCargo.guardarGeneral()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/guardar.png);"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
-                        <p:commandButton id="editar" value="" actionListener="#{controlCargo.editarCelda()}" process="@this" 
+                        <p:commandButton id="editar" value="" actionListener="#{controlCargo.editarCelda()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/editar.png);"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="listaValores" value="" actionListener="#{controlCargo.listaValoresBoton()}"  process="@this" 
+                        <p:commandButton id="listaValores" value="" actionListener="#{controlCargo.listaValoresBoton()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/lupa.png);"/>
-                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" actionListener="#{controlCargo.activarCtrlF11()}" process="@this" 
+                        <p:commandButton id="filtrar" value="" actionListener="#{controlCargo.activarCtrlF11()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/embudo.png);"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="exportarXLS" value="" ajax="false" actionListener="#{controlCargo.validarExportXLS()}"
-                                         style="background-image: url(Imagenes/Iconos/excel.png);" />
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                                         style="background-image: url(Imagenes/Iconos/excel.png);"/>
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" value="" ajax="false" style="background-image: url(Imagenes/Iconos/xml.png);">
-                           <p:dataExporter type="xml" target="#{controlCargo.exportXML()}" fileName="#{controlCargo.nombreXML}" encoding="UTF-8"/> 
-                        </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                           <p:dataExporter type="xml" target="#{controlCargo.exportXML()}" fileName="#{controlCargo.nombreXML}" encoding="UTF-8"/>
+                        </p:commandButton>
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton id="exportarPDF" value="" actionListener="#{controlCargo.validarExportPDF()}" ajax="false"
                                          style="background-image: url(Imagenes/Iconos/pdf.png);"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="insertar" value="" actionListener="#{controlCargo.dialogoNuevoRegistro()}" onclick="PF('verificarNuevoRegistro').show()" process="@this"
-                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/> 
+                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/>
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                         <p:commandButton id="eliminar" value="" actionListener="#{controlCargo.verificarRegistroBorrar()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/delete.png);"/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" value="" actionListener="#{controlCargo.verificarRegistroDuplicar()}" process="@this"
-                                         style="background-image: url(Imagenes/Iconos/duplicar.png);"/>  
-                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                                         style="background-image: url(Imagenes/Iconos/duplicar.png);"/>
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="rastro" value="" actionListener="#{controlCargo.verificarRastro()}" process="@this"
-                                         style="background-image: url(Imagenes/Iconos/rastro.png);"/>  
+                                         style="background-image: url(Imagenes/Iconos/rastro.png);"/>
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="refrescar" value="" actionListener="#{controlCargo.cancelarModificacionGeneral()}" process="@this" oncomplete="window.location.reload()"
-                                         style="background-image: url(Imagenes/Iconos/refrescar.png)"/>  
+                                         style="background-image: url(Imagenes/Iconos/refrescar.png)"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="salir" value="" actionListener="#{controlCargo.salir()}" action="#{controlCargo.valorPaginaAnterior()}" process="@this" 
-                                         style="background-image: url(Imagenes/Iconos/salir.png)" />  
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" actionListener="#{controlCargo.salir()}" action="#{controlCargo.valorPaginaAnterior()}" process="@this"
+                                         style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-                     </p:toolbarGroup>  
+                     </p:toolbarGroup>
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
 
-                     <h:outputText value="#{msg['empresa']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                     <h:outputText id="nombreEmpresa" value="#{controlCargo.empresaActual.nombre}" 
+                     <h:outputText value="#{msg['empresa']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                     <h:outputText id="nombreEmpresa" value="#{controlCargo.empresaActual.nombre}"
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px;"/>
 
-                     <h:outputText value="#{msg['nit']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                     <h:outputText id="nitEmpresa" value="#{controlCargo.empresaActual.nit}" 
+                     <h:outputText value="#{msg['nit']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                     <h:outputText id="nitEmpresa" value="#{controlCargo.empresaActual.nit}"
                                    style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                   </fieldset>
 

@@ -7,6 +7,7 @@ import Entidades.Estructuras;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
  *
  * @author Hugo David Sin Gutiérrez
  */
+@Local
 public interface PersistenciaEstructurasInterface {
 
     /**

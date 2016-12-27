@@ -352,6 +352,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
 
    @Override
    public void adicionaEstructuraCambiosMasivos(EntityManager em, BigInteger secEstructura, Date fechaCambio) {
+      System.out.println("Persistencia.PersistenciaEstructuras.adicionaEstructuraCambiosMasivos()");
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
