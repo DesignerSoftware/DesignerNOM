@@ -78,8 +78,8 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
     public List<Bancos> buscarBancos(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT b FROM Bancos b");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            String sql= "SELECT * FROM BANCOS ORDER BY CODIGO";
+            Query query = em.createNativeQuery(sql, Bancos.class);
             List<Bancos> lista = query.getResultList();
             return lista;
         } catch (Exception e) {

@@ -90,11 +90,16 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
 
     @Override
     public List<Sucursales> consultarSucursales(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT m FROM Sucursales m");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<Sucursales> lista = query.getResultList();
-        return lista;
+        try {
+            em.clear();
+            String sql = "SELECT * FROM SUCURSALES ORDER BY CODIGO";
+            Query query = em.createNativeQuery(sql, Sucursales.class);
+            List<Sucursales> lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("error consultarSucursales :  " + e.toString());
+            return null;
+        }
     }
 
     public BigInteger contarVigenciasFormasPagosSucursal(EntityManager em, BigInteger secuencia) {

@@ -30,7 +30,7 @@
                         <p:separator style="position: relative; top: -9px"/> 
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                         actionListener="#{controlTipoContrato.listaValoresBoton()}"  process="@this"/>
+                                         actionListener="#{controlTipoContrato.listaValoresBoton()}" disabled="#{controlTipoContrato.activarLov}"  process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -160,7 +160,6 @@
                                     <f:selectItem itemLabel="#{msg['si']}" itemValue="SI" />  
                                     <f:selectItem itemLabel="#{msg['no']}" itemValue="NO" />  
                                     <p:ajax event="change" listener="#{controlTipoContrato.modificarTipoContrato(info)}" process="@this"/>
-                                    <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndice(info, 3)}" process="@this"
                                             onstart="PF('datosTipoContrato').unselectAllRows();PF('datosTipoContrato').selectRow(#{indice});"/>
                                  </p:selectOneMenu>
                               </f:facet>
@@ -213,7 +212,8 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooContrato" value=""/>
+                              <h:outputText value=""/>
+                              <!--<p:commandButton style="width: 120%;" id="fooContrato" value=""/>-->
                            </f:facet>
                         </p:column>
 
@@ -229,7 +229,6 @@
                               <f:selectItem itemLabel="#{msg['domingo']}" itemValue="DOM" />
                               <f:selectItem itemLabel="#{msg['todos']}" itemValue="ALL" />
                               <p:ajax event="change" listener="#{controlTipoContrato.modificarDiaLaborable(infoD)}" process="@this"/>
-                              <p:ajax event="select" listener="#{controlTipoContrato.cambiarIndiceDia(infoD, 1)}" process="@this"/>
                            </p:selectOneMenu>
                            <f:facet name="footer">
                               <h:outputText value=""/>

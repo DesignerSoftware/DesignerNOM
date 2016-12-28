@@ -157,6 +157,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
+                             <f:facet name="footer">
+                                 <p:commandButton style="width: 320px;" id="fooTipoCotizante" actionListener="#{controlTipoCotizante.recibirPagina(tipoentidadv)}" action="tipoentidadv" value="" process="@this"/>
+                           </f:facet>
                         </p:column> 
                      </p:dataTable>  
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciaTipoTrabajador.infoRegistro}" style="position: relative; left: 15px; top: 0px; font-weight: bold"/>

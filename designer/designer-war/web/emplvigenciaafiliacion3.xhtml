@@ -28,7 +28,7 @@
                                 <p:separator style="position: relative; top: -9px;" />
 
                                 <p:commandButton id="listaValores" disabled="#{controlEmplVigenciaAfiliacion3.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
-                                                 actionListener="#{controlEmplVigenciaAfiliacion3.listaValoresBoton()}" process="@this"/>
+                                                 actionListener="#{controlEmplVigenciaAfiliacion3.listaValoresBoton()}" process="@this" />
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplVigenciaAfiliacion3.activarCtrlF11()}" process="@this"/>
@@ -227,7 +227,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" value=""/>
+                                        <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 

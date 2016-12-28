@@ -2867,16 +2867,11 @@
          <to-view-id>/tipocentrocosto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
-      <navigation-case>
-         <from-outcome>nomina</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
    </navigation-rule>
    <navigation-rule>
       <from-view-id>/tipocentrocosto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>cambioCentroCosto</from-outcome>
+         <from-outcome>cambioTipoCentroCosto</from-outcome>
          <to-view-id>/centrocosto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3156,7 +3151,7 @@
    <navigation-rule>
       <from-view-id>/sucursal_pila.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasSucursalPila</from-outcome>
+         <from-outcome>cambioSucursalPila</from-outcome>
          <to-view-id>/ubicaciongeografica.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6594,6 +6589,40 @@
       <navigation-case>
          <from-outcome>tipoentidadcot</from-outcome>
          <to-view-id>/tipocotizante.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/emplvigenciatipotrabajador.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipoentidadv</from-outcome>
+         <to-view-id>/tipocotizante.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+        <navigation-rule>
+      <from-view-id>/tipocotizante.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tipoentidadv</from-outcome>
+         <to-view-id>/emplvigenciatipotrabajador.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+     <navigation-rule>
+      <from-view-id>/ubicaciongeografica.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>cambioCiudad</from-outcome>
+         <to-view-id>/ciudades.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/ciudades.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>cambioCiudad</from-outcome>
+         <to-view-id>/ubicaciongeografica.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>

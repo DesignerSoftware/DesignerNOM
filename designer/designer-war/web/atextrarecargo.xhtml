@@ -12,19 +12,74 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form"> 
-                    
+
                     <f:loadBundle basename="Recursos.atextrarecargo" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
-                    
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <p:commandButton style="position: absolute; left: 683px; top: 480px;" id="ACEPTAR" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.cambiosPagina}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosExtraRecargo" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this" />
+                    <p:panel  id="PanelTotal" header="Recargos Extras" styleClass="panelTotal" >  
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlATExtraRecargo.guardarGeneral()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATExtraRecargo.editarCelda()}" process="@this"/>
+                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlATExtraRecargo.listaValoresBoton()}"  process="@this"/>
+                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATExtraRecargo.activarCtrlF11()}" process="@this"/>
+                                <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlATExtraRecargo.validarExportXLS()}" />
+                                <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
+                                    <p:dataExporter type="xml"  target="#{controlATExtraRecargo.exportXML()}" fileName="#{controlATExtraRecargo.nombreXML}" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlATExtraRecargo.validarExportPDF()}" ajax="false"/>
+                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlATExtraRecargo.dialogoNuevoRegistro()}" process="@this"/> 
+                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlATExtraRecargo.verificarRegistroBorrar()}" process="@this"/>  
+                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlATExtraRecargo.verificarRegistroDuplicar()}" process="@this"/>  
+                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlATExtraRecargo.verificarRastro()}" process="@this"/>  
+                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATExtraRecargo.cancelarModificacionGeneral()}" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar> 
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlATExtraRecargo.cambiosPagina}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosExtraRecargo" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" icon="ui-icon-closethick" actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this" />
 
 
                         <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 190px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['recargos']}</strong></legend>
-                            
+
                             <p:dataTable id="datosExtraRecargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 815px;" scrollWidth="830"                          
                                          value="#{controlATExtraRecargo.listExtrasRecargos}" scrollable="true" scrollHeight="#{controlATExtraRecargo.altoTablaRecargo}"
                                          filteredValue="#{controlATExtraRecargo.filtrarListExtrasRecargos}" emptyMessage="#{msg['vacio']}"
@@ -70,7 +125,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['tipodia']}" sortBy="#{info.tipodia.descripcion}" filterBy="#{info.tipodia.descripcion}" filterMatchMode="contains" 
-                                          id="extraTipoDia" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="extraTipoDia" width="80" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.tipodia.descripcion}" />
@@ -91,7 +146,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['tipojornada']}" sortBy="#{info.tipojornada.descripcion}" filterBy="#{info.tipojornada.descripcion}" filterMatchMode="contains" 
-                                          id="extraTipoJornada" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="extraTipoJornada" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.tipojornada.descripcion}" />
@@ -111,7 +166,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['tipolegislacionlaboral']}" sortBy="#{info.tipolegislacion.descripcion}" filterBy="#{info.tipolegislacion.descripcion}" filterMatchMode="contains" 
-                                          id="extraTipoLegislacion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="extraTipoLegislacion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{info.tipolegislacion.descripcion}" />
@@ -131,12 +186,12 @@
                                 </p:column>
 
                                 <p:column  headerText="T" style="padding: 0px;" sortBy="#{info.turno}" filterBy="#{info.turno}" filterMatchMode="contains" 
-                                          id="extraTurno" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="extraTurno" width="15" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textT" value="T"/>
                                         <p:tooltip for="textT" value="#{msg['textT']}" /> 
                                     </f:facet>
-                                    
+
                                     <p:selectBooleanCheckbox id="editarExtraTurno" style="alignment-adjust: central;" value="#{info.checkTurno}">
                                         <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice)}" process="@this"/>
                                     </p:selectBooleanCheckbox>
@@ -147,13 +202,13 @@
                                 </p:column>
 
                                 <p:column  headerText="A" style="padding: 0px;" sortBy="#{info.aprobacionautomatica}" filterBy="#{info.aprobacionautomatica}" filterMatchMode="contains" 
-                                          id="extraAprobacion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="extraAprobacion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
 
                                     <f:facet name="header">
                                         <h:outputText id="textA" value="A"/>
                                         <p:tooltip for="textA" value="#{msg['textA']}" /> 
                                     </f:facet>
-                                    
+
                                     <p:selectBooleanCheckbox id="editarExtraAprobacion" style="alignment-adjust: central;" value="#{info.checkAprovacion}">
                                         <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice)}" process="@this"/>
                                     </p:selectBooleanCheckbox>
@@ -166,67 +221,11 @@
                             </p:dataTable>  
                         </fieldset> 
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlATExtraRecargo.guardarGeneral()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlATExtraRecargo.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlATExtraRecargo.listaValoresBoton()}"  process="@this"/>
-                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlATExtraRecargo.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlATExtraRecargo.validarExportXLS()}" />
-                                <p:tooltip for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlATExtraRecargo.exportXML()}" fileName="#{controlATExtraRecargo.nombreXML}" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlATExtraRecargo.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlATExtraRecargo.dialogoNuevoRegistro()}" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlATExtraRecargo.verificarRegistroBorrar()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlATExtraRecargo.verificarRegistroDuplicar()}" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlATExtraRecargo.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlATExtraRecargo.cancelarModificacionGeneral()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlATExtraRecargo.salir()}" action="#{controlATExtraRecargo.redirigir()}" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
 
 
                         <fieldset style="position: absolute; left: 10px; top: 275px; width: 830px; height: 187px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['detalles']}</strong></legend>
-                           
+
 
                             <p:dataTable id="datosDetalleExtraRecargo" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style="border: 1px; text-align: left;width: 815px"
                                          value="#{controlATExtraRecargo.listDetallesExtrasRecargos}" scrollable="true" scrollHeight="#{controlATExtraRecargo.altoTablaDetalle}" scrollWidth="830"
@@ -260,7 +259,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['hf']}" sortBy="#{infoD.horasfinal}" filterBy="#{infoD.horasfinal}" filterMatchMode="contains"  width="50" 
-                                          id="detalleHF" filterStyle="display: none; visibility: hidden;"  >  
+                                           id="detalleHF" filterStyle="display: none; visibility: hidden;"  >  
                                     <f:facet name="header">
                                         <h:outputText id="textHF" value="#{msg['hf']}"/>
                                         <p:tooltip for="textHF" value="#{msg['textHF']}" /> 
@@ -285,7 +284,7 @@
 
 
                                 <p:column  headerText="#{msg['concepto']}" sortBy="#{infoD.concepto.descripcion}" filterBy="#{infoD.concepto.descripcion}" filterMatchMode="contains" 
-                                          id="detalleConcepto" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleConcepto" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoD.concepto.descripcion}" >
                                             </h:outputText></f:facet>  
@@ -304,7 +303,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['empresa']}" sortBy="#{infoD.concepto.empresa.nombre}" filterBy="#{infoD.concepto.empresa.nombre}" filterMatchMode="contains" 
-                                          id="detalleEmpresa" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleEmpresa" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoD.concepto.empresa.nombre}" >
                                             </h:outputText></f:facet>  
@@ -323,25 +322,25 @@
 
 
                                 <p:column  headerText="#{msg['diasemana']}" style="padding: 0px;" sortBy="#{infoD.dia}" filterBy="#{infoD.dia}" filterMatchMode="contains" 
-                                          id="detalleDia" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                        <p:selectOneMenu value="#{infoD.dia}"  style="width: 108px; font-weight: bold;"  panelStyle="width: 120px">  
-                                            <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
-                                            <f:selectItem itemLabel="#{msg['martes']}" itemValue="MAR" />  
-                                            <f:selectItem itemLabel="#{msg['miercoles']}" itemValue="MIE" />  
-                                            <f:selectItem itemLabel="#{msg['jueves']}" itemValue="JUE" />  
-                                            <f:selectItem itemLabel="#{msg['viernes']}" itemValue="VIE" />
-                                            <f:selectItem itemLabel="#{msg['sabado']}" itemValue="SAB" />
-                                            <f:selectItem itemLabel="#{msg['domingo']}" itemValue="DOM" />
-                                            <f:selectItem itemLabel="#{msg['todos']}" itemValue="ALL" />
-                                            <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}" process="@this"/>
-                                        </p:selectOneMenu>
+                                           id="detalleDia" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:selectOneMenu value="#{infoD.dia}"  style="width: 108px; font-weight: bold;"  panelStyle="width: 120px">  
+                                        <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
+                                        <f:selectItem itemLabel="#{msg['martes']}" itemValue="MAR" />  
+                                        <f:selectItem itemLabel="#{msg['miercoles']}" itemValue="MIE" />  
+                                        <f:selectItem itemLabel="#{msg['jueves']}" itemValue="JUE" />  
+                                        <f:selectItem itemLabel="#{msg['viernes']}" itemValue="VIE" />
+                                        <f:selectItem itemLabel="#{msg['sabado']}" itemValue="SAB" />
+                                        <f:selectItem itemLabel="#{msg['domingo']}" itemValue="DOM" />
+                                        <f:selectItem itemLabel="#{msg['todos']}" itemValue="ALL" />
+                                        <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}" process="@this"/>
+                                    </p:selectOneMenu>
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 
                                 <p:column  headerText="A" sortBy="#{infoD.adicional}" style="padding: 0px;" filterBy="#{infoD.adicional}" filterMatchMode="contains" 
-                                          id="detalleAdicion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleAdicion" width="15" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textA2" value="A"/>
                                         <p:tooltip for="textA2" value="#{msg['textA2']}" /> 
@@ -355,7 +354,7 @@
                                 </p:column>
 
                                 <p:column  headerText="M"  sortBy="#{infoD.minimominutospagar}" filterBy="#{infoD.minimominutospagar}" filterMatchMode="contains" 
-                                          id="detalleMinutos" width="35" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleMinutos" width="35" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textM" value="M"/>
                                         <p:tooltip for="textM" value="#{msg['textM']}" /> 
@@ -376,7 +375,7 @@
                                 </p:column>
 
                                 <p:column  headerText="C" style="padding: 0px;" sortBy="#{infoD.pagotiempocompleto}" filterBy="#{infoD.pagotiempocompleto}" filterMatchMode="contains" 
-                                          id="detallePagoAdicion" width="17" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detallePagoAdicion" width="17" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textC" value="C"/>
                                         <p:tooltip for="textC" value="#{msg['textC']}" /> 
@@ -390,24 +389,24 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['adicional']}" style="padding: 0px;" sortBy="#{infoD.adicionaliniciofinjornada}" filterBy="#{infoD.adicionaliniciofinjornada}" filterMatchMode="contains" 
-                                          id="detalleIniFin" width="85" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleIniFin" width="85" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textAdicional" value="#{msg['adicional']}"/>
                                         <p:tooltip for="textAdicional" value="#{msg['textAdicional']}" /> 
                                     </f:facet>
-                                        <p:selectOneMenu value="#{infoD.adicionaliniciofinjornada}"  style="width: 88px; font-weight: bold; ">  
-                                            <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
-                                            <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" /> 
-                                            <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}" process="@this"/>
-                                            <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 6)}"  process="@this" />
-                                        </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{infoD.adicionaliniciofinjornada}"  style="width: 88px; font-weight: bold; ">  
+                                        <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
+                                        <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" /> 
+                                        <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}" process="@this"/>
+                                        <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 6)}"  process="@this" />
+                                    </p:selectOneMenu>
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
 
                                 <p:column  headerText="G" style="padding: 0px;" sortBy="#{infoD.garantizaadicional}" filterBy="#{infoD.garantizaadicional}" filterMatchMode="contains" 
-                                          id="detalleGarantiza" width="17" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="detalleGarantiza" width="17" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="textG" value="G"/>
                                         <p:tooltip for="textG" value="#{msg['textG']}" /> 
@@ -485,17 +484,17 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                     <p:dialog id="errorDatosNullExtra" header="#{msg['atencion']}" widgetVar="errorDatosNullExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                     <p:dialog id="errorDescripcionExtra" header="#{msg['atencion']}" widgetVar="errorDescripcionExtra"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDescripcionExtra']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                     <p:dialog id="errorDatosNullDetalle" header="#{msg['atencion']}" widgetVar="errorDatosNullDetalle"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullDetalle']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
@@ -531,13 +530,13 @@
                                 <h:outputText value="#{dias.tipo}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <h:outputText id="infoRegistroTipoDia" value="#{controlATExtraRecargo.infoRegistroTipoDia}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
+
                         <p:commandButton icon="ui-icon-check" id="aceptarTD" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarTipoDia()}" process="@this"/>
-                        
+
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTD" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoDia()}" process="@this"/>
-                        
+
                     </p:dialog>
 
                     <p:dialog header="#{msg['tiposjornadasTJ']}" widgetVar="TipoJornadaDialogo" draggable="true" resizable="false" closable="false" id="TipoJornadaDialogo"  
@@ -595,11 +594,11 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <h:outputText id="infoRegistroTipoJornada" value="#{controlATExtraRecargo.infoRegistroTipoJornada}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
+
                         <p:commandButton icon="ui-icon-check" id="aceptarTJ" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarTipoJornada()}" process="@this"/>
-                        
+
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTJ" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlATExtraRecargo.cancelarCambioTipoJornada()}" process="@this"/>
                     </p:dialog>
 
@@ -633,11 +632,11 @@
                                 <h:outputText value="#{legislacion.estado}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <h:outputText id="infoRegistroLegislacion" value="#{controlATExtraRecargo.infoRegistroLegislacion}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
+
                         <p:commandButton icon="ui-icon-check" id="aceptarLeg" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}"  actionListener="#{controlATExtraRecargo.actualizarLegislacion()}"  process="@this"/>
-                        
+
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasLeg" style="position: relative; left: 230px;" value="#{msg['atras']}"  actionListener="#{controlATExtraRecargo.cancelarCambioLegislacion()}" process="@this"/>
                     </p:dialog>
 
@@ -677,13 +676,13 @@
                                 <h:outputText value="#{concepto.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <h:outputText id="infoRegistroConcepto" value="#{controlATExtraRecargo.infoRegistroConcepto}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
+
                         <p:commandButton icon="ui-icon-check" id="aceptarCon" style="position: relative; left: 190px;" value="#{msg['aceptar']}" disabled="#{controlATExtraRecargo.aceptar}" actionListener="#{controlATExtraRecargo.actualizarConcepto()}" process="@this"/>
-                        
+
                         <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasCon" style="position: relative; left: 230px;" value="#{msg['aceptar']}" actionListener="#{controlATExtraRecargo.cancelarCambioConcepto()}" process="@this"/>
-                        
+
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlATExtraRecargo.activarCtrlF11()}"/> 
@@ -879,7 +878,7 @@
                             </p:selectBooleanCheckbox>
 
                             <strong><h:outputText value="#{msg['adicionalinifinNDER']}" style="position: absolute; top: 315px; left: 50px;" /></strong>
-                           <p:selectOneMenu value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.adicionaliniciofinjornada}"  style="width: 80px; font-weight: bold;position: absolute; left: 200px; top: 310px;">  
+                            <p:selectOneMenu value="#{controlATExtraRecargo.nuevoDetalleExtraRecargo.adicionaliniciofinjornada}"  style="width: 80px; font-weight: bold;position: absolute; left: 200px; top: 310px;">  
                                 <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
                                 <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" />  
                                 <p:ajax event="change" update="nuevoExtraTipoJornada"/>

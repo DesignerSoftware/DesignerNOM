@@ -110,7 +110,9 @@
                                  </p:inputText>
                               </f:facet> 
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>    
                         </p:column>
 
                         <p:column headerText="#{msg['descripcion']}" sortBy="#{JornadasLaborales.descripcion}" filterBy="#{JornadasLaborales.descripcion}"
@@ -127,7 +129,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
                         
                         <p:column headerText="#{msg['horasdiarias']}" sortBy="#{JornadasLaborales.horasdiarias}" filterBy="#{JornadasLaborales.horasdiarias}"
@@ -149,7 +153,9 @@
                                  <p:keyFilter for="editarJornadaLaboralHorasDiarias" mask="num"/>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
                         
                         <p:column headerText="#{msg['horasmensuales']}" sortBy="#{JornadasLaborales.horasmensuales}" filterBy="#{JornadasLaborales.horasmensuales}"
@@ -171,7 +177,9 @@
                                  <p:keyFilter for="editarJornadaLaboralHorasMensuales" mask="num"/>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['rotativo']}" style="text-align: center;" sortBy="#{JornadasLaborales.rotativo}" filterBy="#{JornadasLaborales.rotativo}"
@@ -185,6 +193,9 @@
                                                     onfocus="PF('datosJornadasLaborales').unselectAllRows();PF('datosJornadasLaborales').selectRow(#{indice});">  
                               <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(JornadasLaborales, 'N', JornadasLaborales.estadoRotativo)}" update="@this"/>  
                            </p:selectBooleanCheckbox> 
+                            <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['turnorelativo']}" style="text-align: center;" sortBy="#{JornadasLaborales.turnorelativo}" filterBy="#{JornadasLaborales.turnorelativo}"
@@ -199,6 +210,9 @@
                                                     onfocus="PF('datosJornadasLaborales').unselectAllRows();PF('datosJornadasLaborales').selectRow(#{indice});">    
                               <p:ajax event="change" listener="#{controlJornadasLaborales.modificarJornadasLaborales(JornadasLaborales, 'N', JornadasLaborales.estadoTurnoRelativo)}" update="@this"/>  
                            </p:selectBooleanCheckbox> 
+                            <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['cuadrillahorasdiarias']}" sortBy="#{JornadasLaborales.cuadrillahorasdiarias}" filterBy="#{JornadasLaborales.cuadrillahorasdiarias}"
@@ -221,7 +235,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['jornada']}"  sortBy="#{JornadasLaborales.jornada.descripcion}" filterBy="#{JornadasLaborales.jornada.descripcion}"
@@ -282,7 +298,9 @@
                                  </p:selectOneMenu>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['horainicial']}"  sortBy="#{SemanasLaborales.horainicial}" filterBy="#{SemanasLaborales.horainicial}"
@@ -305,7 +323,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>     
 
                         <p:column headerText="#{msg['minutoinicial']}" sortBy="#{SemanasLaborales.minutoinicial}" filterBy="#{SemanasLaborales.minutoinicial}"
@@ -328,7 +348,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>
 
                         <p:column headerText="#{msg['horainicialalimentacion']}" sortBy="#{SemanasLaborales.horainicialalimentacion}" filterBy="#{SemanasLaborales.horainicialalimentacion}"
@@ -351,7 +373,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                          <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>                  
 
                         <p:column headerText="#{msg['minutoinicialalimentacion']}" sortBy="#{SemanasLaborales.minutoinicialalimentacion}" filterBy="#{SemanasLaborales.minutoinicialalimentacion}"
@@ -374,7 +398,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>           
 
                         <p:column headerText="#{msg['horafinalalimentacion']}" sortBy="#{SemanasLaborales.horafinalalimentacion}" filterBy="#{SemanasLaborales.horafinalalimentacion}"
@@ -397,7 +423,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                          <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>       
 
                         <p:column headerText="#{msg['minutofinalalimentacion']}" sortBy="#{SemanasLaborales.minutofinalalimentacion}" filterBy="#{SemanasLaborales.minutofinalalimentacion}"
@@ -420,7 +448,9 @@
                                  </p:inputText>
                               </f:facet>
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                          <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>                          
 
                         <p:column headerText="#{msg['horafinal']}" style="width:12px;" sortBy="#{SemanasLaborales.horafinal}" filterBy="#{SemanasLaborales.horafinal}"
@@ -443,7 +473,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                           <f:facet name="footer"> 
+                               <h:outputText value="" />  
+                           </f:facet>  
                         </p:column>                          
 
                         <p:column headerText="#{msg['minutofinal']}" sortBy="#{SemanasLaborales.minutofinal}" filterBy="#{SemanasLaborales.minutofinal}"
@@ -466,7 +498,9 @@
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
-                           <f:facet name="footer"/>
+                            <f:facet name="footer"> 
+                                <h:outputText value="" />  
+                            </f:facet>  
                         </p:column>    
 
                      </p:dataTable>  
