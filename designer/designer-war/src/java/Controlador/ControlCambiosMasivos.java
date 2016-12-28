@@ -158,7 +158,7 @@ public class ControlCambiosMasivos {
    private String paginaAnterior;
    private boolean guardado, aceptar;
    private String infoRegistroParametros, infoRegistroCambiosMasivos;
-   private int panelActivo;
+   private int panelActivo, campo;
 
    public ControlCambiosMasivos() {
       listaParametros = null;
@@ -222,8 +222,10 @@ public class ControlCambiosMasivos {
       lovCausasausentismos = new ArrayList<Causasausentismos>();
       lovClasesausentismos = new ArrayList<Clasesausentismos>();
 
+      campo = 0;
       panelActivo = 1;
       aceptar = true;
+      guardado = true;
    }
 
    @PostConstruct
@@ -1876,14 +1878,14 @@ public class ControlCambiosMasivos {
    }
 
    ////////////////////////////////////////////////////////////////////////////////////////////////
-   public void llamarLOV(int pan, int campo) {
+   public void llamarLOV(int pan, int camp) {
       aceptar = true;
-      if (pan == 1 && campo == 1) {
+      if (pan == 1 && camp == 1) {
          cargarLOVEstructurasCargo();
          RequestContext.getCurrentInstance().update("form:EstructurasDialogo");
          RequestContext.getCurrentInstance().execute("PF('EstructurasDialogo').show()");
       } else if (pan == 3) {
-         switch (campo) {
+         switch (camp) {
             case 1:
                RequestContext.getCurrentInstance().update("form:MotivosDefinitivasDialogo");
                RequestContext.getCurrentInstance().execute("PF('MotivosDefinitivasDialogo').show()");
@@ -1894,7 +1896,7 @@ public class ControlCambiosMasivos {
                break;
          }
       } else if (pan == 4) {
-         switch (campo) {
+         switch (camp) {
             case 1:
                RequestContext.getCurrentInstance().update("form:TiposEntidadesDialogo");
                RequestContext.getCurrentInstance().execute("PF('TiposEntidadesDialogo').show()");
@@ -1904,11 +1906,11 @@ public class ControlCambiosMasivos {
                RequestContext.getCurrentInstance().execute("PF('TercerosSucursalesDialogo').show()");
                break;
          }
-      } else if (pan == 5 && campo == 1) {
+      } else if (pan == 5 && camp == 1) {
          RequestContext.getCurrentInstance().update("form:EstructurasDialogo");
          RequestContext.getCurrentInstance().execute("PF('EstructurasDialogo').show()");
       } else if (pan == 6) {
-         switch (campo) {
+         switch (camp) {
             case 1:
                RequestContext.getCurrentInstance().update("form:ConceptosDialogo");
                RequestContext.getCurrentInstance().execute("PF('ConceptosDialogo').show()");
@@ -1927,7 +1929,7 @@ public class ControlCambiosMasivos {
                break;
          }
       } else if (pan == 7) {
-         switch (campo) {
+         switch (camp) {
             case 1:
                RequestContext.getCurrentInstance().update("form:TiposSueldosDialogo");
                RequestContext.getCurrentInstance().execute("PF('TiposSueldosDialogo').show()");
@@ -1941,10 +1943,100 @@ public class ControlCambiosMasivos {
                RequestContext.getCurrentInstance().execute("PF('UnidadesDialogo').show()");
                break;
          }
-      } else if (pan == 9 && campo == 1) {
+      } else if (pan == 9 && camp == 1) {
          RequestContext.getCurrentInstance().update("form:EmpleadosDialogo");
          RequestContext.getCurrentInstance().execute("PF('EmpleadosDialogo').show()");
       } else if (pan == 10) {
+         switch (camp) {
+            case 1:
+               RequestContext.getCurrentInstance().update("form:TiposausentismosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TiposausentismosDialogo').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("form:ClasesausentismosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('ClasesausentismosDialogo').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("form:CausasausentismosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('CausasausentismosDialogo').show()");
+               break;
+         }
+      } else if (pan == 11 && camp == 1) {
+         RequestContext.getCurrentInstance().update("form:PapelesDialogo");
+         RequestContext.getCurrentInstance().execute("PF('PapelesDialogo').show()");
+      }
+   }
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////
+   public void botonLOV() {
+      aceptar = true;
+      if (panelActivo == 1 && campo == 2) {
+         cargarLOVEstructurasCargo();
+         RequestContext.getCurrentInstance().update("form:EstructurasDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EstructurasDialogo').show()");
+      } else if (panelActivo == 3) {
+         switch (campo) {
+            case 2:
+               RequestContext.getCurrentInstance().update("form:MotivosDefinitivasDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivosDefinitivasDialogo').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("form:MotivosRetirosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivosRetirosDialogo').show()");
+               break;
+         }
+      } else if (panelActivo == 4) {
+         switch (campo) {
+            case 2:
+               RequestContext.getCurrentInstance().update("form:TiposEntidadesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TiposEntidadesDialogo').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("form:TercerosSucursalesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TercerosSucursalesDialogo').show()");
+               break;
+         }
+      } else if (panelActivo == 5 && campo == 2) {
+         RequestContext.getCurrentInstance().update("form:EstructurasDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EstructurasDialogo').show()");
+      } else if (panelActivo == 6) {
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("form:ConceptosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('ConceptosDialogo').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("form:PeriodicidadesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('PeriodicidadesDialogo').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("form:TercerosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TercerosDialogo').show()");
+               break;
+            case 4:
+               RequestContext.getCurrentInstance().update("form:FormulasDialogo");
+               RequestContext.getCurrentInstance().execute("PF('FormulasDialogo').show()");
+               break;
+         }
+      } else if (panelActivo == 7) {
+         switch (campo) {
+            case 3:
+               RequestContext.getCurrentInstance().update("form:TiposSueldosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('TiposSueldosDialogo').show()");
+               break;
+            case 4:
+               RequestContext.getCurrentInstance().update("form:MotivosSueldosDialogo");
+               RequestContext.getCurrentInstance().execute("PF('MotivosSueldosDialogo').show()");
+               break;
+            case 5:
+               RequestContext.getCurrentInstance().update("form:UnidadesDialogo");
+               RequestContext.getCurrentInstance().execute("PF('UnidadesDialogo').show()");
+               break;
+         }
+      } else if (panelActivo == 9 && campo == 2) {
+         RequestContext.getCurrentInstance().update("form:EmpleadosDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EmpleadosDialogo').show()");
+      } else if (panelActivo == 10) {
          switch (campo) {
             case 1:
                RequestContext.getCurrentInstance().update("form:TiposausentismosDialogo");
@@ -1959,10 +2051,15 @@ public class ControlCambiosMasivos {
                RequestContext.getCurrentInstance().execute("PF('CausasausentismosDialogo').show()");
                break;
          }
-      } else if (pan == 11 && campo == 1) {
+      } else if (panelActivo == 11 && campo == 2) {
          RequestContext.getCurrentInstance().update("form:PapelesDialogo");
          RequestContext.getCurrentInstance().execute("PF('PapelesDialogo').show()");
       }
+   }
+
+   public void seleccionarCampo(int camp) {
+      System.out.println("ControlCambiosMasivos.seleccionarCampo() camp: " + camp);
+      campo = camp;
    }
 
    public void cancelarModificaciones() {
@@ -2008,8 +2105,11 @@ public class ControlCambiosMasivos {
       lovCausasausentismos = new ArrayList<Causasausentismos>();
       lovClasesausentismos = new ArrayList<Clasesausentismos>();
 
+      campo = 0;
       panelActivo = 1;
       aceptar = true;
+      guardado = true;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
    }
 
@@ -2018,9 +2118,257 @@ public class ControlCambiosMasivos {
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;
       parametroCambioMasivoActual = null;
+      campo = 0;
+      panelActivo = 1;
+   }
+
+   public void editar() {
+      System.out.println("Controlador.ControlCambiosMasivos.editar() campo: " + campo + ",  panelActivo: " + panelActivo);
+      if (panelActivo == 1) {
+         //Estructura Cargo Desempeñado
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editCargoFecha");
+               RequestContext.getCurrentInstance().execute("PF('editCargoFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editCargoEstructuras");
+               RequestContext.getCurrentInstance().execute("PF('editCargoEstructuras').show()");
+               break;
+         }
+      } else if (panelActivo == 2) {
+         //Vacaciones
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editVacaFechaCambio");
+               RequestContext.getCurrentInstance().execute("PF('editVacaFechaCambio').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editVacaFechaPago");
+               RequestContext.getCurrentInstance().execute("PF('editVacaFechaPago').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editVacaDias");
+               RequestContext.getCurrentInstance().execute("PF('editVacaDias').show()");
+               break;
+         }
+      } else if (panelActivo == 3) {
+         //Retiros
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editRetiroFecha");
+               RequestContext.getCurrentInstance().execute("PF('editRetiroFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editRetiroMotDef");
+               RequestContext.getCurrentInstance().execute("PF('editRetiroMotDef').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editRetiroMotRetiro");
+               RequestContext.getCurrentInstance().execute("PF('editRetiroMotRetiro').show()");
+               break;
+         }
+      } else if (panelActivo == 4) {
+         //Afiliaciones
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAfiliaFecha");
+               RequestContext.getCurrentInstance().execute("PF('editAfiliaFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAfiliaTiposEnt");
+               RequestContext.getCurrentInstance().execute("PF('editAfiliaTiposEnt').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAfiliaTercSuc");
+               RequestContext.getCurrentInstance().execute("PF('editAfiliaTercSuc').show()");
+               break;
+         }
+      } else if (panelActivo == 5) {
+         //Centro de Costo
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editCentrosCFecha");
+               RequestContext.getCurrentInstance().execute("PF('editCentrosCFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editCentrosCEstr");
+               RequestContext.getCurrentInstance().execute("PF('editCentrosCEstr').show()");
+               break;
+         }
+      } else if (panelActivo == 6) {
+         //Novedades
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveConc");
+               RequestContext.getCurrentInstance().execute("PF('editNoveConc').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNovePerio");
+               RequestContext.getCurrentInstance().execute("PF('editNovePerio').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveTerce");
+               RequestContext.getCurrentInstance().execute("PF('editNoveTerce').show()");
+               break;
+            case 4:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveFormu");
+               RequestContext.getCurrentInstance().execute("PF('editNoveFormu').show()");
+               break;
+            case 5:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveFechaIni");
+               RequestContext.getCurrentInstance().execute("PF('editNoveFechaIni').show()");
+               break;
+            case 6:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveFechaFin");
+               RequestContext.getCurrentInstance().execute("PF('editNoveFechaFin').show()");
+               break;
+            case 7:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveValor");
+               RequestContext.getCurrentInstance().execute("PF('editNoveValor').show()");
+               break;
+            case 8:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveSaldo");
+               RequestContext.getCurrentInstance().execute("PF('editNoveSaldo').show()");
+               break;
+            case 9:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveHora");
+               RequestContext.getCurrentInstance().execute("PF('editNoveHora').show()");
+               break;
+            case 10:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveMin");
+               RequestContext.getCurrentInstance().execute("PF('editNoveMin').show()");
+               break;
+            case 11:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editNoveTipo");
+               RequestContext.getCurrentInstance().execute("PF('editNoveTipo').show()");
+               break;
+         }
+      } else if (panelActivo == 7) {
+         //Sueldos
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuFecha");
+               RequestContext.getCurrentInstance().execute("PF('editSuFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuValor");
+               RequestContext.getCurrentInstance().execute("PF('editSuValor').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuTipoSu");
+               RequestContext.getCurrentInstance().execute("PF('editSuTipoSu').show()");
+               break;
+            case 4:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuMotivoSu");
+               RequestContext.getCurrentInstance().execute("PF('editSuMotivoSu').show()");
+               break;
+            case 5:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuUnidad");
+               RequestContext.getCurrentInstance().execute("PF('editSuUnidad').show()");
+               break;
+            case 6:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editSuFechaRetroac");
+               RequestContext.getCurrentInstance().execute("PF('editSuFechaRetroac').show()");
+               break;
+         }
+      } else if (panelActivo == 8) {
+         //Reingresos
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editReinFechaRein");
+               RequestContext.getCurrentInstance().execute("PF('editReinFechaRein').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editReinFechaFinC");
+               RequestContext.getCurrentInstance().execute("PF('editReinFechaFinC').show()");
+               break;
+         }
+      } else if (panelActivo == 9) {
+         //Empleado Jefe
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editJefeFecha");
+               RequestContext.getCurrentInstance().execute("PF('editJefeFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editJefeNombre");
+               RequestContext.getCurrentInstance().execute("PF('editJefeNombre').show()");
+               break;
+         }
+      } else if (panelActivo == 10) {
+         //Ausentismos
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenTipo");
+               RequestContext.getCurrentInstance().execute("PF('editAusenTipo').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenClase");
+               RequestContext.getCurrentInstance().execute("PF('editAusenClase').show()");
+               break;
+            case 3:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenCausa");
+               RequestContext.getCurrentInstance().execute("PF('editAusenCausa').show()");
+               break;
+            case 4:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFormaLiq");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFormaLiq').show()");
+               break;
+            case 5:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenBaseLiq");
+               RequestContext.getCurrentInstance().execute("PF('editAusenBaseLiq').show()");
+               break;
+            case 6:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFechaIni");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFechaIni').show()");
+               break;
+            case 7:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFechaFin");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFechaFin').show()");
+               break;
+            case 8:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFechaExpedi");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFechaExpedi').show()");
+               break;
+            case 9:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFechaIniPag");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFechaIniPag').show()");
+               break;
+            case 10:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenFechaFinPag");
+               RequestContext.getCurrentInstance().execute("PF('editAusenFechaFinPag').show()");
+               break;
+            case 11:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenPorcent");
+               RequestContext.getCurrentInstance().execute("PF('editAusenPorcent').show()");
+               break;
+            case 12:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenDias");
+               RequestContext.getCurrentInstance().execute("PF('editAusenDias').show()");
+               break;
+            case 13:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editAusenHoras");
+               RequestContext.getCurrentInstance().execute("PF('editAusenHoras').show()");
+               break;
+         }
+      } else if (panelActivo == 11) {
+         //Papel
+         switch (campo) {
+            case 1:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editPapelFecha");
+               RequestContext.getCurrentInstance().execute("PF('editPapelFecha').show()");
+               break;
+            case 2:
+               RequestContext.getCurrentInstance().update("formularioDialogos:editPapelNombre");
+               RequestContext.getCurrentInstance().execute("PF('editPapelNombre').show()");
+               break;
+         }
+      }
    }
 
    public void onTabChange(TabChangeEvent event) {
+      campo = 0;
       String panel = event.getTab().getTitle();
       if (panel.equals("Estructura Cargo Desempeñado")) {
          cargarLOVEstructurasCargo();
@@ -2058,6 +2406,7 @@ public class ControlCambiosMasivos {
 
    public void onTabClose(TabCloseEvent event) {
       panelActivo = 0;
+      campo = 0;
    }
 
    public void recibirPagina(String pagina) {
@@ -2081,6 +2430,10 @@ public class ControlCambiosMasivos {
       }
       parametroCambioMasivoActual = null;
       administrarCambiosMasivos.consultarEmpleadosParametros();
+      campo = 0;
+      aceptar = true;
+      guardado = true;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
       FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito.");
       FacesContext.getCurrentInstance().addMessage(null, msg);

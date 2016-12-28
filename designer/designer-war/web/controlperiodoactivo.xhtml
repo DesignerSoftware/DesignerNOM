@@ -129,7 +129,6 @@
                             </p:dataTable> 
                         </fieldset>
 
-
                         <h:outputText id="informacionRegistro" value="#{controlPeriodosActivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
                         <p:commandButton style=" position: absolute; left: 688px; top: 475px;  " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlPeriodosActivos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpresas" process="@this" />
                         <p:commandButton style=" position: absolute; left: 785px; top: 475px;  " icon="ui-icon-closethick" id="ATRAS" action="atrascontrolperiodoactivo" value="Atras" actionListener="#{controlPeriodosActivos.salir()}"  process="@this" />
