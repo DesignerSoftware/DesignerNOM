@@ -113,7 +113,7 @@
                               </p:calendar>
                            </div>
                            <div style="position: relative; top: 17px; left: 4px; display: inline-block; ">
-                              <p:selectOneMenu id="estadoParametro" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.estado}">  
+                              <p:selectOneMenu id="estadoParametro" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important; width: 90px;" value="#{controlParametrosConjuntos.parametrosActuales.estado}">  
                                  <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO" />  
                                  <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO" />  
                                  <f:selectItem itemLabel="" itemValue="" />  
@@ -173,7 +173,7 @@
                         </div>
                         <div>
                            <div style="position: relative; top: 13px; left: 0px; display: inline-block;">
-                              <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="fechaDesdeLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesdeLineaBase}">
+                              <p:calendar  autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaDesdeLB" value="#{controlParametrosConjuntos.parametrosActuales.fechaDesdeLineaBase}">
                                  <p:ajax event="change" listener="#{controlParametrosConjuntos.modificarParametrosActuales()}" 
                                          onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" update="@this"/>
                               </p:calendar>
@@ -185,7 +185,7 @@
                               </p:calendar>
                            </div>
                            <div style="position: relative; top: 17px; left: 4px; display: inline-block;">
-                              <p:selectOneMenu id="estadoParametroLB" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important;" value="#{controlParametrosConjuntos.parametrosActuales.estadolineaBase}" >  
+                              <p:selectOneMenu id="estadoParametroLB" style="text-transform: uppercase; padding: 0px 3px 0px 0px !important; width: 90px;" value="#{controlParametrosConjuntos.parametrosActuales.estadolineaBase}" >  
                                  <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO" />  
                                  <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO" />  
                                  <f:selectItem itemLabel="" itemValue="" />  

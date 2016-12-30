@@ -321,9 +321,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getAfiliaTipoEntidad() {
-      if (afiliaTipoEntidad == null) {
-         afiliaTipoEntidad = new BigInteger("0");
-      }
       return afiliaTipoEntidad;
    }
 
@@ -332,9 +329,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getAfiliaTerceroSucursal() {
-      if (afiliaTerceroSucursal == null) {
-         afiliaTerceroSucursal = new BigInteger("0");
-      }
       return afiliaTerceroSucursal;
    }
 
@@ -343,9 +337,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getCargoEstructura() {
-      if (cargoEstructura == null) {
-         cargoEstructura = new BigInteger("0");
-      }
       return cargoEstructura;
    }
 
@@ -354,9 +345,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getLocaliEstructura() {
-      if (localiEstructura == null) {
-         localiEstructura = new BigInteger("0");
-      }
       return localiEstructura;
    }
 
@@ -365,9 +353,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getRetiMotivoDefinitiva() {
-      if (retiMotivoDefinitiva == null) {
-         retiMotivoDefinitiva = new BigInteger("0");
-      }
       return retiMotivoDefinitiva;
    }
 
@@ -376,9 +361,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getRetiMotivoRetiro() {
-      if (retiMotivoRetiro == null) {
-         retiMotivoRetiro = new BigInteger("0");
-      }
       return retiMotivoRetiro;
    }
 
@@ -411,9 +393,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveConcepto() {
-      if (noveConcepto == null) {
-         noveConcepto = new BigInteger("0");
-      }
       return noveConcepto;
    }
 
@@ -422,9 +401,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNovePeriodicidad() {
-      if (novePeriodicidad == null) {
-         novePeriodicidad = new BigInteger("0");
-      }
       return novePeriodicidad;
    }
 
@@ -433,9 +409,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveTercero() {
-      if (noveTercero == null) {
-         noveTercero = new BigInteger("0");
-      }
       return noveTercero;
    }
 
@@ -444,9 +417,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getNoveFormula() {
-      if (noveFormula == null) {
-         noveFormula = new BigInteger("0");
-      }
       return noveFormula;
    }
 
@@ -471,9 +441,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoMotivoCambioSueldo() {
-      if (sueldoMotivoCambioSueldo == null) {
-         sueldoMotivoCambioSueldo = new BigInteger("0");
-      }
       return sueldoMotivoCambioSueldo;
    }
 
@@ -482,9 +449,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoTipoSueldo() {
-      if (sueldoTipoSueldo == null) {
-         sueldoTipoSueldo = new BigInteger("0");
-      }
       return sueldoTipoSueldo;
    }
 
@@ -493,9 +457,6 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public BigInteger getSueldoUnidadPago() {
-      if (sueldoUnidadPago == null) {
-         sueldoUnidadPago = new BigInteger("0");
-      }
       return sueldoUnidadPago;
    }
 
@@ -629,6 +590,11 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public void setBul_indemniza(boolean bul_indemniza) {
+      if (bul_indemniza) {
+         this.retiIndemniza = "S";
+      } else {
+         this.retiIndemniza = "N";
+      }
       this.bul_indemniza = bul_indemniza;
    }
 
@@ -646,6 +612,11 @@ public class ParametrosCambiosMasivos implements Serializable {
    }
 
    public void setBul_retroactivo(boolean bul_retroactivo) {
+      if (bul_retroactivo) {
+         this.sueldoRetroactivo = "S";
+      } else {
+         this.sueldoRetroactivo = "N";
+      }
       this.bul_retroactivo = bul_retroactivo;
    }
 

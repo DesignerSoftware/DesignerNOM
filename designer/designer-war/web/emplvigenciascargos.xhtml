@@ -4,14 +4,17 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
     </h:head> 
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
+            <ui:define name="body"> 
+               <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
                 <h:form id="form">
                     <!--<pe:ajaxErrorHandler/>-->
                     <f:loadBundle basename="Recursos.emplvigenciascargos" var="msg"/>
@@ -23,22 +26,22 @@
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                                  actionListener="#{controlVigenciasCargos.guardarCambiosVC()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
                                                  actionListener="#{controlVigenciasCargos.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                                <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="listaValores" widgetVar="listaValores" value="" disabled="#{controlVigenciasCargos.activarLOV}" 
                                                  style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasCargos.listaValoresBoton()}"
                                                  update=":form:dlgCargos, :form:dialogoEmpleadoJefe, :form:dlgEstructuras, :form:dlgMotivos" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                                <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" 
                                                  actionListener="#{controlVigenciasCargos.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
@@ -94,13 +97,13 @@
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlVigenciasCargos.empleado.persona.nombreCompleto}" 
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;"/>
+                            <h:outputText id="nombreEmpleado" value="#{controlVigenciasCargos.empleado.persona.nombreCompleto}"
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlVigenciasCargos.empleado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;"/>
+                            <h:outputText id="docEmpleado" value="#{controlVigenciasCargos.empleado.codigoempleado}"
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;"/>
                         </fieldset>
 
                         <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left">

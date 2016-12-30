@@ -154,7 +154,27 @@ public class AdministrarCambiosMasivos implements AdministrarCambiosMasivosInter
       System.out.println("Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
       try {
          String usuarioBD = persistenciaActualUsuario.actualAliasBD(em);
-         return persistenciaParametros.parametrosCambiosMasivos(em, usuarioBD);
+         ParametrosCambiosMasivos parametro = persistenciaParametros.parametrosCambiosMasivos(em, usuarioBD);
+         if (parametro == null) {
+            parametro = new ParametrosCambiosMasivos();
+            parametro.setSecuencia(new BigInteger("0"));
+            parametro.setUsuarioBD(usuarioBD);
+
+            parametro.setAfiliaTerceroSucursal(null);
+            parametro.setAfiliaTipoEntidad(null);
+            parametro.setCargoEstructura(null);
+            parametro.setLocaliEstructura(null);
+            parametro.setNoveConcepto(null);
+            parametro.setNoveFormula(null);
+            parametro.setNovePeriodicidad(null);
+            parametro.setNoveTercero(null);
+            parametro.setRetiMotivoDefinitiva(null);
+            parametro.setRetiMotivoRetiro(null);
+            parametro.setSueldoMotivoCambioSueldo(null);
+            parametro.setSueldoTipoSueldo(null);
+            parametro.setSueldoUnidadPago(null);
+         }
+         return parametro;
       } catch (Exception e) {
          System.out.println("ERROR Administrar.AdministrarCambiosMasivos.consultarParametrosCambiosMasivos()");
          System.out.println("ERROR : " + e);

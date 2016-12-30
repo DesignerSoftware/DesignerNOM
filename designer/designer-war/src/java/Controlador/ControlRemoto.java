@@ -118,6 +118,8 @@ public class ControlRemoto implements Serializable {
    private String infoRegistroBuscarEmpleados;
    private String infoRegistroBuscarTablas;
    private String infoRegistroBusquedaRapida;
+   private String infoRegistroTablas;
+   private String infoRegistroMod;
    private int posicion;
    private int totalRegistros;
    private String informacionTiposTrabajadores;
@@ -181,7 +183,7 @@ public class ControlRemoto implements Serializable {
       pago = "AUTOMATICO";
       tituloPago = "PAGOS AUTOMATICOS";
       mensajePagos = "Realice liquidaciones automáticas quincenales, mensuales, entre otras, por estructuras o por tipo de empleado. Primero ingrese los parametros a liquidar, después genere la liquidación para luego poder observar los comprobantes de pago. Usted puede deshacer todas las liquidaciones que desee siempre y cuando no se hayan cerrado. Al cerrar una liquidación se generan acumulados, por eso es importante estar seguro que la liquidación es correcta antes de cerrarla.";
-      altoModulos = "93";
+      altoModulos = "73";
       altoTablas = "202";
       buscarTablasLOV = true;
       mostrarTodasTablas = true;
@@ -976,7 +978,7 @@ public class ControlRemoto implements Serializable {
          moduloNombre.setFilterStyle("");
          moduloObs = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:data1:moduloobs");
          moduloObs.setFilterStyle("");
-         altoModulos = "70";
+         altoModulos = "50";
          RequestContext.getCurrentInstance().update("form:tabmenu:data1");
          filtrosActivos = true;
       }
@@ -1053,7 +1055,7 @@ public class ControlRemoto implements Serializable {
          moduloObs.setFilterStyle("display: none; visibility: hidden;");
          filtradolistModulos = null;
          RequestContext.getCurrentInstance().execute("PF('data1').clearFilters()");
-         altoModulos = "93";
+         altoModulos = "73";
          RequestContext.getCurrentInstance().update("form:tabmenu:data1");
          filtrosActivos = false;
       }
@@ -1983,6 +1985,28 @@ public class ControlRemoto implements Serializable {
 
    public void setMostrarT2(boolean mostrarT2) {
       this.mostrarT2 = mostrarT2;
+   }
+
+   public String getInfoRegistroTablas() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:data1");
+      infoRegistroTablas = String.valueOf(tabla.getRowCount());
+      return infoRegistroTablas;
+   }
+
+   public void setInfoRegistroTablas(String infoRegistroTablas) {
+      this.infoRegistroTablas = infoRegistroTablas;
+   }
+
+   public String getInfoRegistroMod() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:tablas");
+      infoRegistroMod = String.valueOf(tabla.getRowCount());
+      return infoRegistroMod;
+   }
+
+   public void setInfoRegistroMod(String infoRegistroMod) {
+      this.infoRegistroMod = infoRegistroMod;
    }
 
 }

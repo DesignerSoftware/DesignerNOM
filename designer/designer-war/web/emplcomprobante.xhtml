@@ -676,12 +676,8 @@
 
                      </p:scrollPanel>
                   </fieldset>
-
-
-                  <p:commandButton style="position: absolute; left: 683px; top: 502px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/aceptar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlEmplComprobantes.guardado}" onclick="PF('confirmarGuardar').show();" process="@this" />
-                  <p:commandButton style="position: absolute; left: 775px; top: 502px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEmplComprobantes.salir()}" action="nomina" process="@this" />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlEmplComprobantes.guardado}" onclick="PF('confirmarGuardar').show();" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplComprobantes.salir()}" action="nomina" process="@this" />
                </p:panel>
 
                <style>
@@ -696,7 +692,7 @@
 
             </h:form>
 
-            <h:form id="formularioDialogos" >
+            <h:form id="formularioDialogos">
 
                <p:dialog id="NuevoRegistroPagina" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPagina" closable="false" resizable="false"  draggable="true" modal="true" height="140" width="400" style=" padding: 0px">  
                   <center><strong><h:outputText value="#{msg['nuevoRegistroPagina']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 

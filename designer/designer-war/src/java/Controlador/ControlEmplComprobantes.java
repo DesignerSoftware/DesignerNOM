@@ -2027,7 +2027,6 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    public void guardarCambiosCorteProceso() {
-      RequestContext context = RequestContext.getCurrentInstance();
       try {
          if (!listaCortesProcesosBorrar.isEmpty()) {
             for (int i = 0; i < listaCortesProcesosBorrar.size(); i++) {
@@ -2125,7 +2124,6 @@ public class ControlEmplComprobantes implements Serializable {
       System.out.println("guardarCambios() modificacionesCortesProcesos : " + modificacionesCortesProcesos);
       System.out.println("guardarCambios() modificacionesSolucionesNodosEmpleado : " + modificacionesSolucionesNodosEmpleado);
       System.out.println("guardarCambios() modificacionesSolucionesNodosEmpleador : " + modificacionesComprobantes);
-      RequestContext context = RequestContext.getCurrentInstance();
       if (guardado == false) {
          if (modificacionesComprobantes == true) {
             guardarCambiosComprobantes();

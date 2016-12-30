@@ -30,7 +30,7 @@ import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarCambiosMasivosInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -2449,14 +2449,12 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVEstructurasCargo() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVEstructurasCargo()");
       if (lovEstructuras.isEmpty()) {
          lovEstructuras = administrarCambiosMasivos.consultarLovCargos_Estructuras();
       }
    }
 
    public void cargarLOVsRetiro() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVsRetiro()");
       if (lovMotivosDefinitivas.isEmpty()) {
          lovMotivosDefinitivas = administrarCambiosMasivos.consultarLovMotivosDefinitivas();
       }
@@ -2466,7 +2464,6 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVsAfiliaciones() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVsAfiliaciones()");
       if (lovTiposEntidades.isEmpty()) {
          lovTiposEntidades = administrarCambiosMasivos.consultarLovTiposEntidades();
       }
@@ -2476,7 +2473,6 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVsNovedad() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVsNovedad()");
       if (lovPeriodicidades.isEmpty()) {
          lovPeriodicidades = administrarCambiosMasivos.consultarLovPeriodicidades();
       }
@@ -2492,7 +2488,6 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVsSueldo() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVsSueldo()");
       if (lovMotivosSueldos.isEmpty()) {
          lovMotivosSueldos = administrarCambiosMasivos.consultarLovMotivosCambiosSueldos();
       }
@@ -2505,7 +2500,6 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVsAusentismo() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVsAusentismo()");
       if (lovTiposausentismos.isEmpty()) {
          lovTiposausentismos = administrarCambiosMasivos.consultarLovTiposausentismos();
       }
@@ -2527,14 +2521,12 @@ public class ControlCambiosMasivos {
    }
 
    public void cargarLOVPapeles() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVPapeles()");
       if (lovPapeles.isEmpty()) {
          lovPapeles = administrarCambiosMasivos.consultarLovPapeles();
       }
    }
 
    public void cargarLOVEmpleados() {
-      System.out.println("Controlador.ControlCambiosMasivos.cargarLOVEmpleados()");
       if (lovEmpleados.isEmpty()) {
          lovEmpleados = administrarCambiosMasivos.consultarLovEmpleados();
       }
@@ -2563,9 +2555,7 @@ public class ControlCambiosMasivos {
    //GETS AND SETS
    public List<Parametros> getListaParametros() {
       if (listaParametros == null) {
-         System.out.println("ControlCambiosMasivos.getListaParametros()");
          listaParametros = administrarCambiosMasivos.consultarEmpleadosParametros();
-         System.out.println("Ya consulto listaParametros : " + listaParametros);
       }
       return listaParametros;
    }
@@ -2588,9 +2578,7 @@ public class ControlCambiosMasivos {
 
    public List<CambiosMasivos> getListaCambiosMasivos() {
       if (listaCambiosMasivos == null) {
-         System.out.println("ControlCambiosMasivos.getListaCambiosMasivos()");
          listaCambiosMasivos = administrarCambiosMasivos.consultarUltimosCambiosMasivos();
-         System.out.println("Ya consulto listaCambiosMasivos : " + listaCambiosMasivos);
       }
       return listaCambiosMasivos;
    }

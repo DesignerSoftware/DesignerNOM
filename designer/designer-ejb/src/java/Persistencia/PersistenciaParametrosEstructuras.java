@@ -49,7 +49,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
     public BigInteger buscarEmpresaParametros(EntityManager em, String usuarioBD) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p.estructura.organigrama.empresa.secuencia FROM ParametrosEstructuras p WHERE p.usuario.alias = :usuarioBD");
+            Query query = em.createQuery("SELECT p.estructura.organigrama.empresa.secuencia FROM ParametrosEstructuras p WHERE p.usuario.alias = :usuarioBD ");
             query.setParameter("usuarioBD", usuarioBD);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
@@ -63,12 +63,12 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
     public ParametrosEstructuras buscarParametro(EntityManager em, String usuarioBD) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT COUNT(pe) FROM ParametrosEstructuras pe WHERE pe.usuario.alias = :usuarioBD");
+            Query query = em.createQuery("SELECT COUNT(pe) FROM ParametrosEstructuras pe WHERE pe.usuario.alias = :usuarioBD ");
             query.setParameter("usuarioBD", usuarioBD);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             Long resultado = (Long) query.getSingleResult();
             if (resultado > 0) {
-                query = em.createQuery("SELECT pe FROM ParametrosEstructuras pe WHERE pe.usuario.alias = :usuarioBD");
+                query = em.createQuery("SELECT pe FROM ParametrosEstructuras pe WHERE pe.usuario.alias = :usuarioBD ");
                 query.setParameter("usuarioBD", usuarioBD);
                 query.setHint("javax.persistence.cache.storeMode", "REFRESH");
                 ParametrosEstructuras parametroEstructura = (ParametrosEstructuras) query.getSingleResult();

@@ -289,6 +289,47 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
          if (parametro != null) {
             if (parametro.getSecuencia() != null) {
                try {
+                  BigInteger n = new BigInteger("0");
+
+                  if (parametro.getAfiliaTerceroSucursal() == null) {
+                     parametro.setAfiliaTerceroSucursal(n);
+                  }
+                  if (parametro.getAfiliaTipoEntidad() == null) {
+                     parametro.setAfiliaTipoEntidad(n);
+                  }
+                  if (parametro.getCargoEstructura() == null) {
+                     parametro.setCargoEstructura(n);
+                  }
+                  if (parametro.getLocaliEstructura() == null) {
+                     parametro.setLocaliEstructura(n);
+                  }
+                  if (parametro.getNoveConcepto() == null) {
+                     parametro.setNoveConcepto(n);
+                  }
+                  if (parametro.getNoveFormula() == null) {
+                     parametro.setNoveFormula(n);
+                  }
+                  if (parametro.getNovePeriodicidad() == null) {
+                     parametro.setNovePeriodicidad(n);
+                  }
+                  if (parametro.getNoveTercero() == null) {
+                     parametro.setNoveTercero(n);
+                  }
+                  if (parametro.getRetiMotivoDefinitiva() == null) {
+                     parametro.setRetiMotivoDefinitiva(n);
+                  }
+                  if (parametro.getRetiMotivoRetiro() == null) {
+                     parametro.setRetiMotivoRetiro(n);
+                  }
+                  if (parametro.getSueldoMotivoCambioSueldo() == null) {
+                     parametro.setSueldoMotivoCambioSueldo(n);
+                  }
+                  if (parametro.getSueldoTipoSueldo() == null) {
+                     parametro.setSueldoTipoSueldo(n);
+                  }
+                  if (parametro.getSueldoUnidadPago() == null) {
+                     parametro.setSueldoUnidadPago(n);
+                  }
                   String q2 = "SELECT PM.SECUENCIA, \n"
                           + "(SELECT TE.NOMBRE FROM TIPOSENTIDADES TE WHERE TE.SECUENCIA = " + parametro.getAfiliaTipoEntidad() + ") AFILIATIPOENTIDAD, \n"
                           + "(SELECT TS.DESCRIPCION FROM TERCEROSSUCURSALES TS WHERE TS.SECUENCIA = " + parametro.getAfiliaTerceroSucursal() + ") AFILIATERCEROSUCURSAL, \n"
@@ -304,7 +345,7 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                           + "(SELECT MR.NOMBRE FROM MOTIVOSRETIROS MR WHERE MR.SECUENCIA = " + parametro.getRetiMotivoRetiro() + ") MOTIVORETIRO, \n"
                           + "(SELECT EXT.NOMBRE FROM ESTRUCTURAS EXT WHERE SECUENCIA = " + parametro.getLocaliEstructura() + ") LOCALIESTRUCTURA \n"
                           + "FROM PARAMETROSCAMBIOSMASIVOS PM \n"
-                          + "WHERE usuariobd = 'NMCB'";
+                          + "WHERE PM.USUARIOBD = user";
                   Query query2 = em.createNativeQuery(q2, ParametrosCambiosMasivosAux.class);
                   ParametrosCambiosMasivosAux objAux = (ParametrosCambiosMasivosAux) query2.getSingleResult();
                   if (objAux != null) {
@@ -323,6 +364,46 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
                         parametro.setStr_sueldoTipoSueldo(objAux.getStr_sueldoTipoSueldo());
                         parametro.setStr_sueldoUnidadPago(objAux.getStr_sueldoUnidadPago());
                      }
+                  }
+                  
+                  if (parametro.getAfiliaTerceroSucursal() == n) {
+                     parametro.setAfiliaTerceroSucursal(null);
+                  }
+                  if (parametro.getAfiliaTipoEntidad() == n) {
+                     parametro.setAfiliaTipoEntidad(null);
+                  }
+                  if (parametro.getCargoEstructura() == n) {
+                     parametro.setCargoEstructura(null);
+                  }
+                  if (parametro.getLocaliEstructura() == n) {
+                     parametro.setLocaliEstructura(null);
+                  }
+                  if (parametro.getNoveConcepto() == n) {
+                     parametro.setNoveConcepto(null);
+                  }
+                  if (parametro.getNoveFormula() == n) {
+                     parametro.setNoveFormula(null);
+                  }
+                  if (parametro.getNovePeriodicidad() == n) {
+                     parametro.setNovePeriodicidad(null);
+                  }
+                  if (parametro.getNoveTercero() == n) {
+                     parametro.setNoveTercero(null);
+                  }
+                  if (parametro.getRetiMotivoDefinitiva() == n) {
+                     parametro.setRetiMotivoDefinitiva(null);
+                  }
+                  if (parametro.getRetiMotivoRetiro() == n) {
+                     parametro.setRetiMotivoRetiro(null);
+                  }
+                  if (parametro.getSueldoMotivoCambioSueldo() == n) {
+                     parametro.setSueldoMotivoCambioSueldo(null);
+                  }
+                  if (parametro.getSueldoTipoSueldo() == n) {
+                     parametro.setSueldoTipoSueldo(null);
+                  }
+                  if (parametro.getSueldoUnidadPago() == n) {
+                     parametro.setSueldoUnidadPago(null);
                   }
                } catch (Exception e2) {
                   System.out.println("ERROR al consultar @transients : " + e2);
@@ -347,6 +428,22 @@ public class PersistenciaParametros implements PersistenciaParametrosInterface {
       EntityTransaction tx = em.getTransaction();
       try {
          tx.begin();
+         System.out.println("actualizarParametroCambioMasivo antes del MERGE 222");
+         System.out.println("parametro.getSecuencia(): " + parametro.getSecuencia());
+         System.out.println("parametro.getUsuarioBD(): " + parametro.getUsuarioBD());
+         System.out.println("\nparametro.getAfiliaTerceroSucursal(): " + parametro.getAfiliaTerceroSucursal());
+         System.out.println("parametro.getAfiliaTipoEntidad(): " + parametro.getAfiliaTipoEntidad());
+         System.out.println("parametro.getCargoEstructura(): " + parametro.getCargoEstructura());
+         System.out.println("parametro.getLocaliEstructura(): " + parametro.getLocaliEstructura());
+         System.out.println("parametro.getNoveConcepto(): " + parametro.getNoveConcepto());
+         System.out.println("parametro.getNoveFormula(): " + parametro.getNoveFormula());
+         System.out.println("parametro.getNovePeriodicidad(): " + parametro.getNovePeriodicidad());
+         System.out.println("parametro.getNoveTercero(): " + parametro.getNoveTercero());
+         System.out.println("parametro.getRetiMotivoDefinitiva(): " + parametro.getRetiMotivoDefinitiva());
+         System.out.println("parametro.getRetiMotivoRetiro(): " + parametro.getRetiMotivoRetiro());
+         System.out.println("parametro.getSueldoMotivoCambioSueldo(): " + parametro.getSueldoMotivoCambioSueldo());
+         System.out.println("parametro.getSueldoTipoSueldo(): " + parametro.getSueldoTipoSueldo());
+         System.out.println("parametro.getSueldoUnidadPago(): " + parametro.getSueldoUnidadPago());
          em.merge(parametro);
          tx.commit();
          return true;

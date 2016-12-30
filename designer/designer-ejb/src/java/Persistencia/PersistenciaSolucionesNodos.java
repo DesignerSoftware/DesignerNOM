@@ -392,9 +392,10 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.CONCEPTO = c.SECUENCIA\n"
                     + "AND sn.TIPO IN ('PAGO','DESCUENTO')\n"
                     + "AND sn.EMPLEADO = " + secuenciaEmpleado
-                    + " ORDER BY sn.CONCEPTO ASC";
+                    + " ORDER BY c.codigo ASC";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             List<SolucionesNodos> listSNodos = query.getResultList();
+            System.out.println("sql: " + sql);
 
             if (listSNodos != null) {
                 if (!listSNodos.isEmpty()) {
@@ -529,10 +530,11 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
                     + "AND sn.TIPO IN ('PASIVO','GASTO','NETO')\n"
                     + "AND sn.CONCEPTO = c.SECUENCIA\n"
                     + "AND sn.EMPLEADO = " + secuenciaEmpleado
-                    + " ORDER BY sn.CONCEPTO ASC";
+                    + " ORDER BY c.codigo ASC";
             Query query = em.createNativeQuery(sql, SolucionesNodos.class);
             List<SolucionesNodos> listSNodos = query.getResultList();
 
+            System.out.println("sql: " + sql);
             if (listSNodos != null) {
                 if (!listSNodos.isEmpty()) {
                     System.out.println("listSNodos.size() : " + listSNodos.size());
