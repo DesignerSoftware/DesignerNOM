@@ -577,7 +577,6 @@ public class ControlSucursales implements Serializable {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroSucursales");
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroSucursales').hide()");
         } else {
             RequestContext.getCurrentInstance().update("form:validacionNuevaSucursal");
@@ -686,7 +685,6 @@ public class ControlSucursales implements Serializable {
             duplicarSucursales = new Sucursales();
             duplicarSucursales.setCiudad(new Ciudades());
             duplicarSucursales.setBanco(new Bancos());
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarRegistroSucursales");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroSucursales').hide()");
         } else {
             contador = 0;

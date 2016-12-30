@@ -2079,10 +2079,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 direccionSeleccionada.setTiposecundario("C");
             } else if (estadoTipoSecundario.equals("CARRERA")) {
                 direccionSeleccionada.setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                direccionSeleccionada.setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                direccionSeleccionada.setTiposecundario("M");
             } else if (estadoTipoSecundario.equals("DIAGONAL")) {
                 direccionSeleccionada.setTiposecundario("D");
             } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
@@ -2136,10 +2132,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 nuevaDireccion.setTiposecundario("C");
             } else if (estadoTipoSecundario.equals("CARRERA")) {
                 nuevaDireccion.setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                nuevaDireccion.setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                nuevaDireccion.setTiposecundario("M");
             } else if (estadoTipoSecundario.equals("DIAGONAL")) {
                 nuevaDireccion.setTiposecundario("D");
             } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {

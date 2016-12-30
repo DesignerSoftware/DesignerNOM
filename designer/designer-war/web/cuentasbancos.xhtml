@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">
+                <h:form id="form">
+                    <f:loadBundle basename="Recursos.cuentasbancos" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>    
+                    <p:panel  id="PanelTotal" header="Cuentas Bancos" styleClass="panelTotal">    
+                        <p:toolbar styleClass="cssToolbar">  
+                            <p:toolbarGroup align="left"> 
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlCuentasBancos.guardarCambiosCuentasBancos()}" process="@this" />
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlCuentasBancos.editarCelda()}"  process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="#{controlCuentasBancos.activarLov}"   process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlCuentasBancos.activarCtrlF11()}"  process="@this"/>
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlCuentasBancos.exportXLS()}"  ajax="false"/>
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlCuentasBancos.limpiarNuevaCuentaBanco()}"  ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposCursosExportar" fileName="TIPOSCURSOS" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlCuentasBancos.exportPDF()}" ajax="false"/>
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png)" oncomplete="PF('nuevoRegistroCuentasBancos').show()" update=":formularioDialogos:nuevaCuentaBanco"  process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlCuentasBancos.borrarCuentasBancos()}" process="@this"/>  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlCuentasBancos.duplicandoCuentasBancos()}" process="@this"/>  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlCuentasBancos.verificarRastro()}" process="@this"/>  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlCuentasBancos.cancelarModificacion()}" 
+                                                 oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlCuentasBancos.salir()}" action="#{controlCuentasBancos.redirigir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                            </p:toolbarGroup>  
+                        </p:toolbar>
+
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlCuentasBancos.revisarDialogoGuardar()}" disabled="#{controlCuentasBancos.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="#{controlCuentasBancos.redirigir()}"  actionListener="#{controlCuentasBancos.salir()}"  value=""/>
+
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 365px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Cuentas Bancos</strong></legend>
+
+                            <p:dataTable id="datosCuentasBancos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
+                                         value="#{controlCuentasBancos.listaCuentasBancos}" scrollable="true" scrollHeight="#{controlCuentasBancos.tamano}"
+                                         scrollWidth="820" filteredValue="#{controlCuentasBancos.listaCuentasBancosFiltrar}" emptyMessage="#{msg['vacio']}"
+                                         editable="true" editMode="cell" paginator="false" selection="#{controlCuentasBancos.cuentaBancoSeleccionada}"
+                                         selectionMode="single">
+                                <p:ajax event="filter" listener="#{controlCuentasBancos.eventoFiltrar()}"/>
+                                
+                                <p:column sortBy="#{info.banco.nombre}" filterBy="#{info.banco.nombre}" filterMatchMode="contains" id="banco" width="160" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headercod" value="#{msg['descbanco']}"/>
+                                        <p:tooltip for="headercod" value="#{msg['descbanco']}" />
+                                    </f:facet>
+
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.banco.nombre}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.banco.nombre}" maxlength="4" id="editarBanco" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="change" listener="#{controlCuentasBancos.modificarCuentaBanco(info)}"  update="banco"/>
+                                                <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(info, 1, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+
+                                </p:column>
+                                <p:column sortBy="#{info.nombrearchivo}" filterBy="#{info.nombrearchivo}" filterMatchMode="contains"  id="archivoplano" width="250" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headernom" value="#{msg['nombreplano']}"/>
+                                        <p:tooltip for="headernom" value="#{msg['nombreplano']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombrearchivo}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.nombrearchivo}" maxlength="40" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="archivoplano"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" width="90"  id="cuenta" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headercuenta" value="Cuenta"/>
+                                        <p:tooltip for="headercuenta" value="Cuenta" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.cuenta}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.cuenta}" maxlength="40" id="editarcuenta" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="cuenta"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.archivosalida}" filterBy="#{info.archivosalida}" filterMatchMode="contains" width="190" id="archivosalida" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headerarchivo" value="Archivo de Salida"/>
+                                        <p:tooltip for="headerarchivo" value="Archivo de Salida" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.archivosalida}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.archivosalida}" maxlength="40" id="editarArchivoS" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="archivosalida"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                
+                                <p:column sortBy="#{info.tipocuenta}" filterBy="#{info.tipocuenta}" filterMatchMode="contains" width="70" id="tipocuenta"  filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headercom" value="Tipo Cta"/>
+                                        <p:tooltip for="headercom" value="#{msg['tipocta']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipocuenta}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.tipocuenta}" maxlength="30" id="editarTipocta" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 4)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="tipocuenta"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.codigoconvenio}" filterBy="#{info.codigoconvenio}" filterMatchMode="contains" width="70" id="codconvenio" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headercodalt" value="Cód. Conv"/>
+                                        <p:tooltip for="headercodalt" value="#{msg['codconv']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigoconvenio}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.codigoconvenio}" maxlength="30" id="editarConv" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 5)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="codconvenio"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.nombreconvenio}" filterBy="#{info.nombreconvenio}" filterMatchMode="contains" width="160" id="nombreconvenio" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headerpre" value="Convenio"/>
+                                        <p:tooltip for="headerpre" value="#{msg['nomconvenio']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombreconvenio}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.nombreconvenio}" maxlength="30" id="editarNombreconv" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 6)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="nombreconvenio"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.codigotesoreria}" filterBy="#{info.codigotesoreria}" width="65" filterMatchMode="contains" id="tesoreria" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headernum" value="Tesorería"/>
+                                        <p:tooltip for="headernum" value="#{msg['codtesoreria']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigotesoreria}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.codigotesoreria}" maxlength="40" id="editarCodTes" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 7)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="tesoreria"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.codigorepublica}" filterBy="#{info.codigorepublica}" width="65" filterMatchMode="contains" id="republica" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headercodr" value="República"/>
+                                        <p:tooltip for="headercodr" value="#{msg['codrepublica']}" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigorepublica}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.codigorepublica}" maxlength="40" id="editarCodRe" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 8)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="republica"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                <p:column sortBy="#{info.inforeporte.nombre}" filterBy="#{info.inforeporte.nombre}" width="180" filterMatchMode="contains" id="reporte" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="headerreporte" value="InfoReporte"/>
+                                        <p:tooltip for="headerreporte" value="InfoReporte" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.inforeporte.nombre}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.inforeporte.nombre}" maxlength="40" id="editarRe" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlCuentasBancos.cambiarIndice(info, 9)}" process="@this"/> 
+                                                <p:ajax event="change"  listener="#{controlCuentasBancos.modificarCuentaBanco(info)}" update="reporte"/>
+                                                 <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(info, 2, 0)}"/>
+                                            </p:inputText>
+                                        </f:facet> 
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText value=" " />
+                                    </f:facet>
+                                </p:column>
+                                
+                            </p:dataTable>
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlCuentasBancos.infoRegistro}" style="position: absolute; left: 15px; top: 330px; font-weight: bold"/>
+                        </fieldset>
+                    </p:panel>
+
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlCuentasBancos.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos">
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuentasBancos.guardarCambiosCuentasBancos()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCuentasBancos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionDuplicarCuentaBanco" header="#{msg['atencion']}" widgetVar="validacionDuplicarCuentaBanco"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="#{controlCuentasBancos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionDuplicarCuentaBanco').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="Se han borrado #{controlCuentasBancos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="validacionNuevaCuentaBanco" header="#{msg['atencion']}" widgetVar="validacionNuevaCuentaBanco"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
+                        <h:outputText value="#{controlCuentasBancos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaCuentaBanco').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                    </p:dialog>
+
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlCuentasBancos.cuentaBancoSeleccionada.secuencia, 'CuentasBancos', 'cuentasbanco')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Bancos', 'banco')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuentasBancos.cuentaBancoSeleccionada.secuencia, 'CuentasBancos', 'cuentasbanco')}" icon="ui-icon-close" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+
+                    <p:dialog id="editBanco" header="Banco" widgetVar="editBanco" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.banco.nombre}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editArchivoPlano" header="Nombre Archivo Plano" widgetVar="editArchivoPlano" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.nombrearchivo}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editCuenta" header="Cuenta" widgetVar="editCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.cuenta}" style="overflow: auto; text-transform: uppercase" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editArchivoSalida" header="Archivo Salida" widgetVar="editArchivoSalida" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.archivosalida}" style="overflow: auto; text-transform: uppercase" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editTipoCuenta" header="Tipo Cuenta" widgetVar="editTipoCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.tipocuenta}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editCodConvenio" header="Código Convenio" widgetVar="editCodConvenio" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.codigoconvenio}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editNombreConvenio" header="Nombre Convenio" widgetVar="editNombreConvenio" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.nombreconvenio}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editTesoreria" header="Código Tesorería" widgetVar="editTesoreria" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.codigotesoreria}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editRepublica" header="Código Banco de la República" widgetVar="editRepublica" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.codigorepublica}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editReporte" header="Reporte" widgetVar="editReporte" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlCuentasBancos.editarCuentaBanco.inforeporte.nombre}" style="overflow: auto; text-transform: uppercase " readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="nuevoRegistroCuentasBancos" header="Nuevo Registro" widgetVar="nuevoRegistroCuentasBancos" closable="false" resizable="false"  draggable="true" modal="true" height="320" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacion" value="Nuevo Banco" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                        <p:panel id="nuevaCuentaBanco" style="border: none;">
+
+<!--                            <strong><h:outputText value="*Código: "  style="position: absolute; top: 60px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoCodigo" maxlength="4" value="#{controlCuentasBancos.nuevaCuentaBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodigo" value="Código" />
+
+                            <strong><h:outputText value="*Nombre: "  style="position: absolute; top: 90px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="40" value="#{controlCuentasBancos.nuevaCuentaBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoNombre" value="Nombre" />
+
+                            <strong><h:outputText value="Código Compensación: "  style="position: absolute; top: 120px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoCodCompen" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodCompen" value="Código Compensación" />
+
+                            <strong><h:outputText value="Código Alternativo: "  style="position: absolute; top: 150px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoCodALte" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoCodALte" value="Código Alternativo" />
+
+                            <strong><h:outputText value="Prefijo: "  style="position: absolute; top: 180px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoPrefijo" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoPrefijo" value="Prefijo" />
+
+                            <strong><h:outputText value="NIT: "  style="position: absolute; top: 210px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevoNit" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoNit" value="NIT" />
+
+                            <strong><h:outputText value="Cuenta: "  style="position: absolute; top: 240px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="nuevaCuenta" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaCuenta" value="Cuenta" />
+
+
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 280px;"  actionListener="#{controlCuentasBancos.limpiarDuplicarBancos()}" update="nuevaCuentaBanco" process="@this"/>
+                            <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 180px; top: 280px;" actionListener="#{controlCuentasBancos.agregarNuevoBanco()}" process="@this" />
+                            <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 280px; top: 280px;"  update="nuevaCuentaBanco" onclick="PF('nuevoRegistroCuentasBancos').hide();"  actionListener="#{controlCuentasBancos.limpiarNuevoBanco()}"  process="@this"/>-->
+                        </p:panel>
+                    </p:dialog>
+
+
+                    <p:dialog id="duplicarRegistroCuentasBancos" header="Duplicar Registro" widgetVar="duplicarRegistroCuentasBancos" closable="false" resizable="false"  draggable="true" modal="true" height="320" width="400" style=" padding: 0px">  
+                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Banco" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                        <p:panel id="duplicarCuentaBanco" style="border: none;">
+<!--                            <strong><h:outputText value="*Código: "  style="position: absolute; top: 60px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" maxlength="4" value="#{controlCuentasBancos.duplicarCuentaBanco.codigo}" style=" width: 140px; position: absolute; left: 200px; top: 55px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodigo" value="Código" />
+
+                            <strong><h:outputText value="*Nombre: "  style="position: absolute; top: 90px;" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarNombre" maxlength="40" value="#{controlCuentasBancos.duplicarCuentaBanco.nombre}" style=" width: 140px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNombre" value="Nombre" />
+
+                            <strong><h:outputText value="Código Compensación: "  style="position: absolute; top: 120px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCodCompen" maxlength="30" value="#{controlCuentasBancos.duplicarCuentaBanco.codigocompensacion}" style=" width: 140px; position: absolute; left: 200px; top: 115px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodCompen" value="Código Compensación" />
+
+                            <strong><h:outputText value="Código Alternativo: "  style="position: absolute; top: 150px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCodALte" maxlength="30" value="#{controlCuentasBancos.duplicarCuentaBanco.codigoalternativo}" style=" width: 140px; position: absolute; left: 200px; top: 145px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCodALte" value="Código Alternativo" />
+
+                            <strong><h:outputText value="Prefijo: "  style="position: absolute; top: 180px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarPrefijo" maxlength="30" value="#{controlCuentasBancos.duplicarCuentaBanco.prefijocuentas}" style=" width: 140px; position: absolute; left: 200px; top: 175px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarPrefijo" value="Prefijo" />
+
+                            <strong><h:outputText value="NIT: "  style="position: absolute; top: 210px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarNit" maxlength="30" value="#{controlCuentasBancos.duplicarCuentaBanco.numeroidentificaciont}" style=" width: 140px; position: absolute; left: 200px; top: 205px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarNit" value="NIT" />
+
+                            <strong><h:outputText value="Cuenta: "  style="position: absolute; top: 240px; left: 34px" /></strong>
+                            <p:inputText  autocomplete="off"   id="duplicarCuenta" maxlength="30" value="#{controlCuentasBancos.nuevaCuentaBanco.cuentaempresa}" style=" width: 140px; position: absolute; left: 200px; top: 235px;text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCuenta" value="Cuenta" />
+                            
+                            <p:commandButton id="limpiarD" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 280px;"  actionListener="#{controlCuentasBancos.limpiarDuplicarBancos()}" update="duplicarCuentaBanco"  process="@this"/>
+                            <p:commandButton id="duplicarVFP" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 180px; top: 280px;" actionListener="#{controlCuentasBancos.confirmarDuplicar()}"  process="@this" />
+                            <p:commandButton id="cancelarDuplicarVFP" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 280px; top: 280px;"  update="duplicarCuentaBanco" onclick="PF('duplicarRegistroCuentasBancos').hide();" actionListener="#{controlCuentasBancos.limpiarDuplicarBancos()}"  process="@this"/>-->
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosCuentasBancosExportar" var="info2" style="visibility: hidden; display: none;"                           
+                                 value="#{controlCuentasBancos.listaCuentasBancos}">
+                        <p:column>                                  
+                            <f:facet name="header"><h:outputText value="Banco"/></f:facet> 
+                            <h:outputText value="#{info2.banco.nombre}" />
+                        </p:column>  
+
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Nombre_Archivo" /></f:facet>
+                            <h:outputText value="#{info2.nombrearchivo}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Cuenta" /></f:facet>
+                            <h:outputText value="#{info2.cuenta}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Archivo_Salida" /></f:facet>
+                            <h:outputText value="#{info2.archivosalida}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Tipo_Cuenta" /></f:facet>
+                            <h:outputText value="#{info2.tipocuenta}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Codigo_Convencion" /></f:facet>
+                            <h:outputText value="#{info2.codigoconvenio}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Codigo_Tesoreria" /></f:facet>
+                            <h:outputText value="#{info2.codigotesoreria}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="Codigo_Banco_Republica" /></f:facet>
+                            <h:outputText value="#{info2.codigorepublica}"/>
+                        </p:column>
+                        <p:column>  
+                            <f:facet name="header"><h:outputText value="InfoReporte" /></f:facet>
+                            <h:outputText value="#{info2.inforeporte.nombre}"/>
+                        </p:column>
+                    </p:dataTable>
+
+
+                </h:form>
+            </ui:define>    
+        </ui:composition>
+    </h:body>
+</html>
+

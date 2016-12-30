@@ -113,25 +113,24 @@ public class Direcciones implements Serializable {
     }
 
     public String getEstadoTipoPpal() {
+        getTipoppal();
         if (estadoTipoPpal == null) {
             if (tipoppal == null) {
+                estadoTipoPpal = "CARRERA";
+            } else if (tipoppal.equalsIgnoreCase("C")) {
                 estadoTipoPpal = "CALLE";
-            } else {
-                if (tipoppal.equalsIgnoreCase("C")) {
-                    estadoTipoPpal = "CALLE";
-                } else if (tipoppal.equalsIgnoreCase("K")) {
-                    estadoTipoPpal = "CARRERA";
-                } else if (tipoppal.equalsIgnoreCase("A")) {
-                    estadoTipoPpal = "AVENIDA CALLE";
-                } else if (tipoppal.equalsIgnoreCase("M")) {
-                    estadoTipoPpal = "AVENIDA CARRERA";
-                } else if (tipoppal.equalsIgnoreCase("D")) {
-                    estadoTipoPpal = "DIAGONAL";
-                } else if (tipoppal.equalsIgnoreCase("T")) {
-                    estadoTipoPpal = "TRANSVERSAL";
-                } else if (tipoppal.equalsIgnoreCase("O")) {
-                    estadoTipoPpal = "OTROS";
-                }
+            } else if (tipoppal.equalsIgnoreCase("K")) {
+                estadoTipoPpal = "CARRERA";
+            } else if (tipoppal.equalsIgnoreCase("A")) {
+                estadoTipoPpal = "AVENIDA CALLE";
+            } else if (tipoppal.equalsIgnoreCase("M")) {
+                estadoTipoPpal = "AVENIDA CARRERA";
+            } else if (tipoppal.equalsIgnoreCase("D")) {
+                estadoTipoPpal = "DIAGONAL";
+            } else if (tipoppal.equalsIgnoreCase("T")) {
+                estadoTipoPpal = "TRANSVERSAL";
+            } else if (tipoppal.equalsIgnoreCase("O")) {
+                estadoTipoPpal = "OTROS";
             }
         }
 
@@ -143,26 +142,19 @@ public class Direcciones implements Serializable {
     }
 
     public String getEstadoTipoSecundario() {
-        if (estadoTipoSecundario == null) {
-            if (tiposecundario == null) {
-                estadoTipoSecundario = "CALLE";
-            } else {
-                if (tiposecundario.equalsIgnoreCase("C")) {
-                    estadoTipoSecundario = "CALLE";
-                } else if (tiposecundario.equalsIgnoreCase("K")) {
-                    estadoTipoSecundario = "CARRERA";
-                } else if (tiposecundario.equalsIgnoreCase("A")) {
-                    estadoTipoSecundario = "AVENIDA CALLE";
-                } else if (tiposecundario.equalsIgnoreCase("M")) {
-                    estadoTipoSecundario = "AVENIDA CARRERA";
-                } else if (tiposecundario.equalsIgnoreCase("D")) {
-                    estadoTipoSecundario = "DIAGONAL";
-                } else if (tiposecundario.equalsIgnoreCase("T")) {
-                    estadoTipoSecundario = "TRANSVERSAL";
-                } else if (tiposecundario.equalsIgnoreCase("O")) {
-                    estadoTipoSecundario = "OTROS";
-                }
-            }
+        getTiposecundario();
+        if (tiposecundario == null) {
+            estadoTipoSecundario = "CALLE";
+        } else if (tiposecundario.equalsIgnoreCase("C")) {
+            estadoTipoSecundario = "CALLE";
+        } else if (tiposecundario.equalsIgnoreCase("K")) {
+            estadoTipoSecundario = "CARRERA";
+        } else if (tiposecundario.equalsIgnoreCase("D")) {
+            estadoTipoSecundario = "DIAGONAL";
+        } else if (tiposecundario.equalsIgnoreCase("T")) {
+            estadoTipoSecundario = "TRANSVERSAL";
+        } else if (tiposecundario.equalsIgnoreCase("O")) {
+            estadoTipoSecundario = "OTROS";
         }
         return estadoTipoSecundario;
     }
@@ -204,11 +196,14 @@ public class Direcciones implements Serializable {
     }
 
     public String getInterior() {
+         if (interior == null) {
+             interior = "";
+         }
         return interior;
     }
 
     public void setInterior(String interior) {
-       this.interior = interior.toUpperCase();
+        this.interior = interior.toUpperCase();
     }
 
     public String getZonadir() {
@@ -231,14 +226,12 @@ public class Direcciones implements Serializable {
         if (estadoTipoVivienda == null) {
             if (tipovivienda == null) {
                 estadoTipoVivienda = "CASA";
-            } else {
-                if (tipovivienda.equalsIgnoreCase("CASA")) {
-                    estadoTipoVivienda = "CASA";
-                } else if (tipovivienda.equalsIgnoreCase("APARTAMENTO")) {
-                    estadoTipoVivienda = "APARTAMENTO";
-                } else if (tipovivienda.equalsIgnoreCase("FINCA")) {
-                    estadoTipoVivienda = "FINCA";
-                }
+            } else if (tipovivienda.equalsIgnoreCase("CASA")) {
+                estadoTipoVivienda = "CASA";
+            } else if (tipovivienda.equalsIgnoreCase("APARTAMENTO")) {
+                estadoTipoVivienda = "APARTAMENTO";
+            } else if (tipovivienda.equalsIgnoreCase("FINCA")) {
+                estadoTipoVivienda = "FINCA";
             }
         }
         return estadoTipoVivienda;
@@ -279,12 +272,10 @@ public class Direcciones implements Serializable {
         if (estadoHipoteca == null) {
             if (hipoteca == null) {
                 estadoHipoteca = "NO";
-            } else {
-                if (hipoteca.equalsIgnoreCase("N")) {
-                    estadoHipoteca = "NO";
-                } else if (hipoteca.equalsIgnoreCase("S")) {
-                    estadoHipoteca = "SI";
-                }
+            } else if (hipoteca.equalsIgnoreCase("N")) {
+                estadoHipoteca = "NO";
+            } else if (hipoteca.equalsIgnoreCase("S")) {
+                estadoHipoteca = "SI";
             }
         }
         return estadoHipoteca;

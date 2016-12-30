@@ -75,4 +75,6 @@ public interface AdministrarDireccionesInterface {
     public List<Ciudades> consultarLOVCiudades();
     
     public Empleados empleadoActual(BigInteger secuencia);
+    
+    public List<Direcciones> consultarDireccionesBanco(BigInteger secBanco);
 }

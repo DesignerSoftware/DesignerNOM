@@ -5,6 +5,7 @@ package Persistencia;
 
 import Entidades.Bancos;
 import InterfacePersistencia.PersistenciaBancosInterface;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,6 +24,7 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
+     * @param em
      */
     /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
@@ -84,6 +86,21 @@ public class PersistenciaBancos implements PersistenciaBancosInterface {
             return lista;
         } catch (Exception e) {
             System.out.println("Error buscarBancos persistencia bancos : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Bancos buscarBancosPorSecuencia(EntityManager em, BigInteger secuencia) {
+        try{
+        em.clear();
+        String sql = "SELECT * FROM BANCOS WHERE SECUENCIA = ?";
+        Query query = em.createNativeQuery(sql, Bancos.class);
+        query.setParameter(1, secuencia);
+        Bancos banco = (Bancos) query.getSingleResult();
+        return banco;
+        }catch(Exception e){
+            System.out.println("error en BuscarBancosPorSecuencia persistencia bancos : " + e.toString());
             return null;
         }
     }

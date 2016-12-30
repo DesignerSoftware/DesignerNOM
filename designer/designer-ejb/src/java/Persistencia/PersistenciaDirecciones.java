@@ -221,4 +221,19 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             return direccion;
         }
     }
+
+    @Override
+    public List<Direcciones> direccionesBanco(EntityManager em, BigInteger secuenciaBanco) {
+       try {
+            em.clear();
+            String sql = "SELECT * FROM DIRECCIONES WHERE BANCO = ? ORDER BY FECHAVIGENCIA DESC ";
+            Query query = em.createNativeQuery(sql, Direcciones.class);
+            query.setParameter(1, secuenciaBanco);
+            List<Direcciones> direccion = query.getResultList();
+            return direccion;
+        } catch (Exception e) {
+            System.out.println("Error en direccionesBanco : " + e.toString());
+            return null;
+        }
+    }
 }

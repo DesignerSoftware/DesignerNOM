@@ -1,0 +1,116 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Persistencia;
+
+import Entidades.Bancos;
+import Entidades.CuentasBancos;
+import Entidades.Inforeportes;
+import InterfacePersistencia.PersistenciaCuentasBancosInterface;
+import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author user
+ */
+@Stateless
+@Local
+public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInterface {
+
+    @Override
+    public void crear(EntityManager em, CuentasBancos cuentabanco) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(cuentabanco);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCuentasBancos.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void editar(EntityManager em, CuentasBancos cuentabanco) {
+          em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(cuentabanco);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCuentasBancos.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public void borrar(EntityManager em, CuentasBancos cuentabanco) {
+         em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(cuentabanco));
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaCuentasBancos.borrar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
+
+    @Override
+    public List<CuentasBancos> buscarCuentasBanco(EntityManager em) {
+     try{
+         em.clear();
+         String sql = "SELECT * FROM CUENTASBANCOS";
+         Query query = em.createNativeQuery(sql, CuentasBancos.class);
+         List <CuentasBancos> lista = query.getResultList();
+         return lista;
+     } catch (Exception e){
+         System.out.println("error en persistenciacuentabanco.buscarcuentabanco :" + e.toString());
+         return null;
+     } 
+    }
+
+    @Override
+    public List<Bancos> buscarBancos(EntityManager em) {
+     try{
+         em.clear();
+         String sql = "SELECT * FROM BANCOS";
+         Query query = em.createNativeQuery(sql, Bancos.class);
+         List <Bancos> lista = query.getResultList();
+         return lista;
+     } catch (Exception e){
+         System.out.println("error en persistenciacuentabanco.buscarBancos :" + e.toString());
+         return null;
+     } 
+    }
+
+    @Override
+    public List<Inforeportes> buscarReportes(EntityManager em) {
+       try{
+         em.clear();
+         String sql = "SELECT * FROM INFOREPORTES";
+         Query query = em.createNativeQuery(sql, Inforeportes.class);
+         List <Inforeportes> lista = query.getResultList();
+         return lista;
+     } catch (Exception e){
+         System.out.println("error en persistenciacuentabanco.buscarReportes :" + e.toString());
+         return null;
+     } 
+    }
+}

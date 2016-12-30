@@ -69,7 +69,7 @@ public class ControlPerDirecciones implements Serializable {
     private List<Direcciones> listaDireccionesModificar;
     private boolean guardado, guardarOk;
     //Crear Direccion
-    public Direcciones nuevaDireccion;
+    private Direcciones nuevaDireccion;
     private List<Direcciones> listaDireccionesCrear;
     private BigInteger l;
     private int k;
@@ -79,7 +79,7 @@ public class ControlPerDirecciones implements Serializable {
     //Duplicar
     private Direcciones duplicarDireccion;
     private String altoTabla;
-    private String infoRegistro, infoRegistroCiudades,paginaanterior;
+    private String infoRegistro, infoRegistroCiudades, paginaanterior;
     private boolean activarLOV;
     private DataTable tablaC;
 
@@ -98,13 +98,12 @@ public class ControlPerDirecciones implements Serializable {
         listaDireccionesBorrar = new ArrayList<Direcciones>();
         listaDireccionesCrear = new ArrayList<Direcciones>();
         listaDireccionesModificar = new ArrayList<Direcciones>();
-        //INICIALIZAR LOVS
-        listaCiudades = new ArrayList<Ciudades>();
         direccionSeleccionada = null;
         listaDirecciones = null;
         k = 0;
         altoTabla = "270";
         paginaanterior = " ";
+        activarLOV = true;
     }
 
     @PostConstruct
@@ -121,43 +120,33 @@ public class ControlPerDirecciones implements Serializable {
         }
     }
 
-    public void recibirEmpleado(BigInteger secuencia,String pagina) {
+    public void recibirEmpleado(BigInteger secuencia, String pagina) {
         paginaanterior = pagina;
         listaDirecciones = null;
         persona = administrarDirecciones.consultarPersona(secuencia);
         getListaDirecciones();
         deshabilitarBotonLOV();
-        if (listaDirecciones == null || listaDirecciones.isEmpty()) {
-            direccionSeleccionada = null;
-        } else {
-            direccionSeleccionada = listaDirecciones.get(0);
+        if (listaDirecciones != null) {
+            if (!listaDirecciones.isEmpty()) {
+                direccionSeleccionada = listaDirecciones.get(0);
+            }
         }
     }
 
-    public String redirigir(){
+    public String redirigir() {
         return paginaanterior;
     }
-    
+
     public void cambiarIndice(Direcciones direccion, int celda) {
         if (permitirIndex == true) {
             direccionSeleccionada = direccion;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                direccionSeleccionada.getSecuencia();
-                deshabilitarBotonLOV();
-                if (cualCelda == 6) {
-                    contarRegistroCiudades();
-                    Ciudad = direccionSeleccionada.getCiudad().getNombre();
-                    habilitarBotonLOV();
-                }
-            } else {
-                direccionSeleccionada.getSecuencia();
-                deshabilitarBotonLOV();
-                if (cualCelda == 6) {
-                   contarRegistroCiudades();
-                    Ciudad = direccionSeleccionada.getCiudad().getNombre();
-                    habilitarBotonLOV();
-                }
+            direccionSeleccionada.getSecuencia();
+            deshabilitarBotonLOV();
+            if (cualCelda == 6) {
+                contarRegistroCiudades();
+                Ciudad = direccionSeleccionada.getCiudad().getNombre();
+                habilitarBotonLOV();
             }
         }
     }
@@ -338,7 +327,7 @@ public class ControlPerDirecciones implements Serializable {
                 } else {
                     direccionSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
                 }
-                listaCiudades.clear();
+                listaCiudades = null;
                 getListaCiudades();
             } else {
                 permitirIndex = false;
@@ -517,7 +506,7 @@ public class ControlPerDirecciones implements Serializable {
     public void asignarIndex(Direcciones direccion) {
         direccionSeleccionada = direccion;
         RequestContext context = RequestContext.getCurrentInstance();
-       contarRegistroCiudades();
+        contarRegistroCiudades();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
         tipoActualizacion = 0;
@@ -598,37 +587,16 @@ public class ControlPerDirecciones implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
 
-            if (tipoLista == 0) {
-                duplicarDireccion.setSecuencia(l);
-                duplicarDireccion.setFechavigencia(direccionSeleccionada.getFechavigencia());
-                duplicarDireccion.setTipoppal(direccionSeleccionada.getTipoppal());
-                duplicarDireccion.setPpal(direccionSeleccionada.getPpal());
-                duplicarDireccion.setTiposecundario(direccionSeleccionada.getTiposecundario());
-                duplicarDireccion.setSecundario(direccionSeleccionada.getSecundario());
-                duplicarDireccion.setInterior(direccionSeleccionada.getInterior());
-                duplicarDireccion.setCiudad(direccionSeleccionada.getCiudad());
-                duplicarDireccion.setHipoteca(direccionSeleccionada.getHipoteca());
-                duplicarDireccion.setDireccionalternativa(direccionSeleccionada.getDireccionalternativa());
-            }
-            if (tipoLista == 1) {
-                duplicarDireccion.setSecuencia(l);
-                duplicarDireccion.setFechavigencia(direccionSeleccionada.getFechavigencia());
-                duplicarDireccion.setTipoppal(direccionSeleccionada.getTipoppal());
-                duplicarDireccion.setPpal(direccionSeleccionada.getPpal());
-                duplicarDireccion.setTiposecundario(direccionSeleccionada.getTiposecundario());
-                duplicarDireccion.setSecundario(direccionSeleccionada.getSecundario());
-                duplicarDireccion.setInterior(direccionSeleccionada.getInterior());
-                duplicarDireccion.setCiudad(direccionSeleccionada.getCiudad());
-                duplicarDireccion.setTipovivienda(direccionSeleccionada.getTipovivienda());
-                duplicarDireccion.setHipoteca(direccionSeleccionada.getHipoteca());
-                duplicarDireccion.setDireccionalternativa(direccionSeleccionada.getDireccionalternativa());
-                altoTabla = "270";
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            duplicarDireccion.setPersona(persona);
-            listaDireccionesCrear.add(duplicarDireccion);
-            listaDirecciones.add(duplicarDireccion);
-            direccionSeleccionada = duplicarDireccion;
+            duplicarDireccion.setSecuencia(l);
+            duplicarDireccion.setFechavigencia(direccionSeleccionada.getFechavigencia());
+            duplicarDireccion.setTipoppal(direccionSeleccionada.getTipoppal());
+            duplicarDireccion.setPpal(direccionSeleccionada.getPpal());
+            duplicarDireccion.setTiposecundario(direccionSeleccionada.getTiposecundario());
+            duplicarDireccion.setSecundario(direccionSeleccionada.getSecundario());
+            duplicarDireccion.setInterior(direccionSeleccionada.getInterior());
+            duplicarDireccion.setCiudad(direccionSeleccionada.getCiudad());
+            duplicarDireccion.setHipoteca(direccionSeleccionada.getHipoteca());
+            duplicarDireccion.setDireccionalternativa(direccionSeleccionada.getDireccionalternativa());
 
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroDireccion').show()");
@@ -669,7 +637,7 @@ public class ControlPerDirecciones implements Serializable {
             listaDireccionesCrear.add(duplicarDireccion);
             direccionSeleccionada = duplicarDireccion;
             getListaDirecciones();
-           contarRegistros();
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
@@ -881,7 +849,7 @@ public class ControlPerDirecciones implements Serializable {
                 duplicarDireccion.setCiudad(seleccionCiudades);
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudad");
             }
-            listaCiudades.clear();
+            listaCiudades = null;
             getListaCiudades();
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
@@ -979,57 +947,42 @@ public class ControlPerDirecciones implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        direccionSeleccionada = null;
     }
 
     public void seleccionarTipoPpal(String estadoTipoPpal, Direcciones direccion, int celda) {
-        if (tipoLista == 0) {
-            if (estadoTipoPpal.equals("CALLE")) {
-                direccionSeleccionada.setTipoppal("C");
-            } else if (estadoTipoPpal.equals("CARRERA")) {
-                direccionSeleccionada.setTipoppal("K");
-            } else if (estadoTipoPpal.equals("AVENIDA CALLE")) {
-                direccionSeleccionada.setTipoppal("A");
-            } else if (estadoTipoPpal.equals("AVENIDA CARRERA")) {
-                direccionSeleccionada.setTipoppal("M");
-            } else if (estadoTipoPpal.equals("DIAGONAL")) {
-                direccionSeleccionada.setTipoppal("D");
-            } else if (estadoTipoPpal.equals("TRANSVERSAL")) {
-                direccionSeleccionada.setTipoppal("T");
-            } else if (estadoTipoPpal.equals("OTROS")) {
-                direccionSeleccionada.setTipoppal("O");
-            }
-
-            if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-            }
-        } else {
-            if (estadoTipoPpal.equals("CALLE")) {
-                direccionSeleccionada.setTipoppal("C");
-            } else if (estadoTipoPpal.equals("CARRERA")) {
-                direccionSeleccionada.setTipoppal("K");
-            } else if (estadoTipoPpal.equals("AVENIDA CALLE")) {
-                direccionSeleccionada.setTipoppal("A");
-            } else if (estadoTipoPpal.equals("AVENIDA CARRERA")) {
-                direccionSeleccionada.setTipoppal("M");
-            } else if (estadoTipoPpal.equals("DIAGONAL")) {
-                direccionSeleccionada.setTipoppal("D");
-            } else if (estadoTipoPpal.equals("TRANSVERSAL")) {
-                direccionSeleccionada.setTipoppal("T");
-            } else if (estadoTipoPpal.equals("OTROS")) {
-                direccionSeleccionada.setTipoppal("O");
-            }
-
-            if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
+        direccionSeleccionada = direccion;
+        if (estadoTipoPpal.equals("CALLE")) {
+            direccionSeleccionada.setTipoppal("C");
+            direccionSeleccionada.setTiposecundario("K");
+            direccionSeleccionada.setEstadoTipoSecundario("CARRERA");
+        } else if (estadoTipoPpal.equals("CARRERA")) {
+            direccionSeleccionada.setTipoppal("K");
+            direccionSeleccionada.setTiposecundario("C");
+            direccionSeleccionada.setEstadoTipoSecundario("CALLE");
+        } else if (estadoTipoPpal.equals("AVENIDA CALLE")) {
+            direccionSeleccionada.setTipoppal("A");
+            direccionSeleccionada.setTiposecundario("K");
+            direccionSeleccionada.setEstadoTipoSecundario("CARRERA");
+        } else if (estadoTipoPpal.equals("AVENIDA CARRERA")) {
+            direccionSeleccionada.setTipoppal("M");
+            direccionSeleccionada.setTiposecundario("C");
+            direccionSeleccionada.setEstadoTipoSecundario("CALLE");
+        } else if (estadoTipoPpal.equals("DIAGONAL")) {
+            direccionSeleccionada.setTipoppal("D");
+            direccionSeleccionada.setTiposecundario("T");
+            direccionSeleccionada.setEstadoTipoSecundario("TRANSVERSAL");
+        } else if (estadoTipoPpal.equals("TRANSVERSAL")) {
+            direccionSeleccionada.setTipoppal("T");
+            direccionSeleccionada.setTiposecundario("D");
+            direccionSeleccionada.setEstadoTipoSecundario("DIAGONAL");
+        } else if (estadoTipoPpal.equals("OTROS")) {
+            direccionSeleccionada.setTipoppal("O");
+        }
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
         }
         if (guardado == true) {
@@ -1043,89 +996,97 @@ public class ControlPerDirecciones implements Serializable {
         if (tipoNuevo == 1) {
             if (estadoTipoPpal.equals("CALLE")) {
                 nuevaDireccion.setTipoppal("C");
+                nuevaDireccion.setTiposecundario("K");
+                nuevaDireccion.setEstadoTipoSecundario("CARRERA");
             } else if (estadoTipoPpal.equals("CARRERA")) {
                 nuevaDireccion.setTipoppal("K");
+                nuevaDireccion.setTiposecundario("C");
+                nuevaDireccion.setEstadoTipoSecundario("CALLE");
             } else if (estadoTipoPpal.equals("AVENIDA CALLE")) {
                 nuevaDireccion.setTipoppal("A");
+                nuevaDireccion.setTiposecundario("K");
+                nuevaDireccion.setEstadoTipoSecundario("CARRERA");
             } else if (estadoTipoPpal.equals("AVENIDA CARRERA")) {
                 nuevaDireccion.setTipoppal("M");
+                nuevaDireccion.setTiposecundario("C");
+                nuevaDireccion.setEstadoTipoSecundario("CALLE");
             } else if (estadoTipoPpal.equals("DIAGONAL")) {
                 nuevaDireccion.setTipoppal("D");
+                nuevaDireccion.setTiposecundario("T");
+                nuevaDireccion.setEstadoTipoSecundario("TRANSVERSAL");
             } else if (estadoTipoPpal.equals("TRANSVERSAL")) {
                 nuevaDireccion.setTipoppal("T");
+                nuevaDireccion.setTiposecundario("D");
+                nuevaDireccion.setEstadoTipoSecundario("DIAGONAL");
             } else if (estadoTipoPpal.equals("OTROS")) {
                 nuevaDireccion.setTipoppal("O");
             }
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionPrincipal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionSecundaria");
         } else {
             if (estadoTipoPpal.equals("CALLE")) {
                 duplicarDireccion.setTipoppal("C");
+                duplicarDireccion.setTiposecundario("K");
+                duplicarDireccion.setEstadoTipoSecundario("CARRERA");
             } else if (estadoTipoPpal.equals("CARRERA")) {
                 duplicarDireccion.setTipoppal("K");
+                duplicarDireccion.setTiposecundario("C");
+                duplicarDireccion.setEstadoTipoSecundario("CALLE");
             } else if (estadoTipoPpal.equals("AVENIDA CALLE")) {
                 duplicarDireccion.setTipoppal("A");
+                duplicarDireccion.setTiposecundario("K");
+                duplicarDireccion.setEstadoTipoSecundario("CARRERA");
             } else if (estadoTipoPpal.equals("AVENIDA CARRERA")) {
                 duplicarDireccion.setTipoppal("M");
+                duplicarDireccion.setTiposecundario("C");
+                duplicarDireccion.setEstadoTipoSecundario("CALLE");
             } else if (estadoTipoPpal.equals("DIAGONAL")) {
                 duplicarDireccion.setTipoppal("D");
+                duplicarDireccion.setTiposecundario("T");
+                duplicarDireccion.setEstadoTipoSecundario("TRANSVERSAL");
             } else if (estadoTipoPpal.equals("TRANSVERSAL")) {
                 duplicarDireccion.setTipoppal("T");
+                duplicarDireccion.setTiposecundario("D");
+                duplicarDireccion.setEstadoTipoSecundario("DIAGONAL");
             } else if (estadoTipoPpal.equals("OTROS")) {
                 duplicarDireccion.setTipoppal("O");
             }
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionPrincipal");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionSecundaria");
         }
 
     }
 
-    public void seleccionarTipoSecundario(String estadoTipoSecundario, int indice, int celda) {
-        if (tipoLista == 0) {
-            if (estadoTipoSecundario.equals("CALLE")) {
-                direccionSeleccionada.setTiposecundario("C");
-            } else if (estadoTipoSecundario.equals("CARRERA")) {
-                direccionSeleccionada.setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                direccionSeleccionada.setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                direccionSeleccionada.setTiposecundario("M");
-            } else if (estadoTipoSecundario.equals("DIAGONAL")) {
-                direccionSeleccionada.setTiposecundario("D");
-            } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
-                direccionSeleccionada.setTiposecundario("T");
-            } else if (estadoTipoSecundario.equals("OTROS")) {
-                direccionSeleccionada.setTiposecundario("O");
-            }
-
-            if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-            }
-        } else {
-            if (estadoTipoSecundario.equals("CALLE")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("C");
-            } else if (estadoTipoSecundario.equals("CARRERA")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("M");
-            } else if (estadoTipoSecundario.equals("DIAGONAL")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("D");
-            } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("T");
-            } else if (estadoTipoSecundario.equals("OTROS")) {
-                filtradosListaDirecciones.get(indice).setTiposecundario("O");
-            }
-
-            if (!listaDireccionesCrear.contains(filtradosListaDirecciones.get(indice))) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                } else if (!listaDireccionesModificar.contains(filtradosListaDirecciones.get(indice))) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                }
+    public void seleccionarTipoSecundario(String estadoTipoSecundario, Direcciones direccion, int celda) {
+        direccionSeleccionada = direccion;
+        if (estadoTipoSecundario.equals("CALLE")) {
+            direccionSeleccionada.setTiposecundario("C");
+            direccionSeleccionada.setTipoppal("K");
+            direccionSeleccionada.setEstadoTipoPpal("CARRERA");
+        } else if (estadoTipoSecundario.equals("CARRERA")) {
+            direccionSeleccionada.setTiposecundario("K");
+            direccionSeleccionada.setTipoppal("C");
+            direccionSeleccionada.setEstadoTipoPpal("CALLE");
+        } else if (estadoTipoSecundario.equals("DIAGONAL")) {
+            direccionSeleccionada.setTiposecundario("D");
+            direccionSeleccionada.setTipoppal("T");
+            direccionSeleccionada.setEstadoTipoPpal("TRANSVERSAL");
+        } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
+            direccionSeleccionada.setTiposecundario("T");
+            direccionSeleccionada.setTipoppal("D");
+            direccionSeleccionada.setEstadoTipoPpal("DIAGONAL");
+        } else if (estadoTipoSecundario.equals("OTROS")) {
+            direccionSeleccionada.setTiposecundario("O");
+        }
+        RequestContext.getCurrentInstance().update("form:dUbicacionSecundaria");
+        RequestContext.getCurrentInstance().update("form:dUbicacionPrincipal");
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
         }
         if (guardado == true) {
@@ -1139,73 +1100,68 @@ public class ControlPerDirecciones implements Serializable {
         if (tipoNuevo == 1) {
             if (estadoTipoSecundario.equals("CALLE")) {
                 nuevaDireccion.setTiposecundario("C");
+                nuevaDireccion.setTipoppal("K");
+                nuevaDireccion.setEstadoTipoPpal("CARRERA");
             } else if (estadoTipoSecundario.equals("CARRERA")) {
                 nuevaDireccion.setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                nuevaDireccion.setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                nuevaDireccion.setTiposecundario("M");
+                nuevaDireccion.setTipoppal("C");
+                nuevaDireccion.setEstadoTipoPpal("CALLE");
             } else if (estadoTipoSecundario.equals("DIAGONAL")) {
                 nuevaDireccion.setTiposecundario("D");
+                nuevaDireccion.setTipoppal("T");
+                nuevaDireccion.setEstadoTipoPpal("TRANSVERSAL");
             } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
                 nuevaDireccion.setTiposecundario("T");
+                nuevaDireccion.setTipoppal("D");
+                nuevaDireccion.setEstadoTipoPpal("DIAGONAL");
             } else if (estadoTipoSecundario.equals("OTROS")) {
                 nuevaDireccion.setTiposecundario("O");
             }
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionPrincipal");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaUbicacionSecundaria");
         } else {
             if (estadoTipoSecundario.equals("CALLE")) {
                 duplicarDireccion.setTiposecundario("C");
+                duplicarDireccion.setTipoppal("K");
+                duplicarDireccion.setEstadoTipoPpal("CARRERA");
             } else if (estadoTipoSecundario.equals("CARRERA")) {
                 duplicarDireccion.setTiposecundario("K");
-            } else if (estadoTipoSecundario.equals("AVENIDA CALLE")) {
-                duplicarDireccion.setTiposecundario("A");
-            } else if (estadoTipoSecundario.equals("AVENIDA CARRERA")) {
-                duplicarDireccion.setTiposecundario("M");
+                duplicarDireccion.setTipoppal("C");
+                duplicarDireccion.setEstadoTipoPpal("CALLE");
             } else if (estadoTipoSecundario.equals("DIAGONAL")) {
                 duplicarDireccion.setTiposecundario("D");
+                duplicarDireccion.setTipoppal("T");
+                duplicarDireccion.setEstadoTipoPpal("TRANSVERSAL");
             } else if (estadoTipoSecundario.equals("TRANSVERSAL")) {
                 duplicarDireccion.setTiposecundario("T");
+                duplicarDireccion.setTipoppal("D");
+                duplicarDireccion.setEstadoTipoPpal("DIAGONAL");
             } else if (estadoTipoSecundario.equals("OTROS")) {
                 duplicarDireccion.setTiposecundario("O");
             }
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDireccion");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionPrincipal");
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUbicacionSecundaria");
         }
 
     }
 
-    public void seleccionarTipoVivienda(String estadoTipoVivienda, int indice, int celda) {
-        if (tipoLista == 0) {
-            if (estadoTipoVivienda.equals("CASA")) {
-                direccionSeleccionada.setTipovivienda("CASA");
-            } else if (estadoTipoVivienda.equals("APARTAMENTO")) {
-                direccionSeleccionada.setTipovivienda("APARTAMENTO");
-            } else if (estadoTipoVivienda.equals("FINCA")) {
-                direccionSeleccionada.setTipovivienda("FINCA");
-            }
+    public void seleccionarTipoVivienda(String estadoTipoVivienda, Direcciones direccion, int celda) {
+        direccionSeleccionada = direccion;
+        if (estadoTipoVivienda.equals("CASA")) {
+            direccionSeleccionada.setTipovivienda("CASA");
+        } else if (estadoTipoVivienda.equals("APARTAMENTO")) {
+            direccionSeleccionada.setTipovivienda("APARTAMENTO");
+        } else if (estadoTipoVivienda.equals("FINCA")) {
+            direccionSeleccionada.setTipovivienda("FINCA");
+        }
 
-            if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-            }
-        } else {
-            if (estadoTipoVivienda.equals("CASA")) {
-                filtradosListaDirecciones.get(indice).setTipovivienda("CASA");
-            } else if (estadoTipoVivienda.equals("APARTAMENTO")) {
-                filtradosListaDirecciones.get(indice).setTipovivienda("APARTAMENTO");
-            } else if (estadoTipoVivienda.equals("FINCA")) {
-                filtradosListaDirecciones.get(indice).setTipovivienda("FINCA");
-            }
-
-            if (!listaDireccionesCrear.contains(filtradosListaDirecciones.get(indice))) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                } else if (!listaDireccionesModificar.contains(filtradosListaDirecciones.get(indice))) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                }
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
         }
         if (guardado == true) {
@@ -1237,32 +1193,19 @@ public class ControlPerDirecciones implements Serializable {
         }
     }
 
-    public void seleccionarHipoteca(String estadoHipoteca, int indice, int celda) {
-        if (tipoLista == 0) {
-            if (estadoHipoteca.equals("SI")) {
-                direccionSeleccionada.setTipovivienda("S");
-            } else if (estadoHipoteca.equals("NO")) {
-                direccionSeleccionada.setTiposecundario("N");
-            }
-
-            if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-            }
-        } else if (estadoHipoteca.equals("SI")) {
-            filtradosListaDirecciones.get(indice).setTiposecundario("S");
+    public void seleccionarHipoteca(String estadoHipoteca, Direcciones direccion, int celda) {
+        direccionSeleccionada = direccion;
+        if (estadoHipoteca.equals("SI")) {
+            direccionSeleccionada.setTipovivienda("S");
         } else if (estadoHipoteca.equals("NO")) {
-            filtradosListaDirecciones.get(indice).setTiposecundario("N");
+            direccionSeleccionada.setTiposecundario("N");
+        }
 
-            if (!listaDireccionesCrear.contains(filtradosListaDirecciones.get(indice))) {
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                } else if (!listaDireccionesModificar.contains(filtradosListaDirecciones.get(indice))) {
-                    listaDireccionesModificar.add(filtradosListaDirecciones.get(indice));
-                }
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
         }
         if (guardado == true) {
@@ -1354,7 +1297,7 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public List<Ciudades> getListaCiudades() {
-        if (listaCiudades.isEmpty()) {
+        if (listaCiudades == null) {
             listaCiudades = administrarCiudades.consultarCiudades();
         }
         return listaCiudades;

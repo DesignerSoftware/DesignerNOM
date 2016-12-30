@@ -4,6 +4,7 @@
 package InterfacePersistencia;
 
 import Entidades.Bancos;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -35,5 +36,7 @@ public interface PersistenciaBancosInterface {
      * @return Retorna una lista de Bancos.
      */
     public List<Bancos> buscarBancos(EntityManager em);
+    
+    public Bancos buscarBancosPorSecuencia(EntityManager em, BigInteger secuencia);
     
 }

@@ -23,7 +23,7 @@ public class Bancos implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CODIGO")
-    private short codigo;
+    private Integer codigo;
     @Size(max = 40)
     @Column(name = "GERENTE")
     private String gerente;
@@ -54,7 +54,7 @@ public class Bancos implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public Bancos(BigInteger secuencia, short codigo, String nombre) {
+    public Bancos(BigInteger secuencia, Integer codigo, String nombre) {
         this.secuencia = secuencia;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -68,11 +68,11 @@ public class Bancos implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public short getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(short codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -85,6 +85,9 @@ public class Bancos implements Serializable {
     }
 
     public String getNombre() {
+        if (nombre == null) {
+            nombre = "";
+        }
         return nombre;
     }
 

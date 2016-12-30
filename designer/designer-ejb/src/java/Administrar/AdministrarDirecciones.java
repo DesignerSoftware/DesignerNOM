@@ -141,5 +141,16 @@ public class AdministrarDirecciones implements AdministrarDireccionesInterface {
             return null;
         }
     }
+
+    @Override
+    public List<Direcciones> consultarDireccionesBanco(BigInteger secBanco) {
+        try {
+            List<Direcciones> listaDirecciones =  persistenciaDirecciones.direccionesBanco(em, secBanco);
+            return listaDirecciones;
+        } catch (Exception e) {
+            System.err.println("Error AdministrarDirecciones.direccionesBanco " + e);
+            return null;
+        }
+    }
     
 }
