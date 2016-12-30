@@ -207,7 +207,7 @@ public class ControlRetencion implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciasRetenciones').hide()");
             nuevoVigenciasRetenciones = new VigenciasRetenciones();
@@ -303,7 +303,7 @@ public class ControlRetencion implements Serializable {
 
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             } else {
                 System.out.println("No se puede borrar porque tiene registros en la tabla de abajo");
@@ -352,7 +352,7 @@ public class ControlRetencion implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -397,7 +397,7 @@ public class ControlRetencion implements Serializable {
             guardado = true;
             permitirIndex = true;
             cambiosPagina = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -449,7 +449,7 @@ public class ControlRetencion implements Serializable {
         RequestContext.getCurrentInstance().update("form:growl");
         guardado = true;
         permitirIndex = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         //  k = 0;
 
         System.out.println("Valor k: " + k);
@@ -704,7 +704,7 @@ public class ControlRetencion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosVigenciasRetenciones");
                 guardado = true;
                 permitirIndex = true;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 //  k = 0;
             }
             System.out.println("Tamaño lista: " + listaVigenciasRetencionesCrear.size());
@@ -760,7 +760,7 @@ public class ControlRetencion implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -861,7 +861,7 @@ public class ControlRetencion implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosRetenciones");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroRetenciones').hide()");
             nuevoRetencion = new Retenciones();
@@ -891,7 +891,7 @@ public class ControlRetencion implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 vCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVigenciasRetenciones:vCodigo");
@@ -920,7 +920,7 @@ public class ControlRetencion implements Serializable {
         secRegistro = null;
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             rValorMinimo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosRetenciones:rValorMinimo");

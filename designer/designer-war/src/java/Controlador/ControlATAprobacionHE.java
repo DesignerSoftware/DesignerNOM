@@ -836,7 +836,7 @@ public class ControlATAprobacionHE implements Serializable {
             indexCabecera = -1;
             secRegistro = null;
             cancelarModificacion();
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Conceptos A Aprobar con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Conceptos A Aprobar con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {

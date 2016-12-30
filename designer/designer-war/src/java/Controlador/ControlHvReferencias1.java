@@ -661,7 +661,7 @@ public class ControlHvReferencias1 implements Serializable {
             getListHvReferencias1();
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosHvReferencia");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 

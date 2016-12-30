@@ -485,7 +485,7 @@ public class ControlNovedadOperando implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosNovedadesOperandos");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         index = -1;
@@ -643,7 +643,7 @@ public class ControlNovedadOperando implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosNovedadesOperandos");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
 
             RequestContext.getCurrentInstance().execute("PF('NuevoNovedadOperando').hide()");
@@ -694,7 +694,7 @@ public class ControlNovedadOperando implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -762,7 +762,7 @@ public class ControlNovedadOperando implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:datosNovedadesOperandos");
             duplicarNovedadOperando = new NovedadesOperandos();

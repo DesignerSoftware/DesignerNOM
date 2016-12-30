@@ -604,7 +604,7 @@ public class ControlDetalleLegislacion implements Serializable {
          guardarCambiosFormulaContrato();
       }
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:aceptar");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    /**
@@ -828,7 +828,7 @@ public class ControlDetalleLegislacion implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
             if (guardado == true) {
                guardado = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroFormula').hide()");
             cambiosFormulaContrato = true;
@@ -954,7 +954,7 @@ public class ControlDetalleLegislacion implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosFormulaContrato");
             if (guardado == true) {
                guardado = false;
-               RequestContext.getCurrentInstance().update("form:aceptar");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroFormula').hide()");
             cambiosFormulaContrato = true;

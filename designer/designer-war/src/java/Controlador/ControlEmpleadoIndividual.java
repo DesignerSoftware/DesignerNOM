@@ -819,8 +819,8 @@ public class ControlEmpleadoIndividual implements Serializable {
                 datosEmpleado();
                 guardado = true;
                 RequestContext.getCurrentInstance().update("form");
-                RequestContext.getCurrentInstance().update("form:aceptar");
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }

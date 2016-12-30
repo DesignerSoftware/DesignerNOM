@@ -721,7 +721,7 @@ public class ControlATCuadrilla implements Serializable {
             indexCuadrilla = -1;
             secRegistro = null;
             cambiosCuadrilla = false;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Cuadrillas con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Cuadrillas con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
@@ -760,7 +760,7 @@ public class ControlATCuadrilla implements Serializable {
             indexTurno = -1;
             secRegistro = null;
             cambiosTurno = false;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Turnos Rotativos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Turnos Rotativos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {
@@ -803,7 +803,7 @@ public class ControlATCuadrilla implements Serializable {
             indexDetalle = -1;
             secRegistro = null;
             cambiosDetalle = false;
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Detalles Turnos Rotativos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Detalles Turnos Rotativos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {

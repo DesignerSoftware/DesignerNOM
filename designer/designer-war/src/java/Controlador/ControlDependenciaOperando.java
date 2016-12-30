@@ -510,7 +510,7 @@ public class ControlDependenciaOperando implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         index = -1;
@@ -677,7 +677,7 @@ public class ControlDependenciaOperando implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoDependenciaOperando').hide()");
             index = -1;
@@ -727,7 +727,7 @@ public class ControlDependenciaOperando implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -807,7 +807,7 @@ public class ControlDependenciaOperando implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:datosDependenciasOperandos");
             duplicarDependenciaOperando = new DependenciasOperandos();

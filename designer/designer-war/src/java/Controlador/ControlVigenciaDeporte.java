@@ -871,7 +871,7 @@ public class ControlVigenciaDeporte implements Serializable {
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             permitirIndex = true;
             deshabilitarBotonLov();

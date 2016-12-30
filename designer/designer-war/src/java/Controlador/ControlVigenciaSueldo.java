@@ -920,7 +920,7 @@ public class ControlVigenciaSueldo implements Serializable {
       guardado = true;
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+      FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
    }

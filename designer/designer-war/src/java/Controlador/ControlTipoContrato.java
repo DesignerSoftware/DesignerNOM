@@ -433,7 +433,7 @@ public class ControlTipoContrato implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosTipoContrato");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
 
             FacesMessage msg = new FacesMessage("Información", "Los datos de Tipo Contrato se guardaron con Éxito.");
@@ -467,7 +467,7 @@ public class ControlTipoContrato implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDiasLaborables");
             guardadoDias = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
 
             FacesMessage msg = new FacesMessage("Información", "Los datos de Dias Laborables se guardaron con Éxito.");
@@ -668,7 +668,7 @@ public class ControlTipoContrato implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoContrato').hide()");
                     if (guardado == true) {
                         guardado = false;
-                        RequestContext.getCurrentInstance().update("form:aceptar");
+                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 } else {
                     RequestContext context = RequestContext.getCurrentInstance();
@@ -722,7 +722,7 @@ public class ControlTipoContrato implements Serializable {
             nuevoDiaLaborable.setTipodia(new TiposDias());
             if (guardadoDias == true) {
                 guardadoDias = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -839,7 +839,7 @@ public class ControlTipoContrato implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoContrato').hide()");
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     if (bandera == 1) {
                         altoTablaTiposC = "190";
@@ -890,7 +890,7 @@ public class ControlTipoContrato implements Serializable {
 
             if (guardadoDias == true) {
                 guardadoDias = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (banderaDiasLab == 1) {
                 altoTablaDiasLab = "75";
@@ -972,7 +972,7 @@ public class ControlTipoContrato implements Serializable {
 
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
@@ -999,7 +999,7 @@ public class ControlTipoContrato implements Serializable {
 
         if (guardadoDias == true) {
             guardadoDias = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
     //CTRL + F11 ACTIVAR/DESACTIVAR

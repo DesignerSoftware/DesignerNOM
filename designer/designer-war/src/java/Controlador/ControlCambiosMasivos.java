@@ -2435,7 +2435,7 @@ public class ControlCambiosMasivos {
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
-      FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito.");
+      FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito.");
       FacesContext.getCurrentInstance().addMessage(null, msg);
       RequestContext.getCurrentInstance().update("form:growl");
    }

@@ -334,7 +334,7 @@ public class ControlConfigurarColumnas implements Serializable {
         }
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         permitirIndex = true;
         filtrarLovColumnasEscenarios = null;

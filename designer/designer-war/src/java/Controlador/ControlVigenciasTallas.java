@@ -873,7 +873,7 @@ public class ControlVigenciasTallas implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listVigenciasTallas = null;
             RequestContext.getCurrentInstance().update("form:datosVigenciasTallas");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 

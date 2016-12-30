@@ -551,7 +551,7 @@ public class ControlEmpresa implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -642,7 +642,7 @@ public class ControlEmpresa implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -671,7 +671,7 @@ public class ControlEmpresa implements Serializable {
                 }
                 if (guardadoVigencia == true) {
                     guardadoVigencia = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -766,7 +766,7 @@ public class ControlEmpresa implements Serializable {
                     }
                     if (guardadoVigencia == true) {
                         guardadoVigencia = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -837,7 +837,7 @@ public class ControlEmpresa implements Serializable {
                 }
                 if (guardadoCircular == true) {
                     guardadoCircular = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -1021,7 +1021,7 @@ public class ControlEmpresa implements Serializable {
             RequestContext.getCurrentInstance().update("form:DIRECCIONES");
             RequestContext.getCurrentInstance().update("form:datosEmpresa");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             index = -1;
             secRegistro = null;
@@ -1055,7 +1055,7 @@ public class ControlEmpresa implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVigenciaMonedaBase");
             guardadoVigencia = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             indexVigencia = -1;
             secRegistroVigencia = null;
@@ -1088,7 +1088,7 @@ public class ControlEmpresa implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosCircular");
             guardadoCircular = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             indexCircular = -1;
             secRegistroCircular = null;
@@ -1404,7 +1404,7 @@ public class ControlEmpresa implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroEmpresa').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -1458,7 +1458,7 @@ public class ControlEmpresa implements Serializable {
                 nuevoVigenciaMonedaBase.setMoneda(new Monedas());
                 if (guardadoVigencia == true) {
                     guardadoVigencia = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexVigencia = -1;
                 secRegistroVigencia = null;
@@ -1511,7 +1511,7 @@ public class ControlEmpresa implements Serializable {
                 nuevoCircular = new Circulares();
                 if (guardadoCircular == true) {
                     guardadoCircular = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexCircular = -1;
                 secRegistroCircular = null;
@@ -1679,7 +1679,7 @@ public class ControlEmpresa implements Serializable {
                     secRegistro = null;
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                     duplicarEmpresa = new Empresas();
                 } else {
@@ -1729,7 +1729,7 @@ public class ControlEmpresa implements Serializable {
                 secRegistroVigencia = null;
                 if (guardadoVigencia == true) {
                     guardadoVigencia = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
 
                 duplicarVigenciaMonedaBase = new VigenciasMonedasBases();
@@ -1780,7 +1780,7 @@ public class ControlEmpresa implements Serializable {
                 secRegistroCircular = null;
                 if (guardadoCircular == true) {
                     guardadoCircular = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 duplicarCircular = new Circulares();
             } else {
@@ -1885,7 +1885,7 @@ public class ControlEmpresa implements Serializable {
             RequestContext.getCurrentInstance().update("form:DIRECCIONES");
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1929,7 +1929,7 @@ public class ControlEmpresa implements Serializable {
 
             if (guardadoVigencia == true) {
                 guardadoVigencia = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1973,7 +1973,7 @@ public class ControlEmpresa implements Serializable {
 
             if (guardadoCircular == true) {
                 guardadoCircular = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }

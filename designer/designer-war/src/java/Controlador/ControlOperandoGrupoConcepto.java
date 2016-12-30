@@ -192,7 +192,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -403,7 +403,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             guardado = true;
             permitirIndex = true;
             cambiosPagina = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -637,7 +637,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosOperandosGruposConceptos");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroOperandosGruposConceptos').hide()");
             nuevoOperando = new OperandosGruposConceptos();
@@ -657,7 +657,7 @@ public class ControlOperandoGrupoConcepto implements Serializable {
         index = -1;
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             //SOLUCIONES NODOS EMPLEADO

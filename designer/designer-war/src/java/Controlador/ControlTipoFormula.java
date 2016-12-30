@@ -376,7 +376,7 @@ public class ControlTipoFormula implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             duplicarTipoFormula = new TiposFormulas();
@@ -593,7 +593,7 @@ public class ControlTipoFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         index = -1;
@@ -764,7 +764,7 @@ public class ControlTipoFormula implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('NuevoTipoFormula').hide()");
             index = -1;
@@ -814,7 +814,7 @@ public class ControlTipoFormula implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }

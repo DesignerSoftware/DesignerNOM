@@ -529,7 +529,7 @@ public class ControlNovedadEmbargo implements Serializable {
             guardado = true;
             permitirIndex = true;
             cambiosPagina = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);
@@ -870,7 +870,7 @@ public class ControlNovedadEmbargo implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosEmbargos");
                 guardado = true;
                 permitirIndex = true;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 //  k = 0;
             }
             System.out.println("Tamaño lista: " + listaEmbargosCrear.size());
@@ -942,7 +942,7 @@ public class ControlNovedadEmbargo implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosEmbargosDetalles");
             guardado = true;
             permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             //  k = 0;
         }
         System.out.println("Valor k: " + k);

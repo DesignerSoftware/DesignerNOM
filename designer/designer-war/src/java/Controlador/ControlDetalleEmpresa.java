@@ -1272,7 +1272,7 @@ public class ControlDetalleEmpresa implements Serializable {
     public void guardadoGeneral() {
         guardarCambios();
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void guardarCambios() {
@@ -1822,7 +1822,7 @@ public class ControlDetalleEmpresa implements Serializable {
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     altoTabla = "300";

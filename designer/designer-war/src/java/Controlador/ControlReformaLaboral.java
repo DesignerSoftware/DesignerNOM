@@ -334,7 +334,7 @@ public class ControlReformaLaboral implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -412,7 +412,7 @@ public class ControlReformaLaboral implements Serializable {
                     }
                     if (guardadoDetalles == true) {
                         guardadoDetalles = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -554,7 +554,7 @@ public class ControlReformaLaboral implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosReformaLaboral");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
 
             index = -1;
@@ -592,7 +592,7 @@ public class ControlReformaLaboral implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosDetalleReformaLaboral");
             guardadoDetalles = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
 
             indexDetalle = -1;
@@ -789,7 +789,7 @@ public class ControlReformaLaboral implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroReformaLaboral').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -843,7 +843,7 @@ public class ControlReformaLaboral implements Serializable {
                 nuevoDetalleReformaLaboral = new DetallesReformasLaborales();
                 if (guardadoDetalles == true) {
                     guardadoDetalles = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 indexDetalle = -1;
                 secRegistroDetalles = null;
@@ -956,7 +956,7 @@ public class ControlReformaLaboral implements Serializable {
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     altoTablaReforma = "157";
@@ -1005,7 +1005,7 @@ public class ControlReformaLaboral implements Serializable {
                 secRegistroDetalles = null;
                 if (guardadoDetalles == true) {
                     guardadoDetalles = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (banderaDetalle == 1) {
                     altoTablaDetalles = "135";
@@ -1104,7 +1104,7 @@ public class ControlReformaLaboral implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1149,7 +1149,7 @@ public class ControlReformaLaboral implements Serializable {
 
             if (guardadoDetalles == true) {
                 guardadoDetalles = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }

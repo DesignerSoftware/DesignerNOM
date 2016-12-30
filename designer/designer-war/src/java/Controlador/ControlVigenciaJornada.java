@@ -830,7 +830,7 @@ public class ControlVigenciaJornada implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          cambiosJornada = false;
-         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Jornadas con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Jornadas con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          activarLOV = true;
@@ -870,7 +870,7 @@ public class ControlVigenciaJornada implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          cambiosTiempo = false;
-         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Descanso Tiempo con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Descanso Tiempo con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          contarRegistrosVT();
@@ -910,7 +910,7 @@ public class ControlVigenciaJornada implements Serializable {
          guardado = true;
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          cambiosDinero = false;
-         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Descanso Dinero con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Descanso Dinero con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          contarRegistrosVD();

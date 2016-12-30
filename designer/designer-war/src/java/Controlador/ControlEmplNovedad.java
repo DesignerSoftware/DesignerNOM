@@ -162,7 +162,7 @@ public class ControlEmplNovedad implements Serializable {
          listNovedadesEmpleado.set(posi, actualNovedad);
          if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
       }
       RequestContext context = RequestContext.getCurrentInstance();

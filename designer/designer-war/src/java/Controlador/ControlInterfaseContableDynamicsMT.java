@@ -2053,7 +2053,7 @@ public class ControlInterfaseContableDynamicsMT implements Serializable {
                         tipoListaIntercon = 0;
                     }
                     RequestContext.getCurrentInstance().update("form:PanelTotal");
-                    FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                    FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                 } else {

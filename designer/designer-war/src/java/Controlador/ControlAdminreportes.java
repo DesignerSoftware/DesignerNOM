@@ -537,7 +537,7 @@ public class ControlAdminreportes implements Serializable {
                 guardado = false;
                 cambiosPagina = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 altoTabla = "270";
@@ -1368,7 +1368,7 @@ public class ControlAdminreportes implements Serializable {
             guardado = true;
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             //  k = 0;

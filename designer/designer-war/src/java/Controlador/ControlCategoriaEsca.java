@@ -574,14 +574,14 @@ public class ControlCategoriaEsca implements Serializable {
             cambiosPagina = true;
             listaCategorias = null;
             getListaCategorias();
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:datosCategoria");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
         }
         index = -1;
@@ -705,7 +705,7 @@ public class ControlCategoriaEsca implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCategoria').hide()");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             index = -1;
             secRegistro = null;
@@ -780,7 +780,7 @@ public class ControlCategoriaEsca implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -865,7 +865,7 @@ public class ControlCategoriaEsca implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -991,7 +991,7 @@ public class ControlCategoriaEsca implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1060,7 +1060,7 @@ public class ControlCategoriaEsca implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
@@ -1128,7 +1128,7 @@ public class ControlCategoriaEsca implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();

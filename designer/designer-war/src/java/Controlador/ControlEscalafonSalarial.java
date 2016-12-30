@@ -361,7 +361,7 @@ public class ControlEscalafonSalarial implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -443,7 +443,7 @@ public class ControlEscalafonSalarial implements Serializable {
                     }
                     if (guardado == true) {
                         guardado = false;
-                        //RequestContext.getCurrentInstance().update("form:aceptar");
+                        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
                 }
             }
@@ -474,7 +474,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 }
                 if (guardadoGS == true) {
                     guardadoGS = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         }
@@ -831,7 +831,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroEscalafonSalarial').hide()");
                 if (guardado == true) {
                     guardado = false;
-                    RequestContext.getCurrentInstance().update("form:aceptar");
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 index = -1;
                 secRegistro = null;
@@ -879,7 +879,7 @@ public class ControlEscalafonSalarial implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroGrupoSalarial').hide()");
             if (guardadoGS == true) {
                 guardadoGS = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             indexGS = -1;
             secRegistroGS = null;
@@ -982,7 +982,7 @@ public class ControlEscalafonSalarial implements Serializable {
                 secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
                 if (bandera == 1) {
                     altoTablaEscalafon = "170";
@@ -1031,7 +1031,7 @@ public class ControlEscalafonSalarial implements Serializable {
             secRegistroGS = null;
             if (guardadoGS == true) {
                 guardadoGS = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (banderaGS == 1) {
                 altoTablaGrupo = "120";
@@ -1127,7 +1127,7 @@ public class ControlEscalafonSalarial implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -1172,7 +1172,7 @@ public class ControlEscalafonSalarial implements Serializable {
 
             if (guardadoGS == true) {
                 guardadoGS = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }

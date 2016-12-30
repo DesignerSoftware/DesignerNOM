@@ -2058,7 +2058,7 @@ public class ControlEmplComprobantes implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosCortesProcesos");
          guardado = true;
          modificacionesCortesProcesos = false;
-         RequestContext.getCurrentInstance().update("form:aceptar");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Los datos de Corte Proceso se guardaron con Éxito.");
          FacesContext.getCurrentInstance().addMessage(null, msg);

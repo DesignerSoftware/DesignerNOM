@@ -98,7 +98,7 @@
                         <div class="cssBotonesLOV">
                             <h:outputText id="infoRegistro" class="cssinfoRegistroLOV" value="#{msg['infoRegistro']} #{controlEnvioCorreos.infoRegistro}"/>
 
-                            <p:commandButton id="aceptar" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEnvioCorreos.aceptar}" actionListener="#{controlEnvioCorreos.actualizarCorreoEmpl()}" 
+                            <p:commandButton id="ACEPTAR" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEnvioCorreos.aceptar}" actionListener="#{controlEnvioCorreos.actualizarCorreoEmpl()}" 
                                              icon="ui-icon-check" update=":formDialogos:correoEmpleadosDialogo" process="@this"/>
 
                             <p:commandButton id="atras" class="cssAtrasLOV" value="#{msg['cancelar']}" actionListener="#{controlEnvioCorreos.cancelarCambioCorreoEmpl()}"

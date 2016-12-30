@@ -471,7 +471,7 @@ public class ControlMotivosDemandas implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listMotivosDemandas = null;
             RequestContext.getCurrentInstance().update("form:datosMotivoDemanda");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;

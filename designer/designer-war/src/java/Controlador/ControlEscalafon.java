@@ -441,7 +441,7 @@ public class ControlEscalafon implements Serializable {
                 k = 0;
                 index = -1;
                 secRegistro = null;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
@@ -563,7 +563,7 @@ public class ControlEscalafon implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroEscalafon').hide()");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             index = -1;
             secRegistro = null;
@@ -636,7 +636,7 @@ public class ControlEscalafon implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             if (bandera == 1) {
                 //CERRAR FILTRADO
@@ -710,7 +710,7 @@ public class ControlEscalafon implements Serializable {
             secRegistro = null;
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -814,7 +814,7 @@ public class ControlEscalafon implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();
@@ -883,7 +883,7 @@ public class ControlEscalafon implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             cambiosPagina = false;
             RequestContext context = RequestContext.getCurrentInstance();

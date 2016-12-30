@@ -130,7 +130,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             }
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -197,7 +197,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVNEEmpleado");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
         }
         index = -1;
@@ -280,7 +280,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosVNEmpleados");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         index = -1;
     }
@@ -331,7 +331,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         index = -1;
         if (guardado == true) {
             guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         if (bandera == 1) {
             //CERRAR FILTRADO/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,7 +394,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
 
             if (guardado == true) {
                 guardado = false;
-                //RequestContext.getCurrentInstance().update("form:aceptar");
+                //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -476,7 +476,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
                 }
                 if (guardado == true) {
                     guardado = false;
-                    //RequestContext.getCurrentInstance().update("form:aceptar");
+                    //RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
         } else if (tipoActualizacion == 1) {

@@ -440,7 +440,7 @@ public void modificarVigenciaAficion(VigenciasAficiones vigaficion) {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
             }
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con Éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con Éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {

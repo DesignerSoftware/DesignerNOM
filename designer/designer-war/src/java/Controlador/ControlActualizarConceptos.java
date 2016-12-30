@@ -955,7 +955,7 @@ public class ControlActualizarConceptos implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listConceptos = null;
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 
@@ -997,7 +997,7 @@ public class ControlActualizarConceptos implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
             System.out.println("Se guardaron los datos con exito");
             RequestContext.getCurrentInstance().update("form:datosActualizarConceptos");
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
 
@@ -1031,7 +1031,7 @@ public class ControlActualizarConceptos implements Serializable {
             aceptar = true;
             listLOVConceptos = null;
             getListLOVConceptos();
-            FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             index = -1;

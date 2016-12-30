@@ -803,7 +803,7 @@ public class ControlATExtraRecargo implements Serializable {
                 k = 0;
                 index = -1;
                 secRegistro = null;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Recargo Extra con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Recargo Extra con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
@@ -841,7 +841,7 @@ public class ControlATExtraRecargo implements Serializable {
                 k = 0;
                 indexDER = -1;
                 secRegistroDER = null;
-                FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Detalle con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Detalle con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }

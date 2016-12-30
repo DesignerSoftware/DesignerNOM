@@ -260,7 +260,7 @@ public class CtrlVigenciasCargos implements Serializable {
      System.out.println("Old:" + oldValue);
      System.out.println("New:" + newValue);
      guardado = false;
-     RequestContext.getCurrentInstance().update("form:aceptar");
+     RequestContext.getCurrentInstance().update("form:ACEPTAR");
      }
      if (guardarOk == true) {
      modificarAficiones();
@@ -292,7 +292,7 @@ public class CtrlVigenciasCargos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:aficiones");
             guardado = true;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
         }
     }
@@ -320,10 +320,10 @@ public class CtrlVigenciasCargos implements Serializable {
             RequestContext.getCurrentInstance().update("form:aficiones");
             index = -1;
             //guardado = false;
-            //RequestContext.getCurrentInstance().update("form:aceptar");
+            //RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
 
@@ -348,7 +348,7 @@ public class CtrlVigenciasCargos implements Serializable {
         panelNuevo.setStyle("border: none; display: none; visibility: hidden;");
         RequestContext.getCurrentInstance().update("form:panelNuevo");
         guardado = true;
-        RequestContext.getCurrentInstance().update("form:aceptar");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void habilitarAgregar() {
@@ -391,7 +391,7 @@ public class CtrlVigenciasCargos implements Serializable {
         }
 
         //guardado = false;
-        //RequestContext.getCurrentInstance().update("form:aceptar");
+        //RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     /*   public void validate(FacesContext arg0, InputText arg1, Object arg2) throws ValidatorException {
@@ -434,7 +434,7 @@ public class CtrlVigenciasCargos implements Serializable {
         RequestContext.getCurrentInstance().update("form:aficiones");
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
@@ -459,7 +459,7 @@ public class CtrlVigenciasCargos implements Serializable {
             index = -1;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -527,7 +527,7 @@ public class CtrlVigenciasCargos implements Serializable {
             aceptarEditar = true;
             if (guardado == true) {
                 guardado = false;
-                RequestContext.getCurrentInstance().update("form:aceptar");
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
     }
@@ -573,7 +573,7 @@ public class CtrlVigenciasCargos implements Serializable {
     public void activarAceptarGlobal() {
         if (guardado == true) {
             guardado = false;
-            RequestContext.getCurrentInstance().update("form:aceptar");
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 

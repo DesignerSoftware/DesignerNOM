@@ -797,7 +797,7 @@ public class ControlEmplVacaPendiente implements Serializable {
       contarRegistrosP();
       contarRegistrosD();
       if (ms > 0) {
-         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Otros Certificados con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Otros Certificados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
@@ -830,7 +830,7 @@ public class ControlEmplVacaPendiente implements Serializable {
       contarRegistrosP();
 
       if (ms > 0) {
-         FacesMessage msg = new FacesMessage("Información", "Se gurdarón los datos de Otros Certificados con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Otros Certificados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
