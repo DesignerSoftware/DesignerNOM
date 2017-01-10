@@ -871,7 +871,8 @@ public class ControlBetaCentrosCostos implements Serializable {
                     tipoLista = 0;
                 }
                 mensajeValidacion = " ";
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosCentrosCostos");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCentroCostos').hide()");
                 activarLOV = true;
                 RequestContext.getCurrentInstance().update("form:listaValores");
@@ -1076,7 +1077,8 @@ public class ControlBetaCentrosCostos implements Serializable {
 
             duplicarCentroCosto = new CentrosCostos();
             duplicarCentroCosto.setTipocentrocosto(new TiposCentrosCostos());
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+//            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosCentrosCostos");
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");

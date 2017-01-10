@@ -118,7 +118,7 @@
                      </p:panel>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 168px; width: 835px; height: 148px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 10px; top: 170px; width: 835px; height: 148px; border-radius: 10px;">
                      <legend style="font-weight: bold; color: #00F;">#{msg['empleado']}</legend>
 
                      <p:dataTable id="datosSolucionesNodosEmpleado" widgetVar="datosSolucionesNodosEmpleado" styleClass="tabla" var="solucionNodoEmpleado"
@@ -130,7 +130,8 @@
                         <p:ajax event="filter" listener="#{controlComprobantes.eventoFiltrarComprobanteEmpleado()}"/>
 
                         <p:column width="21"> 
-                           <p:commandButton id="detallesconcepto" value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodo(solucionNodoEmpleado,0)}"/>
+                           <p:commandButton id="detallesconcepto" value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodo(solucionNodoEmpleado,0)}"
+                                            onstart="PF('datosSolucionesNodosEmpleado').unselectAllRows();PF('datosSolucionesNodosEmpleado').selectRow(#{indice});"/>
                            <p:tooltip  for="detallesconcepto" value="#{msg['detallesconcepto']}" />
                         </p:column>
 
@@ -296,7 +297,8 @@
                         <p:ajax event="filter" listener="#{controlComprobantes.eventoFiltrarComprobanteEmpleador()}"/>
 
                         <p:column width="21"> 
-                           <p:commandButton value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodoEmpleador(solucionNodoEmpleador, 0)}"/>
+                           <p:commandButton value="" style="width: 17px; height: 17px;" actionListener="#{controlComprobantes.parcialSolucionNodoEmpleador(solucionNodoEmpleador, 0)}"
+                                            onstart="PF('datosSolucionesNodosEmpleador').unselectAllRows();PF('datosSolucionesNodosEmpleador').selectRow(#{indiceER});"/>
                         </p:column>
 
                         <p:column id="codigoSNER" headerText="#{msg['codigo']}" sortBy="#{solucionNodoEmpleador.codigoconcepto}" width="60"
@@ -508,10 +510,11 @@
 
                </p:dialog>
 
-               <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto"  resizable="false" draggable="true" modal="true" height="182" width="345"  closable="false">  
-                  <p:inputTextarea  value="#{controlComprobantes.parcialesSolucionNodos}" style="position: absolute; left: 10px; top: 10px; width: 300px; height: 125px; font-weight:bold; overflow: auto" readonly="true" />
-                  <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 225px;" icon="ui-icon-check" onclick="PF('parcialesConcepto').hide();
-                        confirmacionFormatoExtendido').show();"/>
+               <p:dialog id="parcialesConcepto" header="#{msg['parciales']}" widgetVar="parcialesConcepto" resizable="false" draggable="true" modal="true" height="170" width="345" closable="false">  
+                  <p:scrollPanel mode="native" style="position: absolute; left: 10px; top: 10px; width: 325px; height: 125px !important; font-weight: bold; overflow: auto; border-radius: 4px;">
+                     <p:inputTextarea  value="#{controlComprobantes.parcialesSolucionNodos}" cols="50" readonly="true" style="border: none !important;"/>
+                  </p:scrollPanel>
+                  <p:commandButton value="#{msg['aceptar']}" style="position: absolute; top: 148px; left: 230px;" icon="ui-icon-check" onclick="PF('parcialesConcepto').hide(); PF('confirmacionFormatoExtendido').show();"/>
                </p:dialog>
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

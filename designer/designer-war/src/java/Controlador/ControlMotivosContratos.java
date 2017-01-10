@@ -566,38 +566,29 @@ public class ControlMotivosContratos implements Serializable {
    }
 
    public void agregarNuevoMotivoContrato() {
-      System.out.println("Agregar Motivo Contrato");
       int contador = 0;
       int duplicados = 0;
       Integer a = 0;
       a = null;
       mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoMotivoContrato.getCodigo() == a) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMotivoContrato.getCodigo());
          for (int x = 0; x < listMotivosContratos.size(); x++) {
             if (listMotivosContratos.get(x).getCodigo() == nuevoMotivoContrato.getCodigo()) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
             contador++;
          }
       }
       if (nuevoMotivoContrato.getNombre() == (null)) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else if (nuevoMotivoContrato.getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
          System.out.println("bandera");
          contador++;
@@ -627,7 +618,6 @@ public class ControlMotivosContratos implements Serializable {
          nuevoMotivoContrato.setSecuencia(l);
 
          crearMotivoContratos.add(nuevoMotivoContrato);
-
          listMotivosContratos.add(nuevoMotivoContrato);
          nuevoMotivoContrato = new MotivosContratos();
 
@@ -637,13 +627,10 @@ public class ControlMotivosContratos implements Serializable {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         System.out.println("Despues de la bandera guardado");
 
          RequestContext.getCurrentInstance().execute("PF('nuevoRegistroMotivoContratos').hide()");
          index = -1;
          secRegistro = null;
-         System.out.println("Despues de nuevoRegistroMotivoContratos");
-
       } else {
          RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
@@ -813,7 +800,7 @@ public class ControlMotivosContratos implements Serializable {
    }
 
    public void contarRegistros() {
-      RequestContext.getCurrentInstance().update("from:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
 //-----------------------//---------------//----------------------//------------

@@ -603,7 +603,7 @@ public class ControlCambiosMasivos {
             }
          }
       }
-      RequestContext.getCurrentInstance().update("form:acordionPanel:str_novePeriodicidad(");
+      RequestContext.getCurrentInstance().update("form:acordionPanel:str_novePeriodicidad");
       filtroLovPeriodicidades = null;
       periodicidadSeleccionada = null;
 
@@ -2511,6 +2511,7 @@ public class ControlCambiosMasivos {
          lovIbcs.add("PROMEDIO IBC 6 MESES");
          lovIbcs.add("PROMEDIO IBC 12 MESES");
          lovIbcs.add("PROMEDIO ACUMULADOS 12 MESES");
+//         RequestContext.getCurrentInstance().update("form:trans_formaLiquidacion");
       }
       if (lovCausasausentismos.isEmpty()) {
          lovCausasausentismos = administrarCambiosMasivos.consultarLovCausasausentismos();
@@ -3018,6 +3019,16 @@ public class ControlCambiosMasivos {
    }
 
    public List<String> getLovIbcs() {
+      if (lovIbcs.isEmpty()) {
+         lovIbcs.add("");
+         lovIbcs.add("IBC MES INCAPACIDAD");
+         lovIbcs.add("IBC MES ANTERIOR");
+         lovIbcs.add("BASICO");
+         lovIbcs.add("IBC MES ENERO");
+         lovIbcs.add("PROMEDIO IBC 6 MESES");
+         lovIbcs.add("PROMEDIO IBC 12 MESES");
+         lovIbcs.add("PROMEDIO ACUMULADOS 12 MESES");
+      }
       return lovIbcs;
    }
 

@@ -2441,7 +2441,6 @@ public class ControlCargo implements Serializable {
 
    public void asignarIndexCargos(Cargos cargo, int celda, int tipoAct) {
       tablaActiva = "C";
-      RequestContext context = RequestContext.getCurrentInstance();
       cargoTablaSeleccionado = cargo;
       tipoActualizacion = tipoAct;
       if (celda == 0) {
@@ -3006,16 +3005,13 @@ public class ControlCargo implements Serializable {
          }
          permitirIndexSueldoMercado = true;
          cambiosPagina = false;
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
       } else if (tipoActualizacion == 1) {
          nuevoSueldoMercado.setTipoempresa(tipoEmpresaSeleccionado);
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoSueldoMercadoTipoEmpresa");
       } else if (tipoActualizacion == 2) {
          duplicarSueldoMercado.setTipoempresa(tipoEmpresaSeleccionado);
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSueldoMercadoTipoEmpresa");
       }
       filtrarLovTiposEmpresas = null;
@@ -3026,7 +3022,7 @@ public class ControlCargo implements Serializable {
 
       RequestContext.getCurrentInstance().update("form:TipoEmpresaDialogo");
       RequestContext.getCurrentInstance().update("form:lovTipoEmpresa");
-      RequestContext.getCurrentInstance().update("form:aceptarTT");
+      RequestContext.getCurrentInstance().update("form:aceptarTE");
 
       context.reset("form:lovTipoEmpresa:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovTipoEmpresa').clearFilters()");
@@ -3886,10 +3882,6 @@ public class ControlCargo implements Serializable {
    //GETTERS AND SETTERS
    public List<Cargos> getListaCargos() {
       //try {
-      System.out.println("getListaCargos . empresaActual : " + empresaActual);
-      if (empresaActual != null) {
-         System.out.println("empresaActual.getNombre : " + empresaActual.getNombre());
-      }
       if (listaCargos == null && empresaActual != null) {
          listaCargos = administrarCargos.listaCargosParaEmpresa(empresaActual.getSecuencia());
          if (listaCargos != null) {
@@ -4496,7 +4488,6 @@ public class ControlCargo implements Serializable {
 
    public List<Enfoques> getLovEnfoques() {
       lovEnfoques = administrarCargos.lovEnfoques();
-
       return lovEnfoques;
    }
 

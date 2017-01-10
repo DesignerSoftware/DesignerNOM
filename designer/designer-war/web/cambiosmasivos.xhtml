@@ -553,7 +553,7 @@
                               <div style="display: inline-block; padding-left: 20px !important; position: absolute; margin-left: 50px !important;">
                                  <div style="display: table; position: absolute; width: 300px;">
                                     <div style="display: table; width: 300px; display: block;">
-                                       <h:outputText value="#{msg['tipoausentismo']}" styleClass="textoNombres"/>
+                                       <h:outputText value="*#{msg['tipoausentismo']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_tipoAusentismo}"
                                                     id="trans_tipoAusentismo" widgetVar="trans_tipoAusentismo" style="position: relative; display: block; width: 220px;">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarTiposausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_tipoAusentismo)}" process="@this"/>
@@ -562,7 +562,7 @@
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
-                                       <h:outputText value="#{msg['clase']}" styleClass="textoNombres"/>
+                                       <h:outputText value="*#{msg['clase']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_clase}"
                                                     id="trans_clase" widgetVar="trans_clase" style="position: relative; display: block; width: 220px;">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarClasesausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_clase)}" process="@this"/>
@@ -571,7 +571,7 @@
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
-                                       <h:outputText value="#{msg['causa']}" styleClass="textoNombres"/>
+                                       <h:outputText value="*#{msg['causa']}" styleClass="textoNombres"/>
                                        <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_causa}"
                                                     id="trans_causa" widgetVar="trans_causa" style="position: relative; display: block; width: 220px;">
                                           <p:ajax event="change" listener="#{controlCambiosMasivos.autocompletarCausasausentismos(controlCambiosMasivos.parametroCambioMasivoActual.trans_causa)}" process="@this"/>
@@ -580,7 +580,7 @@
                                        </p:inputText>
                                     </div>
                                     <div style="display: table; width: 300px; display: block; margin-top: 5px;">
-                                       <h:outputText value="#{msg['formaliquidacion']}" styleClass="textoNombres"/>
+                                       <h:outputText value="*#{msg['formaliquidacion']}" styleClass="textoNombres"/>
                                        <p:selectOneMenu value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_formaLiquidacion}"
                                                         id="trans_formaLiquidacion" widgetVar="trans_formaLiquidacion" style="width: 200px;">
                                           <f:selectItems value="#{controlCambiosMasivos.lovIbcs}"/>
@@ -593,21 +593,21 @@
                                     <div style="display: table; display: block;">
 
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['baseliq']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['baseliq']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_baseLiquidacion}"
                                                        id="trans_baseLiquidacion" widgetVar="trans_baseLiquidacion" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(5)}" process="@this"/>
                                           </p:inputText>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['fechainicial']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['fechainicial']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar mask="true" autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialAusent}"
                                                       id="trans_fechaInicialAusent" widgetVar="trans_fechaInicialAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(6)}" process="@this"/>
                                           </p:calendar>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['fechafinal']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['fechafinal']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar mask="true" autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalAusent}"
                                                       id="trans_fechaFinalAusent" widgetVar="trans_fechaFinalAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(7)}" process="@this"/>
@@ -617,21 +617,21 @@
 
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['fexpedicion']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['fexpedicion']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar mask="true" autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaExpedicionAusent}"
                                                       id="trans_fechaExpedicionAusent" widgetVar="trans_fechaExpedicionAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(8)}" process="@this"/>
                                           </p:calendar>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['fechainicialP']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['fechainicialP']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar mask="true" autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaInicialPagoAusent}"
                                                       id="trans_fechaInicialPagoAusent" widgetVar="trans_fechaInicialPagoAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(9)}" process="@this"/>
                                           </p:calendar>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['fechafinalP']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['fechafinalP']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:calendar mask="true" autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_fechaFinalPagoAusent}"
                                                       id="trans_fechaFinalPagoAusent" widgetVar="trans_fechaFinalPagoAusent" pattern="dd/MM/yyyy" style="position: relative; display: block;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(10)}" process="@this"/>
@@ -641,7 +641,7 @@
 
                                     <div style="display: table; width: 200px; display: block; margin-top: 5px;">
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="%" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*%" styleClass="textoNombres" style="width: 120px;"/>
                                           <!--                                          <p:inputText autocomplete="off" value="#/{controlCambiosMasivos.parametroCambioMasivoActual.trans_porcentaje}"
                                                                                                  style="position: relative; display: block; width: 80px;"/>-->
 
@@ -657,14 +657,14 @@
                                           </p:selectOneMenu>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['dias']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['dias']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_dias}"
                                                        id="trans_dias" widgetVar="trans_dias" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(12)}" process="@this"/>
                                           </p:inputText>
                                        </div>
                                        <div style="display: table-cell; position: relative;">
-                                          <h:outputText value="#{msg['horas']}" styleClass="textoNombres" style="width: 120px;"/>
+                                          <h:outputText value="*#{msg['horas']}" styleClass="textoNombres" style="width: 120px;"/>
                                           <p:inputText autocomplete="off" onclick="select();" value="#{controlCambiosMasivos.parametroCambioMasivoActual.trans_horas}"
                                                        id="trans_horas" widgetVar="trans_horas" style="position: relative; display: block; width: 80px;">
                                              <p:ajax event="select" listener="#{controlCambiosMasivos.seleccionarCampo(13)}" process="@this"/>
