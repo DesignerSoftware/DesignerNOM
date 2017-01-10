@@ -163,7 +163,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public ControlInterfaseContableTotal() {
         ftpClient = new FTPClient();
-        msnPaso1 = "";
+        msnPaso1 = " ";
         totalCGenerado = BigDecimal.ZERO;
         totalDGenerado = BigDecimal.ZERO;
         totalDInter = BigDecimal.ZERO;
@@ -464,12 +464,13 @@ public class ControlInterfaseContableTotal implements Serializable {
         if (parametroContableActual.getProceso() == null) {
             parametroContableActual.setProceso(new Procesos());
         }
-
+        System.out.println("proceso en msnpaso 1 : " + parametroContableActual.getProceso());
         if (parametroContableActual.getProceso().getSecuencia() != null) {
             msnPaso1 = parametroContableActual.getProceso().getDescripcion().toUpperCase();
         } else {
             msnPaso1 = "TODOS";
         }
+        System.out.println("msn paso 1 " + msnPaso1 );
         return msnPaso1;
     }
 

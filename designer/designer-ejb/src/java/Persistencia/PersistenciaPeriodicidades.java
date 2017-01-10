@@ -35,7 +35,7 @@ public class PersistenciaPeriodicidades implements PersistenciaPeriodicidadesInt
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(periodicidades);
+            em.merge(periodicidades);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaPeriodicidades.crear: " + e);

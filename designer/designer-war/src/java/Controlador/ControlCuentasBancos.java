@@ -78,6 +78,8 @@ public class ControlCuentasBancos implements Serializable {
         editarCuentaBanco = new CuentasBancos();
         duplicarCuentaBanco = new CuentasBancos();
         nuevaCuentaBanco = new CuentasBancos();
+        nuevaCuentaBanco.setBanco(new Bancos());
+        nuevaCuentaBanco.setInforeporte(new Inforeportes());
         guardado = true;
         tamano = 270;
         cuentaBancoSeleccionada = null;
@@ -148,24 +150,24 @@ public class ControlCuentasBancos implements Serializable {
         } else if (cualCelda == 9) {
             habilitarBotonLov();
             cuentaBancoSeleccionada.getInforeporte().getNombre();
+            System.out.println("reporte nombre  : " + cuentaBancoSeleccionada.getInforeporte().getNombre());
         }
     }
-    
-    public void asignarIndex(CuentasBancos cuenta,int dlg, int LND){
+
+    public void asignarIndex(CuentasBancos cuenta, int dlg, int LND) {
         cuentaBancoSeleccionada = cuenta;
         tipoActualizacion = LND;
-        if(dlg == 1){
-        contarRegistrosBancos();
-        RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogos");
-        RequestContext.getCurrentInstance().execute("PF('bancosDialogos').show()");
-        }else if(dlg == 2){
-        contarRegistrosReportes();
-        RequestContext.getCurrentInstance().update("formularioDialogos:reportesDialogos");
-        RequestContext.getCurrentInstance().execute("PF('bancosReportes').show()");
-        
+        if (dlg == 1) {
+            contarRegistrosBancos();
+            RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogos");
+            RequestContext.getCurrentInstance().execute("PF('bancosDialogos').show()");
+        } else if (dlg == 2) {
+            contarRegistrosReportes();
+            RequestContext.getCurrentInstance().update("formularioDialogos:reportesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('reportesDialogo').show()");
+
         }
     }
-    
 
     public void activarAceptar() {
         aceptar = false;
@@ -452,8 +454,14 @@ public class ControlCuentasBancos implements Serializable {
         int duplicados = 0;
         mensajeValidacion = " ";
 
+//        if (nuevaCuentaBanco.getBanco() == null) {
+//            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+//        } else {
+//            contador++;
+//        }
+
         if (nuevaCuentaBanco.getNombrearchivo() == null) {
-            mensajeValidacion = "El campo marcado con asterisco es obligatorio";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             contador++;
         }
@@ -540,8 +548,14 @@ public class ControlCuentasBancos implements Serializable {
         int duplicados = 0;
         mensajeValidacion = " ";
 
+//        if (duplicarCuentaBanco.getBanco() == null) {
+//            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+//        } else {
+//            contador++;
+//        }
+
         if (duplicarCuentaBanco.getNombrearchivo() == null) {
-            mensajeValidacion = "El campo marcado con asterisco es obligatorio";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             contador++;
         }
@@ -678,13 +692,13 @@ public class ControlCuentasBancos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
 
-        RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogos");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovBancos");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarB");
 
         context.reset("formularioDialogos:lovBancos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('bancosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('bancosDialogos').hide()");
     }
 
     public void cancelarCambioBancos() {
@@ -693,13 +707,13 @@ public class ControlCuentasBancos implements Serializable {
         tipoActualizacion = -1;
         bancoSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:bancosDialogos");
         RequestContext.getCurrentInstance().update("formularioDialogos:lovBancos");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarB");
 
         context.reset("formularioDialogos:lovBancos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovBancos').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('bancosDialogo').hide()");
+        RequestContext.getCurrentInstance().execute("PF('bancosDialogos').hide()");
     }
 
     public void actualizarReportes() {
@@ -727,7 +741,7 @@ public class ControlCuentasBancos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCuentaBanco");
         }
         lovBancosFiltrar = null;
-        bancoSeleccionado = null;
+        reporteSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
 
@@ -743,7 +757,7 @@ public class ControlCuentasBancos implements Serializable {
     public void cancelarCambioReportes() {
         RequestContext context = RequestContext.getCurrentInstance();
         lovBancosFiltrar = null;
-        bancoSeleccionado = null;
+        reporteSeleccionado = null;
         aceptar = true;
         tipoActualizacion = -1;
 
@@ -761,11 +775,11 @@ public class ControlCuentasBancos implements Serializable {
     }
 
     public void contarRegistrosBancos() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroBancos");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroBancos");
     }
 
     public void contarRegistrosReportes() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroReportes");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroReportes");
     }
 
     public void habilitarBotonLov() {
@@ -965,6 +979,4 @@ public class ControlCuentasBancos implements Serializable {
         this.registrosBorrados = registrosBorrados;
     }
 
-    
-    
 }

@@ -70,7 +70,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" action="cuentasbancos"  actionListener="#{controlCuentasBancos.recibirPagina('cuentasbancos')}" process="@this" 
+                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" action="cuentasbancos" icon="ui-icon-extlink"  actionListener="#{controlCuentasBancos.recibirPagina('cuentasbancos')}" process="@this" 
                                          style="position: relative; top: 430px; left: 10px; "   />
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlBancos.revisarDialogoGuardar()}" disabled="#{controlBancos.guardado}"    process="@this"   />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" action="banco"  actionListener="#{controlBancos.salir()}"  value=""/>
@@ -382,7 +382,7 @@
                             <p:watermark for="nuevaCuenta" value="Cuenta" />
 
 
-                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 280px;"  actionListener="#{controlBancos.limpiarDuplicarBancos()}" update="nuevoBanco" process="@this"/>
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 280px;"  actionListener="#{controlBancos.limpiarNuevoBanco()}" update="nuevoBanco" process="@this"/>
                             <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 180px; top: 280px;" actionListener="#{controlBancos.agregarNuevoBanco()}" process="@this" />
                             <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 280px; top: 280px;"  update="nuevoBanco" onclick="PF('nuevoRegistroBancos').hide();"  actionListener="#{controlBancos.limpiarNuevoBanco()}"  process="@this"/>
                         </p:panel>

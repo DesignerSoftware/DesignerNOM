@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Periodicidades;
 import Entidades.Unidades;
 import Exportar.ExportarPDF;
@@ -41,20 +40,6 @@ public class ControlPeriodicidades implements Serializable {
     AdministrarPeriodicidadesInterface administrarPeriodicidades;
     @EJB
     AdministrarRastrosInterface administrarRastros;
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
-    private BigInteger l;
-    private boolean aceptar, guardado;
-    //AutoCompletar
-    private boolean permitirIndex;
-    //RASTRO
-    private BigInteger secRegistro;
-    //borrado
-    private int registrosBorrados;
-    private String mensajeValidacion;
-
-//LISTA CENTRO COSTO
-    private List<Periodicidades> listPeriodicidades;
-    private List<Periodicidades> listPeriodicidadesBoton;
     private List<Periodicidades> filtrarPeriodicidades;
     private List<Periodicidades> crearPeriodicidades;
     private List<Periodicidades> modificarPeriodicidades;
@@ -63,30 +48,43 @@ public class ControlPeriodicidades implements Serializable {
     private Periodicidades duplicarPeriodicidad;
     private Periodicidades editarUnidad;
     private Periodicidades periocidadSeleccionadaTabla;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+    private BigInteger l;
+    private boolean aceptar, guardado;
+    private int registrosBorrados;
+    private String mensajeValidacion;
+    private List<Periodicidades> listPeriodicidades;
     private Column codigoCC, nombreUnidad,
             tipoUnidad, codigoUnidad, codigoUnidadbase,
             unidadBase;
 
-    //AUTOCOMPLETAR
-    private String unidadCodigo, unidadNombre, unidadBaseCodigo, unidadBaseDescripcion;
     private List<Unidades> listaUnidades;
     private List<Unidades> filtradoUnidades;
     private Unidades unidadSeleccionada;
+    private Unidades unidadBaseSeleccionada;
     private List<Periodicidades> filterPericiodidades;
-    private String nuevaUnidad;
 
-    private Periodicidades PericiodidadesSeleccionado;
-    private boolean banderaSeleccionPericiodidades;
-    private boolean mostrarTodos;
     private int tamano;
     private String paginaAnterior;
-    private Integer backUpCodigo;
-    private String backUpDescripcion;
+    private String infoRegistroUnidades;
+    private String infoRegistroUnidadesBase;
+    private String infoRegistro;
+    private boolean activarLov;
+    //VARIABLES PARA VERIFICAR BORRADO
+    private BigInteger contarCPCompromisosPeriodicidad;
+    private BigInteger contarDetallesPeriodicidadesPeriodicidad;
+    private BigInteger contarEersPrestamosDtosPeriodicidad;
+    private BigInteger contarEmpresasPeriodicidad;
+    private BigInteger contarFormulasAseguradasPeriodicidad;
+    private BigInteger contarFormulasContratosPeriodicidad;
+    private BigInteger contarGruposProvisionesPeriodicidad;
+    private BigInteger contarNovedadPeriodicidad;
+    private BigInteger contadorInterconHelisa;
+    private BigInteger contadorInterconSapbo;
 
     public ControlPeriodicidades() {
-        permitirIndex = true;
         listPeriodicidades = null;
-        listPeriodicidadesBoton = null;
+//        listPeriodicidadesBoton = null;
         crearPeriodicidades = new ArrayList<Periodicidades>();
         modificarPeriodicidades = new ArrayList<Periodicidades>();
         borrarPeriodicidades = new ArrayList<Periodicidades>();
@@ -98,9 +96,7 @@ public class ControlPeriodicidades implements Serializable {
         listaUnidades = null;
         aceptar = true;
         guardado = true;
-        banderaSeleccionPericiodidades = false;
         tamano = 270;
-        mostrarTodos = true;
     }
 
     @PostConstruct
@@ -118,6 +114,13 @@ public class ControlPeriodicidades implements Serializable {
 
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
+        listPeriodicidades = null;
+        getListPeriodicidades();
+        if (listPeriodicidades != null) {
+            if (!listPeriodicidades.isEmpty()) {
+                periocidadSeleccionadaTabla = listPeriodicidades.get(0);
+            }
+        }
     }
 
     public String redirigir() {
@@ -125,18 +128,10 @@ public class ControlPeriodicidades implements Serializable {
     }
 
     public void eventoFiltrar() {
-        try {
-            System.out.println("\n ENTRE A CONTROLPERIODICIDADES eventoFiltrar \n");
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + filtrarPeriodicidades.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES eventoFiltrar ERROR===" + e);
+        if (tipoLista == 0) {
+            tipoLista = 1;
         }
+        contarRegistros();
     }
 
     public void refrescar() {
@@ -164,527 +159,77 @@ public class ControlPeriodicidades implements Serializable {
         crearPeriodicidades.clear();
         borrarPeriodicidades.clear();
         modificarPeriodicidades.clear();
-        index = -1;
-        secRegistro = null;
+        periocidadSeleccionadaTabla = null;
         k = 0;
         listPeriodicidades = null;
         guardado = true;
-        permitirIndex = true;
-        mostrarTodos = true;
-
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        System.err.println("BETA CENTRO COSTO TIPO LISTA = " + tipoLista);
-        System.err.println("PERMITIR INDEX = " + permitirIndex);
-
-        if (permitirIndex == true) {
-            index = indice;
-            cualCelda = celda;
-            System.err.println("CAMBIAR INDICE CUALCELDA = " + cualCelda);
-            secRegistro = listPeriodicidades.get(index).getSecuencia();
-            System.err.println("Sec Registro = " + secRegistro);
-            if (cualCelda == 0) {
-                if (tipoLista == 0) {
-                    backUpCodigo = listPeriodicidades.get(index).getCodigo();
-                    System.err.println("backUpCodigo = " + backUpCodigo);
-                } else {
-                    backUpCodigo = filtrarPeriodicidades.get(index).getCodigo();
-                    System.err.println("backUpCodigo = " + backUpCodigo);
-                }
-            }
-            if (cualCelda == 1) {
-                if (tipoLista == 0) {
-                    backUpDescripcion = listPeriodicidades.get(index).getNombre();
-                    System.err.println("backUpDescripcion = " + backUpDescripcion);
-                } else {
-                    backUpDescripcion = filtrarPeriodicidades.get(index).getNombre();
-                    System.err.println("backUpDescripcion = " + backUpDescripcion);
-                }
-            }
-            if (cualCelda == 2) {
-                if (tipoLista == 0) {
-                    unidadCodigo = listPeriodicidades.get(index).getUnidad().getCodigo();
-                    System.err.println("grupoTipoUnidadAutocompletar = " + unidadCodigo);
-                } else {
-                    unidadCodigo = filtrarPeriodicidades.get(index).getUnidad().getCodigo();
-                }
-            }
-            if (cualCelda == 3) {
-                if (tipoLista == 0) {
-                    unidadNombre = listPeriodicidades.get(index).getUnidad().getNombre();
-                    System.err.println("grupoTipoUnidadAutocompletar = " + unidadNombre);
-                } else {
-                    unidadNombre = filtrarPeriodicidades.get(index).getUnidad().getNombre();
-                }
-            }
-            if (cualCelda == 4) {
-                if (tipoLista == 0) {
-                    unidadBaseCodigo = listPeriodicidades.get(index).getUnidadbase().getCodigo();
-                    System.err.println("grupoTipoUnidadAutocompletar = " + unidadBaseCodigo);
-                } else {
-                    unidadBaseCodigo = filtrarPeriodicidades.get(index).getUnidadbase().getCodigo();
-                }
-            }
-            if (cualCelda == 5) {
-                if (tipoLista == 0) {
-                    unidadBaseDescripcion = listPeriodicidades.get(index).getUnidadbase().getNombre();
-                    System.err.println("grupoTipoUnidadAutocompletar = " + unidadBaseDescripcion);
-                } else {
-                    unidadBaseDescripcion = filtrarPeriodicidades.get(index).getUnidadbase().getNombre();
-                }
-            }
+    public void cambiarIndice(Periodicidades periodicidad, int celda) {
+        periocidadSeleccionadaTabla = periodicidad;
+        cualCelda = celda;
+        periocidadSeleccionadaTabla.getSecuencia();
+        if (cualCelda == 0) {
+            deshabilitarBotonlov();
+            periocidadSeleccionadaTabla.getCodigo();
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
+        if (cualCelda == 1) {
+            deshabilitarBotonlov();
+            periocidadSeleccionadaTabla.getNombre();
+        }
+        if (cualCelda == 2) {
+            habilitarBotonLov();
+            periocidadSeleccionadaTabla.getUnidad().getCodigo();
+        }
+        if (cualCelda == 3) {
+            habilitarBotonLov();
+            periocidadSeleccionadaTabla.getUnidad().getNombre();
+        }
+        if (cualCelda == 4) {
+            habilitarBotonLov();
+            periocidadSeleccionadaTabla.getUnidadbase().getCodigo();
+        }
+        if (cualCelda == 5) {
+            habilitarBotonLov();
+            periocidadSeleccionadaTabla.getUnidadbase().getNombre();
+        }
     }
 
-    public void modificandoUnidad(int indice, String confirmarCambio, String valorConfirmar) {
+    public void modificandoUnidad(Periodicidades periodicidad, String confirmarCambio, String valorConfirmar) {
 
-        System.err.println("ENTRE A MODIFICAR CENTROCOSTO");
-        index = indice;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        boolean banderita = false;
-        boolean banderita1 = false;
-        int contador = 0;
-        Short a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR CENTROCOSTO, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                    if (listPeriodicidades.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPeriodicidades.size(); j++) {
-                            if (j != indice) {
-                                if (listPeriodicidades.get(indice).getCodigo().equals(listPeriodicidades.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            listPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (listPeriodicidades.get(indice).getNombre().isEmpty()) {
-                        listPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                    } else if (listPeriodicidades.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        listPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    } else {
-                        banderita1 = true;
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (listPeriodicidades.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPeriodicidades.size(); j++) {
-                            if (j != indice) {
-                                if (listPeriodicidades.get(indice).getCodigo().equals(listPeriodicidades.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            listPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (listPeriodicidades.get(indice).getNombre().isEmpty()) {
-                        listPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                    } else if (listPeriodicidades.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        listPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    } else {
-                        banderita1 = true;
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-
-                        }
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-            } else {
-
-                if (!crearPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                    if (filtrarPeriodicidades.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPeriodicidades.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarPeriodicidades.get(indice).getCodigo().equals(listPeriodicidades.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            filtrarPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-                    }
-
-                    if (filtrarPeriodicidades.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    }
-                    if (filtrarPeriodicidades.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    } else {
-                        banderita1 = true;
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (filtrarPeriodicidades.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPeriodicidades.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarPeriodicidades.get(indice).getCodigo().equals(listPeriodicidades.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            filtrarPeriodicidades.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-                    }
-
-                    if (filtrarPeriodicidades.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    }
-                    if (filtrarPeriodicidades.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarPeriodicidades.get(indice).setNombre(backUpDescripcion);
-                        banderita1 = false;
-                    } else {
-                        banderita1 = true;
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-
+        periocidadSeleccionadaTabla = periodicidad;
+        if (!crearPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+            if (modificarPeriodicidades.isEmpty()) {
+                modificarPeriodicidades.add(periocidadSeleccionadaTabla);
+            } else if (!modificarPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                modificarPeriodicidades.add(periocidadSeleccionadaTabla);
             }
-            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-        } else if (confirmarCambio.equalsIgnoreCase("UNIDADES")) {
-            System.err.println("ENTRE A MODIFICAR, CONFIRMAR CAMBIO ES UNIDADES");
-            System.err.println("UNIDAD NOMBRE =  " + unidadNombre);
-            System.err.println("UNIDAD CODIGO =  " + unidadCodigo);
-            System.err.println("LISTA PERIODICIDADES INDICE NOMBRE UNIDAD " + listPeriodicidades.get(indice).getUnidad().getNombre());
-            System.err.println("LISTA PERIODICIDADES INDICE CODIGO UNIDAD " + listPeriodicidades.get(indice).getUnidad().getCodigo());
-            if (cualCelda == 2) {
-                if (tipoLista == 0) {
-                    System.err.println("COMPLETAR CODIGO UNIDAD " + unidadCodigo);
-                    listPeriodicidades.get(indice).getUnidad().setCodigo(unidadCodigo);
-                } else {
-                    filtrarPeriodicidades.get(indice).getUnidad().setCodigo(unidadCodigo);
-                }
-                getListaUnidades();
-                System.out.println("VALOR A CONFIRMAR :  " + valorConfirmar.toUpperCase());
-                for (int i = 0; i < listaUnidades.size(); i++) {
-                    if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        listPeriodicidades.get(indice).setUnidad(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        }
-                    } else {
-                        filtrarPeriodicidades.get(indice).setUnidad(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        }
-                    }
-                    listaUnidades.clear();
-                    listaUnidades = null;
-                    getListaUnidades();
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            }
-            if (cualCelda == 3) {
-                if (tipoLista == 0) {
-                    System.err.println("COMPLETAR   UNIDAD NOMBRE " + unidadNombre);
-                    listPeriodicidades.get(indice).getUnidad().setNombre(unidadNombre);
-                } else {
-
-                    filtrarPeriodicidades.get(indice).getUnidad().setNombre(unidadNombre);
-                }
-                getListaUnidades();
-                for (int i = 0; i < listaUnidades.size(); i++) {
-                    if (listaUnidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        listPeriodicidades.get(indice).setUnidad(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        }
-                    } else {
-                        filtrarPeriodicidades.get(indice).setUnidad(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        }
-                    }
-                    listaUnidades.clear();
-                    listaUnidades = null;
-                    getListaUnidades();
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            }
-
-        } else if (confirmarCambio.equalsIgnoreCase("UNIDADESBASE")) {
-            System.err.println("ENTRE A MODIFICAR, CONFIRMAR CAMBIO ES UNIDADES");
-            System.err.println("UNIDAD BASE CODIGO =  " + unidadBaseCodigo);
-            System.err.println("UNIDAD BASE DESCRIPCION =  " + unidadBaseDescripcion);
-            System.err.println("LISTA PERIODICIDADES INDICE BASEUNIDAD DESCRIPCION " + listPeriodicidades.get(indice).getUnidadbase().getNombre());
-            System.err.println("LISTA PERIODICIDADES INDICE BASEUNIDAD CODIGO " + listPeriodicidades.get(indice).getUnidadbase().getCodigo());
-            if (cualCelda == 4) {
-                if (tipoLista == 0) {
-                    System.err.println("COMPLETAR BASE CODIGO UNIDAD " + unidadBaseCodigo);
-                    listPeriodicidades.get(indice).getUnidadbase().setCodigo(unidadBaseCodigo);
-                } else {
-                    filtrarPeriodicidades.get(indice).getUnidadbase().setCodigo(unidadBaseCodigo);
-                }
-                getListaUnidades();
-                System.out.println("VALOR A CONFIRMAR :  " + valorConfirmar.toUpperCase());
-                for (int i = 0; i < listaUnidades.size(); i++) {
-                    if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        listPeriodicidades.get(indice).setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        }
-                    } else {
-                        filtrarPeriodicidades.get(indice).setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        }
-                    }
-                    listaUnidades.clear();
-                    listaUnidades = null;
-                    getListaUnidades();
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            }
-            if (cualCelda == 5) {
-                if (tipoLista == 0) {
-                    System.err.println("COMPLETAR BASE DESCRIPCION " + unidadBaseDescripcion);
-                    listPeriodicidades.get(indice).getUnidadbase().setNombre(unidadBaseDescripcion);
-                } else {
-
-                    filtrarPeriodicidades.get(indice).getUnidadbase().setNombre(unidadBaseDescripcion);
-                }
-                getListaUnidades();
-                for (int i = 0; i < listaUnidades.size(); i++) {
-                    if (listaUnidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        listPeriodicidades.get(indice).setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(listPeriodicidades.get(indice));
-                        }
-                    } else {
-                        filtrarPeriodicidades.get(indice).setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                        if (modificarPeriodicidades.isEmpty()) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        } else if (!modificarPeriodicidades.contains(filtrarPeriodicidades.get(indice))) {
-                            modificarPeriodicidades.add(filtrarPeriodicidades.get(indice));
-                        }
-                    }
-                    listaUnidades.clear();
-                    listaUnidades = null;
-                    getListaUnidades();
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            }
-
         }
+        guardado = false;
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
 
     }
-
-    private String infoRegistro;
 
     public void cancelarModificacion() {
         try {
-            System.out.println("entre a CONTROLPERIODICIDADES.cancelarModificacion");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
-                //0
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
                 codigoCC.setFilterStyle("display: none; visibility: hidden;");
-                //1
                 nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
                 nombreUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //2
                 tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
                 tipoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //3 
                 codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
                 codigoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //4
                 codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
                 codigoUnidadbase.setFilterStyle("display: none; visibility: hidden;");
-                //5 
                 unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
                 unidadBase.setFilterStyle("display: none; visibility: hidden;");
-
                 bandera = 0;
                 filtrarPeriodicidades = null;
                 tipoLista = 0;
@@ -693,22 +238,11 @@ public class ControlPeriodicidades implements Serializable {
             borrarPeriodicidades.clear();
             crearPeriodicidades.clear();
             modificarPeriodicidades.clear();
-            getListPeriodicidades();
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (listPeriodicidades == null || listPeriodicidades.isEmpty()) {
-                infoRegistro = "Cantidad de registros: 0 ";
-            } else {
-                infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-            }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            k = 0;
             listPeriodicidades = null;
+            getListPeriodicidades();
+            contarRegistros();
+            k = 0;
             guardado = true;
-            permitirIndex = true;
-            mostrarTodos = false;
-            RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
@@ -721,26 +255,18 @@ public class ControlPeriodicidades implements Serializable {
             System.out.println("entre a CONTROLPERIODICIDADES.cancelarModificacion");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                //CERRAR FILTRADO
-                //0
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
                 codigoCC.setFilterStyle("display: none; visibility: hidden;");
-                //1
                 nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
                 nombreUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //2
                 tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
                 tipoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //3 
                 codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
                 codigoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //4
                 codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
                 codigoUnidadbase.setFilterStyle("display: none; visibility: hidden;");
-                //5 
                 unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
                 unidadBase.setFilterStyle("display: none; visibility: hidden;");
-
                 bandera = 0;
                 filtrarPeriodicidades = null;
                 tipoLista = 0;
@@ -749,22 +275,11 @@ public class ControlPeriodicidades implements Serializable {
             borrarPeriodicidades.clear();
             crearPeriodicidades.clear();
             modificarPeriodicidades.clear();
-            getListPeriodicidades();
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (listPeriodicidades == null || listPeriodicidades.isEmpty()) {
-                infoRegistro = "Cantidad de registros: 0 ";
-            } else {
-                infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-            }
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            k = 0;
             listPeriodicidades = null;
+            getListPeriodicidades();
+            contarRegistros();
+            k = 0;
             guardado = true;
-            permitirIndex = true;
-            mostrarTodos = false;
-            RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         } catch (Exception E) {
@@ -772,43 +287,19 @@ public class ControlPeriodicidades implements Serializable {
         }
     }
 
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A CONTROLPERIODICIDADES.asignarIndex \n");
-            index = indice;
-            RequestContext context = RequestContext.getCurrentInstance();
+    public void asignarIndex(Periodicidades periodicidad, int LND, int dig) {
+        periocidadSeleccionadaTabla = periodicidad;
+        tipoActualizacion = LND;
 
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-            if (dig == 2) {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                dig = -1;
-            }
-            if (dig == 3) {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                dig = -1;
-            }
-            if (dig == 4) {
-                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                dig = -1;
-            }
-            if (dig == 5) {
-                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                dig = -1;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.asignarIndex ERROR======" + e.getMessage());
+        if (dig == 2) {
+            RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
+            dig = -1;
+        }
+        if (dig == 3) {
+            RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
+            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
+            dig = -1;
         }
     }
 
@@ -816,483 +307,129 @@ public class ControlPeriodicidades implements Serializable {
         aceptar = false;
     }
 
-    public void actualizarUnidad() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES.actualizarUnidad \n");
-        try {
-            RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("\n ENTRE A CONTROLPERIODICIDADES.actualizarUnidad TIPOACTUALIZACION====" + tipoActualizacion);
-            if (tipoActualizacion == 0) {
-                listPeriodicidades.get(index).setUnidad(unidadSeleccionada);
-                if (!crearPeriodicidades.contains(listPeriodicidades.get(index))) {
-                    if (modificarPeriodicidades.isEmpty()) {
-                        modificarPeriodicidades.add(listPeriodicidades.get(index));
-                    } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(index))) {
-                        modificarPeriodicidades.add(listPeriodicidades.get(index));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
+    public void actualizarTipoPeriodicidad() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 0) {
+            periocidadSeleccionadaTabla.setUnidad(unidadSeleccionada);
+            if (!crearPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                if (modificarPeriodicidades.isEmpty()) {
+                    modificarPeriodicidades.add(periocidadSeleccionadaTabla);
+                } else if (!modificarPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                    modificarPeriodicidades.add(periocidadSeleccionadaTabla);
                 }
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-            } else if (tipoActualizacion == 1) {
-                System.out.println("ENTRO A ACTUALIZAR EL NOMBRE DE UNIDAD ");
-                nuevaPeriodicidad.setUnidad(unidadSeleccionada);
-                System.out.println("UNIDAD SELECCIONADA  : " + nuevaPeriodicidad.getUnidad().getNombre());
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidads");
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidadsCodigo");
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-            } else if (tipoActualizacion == 2) {
-                duplicarPeriodicidad.setUnidad(unidadSeleccionada);
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidades");
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoUnidads");
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
             }
-            filtradoUnidades = null;
-            unidadSeleccionada = null;
-            aceptar = true;
-            index = -1;
-            tipoActualizacion = -1;
-            permitirIndex = true;
-            context.reset("form:lovTipoPeriodicidades:globalFilter");
-            RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
-            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
-        } catch (Exception e) {
-            System.out.println("ERROR BETA .actualizarUnidad ERROR============" + e.getMessage());
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+        } else if (tipoActualizacion == 1) {
+            nuevaPeriodicidad.setUnidad(unidadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidads");
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidadsCodigo");
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+        } else if (tipoActualizacion == 2) {
+            duplicarPeriodicidad.setUnidad(unidadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidades");
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoUnidads");
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
         }
+        filtradoUnidades = null;
+        unidadSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
+        RequestContext.getCurrentInstance().update("form:lovTipoPeriodicidades");
+        RequestContext.getCurrentInstance().update("form:aceptarTCC");
+
+        context.reset("form:lovTipoPeriodicidades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
     }
 
     public void actualizarUnidadBase() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES.actualizarUnidad \n");
         try {
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("\n ENTRE A CONTROLPERIODICIDADES.actualizarUnidad TIPOACTUALIZACION====" + tipoActualizacion);
             if (tipoActualizacion == 0) {
-                listPeriodicidades.get(index).setUnidadbase(unidadSeleccionada);
-                if (!crearPeriodicidades.contains(listPeriodicidades.get(index))) {
+                periocidadSeleccionadaTabla.setUnidadbase(unidadBaseSeleccionada);
+                if (!crearPeriodicidades.contains(periocidadSeleccionadaTabla)) {
                     if (modificarPeriodicidades.isEmpty()) {
-                        modificarPeriodicidades.add(listPeriodicidades.get(index));
-                    } else if (!modificarPeriodicidades.contains(listPeriodicidades.get(index))) {
-                        modificarPeriodicidades.add(listPeriodicidades.get(index));
+                        modificarPeriodicidades.add(periocidadSeleccionadaTabla);
+                    } else if (!modificarPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                        modificarPeriodicidades.add(periocidadSeleccionadaTabla);
                     }
                     if (guardado == true) {
                         guardado = false;
                         RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     }
-
                 }
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             } else if (tipoActualizacion == 1) {
-                // context.reset("formularioDialogos:nuevaTipoPeriodicidades");
-                System.out.println("Entro actualizar centro costo nuevo rgistro");
-                nuevaPeriodicidad.setUnidadbase(unidadSeleccionada);
-                System.out.println("Nuevo Unidad Base Seleccionado: " + nuevaPeriodicidad.getUnidadbase().getNombre());
+                nuevaPeriodicidad.setUnidadbase(unidadBaseSeleccionada);
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoBase");
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNombreBase");
             } else if (tipoActualizacion == 2) {
-                duplicarPeriodicidad.setUnidadbase(unidadSeleccionada);
+                duplicarPeriodicidad.setUnidadbase(unidadBaseSeleccionada);
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCodigoUnidadesBase");
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDescripcionUnidadesBase");
             }
             filtradoUnidades = null;
-            unidadSeleccionada = null;
+            unidadBaseSeleccionada = null;
             aceptar = true;
-            index = -1;
             tipoActualizacion = -1;
-            permitirIndex = true;
+            RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
+            RequestContext.getCurrentInstance().update("form:lovUnidadesBase");
+            RequestContext.getCurrentInstance().update("form:aceptarUB");
             context.reset("form:lovUnidadesBase:globalFilter");
             RequestContext.getCurrentInstance().execute("PF('lovUnidadesBase').clearFilters()");
             RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').hide()");
+
         } catch (Exception e) {
             System.out.println("ERROR BETA .actualizarUnidad ERROR============" + e.getMessage());
         }
     }
 
-    public void cancelarCambioTiposUnidad() {
-        try {
-            filtradoUnidades = null;
-            unidadSeleccionada = null;
-            aceptar = true;
-            index = -1;
-            tipoActualizacion = -1;
-            permitirIndex = true;
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.reset("form:lovTipoPeriodicidades:globalFilter");
-            RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
-            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.cancelarCambioUnidad ERROR=====" + e.getMessage());
-        }
+    public void cancelarCambioTipoPeriodicidad() {
+        filtradoUnidades = null;
+        unidadSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:lovTipoPeriodicidades");
+        RequestContext.getCurrentInstance().update("form:aceptarTCC");
+
+        context.reset("form:lovTipoPeriodicidades:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoPeriodicidades').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').hide()");
     }
 
     public void cancelarCambioUnidadBase() {
         filtradoUnidades = null;
-        unidadSeleccionada = null;
+        unidadBaseSeleccionada = null;
         aceptar = true;
-        index = -1;
         tipoActualizacion = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
+        RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
+        RequestContext.getCurrentInstance().update("form:lovUnidadesBase");
+        RequestContext.getCurrentInstance().update("form:aceptarUB");
         context.reset("form:lovUnidadesBase:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovUnidadesBase').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').hide()");
     }
 
-    public void llamadoDialogoBuscarPeriodicidades() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        try {
-            if (guardado == false) {
-                banderaSeleccionPericiodidades = true;
-                RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-
-            } else {
-                listPeriodicidadesBoton = null;
-                getListPericiodidadesBoton();
-                index = -1;
-                RequestContext.getCurrentInstance().update("formularioDialogos:lovPeriodicidades");
-                RequestContext.getCurrentInstance().update("formularioDialogos:buscarPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
-
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR LLAMADO DIALOGO BUSCAR CENTROS COSTOS " + e);
-        }
-
-    }
-
-    public void seleccionPeriodicidades() {
-        try {
-            RequestContext context = RequestContext.getCurrentInstance();
-
-            if (guardado == true) {
-                listPeriodicidades.clear();
-                System.err.println("seleccionPericiodidades " + PericiodidadesSeleccionado.getNombre());
-                listPeriodicidades.add(PericiodidadesSeleccionado);
-                System.err.println("listPeriodicidades tamaño " + listPeriodicidades.size());
-                System.err.println("listPeriodicidades nombre " + listPeriodicidades.get(0).getNombre());
-                PericiodidadesSeleccionado = null;
-                filterPericiodidades = null;
-                aceptar = true;
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-                context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
-                RequestContext.getCurrentInstance().execute("PF('lovPeriodicidades').clearFilters()");
-                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
-                mostrarTodos = false;
-                if (listPeriodicidades == null || listPeriodicidades.isEmpty()) {
-                    infoRegistro = "Cantidad de registros: 0 ";
-                } else {
-                    infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-                }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
-                RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-            } /*else {
-             System.err.println("listPeriodicidades tamaño " + listPeriodicidades.size());
-             System.err.println("listPeriodicidades nombre " + listPeriodicidades.get(0).getNombre());
-             banderaSeleccionPericiodidades = true;
-             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-             PericiodidadesSeleccionado = null;
-             listPeriodicidades.clear();
-             System.err.println("seleccionPericiodidades " + PericiodidadesSeleccionado.getNombre());
-             listPeriodicidades.add(PericiodidadesSeleccionado);
-             filterPericiodidades = null;
-             aceptar = true;
-             banderaModificacionEmpresa = 0;
-             RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
-             context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
-             }*/
-
-
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES.seleccionaVigencia ERROR====" + e.getMessage());
-        }
-    }
-
-    public void cancelarSeleccionUnidadPorEmpresa() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        PericiodidadesSeleccionado = null;
-        filterPericiodidades = null;
-        aceptar = true;
-        index = -1;
-        tipoActualizacion = -1;
-        RequestContext.getCurrentInstance().update("form:aceptarNCC");
-        context.reset("formularioDialogos:lovPeriodicidades:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovPeriodicidades').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').hide()");
-    }
-    
-    private String nuevoUnidadCodigo;
-    private String nuevoUnidadBaseCodigo;
-    private String nuevoUnidadBaseNombre;
-
-    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-        System.out.println("1...");
-        if (Campo.equals("UNIDADNOMBRE")) {
-            if (tipoNuevo == 1) {
-                nuevaUnidad = nuevaPeriodicidad.getUnidad().getNombre();
-            } else if (tipoNuevo == 2) {
-                nuevaUnidad = duplicarPeriodicidad.getUnidad().getNombre();
-            }
-
-        } else if (Campo.equals("UNIDADCODIGO")) {
-            if (tipoNuevo == 1) {
-                nuevoUnidadCodigo = nuevaPeriodicidad.getUnidad().getCodigo();
-            } else if (tipoNuevo == 2) {
-                nuevoUnidadCodigo = duplicarPeriodicidad.getUnidad().getCodigo();
-            }
-
-        } else if (Campo.equals("UNIDADBASECODIGO")) {
-            if (tipoNuevo == 1) {
-                nuevoUnidadBaseCodigo = nuevaPeriodicidad.getUnidadbase().getCodigo();
-            } else if (tipoNuevo == 2) {
-                nuevoUnidadBaseCodigo = duplicarPeriodicidad.getUnidadbase().getCodigo();
-            }
-
-        } else if (Campo.equals("UNIDADBASENOMBRE")) {
-            if (tipoNuevo == 1) {
-                nuevoUnidadBaseNombre = nuevaPeriodicidad.getUnidadbase().getCodigo();
-            } else if (tipoNuevo == 2) {
-                nuevoUnidadBaseNombre = duplicarPeriodicidad.getUnidadbase().getCodigo();
-            }
-
-        }
-    }
-
-    public void autocompletarNuevo(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("UNIDADNOMBRE")) {
-
-            System.out.println(" NUEVA PERIODICIDAD ");
-            System.out.println("NOMBRE UNIDAD : " + nuevaPeriodicidad.getUnidad().getNombre());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO VALORCONFIRMAR : " + valorConfirmar);
-            System.out.println("NOMBRE NUEVA UNIDAD : " + nuevaUnidad);
-            nuevaPeriodicidad.getUnidad().setNombre(nuevaUnidad);
-            getListaUnidades();
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO COINCIDENCIAS : " + coincidencias);
-            if (coincidencias == 1) {
-                nuevaPeriodicidad.setUnidad(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidads");
-        }
-        if (confirmarCambio.equalsIgnoreCase("UNIDADCODIGO")) {
-
-            System.out.println(" NUEVA PERIODICIDAD ");
-            System.out.println("CODIGO UNIDAD : " + nuevaPeriodicidad.getUnidad().getCodigo());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO CODIGO VALORCONFIRMAR : " + valorConfirmar);
-            System.out.println("NOMBRE NUEVA UNIDAD : " + nuevoUnidadCodigo);
-            nuevaPeriodicidad.getUnidad().setNombre(nuevoUnidadCodigo);
-            getListaUnidades();
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO CODIGO COINCIDENCIAS : " + coincidencias);
-            if (coincidencias == 1) {
-                nuevaPeriodicidad.setUnidad(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaTipoUnidadsCodigo");
-        }
-        if (confirmarCambio.equalsIgnoreCase("UNIDADBASECODIGO")) {
-
-            System.out.println(" NUEVA PERIODICIDAD ");
-            System.out.println("CODIGO BASE UNIDAD : " + nuevaPeriodicidad.getUnidadbase().getCodigo());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO CODIGO VALORCONFIRMAR : " + valorConfirmar);
-            System.out.println("NOMBRE NUEVA UNIDAD : " + nuevoUnidadBaseCodigo);
-            nuevaPeriodicidad.getUnidadbase().setCodigo(nuevoUnidadBaseCodigo);
-            getListaUnidades();
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO BASE CODIGO COINCIDENCIAS : " + coincidencias);
-            if (coincidencias == 1) {
-                nuevaPeriodicidad.setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaCodigoBase");
-        }
-        if (confirmarCambio.equalsIgnoreCase("UNIDADBASENOMBRE")) {
-
-            System.out.println(" NUEVA PERIODICIDAD ");
-            System.out.println("NOMBRE BASE UNIDAD : " + nuevaPeriodicidad.getUnidadbase().getNombre());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO NOMBRE VALORCONFIRMAR : " + valorConfirmar);
-            System.out.println("NOMBRE NUEVA UNIDAD : " + nuevoUnidadBaseNombre);
-            nuevaPeriodicidad.getUnidadbase().setNombre(nuevoUnidadBaseNombre);
-            getListaUnidades();
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETARNUEVO BASE NOMBRE COINCIDENCIAS : " + coincidencias);
-            if (coincidencias == 1) {
-                nuevaPeriodicidad.setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNombreBase");
-        }
-    }
-
-    public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-        System.out.println("entrooooooooooooooooooooooooooooooooooooooooooooooooooooooo!!!");
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("UNIDADCODIGO")) {
-
-            System.out.println("CONTROLPERIODICIDADES DUPLICAR CODIGO UNIDAD: " + duplicarPeriodicidad.getUnidad().getCodigo());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETLARDUPLICADO VALORCONFIRMAR: " + valorConfirmar);
-            System.out.println("CODIGO DUPLICAR: " + nuevoUnidadCodigo);
-            duplicarPeriodicidad.getUnidad().setCodigo(nuevoUnidadCodigo);
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-                duplicarPeriodicidad.setUnidad(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoPeriodicidades");
-        }
-        if (confirmarCambio.equalsIgnoreCase("UNIDADNOMBRE")) {
-
-            System.out.println("CONTROLPERIODICIDADES DUPLICAR NOMBRE UNIDAD: " + duplicarPeriodicidad.getUnidad().getNombre());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETLARDUPLICADO VALORCONFIRMAR: " + valorConfirmar);
-            System.out.println("NOMBRE DUPLICAR: " + nuevaUnidad);
-            duplicarPeriodicidad.getUnidad().setNombre(nuevaUnidad);
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-                duplicarPeriodicidad.setUnidad(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoPeriodicidades");
-        }
-        if (confirmarCambio.equalsIgnoreCase("UNIDADBASECODIGO")) {
-
-            System.out.println("CONTROLPERIODICIDADES DUPLICAR CODIGO  UNIDADBASE : " + duplicarPeriodicidad.getUnidadbase().getCodigo());
-            System.out.println("CONTROLPERIODICIDADES AUTOCOMPLETLARDUPLICADO VALORCONFIRMAR: " + valorConfirmar);
-            System.out.println("NOMBRE BASE DUPLICAR: " + nuevaUnidad);
-            duplicarPeriodicidad.getUnidadbase().setCodigo(nuevoUnidadBaseCodigo);
-            for (int i = 0; i < listaUnidades.size(); i++) {
-                if (listaUnidades.get(i).getCodigo().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            System.out.println("Coincidencias: " + coincidencias);
-            if (coincidencias == 1) {
-                duplicarPeriodicidad.setUnidadbase(listaUnidades.get(indiceUnicoElemento));
-                listaUnidades = null;
-                getListaUnidades();
-            } else {
-                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-            }
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoPeriodicidades");
-        }
-    }
-
-    public void asignarVariableUnidad(int tipoNuevo) {
-        if (tipoNuevo == 0) {
-            tipoActualizacion = 1;
-        }
-        if (tipoNuevo == 1) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-        RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-    }
-
-    public void asignarVariableUnidadBase(int tipoNuevo) {
-        if (tipoNuevo == 0) {
-            tipoActualizacion = 1;
-        }
-        if (tipoNuevo == 1) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-        RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-    }
-
     public void limpiarNuevoPeriodicidades() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES.limpiarNuevoPeriodicidades \n");
         try {
             nuevaPeriodicidad = new Periodicidades();
             nuevaPeriodicidad.setUnidad(new Unidades());
             nuevaPeriodicidad.setUnidadbase(new Unidades());
-            index = -1;
         } catch (Exception e) {
             System.out.println("Error CONTROLPERIODICIDADES.LimpiarNuevoPeriodicidades ERROR=============================" + e.getMessage());
         }
     }
 
     public void agregarNuevoPeriodicidades() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES.agregarNuevoPeriodicidades \n");
         try {
             int contador = 0;
             mensajeValidacion = " ";
@@ -1300,67 +437,47 @@ public class ControlPeriodicidades implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
 
             if (nuevaPeriodicidad.getCodigo() == null) {
-                mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             } else {
-                System.out.println("codigo en Motivo Cambio Cargo: " + nuevaPeriodicidad.getCodigo());
-
                 for (int x = 0; x < listPeriodicidades.size(); x++) {
                     if (listPeriodicidades.get(x).getCodigo().equals(nuevaPeriodicidad.getCodigo())) {
                         duplicados++;
                     }
                 }
-                System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
                 if (duplicados > 0) {
-                    mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                    System.out.println("Mensaje validacion : " + mensajeValidacion);
+                    mensajeValidacion = "Existe una periodicidad con el código iungresado. Por favor ingrese un código válido";
                 } else {
-                    System.out.println("bandera");
                     contador++;
                 }
             }
             if (nuevaPeriodicidad.getNombre() == null) {
-                mensajeValidacion = mensajeValidacion + "   *Nombre \n";
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
+            } else {
+                contador++;
+            }
+            if (nuevaPeriodicidad.getUnidad().getCodigo() == null) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             } else {
                 System.out.println("Bandera : ");
                 contador++;
             }
-            if (nuevaPeriodicidad.getUnidad().getCodigo() == null && nuevaPeriodicidad.getUnidad().getCodigo() == null) {
-                mensajeValidacion = mensajeValidacion + "   *Unidad\n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+            if (nuevaPeriodicidad.getUnidadbase().getCodigo() == null) {
+                mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
             } else {
-                System.out.println("Bandera : ");
                 contador++;
             }
-            if (nuevaPeriodicidad.getUnidad().getCodigo() == null && nuevaPeriodicidad.getUnidad().getCodigo() == null) {
-                mensajeValidacion = mensajeValidacion + "   *Unidad Base\n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
-
-            } else {
-                System.out.println("Bandera : ");
-                contador++;
-            }
-            System.out.println("CONTADOR AGREGAR : " + contador);
             if (contador == 4) {
                 k++;
                 l = BigInteger.valueOf(k);
                 nuevaPeriodicidad.setSecuencia(l);
-                if (crearPeriodicidades.contains(nuevaPeriodicidad)) {
-                    System.out.println("Ya lo contengo.");
-                } else {
-                    crearPeriodicidades.add(nuevaPeriodicidad);
-
-                }
+                crearPeriodicidades.add(nuevaPeriodicidad);
                 listPeriodicidades.add(nuevaPeriodicidad);
+                periocidadSeleccionadaTabla = nuevaPeriodicidad;
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-                infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                contarRegistros();
                 nuevaPeriodicidad = new Periodicidades();
-                // index = -1;
-                secRegistro = null;
                 if (guardado == true) {
                     guardado = false;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1380,18 +497,15 @@ public class ControlPeriodicidades implements Serializable {
                     unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
                     unidadBase.setFilterStyle("display: none; visibility: hidden;");
                     RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-
                     bandera = 0;
                     filtrarPeriodicidades = null;
                     tipoLista = 0;
                 }
-                mensajeValidacion = " ";
                 RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPeriodicidades').hide()");
-
             } else {
                 contador = 0;
-                RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-                RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+                RequestContext.getCurrentInstance().update("form:validacionNuevaPeriodicidad");
+                RequestContext.getCurrentInstance().execute("PF('validacionNuevaPeriodicidad').show()");
             }
 
         } catch (Exception e) {
@@ -1399,176 +513,85 @@ public class ControlPeriodicidades implements Serializable {
         }
     }
 
-    public void cargarUnidadesNuevoRegistro(int tipoNuevo) {
-        if (tipoNuevo == 0) {
-            tipoActualizacion = 1;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-        } else if (tipoNuevo == 1) {
-            tipoActualizacion = 2;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-        }
-    }
-
-    public void cargarUnidadesBaseNuevoRegistro(int tipoNuevo) {
-        if (tipoNuevo == 0) {
-            tipoActualizacion = 1;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-        } else if (tipoNuevo == 1) {
-            tipoActualizacion = 2;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
-            RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-        }
-    }
-
-    public void mostrarDialogoPeriodicidades() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        nuevaPeriodicidad = new Periodicidades();
-        nuevaPeriodicidad.setUnidad(new Unidades());
-        nuevaPeriodicidad.setUnidadbase(new Unidades());
-        index = -1;
-        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoRegistroPeriodicidades");
-        RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPeriodicidades').show()");
-    }
-
-    public void mostrarDialogoListaEmpresas() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        index = -1;
-        RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
-    }
-
     public void duplicandoPeriodicidades() {
-        try {
-            System.out.println("\n ENTRE A CONTROLPERIODICIDADES.duplicarPeriodicidades INDEX===" + index);
+        if (periocidadSeleccionadaTabla != null) {
+            duplicarPeriodicidad = new Periodicidades();
+            duplicarPeriodicidad.setUnidad(new Unidades());
+            duplicarPeriodicidad.setUnidadbase(new Unidades());
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarPeriodicidad.setSecuencia(l);
+            duplicarPeriodicidad.setCodigo(periocidadSeleccionadaTabla.getCodigo());
+            duplicarPeriodicidad.setNombre(periocidadSeleccionadaTabla.getNombre());
+            duplicarPeriodicidad.getUnidad().setCodigo(periocidadSeleccionadaTabla.getUnidad().getCodigo());
+            duplicarPeriodicidad.getUnidad().setNombre(periocidadSeleccionadaTabla.getUnidad().getNombre());
+            duplicarPeriodicidad.getUnidadbase().setCodigo(periocidadSeleccionadaTabla.getUnidadbase().getCodigo());
+            duplicarPeriodicidad.getUnidadbase().setNombre(periocidadSeleccionadaTabla.getUnidadbase().getNombre());
 
-            if (index >= 0) {
-                System.out.println("\n ENTRE A CONTROLPERIODICIDADES.duplicarPeriodicidades TIPOLISTA===" + tipoLista);
-
-                duplicarPeriodicidad = new Periodicidades();
-                duplicarPeriodicidad.setUnidad(new Unidades());
-                duplicarPeriodicidad.setUnidadbase(new Unidades());
-                k++;
-                l = BigInteger.valueOf(k);
-                if (tipoLista == 0) {
-                    duplicarPeriodicidad.setSecuencia(l);
-                    duplicarPeriodicidad.setCodigo(listPeriodicidades.get(index).getCodigo());
-                    duplicarPeriodicidad.setNombre(listPeriodicidades.get(index).getNombre());
-                    duplicarPeriodicidad.getUnidad().setCodigo(listPeriodicidades.get(index).getUnidad().getCodigo());
-                    duplicarPeriodicidad.getUnidad().setNombre(listPeriodicidades.get(index).getUnidad().getNombre());
-                    duplicarPeriodicidad.getUnidadbase().setCodigo(listPeriodicidades.get(index).getUnidadbase().getCodigo());
-                    duplicarPeriodicidad.getUnidadbase().setNombre(listPeriodicidades.get(index).getUnidadbase().getNombre());
-
-                }
-                if (tipoLista == 1) {
-
-                    duplicarPeriodicidad.setSecuencia(l);
-                    duplicarPeriodicidad.setCodigo(filtrarPeriodicidades.get(index).getCodigo());
-                    duplicarPeriodicidad.setNombre(filtrarPeriodicidades.get(index).getNombre());
-                    duplicarPeriodicidad.getUnidad().setCodigo(filtrarPeriodicidades.get(index).getUnidad().getCodigo());
-                    duplicarPeriodicidad.getUnidad().setNombre(filtrarPeriodicidades.get(index).getUnidad().getNombre());
-                    duplicarPeriodicidad.getUnidadbase().setCodigo(filtrarPeriodicidades.get(index).getUnidadbase().getCodigo());
-                    duplicarPeriodicidad.getUnidadbase().setNombre(filtrarPeriodicidades.get(index).getUnidadbase().getNombre());
-
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUnidads");
-                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPeriodicidades').show()");
-                index = -1;
-            }
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES DUPLICANDOPERIODICIDADESERROR" + e);
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUnidads");
+            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPeriodicidades').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void limpiarDuplicarPeriodicidades() {
-        System.out.println("\n ENTRE A CONTROLPERIODICIDADES LIMPIARDUPLICARPERIODICIDADES \n");
-        try {
-            duplicarPeriodicidad = new Periodicidades();
-            duplicarPeriodicidad.setUnidad(new Unidades());
-            duplicarPeriodicidad.setUnidadbase(new Unidades());
-        } catch (Exception e) {
-            System.out.println("ERROR  CONTROLPERIODICIDADES LIMPIARDUPLICARPERIODICIDADES ERROR : " + e);
-        }
-
+        duplicarPeriodicidad = new Periodicidades();
+        duplicarPeriodicidad.setUnidad(new Unidades());
+        duplicarPeriodicidad.setUnidadbase(new Unidades());
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLPERIODICIDADES");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Short a = 0;
         a = null;
-
         if (duplicarPeriodicidad.getCodigo() == null) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + duplicarPeriodicidad.getCodigo());
-
             for (int x = 0; x < listPeriodicidades.size(); x++) {
                 if (listPeriodicidades.get(x).getCodigo().equals(duplicarPeriodicidad.getCodigo())) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
 
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO hayan codigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe una periodicidad con el código ingresado. Por favor ingrese un código válido.";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
 
         }
         if (duplicarPeriodicidad.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else if (duplicarPeriodicidad.getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + "   * Nombre \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
-            System.out.println("Bandera : ");
             contador++;
         }
-        if (duplicarPeriodicidad.getUnidad().getCodigo() == null && duplicarPeriodicidad.getUnidad().getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + "   *Unidad \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        if (duplicarPeriodicidad.getUnidad().getCodigo() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
-            System.out.println("Bandera : ");
             contador++;
         }
-        if (duplicarPeriodicidad.getUnidadbase().getCodigo() == null && duplicarPeriodicidad.getUnidadbase().getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + "   *Unidad Base \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        if (duplicarPeriodicidad.getUnidadbase().getCodigo() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
-            System.out.println("Bandera : ");
             contador++;
         }
         if (contador == 4) {
-            if (crearPeriodicidades.contains(duplicarPeriodicidad)) {
-                System.out.println("Ya lo contengo.");
-            } else {
-                listPeriodicidades.add(duplicarPeriodicidad);
-            }
+            listPeriodicidades.add(duplicarPeriodicidad);
             crearPeriodicidades.add(duplicarPeriodicidad);
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-            infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            secRegistro = null;
+            contarRegistros();
+            periocidadSeleccionadaTabla = duplicarPeriodicidad;
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1578,23 +601,17 @@ public class ControlPeriodicidades implements Serializable {
                 //CERRAR FILTRADO
                 codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
                 codigoCC.setFilterStyle("display: none; visibility: hidden;");
-                //1
                 nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
                 nombreUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //2
                 tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
                 tipoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //3 COMBO BOX
                 codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
                 codigoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                //4
                 codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
                 codigoUnidadbase.setFilterStyle("display: none; visibility: hidden;");
-                //5 COMBO BOX
                 unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
                 unidadBase.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-                //6
                 RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
                 bandera = 0;
                 filtrarPeriodicidades = null;
@@ -1603,162 +620,81 @@ public class ControlPeriodicidades implements Serializable {
             duplicarPeriodicidad = new Periodicidades();
             duplicarPeriodicidad.setUnidad(new Unidades());
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroPeriodicidades').hide()");
-            mensajeValidacion = " ";
 
         } else {
             contador = 0;
-            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+            RequestContext.getCurrentInstance().update("form:validacionDuplicarPeriodicidad");
+            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarPeriodicidad').show()");
         }
     }
-
-    private BigInteger contarCPCompromisosPeriodicidad;
-    private BigInteger contarDetallesPeriodicidadesPeriodicidad;
-    private BigInteger contarEersPrestamosDtosPeriodicidad;
-    private BigInteger contarEmpresasPeriodicidad;
-    private BigInteger contarFormulasAseguradasPeriodicidad;
-    private BigInteger contarFormulasContratosPeriodicidad;
-    private BigInteger contarGruposProvisionesPeriodicidad;
-    private BigInteger contarNovedadPeriodicidad;
-    private BigInteger contadorInterconHelisa;
-    private BigInteger contadorInterconSapbo;
 
     public void verificarBorrado() {
         System.out.println("Estoy en verificarBorrado");
         System.out.println("TIPOLISTA = " + tipoLista);
         BigInteger pruebilla;
-        try {
-            if (tipoLista == 0) {
-                //  System.err.println("Control Secuencia de ControlTiposEmpresas secuencia centro costo" + listPeriodicidades.get(index).getSecuencia());
-                contarCPCompromisosPeriodicidad = administrarPeriodicidades.contarCPCompromisosPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                //  System.out.println("ControlBetaCC contadorComprobantesContables: " + contadorComprobantesContables);
-                contarDetallesPeriodicidadesPeriodicidad = administrarPeriodicidades.contarDetallesPeriodicidadesPeriodicidad(listPeriodicidades.get(index).getSecuencia());;
-                // System.out.println("SE TOTEA ControlBetaCC contadorDetallesCCConsolidador: " + contadorDetallesCCConsolidador);
-                contarEersPrestamosDtosPeriodicidad = administrarPeriodicidades.contarEersPrestamosDtosPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC contadorEmpresas: " + contadorEmpresas);
-                contarEmpresasPeriodicidad = administrarPeriodicidades.contarEmpresasPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                //  System.out.println("ControlBetaCC contadorEstructuras " + contadorEstructuras);
-                contarFormulasAseguradasPeriodicidad = administrarPeriodicidades.contarFormulasAseguradasPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorDetallesCCDetalle" + contadorDetallesCCDetalle);
-                contarFormulasContratosPeriodicidad = administrarPeriodicidades.contarFormulasContratosPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorInterconCondor" + contadorInterconCondor);
-                contarGruposProvisionesPeriodicidad = administrarPeriodicidades.contarGruposProvisionesPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC:contadorInterconDynamics " + contadorInterconDynamics);
-                contarNovedadPeriodicidad = administrarPeriodicidades.contarNovedadesPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorInterconGeneral" + contadorInterconGeneral);
-                contadorInterconHelisa = administrarPeriodicidades.contarParametrosCambiosMasivosPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                //            System.out.println("ControlBetaCC: contadorInterconHelisa" + contadorInterconHelisa);
-                contadorInterconSapbo = administrarPeriodicidades.contarVigenciasFormasPagosPeriodicidad(listPeriodicidades.get(index).getSecuencia());
-                //            System.out.println("ControlBetaCC: contadorInterconSapbo" + contadorInterconSapbo);
-            } else {
-                //               System.err.println(" FILTRAR  FILTRAR  FILTRAR  FILTRAR Control Secuencia de ControlTiposEmpresas secuencia centro costo" + listPeriodicidades.get(index).getSecuencia());
-                contarCPCompromisosPeriodicidad = administrarPeriodicidades.contarCPCompromisosPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                //  System.out.println("ControlBetaCC contadorComprobantesContables: " + contadorComprobantesContables);
-                contarDetallesPeriodicidadesPeriodicidad = administrarPeriodicidades.contarDetallesPeriodicidadesPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());;
-                // System.out.println("SE TOTEA ControlBetaCC contadorDetallesCCConsolidador: " + contadorDetallesCCConsolidador);
-                contarEersPrestamosDtosPeriodicidad = administrarPeriodicidades.contarEersPrestamosDtosPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC contadorEmpresas: " + contadorEmpresas);
-                contarEmpresasPeriodicidad = administrarPeriodicidades.contarEmpresasPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                //  System.out.println("ControlBetaCC contadorEstructuras " + contadorEstructuras);
-                contarFormulasAseguradasPeriodicidad = administrarPeriodicidades.contarFormulasAseguradasPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorDetallesCCDetalle" + contadorDetallesCCDetalle);
-                contarFormulasContratosPeriodicidad = administrarPeriodicidades.contarFormulasContratosPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorInterconCondor" + contadorInterconCondor);
-                contarGruposProvisionesPeriodicidad = administrarPeriodicidades.contarGruposProvisionesPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC:contadorInterconDynamics " + contadorInterconDynamics);
-                contarNovedadPeriodicidad = administrarPeriodicidades.contarNovedadesPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorInterconGeneral" + contadorInterconGeneral);
-                contadorInterconHelisa = administrarPeriodicidades.contarParametrosCambiosMasivosPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                //            System.out.println("ControlBetaCC: contadorInterconHelisa" + contadorInterconHelisa);
-                contadorInterconSapbo = administrarPeriodicidades.contarVigenciasFormasPagosPeriodicidad(filtrarPeriodicidades.get(index).getSecuencia());
-                // System.out.println("ControlBetaCC: contadorInterconSapbo" + contadorInterconSapbo);
-                //       System.out.println("ControlBetaCC: contadorVigenciasProrrateos" + contadorVigenciasProrrateos);
-                //pruebilla = administrarPeriodicidades.sumaTotal(filtrarPeriodicidades.get(index).getSecuencia());
-                //System.err.println("pruebilla :::::::::::::::::::::::::::::::: " + pruebilla);
-            }
-            if (contarDetallesPeriodicidadesPeriodicidad.equals(new BigInteger("0"))
-                    && contarEersPrestamosDtosPeriodicidad.equals(new BigInteger("0"))
-                    && contarEmpresasPeriodicidad.equals(new BigInteger("0"))
-                    && contarFormulasAseguradasPeriodicidad.equals(new BigInteger("0"))
-                    && contarFormulasContratosPeriodicidad.equals(new BigInteger("0"))
-                    && contarGruposProvisionesPeriodicidad.equals(new BigInteger("0"))
-                    && contarNovedadPeriodicidad.equals(new BigInteger("0"))
-                    && contadorInterconHelisa.equals(new BigInteger("0"))
-                    && contadorInterconSapbo.equals(new BigInteger("0"))
-                    && contarCPCompromisosPeriodicidad.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
-                borrandoUnidad();
-            } else {
-
-                System.out.println("Borrado>0");
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
-                contarCPCompromisosPeriodicidad = new BigInteger("-1");
-                contarDetallesPeriodicidadesPeriodicidad = new BigInteger("-1");
-                contarEersPrestamosDtosPeriodicidad = new BigInteger("-1");
-                contarEmpresasPeriodicidad = new BigInteger("-1");
-                contarFormulasAseguradasPeriodicidad = new BigInteger("-1");
-                contarFormulasContratosPeriodicidad = new BigInteger("-1");
-                contarGruposProvisionesPeriodicidad = new BigInteger("-1");
-                contarNovedadPeriodicidad = new BigInteger("-1");
-                contadorInterconHelisa = new BigInteger("-1");
-                contadorInterconSapbo = new BigInteger("-1");
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR CONTROL BETA CENTROS COSTOS verificarBorrado ERROR " + e);
+        contarCPCompromisosPeriodicidad = administrarPeriodicidades.contarCPCompromisosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarDetallesPeriodicidadesPeriodicidad = administrarPeriodicidades.contarDetallesPeriodicidadesPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());;
+        contarEersPrestamosDtosPeriodicidad = administrarPeriodicidades.contarEersPrestamosDtosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarEmpresasPeriodicidad = administrarPeriodicidades.contarEmpresasPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarFormulasAseguradasPeriodicidad = administrarPeriodicidades.contarFormulasAseguradasPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarFormulasContratosPeriodicidad = administrarPeriodicidades.contarFormulasContratosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarGruposProvisionesPeriodicidad = administrarPeriodicidades.contarGruposProvisionesPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contarNovedadPeriodicidad = administrarPeriodicidades.contarNovedadesPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contadorInterconHelisa = administrarPeriodicidades.contarParametrosCambiosMasivosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        contadorInterconSapbo = administrarPeriodicidades.contarVigenciasFormasPagosPeriodicidad(periocidadSeleccionadaTabla.getSecuencia());
+        if (contarDetallesPeriodicidadesPeriodicidad.equals(new BigInteger("0"))
+                && contarEersPrestamosDtosPeriodicidad.equals(new BigInteger("0"))
+                && contarEmpresasPeriodicidad.equals(new BigInteger("0"))
+                && contarFormulasAseguradasPeriodicidad.equals(new BigInteger("0"))
+                && contarFormulasContratosPeriodicidad.equals(new BigInteger("0"))
+                && contarGruposProvisionesPeriodicidad.equals(new BigInteger("0"))
+                && contarNovedadPeriodicidad.equals(new BigInteger("0"))
+                && contadorInterconHelisa.equals(new BigInteger("0"))
+                && contadorInterconSapbo.equals(new BigInteger("0"))
+                && contarCPCompromisosPeriodicidad.equals(new BigInteger("0"))) {
+            borrandoUnidad();
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:validacionBorrar");
+            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+            contarCPCompromisosPeriodicidad = new BigInteger("-1");
+            contarDetallesPeriodicidadesPeriodicidad = new BigInteger("-1");
+            contarEersPrestamosDtosPeriodicidad = new BigInteger("-1");
+            contarEmpresasPeriodicidad = new BigInteger("-1");
+            contarFormulasAseguradasPeriodicidad = new BigInteger("-1");
+            contarFormulasContratosPeriodicidad = new BigInteger("-1");
+            contarGruposProvisionesPeriodicidad = new BigInteger("-1");
+            contarNovedadPeriodicidad = new BigInteger("-1");
+            contadorInterconHelisa = new BigInteger("-1");
+            contadorInterconSapbo = new BigInteger("-1");
         }
     }
 
     public void borrandoUnidad() {
-        try {
-            if (index >= 0) {
-                if (tipoLista == 0) {
-                    if (!modificarPeriodicidades.isEmpty() && modificarPeriodicidades.contains(listPeriodicidades.get(index))) {
-                        int modIndex = modificarPeriodicidades.indexOf(listPeriodicidades.get(index));
-                        modificarPeriodicidades.remove(modIndex);
-                        borrarPeriodicidades.add(listPeriodicidades.get(index));
-                    } else if (!crearPeriodicidades.isEmpty() && crearPeriodicidades.contains(listPeriodicidades.get(index))) {
-                        int crearIndex = crearPeriodicidades.indexOf(listPeriodicidades.get(index));
-                        crearPeriodicidades.remove(crearIndex);
-                    } else {
-
-                        borrarPeriodicidades.add(listPeriodicidades.get(index));
-                    }
-                    listPeriodicidades.remove(index);
-                }
-                if (tipoLista == 1) {
-                    if (!modificarPeriodicidades.isEmpty() && modificarPeriodicidades.contains(filtrarPeriodicidades.get(index))) {
-                        System.out.println("\n 6 ENTRE A CONTROLPERIODICIDADES.borrarUnidad tipolista==1 try if if if filtrarPeriodicidades.get(index).getCodigo()" + filtrarPeriodicidades.get(index).getCodigo());
-
-                        int modIndex = modificarPeriodicidades.indexOf(filtrarPeriodicidades.get(index));
-                        modificarPeriodicidades.remove(modIndex);
-                        borrarPeriodicidades.add(filtrarPeriodicidades.get(index));
-                    } else if (!crearPeriodicidades.isEmpty() && crearPeriodicidades.contains(filtrarPeriodicidades.get(index))) {
-                        System.out.println("\n 7 ENTRE A CONTROLPERIODICIDADES.borrarUnidad tipolista==1 try if if if filtrarPeriodicidades.get(index).getCodigo()" + filtrarPeriodicidades.get(index).getCodigo());
-                        int crearIndex = crearPeriodicidades.indexOf(filtrarPeriodicidades.get(index));
-                        crearPeriodicidades.remove(crearIndex);
-                    } else {
-                        System.out.println("\n 8 ENTRE A CONTROLPERIODICIDADES.borrarUnidad tipolista==1 try if if if filtrarPeriodicidades.get(index).getCodigo()" + filtrarPeriodicidades.get(index).getCodigo());
-                        borrarPeriodicidades.add(filtrarPeriodicidades.get(index));
-                    }
-                    int VCIndex = listPeriodicidades.indexOf(filtrarPeriodicidades.get(index));
-                    listPeriodicidades.remove(VCIndex);
-                    filtrarPeriodicidades.remove(index);
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                index = -1;
-                System.err.println("verificar Borrado " + guardado);
-                if (guardado == true) {
-                    guardado = false;
-                }
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+        if (periocidadSeleccionadaTabla != null) {
+            if (!modificarPeriodicidades.isEmpty() && modificarPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                int modIndex = modificarPeriodicidades.indexOf(periocidadSeleccionadaTabla);
+                modificarPeriodicidades.remove(modIndex);
+                borrarPeriodicidades.add(periocidadSeleccionadaTabla);
+            } else if (!crearPeriodicidades.isEmpty() && crearPeriodicidades.contains(periocidadSeleccionadaTabla)) {
+                int crearIndex = crearPeriodicidades.indexOf(periocidadSeleccionadaTabla);
+                crearPeriodicidades.remove(crearIndex);
+            } else {
+                borrarPeriodicidades.add(periocidadSeleccionadaTabla);
             }
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLPERIODICIDADES BORRARPERIODICIDAD ERROR " + e);
+            listPeriodicidades.remove(periocidadSeleccionadaTabla);
+            if (tipoLista == 1) {
+                filtrarPeriodicidades.remove(periocidadSeleccionadaTabla);
+            }
+            contarRegistros();
+            periocidadSeleccionadaTabla = null;
+            if (guardado == true) {
+                guardado = false;
+            }
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1769,7 +705,6 @@ public class ControlPeriodicidades implements Serializable {
             System.out.println("Realizando Operaciones Vigencias Localizacion");
             if (!borrarPeriodicidades.isEmpty()) {
                 administrarPeriodicidades.borrarPeriodicidades(borrarPeriodicidades);
-                //mostrarBorrados
                 registrosBorrados = borrarPeriodicidades.size();
                 RequestContext.getCurrentInstance().update("form:mostrarBorrados");
                 RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
@@ -1785,154 +720,120 @@ public class ControlPeriodicidades implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listPeriodicidades = null;
-            RequestContext.getCurrentInstance().update("form:datosTipoUnidad");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
             guardado = true;
 
-            if (banderaSeleccionPericiodidades == true) {
-                listPeriodicidadesBoton = null;
-                getListPericiodidadesBoton();
-                index = -1;
-                RequestContext.getCurrentInstance().update("formularioDialogos:lovPeriodicidades");
-                RequestContext.getCurrentInstance().execute("PF('buscarPeriodicidadesDialogo').show()");
-                banderaSeleccionPericiodidades = false;
-            }
         }
-        index = -1;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void activarCtrlF11() {
         System.out.println("\n ENTRE A CONTROLPERIODICIDADES ACTIVARCTRLF11 \n");
         FacesContext c = FacesContext.getCurrentInstance();
-        try {
+        if (bandera == 0) {
 
-            if (bandera == 0) {
-                tamano = 250;
-                System.out.println("Activar");
-                codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
-                codigoCC.setFilterStyle("width: width: 85% !important");
-                nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
-                nombreUnidad.setFilterStyle("width: width: 85% !important");
-                tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
-                tipoUnidad.setFilterStyle("width: 85% !important;");
-                codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
-                codigoUnidad.setFilterStyle("width: 85% !important;");
-                codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
-                codigoUnidadbase.setFilterStyle("width: 85% !important;");
-                unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
-                unidadBase.setFilterStyle("width: 85% !important;");
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-                bandera = 1;
-            } else if (bandera == 1) {
-                System.out.println("Desactivar");
-                //0
-                tamano = 270;
-                codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
-                codigoCC.setFilterStyle("display: none; visibility: hidden;");
-                nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
-                nombreUnidad.setFilterStyle("display: none; visibility: hidden;");
-                tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
-                tipoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
-                codigoUnidad.setFilterStyle("display: none; visibility: hidden;");
-                codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
-                codigoUnidadbase.setFilterStyle("display: none; visibility: hidden;");
-                unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
-                unidadBase.setFilterStyle("display: none; visibility: hidden;");
+            tamano = 250;
+            System.out.println("Activar");
+            codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
+            codigoCC.setFilterStyle("width: 85% !important");
+            nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
+            nombreUnidad.setFilterStyle("width:  85% !important");
+            tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
+            tipoUnidad.setFilterStyle("width: 85% !important;");
+            codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
+            codigoUnidad.setFilterStyle("width: 85% !important;");
+            codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
+            codigoUnidadbase.setFilterStyle("width: 85% !important;");
+            unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
+            unidadBase.setFilterStyle("width: 85% !important;");
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+            bandera = 1;
+        } else if (bandera == 1) {
+            System.out.println("Desactivar");
+            //0
+            tamano = 270;
+            codigoCC = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoCC");
+            codigoCC.setFilterStyle("display: none; visibility: hidden;");
+            nombreUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:nombreUnidad");
+            nombreUnidad.setFilterStyle("display: none; visibility: hidden;");
+            tipoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:tipoUnidad");
+            tipoUnidad.setFilterStyle("display: none; visibility: hidden;");
+            codigoUnidad = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidad");
+            codigoUnidad.setFilterStyle("display: none; visibility: hidden;");
+            codigoUnidadbase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:codigoUnidadbase");
+            codigoUnidadbase.setFilterStyle("display: none; visibility: hidden;");
+            unidadBase = (Column) c.getViewRoot().findComponent("form:datosPeriodicidades:unidadBase");
+            unidadBase.setFilterStyle("display: none; visibility: hidden;");
 
-                RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
-                bandera = 0;
-                filtrarPeriodicidades = null;
-                tipoLista = 0;
-            }
-        } catch (Exception e) {
-
-            System.out.println("ERROR CONTROLPERIODICIDADES ACTICARCTRLF11 ERROR : " + e);
+            RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
+            bandera = 0;
+            filtrarPeriodicidades = null;
+            tipoLista = 0;
         }
     }
 
     public void editarCelda() {
-        try {
-            System.out.println("\n ENTRE A editarCelda INDEX  " + index);
-            editarUnidad = new Periodicidades();
-            editarUnidad.setUnidad(new Unidades());
-            editarUnidad.setUnidadbase(new Unidades());
-            if (index >= 0) {
-                System.out.println("\n ENTRE AeditarCelda TIPOLISTA " + tipoLista);
-                if (tipoLista == 0) {
-                    editarUnidad = listPeriodicidades.get(index);
-                }
-                if (tipoLista == 1) {
-                    editarUnidad = filtrarPeriodicidades.get(index);
-                }
-                RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("CONTROLPERIODICIDADES : Entro a editar... valor celda: " + cualCelda);
-                if (cualCelda == 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
-                    RequestContext.getCurrentInstance().execute("PF('editarCCC').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNCC");
-                    RequestContext.getCurrentInstance().execute("PF('editarNCC').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTCC");
-                    RequestContext.getCurrentInstance().execute("PF('editarTCC').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 3) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarMO");
-                    RequestContext.getCurrentInstance().execute("PF('editarMO').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 4) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCAT");
-                    RequestContext.getCurrentInstance().execute("PF('editarCAT').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 5) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarO");
-                    RequestContext.getCurrentInstance().execute("PF('editarO').show()");
-                    cualCelda = -1;
-                }
+        if (periocidadSeleccionadaTabla != null) {
+            editarUnidad = periocidadSeleccionadaTabla;
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCCC");
+                RequestContext.getCurrentInstance().execute("PF('editarCCC').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNCC");
+                RequestContext.getCurrentInstance().execute("PF('editarNCC').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTCC");
+                RequestContext.getCurrentInstance().execute("PF('editarTCC').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarMO");
+                RequestContext.getCurrentInstance().execute("PF('editarMO').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 4) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCAT");
+                RequestContext.getCurrentInstance().execute("PF('editarCAT').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 5) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarO");
+                RequestContext.getCurrentInstance().execute("PF('editarO').show()");
+                cualCelda = -1;
             }
-            index = -1;
-        } catch (Exception E) {
-            System.out.println("ERROR CONTROLPERIODICIDADES EDITARCELDA ERROR " + E);
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void listaValoresBoton() {
-
-        try {
-            if (index >= 0) {
-                RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("\n ListaValoresBoton \n");
-                if (cualCelda == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-                if (cualCelda == 3) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:tiposPeriodicidadesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-                if (cualCelda == 4) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:unidadesBaseDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-                if (cualCelda == 5) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:unidadesBaseDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
-                    tipoActualizacion = 0;
-                }
+        if (periocidadSeleccionadaTabla != null) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            System.out.println("\n ListaValoresBoton \n");
+            if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
+                tipoActualizacion = 0;
             }
-        } catch (Exception e) {
-            System.out.println("\n ERROR CONTROLPERIODICIDADES LISTAVALORESBOTON ERROR " + e);
-
+            if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("form:tiposPeriodicidadesDialogo");
+                RequestContext.getCurrentInstance().execute("PF('tiposPeriodicidadesDialogo').show()");
+                tipoActualizacion = 0;
+            }
+            if (cualCelda == 4) {
+                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
+                tipoActualizacion = 0;
+            }
+            if (cualCelda == 5) {
+                RequestContext.getCurrentInstance().update("form:unidadesBaseDialogo");
+                RequestContext.getCurrentInstance().execute("PF('unidadesBaseDialogo').show()");
+                tipoActualizacion = 0;
+            }
         }
     }
 
@@ -1942,64 +843,61 @@ public class ControlPeriodicidades implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "Periodicidades", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     public void exportXLS() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosPeriodicidadesExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "Periodicidades", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listPeriodicidades.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "PERIODICIDADES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (periocidadSeleccionadaTabla != null) {
+            int resultado = administrarRastros.obtenerTabla(periocidadSeleccionadaTabla.getSecuencia(), "PERIODICIDADES");
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("PERIODICIDADES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PERIODICIDADES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
-//-----------------------------------------------------------------------------**
-    public BigInteger getSecRegistro() {
-        return secRegistro;
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
+    public void contarRegistrosUnidades() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroUnidades");
     }
 
+    public void contarRegistrosUnidadesBase() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroUnidadesBase");
+    }
+
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonlov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+//------------SETS Y GETS--------------------------------------**
     public int getRegistrosBorrados() {
         return registrosBorrados;
     }
@@ -2020,41 +918,11 @@ public class ControlPeriodicidades implements Serializable {
         if (listPeriodicidades == null) {
             listPeriodicidades = administrarPeriodicidades.consultarPeriodicidades();
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listPeriodicidades == null || listPeriodicidades.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listPeriodicidades.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         return listPeriodicidades;
     }
 
     public void setListPeriodicidades(List<Periodicidades> listPeriodicidades) {
         this.listPeriodicidades = listPeriodicidades;
-    }
-    private String infoRegistroPeriodicidadesBoton;
-
-    public List<Periodicidades> getListPericiodidadesBoton() {
-        try {
-            if (listPeriodicidadesBoton == null) {
-                listPeriodicidadesBoton = administrarPeriodicidades.consultarPeriodicidades();
-                //listPeriodicidadesBoton = listPeriodicidades;
-            }
-            if (listPeriodicidadesBoton == null || listPeriodicidadesBoton.isEmpty()) {
-                infoRegistroPeriodicidadesBoton = "Cantidad de registros: 0 ";
-            } else {
-                infoRegistroPeriodicidadesBoton = "Cantidad de registros: " + listPeriodicidadesBoton.size();
-            }
-            return listPeriodicidadesBoton;
-        } catch (Exception e) {
-            System.out.println("CONTROL PERIODICIDADES : Error al recibir los Periodicidades de la empresa seleccionada /n" + e.getMessage());
-            return null;
-        }
-    }
-
-    public void setListPericiodidadesBoton(List<Periodicidades> listPeriodicidadesBoton) {
-        this.listPeriodicidadesBoton = listPeriodicidadesBoton;
     }
 
     public void setListPericiodidades(List<Periodicidades> listPeriodicidades) {
@@ -2087,23 +955,11 @@ public class ControlPeriodicidades implements Serializable {
     public void setDuplicarPeriodicidad(Periodicidades duplicarPeriodicidad) {
         this.duplicarPeriodicidad = duplicarPeriodicidad;
     }
-    private String infoRegistroUnidades;
-    private String infoRegistroUnidades1;
 
     public List<Unidades> getListaUnidades() {
         if (listaUnidades == null) {
             listaUnidades = administrarPeriodicidades.consultarLOVUnidades();
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listaUnidades == null || listaUnidades.isEmpty()) {
-            infoRegistroUnidades = "Cantidad de registros: 0 ";
-            infoRegistroUnidades1 = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistroUnidades = "Cantidad de registros: " + listaUnidades.size();
-            infoRegistroUnidades1 = "Cantidad de registros: " + listaUnidades.size();
-        }
-        RequestContext.getCurrentInstance().update("form:infoRegistroUnidades");
-        RequestContext.getCurrentInstance().update("form:infoRegistroUnidades1");
         return listaUnidades;
     }
 
@@ -2143,14 +999,6 @@ public class ControlPeriodicidades implements Serializable {
         this.filterPericiodidades = filterPericiodidades;
     }
 
-    public Periodicidades getPericiodidadesSeleccionado() {
-        return PericiodidadesSeleccionado;
-    }
-
-    public void setPericiodidadesSeleccionado(Periodicidades PericiodidadesSeleccionado) {
-        this.PericiodidadesSeleccionado = PericiodidadesSeleccionado;
-    }
-
     public Periodicidades getEditarUnidad() {
         return editarUnidad;
     }
@@ -2183,15 +1031,10 @@ public class ControlPeriodicidades implements Serializable {
         this.periocidadSeleccionadaTabla = periocidadSeleccionadaTabla;
     }
 
-    public boolean isMostrarTodos() {
-        return mostrarTodos;
-    }
-
-    public void setMostrarTodos(boolean mostrarTodos) {
-        this.mostrarTodos = mostrarTodos;
-    }
-
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosPeriodicidades");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -2199,15 +1042,10 @@ public class ControlPeriodicidades implements Serializable {
         this.infoRegistro = infoRegistro;
     }
 
-    public String getInfoRegistroPeriodicidadesBoton() {
-        return infoRegistroPeriodicidadesBoton;
-    }
-
-    public void setInfoRegistroPeriodicidadesBoton(String infoRegistroPeriodicidadesBoton) {
-        this.infoRegistroPeriodicidadesBoton = infoRegistroPeriodicidadesBoton;
-    }
-
     public String getInfoRegistroUnidades() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTipoPeriodicidades");
+        infoRegistroUnidades = String.valueOf(tabla.getRowCount());
         return infoRegistroUnidades;
     }
 
@@ -2215,12 +1053,31 @@ public class ControlPeriodicidades implements Serializable {
         this.infoRegistroUnidades = infoRegistroUnidades;
     }
 
-    public String getInfoRegistroUnidades1() {
-        return infoRegistroUnidades1;
+    public String getInfoRegistroUnidadesBase() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovUnidadesBase");
+        infoRegistroUnidadesBase = String.valueOf(tabla.getRowCount());
+        return infoRegistroUnidadesBase;
     }
 
-    public void setInfoRegistroUnidades1(String infoRegistroUnidades1) {
-        this.infoRegistroUnidades1 = infoRegistroUnidades1;
+    public void setInfoRegistroUnidadesBase(String infoRegistroUnidadesBase) {
+        this.infoRegistroUnidadesBase = infoRegistroUnidadesBase;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public Unidades getUnidadBaseSeleccionada() {
+        return unidadBaseSeleccionada;
+    }
+
+    public void setUnidadBaseSeleccionada(Unidades unidadBaseSeleccionada) {
+        this.unidadBaseSeleccionada = unidadBaseSeleccionada;
     }
 
 }

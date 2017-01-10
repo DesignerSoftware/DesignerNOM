@@ -11,6 +11,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
+                    <f:loadBundle basename="Recursos.periodicidad" var="msg" />
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Periodicidades" styleClass="panelTotal"> 
                        
@@ -18,109 +19,110 @@
                             <p:toolbarGroup align="left">
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="Guardado Rapido" />
+                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                                
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlPeriodicidades.editarCelda()}" process="@this"/>
-                                <p:tooltip style="" for="editar" value="Editar" />
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPeriodicidades.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="Lista de Valores" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlPeriodicidades.listaValoresBoton()}"  disabled="#{controlPeriodicidades.activarLov}"
+                                                 process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlPeriodicidades.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="Filtrar" />
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlPeriodicidades.exportXLS()}" />
-                                <p:tooltip style="" for="exportarXLS" value="Exportar XLS" />
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" ajax="false">
                                     <p:dataExporter type="xml"  target=":formExportar:datosPeriodicidadesExportar" fileName="Periodicidades" encoding="UTF-8"/> 
                                 </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="Exportar XML" />
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
 
                                 <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlPeriodicidades.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="Exportar PDF" />
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlPeriodicidades.mostrarDialogoPeriodicidades()}" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="Nueva Periodicidad" />
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  oncomplete="PF('nuevoRegistroPeriodicidades').show()" update=":formularioDialogos:nuevaPeriodicidads" process="@this"/> 
+                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlPeriodicidades.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="Eliminar Perdiodicidad" />
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlPeriodicidades.duplicandoPeriodicidades()}"  process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="Duplicar Periodicidad" />
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlPeriodicidades.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="" for="rastro" value="Rastros"/>
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPeriodicidades.cancelarModificacion()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="Refrescar"/>
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlPeriodicidades.cancelarModificacion()}"  oncomplete="window.location.reload()" process="@this"/>  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.salir()}" process="@this"/>  
-                                <p:tooltip  for="salir" value="Salir"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.salir()}"  process="@this"/>  
+                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 330px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Periodicidades</strong></legend>
-                            <!-- TABLA EMPLVIGENCIACARGO -->
 
                             <p:dataTable id="datosPeriodicidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px ; border: 1px;"                      
                                          value="#{controlPeriodicidades.listPeriodicidades}" scrollable="true" scrollHeight="#{controlPeriodicidades.tamano}"  scrollWidth="835"
-                                         filteredValue="#{controlPeriodicidades.filtrarPeriodicidades}" emptyMessage="No se encuentran valores en esta tabla"
+                                         filteredValue="#{controlPeriodicidades.filtrarPeriodicidades}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
                                          selection="#{controlPeriodicidades.periocidadSeleccionadaTabla}"
                                          selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlPeriodicidades.eventoFiltrar()}"/>
 
 
-                                <p:column headerText="Codigo" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCC" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCC" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax  event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'N', info.codigo)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,0)}" /> 
+                                                <p:ajax  event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'N', info.codigo)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,0)}" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                 </p:column>  
 
-                                <p:column headerText="Descripcion" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  id="nombreUnidad" width="113" filterStyle="display: none; visibility: hidden;" >      
+                                <p:column headerText="#{msg['desc']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  id="nombreUnidad" width="113" filterStyle="display: none; visibility: hidden;" >      
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'N', info.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 1)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'N', info.nombre)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 1)}" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="Codigo Unidad" sortBy="#{info.unidad.codigo}" filterBy="#{info.unidad.codigo}" filterMatchMode="contains" id="codigoUnidad" width="55" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['codund']}" sortBy="#{info.unidad.codigo}" filterBy="#{info.unidad.codigo}" filterMatchMode="contains" id="codigoUnidad" width="55" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidad.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidad.codigo}" id="editarCodigoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADES', info.unidad.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 2)}" />
-                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 2)}"/>
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADES', info.unidad.codigo)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120px;" id="fooCodigoUnidad"  action="cambioTipoUnidad" value=""/>
+                                        <p:commandButton style="width: 120px;" id="fooCodigoUnidad" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column> 
                                 <p:column headerText="Unidad" sortBy="#{info.unidad.nombre}" filterBy="#{info.unidad.nombre}" filterMatchMode="contains" id="tipoUnidad" width="40" filterStyle="display: none; visibility: hidden;" >                                  
@@ -128,446 +130,363 @@
                                         <f:facet name="output"><h:outputText value="#{info.unidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidad.nombre}" id="editarTipoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADES', info.unidad.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,3)}" />
-                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 3)}"/>
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADES', info.unidad.nombre)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,3)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 100px;" id="fooTipoUnidad"  action="cambioTipoUnidad" value=""/>
+                                        <p:commandButton style="width: 100px;" id="fooTipoUnidad" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column>  
-                                <p:column headerText="Codigo Unidad Base" sortBy="#{info.unidadbase.codigo}" filterBy="#{info.unidadbase.codigo}" filterMatchMode="contains" id="codigoUnidadbase" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['codundb']}" sortBy="#{info.unidadbase.codigo}" filterBy="#{info.unidadbase.codigo}" filterMatchMode="contains" id="codigoUnidadbase" width="80" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidadbase.codigo}" id="editarCodigoUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADESBASE', info.unidadbase.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice, 4)}" />
-                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 4)}"/>
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADESBASE', info.unidadbase.codigo)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 4)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 3)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 160px;" id="fooCodigoUnidadBase"  action="cambioTipoUnidad" value=""/>
+                                        <p:commandButton style="width: 160px;" id="fooCodigoUnidadBase" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column> 
-                                <p:column headerText="Descripcion Base" sortBy="#{info.unidadbase.nombre}" filterBy="#{info.unidadbase.nombre}" filterMatchMode="contains" id="unidadBase" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['descb']}" sortBy="#{info.unidadbase.nombre}" filterBy="#{info.unidadbase.nombre}" filterMatchMode="contains" id="unidadBase" width="70" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidadbase.nombre}" id="editarUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(indice, 'UNIDADESBASE', info.unidadbase.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(indice,5)}" />
-                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(indice, 0, 5)}"/>
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADESBASE', info.unidadbase.nombre)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,5)}" />
+                                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 3)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 140px;" id="fooUnidadBase"  action="cambioTipoUnidad" value=""/>
+                                        <p:commandButton style="width: 140px;" id="fooUnidadBase" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column>  
-
-
-
                             </p:dataTable> 
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlPeriodicidades.infoRegistro}" style="position: relative; left: 0px; top: 7px; font-weight: bold"/>
                         </fieldset>
 
                         <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                         <p:dialog header="Buscar Unidades" widgetVar="tiposPeriodicidadesDialogo" draggable="true" resizable="false" closable="false" id="tiposPeriodicidadesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="460" modal="true" style="">
+                                  showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
                             <p:dataTable id="lovTipoPeriodicidades" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.listaUnidades}" rowKey="#{unidads.secuencia}"
                                          selection="#{controlPeriodicidades.unidadSeleccionada}" selectionMode="single" widgetVar="lovTipoPeriodicidades" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                         filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="No se encuentran valores en esta tabla">              
+                                         filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlPeriodicidades.activarAceptar()}" update=":form:aceptarTCC"/>
-                                <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.actualizarUnidad()}" process="@this" />
+                                <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.actualizarTipoPeriodicidad()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlPeriodicidades.contarRegistrosUnidades()}" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="Buscar Unidad"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <h:outputText value="Buscar Unidad" />  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoPeriodicidades').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
-                                        <h:outputText style="text-align: center" value="Codigo" />
+                                        <h:outputText style="text-align: center" value="#{msg['cod']}" />
                                     </f:facet>
                                     <h:outputText  value="#{unidads.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{unidads.nombre}" width="200"  filterMatchMode="contains">
+                                <p:column filterBy="#{unidads.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="Nombre Unidad" />
                                     </f:facet>
                                     <h:outputText value="#{unidads.nombre}" />
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroUnidades" value="#{controlPeriodicidades.infoRegistroUnidades}" style="position: absolute; left: 15px; top: 350px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarTCC" style="position: relative; left: 270px;" icon="ui-icon-check" value="Aceptar" disabled="#{controlPeriodicidades.aceptar}"  actionListener="#{controlPeriodicidades.actualizarUnidad()}" process="@this"/>
-                            
-                            <p:commandButton id="atrasTCC" style="position: relative; left: 270px;" icon="ui-icon-arrowreturnthick-1-w" value="Atras"  actionListener="#{controlPeriodicidades.cancelarCambioTiposUnidad()}"  process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroUnidades" value="#{msg['infoRegistro']} #{controlPeriodicidades.infoRegistroUnidades}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTCC" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlPeriodicidades.aceptar}"  actionListener="#{controlPeriodicidades.actualizarTipoPeriodicidad()}" process="@this"/>
+                            <p:commandButton id="atrasTCC" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}"  actionListener="#{controlPeriodicidades.cancelarCambioTipoPeriodicidad()}"  process="@this"/>
+                            </div>
                         </p:dialog> 
 
                         <p:dialog header="Unidades Base" widgetVar="unidadesBaseDialogo" draggable="true" resizable="false" closable="false" id="unidadesBaseDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="460" modal="true" style="">
+                                  showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
                             <p:dataTable id="lovUnidadesBase" style=" width: 430px;" var="unidads" value="#{controlPeriodicidades.listaUnidades}" rowKey="#{unidads.secuencia}"
-                                         selection="#{controlPeriodicidades.unidadSeleccionada}" selectionMode="single" widgetVar="lovUnidadesBase" scrollable="true" scrollWidth="445" scrollHeight="250"
-                                         filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="No se encuentran valores en esta tabla">              
+                                         selection="#{controlPeriodicidades.unidadBaseSeleccionada}" selectionMode="single" widgetVar="lovUnidadesBase" scrollable="true" scrollWidth="445" scrollHeight="250"
+                                         filteredValue="#{controlPeriodicidades.filtradoUnidades}" emptyMessage="#{msg['lovvacio']}">              
                                 <p:ajax event="rowSelect" listener="#{controlPeriodicidades.activarAceptar()}" update=":form:aceptarUB"/>
                                 <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.actualizarUnidadBase()}" process="@this" />
+                                <p:ajax event="filter" listener="#{controlPeriodicidades.contarRegistrosUnidadesBase()}" process="@this" />
 
                                 <f:facet name="header">  
-                                    <h:outputText value="Buscar Unidad Base"  style="position: absolute; left: 27px; top: 14px"/>  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovUnidadesBase').filter();" style="width:150px; position: relative; left: 50px;" />  
+                                    <h:outputText value="Buscar Unidad Base"/>  
+                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovUnidadesBase').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                                <p:column filterBy="#{unidads.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
-                                        <h:outputText style="text-align: center" value="Codigo" />
+                                        <h:outputText style="text-align: center" value="#{msg['cod']}" />
                                     </f:facet>
                                     <h:outputText  value="#{unidads.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{unidads.nombre}" width="200"  filterMatchMode="contains">
+                                <p:column filterBy="#{unidads.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="Nombre Base" />
                                     </f:facet>
                                     <h:outputText value="#{unidads.nombre}" />
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistroUnidades1" value="#{controlPeriodicidades.infoRegistroUnidades1}" style="position: absolute; left: 15px; top: 350px; font-weight: bold"/>
-
-                            <p:commandButton id="aceptarUB" style="position: relative; left: 280px;" icon="ui-icon-check" value="Aceptar" disabled="#{controlPeriodicidades.aceptar}"  actionListener="#{controlPeriodicidades.actualizarUnidadBase()}"  process="@this"/>
                             
-                            <p:commandButton id="atrasUB" style="position: relative; left: 280px;" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlPeriodicidades.cancelarCambioUnidadBase()}"  process="@this"/>
+                            <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroUnidadesBase" value=" #{msg['infoRegistro']}#{controlPeriodicidades.infoRegistroUnidadesBase}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarUB" class="cssAceptarLOV" icon="ui-icon-check" value="Aceptar" disabled="#{controlPeriodicidades.aceptar}"  actionListener="#{controlPeriodicidades.actualizarUnidadBase()}"  process="@this"/>
+                            <p:commandButton id="atrasUB" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlPeriodicidades.cancelarCambioUnidadBase()}"  process="@this"/>
+                            </div>
                         </p:dialog> 
 
 
-                        <h:outputText id="informacionRegistro" value="#{controlPeriodicidades.infoRegistro}" style="position: absolute; left: 15px; top: 442px; font-weight: bold"/>
-                        <p:commandButton style="position: absolute; left: 10px; top: 470px; height: 30px; width: 168px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;"  icon="ui-icon-search" id="BUSCARCENTROCOSTO" value="Buscar Periodicidad" actionListener="#{controlPeriodicidades.llamadoDialogoBuscarPeriodicidades()}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 190px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosbd.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value="" disabled="#{controlPeriodicidades.mostrarTodos}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" process="@this"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlPeriodicidades.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosPeriodicidades" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS"  value="" actionListener="#{controlPeriodicidades.refrescar()}" action="#{controlPeriodicidades.redirigir()}" process="@this" />
+<!--                        <p:commandButton style="position: absolute; left: 10px; top: 470px; height: 30px; width: 168px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;"  icon="ui-icon-search" id="BUSCARCENTROCOSTO" value="Buscar Periodicidad" actionListener="#{controlPeriodicidades.llamadoDialogoBuscarPeriodicidades()}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 190px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosbd.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value="" disabled="#{controlPeriodicidades.mostrarTodos}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" process="@this"/>-->
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlPeriodicidades.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosPeriodicidades" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  value="" actionListener="#{controlPeriodicidades.refrescar()}" action="#{controlPeriodicidades.redirigir()}" process="@this" />
 
                     </p:panel>
 
-                    <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.guardarCambiosPeriodicidad()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlPeriodicidades.redirigir()}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
-                    <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionDuplicarPeriodicidad" header="#{msg['atencion']}" widgetVar="validacionDuplicarPeriodicidad"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarPeriodicidad').hide();" style="position: absolute; top: 65px; left: 260px;" icon="ui-icon-check" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
+                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="90" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="ATENCIÓN...!" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="Se han borrado #{controlPeriodicidades.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                        <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 160px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="validacionNuevaUnidad" header="ATENCIÓN...!" widgetVar="validacionNuevaUnidad"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                    <p:dialog id="validacionNuevaPeriodicidad" header="#{msg['atencion']}" widgetVar="validacionNuevaPeriodicidad"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaUnidad').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                        <h:outputText value="#{controlPeriodicidades.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaPeriodicidad').hide();" icon="ui-icon-check" style="position: absolute; top: 65px; left: 260px;" process="@this" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlPeriodicidades.activarCtrlF11()}"/> 
                 </h:form>
 
                 <h:form id="formularioDialogos" >
 
-                    <p:dialog id="confirmarRastro" header="ATENCIÓN...!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'PERIODICIDADES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN...!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla PERIODICIDADES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="ATENCIÓN...!" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no tiene rastros historicos." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="ATENCIÓN...!" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El registro seleccionado no tiene rastros." style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="ATENCIÓN...!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.secRegistro, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPeriodicidades.periocidadSeleccionadaTabla, 'Periodicidades', 'periodicidad')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="ATENCIÓN...!" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla no existe en RASTROSTABLAS, y no tiene registros asociados." style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="ATENCIÓN...!" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="Por favor seleccione un registro." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="ATENCIÓN...!" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="La tabla 'PERIODICIDADES' no se encuentra en ObjetosDB. Porfavor comunicarse con soporte." style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog> 
 
 
-                    <p:dialog id="nuevoRegistroPeriodicidades" header="Nuevo Registro" widgetVar="nuevoRegistroPeriodicidades" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
+                    <p:dialog id="nuevoRegistroPeriodicidades" header="Nuevo Registro Periodicidad" widgetVar="nuevoRegistroPeriodicidades" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="Ingresar Nueva Unidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar Nueva Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaPeriodicidads" style="border: none;">
 
-                            <!--0-->
-                            <strong><h:outputText value="*Codigo :" style="left: 15px; position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['cod']} :" style="left: 15px; position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaCodigoCC" maxlength="4" value="#{controlPeriodicidades.nuevaPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevaCodigoCC" value="Codigo" />
-                            <!--1-->
-                            <strong><h:outputText value="*Nombre :" style="left: 15px; position: absolute; top: 90px;" /></strong>
+                            
+                            <strong><h:outputText value="*#{msg['desc']} :" style="left: 15px; position: absolute; top: 90px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaNombreUnidads" maxlength="30" value="#{controlPeriodicidades.nuevaPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevaNombreUnidads" value="Nombre" />
-                            <!--2-->
+                            <p:watermark for="nuevaNombreUnidads" value="#{msg['desc']}" />
 
-                            <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
+                            <strong><h:outputText value="*#{msg['codund']} :" style="left: 15px; position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaTipoUnidadsCodigo" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADCODIGO')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADCODIGO', controlPeriodicidades.nuevaPeriodicidad.unidad.codigo , 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(0)}" />
+<!--                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADCODIGO')}" />
+                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADCODIGO', controlPeriodicidades.nuevaPeriodicidad.unidad.codigo , 1)}" />-->
+                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 1, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 115px;  " id="btnnuevoNombreUnidadNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaTipoUnidadsCodigo" value="Codigo Unidad" />
+                            <p:commandButton style="position: absolute; left: 332px; top: 115px;" id="btnnuevoNombreUnidadNombre" value =" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 2)}"/>   
+                            <p:watermark for="nuevaTipoUnidadsCodigo" value="#{msg['codund']}" />
 
-                            <strong><h:outputText value="*Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
+                            <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaTipoUnidads" value="#{controlPeriodicidades.nuevaPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADNOMBRE')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADNOMBRE', controlPeriodicidades.nuevaPeriodicidad.unidad.nombre , 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(0)}" />
+                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 1, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 145px;  " id="btnnuevoNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaTipoUnidads" value="Unidad" />
+                            <p:commandButton style="position: absolute; left: 332px; top: 145px;" id="btnnuevoNombreSucursal" value=" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 2)}"/>   
+                            <p:watermark for="nuevaTipoUnidads" value="Nombre Unidad" />
 
-                            <strong><h:outputText value="*Codigo Unidad Base :" style="left: 15px; position: absolute; top: 180px;" /></strong>
+                            <strong><h:outputText value="*#{msg['codundb']} :" style="left: 15px; position: absolute; top: 180px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaCodigoBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADBASECODIGO')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADBASECODIGO', controlPeriodicidades.nuevaPeriodicidad.unidadbase.codigo , 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidadBase(0)}" />
+                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 175px;  " id="btnnuevoUnidadBaseCodigo" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesBaseNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaCodigoBase" value="Codigo Base" />
+                            <p:commandButton style="position: absolute; left: 332px; top: 175px;  " id="btnnuevoUnidadBaseCodigo" value=" "  class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}"/>   
+                            <p:watermark for="nuevaCodigoBase" value="#{msg['codundb']}" />
 
-                            <strong><h:outputText value="*Descripción Base :" style="left: 15px; position: absolute; top: 210px;" /></strong>
+                            <strong><h:outputText value="*#{msg['descb']} :" style="left: 15px; position: absolute; top: 210px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaNombreBase" value="#{controlPeriodicidades.nuevaPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADBASENOMBRE')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarNuevo('UNIDADBASENOMBRE', controlPeriodicidades.nuevaPeriodicidad.unidadbase.nombre , 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidadBase(0)}" />
+                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 205px;  " id="btnnuevoUnidadBaseNombre" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesBaseNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaNombreBase" value="Descripcion Base" />
-
-
-
+                            <p:commandButton style="position: absolute; left: 332px; top: 205px;" id="btnnuevoUnidadBaseNombre" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 1, 3)}"/>   
+                            <p:watermark for="nuevaNombreBase" value="#{msg['descb']}" />
 
                             <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" process="@this"/>
-                            <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 175px; top: 240px;"  process="@this" actionListener="#{controlPeriodicidades.agregarNuevoPeriodicidades()}"  />
+                            <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;"  process="@this" actionListener="#{controlPeriodicidades.agregarNuevoPeriodicidades()}"  />
                             <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarNuevoPeriodicidades()}" update="nuevaPeriodicidads" onclick="PF('nuevoRegistroPeriodicidades').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-                    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+                    <p:dialog id="DuplicarRegistroPeriodicidades" header="Duplicar Registro Periodicidad" widgetVar="DuplicarRegistroPeriodicidades" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
 
-                    <p:dialog header="Periodicidades" widgetVar="buscarPeriodicidadesDialogo" draggable="true" resizable="false" closable="false" id="buscarPeriodicidadesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
-                        <p:dataTable  id="lovPeriodicidades" style=" width: 430px;" var="centroscostosporempresa" value="#{controlPeriodicidades.listPericiodidadesBoton}" rowKey="#{centroscostosporempresa.secuencia}"
-                                      selection="#{controlPeriodicidades.periciodidadesSeleccionado}" selectionMode="single" widgetVar="lovPeriodicidades" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                      filteredValue="#{controlPeriodicidades.filterPericiodidades}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlPeriodicidades.activarAceptar()}" update=":formularioDialogos:aceptarNCC"/>
-                            <p:ajax event="rowDblselect" listener="#{controlPeriodicidades.seleccionPeriodicidades()}" process="@this"  />
-                            <f:facet name="header">  
-                                <h:outputText value="Buscar Periodicidad : "  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovPeriodicidades').filter();" style="width:150px; position: relative; left: 50px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{centroscostosporempresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
-                                <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="Codigo" />
-                                </f:facet>
-                                <h:outputText  value="#{centroscostosporempresa.codigo}" />
-                            </p:column>
-                            <p:column filterBy="#{centroscostosporempresa.nombre}" width="200"  filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="Descripcion" />
-                                </f:facet>
-                                <h:outputText value="#{centroscostosporempresa.nombre}" />
-                            </p:column>
-                        </p:dataTable>
-
-                        <h:outputText id="infoRegistroPeriodicidadesBoton" value="#{controlPeriodicidades.infoRegistroPeriodicidadesBoton}" style="position: absolute; left: 15px; top: 442px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarNCC" icon="ui-icon-check" style="position: relative; left: 280px;" value="Aceptar" disabled="#{controlPeriodicidades.aceptar}" actionListener="#{controlPeriodicidades.seleccionPeriodicidades()}" process="@this"/>
-                        <p:commandButton id="atrasTCC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 280px;" value="Atras" actionListener="#{controlPeriodicidades.cancelarSeleccionUnidadPorEmpresa()}" process="@this"/>
-                    </p:dialog> 
-
-                    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->                    
-                    <p:dialog id="DuplicarRegistroPeriodicidades" header="Duplicar Registro" widgetVar="DuplicarRegistroPeriodicidades" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="Duplicar Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar Nueva Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarUnidads" style="border: none;">
-                            <!--0-->
-                            <strong><h:outputText value="*Codigo :" style="left: 15px; position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['cod']} :" style="left: 15px; position: absolute; top: 60px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoCC" maxlength="4" value="#{controlPeriodicidades.duplicarPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigoCC" value="Codigo" />
-                            <!--1-->
-                            <strong><h:outputText value="*Nombre :" style="left: 15px; position: absolute; top: 90px;" /></strong>
+                            <p:watermark for="duplicarCodigoCC" value="#{msg['cod']}" />
+
+                            <strong><h:outputText value="*#{msg['desc']} :" style="left: 15px; position: absolute; top: 90px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarNombreUnidads" maxlength="30"  value="#{controlPeriodicidades.duplicarPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombreUnidads" value="Nombre" />
-                            <!--2-->
-                            <strong><h:outputText value="*Codigo Unidad :" style="left: 15px; position: absolute; top: 120px;" /></strong>
+                            <p:watermark for="duplicarNombreUnidads" value="#{msg['desc']}" />
+
+                            <strong><h:outputText value="*#{msg['codund']}:" style="left: 15px; position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoUnidades" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADCODIGO')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADCODIGO', controlPeriodicidades.duplicarPeriodicidad.unidad.codigo , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
+                                   <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 2, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 115px;  "  id="btnduplicarCodigoSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesNuevoRegistro(1)}"/>   
-                            <p:watermark for="duplicarCodigoUnidades" value="Codigo Unidad" />
+                            <p:commandButton style="position: absolute; left: 332px; top: 115px;"  id="btnduplicarCodigoSucursal" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 2)}"/>   
+                            <p:watermark for="duplicarCodigoUnidades" value="#{msg['codund']}" />
 
                             <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTipoUnidads" value="#{controlPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADNOMBRE')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADNOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidad.nombre , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
+                                   <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 2, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 145px;  "  id="btnduplicarNombreSucursal" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesNuevoRegistro(1)}"/>   
+                            <p:commandButton style=" position: absolute; left: 332px; top: 145px;"  id="btnduplicarNombreSucursal" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 2)}"/>   
                             <p:watermark for="duplicarTipoUnidads" value="Nombre Unidad" />
 
                             <strong><h:outputText value="*Codigo Unidad Base:" style="left: 15px; position: absolute; top: 180px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigoUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASECODIGO')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASECODIGO', controlPeriodicidades.duplicarPeriodicidad.unidadbase.codigo  , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
+                                   <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 175px;  "  id="btnduplicarCodigoBase" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesBaseNuevoRegistro(1)}"/>   
+                            <p:commandButton style="position: absolute; left: 332px; top: 175px;"  id="btnduplicarCodigoBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}"/>   
                             <p:watermark for="duplicarCodigoUnidadesBase" value="Codigo Unidad Base" />
 
-                            <strong><h:outputText value="*Descripcion Unidad Base:" style="left: 15px; position: absolute; top: 210px;" /></strong>
+                            <strong><h:outputText value="*#{msg['descb']}:" style="left: 15px; position: absolute; top: 210px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcionUnidadesBase" value="#{controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlPeriodicidades.valoresBackupAutocompletar(2, 'UNIDADBASENOMBRE')}" />
-                                <p:ajax event="change" listener="#{controlPeriodicidades.autocompletarDuplicado('UNIDADBASENOMBRE', controlPeriodicidades.duplicarPeriodicidad.unidadbase.nombre , 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarVariableUnidad(1)}" />
+                                   <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}" />
                             </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 205px;  "  id="btnduplicarNombreBase" icon="ui-icon-search" process="@this"  actionListener="#{controlPeriodicidades.cargarUnidadesBaseNuevoRegistro(1)}"/>   
-                            <p:watermark for="duplicarDescripcionUnidadesBase" value="Descripcion Unidad Base" />
-                            <!--3-->
+                            <p:commandButton style="position: absolute; left: 332px; top: 205px;  "  id="btnduplicarNombreBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlPeriodicidades.asignarIndex(info, 2, 3)}"/>   
+                            <p:watermark for="duplicarDescripcionUnidadesBase" value="#{msg['descb']}" />
 
                             <p:commandButton id="limpiarDuplicadoCC" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 175px; top: 240px;" process="@this" actionListener="#{controlPeriodicidades.confirmarDuplicar()}"/>
+                            <p:commandButton id="agregarDuplicadoCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;" process="@this" actionListener="#{controlPeriodicidades.confirmarDuplicar()}"/>
                             <p:commandButton id="cancelarDuplicadoCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlPeriodicidades.limpiarDuplicarPeriodicidades()}" update="duplicarUnidads" onclick="PF('DuplicarRegistroPeriodicidades').hide();" process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-
-
-
-
-                    <!--0-->
-                    <p:dialog id="editarCCC" header="Código" widgetVar="editarCCC" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarCCC" header="#{msg['cod']}" widgetVar="editarCCC" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <!--1-->
-                    <p:dialog id="editarNCC" header="Nombre" widgetVar="editarNCC" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarNCC" header="#{msg['desc']}" widgetVar="editarNCC" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <!--2-->
-                    <p:dialog id="editarTCC" header="Código Unidad" widgetVar="editarTCC" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarTCC" header="#{msg['codund']}" widgetVar="editarTCC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.unidad.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-
-                    <p:dialog id="editarMO" header="Unidad" widgetVar="editarMO" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarMO" header="Unidad" widgetVar="editarMO" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.unidad.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-
-                    <p:dialog id="editarCAT" header="Código Base" widgetVar="editarCAT" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarCAT" header="#{msg['codundb']}" widgetVar="editarCAT" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.unidadbase.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-
-                    <p:dialog id="editarO" header="Descripcion Base" widgetVar="editarO" resizable="false" draggable="true" modal="true" height="50" width="240" style="">  
+                    <p:dialog id="editarO" header="#{msg['descb']}" widgetVar="editarO" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlPeriodicidades.editarUnidad.unidadbase.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-
                 </h:form>
-
-
 
                 <h:form id="formExportar">
                     <p:dataTable id="datosPeriodicidadesExportar" var="info" style="visibility: hidden; display: none;"                           
                                  value="#{controlPeriodicidades.listPeriodicidades}"> 
-                        <!--COLUMNAS TABLA DATOS VIGENCIAS TIPOS CONTRATOS DE UN EMPLEADO --> 
-
-                        <!--0-->
                         <p:column headerText="Codigo">      
                             <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
                             <h:outputText value="#{info.codigo}" />
                         </p:column>
-                        <!--1-->
-                        <p:column headerText="Nombre">      
-                            <f:facet name="header"><h:outputText value="Nombre"/></f:facet>
+                        <p:column headerText="Descripcion">      
+                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
                             <h:outputText value="#{info.nombre}" />
                         </p:column>
-                        <!--2-->
-                        <p:column headerText="CodigoUnidad">      
-                            <f:facet name="header"><h:outputText value="CodigoUnidad"/></f:facet>
+                        <p:column headerText="Codigo_Unidad">      
+                            <f:facet name="header"><h:outputText value="Codigo_Unidad"/></f:facet>
                             <h:outputText value="#{info.unidad.codigo}" />
                         </p:column>
-
                         <p:column headerText="Unidad">      
                             <f:facet name="header"><h:outputText value="Unidad"/></f:facet>
                             <h:outputText value="#{info.unidad.nombre}" />
                         </p:column>
-
-                        <p:column headerText="CodigoUnidadBase">      
-                            <f:facet name="header"><h:outputText value="CodigoUnidadBase"/></f:facet>
+                        <p:column headerText="Codigo_Unidad_Base">      
+                            <f:facet name="header"><h:outputText value="Codigo_Unidad_Base"/></f:facet>
                             <h:outputText value="#{info.unidadbase.codigo}" />
                         </p:column>
-                        <p:column headerText="NombreUnidadBase">      
-                            <f:facet name="header"><h:outputText value="NombreUnidadBase"/></f:facet>
+                        <p:column headerText="Nombre_Unidad_Base">      
+                            <f:facet name="header"><h:outputText value="Nombre_Unidad_Base"/></f:facet>
                             <h:outputText value="#{info.unidadbase.nombre}" />
                         </p:column>
-
                     </p:dataTable>
                 </h:form>
-
             </ui:define>
         </ui:composition>
     </h:body>

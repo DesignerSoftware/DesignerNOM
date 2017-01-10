@@ -65,7 +65,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlSucursales.salir()}" action="atrassucursal" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlSucursales.salir()}" action="#{controlSucursales.retornarPagina()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -115,7 +115,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 225px;" id="fooBanco"  value="" action="banco" actionListener="#{controlBancos.recibirPagina('banco')}"/>
+                                        <p:commandButton style="width: 235px;" id="fooBanco"  value="" action="banco" actionListener="#{controlBancos.recibirPagina('banco')}"/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ciudad.nombre}" filterBy="#{info.ciudad.nombre}" filterMatchMode="contains" id="ciudad" width="145" filterStyle="display: none; visibility: hidden;" >                                  
@@ -138,7 +138,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlSucursales.revisarDialogoGuardar()}" disabled="#{controlSucursales.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlSucursales.salir()}" action="#{controlSucursales.retornarPagina()}" id="ATRAS" value=""    />
+                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlSucursales.salir()}" action="#{controlSucursales.retornarPagina()}" id="ATRAS" value="" process="@this"    />
 
 
 

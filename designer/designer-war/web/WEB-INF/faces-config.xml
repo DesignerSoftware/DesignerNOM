@@ -4375,7 +4375,7 @@
     <navigation-rule>
         <from-view-id>/sucursal.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrassucursal</from-outcome>
+            <from-outcome>sucursal</from-outcome>
             <to-view-id>/emplvigenciaformapago.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -6695,8 +6695,26 @@
         </navigation-case>
     </navigation-rule>
    
+    
+    <navigation-rule>
+        <from-view-id>/periodicidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>unidad</from-outcome>
+            <to-view-id>/unidad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+   <navigation-rule>
+        <from-view-id>/unidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>unidad</from-outcome>
+            <to-view-id>/periodicidad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
    
-
+   
 </faces-config>
 

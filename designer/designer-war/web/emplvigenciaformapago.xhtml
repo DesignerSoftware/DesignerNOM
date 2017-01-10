@@ -155,7 +155,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px;" action="sucursal" id="fooSucursal"  />
+                                        <p:commandButton value="" style="width: 170px;" action="sucursal"  actionListener="#{controlSucursales.recibirPagina('sucursal')}" id="fooSucursal"  process="@this" />
                                     </f:facet>
                                 </p:column> 
 

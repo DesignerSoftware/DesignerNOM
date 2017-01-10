@@ -23,6 +23,7 @@ public class Periodicidades implements Serializable {
     private String nombre;
     @Column(name = "INDEPENDIENTEADELANTO")
     private String independienteadelanto;
+    @NotNull
     @JoinColumn(name = "UNIDAD", referencedColumnName = "SECUENCIA")
     @ManyToOne(optional = false)
     private Unidades unidad;

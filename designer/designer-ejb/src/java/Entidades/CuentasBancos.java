@@ -46,21 +46,18 @@ public class CuentasBancos implements Serializable {
     @Size(max = 1)
     @Column(name = "TIPOCUENTA")
     private String tipocuenta;
-    @Size(max = 12)
     @Column(name = "CODIGOCONVENIO")
     private BigInteger codigoconvenio;
     @Size(max = 15)
     @Column(name = "NOMBRECONVENIO")
     private String nombreconvenio;
-    @Size(max = 3)
     @Column(name = "CODIGOTESORERIA")
-    private Short codigotesoreria;
+    private BigInteger codigotesoreria;
     @JoinColumn(name = "TERCERO", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Terceros tercero;
-    @Size(max = 6)
     @Column(name = "CODIGOREPUBLICA")
-    private Short codigorepublica;
+    private BigInteger codigorepublica;
     @JoinColumn(name = "INFOREPORTE", referencedColumnName = "SECUENCIA")
     @ManyToOne
     private Inforeportes inforeporte;
@@ -75,7 +72,7 @@ public class CuentasBancos implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public CuentasBancos(BigInteger secuencia, Bancos banco, String cuenta, String nombrearchivo, String archivosalida, String tipocuenta, BigInteger codigoconvenio, String nombreconvenio, Short codigotesoreria, Terceros tercero, Short codigorepublica, Inforeportes inforeporte, String consecutivo) {
+    public CuentasBancos(BigInteger secuencia, Bancos banco, String cuenta, String nombrearchivo, String archivosalida, String tipocuenta, BigInteger codigoconvenio, String nombreconvenio, BigInteger codigotesoreria, Terceros tercero, BigInteger codigorepublica, Inforeportes inforeporte, String consecutivo) {
         this.secuencia = secuencia;
         this.banco = banco;
         this.cuenta = cuenta;
@@ -163,19 +160,19 @@ public class CuentasBancos implements Serializable {
         this.tercero = tercero;
     }
 
-    public Short getCodigotesoreria() {
+    public BigInteger getCodigotesoreria() {
         return codigotesoreria;
     }
 
-    public void setCodigotesoreria(Short codigotesoreria) {
+    public void setCodigotesoreria(BigInteger codigotesoreria) {
         this.codigotesoreria = codigotesoreria;
     }
 
-    public Short getCodigorepublica() {
+    public BigInteger getCodigorepublica() {
         return codigorepublica;
     }
 
-    public void setCodigorepublica(Short codigorepublica) {
+    public void setCodigorepublica(BigInteger codigorepublica) {
         this.codigorepublica = codigorepublica;
     }
 

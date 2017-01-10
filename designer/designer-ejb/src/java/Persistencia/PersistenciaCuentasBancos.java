@@ -30,6 +30,12 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            if (cuentabanco.getInforeporte().getSecuencia() == null) {
+                cuentabanco.setInforeporte(null);
+            }
+            if(cuentabanco.getBanco().getSecuencia() == null){
+                cuentabanco.setInforeporte(null);
+            }
             em.merge(cuentabanco);
             tx.commit();
         } catch (Exception e) {
@@ -42,10 +48,16 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
 
     @Override
     public void editar(EntityManager em, CuentasBancos cuentabanco) {
-          em.clear();
+        em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            if (cuentabanco.getInforeporte().getSecuencia() == null) {
+                cuentabanco.setInforeporte(null);
+            }
+            if(cuentabanco.getBanco().getSecuencia() == null){
+                cuentabanco.setInforeporte(null);
+            }
             em.merge(cuentabanco);
             tx.commit();
         } catch (Exception e) {
@@ -58,10 +70,16 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
 
     @Override
     public void borrar(EntityManager em, CuentasBancos cuentabanco) {
-         em.clear();
+        em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            if (cuentabanco.getInforeporte().getSecuencia() == null) {
+                cuentabanco.setInforeporte(null);
+            }
+            if(cuentabanco.getBanco().getSecuencia() == null){
+                cuentabanco.setInforeporte(null);
+            }
             em.remove(em.merge(cuentabanco));
             tx.commit();
         } catch (Exception e) {
@@ -74,43 +92,56 @@ public class PersistenciaCuentasBancos implements PersistenciaCuentasBancosInter
 
     @Override
     public List<CuentasBancos> buscarCuentasBanco(EntityManager em) {
-     try{
-         em.clear();
-         String sql = "SELECT * FROM CUENTASBANCOS";
-         Query query = em.createNativeQuery(sql, CuentasBancos.class);
-         List <CuentasBancos> lista = query.getResultList();
-         return lista;
-     } catch (Exception e){
-         System.out.println("error en persistenciacuentabanco.buscarcuentabanco :" + e.toString());
-         return null;
-     } 
+        try {
+            em.clear();
+            String sql = "SELECT * FROM CUENTASBANCOS";
+            Query query = em.createNativeQuery(sql, CuentasBancos.class);
+            List<CuentasBancos> lista = query.getResultList();
+            if (lista != null) {
+                if (!lista.isEmpty()) {
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(i).getInforeporte() == null) {
+                            lista.get(i).setInforeporte(new Inforeportes());
+                        }
+                        
+                        if(lista.get(i).getBanco() == null){
+                            lista.get(i).setBanco(new Bancos());
+                        }
+                    }
+                }
+            }
+            return lista;
+        } catch (Exception e) {
+            System.out.println("error en persistenciacuentabanco.buscarcuentabanco :" + e.toString());
+            return null;
+        }
     }
 
     @Override
     public List<Bancos> buscarBancos(EntityManager em) {
-     try{
-         em.clear();
-         String sql = "SELECT * FROM BANCOS";
-         Query query = em.createNativeQuery(sql, Bancos.class);
-         List <Bancos> lista = query.getResultList();
-         return lista;
-     } catch (Exception e){
-         System.out.println("error en persistenciacuentabanco.buscarBancos :" + e.toString());
-         return null;
-     } 
+        try {
+            em.clear();
+            String sql = "SELECT * FROM BANCOS";
+            Query query = em.createNativeQuery(sql, Bancos.class);
+            List<Bancos> lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("error en persistenciacuentabanco.buscarBancos :" + e.toString());
+            return null;
+        }
     }
 
     @Override
     public List<Inforeportes> buscarReportes(EntityManager em) {
-       try{
-         em.clear();
-         String sql = "SELECT * FROM INFOREPORTES";
-         Query query = em.createNativeQuery(sql, Inforeportes.class);
-         List <Inforeportes> lista = query.getResultList();
-         return lista;
-     } catch (Exception e){
-         System.out.println("error en persistenciacuentabanco.buscarReportes :" + e.toString());
-         return null;
-     } 
+        try {
+            em.clear();
+            String sql = "SELECT * FROM INFOREPORTES";
+            Query query = em.createNativeQuery(sql, Inforeportes.class);
+            List<Inforeportes> lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("error en persistenciacuentabanco.buscarReportes :" + e.toString());
+            return null;
+        }
     }
 }
