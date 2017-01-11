@@ -127,7 +127,7 @@
                             </p:panel>
 
                             <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
-                               <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}"
+                               <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" process="@this"
                                                  style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
                                 <p:commandButton value="#{msg['repcontrol']}" style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
                                 <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"

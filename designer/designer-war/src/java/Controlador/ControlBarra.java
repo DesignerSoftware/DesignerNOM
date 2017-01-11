@@ -130,36 +130,6 @@ public class ControlBarra implements Serializable {
       liquifinalizada = false;
    }
 
-   public void liquidacionCompleta() {
-      System.err.println("Liquidación Completada");
-      FacesMessage msg = new FacesMessage("Información", "Liquidación terminada con Éxito.");
-      FacesContext.getCurrentInstance().addMessage(null, msg);
-      mensajeBarra = "Liquidación Completa (" + barra + "%)";
-      mensajeEstado = "Liquidación terminada con exito.";
-      imagenEstado = "hand3.png";
-      empezar = false;
-      liquifinalizada = true;
-      botonCancelar = true;
-      botonLiquidar = false;
-      totalEmpleadosLiquidados = administrarBarra.contarEmpleadosLiquidados();
-      System.out.println("totalEmpleadosLiquidados: " + totalEmpleadosLiquidados);
-      Date horaFinal = new Date();
-      System.out.println("Hora Final: " + formato.format(horaFinal));
-      horaFinalLiquidacion = formato.format(horaFinal);
-      RequestContext.getCurrentInstance().execute("PF('barra').stop()");
-      RequestContext.getCurrentInstance().update("form:empleadosLiquidados");
-      RequestContext.getCurrentInstance().update("form:horaF");
-      RequestContext.getCurrentInstance().update("form:liquidar");
-      RequestContext.getCurrentInstance().update("form:cancelar");
-      RequestContext.getCurrentInstance().update("form:panelLiquidacion");
-      RequestContext.getCurrentInstance().update("form:estadoLiquidacion");
-      RequestContext.getCurrentInstance().update("form:PanelTotal");
-      RequestContext.getCurrentInstance().update("form:imagen");
-      RequestContext.getCurrentInstance().update("form:growl");
-//      System.out.println("--------------------:  Va a ejecutar {PF('liquidacionTerminada').show()}  :--------------------");
-//      RequestContext.getCurrentInstance().execute("PF('liquidacionTerminada').show()");
-   }
-
    public void cancelarLiquidacion() {
       RequestContext.getCurrentInstance().execute("PF('barra').cancel()");
       empezar = false;
@@ -440,6 +410,46 @@ public class ControlBarra implements Serializable {
          System.out.println("Estado: 2" + estado);
       }
       return barra;
+   }
+
+   public void liquidacionCompleta() {
+      System.err.println("Liquidación Completada");
+      mensajeBarra = "Liquidación Completa (" + barra + "%)";
+      mensajeEstado = "Liquidación terminada con exito.";
+      imagenEstado = "hand3.png";
+      empezar = false;
+      liquifinalizada = true;
+      botonCancelar = true;
+      botonLiquidar = false;
+      totalEmpleadosLiquidados = administrarBarra.contarEmpleadosLiquidados();
+      System.out.println("totalEmpleadosLiquidados: " + totalEmpleadosLiquidados);
+      Date horaFinal = new Date();
+      System.out.println("Hora Final: " + formato.format(horaFinal));
+      horaFinalLiquidacion = formato.format(horaFinal);
+      RequestContext context = RequestContext.getCurrentInstance();
+
+      context.update("form:horaF");
+      context.update("form:empleadosLiquidados");
+      context.update("form:liquidar");
+      context.update("form:cancelar");
+      context.update("form:estadoLiquidacion");
+
+      System.out.println("1");
+      context.update("form:imagen");
+      context.update("form:barra");
+      context.update("form:panelLiquidacion");
+      context.update("form:PanelTotal");
+      context.update("form:estadoLiquidacion");
+
+      System.out.println("2");
+      if (totalEmpleadosLiquidados == 1) {
+         RequestContext.getCurrentInstance().execute("location.reload(true)");
+      }
+      System.out.println("3");
+      FacesMessage msg = new FacesMessage("Información", "Liquidación terminada con Éxito.");
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+      context.update("form:growl");
+//      context.execute("PF('barra').stop()");
    }
 
    public void setBarra(Integer barra) {

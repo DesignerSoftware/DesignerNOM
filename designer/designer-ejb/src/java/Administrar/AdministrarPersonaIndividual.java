@@ -972,7 +972,9 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    @Override
    public boolean crearEstadoCivil(VigenciasEstadosCiviles estado) {
       try {
-         return persistenciaVigenciasEstadosCiviles.crear(em, estado);
+         boolean b = persistenciaVigenciasEstadosCiviles.crear(em, estado);
+         System.out.println("Administrar.AdministrarPersonaIndividual.crearEstadoCivil() retorno : " + b);
+         return b;
       } catch (Exception e) {
          System.out.println("Error crearEstadoCivil Admi : " + e.toString());
          return false;
@@ -1055,7 +1057,7 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    /**
     *
     * @param corte
-    * @return 
+    * @return
     */
    @Override
    public boolean crearCortesProcesos(CortesProcesos corte) {
@@ -1099,15 +1101,14 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
          return null;
       }
    }
-   
+
    @Override
-   public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona){
+   public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona) {
       try {
          persistenciaEmpleado.eliminarEmpleadoNominaF(em, secEmpleado, secPersona);
-      }
-      catch(Exception e){
+      } catch (Exception e) {
          System.out.println("ERROR eliminarEmpleadoCompleto() : " + e);
       }
    }
-   
+
 }

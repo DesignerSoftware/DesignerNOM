@@ -31,21 +31,26 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      *
      * @param em
-     * @param vigenciasEstadosCiviles
+     * @param vigenciaEstadoCivil
      * @return
      */
     @Override
-    public boolean crear(EntityManager em, VigenciasEstadosCiviles vigenciasEstadosCiviles) {
+    public boolean crear(EntityManager em, VigenciasEstadosCiviles vigenciaEstadoCivil) {
         System.out.println(this.getClass().getName() + ".crear()");
+        System.out.println("vigenciaEstadoCivil.getCodigo() : " + vigenciaEstadoCivil.getCodigo());
+         System.out.println("vigenciaEstadoCivil.getEstadocivil() : " + vigenciaEstadoCivil.getEstadocivil());
+         System.out.println("vigenciaEstadoCivil.getFechavigencia() : " + vigenciaEstadoCivil.getFechavigencia());
+         System.out.println("vigenciaEstadoCivil.getPersona() : " + vigenciaEstadoCivil.getPersona());
+         System.out.println("vigenciaEstadoCivil.getSecuencia() : " + vigenciaEstadoCivil.getSecuencia());
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(vigenciasEstadosCiviles);
+            em.merge(vigenciaEstadoCivil);
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Error en crear");
+            System.out.println("Error en crear, entro al Catch");
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();

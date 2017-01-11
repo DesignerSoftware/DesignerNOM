@@ -2179,7 +2179,7 @@ public class ControlPersonaIndividual implements Serializable {
                               }
                            }
                         }
-                        if (nuevoEstadoCivil.getSecuencia() != null) {
+                        if (nuevoEstadoCivil.getEstadocivil().getSecuencia() != null) {
                            k++;
                            l = BigInteger.valueOf(k);
                            nuevoEstadoCivil.setSecuencia(l);
@@ -2304,7 +2304,7 @@ public class ControlPersonaIndividual implements Serializable {
                         if (!administrarPersonaIndividual.crearVigenciaTipoTrabajador(nuevaVigenciaTT)) {
                            error = error + "Vigencia Tipo Trabajador para contratación.";
                         }
-                        System.out.println("Error fallaron : " + error);
+                        System.out.println("Error fallaron : _" + error + "_");
                         if (error.equals(" ")) {
                            RequestContext.getCurrentInstance().execute("PF('procesoGuardadoOK').show()");
                         } else {
