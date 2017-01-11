@@ -197,7 +197,7 @@ public class ControlPeriodicidades implements Serializable {
         }
     }
 
-    public void modificandoUnidad(Periodicidades periodicidad, String confirmarCambio, String valorConfirmar) {
+    public void modificandoUnidad(Periodicidades periodicidad) {
 
         periocidadSeleccionadaTabla = periodicidad;
         if (!crearPeriodicidades.contains(periocidadSeleccionadaTabla)) {

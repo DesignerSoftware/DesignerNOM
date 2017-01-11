@@ -6713,6 +6713,24 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/periodicidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detallesp</from-outcome>
+            <to-view-id>/detallesperiodicidad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+   <navigation-rule>
+        <from-view-id>/detallesperiodicidad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>detallesp</from-outcome>
+            <to-view-id>/periodicidad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
    
    

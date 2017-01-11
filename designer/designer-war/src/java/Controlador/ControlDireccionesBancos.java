@@ -87,7 +87,7 @@ public class ControlDireccionesBancos implements Serializable {
         nuevaDireccion.setFechavigencia(new Date());
         nuevaDireccion.setTipoppal("K");
         nuevaDireccion.setTiposecundario("C");
-            duplicarDireccion = new Direcciones();
+        duplicarDireccion = new Direcciones();
         duplicarDireccion.setCiudad(new Ciudades());
         duplicarDireccion.setFechavigencia(new Date());
         duplicarDireccion.setTipoppal("K");
@@ -136,6 +136,7 @@ public class ControlDireccionesBancos implements Serializable {
     public void cambiarIndice(Direcciones direccion, int celda) {
         direccionSeleccionada = direccion;
         cualCelda = celda;
+        direccionSeleccionada.getSecuencia();
         if (cualCelda == 2) {
             deshabilitarLov();
             direccionSeleccionada.getPpal();
@@ -212,7 +213,6 @@ public class ControlDireccionesBancos implements Serializable {
             listaDireccionesCrear.add(nuevaDireccion);
             listaDirecciones.add(nuevaDireccion);
             direccionSeleccionada = nuevaDireccion;
-            getListaDirecciones();
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosDireccionesBanco");
             nuevaDireccion = new Direcciones();
@@ -496,7 +496,6 @@ public class ControlDireccionesBancos implements Serializable {
             listaDirecciones.add(duplicarDireccion);
             listaDireccionesCrear.add(duplicarDireccion);
             direccionSeleccionada = duplicarDireccion;
-            getListaDirecciones();
             contarRegistros();
             duplicarDireccion = new Direcciones();
             RequestContext.getCurrentInstance().update("form:datosDireccionesBanco");

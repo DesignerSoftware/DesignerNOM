@@ -79,44 +79,75 @@
                             <p:dataTable id="datosPeriodicidades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 815px ; border: 1px;"                      
                                          value="#{controlPeriodicidades.listPeriodicidades}" scrollable="true" scrollHeight="#{controlPeriodicidades.tamano}"  scrollWidth="835"
                                          filteredValue="#{controlPeriodicidades.filtrarPeriodicidades}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
+                                         editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  widgetVar="datosPeriodicidades"
                                          selection="#{controlPeriodicidades.periocidadSeleccionadaTabla}"
                                          selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlPeriodicidades.eventoFiltrar()}"/>
 
+                                <p:column id="detalles" width="5" filterStyle="display: none; visibility: hidden;" >  
+                                    <!--style="padding-left: 0px; padding-right: 0px; width: 19px; text-align: center"-->
+                                    <f:facet name="header">
+                                        <h:outputText id="DetalleC" value="D"/>
+                                        <p:tooltip for="DetalleC" value="Detalles Periodicidad"/>
+                                    </f:facet>
+                                    <p:commandButton action="detallesp" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                                     value=""  actionListener="#{controlDetallesPeriodicidades.recibirPagina('detallesp', controlPeriodicidades.periocidadSeleccionadaTabla.secuencia)}">
+                                    </p:commandButton>   
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
-                                <p:column headerText="#{msg['cod']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCC" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                </p:column>
+                                
+                                
+                                <p:column sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigoCC" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="codT" value="#{msg['cod']}"/>
+                                        <p:tooltip for="codT" value="#{msg['codtooltip']}"/>
+                                    </f:facet>
+                                    
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
-                                                <p:ajax  event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'N', info.codigo)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,0)}" /> 
+                                                <p:ajax  event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this"/>
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,0)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                 </p:column>  
 
-                                <p:column headerText="#{msg['desc']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  id="nombreUnidad" width="113" filterStyle="display: none; visibility: hidden;" >      
+                                <p:column  sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  id="nombreUnidad" width="113" filterStyle="display: none; visibility: hidden;" >      
+                                    <f:facet name="header">
+                                        <h:outputText id="descT" value="#{msg['desc']}"/>
+                                        <p:tooltip for="descT" value="#{msg['desctooltip']}"/>
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarNombreCentroCoso" maxlength="30" value="#{info.nombre}" style="height: 12px; border-radius: 0px; width: 99.5%; text-transform: uppercase">
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'N', info.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 1)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 1)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column headerText="#{msg['codund']}" sortBy="#{info.unidad.codigo}" filterBy="#{info.unidad.codigo}" filterMatchMode="contains" id="codigoUnidad" width="55" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{info.unidad.codigo}" filterBy="#{info.unidad.codigo}" filterMatchMode="contains" id="codigoUnidad" width="55" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="codundT" value="#{msg['codund']}"/>
+                                        <p:tooltip for="codundT" value="#{msg['codundtooltip']}"/>
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidad.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidad.codigo}" id="editarCodigoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADES', info.unidad.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 2)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -125,13 +156,18 @@
                                         <p:commandButton style="width: 120px;" id="fooCodigoUnidad" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column> 
-                                <p:column headerText="Unidad" sortBy="#{info.unidad.nombre}" filterBy="#{info.unidad.nombre}" filterMatchMode="contains" id="tipoUnidad" width="40" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{info.unidad.nombre}" filterBy="#{info.unidad.nombre}" filterMatchMode="contains" id="tipoUnidad" width="40" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="undT" value="Unidad"/>
+                                        <p:tooltip for="undT" value="#{msg['descundtooltip']}"/>
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidad.nombre}" id="editarTipoUnidad" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADES', info.unidad.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,3)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,3)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -140,13 +176,18 @@
                                         <p:commandButton style="width: 100px;" id="fooTipoUnidad" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column>  
-                                <p:column headerText="#{msg['codundb']}" sortBy="#{info.unidadbase.codigo}" filterBy="#{info.unidadbase.codigo}" filterMatchMode="contains" id="codigoUnidadbase" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{info.unidadbase.codigo}" filterBy="#{info.unidadbase.codigo}" filterMatchMode="contains" id="codigoUnidadbase" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="codundbT" value="#{msg['codundb']}"/>
+                                        <p:tooltip for="codundbT" value="#{msg['codundbtooltip']}"/>
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidadbase.codigo}" id="editarCodigoUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADESBASE', info.unidadbase.codigo)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 4)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info, 4)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 3)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -155,13 +196,18 @@
                                         <p:commandButton style="width: 160px;" id="fooCodigoUnidadBase" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('unidad')}" value=""/>
                                     </f:facet>
                                 </p:column> 
-                                <p:column headerText="#{msg['descb']}" sortBy="#{info.unidadbase.nombre}" filterBy="#{info.unidadbase.nombre}" filterMatchMode="contains" id="unidadBase" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column sortBy="#{info.unidadbase.nombre}" filterBy="#{info.unidadbase.nombre}" filterMatchMode="contains" id="unidadBase" width="70" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header">
+                                        <h:outputText id="descbT" value="#{msg['descb']}"/>
+                                        <p:tooltip for="descbT" value="#{msg['descbtooltip']}"/>
+                                    </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.unidadbase.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.unidadbase.nombre}" id="editarUnidadBase" style="height: 12px; border-radius: 0px; width: 93.5%; text-transform: uppercase" > 
-                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info, 'UNIDADESBASE', info.unidadbase.nombre)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,5)}" />
+                                                <p:ajax event="change" listener="#{controlPeriodicidades.modificandoUnidad(info)}" update="@this" />
+                                                <p:ajax event="select" listener="#{controlPeriodicidades.cambiarIndice(info,5)}" 
+                                                        onstart="PF('datosPeriodicidades').unselectAllRows();PF('datosPeriodicidades').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPeriodicidades.asignarIndex(info, 0, 3)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -246,7 +292,7 @@
 <!--                        <p:commandButton style="position: absolute; left: 10px; top: 470px; height: 30px; width: 168px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white;"  icon="ui-icon-search" id="BUSCARCENTROCOSTO" value="Buscar Periodicidad" actionListener="#{controlPeriodicidades.llamadoDialogoBuscarPeriodicidades()}" process="@this" />
                         <p:commandButton style="position: absolute; left: 190px; top: 470px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/todosbd.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" value="" disabled="#{controlPeriodicidades.mostrarTodos}" actionListener="#{controlPeriodicidades.cancelarModificacion()}" process="@this"/>-->
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlPeriodicidades.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosPeriodicidades" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  value="" actionListener="#{controlPeriodicidades.refrescar()}" action="#{controlPeriodicidades.redirigir()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  value="" actionListener="#{controlPeriodicidades.salir()}" action="#{controlPeriodicidades.redirigir()}" process="@this" />
 
                     </p:panel>
 
