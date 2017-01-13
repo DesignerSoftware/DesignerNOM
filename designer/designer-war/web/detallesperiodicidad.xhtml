@@ -14,13 +14,13 @@
                     <f:loadBundle basename="Recursos.detallesperiodicidades" var="msg" />
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Detalles Periodicidades" styleClass="panelTotal"> 
-                       
+
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left">
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlDetallesPeriodicidades.guardarCambios()}" process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
-                                
+
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlDetallesPeriodicidades.editarCelda()}" process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}" />
 
@@ -65,7 +65,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlDetallesPeriodicidades.retornarPagina()}" actionListener="#{controlDetallesPeriodicidades.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -83,13 +83,13 @@
                                          selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlDetallesPeriodicidades.eventoFiltrar()}"/>
 
-                                
+
                                 <p:column sortBy="#{info.ano}" filterBy="#{info.ano}" filterMatchMode="contains" id="anio"  filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="aniodp" value="#{msg['anio']}"/>
                                         <p:tooltip for="aniodp" value="#{msg['aniot']}"/>
                                     </f:facet>
-                                    
+
                                     <p:cellEditor >  
                                         <f:facet name="output"><h:outputText value="#{info.ano}" /></f:facet>  
                                         <f:facet name="input">
@@ -109,7 +109,7 @@
                                 <p:column  sortBy="#{info.mes}" filterBy="#{info.mes}" filterMatchMode="contains"  id="mes"  filterStyle="display: none; visibility: hidden;" >      
                                     <f:facet name="header">
                                         <h:outputText id="mesdp" value="Mes"/>
-                                        <p:tooltip for="mesdp" value="#{msg['mes']}"/>
+                                        <p:tooltip for="mesdp" value="#{msg['mest']}"/>
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.mes}" style="text-transform: uppercase" /></f:facet>  
@@ -126,7 +126,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                                        
+
                                 <p:column sortBy="#{info.dia}" filterBy="#{info.dia}" filterMatchMode="contains" id="dia"  filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="diadp" value="#{msg['dia']}"/>
@@ -146,7 +146,7 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column> 
-                                
+
                                 <p:column sortBy="#{info.estadoTipoDia}" filterBy="#{info.estadoTipoDia}" filterMatchMode="contains" id="tipodia"  filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="tipodiadp" value="#{msg['tipodia']}"/>
@@ -155,7 +155,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.estadoTipoDia}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarTipoDiadt" value="#{info.estadoTipoDia}" style="width: 87%; height: 20px" 
+                                            <p:selectOneMenu id="editarTipoDiadt" value="#{info.estadoTipoDia}" style="width: 87%;" 
                                                              onblur="PF('datosDetallesP').unselectAllRows(); PF('datosDetallesP').selectRow(#{indice});"
                                                              onfocus="PF('datosDetallesP').unselectAllRows(); PF('datosDetallesP').selectRow(#{indice});" >  
                                                 <f:selectItem itemLabel="SEMANAL" itemValue="SEMANAL" />  
@@ -169,7 +169,7 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>  
-                                
+
                             </p:dataTable> 
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{controlDetallesPeriodicidades.infoRegistro}" style="position: relative; left: 0px; top: 7px; font-weight: bold"/>
                         </fieldset>
@@ -200,8 +200,8 @@
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Periodicidades', 'periodicidad')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
@@ -231,164 +231,120 @@
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog> 
 
 
-                    <p:dialog id="NuevoRegistroDetallesP" header="Nuevo Registro Detalles Periodicidad" widgetVar="NuevoRegistroDetallesP" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
+                    <p:dialog id="NuevoRegistroDetallesP" header="Nuevo Registro Detalles Periodicidad" widgetVar="NuevoRegistroDetallesP" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="380" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="Ingresar Nuevo Detalle Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoDetalleP" style="border: none;">
 
-                           <strong><h:outputText value="*#{msg['anio']} :" style="position: absolute; top: 60px; left: 50px;" /></strong>
-                           <p:inputText  autocomplete="off"  id="nuevoAniodp" maxlength="4" value="#{controlDetallesPeriodicidades.nuevoDetalleP.ano}" style=" width: 80px; position: absolute; left: 150px; top: 55px; text-transform: uppercase">
+                            <strong><h:outputText value="*#{msg['anio']} :" style="position: absolute; top: 60px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoAniodp" maxlength="4" value="#{controlDetallesPeriodicidades.nuevoDetalleP.ano}" style=" width: 80px; position: absolute; left: 150px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoAniodp" value="#{msg['anio']}" />
-                           <!--  
-                            <strong><h:outputText value="*#{msg['desc']} :" style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaNombreUnidads" maxlength="30" value="#{controlDetallesPeriodicidades.nuevaPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px;text-transform: uppercase">
+
+                            <strong><h:outputText value="*Mes :" style="position: absolute; top: 90px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoMesp" maxlength="2" value="#{controlDetallesPeriodicidades.nuevoDetalleP.mes}" style=" width: 80px; position: absolute; left: 150px; top: 85px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevaNombreUnidads" value="#{msg['desc']}" />
+                            <p:watermark for="nuevoMesp" value="Mes" />
 
-                            <strong><h:outputText value="*#{msg['codund']} :" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaTipoUnidadsCodigo" value="#{controlDetallesPeriodicidades.nuevaPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase">
-                                <p:ajax event="click" listener="#{controlDetallesPeriodicidades.valoresBackupAutocompletar(1, 'UNIDADCODIGO')}" />
-                                <p:ajax event="change" listener="#{controlDetallesPeriodicidades.autocompletarNuevo('UNIDADCODIGO', controlDetallesPeriodicidades.nuevaPeriodicidad.unidad.codigo , 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 2)}" />
+                            <strong><h:outputText value="*#{msg['dia']} :" style="position: absolute; top: 120px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoDiap" maxlength="2" value="#{controlDetallesPeriodicidades.nuevoDetalleP.dia}" style=" width: 80px; position: absolute; left: 150px; top: 115px; text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 115px;" id="btnnuevoNombreUnidadNombre" value =" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 2)}"/>   
-                            <p:watermark for="nuevaTipoUnidadsCodigo" value="#{msg['codund']}" />
+                            <p:watermark for="nuevoDiap" value="#{msg['dia']}" />
 
-                            <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaTipoUnidads" value="#{controlDetallesPeriodicidades.nuevaPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 145px;" id="btnnuevoNombreSucursal" value=" " class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 2)}"/>   
-                            <p:watermark for="nuevaTipoUnidads" value="Nombre Unidad" />
+                            <strong><h:outputText value="*#{msg['tipodia']}:  " style=" position: absolute; top: 150px; left: 50px;" /></strong>
+                            <p:selectOneMenu id="nuevoTipoDia" value="#{controlDetallesPeriodicidades.nuevoDetalleP.estadoTipoDia}"  style="position: absolute; left: 150px; top: 145px; text-transform: uppercase;">
+                                <f:selectItem itemLabel="SEMANAL" itemValue="SEMANAL" />  
+                                <f:selectItem itemLabel="MENSUAL" itemValue="MENSUAL" />  
+                                <f:selectItem itemLabel="ANUAL" itemValue="ANUAL" />  
+                                <p:ajax listener="#{controlDetallesPeriodicidades.seleccionarTipoDiaNuevoyDuplicado(controlDetallesPeriodicidades.nuevoDetalleP.estadoTipoDia , 1)}" update="@this" />
+                            </p:selectOneMenu>
+                            <p:watermark for="nuevoTipoDia" value="#{msg['tipodia']}" />
 
-                            <strong><h:outputText value="*#{msg['codundb']} :" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaCodigoBase" value="#{controlDetallesPeriodicidades.nuevaPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 3)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 175px;  " id="btnnuevoUnidadBaseCodigo" value=" "  class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 3)}"/>   
-                            <p:watermark for="nuevaCodigoBase" value="#{msg['codundb']}" />
 
-                            <strong><h:outputText value="*#{msg['descb']} :" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaNombreBase" value="#{controlDetallesPeriodicidades.nuevaPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 3)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 205px;" id="btnnuevoUnidadBaseNombre" value="" class="cssBotonLovDialogos" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 1, 3)}"/>   
-                            <p:watermark for="nuevaNombreBase" value="#{msg['descb']}" />-->
-
-                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlDetallesPeriodicidades.limpiarNuevoDetalleP()}" update="nuevoDetalleP" process="@this"/>
-                            <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;"  process="@this" actionListener="#{controlDetallesPeriodicidades.agregarNuevoDetalleP()}"  />
-                            <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlDetallesPeriodicidades.limpiarNuevoDetalleP()}" update="nuevoDetalleP" onclick="PF('NuevoRegistroDetallesP').hide();"  process="@this"/>
+                            <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 190px;" actionListener="#{controlDetallesPeriodicidades.limpiarNuevoDetalleP()}" update="nuevoDetalleP" process="@this"/>
+                            <p:commandButton id="agregarCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 190px;"  process="@this" actionListener="#{controlDetallesPeriodicidades.agregarNuevoDetalleP()}"  />
+                            <p:commandButton id="cancelarCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 190px;" actionListener="#{controlDetallesPeriodicidades.limpiarNuevoDetalleP()}" update="nuevoDetalleP" onclick="PF('NuevoRegistroDetallesP').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="DuplicarRegistroPeriodicidades" header="Duplicar Registro Periodicidad" widgetVar="DuplicarRegistroPeriodicidades" closable="false" resizable="false"  draggable="true" modal="true" height="265" width="380" style=" padding: 0px">  
+                    <p:dialog id="DuplicarRegistroDetallesP" header="Duplicar Registro Detalles Periodicidad" widgetVar="DuplicarRegistroDetallesP" closable="false" resizable="false"  draggable="true" modal="true" height="230" width="380" style=" padding: 0px">  
 
-                        <center><strong><h:outputText value="Ingresar Nueva Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <center><strong><h:outputText value="Ingresar Nuevo Detalle Periodicidad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
-                        <p:panel id="duplicarUnidads" style="border: none;">
-<!--                            <strong><h:outputText value="*#{msg['cod']} :" style="left: 15px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoCC" maxlength="4" value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 55px; text-transform: uppercase">
+                        <p:panel id="duplicarDetalleP" style="border: none;">
+                            <strong><h:outputText value="*#{msg['anio']} :" style="position: absolute; top: 60px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarAniodp" maxlength="4" value="#{controlDetallesPeriodicidades.duplicarDetalleP.ano}" style=" width: 80px; position: absolute; left: 150px; top: 55px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarCodigoCC" value="#{msg['cod']}" />
+                            <p:watermark for="duplicarAniodp" value="#{msg['anio']}" />
 
-                            <strong><h:outputText value="*#{msg['desc']} :" style="left: 15px; position: absolute; top: 90px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombreUnidads" maxlength="30"  value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 85px; text-transform: uppercase">
+                            <strong><h:outputText value="*Mes :" style="position: absolute; top: 90px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarMesp" maxlength="2" value="#{controlDetallesPeriodicidades.duplicarDetalleP.mes}" style=" width: 80px; position: absolute; left: 150px; top: 85px; text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNombreUnidads" value="#{msg['desc']}" />
+                            <p:watermark for="duplicarMesp" value="Mes" />
 
-                            <strong><h:outputText value="*#{msg['codund']}:" style="left: 15px; position: absolute; top: 120px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoUnidades" value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.unidad.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 115px; text-transform: uppercase" onclick="select();">
-                                   <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 2)}" />
+                            <strong><h:outputText value="*#{msg['dia']} :" style="position: absolute; top: 120px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarDiap" maxlength="2" value="#{controlDetallesPeriodicidades.duplicarDetalleP.dia}" style=" width: 80px; position: absolute; left: 150px; top: 115px; text-transform: uppercase">
+                                <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 115px;"  id="btnduplicarCodigoSucursal" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 2)}"/>   
-                            <p:watermark for="duplicarCodigoUnidades" value="#{msg['codund']}" />
+                            <p:watermark for="duplicarDiap" value="#{msg['dia']}" />
 
-                            <strong><h:outputText value="*Nombre Unidad :" style="left: 15px; position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoUnidads" value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.unidad.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 145px; text-transform: uppercase" onclick="select();">
-                                   <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style=" position: absolute; left: 332px; top: 145px;"  id="btnduplicarNombreSucursal" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 2)}"/>   
-                            <p:watermark for="duplicarTipoUnidads" value="Nombre Unidad" />
+                            <strong><h:outputText value="*#{msg['tipodia']}:  " style=" position: absolute; top: 150px; left: 50px;" /></strong>
+                            <p:selectOneMenu id="duplicarTipoDia" value="#{controlDetallesPeriodicidades.duplicarDetalleP.estadoTipoDia}"  style="position: absolute; left: 150px; top: 145px; text-transform: uppercase">
+                                <f:selectItem itemLabel="SEMANAL" itemValue="SEMANAL" />  
+                                <f:selectItem itemLabel="MENSUAL" itemValue="MENSUAL" />  
+                                <f:selectItem itemLabel="ANUAL" itemValue="ANUAL" />  
+                                <p:ajax listener="#{controlDetallesPeriodicidades.seleccionarTipoDiaNuevoyDuplicado(controlDetallesPeriodicidades.duplicarDetalleP.estadoTipoDia , 2)}" update="@this" />
+                            </p:selectOneMenu>
+                            <p:watermark for="duplicarTipoDia" value="#{msg['tipodia']}" />
 
-                            <strong><h:outputText value="*Codigo Unidad Base:" style="left: 15px; position: absolute; top: 180px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoUnidadesBase" value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.unidadbase.codigo}" style=" width: 122px; position: absolute; left: 200px; top: 175px; text-transform: uppercase" onclick="select();">
-                                   <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 3)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 175px;"  id="btnduplicarCodigoBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 3)}"/>   
-                            <p:watermark for="duplicarCodigoUnidadesBase" value="Codigo Unidad Base" />
-
-                            <strong><h:outputText value="*#{msg['descb']}:" style="left: 15px; position: absolute; top: 210px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDescripcionUnidadesBase" value="#{controlDetallesPeriodicidades.duplicarPeriodicidad.unidadbase.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 205px; text-transform: uppercase" onclick="select();">
-                                   <p:ajax event="dblclick" listener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 3)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 205px;  "  id="btnduplicarNombreBase" class="cssBotonLovDialogos" value="" process="@this"  actionListener="#{controlDetallesPeriodicidades.asignarIndex(info, 2, 3)}"/>   
-                            <p:watermark for="duplicarDescripcionUnidadesBase" value="#{msg['descb']}" />-->
-
-                            <p:commandButton id="limpiarDuplicadoCC" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 240px;" actionListener="#{controlDetallesPeriodicidades.limpiarDuplicarDetallesP()}" update="duplicarUnidads" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 240px;" process="@this" actionListener="#{controlDetallesPeriodicidades.confirmarDuplicar()}"/>
-                            <p:commandButton id="cancelarDuplicadoCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 240px;" actionListener="#{controlDetallesPeriodicidades.limpiarDuplicarDetallesP()}" update="duplicarUnidads" onclick="PF('DuplicarRegistroPeriodicidades').hide();" process="@this"/>
+                            <p:commandButton id="limpiarDuplicadoCC" icon="ui-icon-trash" value="Limpiar" style=" position: absolute;left: 10px; top: 190px;" actionListener="#{controlDetallesPeriodicidades.limpiarDuplicarDetallesP()}" update="duplicarDetalleP" process="@this"/>
+                            <p:commandButton id="agregarDuplicadoCC" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 165px; top: 190px;" process="@this" actionListener="#{controlDetallesPeriodicidades.confirmarDuplicar()}"/>
+                            <p:commandButton id="cancelarDuplicadoCC" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 265px; top: 190px;" actionListener="#{controlDetallesPeriodicidades.limpiarDuplicarDetallesP()}" update="duplicarDetalleP" onclick="PF('DuplicarRegistroDetallesP').hide();" process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-<!--                    <p:dialog id="editarCCC" header="#{msg['cod']}" widgetVar="editarCCC" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.codigo}" style="overflow: auto;" readonly="true"/>
+                  <p:dialog id="editarAnio" header="#{msg['anio']}" widgetVar="editarAnio" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarDetalleP.ano}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarNCC" header="#{msg['desc']}" widgetVar="editarNCC" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.nombre}" style="overflow: auto;" readonly="true"/>
+                    <p:dialog id="editarMes" header="Mes" widgetVar="editarMes" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarDetalleP.mes}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarTCC" header="#{msg['codund']}" widgetVar="editarTCC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.unidad.codigo}" style="overflow: auto;" readonly="true"/>
+                    <p:dialog id="editarDia" header="#{msg['dia']}" widgetVar="editarDia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarDetalleP.dia}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editarMO" header="Unidad" widgetVar="editarMO" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.unidad.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarCAT" header="#{msg['codundb']}" widgetVar="editarCAT" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.unidadbase.codigo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editarO" header="#{msg['descb']}" widgetVar="editarO" resizable="false" draggable="true" modal="true" height="80" width="400"  class="cssDialogosEditar">  
-                        <p:inputTextarea value="#{controlDetallesPeriodicidades.editarUnidad.unidadbase.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>-->
                 </h:form>
 
                 <h:form id="formExportar">
                     <p:dataTable id="datosDetallesPExportar" var="info" style="visibility: hidden; display: none;"                           
                                  value="#{controlDetallesPeriodicidades.listaDetallesP}"> 
-<!--                        <p:column headerText="Codigo">      
-                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet>
-                            <h:outputText value="#{info.codigo}" />
+                        <p:column headerText="Año">      
+                            <f:facet name="header"><h:outputText value="Año"/></f:facet>
+                            <h:outputText value="#{info.ano}" />
                         </p:column>
-                        <p:column headerText="Descripcion">      
-                            <f:facet name="header"><h:outputText value="Descripcion"/></f:facet>
-                            <h:outputText value="#{info.nombre}" />
+                        <p:column headerText="Mes">      
+                            <f:facet name="header"><h:outputText value="Mes"/></f:facet>
+                            <h:outputText value="#{info.mes}" />
                         </p:column>
-                        <p:column headerText="Codigo_Unidad">      
-                            <f:facet name="header"><h:outputText value="Codigo_Unidad"/></f:facet>
-                            <h:outputText value="#{info.unidad.codigo}" />
+                        <p:column headerText="#{msg['dia']}">      
+                            <f:facet name="header"><h:outputText value="#{msg['dia']}"/></f:facet>
+                            <h:outputText value="#{info.dia}" />
                         </p:column>
-                        <p:column headerText="Unidad">      
-                            <f:facet name="header"><h:outputText value="Unidad"/></f:facet>
-                            <h:outputText value="#{info.unidad.nombre}" />
+                        <p:column headerText="Tipo_Día">      
+                            <f:facet name="header"><h:outputText value="Tipo_Día"/></f:facet>
+                            <h:outputText value="#{info.estadoTipoDia}" />
                         </p:column>
-                        <p:column headerText="Codigo_Unidad_Base">      
-                            <f:facet name="header"><h:outputText value="Codigo_Unidad_Base"/></f:facet>
-                            <h:outputText value="#{info.unidadbase.codigo}" />
-                        </p:column>
-                        <p:column headerText="Nombre_Unidad_Base">      
-                            <f:facet name="header"><h:outputText value="Nombre_Unidad_Base"/></f:facet>
-                            <h:outputText value="#{info.unidadbase.nombre}" />
-                        </p:column>-->
                     </p:dataTable>
                 </h:form>
             </ui:define>

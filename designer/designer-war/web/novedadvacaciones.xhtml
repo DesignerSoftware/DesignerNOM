@@ -31,7 +31,7 @@
                                 <p:separator />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this"/>
+                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this" disabled="#{controlNovedadesVacaciones.activarLOV}" />
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -126,9 +126,9 @@
                             <legend style="font-size: 14px; color: #14388B"><strong>Novedad de Vacaciones disfrutadas/por disfrutar</strong></legend>
                             <p:dataTable id="datosNovedadesEmpleado" var="novedades" value="#{controlNovedadesVacaciones.listaNovedades}"
                                          rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 820px;"                             
-                                         scrollable="true"  scrollWidth="828"
+                                         scrollable="true"  scrollWidth="828" widgetVar="datosNovedadesEmpleado"
                                          filteredValue="#{controlNovedadesVacaciones.filtradosListaNovedades}" 
-                                         emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" scrollHeight="#{controlNovedadesVacaciones.altoTabla}"
                                          selectionMode="single" selection="#{controlNovedadesVacaciones.novedadSeleccionada}"
                                          rows="#{controlNovedadesVacaciones.altoTabla}" paginator="true" 
@@ -155,7 +155,7 @@
                                                           onselect="posicionOtro([{name: 'celda', value: '0'}, {name: 'registro', value: '#{indice}'}]);" >
 
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 0)}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -173,7 +173,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.vacacion.periodo}" id="editarPeriodo" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);" >
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 1)}" process="@this"/>-->
+                                                <p:ajax event="select" process="@this"  onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -190,7 +190,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.dias}" id="editarDias" style=" border-radius: 0px; width: 93.5%;
                                                           text-transform: uppercase;height:12px;" readonly="true" onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades,2 )}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                             <p:keyFilter for="editarDias" mask="num"/>
                                         </f:facet>  
@@ -217,7 +217,7 @@
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{novedades.fechasiguientefinvaca}" id="editarFechaSiguiente" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);"  >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 3)}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -235,7 +235,7 @@
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.subtipo}" id="editarSubtipo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
                                                           onselect="posicionOtro([{name: 'celda', value: '4'}, {name: 'registro', value: '#{indice}'}]);" >
                                                 <p:ajax event="change" update="@this" />
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 4)}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -257,7 +257,7 @@
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{novedades.adelantapagohasta}" id="editarAdelantoHasta" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
                                                           onselect="posicionOtro([{name: 'celda', value: '5'}, {name: 'registro', value: '#{indice}'}]);" >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 5)}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -279,7 +279,7 @@
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{novedades.fechapago}" id="editarFechaPago" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
                                                           onselect="posicionOtro([{name: 'celda', value: '6'}, {name: 'registro', value: '#{indice}'}]);" >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 6)}" process="@this"/>-->
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -293,15 +293,16 @@
                                           filterMatchMode="contains" id="nEDiasAplazados" width="25" filterStyle="display: none; visibility: hidden;" >                                  
                                     <f:facet name="header">
                                         <h:outputText id="headerDiasAplazados" value="D.A" />
-                                        <p:tooltip  for="headerDiasAplazados" value="Dias Aplazados" />
+                                        <p:tooltip  for="headerDiasAplazados" value="Días Aplazados" />
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.vacadiasaplazados}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{novedades.vacadiasaplazados}" id="editarDiasAplazados" style=" border-radius: 0px; width: 93.5%;
-                                                          text-transform: uppercase;height:12px;" onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
-                                                <!--<p:ajax event="select" listener="#/{controlNovedadesVacaciones.cambiarIndice(novedades, 7)}" process="@this"/>-->
+                                            <p:inputText  autocomplete="off" readonly="true"  value="#{novedades.vacadiasaplazados}" id="editarDiasAplazados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;"
+                                                onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
+                                                <!--<p:ajax event="change" listener="#{controlNovedadesVacaciones.modificarDiasAplazados(novedad)}" process="@this" update="editarDiasAplazados"/>-->   
                                             </p:inputText>
                                             <p:keyFilter for="editarDiasAplazados" mask="num"/>
                                         </f:facet>  
@@ -316,7 +317,7 @@
                             <p:remoteCommand name="posicionOtro" actionListener="#{controlNovedadesVacaciones.posicionOtro()}"/>
                             <h:outputText id="infoRegistroNovedades" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroNovedades}  " style="position: relative; left: 10px; top: 8px; font-weight: bold"/>
                             <h:outputText value="Total Dias Vacaciones Disfrutadas:" style=" position: relative; top: 8px; left:105px"/>
-                            <h:outputText value="#{controlNovedadesVacaciones.diasTotales}" id="diasTotales" style=" position: relative; top:8px; left:130px;border-radius: 0px; width: 55px;" /> 
+                            <h:outputText value="#{controlNovedadesVacaciones.diasTotales}" id="diasTotales" style=" position: relative; top:8px; left:130px; border-radius: 0px; width: 55px;" /> 
                             <h:outputText value="Total Dias Aplazados:" style=" position: relative; top: 8px; left:405px"/>
                             <h:outputText value="#{controlNovedadesVacaciones.diasAplazadosTotal}" id="diasAplazados" style=" position: relative; top: 8px ; left:425px; border-radius: 0px; width: 50px;" /> 
                         </fieldset>
@@ -350,25 +351,25 @@
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
                             </p:inputText>
 
-                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnlovperiodos" 
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 335px; top: 100px"  process="@this" id="btnlovperiodos" 
                                              actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
-                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 70px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.nuevaNovedad.dias)}" />
                             </p:inputText>
                             <p:keyFilter for="nuevoDias" mask="num"/>
 
                             <strong><h:outputText value="Fecha Sig. Fin. Vacacion: " style=" position: absolute; top: 185px;" /></strong>
                             <p:calendar  autocomplete="off" style=" position: absolute; top: 180px; left: 200px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaSiguiente" value="#{controlNovedadesVacaciones.nuevaNovedad.fechasiguientefinvaca}" >
-                                <p:ajax event="dateSelect" update="nuevaFechaSiguiente"/>
+                                <p:ajax event="dateSelect" update="nuevaFechaSiguiente" listener="#{controlNovedadesVacaciones.mostrarDialogoProceso()}"/>
                                 <p:ajax event="change" update="nuevaFechaSiguiente"/>
                             </p:calendar>
 
                             <strong><h:outputText value="*Subtipo: " style=" position: absolute; top: 225px;" /></strong>
                             <p:selectOneMenu id="nuevoSubtipo" value="#{controlNovedadesVacaciones.nuevaNovedad.subtipo}"  
-                                             style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                                             style=" width: 103px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
                                 <f:selectItem itemLabel="TIEMPO" itemValue="TIEMPO" />  
                                 <f:selectItem itemLabel="DINERO" itemValue="DINERO" />  
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.seleccionarSubtipo(controlNovedadesVacaciones.nuevaNovedad.subtipo, 1)}" update="@this" />
@@ -388,7 +389,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoDiasAplazados" value="#{controlNovedadesVacaciones.nuevaNovedad.vacadiasaplazados}" 
-                                          style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 70px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:keyFilter for="nuevoDiasAplazados" mask="num"/>
@@ -420,12 +421,12 @@
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 340px; top: 100px"  process="@this" id="btnduplicarlovperiodos" 
+                            <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 335px; top: 100px"  process="@this" id="btnduplicarlovperiodos" 
                                              actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
-                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 70px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.diasMayor(controlNovedadesVacaciones.duplicarNovedad.dias)}" />
                             </p:inputText>
 
@@ -439,7 +440,7 @@
 
                             <strong><h:outputText value="*Subtipo: " style=" position: absolute; top: 225px;" /></strong>
                             <p:selectOneMenu id="duplicarSubtipo" value="#{controlNovedadesVacaciones.duplicarNovedad.subtipo}"  
-                                             style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
+                                             style=" width: 103px; position: absolute; left: 200px; top: 220px; text-transform: uppercase">
                                 <f:selectItem itemLabel="TIEMPO" itemValue="TIEMPO" />  
                                 <f:selectItem itemLabel="DINERO" itemValue="DINERO" />  
                                 <p:ajax event="change" listener="#{controlNovedadesVacaciones.seleccionarSubtipo(controlNovedadesVacaciones.duplicarNovedad.subtipo, 2)}" update="@this" />
@@ -464,7 +465,7 @@
 
                             <strong><h:outputText value="Dias Aplazados" style=" position: absolute; top: 345px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDiasAplazados" value="#{controlNovedadesVacaciones.duplicarNovedad.vacadiasaplazados}" 
-                                          style=" width: 122px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
+                                          style=" width: 70px; position: absolute; left: 200px; top: 340px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
@@ -571,7 +572,7 @@
                     <p:dialog id="proceso" header="#{msg['atencion']}" widgetVar="proceso"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="#{msg['proceso']}" style="position: absolute; left: 95px; top: 20px; width: 300px;" />
-                        <p:commandButton value="Sí" icon="ui-icon-check"  onclick="PF('proceso').hide();" actionListener="#{controlNovedadesVacaciones.validacionProcesoVacaciones('S')}" style="position: absolute; top: 60px; left: 180px;" process="@this" />
+                        <p:commandButton value="Sí" icon="ui-icon-check"  onclick="PF('proceso').hide();" actionListener="#{controlNovedadesVacaciones.validacionProcesoVacaciones('S')}" style="position: absolute; top: 60px; left: 215px;" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close"  onclick="PF('proceso').hide();" actionListener="#{controlNovedadesVacaciones.validacionProcesoVacaciones('N')}" style="position: absolute; top: 60px; left: 280px;" process="@this" />
                     </p:dialog>
 
@@ -598,21 +599,21 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
+                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="Codigo" />
                                 </f:facet>
                                 <h:outputText value="#{emp.codigoempleado}" />  
                             </p:column>
 
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                                 <f:facet name="header">
                                     <h:outputText value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{emp.persona.nombreCompleto}" />  
                             </p:column>
 
-                            <p:column style="text-align: center" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 94%" > 
+                            <p:column style="text-align: center" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="Fecha Ingreso" />
                                 </f:facet>
@@ -649,14 +650,14 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
                             </f:facet>
 
-                            <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 94%" filterBy="#{per.diaspendientes}" width="100" filterMatchMode="contains" > 
+                            <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 80% !important" filterBy="#{per.diaspendientes}" width="100" filterMatchMode="contains" > 
                                 <f:facet name="header">
                                     <h:outputText value="Días Pendientes" />
                                 </f:facet>
                                 <h:outputText value="#{per.diaspendientes}" />  
                             </p:column>
 
-                            <p:column style="text-align: center" sortBy="#{per.periodo}" filterStyle="width: 94%" filterBy="#{per.periodo}" filterMatchMode="contains" > 
+                            <p:column style="text-align: center" sortBy="#{per.periodo}" filterStyle="width: 80% !important" filterBy="#{per.periodo}" filterMatchMode="contains" > 
                                 <f:facet name="header">
                                     <h:outputText value="Periodo" />
                                 </f:facet>
@@ -691,12 +692,12 @@
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  

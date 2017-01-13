@@ -221,8 +221,8 @@ public class ControlAusentismos implements Serializable {
         nuevoAusentismo.setTipo(new Tiposausentismos());
         nuevoAusentismo.setClase(new Clasesausentismos());
         nuevoAusentismo.setCausa(new Causasausentismos());
-        nuevoAusentismo.setPorcentajeindividual(BigDecimal.valueOf(0));
-        nuevoAusentismo.setBaseliquidacion(BigInteger.valueOf(0));
+        nuevoAusentismo.setPorcentajeindividual(null);
+        nuevoAusentismo.setBaseliquidacion(null);
         nuevoAusentismo.setRelacionadaBool(false);
         nuevoAusentismo.setAccidente(new Soaccidentes());
         nuevoAusentismo.setEnfermedad(new EnfermeadadesProfesionales());
@@ -242,16 +242,17 @@ public class ControlAusentismos implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarAusentismos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            listaEmpleadosAusentismo = null;
             getListaEmpleadosAusentismo();
-        if (listaEmpleadosAusentismo != null) {
-            if (!listaEmpleadosAusentismo.isEmpty()) {
-                seleccionMostrar = listaEmpleadosAusentismo.get(0);
+            if (listaEmpleadosAusentismo != null) {
+                if (!listaEmpleadosAusentismo.isEmpty()) {
+                    seleccionMostrar = listaEmpleadosAusentismo.get(0);
+                }
             }
-        }
-        listaAusentismos = null;
-        getListaAusentismos();
-        cambiarEmpleado();
-            
+            listaAusentismos = null;
+            getListaAusentismos();
+            cambiarEmpleado();
+
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -260,14 +261,13 @@ public class ControlAusentismos implements Serializable {
 
     public void recibirPagina(String pagina) {
         paginaanterior = pagina;
-        
+
     }
 
     public String retornarPagina() {
         return paginaanterior;
     }
 
-    //Ubicacion Celda Arriba 
     public void cambiarEmpleado() {
         if (listaAusentismosCrear.isEmpty() && listaAusentismosBorrar.isEmpty() && listaAusentismosModificar.isEmpty()) {
             secuenciaEmpleado = seleccionMostrar.getSecuencia();
@@ -2631,8 +2631,8 @@ public class ControlAusentismos implements Serializable {
             nuevoAusentismo.setTipo(new Tiposausentismos());
             nuevoAusentismo.setClase(new Clasesausentismos());
             nuevoAusentismo.setCausa(new Causasausentismos());
-            nuevoAusentismo.setPorcentajeindividual(BigDecimal.valueOf(0));
-            nuevoAusentismo.setBaseliquidacion(BigInteger.valueOf(0));
+            nuevoAusentismo.setPorcentajeindividual(null);
+            nuevoAusentismo.setBaseliquidacion(null);
             nuevoAusentismo.setFormaliquidacion(" ");
             nuevoAusentismo.setRelacionadaBool(false);
             nuevoAusentismo.setAccidente(new Soaccidentes());
@@ -2732,7 +2732,6 @@ public class ControlAusentismos implements Serializable {
         duplicarAusentismo.setTipo(new Tiposausentismos());
         duplicarAusentismo.setCausa(new Causasausentismos());
         duplicarAusentismo.setClase(new Clasesausentismos());
-        ausentismoSeleccionado = null;
         ausentismoSeleccionado = null;
         FacesContext c = FacesContext.getCurrentInstance();
         System.out.println("Entro a Bandera B. 1");
@@ -3197,7 +3196,7 @@ public class ControlAusentismos implements Serializable {
         }
     }
 
-    public void autocompletarFechapago(Date fechaInicioPago,BigInteger dias, int tipo){
+    public void autocompletarFechapago(Date fechaInicioPago, BigInteger dias, int tipo) {
         System.out.println("Controlador.ControlAusentismos.autocompletarFechapago()");
         Calendar aux = Calendar.getInstance();
         aux.setTime(fechaInicioPago);
@@ -3210,16 +3209,18 @@ public class ControlAusentismos implements Serializable {
         } else if (tipo == 2) {
             duplicarAusentismo.setFechafinpago(fechaH);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFechaFinPago");
-        }   
+        }
     }
-    
+
     //GETTER & SETTER
     public List<Soausentismos> getListaAusentismos() {
         if (listaAusentismos == null && secuenciaEmpleado != null) {
             listaAusentismos = administrarAusentismos.ausentismosEmpleado(secuenciaEmpleado);
-            if (listaAusentismos != null && !listaAusentismos.isEmpty()) {
-                for (int i = 0; i < listaAusentismos.size(); i++) {
-                    listaAusentismos.get(i).setRelacion(administrarAusentismos.mostrarRelacion(listaAusentismos.get(i).getSecuencia()));
+            if (listaAusentismos != null) {
+                if (!listaAusentismos.isEmpty()) {
+                    for (int i = 0; i < listaAusentismos.size(); i++) {
+                        listaAusentismos.get(i).setRelacion(administrarAusentismos.mostrarRelacion(listaAusentismos.get(i).getSecuencia()));
+                    }
                 }
             }
         }

@@ -245,9 +245,9 @@ public class Soausentismos implements Serializable {
     }
 
     public BigInteger getBaseliquidacion() {
-        if (baseliquidacion == null) {
-            baseliquidacion = BigInteger.valueOf(0);
-        }
+//        if (baseliquidacion == null) {
+//            baseliquidacion = BigInteger.valueOf(0);
+//        }
         return baseliquidacion;
     }
 
@@ -426,9 +426,9 @@ public class Soausentismos implements Serializable {
     }
 
     public BigDecimal getPorcentajeindividual() {
-        if (porcentajeindividual == null) {
-            porcentajeindividual = BigDecimal.valueOf(0);
-        }
+//        if (porcentajeindividual == null) {
+//            porcentajeindividual = BigDecimal.valueOf(0);
+//        }
         return porcentajeindividual;
     }
 

@@ -107,7 +107,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     // Para volver:
     private String paginaAnterior;
     // activar mostrar todos:
-    private boolean activarMTodos;
+    private boolean activarMTodos, activarLOV;
     // fecha contratacion empleado
     private Date fechaContratacionE;
     private String infoRegistroEmpleados, infoRegistroNovedades, infoRegistroEmpleadosLOV, infoRegistroPeriodo;
@@ -145,6 +145,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         activarMTodos = true;
         novedadSeleccionada = null;
         periodicidadCodigoDos = BigInteger.valueOf(19847);
+        activarLOV = true;
     }
 
     @PostConstruct
@@ -156,15 +157,15 @@ public class ControlNovedadesVacaciones implements Serializable {
             administrarNovedadesSistema.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
             getListaEmpleadosNovedad();
-            if(listaEmpleadosNovedad != null){
-                if(!listaEmpleadosNovedad.isEmpty()){
+            if (listaEmpleadosNovedad != null) {
+                if (!listaEmpleadosNovedad.isEmpty()) {
                     empleadoSeleccionado = listaEmpleadosNovedad.get(0);
                 }
             }
             listaNovedades = null;
             getListaNovedades();
             cambiarEmpleado();
-            
+
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -234,6 +235,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         nuevaNovedad.setTipo("VACACION");
         nuevaNovedad.setVacacion(new Vacaciones());
         nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        nuevaNovedad.setDias(BigInteger.valueOf(0));
 
     }
 
@@ -244,6 +246,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         duplicarNovedad.setTipo("VACACION");
         duplicarNovedad.setVacacion(new Vacaciones());
         duplicarNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        duplicarNovedad.setDias(BigInteger.valueOf(0));
     }
 
     //CREAR NOVEDADES
@@ -283,12 +286,19 @@ public class ControlNovedadesVacaciones implements Serializable {
             listaNovedades.add(nuevaNovedad);
             System.out.println("periodo : " + nuevaNovedad.getVacacion().getPeriodo());
             novedadSeleccionada = nuevaNovedad;
-            limpiarNuevaNovedad();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        String cero = "0";
+        nuevaNovedad = new NovedadesSistema();
+        nuevaNovedad.setSubtipo("TIEMPO");
+        nuevaNovedad.setTipo("VACACION");
+        nuevaNovedad.setVacacion(new Vacaciones());
+        nuevaNovedad.setVacadiasaplazados(Short.valueOf(cero));
+        nuevaNovedad.setDias(BigInteger.valueOf(0));
 
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+        if (guardado == true) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().execute("PF('nuevanovedadVacaciones').hide()");
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             RequestContext.getCurrentInstance().update("form:diasTotales");
@@ -655,6 +665,8 @@ public class ControlNovedadesVacaciones implements Serializable {
                     System.out.println("6");
                     System.out.println(listaNovedadesCrear.get(i).getTipo());
                     System.out.println("7");
+                    System.out.println("7 y medio : " + listaNovedadesCrear.get(i));
+
                     administrarNovedadesSistema.crearNovedades(listaNovedadesCrear.get(i));
                     System.out.println("8");
                 }
@@ -662,6 +674,8 @@ public class ControlNovedadesVacaciones implements Serializable {
                 listaNovedadesCrear.clear();
             }
             System.out.println("Se guardaron los datos con exito");
+            limpiarNuevaNovedad();
+            limpiarduplicarNovedades();
             listaNovedades = null;
             getListaNovedades();
             contarRegistrosNovedades();
@@ -864,6 +878,9 @@ public class ControlNovedadesVacaciones implements Serializable {
         }
         if (tipoActualizacion == 1) {
             System.out.println("entró a actualizar periodo 2");
+            System.out.println("entró a actualizar periodo 2, nueva novedad : " + nuevaNovedad);
+            System.out.println("entró a actualizar periodo 2, secuencia : " + nuevaNovedad.getSecuencia());
+            System.out.println("entró a actualizar periodo 2, periodo seleccionado : " + periodoSeleccionado.getPeriodo());
             nuevaNovedad.setVacacion(periodoSeleccionado);
             nuevaNovedad.getVacacion().setPeriodo(periodoSeleccionado.getPeriodo());
             System.out.println("dias pendientes : " + periodoSeleccionado.getDiaspendientes());
@@ -926,7 +943,7 @@ public class ControlNovedadesVacaciones implements Serializable {
     public Date fechaAdelantoHasta(Date fechaRegreso, int tipo) {
         Calendar cd = Calendar.getInstance();
         cd.setTime(fechaRegreso);
-        cd.add(Calendar.DAY_OF_MONTH, 1);
+        cd.add(Calendar.DAY_OF_MONTH, -1);
         Date fechaAdelantoH = cd.getTime();
         System.out.println("fecha adelanto h : " + fechaAdelantoH);
         if (tipo == 1) {
@@ -1031,11 +1048,11 @@ public class ControlNovedadesVacaciones implements Serializable {
         System.out.println("dias empleado : " + nuevaNovedad.getDias());
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = tipoAct;
+        listaPeriodos = null;
+        getListaPeriodos();
         if (nuevaNovedad.getDias() == null || nuevaNovedad.getDias() == BigInteger.ZERO) {
             System.out.println("Entró");
             System.out.println("empleado seleccionado = " + secuenciaEmpleado);
-            listaPeriodos = null;
-            getListaPeriodos();
             if (listaPeriodos.isEmpty()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:dias");
                 RequestContext.getCurrentInstance().execute("PF('dias').show()");
@@ -1061,6 +1078,12 @@ public class ControlNovedadesVacaciones implements Serializable {
             nuevaNovedad.setDias(BigInteger.ZERO);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().execute("PF('diasMayor').show()");
+        } else {
+            System.out.println("entró al else");
+            nuevaNovedad.setDias(dias);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
+            RequestContext.getCurrentInstance().execute("PF('Proceso').show()");
+
         }
     }
 
@@ -1121,8 +1144,8 @@ public class ControlNovedadesVacaciones implements Serializable {
         }
         System.out.println("diaSemanaStr al salir del switch : " + diaSemanaStr);
 
-        if(administrarNovedadesVacaciones.validarDiaLaboralVacaciones(jornada, diaSemanaStr) == true){
-          RequestContext.getCurrentInstance().execute("PF('diaNoLaboral').show()");
+        if (administrarNovedadesVacaciones.validarDiaLaboralVacaciones(jornada, diaSemanaStr) == true) {
+            RequestContext.getCurrentInstance().execute("PF('diaNoLaboral').show()");
         }
 //        System.out.println("aux : " + aux);
 //        if (aux == true) {
@@ -1455,6 +1478,14 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void setInfoRegistroPeriodo(String infoRegistroPeriodo) {
         this.infoRegistroPeriodo = infoRegistroPeriodo;
+    }
+
+    public boolean isActivarLOV() {
+        return activarLOV;
+    }
+
+    public void setActivarLOV(boolean activarLOV) {
+        this.activarLOV = activarLOV;
     }
 
 }

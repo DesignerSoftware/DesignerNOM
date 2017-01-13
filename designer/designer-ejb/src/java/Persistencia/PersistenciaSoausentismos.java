@@ -85,9 +85,10 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
    public List<Soausentismos> ausentismosEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT soa FROM Soausentismos soa WHERE soa.empleado.secuencia= :secuenciaEmpleado");
-         query.setParameter("secuenciaEmpleado", secuenciaEmpleado);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         String sql = "SELECT * FROM SOAUSENTISMOS WHERE EMPLEADO = ?";
+         
+         Query query = em.createNativeQuery(sql, Soausentismos.class);
+         query.setParameter(1, secuenciaEmpleado);
          List<Soausentismos> todosAusentismos = query.getResultList();
          return todosAusentismos;
       } catch (Exception e) {

@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 public class DetallesPeriodicidades implements Serializable {
 
     private static final long serialVersionUID = 1L;
-   @Id
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "SECUENCIA")
@@ -38,11 +38,11 @@ public class DetallesPeriodicidades implements Serializable {
     @Size(max = 1)
     @Column(name = "TIPODIA")
     private String tipodia;
-    @Column(name="ANO")
+    @Column(name = "ANO")
     private short ano;
-    @Column(name="MES")
+    @Column(name = "MES")
     private short mes;
-    @Column(name="DIA")
+    @Column(name = "DIA")
     private short dia;
     @Transient
     private String estadoTipoDia;
@@ -62,7 +62,7 @@ public class DetallesPeriodicidades implements Serializable {
     public DetallesPeriodicidades(BigInteger secuencia) {
         this.secuencia = secuencia;
     }
-    
+
     public BigInteger getSecuencia() {
         return secuencia;
     }
@@ -113,15 +113,18 @@ public class DetallesPeriodicidades implements Serializable {
 
     public String getEstadoTipoDia() {
         getTipodia();
-        if(estadoTipoDia == null){
-          if (tipodia.equalsIgnoreCase("S")) {
+        if (estadoTipoDia == null) {
+            if (tipodia == null) {
+                estadoTipoDia = "MENSUAL";
+            } else if (tipodia.equalsIgnoreCase("S")) {
                 estadoTipoDia = "SEMANAL";
             } else if (tipodia.equalsIgnoreCase("M")) {
                 estadoTipoDia = "MENSUAL";
             } else if (tipodia.equalsIgnoreCase("A")) {
                 estadoTipoDia = "ANUAL";
-            }  
+            }
         }
+
         return estadoTipoDia;
     }
 
@@ -129,7 +132,6 @@ public class DetallesPeriodicidades implements Serializable {
         this.estadoTipoDia = estadoTipoDia;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -154,5 +156,5 @@ public class DetallesPeriodicidades implements Serializable {
     public String toString() {
         return "Entidades.DetallesPeriodicidades[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

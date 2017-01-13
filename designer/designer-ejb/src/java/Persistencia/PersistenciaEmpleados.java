@@ -770,7 +770,7 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
          System.out.println("entro al try");
          em.clear();
          String sql = "SELECT * \n"
-                 + "FROM  EMPLEADOS E\n"
+                 + "FROM  EMPLEADOS E \n"
                  + "WHERE  EXISTS (SELECT 'X' FROM VWACTUALESTIPOSTRABAJADORES VTT,   TIPOSTRABAJADORES TT \n"
                  + "   WHERE VTT.TIPOTRABAJADOR = TT.SECUENCIA \n"
                  + "   AND   VTT.EMPLEADO = E.SECUENCIA \n"

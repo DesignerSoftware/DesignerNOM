@@ -67,11 +67,15 @@ public class ControlDetallesPeriodicidades implements Serializable {
         aceptar = true;
         tipoLista = 0;
         nuevoDetalleP = new DetallesPeriodicidades();
-        nuevoDetalleP.setAno(Short.parseShort(null));
-        nuevoDetalleP.setMes(Short.parseShort(null));
-        nuevoDetalleP.setDia(Short.parseShort(null));
+        nuevoDetalleP.setAno(Short.valueOf("0"));
+        nuevoDetalleP.setMes(Short.valueOf("0"));
+        nuevoDetalleP.setDia(Short.valueOf("0"));
         nuevoDetalleP.setTipodia("M");
         duplicarDetalleP = new DetallesPeriodicidades();
+        duplicarDetalleP.setAno(Short.valueOf("0"));
+        duplicarDetalleP.setMes(Short.valueOf("0"));
+        duplicarDetalleP.setDia(Short.valueOf("0"));
+        duplicarDetalleP.setTipodia("M");
         listaDetallesPBorrar = new ArrayList<DetallesPeriodicidades>();
         listaDetallesPCrear = new ArrayList<DetallesPeriodicidades>();
         listaDetallesPModificar = new ArrayList<DetallesPeriodicidades>();
@@ -143,12 +147,13 @@ public class ControlDetallesPeriodicidades implements Serializable {
         k++;
         l = BigInteger.valueOf(k);
         nuevoDetalleP.setSecuencia(l);
+        nuevoDetalleP.setPeriodicidad(periodicidadActual);
         listaDetallesPCrear.add(nuevoDetalleP);
         listaDetallesP.add(nuevoDetalleP);
         detallePSeleccionado = nuevoDetalleP;
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosDetallesP");
-        nuevoDetalleP = new DetallesPeriodicidades();
+        limpiarNuevoDetalleP();
         if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -204,6 +209,9 @@ public class ControlDetallesPeriodicidades implements Serializable {
 
     public void limpiarNuevoDetalleP() {
         nuevoDetalleP = new DetallesPeriodicidades();
+        nuevoDetalleP.setAno(Short.valueOf("0"));
+        nuevoDetalleP.setMes(Short.valueOf("0"));
+        nuevoDetalleP.setDia(Short.valueOf("0"));
         nuevoDetalleP.setTipodia("M");
     }
 
@@ -238,6 +246,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             duplicarDetalleP.setSecuencia(l);
+            duplicarDetalleP.setPeriodicidad(detallePSeleccionado.getPeriodicidad());
             duplicarDetalleP.setAno(detallePSeleccionado.getAno());
             duplicarDetalleP.setDia(detallePSeleccionado.getDia());
             duplicarDetalleP.setMes(detallePSeleccionado.getMes());
@@ -463,7 +472,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosDetallesP");
     }
 
-    public void seleccionarTipoDia(String estadoTipoDia, int tiponuevo) {
+    public void seleccionarTipoDiaNuevoyDuplicado(String estadoTipoDia, int tiponuevo) {
         if (tiponuevo == 1) {
             if (estadoTipoDia.equals("SEMANAL")) {
                 nuevoDetalleP.setTipodia("S");
@@ -534,14 +543,6 @@ public class ControlDetallesPeriodicidades implements Serializable {
 
     public void setNuevodetallePSeleccionado(DetallesPeriodicidades nuevoDetalleP) {
         this.nuevoDetalleP = nuevoDetalleP;
-    }
-
-    public DetallesPeriodicidades getEditardetallePSeleccionado() {
-        return editarDetalleP;
-    }
-
-    public void setEditardetallePSeleccionado(DetallesPeriodicidades editarDetalleP) {
-        this.editarDetalleP = editarDetalleP;
     }
 
     public boolean isAceptar() {
