@@ -75,7 +75,6 @@ public class ControlInterfaseContableTotal implements Serializable {
     private ParametrosContables parametroContableActual;
     private ParametrosContables nuevoParametroContable;
     private List<ParametrosContables> listaParametrosContables;
-    private int indexParametroContable;
     private String auxParametroEmpresa, auxParametroProceso;
     private Date auxParametroFechaInicial, auxParametroFechaFinal;
     private boolean permitirIndexParametro;
@@ -160,6 +159,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     private boolean estadoReporte;
     private String resultadoReporte;
     private int cualTabla;
+    private int cualCeldaParametroContable;
 
     public ControlInterfaseContableTotal() {
         ftpClient = new FTPClient();
@@ -202,7 +202,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         aceptar = true;
         cambiosParametro = false;
         permitirIndexParametro = true;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         guardado = true;
         activarLov = true;
         nombreReporte = "CifraControl";
@@ -253,7 +253,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         cambiosParametro = true;
         modificacionParametro = true;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -324,12 +324,13 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
     }
 
-    public void modificarFechasParametro(int i) {
+    public void modificarFechasParametro(ParametrosContables parametroc, int c) {
+        parametroContableActual = parametroc;
         if (parametroContableActual.getFechainicialcontabilizacion() != null && parametroContableActual.getFechafinalcontabilizacion() != null) {
             boolean validacion = validarFechaParametro(0);
             System.out.println("validacion : " + validacion);
             if (validacion == true) {
-                cambiarIndiceParametro(i);
+                cambiarIndiceParametro(parametroContableActual,c);
                 modificarParametroContable();
             } else {
                 parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
@@ -349,7 +350,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
     }
 
-    public boolean validarFechaParametro(int i) {
+        public boolean validarFechaParametro(int i) {
         fechaDeParametro = new Date();
         fechaDeParametro.setYear(0);
         fechaDeParametro.setMonth(1);
@@ -383,7 +384,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         int columna = Integer.parseInt(name);
         generadoTablaSeleccionado = listaGenerados.get(indice);
         cualCeldaGenerado = columna;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         interconTablaSeleccionada = null;
 //        if (banderaIntercon == 1) {
 //            FacesContext c = FacesContext.getCurrentInstance();
@@ -419,7 +420,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         int columna = Integer.parseInt(name);
         interconTablaSeleccionada = listaInterconTotal.get(indice);
         cualCeldaIntercon = columna;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         generadoTablaSeleccionado = null;
         if (tipoListaIntercon == 0) {
             interconTablaSeleccionada.getSecuencia();
@@ -450,13 +451,22 @@ public class ControlInterfaseContableTotal implements Serializable {
 //        }
     }
 
-    public void cambiarIndiceParametro(int indice) {
+    public void cambiarIndiceParametro(ParametrosContables parametroC,int celda) {
+        cualCeldaParametroContable = celda;
         if (permitirIndexParametro == true) {
-            indexParametroContable = indice;
+            parametroContableActual = parametroC;
+            if(cualCeldaParametroContable == 0){
             auxParametroEmpresa = parametroContableActual.getEmpresaRegistro().getNombre();
+            }
+            else if(cualCeldaParametroContable == 1){
             auxParametroProceso = parametroContableActual.getProceso().getDescripcion();
+            }
+            else if(cualCeldaParametroContable == 2){
             auxParametroFechaFinal = parametroContableActual.getFechafinalcontabilizacion();
+            }
+            else if(cualCeldaParametroContable == 3){
             auxParametroFechaInicial = parametroContableActual.getFechainicialcontabilizacion();
+            }
         }
     }
 
@@ -538,6 +548,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("form:totalCInter");
             RequestContext.getCurrentInstance().update("form:datosGenerados");
             RequestContext.getCurrentInstance().update("form:datosIntercon");
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
             RequestContext.getCurrentInstance().execute("PF('paso3CerrarPeriodo').show()");
         } catch (Exception e) {
             System.out.println("Error finCerrarPeriodoContable Controlador : " + e.toString());
@@ -1057,7 +1068,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext.getCurrentInstance().update("form:PanelTotal");
         cambiosParametro = false;
         guardado = true;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         generadoTablaSeleccionado = null;
         interconTablaSeleccionada = null;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1065,30 +1076,30 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void editarCelda() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (indexParametroContable >= 0) {
-            if (indexParametroContable == 0) {
+        if (parametroContableActual != null) {
+            if (cualCeldaParametroContable == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarEmpresaParametro");
                 RequestContext.getCurrentInstance().execute("PF('editarEmpresaParametro').show()");
-                indexParametroContable = -1;
-            } else if (indexParametroContable == 1) {
+                parametroContableActual = null;
+            } else if (cualCeldaParametroContable == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDocContableParametro");
                 RequestContext.getCurrentInstance().execute("PF('editarDocContableParametro').show()");
-                indexParametroContable = -1;
-            } else if (indexParametroContable == 2) {
+                parametroContableActual = null;
+            } else if (cualCeldaParametroContable == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarProcesoParametro");
                 RequestContext.getCurrentInstance().execute("PF('editarProcesoParametro').show()");
-                indexParametroContable = -1;
-            } else if (indexParametroContable == 3) {
+                parametroContableActual = null;
+            } else if (cualCeldaParametroContable == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicialParametro");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaInicialParametro').show()");
-                indexParametroContable = -1;
-            } else if (indexParametroContable == 4) {
+                parametroContableActual = null;
+            } else if (cualCeldaParametroContable == 4) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaFinalParametro");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaFinalParametro').show()");
-                indexParametroContable = -1;
+                parametroContableActual = null;
             }
         }
-        if (generadoTablaSeleccionado != null) {
+       else if (generadoTablaSeleccionado != null) {
             if (tipoListaGenerada == 0) {
                 editarGenerado = generadoTablaSeleccionado;
             } else {
@@ -1219,7 +1230,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         actualUsuarioBD = null;
         cambiosParametro = false;
         guardado = true;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         generadoTablaSeleccionado = null;
         interconTablaSeleccionada = null;
         activarEnviar = true;
@@ -1231,9 +1242,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void asignarIndex(Integer indice, int numeroDialogo, int tipoNuevo) {
+    public void asignarIndex(ParametrosContables paramc, int numeroDialogo, int tipoNuevo) {
         tipoActualizacion = tipoNuevo;
-        indexParametroContable = indice;
+        parametroContableActual = paramc;
         RequestContext context = RequestContext.getCurrentInstance();
         if (numeroDialogo == 0) {
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
@@ -1249,7 +1260,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         if (tipoActualizacion == 0) {
             parametroContableActual.setEmpresaRegistro(empresaSeleccionada);
             parametroContableActual.setEmpresaCodigo(empresaSeleccionada.getCodigo());
-            indexParametroContable = -1;
+            parametroContableActual = null;
             if (guardado == true) {
                 guardado = false;
             }
@@ -1278,7 +1289,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void cancelarEmpresa() {
         empresaSeleccionada = new Empresas();
         filtrarLovEmpresas = null;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         permitirIndexParametro = true;
         aceptar = true;
         tipoActualizacion = -1;
@@ -1292,7 +1303,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             parametroContableActual.setProceso(procesoSeleccionado);
-            indexParametroContable = -1;
+            parametroContableActual = null;
             if (guardado == true) {
                 guardado = false;
             }
@@ -1321,7 +1332,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         aceptar = true;
         procesoSeleccionado = new Procesos();
         filtrarLovProcesos = null;
-        indexParametroContable = -1;
+        parametroContableActual = null;
         permitirIndexParametro = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("form:lovProceso:globalFilter");
@@ -1331,13 +1342,13 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void listaValoresBoton() {
-        if (indexParametroContable >= 0) {
+        if (parametroContableActual != null) {
             RequestContext context = RequestContext.getCurrentInstance();
-            if (indexParametroContable == 0) {
+            if (cualCeldaParametroContable == 0) {
                 RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
                 RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             }
-            if (indexParametroContable == 2) {
+            if (cualCeldaParametroContable == 2) {
                 RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             }
@@ -1606,7 +1617,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void validarExportPDF() throws IOException {
-        if (indexParametroContable >= 0) {
+        if (parametroContableActual != null) {
             exportPDF_PC();
         }
         if (generadoTablaSeleccionado != null) {
@@ -1648,7 +1659,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void validarExportXLS() throws IOException {
-        if (indexParametroContable >= 0) {
+        if (parametroContableActual != null) {
             exportXLS_PC();
         }
         if (generadoTablaSeleccionado != null) {
@@ -1666,7 +1677,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "ParametrosContables_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        indexParametroContable = -1;
+        parametroContableActual = null;
     }
 
     public void exportXLS_G() throws IOException {
@@ -1691,7 +1702,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public String validarExportXML() {
         String tabla = "";
-        if (indexParametroContable >= 0) {
+        if (parametroContableActual != null) {
             tabla = ":formExportar:datosParametroExportar";
         }
         if (generadoTablaSeleccionado != null) {
@@ -1705,7 +1716,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public String validarNombreExportXML() {
         String nombre = "";
-        if (indexParametroContable >= 0) {
+        if (parametroContableActual != null) {
             nombre = "ParametrosContables_XML";
         }
         if (generadoTablaSeleccionado != null) {

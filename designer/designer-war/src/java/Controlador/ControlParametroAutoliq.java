@@ -1290,7 +1290,7 @@ public class ControlParametroAutoliq implements Serializable {
                 }
             }
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1444,7 +1444,7 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAporteEntidad");
             RequestContext.getCurrentInstance().execute("PF('duplicarAporteEntidad').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1478,7 +1478,7 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-        RequestContext.getCurrentInstance().execute("PF('formularioDialogos:duplicarAporteEntidad').hide()");
+        RequestContext.getCurrentInstance().execute("PF('duplicarAporteEntidad').hide()");
         if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1515,7 +1515,7 @@ public class ControlParametroAutoliq implements Serializable {
                 duplicarAporteEntidad();
             }
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro()");
         }
     }
 

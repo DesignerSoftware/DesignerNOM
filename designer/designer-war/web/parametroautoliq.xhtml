@@ -42,8 +42,7 @@
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlParametroAutoliq.activarCtrlF11()}" process="@this"
-                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
-                                                 />
+                                                 onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -100,7 +99,7 @@
                             <p:dataTable id="datosParametroAuto" var="infoPA" rowKey="#{infoPA.secuencia}" rowIndexVar="indice" style="border: 0px; width: 385px;"  scrollWidth="505"                      
                                          value="#{controlParametroAutoliq.listaParametrosAutoliq}" scrollable="true" scrollHeight="#{controlParametroAutoliq.altoTabla}" 
                                          filteredValue="#{controlParametroAutoliq.filtrarListaParametrosAutoliq}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" selection="#{controlParametroAutoliq.parametroTablaSeleccionado}" >
+                                         editable="true" editMode="cell" selection="#{controlParametroAutoliq.parametroTablaSeleccionado}" widgetVar="datosParametroAuto" >
 
                                 <p:ajax event="filter" listener="#{controlParametroAutoliq.eventoFiltrar()}"/>
 
@@ -109,11 +108,12 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.ano}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;" onselect="operacionEnProceso').show();
-                                                            posicionParametro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"  /> 
+                                            <p:inputText  autocomplete="off"  value="#{infoPA.ano}" readonly="true" id="editarAno" style="border-radius: 0px; width: 98.5%;"
+                                                          onselect="PF('operacionEnProceso').show(); posicionParametro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">
+                                            <p:ajax event="select"  onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" process="@this" />    
+                                            </p:inputText>          
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -124,7 +124,8 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.strMes}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;"  >  
+                                            <p:selectOneMenu value="#{infoPA.mes}" id="editarMes"  style="font-weight: bold;text-transform: uppercase;" onblur="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" 
+                                                             onfocus=" PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" >  
                                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
                                                 <f:selectItem itemLabel="#{msg['marzo']}" itemValue="3" />  
@@ -153,7 +154,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  onselect="PF('operacionEnProceso').show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarParametroAutoliq(infoPA, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"/>
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"
+                                                         onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA, 0, 1)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -168,8 +170,10 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.empresa.nombre}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"   onselect="PF('operacionEnProceso').show();
-                                                    posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" /> 
+                                            <p:inputText  autocomplete="off"   value="#{infoPA.empresa.nombre}" readonly="true" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" 
+                                                          onselect="PF('operacionEnProceso').show(); posicionParametro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);" >
+                                              <p:ajax event="select"  onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});"  process="@this"/>   
+                                            </p:inputText>    
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -190,8 +194,7 @@
                                          widgetVar="tablaAportesEntidades" filteredValue="#{controlParametroAutoliq.filtrarListaAportesEntidades}"  rowIndexVar="indiceAE"
                                          selection="#{controlParametroAutoliq.aporteTablaSeleccionado}" scrollWidth="825" selectionMode="single" scrollable="true" emptyMessage="No se encontraron resultados para la búsqueda" 
                                          editable="true" editMode="cell" liveScroll="true" scrollHeight="#{controlParametroAutoliq.altoTablaAporte}"
-                                         rows="#{controlParametroAutoliq.altoTablaAporte}" paginator="true" 
-                                         paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
+                                         rows="#{controlParametroAutoliq.altoTablaAporte}" paginator="true"  paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
                                          currentPageReportTemplate="{totalPages}" >
                                 <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
 
@@ -207,7 +210,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoAE.empleado.codigoempleado}" readonly="true" id="editarCodigoEmpleado" style="border-radius: 0px; width: 98.5%;"
-                                                          onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);" /> 
+                                                          onselect="posicionAporteEntidad([{name: 'n', value: '0'}, {name: 't', value: '#{indiceAE}'}]);" > 
+                                            <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" />
+                                            </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -224,7 +229,9 @@
                                         <f:facet name="output"><h:outputText value="#{infoAE.ano}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoAE.ano}" readonly="true" id="editarAnoAporte" style="border-radius: 0px; width: 98.5%;"
-                                                          onselect="posicionAporteEntidad([{name: 'n', value: '1'}, {name: 't', value: '#{indiceAE}'}]);" /> 
+                                                          onselect="posicionAporteEntidad([{name: 'n', value: '1'}, {name: 't', value: '#{indiceAE}'}]);" > 
+                                            <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" />
+                                            </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -241,7 +248,9 @@
                                         <f:facet name="output"><h:outputText value="#{infoAE.mes}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoAE.mes}" readonly="true" id="editarMesAporte" style="border-radius: 0px; width: 98.5%;"
-                                                          onselect="posicionAporteEntidad([{name: 'n', value: '2'}, {name: 't', value: '#{indiceAE}'}]);"  /> 
+                                                          onselect="posicionAporteEntidad([{name: 'n', value: '2'}, {name: 't', value: '#{indiceAE}'}]);" > 
+                                            <p:ajax event="select" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"  process="@this" />
+                                            </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -260,7 +269,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.empleado.persona.nombreCompleto}" id="editarNombreEmpleadoAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 3)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 1)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -282,7 +291,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoAE.nittercero}" id="editarNITAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TERCERO', infoAE.nittercero.toString())}" update="@this"/>
                                                 <!--<p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>-->
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 4)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 4)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 2)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -301,7 +311,10 @@
                                         <f:facet name="output"><h:outputText value="#{infoAE.nombretercero}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoAE.nombretercero}" readonly="true" id="editarTerceroAporte" style="border-radius: 0px; width: 98.5%;"
-                                                          onselect="posicionAporteEntidad([{name: 'n', value: '5'}, {name: 't', value: '#{indiceAE}'}]);"  /> 
+                                                          onselect="posicionAporteEntidad([{name: 'n', value: '5'}, {name: 't', value: '#{indiceAE}'}]); 
+                                                          PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE}); " > 
+                                                <!--<p:ajax event="select "  process="@this" onstart=""/>-->
+                                            </p:inputText> 
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -320,7 +333,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tipoentidad.nombre}" id="editarTipoEntidadAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 6)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 6)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 3)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -344,7 +358,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion1}" id="editarEmpleadoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 7)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 7)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -367,7 +382,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion2}" id="editarEmpleadorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 8)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 8)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -389,7 +405,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.cotizacion5}" id="editarAjustePatronalAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 9)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 9)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -411,7 +428,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.novedad3}" id="editarSolidaridadAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 10)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 10)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -433,7 +451,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.novedad4}" id="editarSubSistenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 11)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 11)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -455,7 +474,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.novedad5}" id="editarSubsPensionadosAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 12)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 12)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -478,7 +498,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.salariobasico}" id="editarSalarioBasicoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 13)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 13)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -500,7 +521,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.ibc}" id="editarIBCAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 14)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 14)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -520,7 +542,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.ibcreferencia}" id="editarIBCReferenciaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 15)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 15)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -540,7 +563,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.diascotizados}" id="editarDiasCotizadosAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 16)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 16)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -560,7 +584,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tipoaportante}" id="editarTipoAportanteAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 17)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 17)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -806,7 +831,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifaeps}" id="editarTarifaEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 34)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 34)}"  
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -828,7 +854,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifaafp}" id="editarTarifaAAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 35)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 35)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -850,7 +877,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifactt}" id="editarTarifaACTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 36)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 36)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -870,7 +898,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.codigoctt}" id="editarCodigoCTTPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 37)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 37)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -890,7 +919,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.avpevalor}" id="editarAVPEValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 38)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 38)}"
+                                                         onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -910,7 +940,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.avppvalor}" id="editarAVPPValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 39)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 39)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -930,7 +961,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.retcontavpvalor}" id="editarRETCONTAValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 40)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 40)}" 
+                                                      onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"   />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -950,7 +982,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.codigoneps}" id="editarCodigoNEPSAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 41)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 41)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -970,7 +1003,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.codigonafp}" id="editarCodigoNAFPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 42)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 42)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -992,7 +1026,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.egvalor}" id="editarEGValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 43)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 43)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1012,7 +1047,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.egautorizacion}" id="editarEGAutorizacionAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 44)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 44)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1034,7 +1070,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.maternidadvalor}" id="editarMaternidadValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 45)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 45)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1054,7 +1091,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.maternidadautorizacion}" id="editarMaternidadAutoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 46)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 46)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1076,7 +1114,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.upcvalor}" id="editarUPCValorAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 47)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 47)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1096,7 +1135,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tipo}" id="editarTipoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 48)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 48)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1116,7 +1156,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tipopensionado}" id="editarTipoPensionadoAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 49)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 49)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1136,7 +1177,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.pensioncompartida}" id="editarPensionCompartidaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 50)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 50)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1156,7 +1198,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.extranjero}" id="editarExtranjeroAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 51)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 51)}" 
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1181,7 +1224,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaIngresoAporte" value="#{infoAE.fechaingreso}" >
                                                 <p:ajax event="dateSelect" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="editarFechaIngresoAporte"/>
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 52)}"  
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -1200,7 +1244,9 @@
                                         <f:facet name ="output"><h:outputText id="outsubtipocontizante" value="#{infoAE.subtipocotizanteSTR}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
 
-                                            <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte"  style="width: 254px;font-weight: bold;text-transform: uppercase; margin-left: -9px;"  >  
+                                            <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte"  style="width: 254px;font-weight: bold;text-transform: uppercase; margin-left: -9px;" 
+                                                             onblur="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"
+                                                             onfocus="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" >  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
                                                 <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
@@ -1231,7 +1277,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifacaja}" id="editarTarifaCajaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 54)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 54)}"  
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1253,7 +1300,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifasena}" id="editarTarifaSenaAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 55)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 55)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1276,7 +1324,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifaicbf}" id="editarTarifaICBFAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 56)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 56)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1298,7 +1347,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifaesap}" id="editarTarifaESAPAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 57)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 57)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1320,7 +1370,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoAE.tarifamen}" id="editarTarifaMENAporte" style="border-radius: 0px; width: 98.5%;"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 58)}" />
+                                                <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 58)}"
+                                                        onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1685,12 +1736,12 @@
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
@@ -1753,7 +1804,7 @@
                             <p:watermark for="nuevaAnoParametro" value="#{msg['ano']}" />
 
                             <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:selectOneMenu value="#{controlParametroAutoliq.nuevoParametro.mes}" id="nuevaMesParametro"  style="position: absolute; top: 105px; left: 205px; font-weight: bold;text-transform: uppercase;" >  
+                            <p:selectOneMenu value="#{controlParametroAutoliq.nuevoParametro.mes}" id="nuevaMesParametro"  style="position: absolute; top: 103px; left: 200px; width: 104px ; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
@@ -1808,7 +1859,7 @@
                             <p:watermark for="duplicarAnoParametro" value="#{msg['ano']}" />
 
                             <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:selectOneMenu value="#{controlParametroAutoliq.duplicarParametro.mes}" id="duplicarMesParametro"  style="position: absolute; top: 105px; left: 205px; font-weight: bold;text-transform: uppercase;" >  
+                            <p:selectOneMenu value="#{controlParametroAutoliq.duplicarParametro.mes}" id="duplicarMesParametro"  style="position: absolute; top: 103px; left: 200px; font-weight: bold;text-transform: uppercase; width: 104px;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  

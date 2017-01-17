@@ -138,7 +138,7 @@
                                          rowKey="#{novedades.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 820px;"                             
                                          scrollable="true" scrollHeight="#{controlNovedadCesantiasRC.altotabla}" scrollWidth="828"
                                          filteredValue="#{controlNovedadCesantiasRC.listaFiltrarNovedades}" 
-                                         emptyMessage="No se encontraron resultados para la búsqueda"
+                                         emptyMessage="No se encontraron resultados para la búsqueda" widgetVar="datosNovedadesEmpleado"
                                          editable="true" editMode="cell" selectionMode="single" selection="#{controlNovedadCesantiasRC.novedadSeleccionada}" 
                                          rows="#{controlNovedadCesantiasRC.altotabla}" paginator="true" 
                                          paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}" 
@@ -161,12 +161,12 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   id="editarfechacortecesantia"  value="#{novedades.fechainicialdisfrute}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
-                                                          >
-                                                <!--onselect="posicionOtro([{name: 'celda', value: '0'}, {name: 'registro', value: '#{indice}'}]);" >-->
-
+                                            <p:inputText  autocomplete="off" readonly="true"  id="editarfechacortecesantia"  value="#{novedades.fechainicialdisfrute}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;" 
+                                                          onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();
+                                                                  PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                                                  "  >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 0)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -191,11 +191,11 @@
                                         </f:facet> 
 
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px"
-                                                          >
-                                                 <!--onselect="posicionOtro([{name: 'celda', value: '1'}, {name: 'registro', value: '#{indice}'}]);" >-->
+                                            <p:inputText  autocomplete="off" readonly="true"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px" 
+                                                          onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);
+                                                                 PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                                                 " >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 1)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -215,9 +215,12 @@
                                         <f:facet name="output">
                                             <h:outputText value="#{novedades.valorcesantia}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="editarvalorcesantias" readonly="true" value="#{novedades.valorcesantia}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;height:12px;" >
-                                                <!--onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);"-->
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades,2 )}" process="@this"/>
+                                            <p:inputText  autocomplete="off"  id="editarvalorcesantias" readonly="true" value="#{novedades.valorcesantia}" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase;height:12px;"
+                                                          onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();
+                                                                  PF('datosNovedadesEmpleado').selectRow(#{indice});" >
+<!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades,2 )}" process="@this"
+                                                         onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />-->
                                             </p:inputText>
                                             <p:keyFilter for="editarvalorcesantias" mask="num"/>
                                         </f:facet>  
@@ -227,8 +230,6 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
-
-
 
                                 <p:column id="valorintcesantias" style="text-align: center" headerText="Valor Int Cesantías"  filterMatchMode="contains"  width="86" filterStyle="display: none; visibility: hidden;" 
                                           sortBy="#{novedades.fechasiguientefinvaca}" filterBy="#{novedades.fechasiguientefinvaca}">                                  
@@ -242,14 +243,15 @@
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
-                                                          >
-                                             <!--onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);"-->
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 3)}" process="@this"/>
+                                            <p:inputText  autocomplete="off"   id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px" 
+                                                          onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                                                  " >
+<!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 3)}" process="@this" 
+                                                         onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -264,12 +266,14 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{novedades.valorsolicitado}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px">
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 4)}" process="@this"/>
+                                            <p:inputText  autocomplete="off"  id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
+                                                          onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
+                                                               PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"     >
+   <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 4)}" process="@this"
+                                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />-->
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -290,8 +294,9 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarmotivocesantia"  value="#{novedades.motivocesantia.nombre}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px">
                                                 <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,0)}"/>
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 5)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades, 'MOTIVO', novedades.motivocesantia.nombre)}"/>
+                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 5)}" process="@this"
+                                                        onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />
+                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -314,8 +319,9 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarobservaciones" value="#{novedades.observaciones}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;"    >
-                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades,'N',novedades.observaciones)}" />
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 6)}" process="@this"/>
+                                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this" />
+                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 6)}" process="@this"
+                                                        onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -337,8 +343,9 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.beneficiario}" id="editarbeneficiarios" style=" border-radius: 0px; width: 93.5%;
                                                           text-transform: uppercase;height:12px;" >
-                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 7)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades,'M' ,novedades.beneficiario)}" />
+                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 7)}" process="@this"
+                                                        onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
+                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -347,20 +354,18 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
-
                             </p:dataTable>
                             <h:outputText id="infoRegistroNovedad" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroNovedadCesantias}  " style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
                         </fieldset>
                     </p:panel>
+                    <p:remoteCommand name="posicionOtro" actionListener="#{controlNovedadCesantiasRC.posicionOtro()}"/>
                 </h:form>
                 <!--//////////////////////-->
                 <h:form id="formularioDialogos">
 
                     <!-- DIALOGO NUEVO REGISTRO -->
                     <p:dialog id="nuevanovedadpagoparcialcesantias" header="Nuevo Registro" widgetVar="nuevanovedadpagoparcialcesantias" closable="false" resizable="false" draggable="true" modal="true" height="420" width="410" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
                         <p:panel id="nuevaNovedad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
@@ -430,9 +435,7 @@
 
                     <!--DIALOGO DUPLICAR REGISTRO--> 
                     <p:dialog id="duplicarregistroNovedad" header="Duplicar Registro" widgetVar="duplicarregistroNovedad" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="410" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
                         <p:panel id="duplicarNovedad" style="border: none;">
 
                             <strong><h:outputText value="#{msg['fechacortecesantias']}" style=" position: absolute; top: 65px;" /></strong>
@@ -513,8 +516,6 @@
                         <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
 
-                    <!-- DIALOGOS EDITAR -->
-
                     <p:dialog id="editFechaCorteCesantias" header="#{msg['fechacortecesantias']}" widgetVar="editFechaCorteCesantias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.fechainicialdisfrute}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -581,10 +582,8 @@
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrsolicitado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <!-- L.O.V Empleado-->
                     <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
-
                         <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadCesantiasRC.listaEmpleadosLOV}"
                                       scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
                                       filteredValue="#{controlNovedadCesantiasRC.listaFiltrarEmpleadosLOV}" emptyMessage="#{msg['lovvacio']}"
@@ -613,18 +612,14 @@
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
-                        <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
+                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
                         </div>
-
                     </p:dialog>
 
-
-                    <!-- L.O.V MOTIVO CESANTIAS-->
                     <p:dialog id="motivoscesantiasDialogo" header="Motivos Cesantías" widgetVar="motivoscesantiasDialogo" draggable="true" resizable="false"  closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="460" height="350" >
-
                         <p:dataTable  id="lovmotivoscesantias" style=" width: 410px;" var="mov" value="#{controlNovedadCesantiasRC.listaMotivosCesantiasLOV}"
                                       scrollable="true" scrollHeight="220" scrollWidth="440" widgetVar="lovmotivoscesantias" rowKey="#{mov.secuencia}"
                                       filteredValue="#{controlNovedadCesantiasRC.listaFiltrarMotivosCesantiasLOV}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
@@ -653,16 +648,12 @@
                             </p:column>
 
                         </p:dataTable>
-                        
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
-                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
+                            <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
+                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
                         </div>
-
                     </p:dialog>
-
-                    <!-- DIALOGOS RASTROS -->
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
@@ -715,19 +706,13 @@
                         <h:outputText value="#{msg['errorGuardado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: justify" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('errorGuardado').hide();" style="position: absolute; top: 90px; left: 140px;" process="@this" />
                     </p:dialog>
-                    
-    
-                    
-                    <!--HotKey-->
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadCesantiasRC.activarCtrlF11()}" process="@this"/> 
 
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlNovedadCesantiasRC.activarCtrlF11()}" process="@this"/> 
                 </h:form>
 
                 <h:form id="formExportar">
                     <p:dataTable id="datosNovedadesExportar" var="novedades" style="visibility: hidden; display: none;"                           
                                  value="#{controlNovedadCesantiasRC.listaNovedades}"> 
-
-                        <!--COLUMNAS TABLA NOVEDADES--> 
 
                         <p:column headerText="Fecha_Corte_Cesantias">  
                             <f:facet name="header">
@@ -780,7 +765,6 @@
                             <f:facet name="header"><h:outputText value="#{msg[beneficiarios]}"/></f:facet>
                             <h:outputText value="#{novedades.beneficiario}" />
                         </p:column>
-
                     </p:dataTable>
                 </h:form>
 
