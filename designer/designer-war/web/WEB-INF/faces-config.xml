@@ -5924,6 +5924,14 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/profesiones.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profesion</from-outcome>
+            <to-view-id>/personaeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/personaeducacion.xhtml</from-view-id>
@@ -5933,12 +5941,28 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/instituciones.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>institucion</from-outcome>
+            <to-view-id>/personaeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/personaeducacion.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>curso</from-outcome>
             <to-view-id>/cursos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+      <navigation-rule>
+        <from-view-id>/cursos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>curso</from-outcome>
+            <to-view-id>/personaeducacion.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -5954,7 +5978,7 @@
     <navigation-rule>
         <from-view-id>/tipocurso.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrastipocurso</from-outcome>
+            <from-outcome>tipocurso</from-outcome>
             <to-view-id>/cursos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
