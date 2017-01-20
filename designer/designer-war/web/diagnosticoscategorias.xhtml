@@ -70,8 +70,8 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton style=" position: absolute; left: 688px; top: 485px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ACEPTAR" value=""  actionListener="#{controlDiagnosticosCategorias.revisarDialogoGuardar()}" disabled="#{controlDiagnosticosCategorias.isGuardado()}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 485px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "  id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlDiagnosticosCategorias.revisarDialogoGuardar()}" disabled="#{controlDiagnosticosCategorias.isGuardado()}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlDiagnosticosCategorias.salir()}" action="#{controlDiagnosticosCategorias.redirigir()}"   />
 
                         <fieldset style="position: absolute;top: 70px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Capítulo</strong></legend>

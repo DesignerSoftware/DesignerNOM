@@ -80,15 +80,13 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "
-                                                 action="atrasinterfasecontableempleado" process="@this" />  
+                                                 action="#{controlEmpleado.retornarPagina()}" actionListener="#{controlEmpleado.salir()}" process="@this" />  
                                 <p:tooltip  for="salir" value="Salir"/>
 
-                                <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%;
-                                                 background-repeat: no-repeat; border: none;" id="ACEPTAR"  value=" " disabled="#{controlEmpleado.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpleados" process="@this" />
-                                <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%;
-                                                 background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlEmpleado.salir()}" action="atrasinterfasecontableempleado" process="@this" />
                             </p:toolbarGroup>    
                         </p:toolbar>
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlEmpleado.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpleados" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  action="#{controlEmpleado.retornarPagina()}" actionListener="#{controlEmpleado.salir()}" process="@this" />
 
                         <fieldset style="position: absolute; left: 10px; top: 80px;width: 830px; height: 375px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>Empleados</strong></legend>

@@ -100,7 +100,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigosTiposTelefonos" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" />
+                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" onstart="PF('datosTiposTelefonos').unselectAllRows();PF('datosTiposTelefonos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.codigo)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
@@ -119,7 +119,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombresTiposTelefonos" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,1)}" />
+                                                <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,1)}" onstart="PF('datosTiposTelefonos').unselectAllRows();PF('datosTiposTelefonos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.nombre)}" update="@this" />
                                             </p:inputText> 
                                         </f:facet>   
@@ -140,24 +140,24 @@
 
                     <!-- Ya Existe Nombre-->
 
-                    <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 25px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
                     <!-- Ya Existe Codigo -->
 
-                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="true" modal="true" height="80" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 50px; left: 280px;" process="@this" />
                     </p:dialog>
 
 
@@ -167,12 +167,12 @@
                         <center><strong><h:outputText value="Ingresar un nuevo Tipo de Teléfono" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoTipoTelefono" style="border: none;">
-                            <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
+                            <strong><h:outputText value="*Código: " style=" position: absolute; top: 63px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlTiposTelefonos.nuevoTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
-                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 98px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoNombreTipoTelefono" value="#{controlTiposTelefonos.nuevoTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
@@ -191,13 +191,13 @@
 
                         <p:panel id="duplicarTipoTelefono" style="border: none;">
 
-                            <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
+                            <strong><h:outputText value="*Codigo: " style=" position: absolute; top: 63px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlTiposTelefonos.duplicarTipoTelefono.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 120px; top: 59px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Codigo" />
 
-                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 98px;" /></strong>
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 98px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlTiposTelefonos.duplicarTipoTelefono.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 120px; top: 89px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" update="duplicarTipoTelefono"/>
                             </p:inputText>
@@ -227,26 +227,26 @@
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 180px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
+                          <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposTelefonos.tipoTelefonoSeleccionado.getSecuencia(), 'TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"  />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposTelefonos', 'tipostelefonos')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
@@ -263,7 +263,7 @@
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

@@ -99,7 +99,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechavigencia}"> 
-                                                <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 0)}" process="@this"/>  
+                                                <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 0)}" process="@this" 
+                                                        onstart="PF('datosEstadoCivil').unselectAllRows();PF('datosEstadoCivil').selectRow(#{indice});" />  
                                                 <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.mostrarInfo(info,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasEstadosCiviles.mostrarInfo(info,0)}" process="@this" update="dateFechaInicial"/>
                                             </p:calendar>
@@ -113,15 +114,16 @@
                                         <f:facet name="output"><h:outputText value="#{info.estadocivil.descripcion}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.estadocivil.descripcion}" id="editarparentesco" style=" border-radius: 0px; width: 99%; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlVigenciasEstadosCiviles.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosEstadoCivil').unselectAllRows();PF('datosEstadoCivil').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasEstadosCiviles.asignarIndex(info, 0,1)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.modificandoVigenciaEstadoCivil(info, 'VIGESTADOSCIVILES',info.estadocivil.descripcion)}"/>
+                                                <p:ajax event="change" listener="#{controlVigenciasEstadosCiviles.modificandoVigenciaEstadoCivil(info)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadoCivil" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadocivil')}"/>
+                                        <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="estadoCivil" value=" " onclick="#{controlEstadosCiviles.recibirPag('estadoCivil')}"/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -140,13 +142,13 @@
                                     <h:outputText value="Buscar Estado Civil: " />  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTiposFamiliares').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{estadocivil.codigo}" width="60" filterStyle="width:50px;" filterMatchMode="contains">
+                                <p:column filterBy="#{estadocivil.codigo}" width="60" filterStyle="width: 80% !important" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="Codigo" />
                                     </f:facet>
                                     <h:outputText value="#{estadocivil.codigo}" />
                                 </p:column>
-                                <p:column filterBy="#{estadocivil.descripcion}" width="160px;" filterStyle="width:140px;" filterMatchMode="contains">
+                                <p:column filterBy="#{estadocivil.descripcion}" width="160px;" filterStyle="width: 80% !important" filterMatchMode="contains">
                                     <f:facet name="header">
                                         <h:outputText value="Nombre" />
                                     </f:facet>

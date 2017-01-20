@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "VIGENCIASFORMALES")
 public class VigenciasFormales implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -185,6 +185,9 @@ public class VigenciasFormales implements Serializable {
     }
 
     public AdiestramientosF getAdiestramientof() {
+        if (adiestramientof == null) {
+            adiestramientof = new AdiestramientosF();
+        }
         return adiestramientof;
     }
 
@@ -216,5 +219,5 @@ public class VigenciasFormales implements Serializable {
     public String toString() {
         return "Entidades.VigenciasFormales[ secuencia=" + secuencia + " ]";
     }
-    
+
 }

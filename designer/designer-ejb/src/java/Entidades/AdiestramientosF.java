@@ -82,10 +82,8 @@ public class AdiestramientosF implements Serializable {
     public String getDescripcion() {
         if (descripcion == null) {
             descripcion = " ";
-            return descripcion;
-        } else {
-            return descripcion.toUpperCase();
-        }
+        } 
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {

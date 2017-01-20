@@ -118,10 +118,6 @@ public class ControlVigenciasTallas implements Serializable {
 
     public void recibirEmpleado(BigInteger sec) {
         System.out.println("ENTRE A RECIBIR EMPLEADO EN CONTROLVIGENCIASTALLAS");
-        if (sec == null) {
-            System.out.println("ERROR EN RECIVIR LA SECUENCIA DEL EMPLEADO EN ControlVigenciasTallas");
-            //  sec = BigInteger.valueOf(10661039);
-        }
         secuenciaEmpleado = sec;
         listVigenciasTallas = null;
         empleadoSeleccionada = null;

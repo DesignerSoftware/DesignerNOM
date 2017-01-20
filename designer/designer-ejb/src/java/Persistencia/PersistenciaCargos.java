@@ -119,9 +119,6 @@ public class PersistenciaCargos implements PersistenciaCargosInterface {
                     String sqlQuery2 = "SELECT cargos_pkg.capturarsalario(?, sysdate) FROM DUAL";
                     Query query2 = em.createNativeQuery(sqlQuery2).setParameter(1, listaCargosSalario.get(i).getSecuencia());
                     listaCargosSalario.get(i).setSueldoCargo((BigDecimal) query2.getSingleResult());
-
-                    System.out.println("Nombre Cargo: " + listaCargosSalario.get(i).getNombre());
-                    System.out.println("Sueldo Cargo: " + listaCargosSalario.get(i).getSueldoCargo());
                 }
             }
             return listaCargosSalario;

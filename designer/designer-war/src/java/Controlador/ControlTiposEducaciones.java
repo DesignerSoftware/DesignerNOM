@@ -556,13 +556,6 @@ public class ControlTiposEducaciones implements Serializable {
         }
     }
 
-    public void recordarSeleccionTT() {
-        if (tipoEducacionSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosTiposEducaciones");
-            tablaC.setSelection(tipoEducacionSeleccionado);
-        }
-    }
 
     public void eventoFiltrar() {
         if (tipoLista == 0) {

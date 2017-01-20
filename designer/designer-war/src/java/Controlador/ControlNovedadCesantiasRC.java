@@ -154,6 +154,16 @@ public class ControlNovedadCesantiasRC implements Serializable {
             administrarNovedadesPagoCesantias.obtenerConexion(ses.getId());
             administrarNovedadesSistema.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            getListaEmpleadosNovedad();
+            if (listaEmpleadosNovedad != null) {
+                if (!listaEmpleadosNovedad.isEmpty()) {
+                    empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+                }
+            }
+            listaNovedades = null;
+            getListaNovedades();
+            cambiarEmpleado();
+
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -161,13 +171,14 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public void recibirPag(String pag) {
+
         paginaAnterior = pag;
-        listaEmpleadosNovedad = null;
-        getListaEmpleadosNovedad();
-        if (!listaEmpleadosNovedad.isEmpty()) {
-            empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-             listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
-             getListaNovedades();
+        listaNovedades = null;
+        getListaNovedades();
+        if (listaEmpleadosNovedad != null) {
+            if (!listaEmpleadosNovedad.isEmpty()) {
+                empleadoSeleccionado = listaEmpleadosNovedad.get(0);
+            }
         }
     }
 
@@ -276,7 +287,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
     }
 
-   public void posicionOtro() {
+    public void posicionOtro() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String name = map.get("n"); // name attribute of node
@@ -288,7 +299,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
 //        System.out.println("parametrotablaseleccionado: " + parametroTablaSeleccionado);
 
     }
-    
+
     public void agregarNuevaNovedadPagoParcialCesantias() {
         int pasa = 0;
 //        Empleados emp = new Empleados();

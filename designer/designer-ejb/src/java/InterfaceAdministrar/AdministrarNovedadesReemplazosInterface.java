@@ -34,10 +34,13 @@ public interface AdministrarNovedadesReemplazosInterface {
 
     public List<Estructuras> lovEstructuras();
 
-
     public void modificarEncargatura(List<Encargaturas> listaEncargaturasModificar);
 
     public void borrarEncargaturas(Encargaturas encargaturas);
 
     public void crearEncargaturas(Encargaturas encargaturas);
+    
+    public List<Empleados> buscarEmpleadoReemplazosHV(BigInteger secEmpleado);
+    
+    public List<Empleados> buscarEmpleados();
 }

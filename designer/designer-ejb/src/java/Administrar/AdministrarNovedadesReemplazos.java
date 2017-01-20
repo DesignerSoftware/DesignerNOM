@@ -77,7 +77,8 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
     //Listas de Tipos Reemplazos, Motivos Reemplazos, Estructuras, Cargos
     @Override
     public List<Empleados> lovEmpleados() {
-        return persistenciaEmpleados.buscarEmpleados(em);
+        List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
+        return listaEmpleados ;
     }
 
     @Override
@@ -132,5 +133,17 @@ public class AdministrarNovedadesReemplazos implements AdministrarNovedadesReemp
     @Override
     public void crearEncargaturas(Encargaturas encargaturas) {
         persistenciaEncargaturas.crear(em, encargaturas);
+    }
+
+    @Override
+    public List<Empleados> buscarEmpleadoReemplazosHV(BigInteger secEmpleado) {
+        List<Empleados> listaempleado = persistenciaEmpleados.empleadosReemplazosHV(em, secEmpleado);
+        return listaempleado;
+    }
+
+    @Override
+    public List<Empleados> buscarEmpleados() {
+        List<Empleados> listaEmpleados = persistenciaEmpleados.buscarEmpleados(em);
+        return listaEmpleados ;
     }
 }

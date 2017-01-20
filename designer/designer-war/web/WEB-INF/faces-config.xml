@@ -2199,7 +2199,7 @@
     <navigation-rule>
         <from-view-id>/novedadesreemplazos.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>individual</from-outcome>
+            <from-outcome>novedadreemplazo</from-outcome>
             <to-view-id>/empleadoindividual.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -2313,15 +2313,32 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+      <navigation-rule>
+        <from-view-id>/ciudades.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ciudad</from-outcome>
+            <to-view-id>/pertelefono.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>/pertelefono.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>ciudad</from-outcome>
+            <from-outcome>tipotelefono</from-outcome>
             <to-view-id>/tipotelefono.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/tipotelefono.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipotelefono</from-outcome>
+            <to-view-id>/pertelefono.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>/barra.xhtml</from-view-id>
         <navigation-case>
@@ -5146,7 +5163,7 @@
     <navigation-rule>
         <from-view-id>/estadocivil.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasPerEstadoCivil</from-outcome>
+            <from-outcome>estadoCivil</from-outcome>
             <to-view-id>/perestadocivil.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5582,7 +5599,7 @@
     <navigation-rule>
         <from-view-id>/diagnosticoscategorias.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasdiagnostico</from-outcome>
+            <from-outcome>diagnostico</from-outcome>
             <to-view-id>/atausentismos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5887,6 +5904,14 @@
         <navigation-case>
             <from-outcome>tipoEducacion</from-outcome>
             <to-view-id>/tipoeducacion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+     <navigation-rule>
+        <from-view-id>/tipoeducacion.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>tipoEducacion</from-outcome>
+            <to-view-id>/personaeducacion.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -6732,6 +6757,39 @@
         </navigation-case>
     </navigation-rule>
    
+     <navigation-rule>
+        <from-view-id>/novedad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>novedadesreemplazo</from-outcome>
+            <to-view-id>/novedadesreemplazos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/novedadesreemplazos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>novedadesreemplazo</from-outcome>
+            <to-view-id>/novedad.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/empleado.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>empleadoreemplazo</from-outcome>
+            <to-view-id>/novedadesreemplazos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/novedadesreemplazos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>empleadoreemplazo</from-outcome>
+            <to-view-id>/empleado.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
    
    
 </faces-config>

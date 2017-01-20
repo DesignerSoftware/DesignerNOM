@@ -46,15 +46,15 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
      */
     @EJB
     AdministrarSesionesInterface administrarSesiones;
-    
+
     private VigenciasNoFormales vNF;
     private EntityManager em;
-    
+
     @Override
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
     public List<VigenciasNoFormales> vigenciasNoFormalesPersona(BigInteger secPersona) {
         try {
@@ -69,9 +69,8 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
     public Personas encontrarPersona(BigInteger secPersona) {
         return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
     }
-    
+
     //Listas de Valores Cursos, Instituciones, Adiestramiento
-    
     @Override
     public List<Cursos> lovCursos() {
         return persistenciaCursos.cursos(em);
@@ -81,12 +80,12 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
     public List<Instituciones> lovInstituciones() {
         return persistenciaInstituciones.instituciones(em);
     }
-    
+
     @Override
     public List<AdiestramientosNF> lovAdiestramientosNF() {
         return persistenciaAdiestramientosNF.adiestramientosNF(em);
     }
-    
+
     @Override
     public void modificarVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesModificar) {
         for (int i = 0; i < listaVigenciasNoFormalesModificar.size(); i++) {
@@ -97,9 +96,9 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
             if (listaVigenciasNoFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
                 listaVigenciasNoFormalesModificar.get(i).setInstitucion(null);
             }
-            if (listaVigenciasNoFormalesModificar.get(i).getAdiestramientonf().getSecuencia() == null) {
-                listaVigenciasNoFormalesModificar.get(i).setAdiestramientonf(null);
-            }
+//            if (listaVigenciasNoFormalesModificar.get(i).getAdiestramientonf().getSecuencia() == null) {
+//                listaVigenciasNoFormalesModificar.get(i).setAdiestramientonf(null);
+//            }
             persistenciaVigenciasNoFormales.editar(em, listaVigenciasNoFormalesModificar.get(i));
         }
     }
@@ -121,7 +120,6 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
         }
     }
 
-
     @Override
     public void crearVigenciaNoFormal(List<VigenciasNoFormales> listaVigenciasNoFormalesCrear) {
         for (int i = 0; i < listaVigenciasNoFormalesCrear.size(); i++) {
@@ -134,8 +132,6 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
             }
             if (listaVigenciasNoFormalesCrear.get(i).getAdiestramientonf().getSecuencia() == null) {
                 listaVigenciasNoFormalesCrear.get(i).setAdiestramientonf(null);
-            }
-            if (listaVigenciasNoFormalesCrear.get(i).getAdiestramientonf().getDesccripcion() != null) {
                 listaVigenciasNoFormalesCrear.get(i).setAcargo("S");
             } else {
                 listaVigenciasNoFormalesCrear.get(i).setAcargo("N");
@@ -143,20 +139,16 @@ public class AdministrarVigenciasNoFormales implements AdministrarVigenciasNoFor
             persistenciaVigenciasNoFormales.crear(em, listaVigenciasNoFormalesCrear.get(i));
         }
     }
-    
+
     @Override
-    public Empleados empleadoActual(BigInteger secuenciaE){
-        try{
-        Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
-        return retorno;
-        }catch(Exception  e){
-            System.out.println("Error empleadoActual Admi : "+e.toString());
+    public Empleados empleadoActual(BigInteger secuenciaE) {
+        try {
+            Empleados retorno = persistenciaEmpleado.buscarEmpleado(em, secuenciaE);
+            return retorno;
+        } catch (Exception e) {
+            System.out.println("Error empleadoActual Admi : " + e.toString());
             return null;
         }
     }
 
 }
-
-
-
-

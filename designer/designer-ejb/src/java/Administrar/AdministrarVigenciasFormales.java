@@ -108,9 +108,9 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
             if (listaVigenciasFormalesModificar.get(i).getInstitucion().getSecuencia() == null) {
                 listaVigenciasFormalesModificar.get(i).setInstitucion(null);
             }
-            if (listaVigenciasFormalesModificar.get(i).getAdiestramientof().getSecuencia() == null) {
-                listaVigenciasFormalesModificar.get(i).setAdiestramientof(null);
-            }
+//            if (listaVigenciasFormalesModificar.get(i).getAdiestramientof().getSecuencia() == null) {
+//                listaVigenciasFormalesModificar.get(i).setAdiestramientof(null);
+//            }
             persistenciaVigenciasFormales.editar(em, listaVigenciasFormalesModificar.get(i));
         }
     }
@@ -138,7 +138,7 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
     @Override
     public void crearVigenciaFormal(List<VigenciasFormales> listaVigenciasFormalesCrear) {
         for (int i = 0; i < listaVigenciasFormalesCrear.size(); i++) {
-            System.out.println("Modificando...");
+            System.out.println("Creando...");
             if (listaVigenciasFormalesCrear.get(i).getTipoeducacion().getSecuencia() == null) {
                 listaVigenciasFormalesCrear.get(i).setTipoeducacion(null);
             }
@@ -149,7 +149,10 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
                 listaVigenciasFormalesCrear.get(i).setInstitucion(null);
             }
             if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getSecuencia() == null) {
+                listaVigenciasFormalesCrear.get(i).setAcargo("N");
                 listaVigenciasFormalesCrear.get(i).setAdiestramientof(null);
+            } else {
+                listaVigenciasFormalesCrear.get(i).setAcargo("S");
             }
             if (listaVigenciasFormalesCrear.get(i).getNumerotarjeta() != null) {
                 listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("S");
@@ -157,11 +160,6 @@ public class AdministrarVigenciasFormales implements AdministrarVigenciasFormale
                 listaVigenciasFormalesCrear.get(i).setTarjetaprofesional("N");
             }
 
-            if (listaVigenciasFormalesCrear.get(i).getAdiestramientof().getDescripcion() != null) {
-                listaVigenciasFormalesCrear.get(i).setAcargo("S");
-            } else {
-                listaVigenciasFormalesCrear.get(i).setAcargo("N");
-            }
             persistenciaVigenciasFormales.crear(em, listaVigenciasFormalesCrear.get(i));
         }
     }

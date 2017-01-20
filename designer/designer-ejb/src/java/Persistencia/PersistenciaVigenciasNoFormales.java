@@ -38,8 +38,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            //em.merge(vigenciasNoFormales);
-            em.persist(vigenciasNoFormales);
+            em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaVigenciasNoFormales.crear: " + e);

@@ -75,10 +75,8 @@
                             <p:dataTable id="datosGruposInfAdicionales" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlGruposInfAdicionales.listGruposInfAdicionales}" scrollHeight="#{controlGruposInfAdicionales.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlGruposInfAdicionales.filtrarGruposInfAdicionales}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false"  scrollable="true"
-                                         selection="#{controlGruposInfAdicionales.grupoInfAdSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         editable="true" editMode="cell" paginator="false"  scrollable="true" widgetVar="datosGruposInfAdicionales"
+                                         selection="#{controlGruposInfAdicionales.grupoInfAdSeleccionado}"  selectionMode="single"  >
                                 <p:ajax event="filter" listener="#{controlGruposInfAdicionales.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -86,7 +84,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -100,7 +99,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 1)}" process="@this"
+                                                         onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});"  /> 
                                                 <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -114,7 +114,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.estado}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.estado}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 2)}" process="@this" 
+                                                         onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});"  /> 
                                                 <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.estado)}" update="estado"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -219,13 +220,14 @@
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-
-
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
                         <p:inputTextarea value="#{controlGruposInfAdicionales.editarGruposInfAdicionales.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlGruposInfAdicionales.editarGruposInfAdicionales.descripcion}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+                    <p:dialog id="editEstado" header="Descripción" widgetVar="editEstado" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlGruposInfAdicionales.editarGruposInfAdicionales.estado}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
 

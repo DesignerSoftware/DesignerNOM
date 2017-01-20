@@ -72,6 +72,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
     private String infoRegistroGrupo;
     private DataTable tablaC;
     private boolean activarLov;
+    private boolean activarCaracter, activarNumero, activarFecha;
 
     public ControlEmplInformacionAdicional() {
         altoTabla = "305";
@@ -124,34 +125,63 @@ public class ControlEmplInformacionAdicional implements Serializable {
     public void modificarInfoAd(InformacionesAdicionales informacionAdicional) {
         informacionTablaSeleccionada = informacionAdicional;
         System.out.println("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
-        if (tipoLista == 0) {
-            if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
+        if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
 
-                if (listInfoAdicionalModificar.isEmpty()) {
-                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
-                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (listInfoAdicionalModificar.isEmpty()) {
+                listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+            } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
+                listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        if (tipoLista == 1) {
-            if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
+    }
 
-                if (listInfoAdicionalModificar.isEmpty()) {
-                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
-                    listInfoAdicionalModificar.add(informacionTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+    public void modificarTipoDato(InformacionesAdicionales informacionAdicional, String valorConfirmar) {
+
+        informacionTablaSeleccionada = informacionAdicional;
+        System.out.println("informacionTablaSeleccionada.getTipodato() : " + informacionTablaSeleccionada.getTipodato());
+        if (valorConfirmar.equals("CARACTER")) {
+            informacionTablaSeleccionada.setTipodato("C");
+            activarCaracter = false;
+            activarFecha = true;
+            activarNumero = true;
+//            RequestContext.getCurrentInstance().update("form:editarCaracter");
+//            RequestContext.getCurrentInstance().update("form:editarNumerico");
+//            RequestContext.getCurrentInstance().update("form:editFecha");
+        } else if (valorConfirmar.equals("FECHA")) {
+            informacionTablaSeleccionada.setTipodato("F");
+            activarCaracter = true;
+            activarFecha = false;
+            activarNumero = true;
+//            RequestContext.getCurrentInstance().update("form:editarCaracter");
+//            RequestContext.getCurrentInstance().update("form:editarNumerico");
+//            RequestContext.getCurrentInstance().update("form:editFecha");
+        } else if (valorConfirmar.equals("NUMERICO")) {
+            informacionTablaSeleccionada.setTipodato("N");
+            activarCaracter = true;
+            activarFecha = true;
+            activarNumero = false;
+//            RequestContext.getCurrentInstance().update("form:editarCaracter");
+//            RequestContext.getCurrentInstance().update("form:editarNumerico");
+//            RequestContext.getCurrentInstance().update("form:editFecha");
+        }
+
+        if (!listInfoAdicionalCrear.contains(informacionTablaSeleccionada)) {
+
+            if (listInfoAdicionalModificar.isEmpty()) {
+                listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+            } else if (!listInfoAdicionalModificar.contains(informacionTablaSeleccionada)) {
+                listInfoAdicionalModificar.add(informacionTablaSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
+        RequestContext.getCurrentInstance().update("form:datosInfoAdEmpleado");
     }
 
     public void modificarInfoAd(InformacionesAdicionales informacionAdicional, String confirmarCambio, String valorConfirmar) {
@@ -421,7 +451,7 @@ public class ControlEmplInformacionAdicional implements Serializable {
                 k = 0;
                 informacionTablaSeleccionada = null;
                 RequestContext.getCurrentInstance().update("form:infoRegistro");
-                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con Éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con Éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
@@ -1074,13 +1104,6 @@ public class ControlEmplInformacionAdicional implements Serializable {
     }
 
     public InformacionesAdicionales getInformacionTablaSeleccionada() {
-//        getListInformacionAdicional();
-//        if (listInformacionAdicional != null) {
-//            int tam = listInformacionAdicional.size();
-//            if (tam > 0) {
-//                informacionTablaSeleccionada = listInformacionAdicional.get(0);
-//            }
-//        }
         return informacionTablaSeleccionada;
     }
 
@@ -1132,6 +1155,30 @@ public class ControlEmplInformacionAdicional implements Serializable {
 
     public void setActivarLov(boolean activarLov) {
         this.activarLov = activarLov;
+    }
+
+    public boolean isActivarCaracter() {
+        return activarCaracter;
+    }
+
+    public void setActivarCaracter(boolean activarCaracter) {
+        this.activarCaracter = activarCaracter;
+    }
+
+    public boolean isActivarNumero() {
+        return activarNumero;
+    }
+
+    public void setActivarNumero(boolean activarNumero) {
+        this.activarNumero = activarNumero;
+    }
+
+    public boolean isActivarFecha() {
+        return activarFecha;
+    }
+
+    public void setActivarFecha(boolean activarFecha) {
+        this.activarFecha = activarFecha;
     }
 
 }

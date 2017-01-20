@@ -619,12 +619,7 @@ public class ControlGruposInfAdicionales implements Serializable {
 
     public void editarCelda() {
         if (grupoInfAdSeleccionado != null) {
-            if (tipoLista == 0) {
                 editarGruposInfAdicionales = grupoInfAdSeleccionado;
-            }
-            if (tipoLista == 1) {
-                editarGruposInfAdicionales = grupoInfAdSeleccionado;
-            }
 
             RequestContext context = RequestContext.getCurrentInstance();
             System.out.println("Entro a editar... valor celda: " + cualCelda);
@@ -635,6 +630,10 @@ public class ControlGruposInfAdicionales implements Serializable {
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
+                cualCelda = -1;
+            }else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editEstado");
+                RequestContext.getCurrentInstance().execute("PF('editEstado').show()");
                 cualCelda = -1;
             }
 

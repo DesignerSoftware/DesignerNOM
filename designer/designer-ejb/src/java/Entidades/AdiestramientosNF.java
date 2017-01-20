@@ -83,6 +83,9 @@ public class AdiestramientosNF implements Serializable {
     }
 
     public String getDesccripcion() {
+         if (desccripcion == null) {
+            desccripcion = " ";
+        } 
         return desccripcion;
     }
 

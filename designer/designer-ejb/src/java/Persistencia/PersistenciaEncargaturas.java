@@ -139,7 +139,7 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
     public List<Encargaturas> encargaturasEmpleado(EntityManager em, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            String sql = "SELECT * FROM ENCARGATURAS WHERE SECUENCIA= ? ORDER BY FECHAINICIAL";
+            String sql = "SELECT * FROM ENCARGATURAS WHERE EMPLEADO = ? ORDER BY FECHAINICIAL";
             Query query = em.createNativeQuery(sql, Encargaturas.class);
             query.setParameter(1, secuenciaEmpleado);
             List<Encargaturas> listaEncargaturas = query.getResultList();

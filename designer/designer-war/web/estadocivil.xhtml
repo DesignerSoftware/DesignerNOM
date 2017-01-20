@@ -79,20 +79,20 @@
 
                             <p:dataTable id="datosEstadosCiviles" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
                                          value="#{controlEstadosCiviles.listEstadosCiviles}"  scrollable="true" scrollHeight="#{controlEstadosCiviles.tamano}"  scrollWidth="830"
-                                         filteredValue="#{controlEstadosCiviles.filtrarEstadosCiviles}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
+                                         filteredValue="#{controlEstadosCiviles.filtrarEstadosCiviles}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"  widgetVar="datosEstadosCiviles"
                                          selection="#{controlEstadosCiviles.estadoCivilSeleccionado}"
-                                         selectionMode="single"
-                                         > 
+                                         selectionMode="single"   > 
                                 <p:ajax event="filter" listener="#{controlEstadosCiviles.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlEstadosCiviles.recordarSeleccion()}"/>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEstadosCiviles.modificarEstadoCivil(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -106,7 +106,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlEstadosCiviles.modificarEstadoCivil(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -134,7 +135,7 @@
                     <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                         <h:outputText value="#{controlEstadosCiviles.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="ACEPTAR " icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" />
+                        <p:commandButton value="Aceptar " icon="ui-icon-check" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
@@ -149,7 +150,7 @@
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 270px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlEstadosCiviles.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 150px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" icon="ui-icon-check" />
@@ -213,10 +214,10 @@
 
 
 
-                    <p:dialog id="editCodigo" header=" Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editCodigo" header=" Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEstadosCiviles.editarEstadoCivil.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDescripcion" header=" Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDescripcion" header=" Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEstadosCiviles.editarEstadoCivil.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 

@@ -210,4 +210,7 @@ public interface PersistenciaEmpleadoInterface {
     public List<Empleados> empleadosAusentismos(EntityManager em);
 
     public List<Empleados> empleadosDefinitiva(EntityManager em);
+    
+    public List<Empleados> empleadosReemplazosHV(EntityManager em, BigInteger secuenciaEmpleado);
+    
 }

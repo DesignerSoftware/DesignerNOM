@@ -103,7 +103,7 @@ public class Encargaturas implements Serializable {
     public TiposReemplazos getTiporeemplazo() {
         if(tiporeemplazo == null){
             tiporeemplazo = new TiposReemplazos();
-            tiporeemplazo.setNombre(" ");
+            tiporeemplazo.setNombre("");
             
         }
         return tiporeemplazo;
@@ -116,7 +116,7 @@ public class Encargaturas implements Serializable {
     public MotivosReemplazos getMotivoreemplazo() {
         if(motivoreemplazo == null){
             motivoreemplazo = new MotivosReemplazos();
-            motivoreemplazo.setNombre(" ");
+            motivoreemplazo.setNombre("");
             
         }
         return motivoreemplazo;
@@ -129,7 +129,7 @@ public class Encargaturas implements Serializable {
     public Estructuras getEstructura() {
         if(estructura == null){
             estructura = new Estructuras();
-            estructura.setNombre(" ");
+            estructura.setNombre("");
             
         }
         return estructura;
@@ -142,9 +142,8 @@ public class Encargaturas implements Serializable {
     public Empleados getReemplazado() {
         if(reemplazado == null){
             reemplazado = new Empleados();
-            
+            reemplazado.setPersona(new Personas());
         }
-        
         return reemplazado;
     }
 
@@ -163,8 +162,7 @@ public class Encargaturas implements Serializable {
     public Cargos getCargo() {
         if(cargo == null){
             cargo = new Cargos();
-            cargo.setNombre(" ");
-            
+            cargo.setNombre("");
         }
         
         return cargo;

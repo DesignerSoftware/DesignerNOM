@@ -436,10 +436,10 @@
                                                action="infoAdicional" actionListener="#{controlEmplInformacionAdicional.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="informacionAdicional" value="#{controlEmpleadoIndividual.informacionAdicionalP}" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;" readonly="true"/>
 
-                                <p:commandButton id="btnReemplazos" value="" action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"
+                                <p:commandButton id="btnReemplazos" value="" action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'novedadreemplazo')}" process="@this"
                                                  style="background-image: url(Imagenes/Iconos/reemplazo.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"/>
                                 <h:commandLink value="#{msg['reemplazos']}" style="position: absolute; left: 47px; top: 164px; font-weight: bold; color: #14388B;"
-                                               action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="novedadreemplazo" actionListener="#{controlNovedadesReemplazos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia,'novedadreemplazo')}"/>
                                 <p:inputText  autocomplete="off"  id="reemplazos" value="#{controlEmpleadoIndividual.reemplazoP}" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase" readonly="true"/>
                             </fieldset>
                             <fieldset style="position: absolute; left: 208px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">

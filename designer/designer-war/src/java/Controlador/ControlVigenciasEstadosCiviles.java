@@ -98,6 +98,7 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         guardado = true;
         altoTabla = "270";
         aceptar = true;
+        activarLov = true;
     }
 
     @PostConstruct
@@ -225,18 +226,16 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
     public void cambiarIndice(VigenciasEstadosCiviles vigenciaEstadoCivil, int celda) {
 
         if (permitirIndex == true) {
-            deshabilitarBotonLov();
             vigenciaSeleccionada = vigenciaEstadoCivil;
-            cualCelda = celda;
             vigenciaSeleccionada.getSecuencia();
-            if (cualCelda == 1) {
+            cualCelda = celda;
+            if (cualCelda == 0) {
+                deshabilitarBotonLov();
+                vigenciaSeleccionada.getFechavigencia();
+            } else if (cualCelda == 1) {
                 habilitarBotonLov();
                 contarRegistroEC();
-                if (tipoLista == 0) {
-                    estadoCivil = vigenciaSeleccionada.getEstadocivil().getDescripcion();
-                } else {
-                    estadoCivil = vigenciaSeleccionada.getEstadocivil().getDescripcion();
-                }
+                estadoCivil = vigenciaSeleccionada.getEstadocivil().getDescripcion();
             }
 
         }
@@ -284,7 +283,6 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
             }
         }
     }
-
 
     public void cancelarModificacion() {
         if (bandera == 1) {
@@ -376,154 +374,21 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
         }
     }
 
-    public void modificandoVigenciaEstadoCivil(VigenciasEstadosCiviles vigenciaEstadoCivil, String confirmarCambio, String valorConfirmar) {
+    public void modificandoVigenciaEstadoCivil(VigenciasEstadosCiviles vigenciaEstadoCivil) {
         vigenciaSeleccionada = vigenciaEstadoCivil;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        int contador = 0;
-        boolean banderita = false;
-        Short a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!crearVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
-                    if (vigenciaSeleccionada.getFechavigencia() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < listVigenciaEstadoCivilPorEmpleado.size(); j++) {
-                            if (vigenciaSeleccionada.getFechavigencia().equals(listVigenciaEstadoCivilPorEmpleado.get(j).getFechavigencia())) {
-                                contador++;
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "FECHAS REPETIDAS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-                    }
+        if (!crearVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
 
-                    if (banderita == true) {
-                        if (modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
-                        } else if (!modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                }
-            } else {
-
-                if (!crearVigenciaEstadoCivilPorEmplado.contains(vigenciaEstadoCivil)) {
-                    if (vigenciaEstadoCivil.getFechavigencia() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaEstadoCivil);
-                        } else if (!modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaEstadoCivil)) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaEstadoCivil);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                }
-
+            if (modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
+                modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
+            } else if (!modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
+                modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
             }
-            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } else if (confirmarCambio.equalsIgnoreCase("VIGESTADOSCIVILES")) {
-            System.out.println("MODIFICANDO ESTADO CIVIL : " + vigenciaSeleccionada.getEstadocivil().getDescripcion());
-            if (!vigenciaSeleccionada.getEstadocivil().getDescripcion().equals("")) {
-                if (tipoLista == 0) {
-                    vigenciaSeleccionada.getEstadocivil().setDescripcion(estadoCivil);
-                } else {
-                    vigenciaSeleccionada.getEstadocivil().setDescripcion(estadoCivil);
-                }
-
-                for (int i = 0; i < listaEstadosCiviles.size(); i++) {
-                    if (listaEstadosCiviles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-
-                if (coincidencias == 1) {
-                    if (tipoLista == 0) {
-                        vigenciaSeleccionada.setEstadocivil(listaEstadosCiviles.get(indiceUnicoElemento));
-                    } else {
-                        vigenciaEstadoCivil.setEstadocivil(listaEstadosCiviles.get(indiceUnicoElemento));
-                    }
-                    listaEstadosCiviles.clear();
-                    listaEstadosCiviles = null;
-
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            } else {
-                if (tipoLista == 0) {
-                    vigenciaSeleccionada.getEstadocivil().setDescripcion(estadoCivil);
-                } else {
-                    vigenciaSeleccionada.getEstadocivil().setDescripcion(estadoCivil);
-                }
-                RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
-                RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
+            if (guardado == true) {
+                guardado = false;
             }
-
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    if (!crearVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
-
-                        if (modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
-                        } else if (!modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaSeleccionada)) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaSeleccionada);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                    }
-                } else {
-                    if (!crearVigenciaEstadoCivilPorEmplado.contains(vigenciaEstadoCivil)) {
-
-                        if (modificarVigenciaEstadoCivilPorEmplado.isEmpty()) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaEstadoCivil);
-                        } else if (!modificarVigenciaEstadoCivilPorEmplado.contains(vigenciaEstadoCivil)) {
-                            modificarVigenciaEstadoCivilPorEmplado.add(vigenciaEstadoCivil);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                    }
-                }
-            }
-
-            RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
         }
+        RequestContext.getCurrentInstance().update("form:datosEstadoCivil");
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
     }
 
@@ -660,10 +525,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
     }
 
     public void limpiarNuevoEstadoCivil() {
-            System.out.println("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
-            nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
-            nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
-            vigenciaSeleccionada = null;
+        System.out.println("\n ENTRE A LIMPIAR NUEVO ESTADO CIVIL  \n");
+        nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
+        nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+        vigenciaSeleccionada = null;
     }
 
     public void autocompletarDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
@@ -696,23 +561,20 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
-            } else {
-                if (tipoNuevo == 2) {
-                    //duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarNormaLaboral);
-                    System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-                    System.out.println("DUPLICAR INDEX : " + vigenciaSeleccionada);
-                    duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
-                    duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(" ");
+            } else if (tipoNuevo == 2) {
+                //duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(nuevoYduplicarCompletarNormaLaboral);
+                System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+                System.out.println("DUPLICAR INDEX : " + vigenciaSeleccionada);
+                duplicarVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
+                duplicarVigenciaEstadoCivil.getEstadocivil().setDescripcion(" ");
 
-                    System.out.println("DUPLICAR Valor ESTADO CIVIL : " + duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion());
-                    if (tipoLista == 0) {
-                        vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
-                        System.err.println("tipo lista" + tipoLista);
-                        System.err.println("Secuencia EstadoCivil " + vigenciaSeleccionada.getEstadocivil().getSecuencia());
-                    } else if (tipoLista == 1) {
-                        vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
-                    }
-
+                System.out.println("DUPLICAR Valor ESTADO CIVIL : " + duplicarVigenciaEstadoCivil.getEstadocivil().getDescripcion());
+                if (tipoLista == 0) {
+                    vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
+                    System.err.println("tipo lista" + tipoLista);
+                    System.err.println("Secuencia EstadoCivil " + vigenciaSeleccionada.getEstadocivil().getSecuencia());
+                } else if (tipoLista == 1) {
+                    vigenciaSeleccionada.getEstadocivil().setDescripcion(nuevoYduplicarCompletarEstadoCivil);
                 }
 
             }
@@ -904,10 +766,10 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
 
     public void limpiarNuevoVigenciaEstadoCivil() {
         System.out.println("limpiarNuevoVigenciaEstadoCivil");
-        
+
         nuevoVigenciaEstadoCivil = new VigenciasEstadosCiviles();
         nuevoVigenciaEstadoCivil.setEstadocivil(new EstadosCiviles());
-         nuevoVigenciaEstadoCivil.setFechavigencia(new Date());
+        nuevoVigenciaEstadoCivil.setFechavigencia(new Date());
 
     }
 
@@ -1048,29 +910,25 @@ public class ControlVigenciasEstadosCiviles implements Serializable {
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-            if (vigenciaSeleccionada != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
+        if (vigenciaSeleccionada != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(vigenciaSeleccionada.getSecuencia(), "VIGENCIASESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
-         else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASESTADOSCIVILES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASESTADOSCIVILES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 

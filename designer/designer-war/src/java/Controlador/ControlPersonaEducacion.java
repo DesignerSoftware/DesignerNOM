@@ -82,7 +82,6 @@ public class ControlPersonaEducacion implements Serializable {
     private int tipoActualizacion; //Activo/Desactivo Crtl + F11
     private int bandera;
     private int banderaNF;
-    private boolean permitirIndex;
     //Crear Vigencias 
     public VigenciasFormales nuevaVigenciaFormal;
     public VigenciasNoFormales nuevaVigenciaNoFormal;
@@ -127,7 +126,7 @@ public class ControlPersonaEducacion implements Serializable {
     //Cual Insertar
     private String cualInsertar;
     //Cual Nuevo Update
-    private String cualNuevo,paginaanterior;
+    private String cualNuevo, paginaanterior;
     public String altoTabla1;
     public String altoTabla2;
     private String infoRegistroF, infoRegistroNF, infoRegistroEducacion, infoRegistroCursos, infoRegistrosProfesion, infoRegistroInstituciones, infoRegistroInstitucionesF, infoRegistroAdiestramientosF, infoRegistroAdiestramientosNF;
@@ -135,7 +134,6 @@ public class ControlPersonaEducacion implements Serializable {
     private DataTable tablaC, tablaC2;
 
     public ControlPersonaEducacion() {
-        permitirIndex = true;
         //secuenciaPersona = BigInteger.valueOf(10668967);
         aceptar = true;
         listaVigenciasNoFormalesBorrar = new ArrayList<VigenciasNoFormales>();
@@ -162,6 +160,7 @@ public class ControlPersonaEducacion implements Serializable {
         tipoListaNF = 0;
         //Crear Vigencia Formal
         nuevaVigenciaFormal = new VigenciasFormales();
+        nuevaVigenciaFormal.setFechavigencia(new Date());
         nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
         nuevaVigenciaFormal.setProfesion(new Profesiones());
         nuevaVigenciaFormal.setInstitucion(new Instituciones());
@@ -181,8 +180,8 @@ public class ControlPersonaEducacion implements Serializable {
         cualInsertar = "formularioDialogos:NuevoRegistroVigenciaFormal";
         cualNuevo = "formularioDialogos:nuevaVigenciaFormal";
         m = 0;
-        altoTabla1 = "115";
-        altoTabla2 = "115";
+        altoTabla1 = "105";
+        altoTabla2 = "105";
         activarLov = true;
         paginaanterior = " ";
         listaTiposEducaciones = null;
@@ -207,7 +206,7 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
-    public void recibirPersona(BigInteger secEmpl,String pagina) {
+    public void recibirPersona(BigInteger secEmpl, String pagina) {
         paginaanterior = pagina;
         persona = administrarVigenciasFormales.encontrarPersona(secEmpl);
         getPersona();
@@ -220,52 +219,51 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
-    public String redirigir(){
+    public String redirigir() {
         return paginaanterior;
     }
-    
+
     //Ubicacion Celda.
     public void cambiarIndice(VigenciasFormales vigenciaformal, int celda) {
-        if (permitirIndex == true) {
-            vigenciaFormalSeleccionada = vigenciaformal;
-            cualCelda = celda;
-            CualTabla = 0;
+        vigenciaFormalSeleccionada = vigenciaformal;
+        cualCelda = celda;
+        CualTabla = 0;
+        deshabilitarBotonLov();
+        tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
+        nombreArchivo = "VigenciasFormalesXML";
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:exportarXML");
+        vigenciaFormalSeleccionada.getSecuencia();
+        if (cualCelda == 0) {
             deshabilitarBotonLov();
-            tablaImprimir = ":formExportar:datosVigenciasFormalesExportar";
-            nombreArchivo = "VigenciasFormalesXML";
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:exportarXML");
-            if (tipoLista == 0) {
-                vigenciaFormalSeleccionada.getSecuencia();
-                if (cualCelda == 1) {
-                    habilitarBotonLov();
-                    TipoEducacion = vigenciaFormalSeleccionada.getTipoeducacion().getNombre();
-                } else if (cualCelda == 2) {
-                    habilitarBotonLov();
-                    Profesion = vigenciaFormalSeleccionada.getProfesion().getDescripcion();
-                } else if (cualCelda == 3) {
-                    habilitarBotonLov();
-                    Institucion = vigenciaFormalSeleccionada.getInstitucion().getDescripcion();
-                } else if (cualCelda == 4) {
-                    habilitarBotonLov();
-                    AdiestramientoF = vigenciaFormalSeleccionada.getAdiestramientof().getDescripcion();
-                }
-            } else {
-                vigenciaFormalSeleccionada.getSecuencia();
-                if (cualCelda == 1) {
-                    habilitarBotonLov();
-                    TipoEducacion = vigenciaFormalSeleccionada.getTipoeducacion().getNombre();
-                } else if (cualCelda == 2) {
-                    habilitarBotonLov();
-                    Profesion = vigenciaFormalSeleccionada.getProfesion().getDescripcion();
-                } else if (cualCelda == 3) {
-                    habilitarBotonLov();
-                    Institucion = vigenciaFormalSeleccionada.getInstitucion().getDescripcion();
-                } else if (cualCelda == 4) {
-                    habilitarBotonLov();
-                    AdiestramientoF = vigenciaFormalSeleccionada.getAdiestramientof().getDescripcion();
-                }
-            }
+            vigenciaFormalSeleccionada.getFechavigencia();
+        } else if (cualCelda == 1) {
+            habilitarBotonLov();
+            TipoEducacion = vigenciaFormalSeleccionada.getTipoeducacion().getNombre();
+        } else if (cualCelda == 2) {
+            habilitarBotonLov();
+            Profesion = vigenciaFormalSeleccionada.getProfesion().getDescripcion();
+        } else if (cualCelda == 3) {
+            habilitarBotonLov();
+            Institucion = vigenciaFormalSeleccionada.getInstitucion().getDescripcion();
+        } else if (cualCelda == 4) {
+            habilitarBotonLov();
+            AdiestramientoF = vigenciaFormalSeleccionada.getAdiestramientof().getDescripcion();
+        } else if (cualCelda == 1) {
+            deshabilitarBotonLov();
+            vigenciaFormalSeleccionada.getCalificacionobtenida();
+        } else if (cualCelda == 1) {
+            deshabilitarBotonLov();
+            vigenciaFormalSeleccionada.getTarjetaprofesional();
+        } else if (cualCelda == 1) {
+            deshabilitarBotonLov();
+            vigenciaFormalSeleccionada.getFechaexpediciontarjeta();
+        } else if (cualCelda == 1) {
+            deshabilitarBotonLov();
+            vigenciaFormalSeleccionada.getFechavencimientotarjeta();
+        } else if (cualCelda == 1) {
+            deshabilitarBotonLov();
+            vigenciaFormalSeleccionada.getObservacion();
         }
     }
 
@@ -351,25 +349,19 @@ public class ControlPersonaEducacion implements Serializable {
 
                     }
                 }
-                vigenciaFormalSeleccionada = null;
-                vigenciaFormalSeleccionada = null;
 
-            } else {
-                if (!listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+            } else if (!listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
 
-                    if (listaVigenciasFormalesModificar.isEmpty()) {
-                        listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
-                    } else if (!listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
-                        listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaVigenciasFormalesModificar.isEmpty()) {
+                    listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                } else if (!listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                    listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
                 }
-                vigenciaFormalSeleccionada = null;
-                vigenciaFormalSeleccionada = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (confirmarCambio.equalsIgnoreCase("TIPOEDUCACION")) {
@@ -394,7 +386,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaTiposEducaciones.clear();
                 getListaTiposEducaciones();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -420,7 +411,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaProfesiones.clear();
                 getListaProfesiones();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -446,7 +436,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaInstituciones.clear();
                 getListaInstituciones();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -472,7 +461,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaAdiestramientosFormales.clear();
                 getListaAdiestramientosFormales();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -513,43 +501,24 @@ public class ControlPersonaEducacion implements Serializable {
     public void asignarIndex(VigenciasFormales vigenciaFormal, int dlg, int LND) {
         vigenciaFormalSeleccionada = vigenciaFormal;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            deshabilitarBotonLov();
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            deshabilitarBotonLov();
-            tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            deshabilitarBotonLov();
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
-            habilitarBotonLov();
             contarRegistroEducacion();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEducacion");
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
-            habilitarBotonLov();
             contarRegistroProfesion();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistrosProfesion");
             RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
-            habilitarBotonLov();
             contarRegistroInstitucionesF();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstitucionesF");
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
-            habilitarBotonLov();
             contarRegistroAdiestramientoF();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosF");
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
         }
-
     }
 
     public void actualizarTiposEducaciones() {
@@ -579,7 +548,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setTipoeducacion(seleccionTiposEducaciones);
@@ -607,7 +575,6 @@ public class ControlPersonaEducacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVTiposEducaciones:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTiposEducaciones').clearFilters()");
@@ -644,7 +611,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setProfesion(seleccionProfesiones);
@@ -674,7 +640,6 @@ public class ControlPersonaEducacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVProfesiones:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVProfesiones').clearFilters()");
@@ -711,7 +676,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setInstitucion(seleccionInstituciones);
@@ -741,7 +705,6 @@ public class ControlPersonaEducacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVInstituciones:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVInstituciones').clearFilters()");
@@ -757,7 +720,6 @@ public class ControlPersonaEducacion implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVAdiestramientosF:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVAdiestramientosF').clearFilters()");
@@ -794,7 +756,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaFormal.setAdiestramientof(seleccionAdiestramientosFormales);
@@ -823,106 +784,95 @@ public class ControlPersonaEducacion implements Serializable {
 
     //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (vigenciaFormalSeleccionada != null) {
-            if (CualTabla == 0) {
-
-                if (tipoLista == 0) {
-                    editarVigenciasFormales = vigenciaFormalSeleccionada;
-                }
-                if (tipoLista == 1) {
-                    editarVigenciasFormales = vigenciaFormalSeleccionada;
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("Entro a editar... valor celda: " + cualCelda);
-                if (cualCelda == 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
-                    RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEducacion");
-                    RequestContext.getCurrentInstance().execute("PF('editarTipoEducacion').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarProfesion");
-                    RequestContext.getCurrentInstance().execute("PF('editarProfesion').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 3) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucion");
-                    RequestContext.getCurrentInstance().execute("PF('editarInstitucion').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 4) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoF");
-                    RequestContext.getCurrentInstance().execute("PF('editarAdiestramientoF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 5) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarValoracion");
-                    RequestContext.getCurrentInstance().execute("PF('editarValoracion').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 6) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroTarjeta");
-                    RequestContext.getCurrentInstance().execute("PF('editarNumeroTarjeta').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 7) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaExpedicion");
-                    RequestContext.getCurrentInstance().execute("PF('editarFechaExpedicion').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 8) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVencimiento");
-                    RequestContext.getCurrentInstance().execute("PF('editarFechaVencimiento').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 9) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
-                    RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
-                    cualCelda = -1;
-                }
-            } else if (CualTabla == 1) {
-                if (tipoListaNF == 0) {
-                    editarVigenciasNoFormales = vigenciaNoFormalSeleccionada;
-                }
-                if (tipoListaNF == 1) {
-                    editarVigenciasNoFormales = vigenciaNoFormalSeleccionada;
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                System.out.println("Entro a editar... valor celda: " + cualCelda);
-                System.out.println("Cual Tabla: " + CualTabla);
-                if (cualCelda == 0) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaNF");
-                    RequestContext.getCurrentInstance().execute("PF('editarFechaNF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCursoNF");
-                    RequestContext.getCurrentInstance().execute("PF('editarCursoNF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarTitulo");
-                    RequestContext.getCurrentInstance().execute("PF('editarTitulo').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 3) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucionNF");
-                    RequestContext.getCurrentInstance().execute("PF('editarInstitucionNF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 4) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoNF");
-                    RequestContext.getCurrentInstance().execute("PF('editarAdiestramientoNF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 5) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarCalificacionNF");
-                    RequestContext.getCurrentInstance().execute("PF('editarCalificacionNF').show()");
-                    cualCelda = -1;
-                } else if (cualCelda == 6) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
-                    RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
-                    cualCelda = -1;
-                }
-                vigenciaNoFormalSeleccionada = null;
+        if (CualTabla == 0) {
+            editarVigenciasFormales = vigenciaFormalSeleccionada;
+            RequestContext context = RequestContext.getCurrentInstance();
+            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFecha");
+                RequestContext.getCurrentInstance().execute("PF('editarFecha').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTipoEducacion");
+                RequestContext.getCurrentInstance().execute("PF('editarTipoEducacion').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarProfesion");
+                RequestContext.getCurrentInstance().execute("PF('editarProfesion').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucion");
+                RequestContext.getCurrentInstance().execute("PF('editarInstitucion').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 4) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoF");
+                RequestContext.getCurrentInstance().execute("PF('editarAdiestramientoF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 5) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarValoracion");
+                RequestContext.getCurrentInstance().execute("PF('editarValoracion').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 6) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarNumeroTarjeta");
+                RequestContext.getCurrentInstance().execute("PF('editarNumeroTarjeta').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 7) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaExpedicion");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaExpedicion').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 8) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaVencimiento");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaVencimiento').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 9) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
+                cualCelda = -1;
+            }
+        } else if (CualTabla == 1) {
+            if (tipoListaNF == 0) {
+                editarVigenciasNoFormales = vigenciaNoFormalSeleccionada;
+            }
+            if (tipoListaNF == 1) {
+                editarVigenciasNoFormales = vigenciaNoFormalSeleccionada;
             }
 
+            RequestContext context = RequestContext.getCurrentInstance();
+            System.out.println("Entro a editar... valor celda: " + cualCelda);
+            System.out.println("Cual Tabla: " + CualTabla);
+            if (cualCelda == 0) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaNF");
+                RequestContext.getCurrentInstance().execute("PF('editarFechaNF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 1) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCursoNF");
+                RequestContext.getCurrentInstance().execute("PF('editarCursoNF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 2) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTitulo");
+                RequestContext.getCurrentInstance().execute("PF('editarTitulo').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 3) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarInstitucionNF");
+                RequestContext.getCurrentInstance().execute("PF('editarInstitucionNF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 4) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarAdiestramientoNF");
+                RequestContext.getCurrentInstance().execute("PF('editarAdiestramientoNF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 5) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarCalificacionNF");
+                RequestContext.getCurrentInstance().execute("PF('editarCalificacionNF').show()");
+                cualCelda = -1;
+            } else if (cualCelda == 6) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarObservacion");
+                RequestContext.getCurrentInstance().execute("PF('editarObservacion').show()");
+                cualCelda = -1;
+            }
+            vigenciaNoFormalSeleccionada = null;
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-
     }
 
     //LISTA DE VALORES DINAMICA
@@ -979,7 +929,6 @@ public class ControlPersonaEducacion implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
                     tipoActualizacion = 0;
                 }
-
             }
         }
     }
@@ -1011,7 +960,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("width: 85% !important");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("width: 85% !important");
-            altoTabla1 = "95";
+            altoTabla1 = "85";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 1;
 
@@ -1032,7 +981,7 @@ public class ControlPersonaEducacion implements Serializable {
             pECalificacionesNF.setFilterStyle("width: 85% !important");
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("width: 85% !important");
-            altoTabla2 = "95";
+            altoTabla2 = "85";
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 1;
 
@@ -1059,7 +1008,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "115";
+            altoTabla1 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
@@ -1082,7 +1031,7 @@ public class ControlPersonaEducacion implements Serializable {
             pECalificacionesNF.setFilterStyle("display: none; visibility: hidden;");
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "115";
+            altoTabla2 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 0;
             filtradosListaVigenciasNoFormales = null;
@@ -1098,7 +1047,7 @@ public class ControlPersonaEducacion implements Serializable {
             Exporter exporter = new ExportarPDF();
             exporter.export(context, tabla, "VigenciasFormalesPDF", false, false, "UTF-8", null, null);
             context.responseComplete();
-        } else {
+        } else if (CualTabla == 1) {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasNoFormalesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
             Exporter exporter = new ExportarPDF();
@@ -1114,10 +1063,10 @@ public class ControlPersonaEducacion implements Serializable {
             Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "VigenciasFormalesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
-        } else {
+        } else if (CualTabla == 1) {
             DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosVigenciasNoFormalesExportar");
             FacesContext context = FacesContext.getCurrentInstance();
-            Exporter exporter = new ExportarPDF();
+            Exporter exporter = new ExportarXLS();
             exporter.export(context, tabla, "VigenciasNoFormalesXLS", false, false, "UTF-8", null, null);
             context.responseComplete();
         }
@@ -1126,6 +1075,7 @@ public class ControlPersonaEducacion implements Serializable {
     //LIMPIAR NUEVO REGISTRO
     public void limpiarNuevaVigenciaFormal() {
         nuevaVigenciaFormal = new VigenciasFormales();
+        nuevaVigenciaFormal.setFechavigencia(new Date());
         nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
         nuevaVigenciaFormal.setProfesion(new Profesiones());
         nuevaVigenciaFormal.setInstitucion(new Instituciones());
@@ -1332,11 +1282,6 @@ public class ControlPersonaEducacion implements Serializable {
             mensajeValidacion = mensajeValidacion + " * Institucion \n";
             pasa++;
         }
-        if (nuevaVigenciaFormal.getAdiestramientof().getSecuencia() == null) {
-            System.out.println("Entro a AdiestramientoF");
-            mensajeValidacion = mensajeValidacion + " * Adiestramiento\n";
-            pasa++;
-        }
 
         if (pasa == 0) {
             if (bandera == 1) {
@@ -1364,7 +1309,7 @@ public class ControlPersonaEducacion implements Serializable {
                 pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
                 pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
                 pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla1 = "115";
+                altoTabla1 = "105";
                 RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
                 bandera = 0;
                 filtradosListaVigenciasFormales = null;
@@ -1377,19 +1322,6 @@ public class ControlPersonaEducacion implements Serializable {
             l = BigInteger.valueOf(k);
             nuevaVigenciaFormal.setSecuencia(l);
             nuevaVigenciaFormal.setPersona(persona);
-//            if (nuevaVigenciaFormal.getTipoeducacion().getSecuencia() == null) {
-//                nuevaVigenciaFormal.setTipoeducacion(null);
-//            }
-//            if (nuevaVigenciaFormal.getProfesion().getSecuencia() == null) {
-//                nuevaVigenciaFormal.setProfesion(null);
-//            }
-//            if (nuevaVigenciaFormal.getInstitucion().getSecuencia() == null) {
-//                nuevaVigenciaFormal.setInstitucion(null);
-//            }
-//            if (nuevaVigenciaFormal.getAdiestramientof().getSecuencia() == null) {
-//                nuevaVigenciaFormal.setAdiestramientof(null);
-//            }
-
             listaVigenciasFormalesCrear.add(nuevaVigenciaFormal);
             listaVigenciasFormales.add(nuevaVigenciaFormal);
             contarRegistrosF();
@@ -1418,67 +1350,64 @@ public class ControlPersonaEducacion implements Serializable {
     //BORRAR VIGENCIA FORMAL
     public void borrarVigenciaFormal() {
 
-        if (vigenciaFormalSeleccionada != null) {
-            if (CualTabla == 0) {
-                if (!listaVigenciasFormalesModificar.isEmpty() && listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
-                    int modIndex = listaVigenciasFormalesModificar.indexOf(vigenciaFormalSeleccionada);
-                    listaVigenciasFormalesModificar.remove(modIndex);
-                    listaVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
-                } else if (!listaVigenciasFormalesCrear.isEmpty() && listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
-                    int crearIndex = listaVigenciasFormalesCrear.indexOf(vigenciaFormalSeleccionada);
-                    listaVigenciasFormalesCrear.remove(crearIndex);
-                } else {
-                    listaVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
-                }
-                listaVigenciasFormales.remove(vigenciaFormalSeleccionada);
-                if (tipoLista == 1) {
-                    filtradosListaVigenciasFormales.remove(vigenciaFormalSeleccionada);
-                    System.out.println("Realizado");
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                contarRegistrosF();
-                RequestContext.getCurrentInstance().update("form:infoRegistroF");
-                RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-                vigenciaFormalSeleccionada = null;
-
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            } else if (CualTabla == 1) {
-
-                if (!listaVigenciasNoFormalesModificar.isEmpty() && listaVigenciasNoFormalesModificar.contains(vigenciaNoFormalSeleccionada)) {
-                    int modIndex = listaVigenciasNoFormalesModificar.indexOf(vigenciaNoFormalSeleccionada);
-                    listaVigenciasNoFormalesModificar.remove(modIndex);
-                    listaVigenciasNoFormalesBorrar.add(vigenciaNoFormalSeleccionada);
-                } else if (!listaVigenciasNoFormalesCrear.isEmpty() && listaVigenciasNoFormalesCrear.contains(vigenciaNoFormalSeleccionada)) {
-                    int crearIndex = listaVigenciasNoFormalesCrear.indexOf(vigenciaNoFormalSeleccionada);
-                    listaVigenciasNoFormalesCrear.remove(crearIndex);
-                } else {
-                    listaVigenciasNoFormalesBorrar.add(vigenciaNoFormalSeleccionada);
-                }
-                listaVigenciasNoFormales.remove(vigenciaNoFormalSeleccionada);
-
-                if (tipoListaNF == 1) {
-                    filtradosListaVigenciasNoFormales.remove(vigenciaNoFormalSeleccionada);
-                    System.out.println("Realizado");
-                }
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                contarRegistrosNF();
-                RequestContext.getCurrentInstance().update("form:infoRegistroNF");
-                RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
-                vigenciaNoFormalSeleccionada = null;
-
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+        if (CualTabla == 0) {
+            if (!listaVigenciasFormalesModificar.isEmpty() && listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                int modIndex = listaVigenciasFormalesModificar.indexOf(vigenciaFormalSeleccionada);
+                listaVigenciasFormalesModificar.remove(modIndex);
+                listaVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
+            } else if (!listaVigenciasFormalesCrear.isEmpty() && listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+                int crearIndex = listaVigenciasFormalesCrear.indexOf(vigenciaFormalSeleccionada);
+                listaVigenciasFormalesCrear.remove(crearIndex);
+            } else {
+                listaVigenciasFormalesBorrar.add(vigenciaFormalSeleccionada);
+            }
+            listaVigenciasFormales.remove(vigenciaFormalSeleccionada);
+            if (tipoLista == 1) {
+                filtradosListaVigenciasFormales.remove(vigenciaFormalSeleccionada);
+                System.out.println("Realizado");
             }
 
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistrosF();
+            RequestContext.getCurrentInstance().update("form:infoRegistroF");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
+            vigenciaFormalSeleccionada = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
+        } else if (CualTabla == 1) {
+
+            if (!listaVigenciasNoFormalesModificar.isEmpty() && listaVigenciasNoFormalesModificar.contains(vigenciaNoFormalSeleccionada)) {
+                int modIndex = listaVigenciasNoFormalesModificar.indexOf(vigenciaNoFormalSeleccionada);
+                listaVigenciasNoFormalesModificar.remove(modIndex);
+                listaVigenciasNoFormalesBorrar.add(vigenciaNoFormalSeleccionada);
+            } else if (!listaVigenciasNoFormalesCrear.isEmpty() && listaVigenciasNoFormalesCrear.contains(vigenciaNoFormalSeleccionada)) {
+                int crearIndex = listaVigenciasNoFormalesCrear.indexOf(vigenciaNoFormalSeleccionada);
+                listaVigenciasNoFormalesCrear.remove(crearIndex);
+            } else {
+                listaVigenciasNoFormalesBorrar.add(vigenciaNoFormalSeleccionada);
+            }
+            listaVigenciasNoFormales.remove(vigenciaNoFormalSeleccionada);
+
+            if (tipoListaNF == 1) {
+                filtradosListaVigenciasNoFormales.remove(vigenciaNoFormalSeleccionada);
+                System.out.println("Realizado");
+            }
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistrosNF();
+            RequestContext.getCurrentInstance().update("form:infoRegistroNF");
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
+            vigenciaNoFormalSeleccionada = null;
+
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            }
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
 
     }
@@ -1552,7 +1481,7 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroVigenciaNoFormal').show()");
             }
         } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -1595,7 +1524,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "115";
+            altoTabla1 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
@@ -1694,7 +1623,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "115";
+            altoTabla1 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
@@ -1710,7 +1639,6 @@ public class ControlPersonaEducacion implements Serializable {
         contarRegistrosF();
         //  k = 0;
         guardado = true;
-        permitirIndex = true;
 
     }
 
@@ -1740,7 +1668,7 @@ public class ControlPersonaEducacion implements Serializable {
             pEFechasVencimientos.setFilterStyle("display: none; visibility: hidden;");
             pEObservaciones = (Column) c.getViewRoot().findComponent("form:datosVigenciasFormalesPersona:pEObservaciones");
             pEObservaciones.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla1 = "115";
+            altoTabla1 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasFormales = null;
@@ -1765,7 +1693,7 @@ public class ControlPersonaEducacion implements Serializable {
             pECalificacionesNF.setFilterStyle("display: none; visibility: hidden;");
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "115";
+            altoTabla2 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             banderaNF = 0;
             filtradosListaVigenciasNoFormales = null;
@@ -1787,94 +1715,67 @@ public class ControlPersonaEducacion implements Serializable {
         getListaVigenciasNoFormales();
         contarRegistrosNF();
         guardado = true;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
         RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
     }
 
-    public void guardarVigenciasFormales() {
-        try {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (!listaVigenciasFormalesBorrar.isEmpty()) {
-                System.out.println("Borrando...");
-                administrarVigenciasFormales.borrarVigenciaFormal(listaVigenciasFormalesBorrar);
-                listaVigenciasFormalesBorrar.clear();
-            }
-            if (!listaVigenciasFormalesCrear.isEmpty()) {
-                administrarVigenciasFormales.crearVigenciaFormal(listaVigenciasFormalesCrear);
-                listaVigenciasFormalesCrear.clear();
-            }
-            if (!listaVigenciasFormalesModificar.isEmpty()) {
-                administrarVigenciasFormales.modificarVigenciaFormal(listaVigenciasFormalesModificar);
-                listaVigenciasFormalesModificar.clear();
-            }
-            listaVigenciasFormales = null;
-            getListaVigenciasFormales();
-            contarRegistrosF();
-            vigenciaFormalSeleccionada = null;
-            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } catch (Exception e) {
-            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación Formal, Por favor intente nuevamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-    }
-
-//
-//
-    public void guardarVigenciasNoFormales() {
-        try {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (!listaVigenciasNoFormalesBorrar.isEmpty()) {
-                administrarVigenciasNoFormales.borrarVigenciaNoFormal(listaVigenciasNoFormalesBorrar);
-                System.out.println("Entra");
-                listaVigenciasNoFormalesBorrar.clear();
-            }
-            if (!listaVigenciasNoFormalesCrear.isEmpty()) {
-                administrarVigenciasNoFormales.crearVigenciaNoFormal(listaVigenciasNoFormalesCrear);
-            }
-
-            System.out.println("LimpiaLista");
-            listaVigenciasNoFormalesCrear.clear();
-
-            if (!listaVigenciasNoFormalesModificar.isEmpty()) {
-                administrarVigenciasNoFormales.modificarVigenciaNoFormal(listaVigenciasNoFormalesModificar);
-                listaVigenciasNoFormalesModificar.clear();
-            }
-            System.out.println("Se guardaron los datos con exito");
-            listaVigenciasNoFormales = null;
-            getListaVigenciasNoFormales();
-            contarRegistrosNF();
-            vigenciaNoFormalSeleccionada = null;
-            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            guardado = true;
-            permitirIndex = true;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } catch (Exception e) {
-            System.out.println("Error guardarVigenciasNoFormales  Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado de Educación no Formal, Por favor intente nuevamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-    }
-
     //GUARDAR TODO
     public void guardarTodo() {
+        try {
+            if (guardado == false) {
+                if (!listaVigenciasNoFormalesBorrar.isEmpty()) {
+                    administrarVigenciasNoFormales.borrarVigenciaNoFormal(listaVigenciasNoFormalesBorrar);
+                    System.out.println("Entra");
+                    listaVigenciasNoFormalesBorrar.clear();
+                }
+                if (!listaVigenciasNoFormalesCrear.isEmpty()) {
+                    administrarVigenciasNoFormales.crearVigenciaNoFormal(listaVigenciasNoFormalesCrear);
+                }
 
-        if (guardado == false) {
-            guardarVigenciasFormales();
-            guardarVigenciasNoFormales();
+                System.out.println("LimpiaLista");
+                listaVigenciasNoFormalesCrear.clear();
+
+                if (!listaVigenciasNoFormalesModificar.isEmpty()) {
+                    administrarVigenciasNoFormales.modificarVigenciaNoFormal(listaVigenciasNoFormalesModificar);
+                    listaVigenciasNoFormalesModificar.clear();
+                }
+
+                if (!listaVigenciasFormalesBorrar.isEmpty()) {
+                    System.out.println("Borrando...");
+                    administrarVigenciasFormales.borrarVigenciaFormal(listaVigenciasFormalesBorrar);
+                    listaVigenciasFormalesBorrar.clear();
+                }
+                if (!listaVigenciasFormalesCrear.isEmpty()) {
+                    administrarVigenciasFormales.crearVigenciaFormal(listaVigenciasFormalesCrear);
+                    listaVigenciasFormalesCrear.clear();
+                }
+                if (!listaVigenciasFormalesModificar.isEmpty()) {
+                    administrarVigenciasFormales.modificarVigenciaFormal(listaVigenciasFormalesModificar);
+                    listaVigenciasFormalesModificar.clear();
+                }
+
+                listaVigenciasNoFormales = null;
+                getListaVigenciasNoFormales();
+                listaVigenciasFormales = null;
+                getListaVigenciasFormales();
+                contarRegistrosNF();
+                contarRegistrosF();
+                vigenciaNoFormalSeleccionada = null;
+                vigenciaFormalSeleccionada = null;
+                guardado = true;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error ControlPersonaEducacion.guardarTodo() : " + e.toString());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, Por favor intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
         }
 
     }
@@ -1901,25 +1802,18 @@ public class ControlPersonaEducacion implements Serializable {
 
                     }
                 }
-                vigenciaNoFormalSeleccionada = null;
-                vigenciaNoFormalSeleccionada = null;
+            } else if (!listaVigenciasNoFormalesCrear.contains(vigenciaNoFormalSeleccionada)) {
 
-            } else {
-                if (!listaVigenciasNoFormalesCrear.contains(vigenciaNoFormalSeleccionada)) {
-
-                    if (listaVigenciasNoFormalesModificar.isEmpty()) {
-                        listaVigenciasNoFormalesModificar.add(vigenciaNoFormalSeleccionada);
-                    } else if (!listaVigenciasNoFormalesModificar.contains(vigenciaNoFormalSeleccionada)) {
-                        listaVigenciasNoFormalesModificar.add(vigenciaNoFormalSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaVigenciasNoFormalesModificar.isEmpty()) {
+                    listaVigenciasNoFormalesModificar.add(vigenciaNoFormalSeleccionada);
+                } else if (!listaVigenciasNoFormalesModificar.contains(vigenciaNoFormalSeleccionada)) {
+                    listaVigenciasNoFormalesModificar.add(vigenciaNoFormalSeleccionada);
                 }
-                vigenciaNoFormalSeleccionada = null;
-                vigenciaNoFormalSeleccionada = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (confirmarCambio.equalsIgnoreCase("CURSO")) {
@@ -1944,7 +1838,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaCursos.clear();
                 getListaCursos();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('cursosDialogo').show()");
                 tipoActualizacion = 0;
@@ -1971,7 +1864,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaInstituciones.clear();
                 getListaInstituciones();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
                 tipoActualizacion = 0;
@@ -1997,7 +1889,6 @@ public class ControlPersonaEducacion implements Serializable {
                 listaAdiestramientosNoFormales.clear();
                 getListaAdiestramientosNoFormales();
             } else {
-                permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
                 RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
                 tipoActualizacion = 0;
@@ -2017,24 +1908,18 @@ public class ControlPersonaEducacion implements Serializable {
 
                     }
                 }
-                vigenciaNoFormalSeleccionada = null;
-                vigenciaNoFormalSeleccionada = null;
-            } else {
-                if (!listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
+            } else if (!listaVigenciasFormalesCrear.contains(vigenciaFormalSeleccionada)) {
 
-                    if (listaVigenciasFormalesModificar.isEmpty()) {
-                        listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
-                    } else if (!listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
-                        listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
+                if (listaVigenciasFormalesModificar.isEmpty()) {
+                    listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
+                } else if (!listaVigenciasFormalesModificar.contains(vigenciaFormalSeleccionada)) {
+                    listaVigenciasFormalesModificar.add(vigenciaFormalSeleccionada);
                 }
-                vigenciaNoFormalSeleccionada = null;
-                vigenciaNoFormalSeleccionada = null;
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+                }
             }
         }
         RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
@@ -2043,48 +1928,39 @@ public class ControlPersonaEducacion implements Serializable {
     //Ubicacion Celda.
     public void cambiarIndiceNF(VigenciasNoFormales vigenciaNoFormal, int celdaNF) {
 
-        if (permitirIndex == true) {
-            vigenciaNoFormalSeleccionada = vigenciaNoFormal;
-            cualCelda = celdaNF;
-            CualTabla = 1;
-            tablaImprimir = ":formExportar:datosVigenciasNoFormalesExportar";
-            cualNuevo = ":formularioDialogos:nuevaVigenciaFormal";
-            cualInsertar = "formularioDialogos:NuevoRegistroVigenciaNoFormal";
-            nombreArchivo = "VigenciasNoFormalesXML";
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:exportarXML");
+        vigenciaNoFormalSeleccionada = vigenciaNoFormal;
+        cualCelda = celdaNF;
+        CualTabla = 1;
+        tablaImprimir = ":formExportar:datosVigenciasNoFormalesExportar";
+        cualNuevo = ":formularioDialogos:nuevaVigenciaFormal";
+        cualInsertar = "formularioDialogos:NuevoRegistroVigenciaNoFormal";
+        nombreArchivo = "VigenciasNoFormalesXML";
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:exportarXML");
+        deshabilitarBotonLov();
+        vigenciaNoFormalSeleccionada.getSecuencia();
+        if (cualCelda == 0) {
             deshabilitarBotonLov();
-            if (tipoListaNF == 0) {
-                vigenciaNoFormalSeleccionada.getSecuencia();
-                if (cualCelda == 1) {
-                    habilitarBotonLov();
-                    contarRegistroCursos();
-                    TipoEducacion = vigenciaNoFormalSeleccionada.getCurso().getNombre();
-                } else if (cualCelda == 3) {
-                    habilitarBotonLov();
-                    contarRegistroInstituciones();
-                    Institucion = vigenciaNoFormalSeleccionada.getInstitucion().getDescripcion();
-                } else if (cualCelda == 4) {
-                    habilitarBotonLov();
-                    contarRegistroAdiestramientoNF();
-                    AdiestramientoNF = vigenciaNoFormalSeleccionada.getAdiestramientonf().getDesccripcion();
-                }
-            } else {
-                vigenciaNoFormalSeleccionada.getSecuencia();
-                contarRegistroAdiestramientoNF();
-                contarRegistroCursos();
-                contarRegistroInstituciones();
-                if (cualCelda == 1) {
-                    habilitarBotonLov();
-                    Curso = vigenciaNoFormalSeleccionada.getCurso().getNombre();
-                } else if (cualCelda == 3) {
-                    habilitarBotonLov();
-                    Institucion = vigenciaNoFormalSeleccionada.getInstitucion().getDescripcion();
-                } else if (cualCelda == 4) {
-                    habilitarBotonLov();
-                    AdiestramientoNF = vigenciaNoFormalSeleccionada.getAdiestramientonf().getDesccripcion();
-                }
-            }
+            vigenciaNoFormalSeleccionada.getFechavigencia();
+        } else if (cualCelda == 1) {
+            habilitarBotonLov();
+            TipoEducacion = vigenciaNoFormalSeleccionada.getCurso().getNombre();
+        } else if (cualCelda == 2) {
+            deshabilitarBotonLov();
+            TipoEducacion = vigenciaNoFormalSeleccionada.getTitulo();
+        } else if (cualCelda == 3) {
+            habilitarBotonLov();
+            Institucion = vigenciaNoFormalSeleccionada.getInstitucion().getDescripcion();
+        } else if (cualCelda == 4) {
+            habilitarBotonLov();
+            contarRegistroAdiestramientoNF();
+            AdiestramientoNF = vigenciaNoFormalSeleccionada.getAdiestramientonf().getDesccripcion();
+        } else if (cualCelda == 5) {
+            deshabilitarBotonLov();
+            vigenciaNoFormalSeleccionada.getCalificacionobtenida();
+        } else if (cualCelda == 6) {
+            deshabilitarBotonLov();
+            vigenciaNoFormalSeleccionada.getObservacion();
         }
     }
 
@@ -2092,14 +1968,7 @@ public class ControlPersonaEducacion implements Serializable {
     public void asignarIndexNF(VigenciasNoFormales vigenciaNoFormal, int dlg, int LND) {
         vigenciaNoFormalSeleccionada = vigenciaNoFormal;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
             contarRegistroCursos();
             RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
@@ -2149,7 +2018,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setCurso(seleccionCursos);
@@ -2180,7 +2048,6 @@ public class ControlPersonaEducacion implements Serializable {
         vigenciaNoFormalSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVCursos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCursos').clearFilters()");
@@ -2217,7 +2084,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setInstitucion(seleccionInstituciones);
@@ -2248,7 +2114,6 @@ public class ControlPersonaEducacion implements Serializable {
         vigenciaNoFormalSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVInstitucionesNF:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVInstitucionesNF').clearFilters()");
@@ -2285,7 +2150,6 @@ public class ControlPersonaEducacion implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
             }
-            permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
         } else if (tipoActualizacion == 1) {
             nuevaVigenciaNoFormal.setAdiestramientonf(seleccionAdiestramientosNoFormales);
@@ -2316,7 +2180,6 @@ public class ControlPersonaEducacion implements Serializable {
         vigenciaNoFormalSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVAdiestramientosNF:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVAdiestramientosNF').clearFilters()");
@@ -2475,19 +2338,10 @@ public class ControlPersonaEducacion implements Serializable {
             mensajeValidacionNF = mensajeValidacionNF + " * Institucion \n";
             pasa++;
         }
-
-        if (nuevaVigenciaNoFormal.getAdiestramientonf().getSecuencia() == null) {
-            System.out.println("Entro a AdiestramientoNF");
-            mensajeValidacionNF = mensajeValidacionNF + " * Adiestramiento\n";
-            pasa++;
-        }
-
         if (pasa == 0) {
             if (bandera == 1) {
-
                 if (CualTabla == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
-
                     pEFechasNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEFechasNF");
                     pEFechasNF.setFilterStyle("display: none; visibility: hidden;");
                     pECursosNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pECursosNF");
@@ -2502,7 +2356,7 @@ public class ControlPersonaEducacion implements Serializable {
                     pECalificacionesNF.setFilterStyle("display: none; visibility: hidden;");
                     pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
                     pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
-                    altoTabla2 = "115";
+                    altoTabla2 = "105";
                     RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
                     bandera = 0;
                     filtradosListaVigenciasNoFormales = null;
@@ -2515,15 +2369,6 @@ public class ControlPersonaEducacion implements Serializable {
             l = BigInteger.valueOf(k);
             nuevaVigenciaNoFormal.setSecuencia(l);
             nuevaVigenciaNoFormal.setPersona(persona);
-//            if (nuevaVigenciaNoFormal.getCurso().getSecuencia() == null) {
-//                nuevaVigenciaNoFormal.setCurso(null);
-//            }
-//            if (nuevaVigenciaNoFormal.getInstitucion().getSecuencia() == null) {
-//                nuevaVigenciaNoFormal.setInstitucion(null);
-//            }
-//            if (nuevaVigenciaNoFormal.getAdiestramientonf().getSecuencia() == null) {
-//                nuevaVigenciaNoFormal.setAdiestramientonf(null);
-//            }
             listaVigenciasNoFormalesCrear.add(nuevaVigenciaNoFormal);
             if (listaVigenciasNoFormales == null) {
                 listaVigenciasNoFormales = new ArrayList<VigenciasNoFormales>();
@@ -2591,7 +2436,7 @@ public class ControlPersonaEducacion implements Serializable {
             pECalificacionesNF.setFilterStyle("display: none; visibility: hidden;");
             pEObservacionesNF = (Column) c.getViewRoot().findComponent("form:datosVigenciasNoFormalesPersona:pEObservacionesNF");
             pEObservacionesNF.setFilterStyle("display: none; visibility: hidden;");
-            altoTabla2 = "115";
+            altoTabla2 = "105";
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
             bandera = 0;
             filtradosListaVigenciasNoFormales = null;
@@ -2612,7 +2457,6 @@ public class ControlPersonaEducacion implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaNoFormal");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaNoFormal').show()");
 
-        
     }
 
     //EVENTO FILTRAR
@@ -2706,8 +2550,10 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<VigenciasFormales> getListaVigenciasFormales() {
-        if (listaVigenciasFormales == null && persona != null) {
-            listaVigenciasFormales = administrarVigenciasFormales.vigenciasFormalesPersona(persona.getSecuencia());
+        if (listaVigenciasFormales == null) {
+            if (persona != null) {
+                listaVigenciasFormales = administrarVigenciasFormales.vigenciasFormalesPersona(persona.getSecuencia());
+            }
         }
         return listaVigenciasFormales;
     }

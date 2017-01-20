@@ -83,7 +83,7 @@ public class Instituciones implements Serializable {
 
     public String getTelefono() {
         if (telefono == null) {
-            telefono = " ";
+            telefono = "";
             return telefono;
         } else {
             return telefono.toUpperCase();

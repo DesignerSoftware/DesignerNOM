@@ -90,7 +90,7 @@
                                          rowKey="#{telefono.secuencia}" rowIndexVar="indice"                           
                                          scrollable="true"  scrollWidth="830" filteredValue="#{controlPerTelefonos.filtradosListaTelefonos}"
                                          scrollHeight="#{controlPerTelefonos.altoTabla}" style="border: 1px;width: 830px"
-                                         emptyMessage="#{msg['vacio']}"
+                                         emptyMessage="#{msg['vacio']}" widgetVar="datosTelefonosPersona"
                                          editable="true" editMode="cell"
                                          selection="#{controlPerTelefonos.telefonoSeleccionado}" selectionMode="single">
 
@@ -108,7 +108,8 @@
                                             <p:calendar  autocomplete="off" mask="true"  pattern="dd/MM/yyyy" id="editFecha" value="#{telefono.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <p:ajax event="change" />
-                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" />
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 0)}" 
+                                                        onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});"/>
                                             </p:calendar>
                                         </f:facet>
 
@@ -126,7 +127,8 @@
                                             <p:inputText  autocomplete="off"  value="#{telefono.tipotelefono.nombre}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'TIPOTELEFONO', telefono.tipotelefono.nombre)}"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
-                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 1)}" />
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 1)}" 
+                                                        onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 0)}"/>
                                             </p:inputText>
                                         </f:facet>
@@ -134,7 +136,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelefono" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pertelefono')}"/>
+                                        <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="tipotelefono" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('tipotelefono')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -144,7 +146,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{telefono.numerotelefono}" id="editarNumeroTelefono" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:keyFilter for="editarNumeroTelefono" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}" 
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}"  process="@this"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
                                             </p:inputText>
@@ -162,7 +164,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{telefono.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'CIUDAD', telefono.ciudad.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 3)}" 
+                                                <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 3)}" process="@this"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 0)}"/>
                                             </p:inputText>
@@ -200,6 +202,7 @@
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.nuevoTelefono.tipotelefono.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}" />
                             </p:inputText>
+                            <p:watermark for="nuevoTipoTelefono" value="Tipo Teléfono" />
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnNuevoTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 1)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}"  style=" position: absolute; top: 155px;" /></strong>
@@ -207,13 +210,15 @@
                                 <p:keyFilter for="nuevoNumero" mask="num"/>
                                 <p:ajax event="change" update="nuevoNumero"/>
                             </p:inputText>
+                            <p:watermark for="nuevoNumero" value="Número" />
 
-                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
+                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px; left: 37px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaCiudad" value="#{controlPerTelefonos.nuevoTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(1, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.nuevoTelefono.ciudad.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" />
                             </p:inputText>
+                            <p:watermark for="nuevaCiudad" value="Ciudad" />
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 185px;  " id="btnNuevaCiudad" actionListener="#{controlPerTelefonos.asignarIndex(telefono, 1, 1)}" value=" " process="@this" />
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 10px; top: 250px;" actionListener="#{controlPerTelefonos.limpiarNuevoTelefono()}" update="nuevoTelefono" process="@this"/>
@@ -244,6 +249,7 @@
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('TIPOT', controlPerTelefonos.duplicarTelefono.tipotelefono.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}" />
                             </p:inputText>
+                            <p:watermark for="duplicarTipoTelefono" value="Tipo Teléfono" />
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px; position: absolute; left: 285px; top: 115px;  " id="btnDuplicarTipoTelefono" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 0, 2)}"/>   
 
                             <strong><h:outputText value="* #{msg['numeroN']}" style=" position: absolute; top: 155px;" /></strong>
@@ -251,14 +257,15 @@
                                 <p:keyFilter for="duplicarNumero" mask="num"/>
                                 <p:ajax event="change" update="duplicarNumero"/>
                             </p:inputText>
-                            <p:watermark for="duplicarNumero" value="Numero" />
+                            <p:watermark for="duplicarNumero" value="Número" />
 
-                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px;" /></strong>
+                            <strong><h:outputText value="#{msg['ciudadN']}" style=" position: absolute; top: 190px; left: 37px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarCiudad" value="#{controlPerTelefonos.duplicarTelefono.ciudad.nombre}" style=" width: 122px; position: absolute; left: 150px; top: 185px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="click" listener="#{controlPerTelefonos.valoresBackupAutocompletar(2, 'CIUDAD')}" />
                                 <p:ajax event="change" listener="#{controlPerTelefonos.autocompletarNuevoyDuplicado('CIUDAD', controlPerTelefonos.duplicarTelefono.ciudad.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1 , 2)}" />
                             </p:inputText>
+                            <p:watermark for="duplicarCiudad" value="Ciudad" />
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);background-size: 100% 100%; background-repeat: no-repeat; border: none;  width: 23px; height: 23px;position: absolute; left: 285px; top: 185px;  " id="btnDuplicarCiudad" value=" " process="@this"  actionListener="#{controlPerTelefonos.asignarIndex(telefono, 1, 2)}"/>   
 
 
@@ -290,9 +297,6 @@
                         <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('existeTipoTelefono').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
 
-
-
-
                     <!--DIALOGO TIPOS DE TELEFONOS-->    
                     <p:dialog header="#{msg['tiposT']}" widgetVar="tiposTelefonosDialogo" draggable="true" resizable="false" id="tiposTelefonosDialogo" closable="false"  
                               showEffect="fade" hideEffect="fade" modal="true" width="347" >
@@ -309,14 +313,14 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVTiposTelefonos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 40px;" > 
+                            <p:column  filterBy="#{tipoTelefono.codigo}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['codigoT']}" />
                                 </f:facet>
                                 <h:outputText value="#{tipoTelefono.codigo}" />  
                             </p:column>  
 
-                            <p:column filterBy="#{tipoTelefono.nombre}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{tipoTelefono.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreT']}" />
                                 </f:facet>
@@ -349,7 +353,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCiudades').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 100px;" > 
+                            <p:column  filterBy="#{ciudad.nombre}" width="50" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreC']}" />
                                 </f:facet>
@@ -401,12 +405,12 @@
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
