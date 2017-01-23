@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
-import org.apache.poi.hssf.record.PageBreakRecord;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.inputtext.InputText;
@@ -672,12 +671,13 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         reporteSeleccionado = reporte;
         seleccionRegistro();
+//        generandoReport();
         generarDocumentoReporte();
     }
 
     public void generandoReport() {
         System.out.println("Controlador.ControlNReporteNomina.generandoReport()");
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+//        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
     }
 
     /*
@@ -842,6 +842,7 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void generarDocumentoReporte() {
+        RequestContext context = RequestContext.getCurrentInstance();
         if (reporteSeleccionado != null) {
             System.out.println("generando reporte - ingreso al if");
             nombreReporte = reporteSeleccionado.getNombrereporte();
@@ -923,6 +924,7 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
             RequestContext.getCurrentInstance().update("form:reportesNomina");
+            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");

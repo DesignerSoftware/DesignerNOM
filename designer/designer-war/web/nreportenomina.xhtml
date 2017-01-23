@@ -135,7 +135,7 @@
                                                                             </f:facet>
                                                                         </p:cellEditor>-->
                                     <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
-                                                    onclick="#{generandoReporte}" actionListener="#{controlNReporteNomina.generarReporte(info)}">                
+                                                     actionListener="#{controlNReporteNomina.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
                                     </p:commandButton>  
                                         <f:facet name="footer">
                                             <h:outputText value=""/>
@@ -192,8 +192,8 @@
                         <p:dialog id="confirmarGuardarSinSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSinSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReporteNomina.guardarCambios()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReporteNomina.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReporteNomina.guardarCambios()}"  style="position: absolute; top: 50px; left: 184px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalida').hide();" actionListener="#{controlNReporteNomina.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSinSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
@@ -992,7 +992,7 @@
                     </p:dialog>
 
                     <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlNReporteNomina.reiniciarStreamedContent()}"/>
-                    <p:remoteCommand name="generandoReporte" actionListener="#{controlNReporteNomina.generandoReport()}"/>
+                    <p:remoteCommand name="dialogoGenerandoReporte" actionListener="#{controlNReporteNomina.generandoReport()}"/>
                 </h:form>
             </ui:define>
         </ui:composition>

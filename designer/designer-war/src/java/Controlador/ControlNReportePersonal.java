@@ -1162,7 +1162,7 @@ public class ControlNReportePersonal implements Serializable {
         } else {
             activarEnvio = true;
         }
-         RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
     }
 
     public void actualizarEmplDesde() {
@@ -1683,17 +1683,57 @@ public class ControlNReportePersonal implements Serializable {
         filtrarListInforeportesUsuario = null;
     }
 
-    public void modificacionTipoReporte(Inforeportes reporte) {
+    public void seleccionarTipoReporte(Inforeportes reporte, String tipor) {
         inforreporteSeleccionado = reporte;
-        cambiosReporte = false;
+        if (tipor.equalsIgnoreCase("PDF")) {
+            inforreporteSeleccionado.setTipo("PDF");
+        } else if (tipor.equalsIgnoreCase("HTML")) {
+            inforreporteSeleccionado.setTipo("HTML");
+        } else if (tipor.equalsIgnoreCase("XLS")) {
+            inforreporteSeleccionado.setTipo("XLS");
+        } else if (tipor.equalsIgnoreCase("XLSX")) {
+            inforreporteSeleccionado.setTipo("XLSX");
+        } else if (tipor.equalsIgnoreCase("CSV")) {
+            inforreporteSeleccionado.setTipo("CSV");
+        } else if (tipor.equalsIgnoreCase("DOCX")) {
+            inforreporteSeleccionado.setTipo("DOCX");
+        }
+
         if (listaInfoReportesModificados.isEmpty()) {
+            System.out.println("Ingrese al if");
             listaInfoReportesModificados.add(inforreporteSeleccionado);
         } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(inforreporteSeleccionado))) {
+            System.out.println("Ingrese al else if");
             listaInfoReportesModificados.add(inforreporteSeleccionado);
         } else {
+            System.out.println("Ingrese al else");
             int posicion = listaInfoReportesModificados.indexOf(inforreporteSeleccionado);
             listaInfoReportesModificados.set(posicion, inforreporteSeleccionado);
         }
+        System.out.println("Saliendo del metodo...Tipo reporteSeleccionado: " + inforreporteSeleccionado.getTipo());
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+    }
+
+    public void modificacionTipoReporte(Inforeportes reporte) {
+        System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
+        inforreporteSeleccionado = reporte;
+        System.out.println("reporteSeleccionado: " + inforreporteSeleccionado);
+        System.out.println("Tipo reporteSeleccionado: " + inforreporteSeleccionado.getTipo());
+        cambiosReporte = false;
+        if (listaInfoReportesModificados.isEmpty()) {
+            System.out.println("Ingrese al if");
+            listaInfoReportesModificados.add(inforreporteSeleccionado);
+        } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(inforreporteSeleccionado))) {
+            System.out.println("Ingrese al else if");
+            listaInfoReportesModificados.add(inforreporteSeleccionado);
+        } else {
+            System.out.println("Ingrese al else");
+            int posicion = listaInfoReportesModificados.indexOf(inforreporteSeleccionado);
+            listaInfoReportesModificados.set(posicion, inforreporteSeleccionado);
+        }
+        System.out.println("Saliendo del metodo...Tipo reporteSeleccionado: " + inforreporteSeleccionado.getTipo());
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -1715,7 +1755,7 @@ public class ControlNReportePersonal implements Serializable {
             System.out.println("generando reporte - ingreso al if");
             nombreReporte = inforreporteSeleccionado.getNombrereporte();
             tipoReporte = inforreporteSeleccionado.getTipo();
-
+            System.out.println("tipoReporte: " + tipoReporte);
             if (nombreReporte != null && tipoReporte != null) {
                 System.out.println("generando reporte - ingreso al 2 if");
                 pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
@@ -1738,6 +1778,7 @@ public class ControlNReportePersonal implements Serializable {
     public void generarReporte(Inforeportes reporte) {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         inforreporteSeleccionado = reporte;
+        System.out.println("inforreporteSeleccionado: " + inforreporteSeleccionado.getTipo());
         seleccionRegistro();
         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
         generarDocumentoReporte();
@@ -1791,7 +1832,8 @@ public class ControlNReportePersonal implements Serializable {
 
     public void exportarReporte() throws IOException {
         System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
+        System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+        if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             FacesContext ctx = FacesContext.getCurrentInstance();
             FileInputStream fis = new FileInputStream(reporteF);
@@ -1838,7 +1880,9 @@ public class ControlNReportePersonal implements Serializable {
                 System.out.println("validar descarga reporte - ingreso al if 2 else");
                 FileInputStream fis;
                 try {
+                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
                     fis = new FileInputStream(new File(pathReporteGenerado));
+                    System.out.println("fis : " + fis);
                     reporte = new DefaultStreamedContent(fis, "application/pdf");
                 } catch (FileNotFoundException ex) {
                     System.out.println("validar descarga reporte - ingreso al catch 1");
