@@ -116,7 +116,8 @@
                             </p:dataTable>
                             <h:outputText id="infoRegistroEmpleados" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroEmpleados} " style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
                             <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;
-                                             position: absolute; left: 650px; top: 50px; " id="btnBuscarEmpleados" actionListener="#{controlNovedadesVacaciones.abrirLista(0) }" value="" process="@this"/>
+                                             position: absolute; left: 650px; top: 50px; " id="btnBuscarEmpleados" actionListener="#{controlNovedadesVacaciones.abrirLista(0)}" value="" process="@this"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                             <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                              position: absolute; left: 650px; top: 85px;" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" 
                                              actionListener="#{controlNovedadesVacaciones.mostrarTodos()}" disabled="#{controlNovedadesVacaciones.activarMTodos}" process="@this"/>
@@ -300,7 +301,7 @@
                                             <h:outputText value="#{novedades.vacadiasaplazados}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off" readonly="true"  value="#{novedades.vacadiasaplazados}" id="editarDiasAplazados" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;"
-                                                onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
+                                                          onselect="posicionOtro([{name: 'celda', value: '7'}, {name: 'registro', value: '#{indice}'}]);">
                                                 <p:ajax event="select" onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" process="@this"/>
                                                 <!--<p:ajax event="change" listener="#{controlNovedadesVacaciones.modificarDiasAplazados(novedad)}" process="@this" update="editarDiasAplazados"/>-->   
                                             </p:inputText>
@@ -328,15 +329,102 @@
                     </p:panel>
                 </h:form>
 
+                <h:form id="formLovPeriodo">
+                    <p:dialog header="Periodos" widgetVar="periodosDialogo" draggable="true" resizable="false" id="periodosDialogo" closable="false"
+                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
+                        <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.listaPeriodos}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVPeriodos" rowKey="#{per.secuencia}"
+                                      filteredValue="#{controlNovedadesVacaciones.filtradoslistaPeriodos}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlNovedadesVacaciones.periodoSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formLovPeriodo:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this"/>
+                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroPeriodos()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Periodo: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 80% !important" filterBy="#{per.diaspendientes}" width="100" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Días Pendientes" />
+                                </f:facet>
+                                <h:outputText value="#{per.diaspendientes}" />  
+                            </p:column>
+
+                            <p:column style="text-align: center" sortBy="#{per.periodo}" filterStyle="width: 80% !important" filterBy="#{per.periodo}" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Periodo" />
+                                </f:facet>
+                                <h:outputText value="#{per.periodo}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroPeriodosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroPeriodo} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesVacaciones.aceptar}" class="cssAceptarLOV"   actionListener="#{controlNovedadesVacaciones.actualizarPeriodos()}"  process="@this"/>
+                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadesVacaciones.cancelarCambioPeriodos()}"  process="@this"/>
+                        </div>
+                    </p:dialog>  
+                </h:form>
+                
+                <h:form id="formLovEmpleado">
+
+                    <p:dialog header="Buscar Empleado." widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
+                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadesVacaciones.listaValEmpleados}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlNovedadesVacaciones.filtradoslistaValEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlNovedadesVacaciones.seleccionEmpleados}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formLovEmpleado:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroEmpleadosLOV()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Codigo" />
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                            </p:column>
+
+                            <p:column style="text-align: center" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha Ingreso" />
+                                </f:facet>
+                                <h:outputText value="#{emp.fechacreacion}">  
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroEmpleadosLOV} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadesVacaciones.aceptar}"/>
+                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadesVacaciones.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
                 <h:form id="formularioDialogos">
 
-                    <!-- DIALOGO NUEVO REGISTRO -->
                     <p:dialog id="nuevanovedadVacaciones" header="Nuevo Registro" widgetVar="nuevanovedadVacaciones" closable="false" resizable="false" draggable="true" modal="true" height="420" width="400" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
                         <p:panel id="nuevaNovedad" style="border: none;">
-
                             <strong><h:outputText value="*Fecha Inicial Disfrute: " style=" position: absolute; top: 65px;" /></strong>
                             <div id="posicionFechaInicialNuevoReg" style=" position: absolute; top: 60px; left: 200px">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlNovedadesVacaciones.nuevaNovedad.fechainicialdisfrute}" >
@@ -348,11 +436,13 @@
                             <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoPeriodo" value="#{controlNovedadesVacaciones.nuevaNovedad.vacacion.periodo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
+                                <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" 
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                             </p:inputText>
 
                             <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 335px; top: 100px"  process="@this" id="btnlovperiodos" 
-                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}" />
+                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,1)}"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoDias" value="#{controlNovedadesVacaciones.nuevaNovedad.dias}" 
@@ -401,11 +491,8 @@
                         </p:panel>
                     </p:dialog>
 
-                    <!-- DIALOGO DUPLICAR REGISTRO -->
                     <p:dialog id="duplicarregistroNovedad" header="Duplicar Registro" widgetVar="duplicarregistroNovedad" closable="false" resizable="false"  draggable="true" modal="true" height="420" width="400" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="Ingresar nueva novedad" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
                         <p:panel id="duplicarNovedad" style="border: none;">
 
                             <strong><h:outputText value="*Fecha Inicial Disfrute: " style=" position: absolute; top: 65px;" /></strong>
@@ -419,10 +506,12 @@
                             <strong><h:outputText value="*Período: " style=" position: absolute; top: 105px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarPeriodo" value="#{controlNovedadesVacaciones.duplicarNovedad.vacacion.periodo}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
+                                <p:ajax event="dblclick" listener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}"
+                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                             </p:inputText>
                             <p:commandButton class="cssBotonLovDialogos"  value="" style="position : absolute; left: 335px; top: 100px"  process="@this" id="btnduplicarlovperiodos" 
-                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" />
+                                             actionListener="#{controlNovedadesVacaciones.lovPeriodo(controlNovedadesVacaciones.empleadoSeleccionado.secuencia,2)}" 
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="*Días: " style=" position: absolute; top: 145px;" /></strong>
                             <p:inputText  autocomplete="off"  readonly="true" id="duplicarDias" value="#{controlNovedadesVacaciones.duplicarNovedad.dias}" 
@@ -484,9 +573,12 @@
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" />
                         <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
-
-                    <!-- DIALOGOS EDITAR -->
-
+                    
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                    </p:dialog>
+                    
                     <p:dialog id="editFechaInicial" header="Fecha Inicial de Disfrute" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadesVacaciones.editarNovedades.fechainicialdisfrute}" style="overflow: auto;" readonly="true">                       
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -549,8 +641,6 @@
                     </p:dialog>
 
 
-                    <!-- Validaciones campo de fecha inicial disfrute --> 
-
                     <p:dialog id="botonDesactivado" header="#{msg['atencion']}" widgetVar="botonDesactivado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['botonlov']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
@@ -580,98 +670,6 @@
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                         <h:outputText value="Para agregar una nueva novedad es necesario adicionar: #{controlNovedadesVacaciones.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaNovedadEmpleado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <!-- L.O.V Empleado-->
-                    <p:dialog header="Buscar Empleado." widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
-
-                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadesVacaciones.listaValEmpleados}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
-                                      filteredValue="#{controlNovedadesVacaciones.filtradoslistaValEmpleados}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{emp.secuencia}" selection="#{controlNovedadesVacaciones.seleccionEmpleados}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroEmpleadosLOV()}"/>
-                            <f:facet name="header">  
-                                <h:outputText value="Nombre: " />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="Codigo" />
-                                </f:facet>
-                                <h:outputText value="#{emp.codigoempleado}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="Nombre" />
-                                </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
-                            </p:column>
-
-                            <p:column style="text-align: center" width="90" sortBy="#{emp.fechacreacion}" filterBy="#{emp.fechacreacion}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
-                                <f:facet name="header">
-                                    <h:outputText value="Fecha Ingreso" />
-                                </f:facet>
-                                <h:outputText value="#{emp.fechacreacion}">  
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </h:outputText>
-                            </p:column>
-
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroEmpleadosLOV} " class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadesVacaciones.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadesVacaciones.aceptar}"/>
-                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadesVacaciones.cancelarCambioEmpleados()}" process="@this"/>
-                        </div>
-
-                    </p:dialog>
-
-                    <!-- L.O.V Periodo-->
-                    <p:dialog header="Periodos" widgetVar="periodosDialogo" draggable="true" resizable="false" id="periodosDialogo" closable="false"
-                              showEffect="fade" hideEffect="fade" modal="true" width="450" height="350">
-
-                        <p:dataTable  id="LOVPeriodos" style=" width: 410px;" var="per" value="#{controlNovedadesVacaciones.listaPeriodos}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="420" widgetVar="LOVPeriodos" rowKey="#{per.secuencia}"
-                                      filteredValue="#{controlNovedadesVacaciones.filtradoslistaPeriodos}" emptyMessage="No se encontraron resultados con el criterio de busqueda."
-                                      selection="#{controlNovedadesVacaciones.periodoSeleccionado}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadesVacaciones.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadesVacaciones.actualizarPeriodos()}" process="@this"/>
-                            <p:ajax event="filter" listener="#{controlNovedadesVacaciones.contarRegistroPeriodos()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="Buscar Periodo: " />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPeriodos').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-
-                            <p:column style="text-align: center" sortBy="#{per.diaspendientes}" filterStyle="width: 80% !important" filterBy="#{per.diaspendientes}" width="100" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="Días Pendientes" />
-                                </f:facet>
-                                <h:outputText value="#{per.diaspendientes}" />  
-                            </p:column>
-
-                            <p:column style="text-align: center" sortBy="#{per.periodo}" filterStyle="width: 80% !important" filterBy="#{per.periodo}" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="Periodo" />
-                                </f:facet>
-                                <h:outputText value="#{per.periodo}" />  
-                            </p:column>
-
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroPeriodosLOV" value="#{msg['infoRegistros']} #{controlNovedadesVacaciones.infoRegistroPeriodo} " class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadesVacaciones.aceptar}" class="cssAceptarLOV"   actionListener="#{controlNovedadesVacaciones.actualizarPeriodos()}"  process="@this"/>
-                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadesVacaciones.cancelarCambioPeriodos()}"  process="@this"/>
-                        </div>
-
                     </p:dialog>
 
                     <!-- DIALOGOS RASTROS -->

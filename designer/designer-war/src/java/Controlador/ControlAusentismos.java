@@ -273,12 +273,7 @@ public class ControlAusentismos implements Serializable {
             listaAusentismos = null;
             getListaAusentismos();
             contarRegistroAusentismos();
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
-        } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
-            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
         }
     }
 

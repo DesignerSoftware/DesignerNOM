@@ -174,13 +174,6 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public void recibirPag(String pag) {
         paginaAnterior = pag;
-        listaNovedades = null;
-        getListaNovedades();
-        if (listaEmpleadosNovedad != null) {
-            if (!listaEmpleadosNovedad.isEmpty()) {
-                empleadoSeleccionado = listaEmpleadosNovedad.get(0);
-            }
-        }
     }
 
     public String volverPagAnterior() {
@@ -464,15 +457,13 @@ public class ControlNovedadesVacaciones implements Serializable {
         getDiasTotales();
         filtradosListaEmpleadosNovedad = null;
         aceptar = true;
-        novedadSeleccionada = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         activarMTodos = true;
-
+        contarRegistroEmpleados();
+        contarRegistrosNovedades();
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        getDiasTotales();
-        //getDiasAplazadosTotal();
         RequestContext.getCurrentInstance().update("form:diasTotales");
         RequestContext.getCurrentInstance().update("form:diasAplazados");
         RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
@@ -507,37 +498,25 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     //Ubicacion Celda Arriba 
     public void cambiarEmpleado() {
-        //Si ninguna de las 3 listas (crear,modificar,borrar) tiene algo, hace esto
-        //{
         if (listaNovedadesCrear.isEmpty() && listaNovedadesBorrar.isEmpty() && listaNovedadesModificar.isEmpty()) {
             secuenciaEmpleado = empleadoSeleccionado.getSecuencia();
-            //Se recargan las novedades para el empleado
             listaNovedades = administrarNovedadesSistema.vacacionesEmpleado(secuenciaEmpleado);
-            if (listaNovedades == null) {
-                listaNovedades = new ArrayList<NovedadesSistema>();
-            }
             contarRegistrosNovedades();
             getDiasTotales();
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
             RequestContext.getCurrentInstance().update("form:diasTotales");
             RequestContext.getCurrentInstance().update("form:diasAplazados");
-
         }
-//        else {
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("formularioDialogos:cambiar");
-//            RequestContext.getCurrentInstance().execute("PF('cambiar').show()");
-//        }
     }
 
     public void abrirLista(int listaV) {
 
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaV == 0) {
-            empleadoSeleccionadoLOV = null;
+            cargarLovEmpleados();
             contarRegistroEmpleadosLOV();
-            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formLovEmpleado:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         }
     }
@@ -561,10 +540,13 @@ public class ControlNovedadesVacaciones implements Serializable {
         cualCelda = -1;
         activarMTodos = false;
         contarRegistroEmpleados();
-        context.reset("formularioDialogos:LOVEmpleados:globalFilter");
+        contarRegistrosNovedades();
+        context.reset("formLovEmpleado:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:empleadosDialogo");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:aceptarE");
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
 
@@ -708,9 +690,12 @@ public class ControlNovedadesVacaciones implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:LOVEmpleados:globalFilter");
+        context.reset("formLovEmpleado:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:empleadosDialogo");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:aceptarE");
     }
 
     public void verificarRastro() {
@@ -837,11 +822,11 @@ public class ControlNovedadesVacaciones implements Serializable {
     }
 
     public void contarRegistroEmpleadosLOV() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosLOV");
+        RequestContext.getCurrentInstance().update("formLovEmpleado:infoRegistroEmpleadosLOV");
     }
 
     public void contarRegistroPeriodos() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPeriodosLOV");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:infoRegistroPeriodosLOV");
 
     }
 
@@ -915,12 +900,12 @@ public class ControlNovedadesVacaciones implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
-        context.reset("formularioDialogos:LOVPeriodos:globalFilter");
+        context.reset("formLovPeriodo:LOVPeriodos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('periodosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
-        RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:LOVPeriodos");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:periodosDialogo");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:aceptarP");
     }
 
     public void cancelarCambioPeriodos() {
@@ -931,12 +916,12 @@ public class ControlNovedadesVacaciones implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:LOVPeriodos:globalFilter");
+        context.reset("formLovPeriodo:LOVPeriodos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('periodosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPeriodos");
-        RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:LOVPeriodos");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:periodosDialogo");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:aceptarP");
 
     }
 
@@ -1038,7 +1023,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         listaPeriodos = administrarNovedadesSistema.periodosEmpleado(secuenciaEmpleado);
         getListaPeriodos();
         System.out.println("lista periodos en agregar periodo = " + listaPeriodos);
-        RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
+        RequestContext.getCurrentInstance().update("formLovPeriodo:periodosDialogo");
         RequestContext.getCurrentInstance().execute("PF('periodosDialogo').show()");
     }
 
@@ -1059,11 +1044,13 @@ public class ControlNovedadesVacaciones implements Serializable {
             } else {
                 FacesContext c = FacesContext.getCurrentInstance();
                 contarRegistroPeriodos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
+                cargarLovPeriodos();
+                RequestContext.getCurrentInstance().update("formLovPeriodo:periodosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('periodosDialogo').show()");
             }
         } else {
-            RequestContext.getCurrentInstance().update("formularioDialogos:periodosDialogo");
+            cargarLovPeriodos();
+            RequestContext.getCurrentInstance().update("formLovPeriodo:periodosDialogo");
             RequestContext.getCurrentInstance().execute("PF('periodosDialogo').show()");
         }
     }
@@ -1203,6 +1190,18 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     }
 
+    public void cargarLovEmpleados() {
+        if (listaValEmpleados == null) {
+            listaValEmpleados = administrarNovedadesVacaciones.empleadosVacaciones();
+        }
+    }
+
+    public void cargarLovPeriodos() {
+        if (listaPeriodos == null) {
+            listaPeriodos = administrarNovedadesSistema.periodosEmpleado(secuenciaEmpleado);
+        }
+    }
+
 //GETTER & SETTER
     public List<Empleados> getListaEmpleadosNovedad() {
         if (listaEmpleadosNovedad == null) {
@@ -1231,12 +1230,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         this.empleadoSeleccionado = empleadoSeleccionado;
     }
 
-    //LOV EMPLEADOS
     public List<Empleados> getListaValEmpleados() {
-        if (listaValEmpleados == null) {
-            listaValEmpleados = administrarNovedadesVacaciones.empleadosVacaciones();
-        }
-//        modificarInfoRegistroEmpleadosLOV(listaValEmpleados.size());
         return listaValEmpleados;
     }
 
@@ -1330,9 +1324,6 @@ public class ControlNovedadesVacaciones implements Serializable {
     }
 
     public List<Vacaciones> getListaPeriodos() {
-        if (listaPeriodos == null) {
-            listaPeriodos = administrarNovedadesSistema.periodosEmpleado(secuenciaEmpleado);
-        }
         return listaPeriodos;
     }
 
@@ -1460,7 +1451,20 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public String getInfoRegistroEmpleadosLOV() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEmpleado:LOVEmpleados");
+         if (filtradoslistaValEmpleados != null) {
+         if (filtradoslistaValEmpleados.size() == 1) {
+            empleadoSeleccionadoLOV = filtradoslistaValEmpleados.get(0);
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();PF('LOVEmpleados').selectRow(0);");
+         } else {
+            empleadoSeleccionadoLOV = null;
+            RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();");
+         }
+      } else {
+         empleadoSeleccionadoLOV = null;
+         aceptar = true;
+      }
         infoRegistroEmpleadosLOV = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadosLOV;
     }
@@ -1471,7 +1475,20 @@ public class ControlNovedadesVacaciones implements Serializable {
 
     public String getInfoRegistroPeriodo() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPeriodos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovPeriodo:LOVPeriodos");
+         if (filtradoslistaPeriodos != null) {
+         if (filtradoslistaPeriodos.size() == 1) {
+            periodoSeleccionado = filtradoslistaPeriodos.get(0);
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').unselectAllRows();PF('LOVPeriodos').selectRow(0);");
+         } else {
+            periodoSeleccionado = null;
+            RequestContext.getCurrentInstance().execute("PF('LOVPeriodos').unselectAllRows();");
+         }
+      } else {
+         periodoSeleccionado = null;
+         aceptar = true;
+      }
         infoRegistroPeriodo = String.valueOf(tabla.getRowCount());
         return infoRegistroPeriodo;
     }
