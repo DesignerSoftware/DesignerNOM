@@ -251,7 +251,6 @@ public class ControlAusentismos implements Serializable {
             }
             listaAusentismos = null;
             getListaAusentismos();
-            contarRegistroAusentismos();
             cambiarEmpleado();
 
         } catch (Exception e) {
@@ -299,62 +298,60 @@ public class ControlAusentismos implements Serializable {
         if (dlg == 0) {
             cargarListaEmpleados();
             contarRegistroEmpleadoLov();
-            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         } else if (dlg == 1) {
             cargarListaTiposAusentismos();
             contarRegistroTipo();
-            RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+            RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
         } else if (dlg == 2) {
             cargarListaClasesAusentismos();
             contarRegistroClase();
-            RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+            RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
         } else if (dlg == 3) {
             cargarListaClasesAusentismos();
             contarRegistroCausa();
-            RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+            RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').show()");
         } else if (dlg == 4) {
             contarRegistroPorcentaje();
-            RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
+            RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
             RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
         } else if (dlg == 5) {
-//            listaIBCS = null;
-//            getListaIBCS();
             cargarListaIBC();
             contarRegistroBase();
-            RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
+            RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
             RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').show()");
         } else if (dlg == 6) {
             contarRegistroForma();
-            RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
+            RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
             RequestContext.getCurrentInstance().execute("PF('formasDialogo').show()");
         } else if (dlg == 7) {
             cargarListaAccidentes();
             contarRegistroAccidente();
-            RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
+            RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
             RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').show()");
         } else if (dlg == 8) {
             cargarListaTerceros();
             contarRegistroTercero();
-            RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
+            RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
         } else if (dlg == 9) {
             cargarListasEnfermedades();
             contarRegistroEnfermedad();
-            RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
+            RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
             RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').show()");
         } else if (dlg == 10) {
             cargarListaProrrogas();
             contarRegistroProrroga();
-            RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
+            RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
             RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').show()");
         } else if (dlg == 11) {
             cargarListaDiagnosticos();
             contarRegistroDiagnostico();
-            RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
+            RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
             RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').show()");
         }
     }
@@ -369,19 +366,15 @@ public class ControlAusentismos implements Serializable {
             for (int i = 0; i < listaEmpleados.size(); i++) {
                 listaEmpleadosAusentismo.add(listaEmpleados.get(i));
             }
-
         }
-        seleccionEmpleados = listaEmpleadosAusentismo.get(0);
-        listaAusentismos = administrarAusentismos.ausentismosEmpleado(seleccionEmpleados.getSecuencia());
+        seleccionMostrar = listaEmpleadosAusentismo.get(0);
+        listaAusentismos = administrarAusentismos.ausentismosEmpleado(seleccionMostrar.getSecuencia());
+        getListaAusentismos();
         contarRegistroEmpleado();
+        contarRegistroAusentismos();
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosAusentismosEmpleado");
-        //getListaConceptosNovedad();
-
-        listaAusentismos = null;
-        filtradosListaAusentismos = null;
         aceptar = true;
-        ausentismoSeleccionado = null;
         tipoActualizacion = -1;
         cualCelda = -1;
     }
@@ -402,8 +395,8 @@ public class ControlAusentismos implements Serializable {
         secuenciaEmpleado = seleccionEmpleados.getSecuencia();
         listaAusentismos = null;
         getListaAusentismos();
-        if(listaAusentismos != null){
-            if(!listaAusentismos.isEmpty()){
+        if (listaAusentismos != null) {
+            if (!listaAusentismos.isEmpty()) {
                 ausentismoSeleccionado = listaAusentismos.get(0);
             }
         }
@@ -447,12 +440,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cambiosPagina = false;
 
-        context.reset("formularioDialogos:LOVProrrogas:globalFilter");
+        context.reset("formLovProrrogas:LOVProrrogas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVProrrogas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProrrogas");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPR");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:LOVProrrogas");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:aceptarPR");
 
     }
 
@@ -493,7 +486,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLovTiposAusentismos:LOVTiposAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTiposAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLovTiposAusentismos:LOVTiposAusentismos");
         RequestContext.getCurrentInstance().update("formLovTiposAusentismos:aceptarTA");
 
@@ -535,7 +528,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLOVClasesAusentismo:LOVClasesAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:LOVClasesAusentismos");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:aceptarCA");
 
@@ -575,7 +568,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLovCausasAusentismos:LOVCausasAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCausasAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLovCausasAusentismos:LOVCausasAusentismos");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:aceptarCAS");
 
@@ -613,12 +606,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVPorcentajes:globalFilter");
+        context.reset("formLovPorcentajes:LOVPorcentajes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPorcentajes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPorcentajes");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:LOVPorcentajes");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:aceptarP");
     }
 
     public void actualizarIBCS() {
@@ -653,12 +646,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVIbcs:globalFilter");
+        context.reset("formLovIbcs:LOVIbcs:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVIbcs').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVIbcs");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarI");
+        RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
+        RequestContext.getCurrentInstance().update("formLovIbcs:LOVIbcs");
+        RequestContext.getCurrentInstance().update("formLovIbcs:aceptarI");
     }
 
     public void actualizarEnfermedades() {
@@ -693,12 +686,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVEnfermedades:globalFilter");
+        context.reset("formLovEnfermedades:LOVEnfermedades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEnfermedades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVEnfermedades");
-        RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarEP");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:LOVEnfermedades");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:aceptarEP");
     }
 
     public void actualizarFormas() {
@@ -733,12 +726,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVFormas:globalFilter");
+        context.reset("formLoVFormas:LOVFormas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVFormas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('formasDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVFormas");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarFP");
+        RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
+        RequestContext.getCurrentInstance().update("formLoVFormas:LOVFormas");
+        RequestContext.getCurrentInstance().update("formLoVFormas:aceptarFP");
     }
 
     public void actualizarAD() {
@@ -772,12 +765,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVAccidentes:globalFilter");
+        context.reset("formLovAccidentes:LOVAccidentes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVAccidentes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVAccidentes");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAD");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:LOVAccidentes");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:aceptarAD");
     }
 
     public void actualizarTerceros() {
@@ -812,12 +805,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVTerceros:globalFilter");
+        context.reset("formLovTerceros:LOVTerceros:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTerceros').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTerceros");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTER");
+        RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
+        RequestContext.getCurrentInstance().update("formLovTerceros:LOVTerceros");
+        RequestContext.getCurrentInstance().update("formLovTerceros:aceptarTER");
     }
 
     public void actualizarDiagnosticos() {
@@ -852,12 +845,12 @@ public class ControlAusentismos implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         cualCelda = -1;
-        context.reset("formularioDialogos:LOVDiagnosticos:globalFilter");
+        context.reset("formLovDiagnosticos:LOVDiagnosticos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVDiagnosticos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVDiagnosticos");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:LOVDiagnosticos");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:aceptarD");
     }
 
     public void cancelarCambioDiagnosticos() {
@@ -868,12 +861,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVDiagnosticos:globalFilter");
+        context.reset("formLovDiagnosticos:LOVDiagnosticos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVDiagnosticos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVDiagnosticos");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarD");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:LOVDiagnosticos");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:aceptarD");
     }
 
     public void cancelarCambioEmpleados() {
@@ -887,7 +880,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLovEmpleados:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
         RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
         RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarE");
     }
@@ -903,7 +896,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLovTiposAusentismos:LOVTiposAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTiposAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLovTiposAusentismos:LOVTiposAusentismos");
         RequestContext.getCurrentInstance().update("formLovTiposAusentismos:aceptarTA");
     }
@@ -919,7 +912,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLOVClasesAusentismo:LOVClasesAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:LOVClasesAusentismos");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:aceptarCA");
     }
@@ -935,7 +928,7 @@ public class ControlAusentismos implements Serializable {
         context.reset("formLovCausasAusentismos:LOVCausasAusentismos:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVCausasAusentismos').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+        RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:causasAusentismosDialogo");
         RequestContext.getCurrentInstance().update("formLovCausasAusentismos:LOVCausasAusentismos");
         RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:aceptarCAS");
     }
@@ -948,12 +941,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVPorcentajes:globalFilter");
+        context.reset("formLovPorcentajes:LOVPorcentajes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPorcentajes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPorcentajes");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:LOVPorcentajes");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:aceptarP");
     }
 
     public void cancelarCambioFormas() {
@@ -964,12 +957,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVFormas:globalFilter");
+        context.reset("formLoVFormas:LOVFormas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVFormas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('formasDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVFormas");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarFP");
+        RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
+        RequestContext.getCurrentInstance().update("formLoVFormas:LOVFormas");
+        RequestContext.getCurrentInstance().update("formLoVFormas:aceptarFP");
     }
 
     public void cancelarCambioIBCS() {
@@ -980,12 +973,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVIbcs:globalFilter");
+        context.reset("formLovIbcs:LOVIbcs:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVIbcs').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVIbcs");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarI");
+        RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
+        RequestContext.getCurrentInstance().update("formLovIbcs:LOVIbcs");
+        RequestContext.getCurrentInstance().update("formLovIbcs:aceptarI");
     }
 
     public void cancelarCambioEnfermedades() {
@@ -996,12 +989,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVEnfermedades:globalFilter");
+        context.reset("formLovEnfermedades:LOVEnfermedades:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEnfermedades').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVEnfermedades");
-        RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarEP");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:LOVEnfermedades");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:aceptarEP");
     }
 
     public void cancelarCambioProrrogas() {
@@ -1012,12 +1005,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVProrrogas:globalFilter");
+        context.reset("formLovProrrogas:LOVProrrogas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVProrrogas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVProrrogas");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPR");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:LOVProrrogas");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:aceptarPR");
     }
 
     public void cancelarCambioAD() {
@@ -1028,12 +1021,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVAccidentes:globalFilter");
+        context.reset("formLovAccidentes:LOVAccidentes:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVAccidentes').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVAccidentes");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAD");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:LOVAccidentes");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:aceptarAD");
     }
 
     public void cancelarCambioTerceros() {
@@ -1044,12 +1037,12 @@ public class ControlAusentismos implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
-        context.reset("formularioDialogos:LOVTerceros:globalFilter");
+        context.reset("formLovTerceros:LOVTerceros:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVTerceros').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVTerceros");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTER");
+        RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
+        RequestContext.getCurrentInstance().update("formLovTerceros:LOVTerceros");
+        RequestContext.getCurrentInstance().update("formLovTerceros:aceptarTER");
     }
 
     //RASTROS 
@@ -1115,7 +1108,7 @@ public class ControlAusentismos implements Serializable {
                 cambiosPagina = false;
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1136,7 +1129,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1157,7 +1150,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1178,7 +1171,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1199,7 +1192,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
+                RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1220,7 +1213,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
+                RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1241,7 +1234,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
+                RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('formasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1262,7 +1255,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
+                RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1283,7 +1276,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
+                RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1304,7 +1297,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
+                RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1325,7 +1318,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
                 permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
+                RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').show()");
                 tipoActualizacion = 0;
             }
@@ -1712,7 +1705,7 @@ public class ControlAusentismos implements Serializable {
                 listaTiposAusentismos.clear();
                 getListaTiposAusentismos();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1745,7 +1738,7 @@ public class ControlAusentismos implements Serializable {
                 listaClasesAusentismos.clear();
                 getListaClasesAusentismos();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1780,7 +1773,7 @@ public class ControlAusentismos implements Serializable {
                 listaCausasAusentismos.clear();
                 getListaCausasAusentismos();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1813,7 +1806,7 @@ public class ControlAusentismos implements Serializable {
                 listaPorcentaje.clear();
                 getListaPorcentaje();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
+                RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1846,7 +1839,7 @@ public class ControlAusentismos implements Serializable {
                 listaIBCS.clear();
                 getListaIBCS();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
+                RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1879,7 +1872,7 @@ public class ControlAusentismos implements Serializable {
                 listaForma.clear();
                 getListaForma();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
+                RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('formasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1912,7 +1905,7 @@ public class ControlAusentismos implements Serializable {
                 listaAccidentes.clear();
                 getListaAccidentes();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
+                RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1945,7 +1938,7 @@ public class ControlAusentismos implements Serializable {
                 listaAccidentes.clear();
                 getListaAccidentes();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
+                RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -1978,7 +1971,7 @@ public class ControlAusentismos implements Serializable {
                 listaDiagnosticos.clear();
                 getListaDiagnosticos();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
+                RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -2011,7 +2004,7 @@ public class ControlAusentismos implements Serializable {
                 listaProrrogas.clear();
                 getListaProrrogas();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
+                RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -2044,7 +2037,7 @@ public class ControlAusentismos implements Serializable {
                 listaTerceros.clear();
                 getListaTerceros();
             } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
                 tipoActualizacion = tipoNuevo;
                 if (tipoNuevo == 1) {
@@ -2195,48 +2188,48 @@ public class ControlAusentismos implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 cargarListaTiposAusentismos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:tiposAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTiposAusentismos:tiposAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
                 cargarListaClasesAusentismos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:clasesAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:clasesAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('clasesAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 2) {
                 cargarListaCausasAusentismos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:causasAusentismosDialogo");
+                RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 10) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:porcentajesDialogo");
+                RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
             } else if (cualCelda == 11) {
                 cargarListaIBC();
-                RequestContext.getCurrentInstance().update("formularioDialogos:ibcsDialogo");
+                RequestContext.getCurrentInstance().update("formLovIbcs:ibcsDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ibcsDialogo').show()");
             } else if (cualCelda == 12) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:formasDialogo");
+                RequestContext.getCurrentInstance().update("formLoVFormas:formasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('formasDialogo').show()");
             } else if (cualCelda == 13) {
                 cargarListaAccidentes();
-                RequestContext.getCurrentInstance().update("formularioDialogos:accidentesDialogo");
+                RequestContext.getCurrentInstance().update("formLovAccidentes:accidentesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('accidentesDialogo').show()");
             } else if (cualCelda == 14) {
                 cargarListasEnfermedades();
-                RequestContext.getCurrentInstance().update("formularioDialogos:enfermedadesDialogo");
+                RequestContext.getCurrentInstance().update("formLovEnfermedades:enfermedadesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('enfermedadesDialogo').show()");
             } else if (cualCelda == 16) {
                 cargarListaDiagnosticos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:diagnosticosDialogo");
+                RequestContext.getCurrentInstance().update("formLovDiagnosticos:diagnosticosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('diagnosticosDialogo').show()");
             } else if (cualCelda == 17) {
                 cargarListaProrrogas();
-                RequestContext.getCurrentInstance().update("formularioDialogos:prorrogasDialogo");
+                RequestContext.getCurrentInstance().update("formLovProrrogas:prorrogasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('prorrogasDialogo').show()");
             } else if (cualCelda == 19) {
                 cargarListaTerceros();
-                RequestContext.getCurrentInstance().update("formularioDialogos:tercerosDialogo");
+                RequestContext.getCurrentInstance().update("formLovTerceros:tercerosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tercerosDialogo').show()");
             }
         }
@@ -2793,51 +2786,51 @@ public class ControlAusentismos implements Serializable {
     }
 
     public void contarRegistroEmpleadoLov() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadoLOV");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:infoRegistroEmpleadoLOV");
     }
 
     public void contarRegistroAccidente() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAccidente");
+        RequestContext.getCurrentInstance().update("formLovAccidentes:infoRegistroAccidente");
     }
 
     public void contarRegistroDiagnostico() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroDiagnostico");
+        RequestContext.getCurrentInstance().update("formLovDiagnosticos:infoRegistroDiagnostico");
     }
 
     public void contarRegistroProrroga() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroProrroga");
+        RequestContext.getCurrentInstance().update("formLovProrrogas:infoRegistroProrroga");
     }
 
     public void contarRegistroTercero() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTercero");
+        RequestContext.getCurrentInstance().update("formLovTerceros:infoRegistroTercero");
     }
 
     public void contarRegistroEnfermedad() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEnfermedad");
+        RequestContext.getCurrentInstance().update("formLovEnfermedades:infoRegistroEnfermedad");
     }
 
     public void contarRegistroTipo() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipos");
+        RequestContext.getCurrentInstance().update("formLovTiposAusentismos:infoRegistroTipos");
     }
 
     public void contarRegistroClase() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroClases");
+        RequestContext.getCurrentInstance().update("formLOVClasesAusentismo:infoRegistroClases");
     }
 
     public void contarRegistroCausa() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCausas");
+        RequestContext.getCurrentInstance().update("formLovCausasAusentismos:infoRegistroCausas");
     }
 
     public void contarRegistroPorcentaje() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPorcentaje");
+        RequestContext.getCurrentInstance().update("formLovPorcentajes:infoRegistroPorcentaje");
     }
 
     public void contarRegistroBase() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroIBCS");
+        RequestContext.getCurrentInstance().update("formLovIbcs:infoRegistroIBCS");
     }
 
     public void contarRegistroForma() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroForma");
+        RequestContext.getCurrentInstance().update("formLoVFormas:infoRegistroForma");
     }
 
     public void habilitarBotonLov() {
@@ -2960,12 +2953,14 @@ public class ControlAusentismos implements Serializable {
 
     //GETTER & SETTER
     public List<Soausentismos> getListaAusentismos() {
-        if (listaAusentismos == null && secuenciaEmpleado != null) {
-            listaAusentismos = administrarAusentismos.ausentismosEmpleado(secuenciaEmpleado);
-            if (listaAusentismos != null) {
-                if (!listaAusentismos.isEmpty()) {
-                    for (int i = 0; i < listaAusentismos.size(); i++) {
-                        listaAusentismos.get(i).setRelacion(administrarAusentismos.mostrarRelacion(listaAusentismos.get(i).getSecuencia()));
+        if (listaAusentismos == null) {
+            if (secuenciaEmpleado != null) {
+                listaAusentismos = administrarAusentismos.ausentismosEmpleado(secuenciaEmpleado);
+                if (listaAusentismos != null) {
+                    if (!listaAusentismos.isEmpty()) {
+                        for (int i = 0; i < listaAusentismos.size(); i++) {
+                            listaAusentismos.get(i).setRelacion(administrarAusentismos.mostrarRelacion(listaAusentismos.get(i).getSecuencia()));
+                        }
                     }
                 }
             }
@@ -3418,27 +3413,21 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroTipo() {
         FacesContext c = FacesContext.getCurrentInstance();
-//        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovConceptos:LOVConceptos");
-        
-        /*
-         FacesContext c = FacesContext.getCurrentInstance();
-      if (filtradoslistaConceptos != null) {
-         if (filtradoslistaConceptos.size() == 1) {
-            seleccionConceptos = filtradoslistaConceptos.get(0);
-            aceptar = false;
-            RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows();PF('LOVConceptos').selectRow(0);");
-         } else {
-            seleccionConceptos = null;
-            RequestContext.getCurrentInstance().execute("PF('LOVConceptos').unselectAllRows();");
-         }
-      } else {
-         seleccionConceptos = null;
-         aceptar = true;
-      }
-      infoRegistroConceptos = String.valueOf(tabla.getRowCount());
-      return infoRegistroConceptos;
-        */
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovTiposAusentismos:LOVTiposAusentismos");
+
+        if (filtradoslistaTiposAusentismos != null) {
+            if (filtradoslistaTiposAusentismos.size() == 1) {
+                seleccionTiposAusentismos = filtradoslistaTiposAusentismos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVTiposAusentismos').unselectAllRows();PF('LOVTiposAusentismos').selectRow(0);");
+            } else {
+                seleccionTiposAusentismos = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVTiposAusentismos').unselectAllRows();");
+            }
+        } else {
+            seleccionTiposAusentismos = null;
+            aceptar = true;
+        }
         infoRegistroTipo = String.valueOf(tabla.getRowCount());
         return infoRegistroTipo;
     }
@@ -3450,6 +3439,19 @@ public class ControlAusentismos implements Serializable {
     public String getInfoRegistroClase() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLOVClasesAusentismo:LOVClasesAusentismos");
+        if (filtradoslistaClasesAusentismos != null) {
+            if (filtradoslistaClasesAusentismos.size() == 1) {
+                seleccionClasesAusentismos = filtradoslistaClasesAusentismos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').unselectAllRows();PF('LOVClasesAusentismos').selectRow(0);");
+            } else {
+                seleccionClasesAusentismos = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVClasesAusentismos').unselectAllRows();");
+            }
+        } else {
+            seleccionClasesAusentismos = null;
+            aceptar = true;
+        }
         infoRegistroClase = String.valueOf(tabla.getRowCount());
         return infoRegistroClase;
     }
@@ -3461,6 +3463,19 @@ public class ControlAusentismos implements Serializable {
     public String getInfoRegistroCausa() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovCausasAusentismos:LOVCausasAusentismos");
+        if (filtradoslistaCausasAusentismos != null) {
+            if (filtradoslistaCausasAusentismos.size() == 1) {
+                seleccionCausasAusentismos = filtradoslistaCausasAusentismos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVCausasAusentismos').unselectAllRows();PF('LOVCausasAusentismos').selectRow(0);");
+            } else {
+                seleccionCausasAusentismos = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVCausasAusentismos').unselectAllRows();");
+            }
+        } else {
+            seleccionCausasAusentismos = null;
+            aceptar = true;
+        }
         infoRegistroCausa = String.valueOf(tabla.getRowCount());
         return infoRegistroCausa;
     }
@@ -3471,7 +3486,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroPorcentaje() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPorcentajes");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovPorcentajes:LOVPorcentajes");
+        if (filtradosListaPorcentajes != null) {
+            if (filtradosListaPorcentajes.size() == 1) {
+                seleccionPorcentajes = filtradosListaPorcentajes.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVPorcentajes').unselectAllRows();PF('LOVPorcentajes').selectRow(0);");
+            } else {
+                seleccionPorcentajes = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVPorcentajes').unselectAllRows();");
+            }
+        } else {
+            seleccionPorcentajes = null;
+            aceptar = true;
+        }
         infoRegistroPorcentaje = String.valueOf(tabla.getRowCount());
         return infoRegistroPorcentaje;
     }
@@ -3482,7 +3510,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroBase() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVIbcs");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovIbcs:LOVIbcs");
+        if (filtradosListaIBCS != null) {
+            if (filtradosListaIBCS.size() == 1) {
+                seleccionIBCS = filtradosListaIBCS.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVIbcs').unselectAllRows();PF('LOVIbcs').selectRow(0);");
+            } else {
+                seleccionIBCS = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVIbcs').unselectAllRows();");
+            }
+        } else {
+            seleccionIBCS = null;
+            aceptar = true;
+        }
         infoRegistroBase = String.valueOf(tabla.getRowCount());
         return infoRegistroBase;
     }
@@ -3493,7 +3534,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroAccidente() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVAccidentes");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovAccidentes:LOVAccidentes");
+        if (filtradoslistaAccidentes != null) {
+            if (filtradoslistaAccidentes.size() == 1) {
+                seleccionAccidentes = filtradoslistaAccidentes.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVAccidentes').unselectAllRows();PF('LOVAccidentes').selectRow(0);");
+            } else {
+                seleccionAccidentes = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVAccidentes').unselectAllRows();");
+            }
+        } else {
+            seleccionAccidentes = null;
+            aceptar = true;
+        }
         infoRegistroAccidente = String.valueOf(tabla.getRowCount());
         return infoRegistroAccidente;
     }
@@ -3504,7 +3558,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroEnfermedad() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEnfermedades");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEnfermedades:LOVEnfermedades");
+        if (filtradoslistaEnfermeadadesProfesionales != null) {
+            if (filtradoslistaEnfermeadadesProfesionales.size() == 1) {
+                seleccionEnfermeadadesProfesionales = filtradoslistaEnfermeadadesProfesionales.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVEnfermedades').unselectAllRows();PF('LOVEnfermedades').selectRow(0);");
+            } else {
+                seleccionEnfermeadadesProfesionales = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVEnfermedades').unselectAllRows();");
+            }
+        } else {
+            seleccionEnfermeadadesProfesionales = null;
+            aceptar = true;
+        }
         infoRegistroAccidente = String.valueOf(tabla.getRowCount());
         return infoRegistroEnfermedad;
     }
@@ -3515,7 +3582,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroDiagnostico() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVDiagnosticos");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovDiagnosticos:LOVDiagnosticos");
+        if (filtradoslistaDiagnosticos != null) {
+            if (filtradoslistaDiagnosticos.size() == 1) {
+                seleccionDiagnosticos = filtradoslistaDiagnosticos.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVDiagnosticos').unselectAllRows();PF('LOVDiagnosticos').selectRow(0);");
+            } else {
+                seleccionDiagnosticos = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVDiagnosticos').unselectAllRows();");
+            }
+        } else {
+            seleccionDiagnosticos = null;
+            aceptar = true;
+        }
         infoRegistroDiagnostico = String.valueOf(tabla.getRowCount());
         return infoRegistroDiagnostico;
     }
@@ -3526,7 +3606,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroProrroga() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVProrrogas");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovProrrogas:LOVProrrogas");
+        if (filtradoslistaProrrogas != null) {
+            if (filtradoslistaProrrogas.size() == 1) {
+                seleccionProrrogas = filtradoslistaProrrogas.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVProrrogas').unselectAllRows();PF('LOVProrrogas').selectRow(0);");
+            } else {
+                seleccionProrrogas = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVProrrogas').unselectAllRows();");
+            }
+        } else {
+            seleccionProrrogas = null;
+            aceptar = true;
+        }
         infoRegistroProrroga = String.valueOf(tabla.getRowCount());
         return infoRegistroProrroga;
     }
@@ -3537,7 +3630,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroTercero() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVTerceros");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovTerceros:LOVTerceros");
+        if (filtradoslistaTerceros != null) {
+            if (filtradoslistaTerceros.size() == 1) {
+                seleccionTerceros = filtradoslistaTerceros.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVTerceros').unselectAllRows();PF('LOVTerceros').selectRow(0);");
+            } else {
+                seleccionTerceros = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVTerceros').unselectAllRows();");
+            }
+        } else {
+            seleccionTerceros = null;
+            aceptar = true;
+        }
         infoRegistroTercero = String.valueOf(tabla.getRowCount());
         return infoRegistroTercero;
     }
@@ -3559,7 +3665,20 @@ public class ControlAusentismos implements Serializable {
 
     public String getInfoRegistroForma() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVFormas");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLoVFormas:LOVFormas");
+        if (filtradosListaForma != null) {
+            if (filtradosListaForma.size() == 1) {
+                seleccionForma = filtradosListaForma.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVFormas').unselectAllRows();PF('LOVFormas').selectRow(0);");
+            } else {
+                seleccionForma = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVFormas').unselectAllRows();");
+            }
+        } else {
+            seleccionForma = null;
+            aceptar = true;
+        }
         infoRegistroForma = String.valueOf(tabla.getRowCount());
         return infoRegistroForma;
     }
@@ -3598,6 +3717,19 @@ public class ControlAusentismos implements Serializable {
     public String getInfoRegistroEmpleadoLov() {
         FacesContext c = FacesContext.getCurrentInstance();
         DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEmpleados:LOVEmpleados");
+        if (filtradoslistaEmpleados != null) {
+            if (filtradoslistaEmpleados.size() == 1) {
+                seleccionEmpleados = filtradoslistaEmpleados.get(0);
+                aceptar = false;
+                RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();PF('LOVEmpleados').selectRow(0);");
+            } else {
+                seleccionEmpleados = null;
+                RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();");
+            }
+        } else {
+            seleccionEmpleados = null;
+            aceptar = true;
+        }
         infoRegistroEmpleadoLov = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadoLov;
     }

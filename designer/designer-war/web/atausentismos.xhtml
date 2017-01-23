@@ -729,7 +729,7 @@
                                       filteredValue="#{controlAusentismos.filtradoslistaTiposAusentismos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{tipo.secuencia}" selection="#{controlAusentismos.seleccionTiposAusentismos}" selectionMode="single">
 
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarTA"/>
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovTiposAusentismos:aceptarTA"/>
                             <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarTiposAusentismos()}" process="@this" />
                             <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroTipo()}"/>
 
@@ -771,7 +771,7 @@
                                       filteredValue="#{controlAusentismos.filtradoslistaClasesAusentismos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{clase.secuencia}" selection="#{controlAusentismos.seleccionClasesAusentismos}" selectionMode="single">
 
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarCA"/>
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLOVClasesAusentismo:aceptarCA"/>
                             <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarClasesAusentismos()}" process="@this" />
                             <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroClase()}"/>
 
@@ -812,7 +812,7 @@
                                       filteredValue="#{controlAusentismos.filtradoslistaCausasAusentismos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{causa.secuencia}" selection="#{controlAusentismos.seleccionCausasAusentismos}" selectionMode="single">
 
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarCAS"/>
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovCausasAusentismos:aceptarCAS"/>
                             <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarCausasAusentismos()}" process="@this" />
                             <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroCausa()}"/>
                             <f:facet name="header">  
@@ -844,51 +844,437 @@
                 </h:form>
 
                 <h:form id="formLovEmpleados">
-                    
-                
-                <!-- L.O.V Empleado-->
-                <p:dialog header="#{msg['empleados']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                          showEffect="fade" hideEffect="fade" modal="true" width="450">
+                    <p:dialog header="#{msg['empleados']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="450">
 
-                    <p:dataTable  id="LOVEmpleados" var="emp" value="#{controlAusentismos.listaEmpleados}"
-                                  scrollable="true" scrollHeight="200" scrollWidth="424" widgetVar="LOVEmpleados" 
-                                  filteredValue="#{controlAusentismos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
-                                  rowKey="#{emp.secuencia}" selection="#{controlAusentismos.seleccionEmpleados}" selectionMode="single">
+                        <p:dataTable  id="LOVEmpleados" var="emp" value="#{controlAusentismos.listaEmpleados}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="424" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlAusentismos.filtradoslistaEmpleados}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlAusentismos.seleccionEmpleados}" selectionMode="single">
 
-                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarEmpleados()}" process="@this" />
-                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroEmpleadoLov()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovEmpleados:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarEmpleados()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroEmpleadoLov()}"/>
 
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarE']}" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="20" filterStyle="width: 80% !important;" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['codigo']}" />
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterStyle="width: 80% !important;" width="80" filterMatchMode="contains"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nombre']}" />
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadoLOV" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEmpleadoLov}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEmpleados()}" process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form  id="formLovPorcentajes" >
+                    <p:dialog header="#{msg['porcentajes']}" widgetVar="porcentajesDialogo" draggable="true" resizable="false" id="porcentajesDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="350">
+                        <p:dataTable  id="LOVPorcentajes" var="por" value="#{controlAusentismos.listaPorcentaje}"
+                                      scrollable="true" scrollWidth="330" widgetVar="LOVPorcentajes" scrollHeight="115"
+                                      filteredValue="#{controlAusentismos.filtradosListaPorcentajes}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{por}" selection="#{controlAusentismos.seleccionPorcentajes}" selectionMode="single">
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovPorcentajes:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarPorcentajes()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroPorcentaje()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarP']}" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVPorcentajes').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+                            <p:column sortBy="#{por}" filterBy="#{por}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['porcentaje']}" />
+                                </f:facet>
+                                <h:outputText value="#{por}" />  
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroPorcentaje" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroPorcentaje}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarPorcentajes()}" process="@this"/>
+                            <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioPorcentajes()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formLovIbcs">
+                    <p:dialog header="#{msg['ibcs']}" widgetVar="ibcsDialogo" draggable="true" resizable="false" id="ibcsDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="390">
+                        <p:dataTable  id="LOVIbcs" var="ibcs" value="#{controlAusentismos.listaIBCS}"
+                                      scrollable="true" scrollHeight="120" scrollWidth="365" widgetVar="LOVIbcs" 
+                                      filteredValue="#{controlAusentismos.filtradosListaIBCS}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{ibcs.secuencia}" selection="#{controlAusentismos.seleccionIBCS}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovIbcs:aceptarI"/>
+                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarIBCS()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroBase()}"/>
+
+                            <f:facet name="header">  
+                                <h:outputText value="#{msg['buscarI']}" />  
+                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVIbcs').filter();" class="cssFiltroLOV"/>  
+                            </f:facet>
+
+                            <p:column style="text-align: center !important;" class="cssColumnasNumericas" sortBy="#{ibcs.valor}" filterBy="#{ibcs.valor}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['valor']}"/>
+                                </f:facet>
+                                <h:outputText value="$ #{ibcs.valor}"/>  
+                            </p:column>
+
+                            <p:column style="text-align: center !important;" sortBy="#{ibcs.fechainicial}" filterBy="#{ibcs.fechainicial}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['fechainicial']}"/>
+                                </f:facet>
+                                <h:outputText value="#{ibcs.fechainicial}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>  
+                            </p:column>
+
+                            <p:column style="text-align: center !important;" sortBy="#{ibcs.fechafinal}" filterBy="#{ibcs.fechafinal}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['fechafinal']}"/>
+                                </f:facet>
+                                <h:outputText value="#{ibcs.fechafinal}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>  
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroIBCS" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroBase}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarIBCS()}" process="@this"/>
+                            <p:commandButton id="atrasI" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioIBCS()}" process="@this"/>
+                        </div>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formLoVFormas">
+                <p:dialog header="#{msg['formaspagosF']}" widgetVar="formasDialogo" draggable="true" resizable="false" id="formasDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="360">
+
+                    <p:dataTable  id="LOVFormas" var="for" value="#{controlAusentismos.listaForma}"
+                                  scrollable="true" scrollHeight="170" scrollWidth="334" widgetVar="LOVFormas" 
+                                  filteredValue="#{controlAusentismos.filtradosListaForma}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{for}" selection="#{controlAusentismos.seleccionForma}" selectionMode="single">
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLoVFormas:aceptarFP"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarFormas()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroForma()}"/>
                         <f:facet name="header">  
-                            <h:outputText value="#{msg['buscarE']}" />  
-                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
+                            <h:outputText value="#{msg['buscarF']}" />  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVFormas').filter();" class="cssFiltroLOV" />  
                         </f:facet>
 
-                        <p:column sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="20" filterStyle="width: 80% !important;" filterMatchMode="contains"> 
+                        <p:column sortBy="#{for}" filterBy="#{for}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fliquidacion']}" />
+                            </f:facet>
+                            <h:outputText value="#{for}" />  
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroForma" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroForma}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarFP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarFormas()}" process="@this"/>
+                        <p:commandButton id="atrasFP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioFormas()}" process="@this"/>
+                    </div>
+                </p:dialog>
+                </h:form>
+                
+                
+                <h:form id="formLovAccidentes">
+                <p:dialog header="#{msg['accidentesA']}" widgetVar="accidentesDialogo" draggable="true" resizable="false" id="accidentesDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="580">
+
+                    <p:dataTable  id="LOVAccidentes" var="accidentes" value="#{controlAusentismos.listaAccidentes}"
+                                  scrollable="true" scrollHeight="150" scrollWidth="555" widgetVar="LOVAccidentes" 
+                                  filteredValue="#{controlAusentismos.filtradoslistaAccidentes}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{accidentes.secuencia}" selection="#{controlAusentismos.seleccionAccidentes}" selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovAccidentes:aceptarAD"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarAD()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroAccidente()}"/>
+
+                        <f:facet name="header">  
+                            <h:outputText value="#{msg['buscarA']}" />  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVAccidentes').filter();" class="cssFiltroLOV" />  
+                        </f:facet>
+
+                        <p:column sortBy="#{accidentes.hora}" filterBy="#{accidentes.hora}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['hora']}" />
+                            </f:facet>
+                            <h:outputText value="#{accidentes.hora}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{accidentes.expediente}" filterBy="#{accidentes.expediente}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['expediente']}" />
+                            </f:facet>
+                            <h:outputText value="#{accidentes.expediente}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{accidentes.fecha}" filterBy="#{accidentes.fecha}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fecha']}" />
+                            </f:facet>
+                            <h:outputText value="#{accidentes.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column sortBy="#{accidentes.descripcioncaso}" filterBy="#{accidentes.descripcioncaso}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['descripcion']}" />
+                            </f:facet>
+                            <h:outputText value="#{accidentes.descripcioncaso}" />  
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroAccidente" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroAccidente}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton icon="ui-icon-check" id="aceptarAD" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarAD()}" process="@this"/>
+                        <p:commandButton icon="ui-icon-close" id="atrasAD" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioAD()}" process="@this"/>
+                    </div>
+                </p:dialog>
+                </h:form>
+                
+                <h:form id="formLovDiagnosticos">
+                <p:dialog header="#{msg['diagnosticosD']}" widgetVar="diagnosticosDialogo" draggable="true" resizable="false" id="diagnosticosDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="550">
+
+                    <p:dataTable  id="LOVDiagnosticos" var="diagnosticos" value="#{controlAusentismos.listaDiagnosticos}"
+                                  scrollable="true" scrollHeight="200" scrollWidth="524" widgetVar="LOVDiagnosticos" 
+                                  filteredValue="#{controlAusentismos.filtradoslistaDiagnosticos}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{diagnosticos.secuencia}" selection="#{controlAusentismos.seleccionDiagnosticos}" selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovDiagnosticos:aceptarD"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroDiagnostico()}"/>
+
+                        <f:facet name="header">  
+                            <h:outputText value="#{msg['buscarD']}" />  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVDiagnosticos').filter();" class="cssFiltroLOV"/>  
+                        </f:facet>
+
+                        <p:column sortBy="#{diagnosticos.codigo}" filterBy="#{diagnosticos.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                             <f:facet name="header">
                                 <h:outputText value="#{msg['codigo']}" />
                             </f:facet>
-                            <h:outputText value="#{emp.codigoempleado}" />  
+                            <h:outputText value="#{diagnosticos.codigo}" />  
                         </p:column>
 
-                        <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterStyle="width: 80% !important;" width="80" filterMatchMode="contains"> 
+                        <p:column sortBy="#{diagnosticos.descripcion}" filterBy="#{diagnosticos.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
                             <f:facet name="header">
-                                <h:outputText value="#{msg['nombre']}" />
+                                <h:outputText value="#{msg['descripcion']}" />
                             </f:facet>
-                            <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                            <h:outputText value="#{diagnosticos.descripcion}" />  
                         </p:column>
 
                     </p:dataTable>
 
                     <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpleadoLOV" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEmpleadoLov}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEmpleados()}" process="@this"/>
-                        <p:commandButton id="atrasE" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEmpleados()}" process="@this"/>
+                        <h:outputText id="infoRegistroDiagnostico" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroDiagnostico}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this"/>
+                        <p:commandButton id="atrasD" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioDiagnosticos()}" process="@this"/>
                     </div>
                 </p:dialog>
                 </h:form>
 
+                <h:form id="formLovProrrogas">
+                <p:dialog header="#{msg['prorrogasPR']}" widgetVar="prorrogasDialogo" draggable="true" resizable="false" id="prorrogasDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="630">
 
+                    <p:dataTable  id="LOVProrrogas" var="prorrogas" value="#{controlAusentismos.listaProrrogas}"
+                                  scrollable="true" scrollHeight="200" scrollWidth="600" widgetVar="LOVProrrogas" 
+                                  filteredValue="#{controlAusentismos.filtradoslistaProrrogas}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{prorrogas.secuencia}" selection="#{controlAusentismos.seleccionProrrogas}" selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovProrrogas:aceptarPR"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarProrrogas()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroProrroga()}"/>
+
+                        <f:facet name="header">  
+                            <h:outputText value="#{msg['buscarPR']}" />  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVProrrogas').filter();" class="cssFiltroLOV" />  
+                        </f:facet>
+
+                        <p:column sortBy="#{prorrogas.causa.descripcion}" filterBy="#{prorrogas.causa.descripcion}" width="160" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['causa']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.causa.descripcion}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.diagnosticocategoria.codigo}" filterBy="#{prorrogas.diagnosticocategoria.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['codigo']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.diagnosticocategoria.codigo}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.diagnosticocategoria.descripcion}" filterBy="#{prorrogas.diagnosticocategoria.descripcion}" width="160" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['descripcion']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.diagnosticocategoria.descripcion}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.fecha}" filterBy="#{prorrogas.fecha}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechainicial']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                            </h:outputText>  
+                        </p:column>
+                        <p:column sortBy="#{prorrogas.fechafinaus}" filterBy="#{prorrogas.fechafinaus}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechafinal']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.fechafinaus}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.dias}" filterBy="#{prorrogas.dias}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['dias']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.dias}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.horas}" filterBy="#{prorrogas.horas}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['horas']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.horas}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{prorrogas.numerocertificado}" filterBy="#{prorrogas.numerocertificado}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['numero']}" />
+                            </f:facet>
+                            <h:outputText value="#{prorrogas.numerocertificado}" />  
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroProrroga" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroProrroga}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarPR" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarProrrogas()}" process="@this"/>
+                        <p:commandButton id="atrasPR" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioProrrogas()}" process="@this"/>
+                    </div>
+                </p:dialog>
+                </h:form>
+
+                <h:form id="formLovTerceros">
+                <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="366">
+
+                    <p:dataTable  id="LOVTerceros" var="terceros" value="#{controlAusentismos.listaTerceros}"
+                                  scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVTerceros" 
+                                  filteredValue="#{controlAusentismos.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{terceros.secuencia}" selection="#{controlAusentismos.seleccionTerceros}" selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovTerceros:aceptarTER"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarTerceros()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroTercero()}"/>
+
+                        <f:facet name="header">  
+                            <h:outputText value="#{msg['buscarT']}"/>  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVTerceros').filter();" class="cssFiltroLOV" />  
+                        </f:facet>
+
+                        <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" width="85" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="NIT" />
+                            </f:facet>
+                            <h:outputText value="#{terceros.nit}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['nombre']}" />
+                            </f:facet>
+                            <h:outputText value="#{terceros.nombre}" />  
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTercero}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarTER" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTerceros()}" process="@this"/>
+                        <p:commandButton id="atrasTER" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTerceros()}" process="@this"/>
+                    </div>
+                </p:dialog>
+                </h:form>
+
+                <h:form id="formLovEnfermedades">
+                <p:dialog header="#{msg['enfermedadesEN']}" widgetVar="enfermedadesDialogo" draggable="true" resizable="false" id="enfermedadesDialogo" closable="false"  
+                          showEffect="fade" hideEffect="fade" modal="true" width="550">
+
+                    <p:dataTable  id="LOVEnfermedades" var="enfermedades" value="#{controlAusentismos.listaEnfermeadadesProfesionales}"
+                                  scrollable="true" scrollHeight="150" scrollWidth="524" widgetVar="LOVEnfermedades" 
+                                  filteredValue="#{controlAusentismos.filtradoslistaEnfermeadadesProfesionales}" emptyMessage="#{msg['lovvacio']}"
+                                  rowKey="#{enfermedades.secuencia}" selection="#{controlAusentismos.seleccionEnfermeadadesProfesionales}" selectionMode="single">
+
+                        <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formLovEnfermedades:aceptarEP"/>
+                        <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarEnfermedades()}" process="@this" />
+                        <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroEnfermedad()}"/>
+
+                        <f:facet name="header">  
+                            <h:outputText value="#{msg['buscarEN']}"/>  
+                            <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEnfermedades').filter();" class="cssFiltroLOV" />  
+                        </f:facet>
+
+                        <p:column sortBy="#{enfermedades.fechanotificacion}" filterBy="#{enfermedades.fechanotificacion}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['fechanotificacion']}" />
+                            </f:facet>
+                            <h:outputText value="#{enfermedades.fechanotificacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column sortBy="#{enfermedades.categoria.descripcion}" filterBy="#{enfermedades.categoria.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['descripcion']}" />
+                            </f:facet>
+                            <h:outputText value="#{enfermedades.categoria.descripcion}" />  
+                        </p:column>
+
+                        <p:column sortBy="#{enfermedades.categoria.codigo}" filterBy="#{enfermedades.categoria.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['codigo']}" />
+                            </f:facet>
+                            <h:outputText value="#{enfermedades.categoria.codigo}" />  
+                        </p:column>
+                    </p:dataTable>
+                    <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroEnfermedad" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEnfermedad}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarEP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEnfermedades()}" process="@this"/>
+                        <p:commandButton id="atrasEP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEnfermedades()}" process="@this"/>
+                    </div>
+                </p:dialog>
+                </h:form>
 
                 <h:form id="formularioDialogos">
 
@@ -1077,7 +1463,6 @@
 
                     <!-- DIALOGO NUEVO REGISTRO -->
                     <p:dialog id="DuplicarAusentismoEmpleado" header="#{msg['duplicarregistro']}" widgetVar="DuplicarAusentismoEmpleado" closable="false" resizable="false"  draggable="true" modal="true" height="#{controlAusentismos.altoDialogoDuplicar}" width="600" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarAusentismo" style="border: none;">
@@ -1406,401 +1791,6 @@
                         <p:inputTextarea  value="#{controlAusentismos.editarAusentismos.observaciones}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
-                    <!-- L.O.V Porcentajes-->
-                    <p:dialog header="#{msg['porcentajes']}" widgetVar="porcentajesDialogo" draggable="true" resizable="false" id="porcentajesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="350">
-
-                        <p:dataTable  id="LOVPorcentajes" var="por" value="#{controlAusentismos.listaPorcentaje}"
-                                      scrollable="true" scrollWidth="330" widgetVar="LOVPorcentajes" scrollHeight="115"
-                                      filteredValue="#{controlAusentismos.filtradosListaPorcentajes}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{por}" selection="#{controlAusentismos.seleccionPorcentajes}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarPorcentajes()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroPorcentaje()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarP']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVPorcentajes').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{por}" filterBy="#{por}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['porcentaje']}" />
-                                </f:facet>
-                                <h:outputText value="#{por}" />  
-                            </p:column>
-
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroPorcentaje" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroPorcentaje}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarPorcentajes()}" process="@this"/>
-                            <p:commandButton id="atrasP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioPorcentajes()}" process="@this"/>
-                        </div>
-
-                    </p:dialog>
-
-                    <!-- L.O.V IBCS-->
-                    <p:dialog header="#{msg['ibcs']}" widgetVar="ibcsDialogo" draggable="true" resizable="false" id="ibcsDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="390">
-
-                        <p:dataTable  id="LOVIbcs" var="ibcs" value="#{controlAusentismos.listaIBCS}"
-                                      scrollable="true" scrollHeight="120" scrollWidth="365" widgetVar="LOVIbcs" 
-                                      filteredValue="#{controlAusentismos.filtradosListaIBCS}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{ibcs.secuencia}" selection="#{controlAusentismos.seleccionIBCS}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarI"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarIBCS()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroBase()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarI']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVIbcs').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-
-                            <p:column style="text-align: center !important;" class="cssColumnasNumericas" sortBy="#{ibcs.valor}" filterBy="#{ibcs.valor}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['valor']}"/>
-                                </f:facet>
-                                <h:outputText value="$ #{ibcs.valor}"/>  
-                            </p:column>
-
-                            <p:column style="text-align: center !important;" sortBy="#{ibcs.fechainicial}" filterBy="#{ibcs.fechainicial}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fechainicial']}"/>
-                                </f:facet>
-                                <h:outputText value="#{ibcs.fechainicial}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-
-                                </h:outputText>  
-                            </p:column>
-
-                            <p:column style="text-align: center !important;" sortBy="#{ibcs.fechafinal}" filterBy="#{ibcs.fechafinal}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fechafinal']}"/>
-                                </f:facet>
-                                <h:outputText value="#{ibcs.fechafinal}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-
-                                </h:outputText>  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroIBCS" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroBase}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarI" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarIBCS()}" process="@this"/>
-                            <p:commandButton id="atrasI" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioIBCS()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V Formas-->
-                    <p:dialog header="#{msg['formaspagosF']}" widgetVar="formasDialogo" draggable="true" resizable="false" id="formasDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="360">
-
-                        <p:dataTable  id="LOVFormas" var="for" value="#{controlAusentismos.listaForma}"
-                                      scrollable="true" scrollHeight="170" scrollWidth="334" widgetVar="LOVFormas" 
-                                      filteredValue="#{controlAusentismos.filtradosListaForma}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{for}" selection="#{controlAusentismos.seleccionForma}" selectionMode="single">
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarFP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarFormas()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroForma()}"/>
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarF']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVFormas').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{for}" filterBy="#{for}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fliquidacion']}" />
-                                </f:facet>
-                                <h:outputText value="#{for}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroForma" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroForma}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarFP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarFormas()}" process="@this"/>
-                            <p:commandButton id="atrasFP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioFormas()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V ACCIDENTES-->
-                    <p:dialog header="#{msg['accidentesA']}" widgetVar="accidentesDialogo" draggable="true" resizable="false" id="accidentesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="580">
-
-                        <p:dataTable  id="LOVAccidentes" var="accidentes" value="#{controlAusentismos.listaAccidentes}"
-                                      scrollable="true" scrollHeight="150" scrollWidth="555" widgetVar="LOVAccidentes" 
-                                      filteredValue="#{controlAusentismos.filtradoslistaAccidentes}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{accidentes.secuencia}" selection="#{controlAusentismos.seleccionAccidentes}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarAD"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarAD()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroAccidente()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarA']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVAccidentes').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{accidentes.hora}" filterBy="#{accidentes.hora}" width="70" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['hora']}" />
-                                </f:facet>
-                                <h:outputText value="#{accidentes.hora}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{accidentes.expediente}" filterBy="#{accidentes.expediente}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['expediente']}" />
-                                </f:facet>
-                                <h:outputText value="#{accidentes.expediente}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{accidentes.fecha}" filterBy="#{accidentes.fecha}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fecha']}" />
-                                </f:facet>
-                                <h:outputText value="#{accidentes.fecha}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-
-                                </h:outputText>  
-                            </p:column>
-
-                            <p:column sortBy="#{accidentes.descripcioncaso}" filterBy="#{accidentes.descripcioncaso}" filterMatchMode="contains" filterStyle="width: 80% !important" > 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcion']}" />
-                                </f:facet>
-                                <h:outputText value="#{accidentes.descripcioncaso}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroAccidente" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroAccidente}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton icon="ui-icon-check" id="aceptarAD" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarAD()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-close" id="atrasAD" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioAD()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V DIAGNOSTICOS-->
-                    <p:dialog header="#{msg['diagnosticosD']}" widgetVar="diagnosticosDialogo" draggable="true" resizable="false" id="diagnosticosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="550">
-
-                        <p:dataTable  id="LOVDiagnosticos" var="diagnosticos" value="#{controlAusentismos.listaDiagnosticos}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="524" widgetVar="LOVDiagnosticos" 
-                                      filteredValue="#{controlAusentismos.filtradoslistaDiagnosticos}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{diagnosticos.secuencia}" selection="#{controlAusentismos.seleccionDiagnosticos}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarD"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroDiagnostico()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarD']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVDiagnosticos').filter();" class="cssFiltroLOV"/>  
-                            </f:facet>
-
-                            <p:column sortBy="#{diagnosticos.codigo}" filterBy="#{diagnosticos.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigo']}" />
-                                </f:facet>
-                                <h:outputText value="#{diagnosticos.codigo}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{diagnosticos.descripcion}" filterBy="#{diagnosticos.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcion']}" />
-                                </f:facet>
-                                <h:outputText value="#{diagnosticos.descripcion}" />  
-                            </p:column>
-
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroDiagnostico" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroDiagnostico}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarDiagnosticos()}" process="@this"/>
-                            <p:commandButton id="atrasD" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioDiagnosticos()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- ACA ESTA LO DE LA PRORROGA -->
-                    <!-- L.O.V Prorrogas-->
-                    <p:dialog header="#{msg['prorrogasPR']}" widgetVar="prorrogasDialogo" draggable="true" resizable="false" id="prorrogasDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="630">
-
-                        <p:dataTable  id="LOVProrrogas" var="prorrogas" value="#{controlAusentismos.listaProrrogas}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="600" widgetVar="LOVProrrogas" 
-                                      filteredValue="#{controlAusentismos.filtradoslistaProrrogas}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{prorrogas.secuencia}" selection="#{controlAusentismos.seleccionProrrogas}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarPR"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarProrrogas()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroProrroga()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarPR']}" />  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVProrrogas').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{prorrogas.causa.descripcion}" filterBy="#{prorrogas.causa.descripcion}" width="160" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['causa']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.causa.descripcion}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.diagnosticocategoria.codigo}" filterBy="#{prorrogas.diagnosticocategoria.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigo']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.diagnosticocategoria.codigo}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.diagnosticocategoria.descripcion}" filterBy="#{prorrogas.diagnosticocategoria.descripcion}" width="160" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcion']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.diagnosticocategoria.descripcion}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.fecha}" filterBy="#{prorrogas.fecha}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fechainicial']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.fecha}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-
-                                </h:outputText>  
-                            </p:column>
-                            <p:column sortBy="#{prorrogas.fechafinaus}" filterBy="#{prorrogas.fechafinaus}" width="80" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fechafinal']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.fechafinaus}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:outputText>  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.dias}" filterBy="#{prorrogas.dias}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['dias']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.dias}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.horas}" filterBy="#{prorrogas.horas}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['horas']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.horas}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{prorrogas.numerocertificado}" filterBy="#{prorrogas.numerocertificado}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['numero']}" />
-                                </f:facet>
-                                <h:outputText value="#{prorrogas.numerocertificado}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroProrroga" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroProrroga}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarPR" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarProrrogas()}" process="@this"/>
-                            <p:commandButton id="atrasPR" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioProrrogas()}" process="@this"/>
-                        </div>
-
-                    </p:dialog>
-
-                    <!-- L.O.V TERCEROS-->
-                    <p:dialog header="#{msg['tercerosT']}" widgetVar="tercerosDialogo" draggable="true" resizable="false" id="tercerosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="366">
-
-                        <p:dataTable  id="LOVTerceros" var="terceros" value="#{controlAusentismos.listaTerceros}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="345" widgetVar="LOVTerceros" 
-                                      filteredValue="#{controlAusentismos.filtradoslistaTerceros}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{terceros.secuencia}" selection="#{controlAusentismos.seleccionTerceros}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarTER"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarTerceros()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroTercero()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarT']}"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVTerceros').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{terceros.nit}" filterBy="#{terceros.nit}" width="85" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="NIT" />
-                                </f:facet>
-                                <h:outputText value="#{terceros.nit}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{terceros.nombre}" filterBy="#{terceros.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText value="#{terceros.nombre}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroTercero}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarTER" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarTerceros()}" process="@this"/>
-                            <p:commandButton id="atrasTER" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioTerceros()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <!-- L.O.V ENFERMEDADES-->
-                    <p:dialog header="#{msg['enfermedadesEN']}" widgetVar="enfermedadesDialogo" draggable="true" resizable="false" id="enfermedadesDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="550">
-
-                        <p:dataTable  id="LOVEnfermedades" var="enfermedades" value="#{controlAusentismos.listaEnfermeadadesProfesionales}"
-                                      scrollable="true" scrollHeight="150" scrollWidth="524" widgetVar="LOVEnfermedades" 
-                                      filteredValue="#{controlAusentismos.filtradoslistaEnfermeadadesProfesionales}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{enfermedades.secuencia}" selection="#{controlAusentismos.seleccionEnfermeadadesProfesionales}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlAusentismos.activarAceptar()}" update=":formularioDialogos:aceptarEP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlAusentismos.actualizarEnfermedades()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlAusentismos.contarRegistroEnfermedad()}"/>
-
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarEN']}"/>  
-                                <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('LOVEnfermedades').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column sortBy="#{enfermedades.fechanotificacion}" filterBy="#{enfermedades.fechanotificacion}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['fechanotificacion']}" />
-                                </f:facet>
-                                <h:outputText value="#{enfermedades.fechanotificacion}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-
-                                </h:outputText>  
-                            </p:column>
-
-                            <p:column sortBy="#{enfermedades.categoria.descripcion}" filterBy="#{enfermedades.categoria.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['descripcion']}" />
-                                </f:facet>
-                                <h:outputText value="#{enfermedades.categoria.descripcion}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{enfermedades.categoria.codigo}" filterBy="#{enfermedades.categoria.codigo}" width="100" filterMatchMode="contains" filterStyle="width: 80% !important"> 
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigo']}" />
-                                </f:facet>
-                                <h:outputText value="#{enfermedades.categoria.codigo}" />  
-                            </p:column>
-                        </p:dataTable>
-
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroEnfermedad" value="#{msg['infoRegistros']} #{controlAusentismos.infoRegistroEnfermedad}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarEP" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']} " disabled="#{controlAusentismos.aceptar}" actionListener="#{controlAusentismos.actualizarEnfermedades()}" process="@this"/>
-                            <p:commandButton id="atrasEP" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['cancelar']} " actionListener="#{controlAusentismos.cancelarCambioEnfermedades()}" process="@this"/>
-                        </div>
-
-                    </p:dialog>
                 </h:form>
 
                 <h:form id="formExportar">
