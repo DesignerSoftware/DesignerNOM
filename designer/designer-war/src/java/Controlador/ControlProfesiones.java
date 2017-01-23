@@ -94,7 +94,6 @@ public class ControlProfesiones implements Serializable {
         paginaanterior = pagina;
         listaProfesiones = null;
         getListaProfesiones();
-        deshabilitarBotonLov();
         if (listaProfesiones != null) {
             profesionSeleccionada = listaProfesiones.get(0);
         }

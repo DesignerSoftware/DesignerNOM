@@ -4937,7 +4937,7 @@
     <navigation-rule>
         <from-view-id>/atausentismos.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasatausentismos</from-outcome>
+            <from-outcome>atausentismos</from-outcome>
             <to-view-id>/novedad.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5565,7 +5565,7 @@
     <navigation-rule>
         <from-view-id>/tipoausentismo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrastiposausentismos</from-outcome>
+            <from-outcome>tiposausentismos</from-outcome>
             <to-view-id>/atausentismos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5574,7 +5574,7 @@
     <navigation-rule>
         <from-view-id>/claseausentismo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>tiposausentismos</from-outcome>
+            <from-outcome>tipoausentismos</from-outcome>
             <to-view-id>/tipoausentismo.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5582,7 +5582,7 @@
     <navigation-rule>
         <from-view-id>/tipoausentismo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrastiposausentismos</from-outcome>
+            <from-outcome>tipoausentismos</from-outcome>
             <to-view-id>/claseausentismo.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5616,7 +5616,7 @@
     <navigation-rule>
         <from-view-id>/claseausentismo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrasclasesausentismos</from-outcome>
+            <from-outcome>clasesausentismos</from-outcome>
             <to-view-id>/atausentismos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5650,7 +5650,7 @@
     <navigation-rule>
         <from-view-id>/causaausentismo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>atrascausaausentismos</from-outcome>
+            <from-outcome>causaausentismos</from-outcome>
             <to-view-id>/atausentismos.xhtml</to-view-id>
             <redirect />
         </navigation-case>
@@ -5933,7 +5933,7 @@
         </navigation-case>
     </navigation-rule>
     
-    <navigation-rule>
+  <navigation-rule>
         <from-view-id>/personaeducacion.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>institucion</from-outcome>

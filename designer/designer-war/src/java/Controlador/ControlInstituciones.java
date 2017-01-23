@@ -73,6 +73,7 @@ public class ControlInstituciones implements Serializable {
         altoTabla = "270";
         guardado = true;
         activarLov = true;
+        paginaanterior = " ";
     }
 
     @PostConstruct
@@ -92,7 +93,6 @@ public class ControlInstituciones implements Serializable {
         paginaanterior = pagina;
         listaInstituciones = null;
         getListaInstituciones();
-        deshabilitarBotonLov();
         if (listaInstituciones != null) {
             institucionSeleccionada = listaInstituciones.get(0);
         }
@@ -119,8 +119,8 @@ public class ControlInstituciones implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarContactoInstituciones').show()");
                 cualCelda = -1;
             } else if (cualCelda == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarTelefonoInstituciones");
-                RequestContext.getCurrentInstance().execute("PF('editarTelefonoInstituciones').show()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:editarTelefonoInstitucion");
+                RequestContext.getCurrentInstance().execute("PF('editarTelefonoInstitucion').show()");
                 cualCelda = -1;
             }
         } else {

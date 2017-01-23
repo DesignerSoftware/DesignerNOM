@@ -57,11 +57,9 @@ public class Instituciones implements Serializable {
 
     public String getDescripcion() {
         if (descripcion == null) {
-            descripcion = " ";
-            return descripcion;
-        } else {
-            return descripcion.toUpperCase();
+            descripcion = "";
         }
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
@@ -70,11 +68,9 @@ public class Instituciones implements Serializable {
 
     public String getContacto() {
         if (contacto == null) {
-            contacto = " ";
-            return contacto;
-        } else {
-            return contacto.toUpperCase();
+            contacto = "";
         }
+        return contacto;
     }
 
     public void setContacto(String contacto) {
@@ -84,10 +80,8 @@ public class Instituciones implements Serializable {
     public String getTelefono() {
         if (telefono == null) {
             telefono = "";
-            return telefono;
-        } else {
-            return telefono.toUpperCase();
         }
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
