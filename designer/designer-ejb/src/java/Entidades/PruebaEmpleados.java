@@ -14,6 +14,7 @@ import javax.persistence.*;
         entities = {
             @EntityResult(entityClass = PruebaEmpleados.class,
                     fields = {
+                        @FieldResult(name = "id", column = "ID"),
                         @FieldResult(name = "codigo", column = "CODIGO"),
                         @FieldResult(name = "nombre", column = "NOMBRE"),
                         @FieldResult(name = "valor", column = "VALOR"),
@@ -24,7 +25,6 @@ public class PruebaEmpleados implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private BigDecimal codigo;
     private String nombre;

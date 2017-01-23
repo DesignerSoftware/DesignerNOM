@@ -32,7 +32,7 @@ public interface AdministrarNovedadesEmpleadosInterface {
 
     public int cuantosEmpleadosNovedad();
     public List<PruebaEmpleados> empleadosNovedadSoloAlgunos();
-    public List<PruebaEmpleados> empleadosNovedad();
+    public List<PruebaEmpleados> empleadosNovedades();
 
     public List<Empleados> lovEmpleados();
 

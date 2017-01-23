@@ -37,8 +37,9 @@
                                         </div>
                                     </div>
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad04.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" action="novedadPlano"/>
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="novedadPlano"/>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad04.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
+                                                         value="" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPagina('novedad')}"/>
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPagina('novedad')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Cargue de novedades manuales y semiautomáticas"/>
                                         </div>

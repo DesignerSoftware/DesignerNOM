@@ -5,6 +5,7 @@ package InterfacePersistencia;
 
 import Entidades.PruebaEmpleados;
 import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -21,4 +22,6 @@ public interface PersistenciaPruebaEmpleadosInterface {
      * @return Retorna una PruebaEmpleado con la informacion del empleado.
      */
     public PruebaEmpleados empleadosAsignacion(EntityManager em, BigInteger secEmpleado);
+    public List<PruebaEmpleados> empleadosNovedadesEmpl(EntityManager em);
+    public List<PruebaEmpleados> empleadosNovedadesEmple(EntityManager em);
 }

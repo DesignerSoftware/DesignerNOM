@@ -870,6 +870,7 @@ public class ControlFormula implements Serializable {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
       controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "retornoFormula");
+      
    }
 
    public void activarAceptar() {

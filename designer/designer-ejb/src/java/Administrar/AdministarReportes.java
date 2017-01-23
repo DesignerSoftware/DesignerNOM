@@ -36,133 +36,120 @@ import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 @Stateful
 public class AdministarReportes implements AdministarReportesInterface {
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaEmpleado'.
-     */
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleado;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaGenerales'.
-     */
-    @EJB
-    PersistenciaGeneralesInterface persistenciaGenerales;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaActualUsuario'.
-     */
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    /**
-     * Atributo encargado de comunicarse con la interface
-     * 'IniciarReporteInterface' para realizar un reporte.
-     */
-    @EJB
-    IniciarReporteInterface reporte;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaConfiguracionCorreo'.
-     */
-    @EJB
-    PersistenciaConfiguracionCorreoInterface persistenciaConfiguracionCorreo;
-    /**
-     * Atributo que representa la conexión actual al aplicativo.
-     */
-    private Connection conexion;
-    private EntityManager em;
-    private Generales general;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaEmpleado'.
+    */
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleado;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaGenerales'.
+    */
+   @EJB
+   PersistenciaGeneralesInterface persistenciaGenerales;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaActualUsuario'.
+    */
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   /**
+    * Atributo encargado de comunicarse con la interface
+    * 'IniciarReporteInterface' para realizar un reporte.
+    */
+   @EJB
+   IniciarReporteInterface reporte;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaConfiguracionCorreo'.
+    */
+   @EJB
+   PersistenciaConfiguracionCorreoInterface persistenciaConfiguracionCorreo;
+   /**
+    * Atributo que representa la conexión actual al aplicativo.
+    */
+   private Connection conexion;
+   private EntityManager em;
+   private Generales general;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
 
-    @Override
-    public void consultarDatosConexion() {
-        em.getTransaction().begin();
-        conexion = em.unwrap(java.sql.Connection.class);
-        em.getTransaction().commit();
-        //em.close();
-        System.out.println("AdministrarReportes consultarDatosConexion");
-    }
+   @Override
+   public void consultarDatosConexion() {
+      em.getTransaction().begin();
+      conexion = em.unwrap(java.sql.Connection.class);
+      em.getTransaction().commit();
+      //em.close();
+      System.out.println("AdministrarReportes consultarDatosConexion");
+   }
 
-    public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) {
-        //try {
-        general = persistenciaGenerales.obtenerRutas(em);
-        String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-        String pathReporteGenerado = null;
-        if (general != null && nombreUsuario != null) {
+   public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) {
+      general = persistenciaGenerales.obtenerRutas(em);
+      String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+      String pathReporteGenerado = null;
+      if (general != null && nombreUsuario != null) {
+         SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+         String fechaActual = formato.format(new Date());
+         String nombreArchivo = "JR" + nombreUsuario + fechaActual;
+         String rutaReporte = general.getPathreportes();
+         String rutaGenerado = general.getUbicareportes();
+         if (tipoReporte.equals("PDF")) {
+            nombreArchivo = nombreArchivo + ".pdf";
+         } else if (tipoReporte.equals("XLSX")) {
+            nombreArchivo = nombreArchivo + ".xlsx";
+         } else if (tipoReporte.equals("XLS")) {
+            nombreArchivo = nombreArchivo + ".xls";
+         } else if (tipoReporte.equals("CSV")) {
+            nombreArchivo = nombreArchivo + ".csv";
+         } else if (tipoReporte.equals("HTML")) {
+            nombreArchivo = nombreArchivo + ".html";
+         } else if (tipoReporte.equals("DOCX")) {
+            nombreArchivo = nombreArchivo + ".rtf";
+         }
+         reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+         return pathReporteGenerado;
+      }
+      return pathReporteGenerado;
+   }
+
+   @Override
+   public String generarReporte(String nombreReporte, String tipoReporte) {
+      return generarReporte(nombreReporte, tipoReporte, new HashMap());
+   }
+
+   @Override
+   public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl) {
+      System.out.println(this.getClass().getName() + ".generarReporte()");
+      try {
+         general = persistenciaGenerales.obtenerRutas(em);
+         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+         String pathReporteGenerado = null;
+         System.out.println("general:  " + general);
+         System.out.println("nombreusuario: " + nombreUsuario);
+         if (general != null && nombreUsuario != null) {
             SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
             String fechaActual = formato.format(new Date());
-            String nombreArchivo = "JR" + nombreUsuario + fechaActual;
+            String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
             String rutaReporte = general.getPathreportes();
             String rutaGenerado = general.getUbicareportes();
-            if (tipoReporte.equals("PDF")) {
-                nombreArchivo = nombreArchivo + ".pdf";
-            } else if (tipoReporte.equals("XLSX")) {
-                nombreArchivo = nombreArchivo + ".xlsx";
-            } else if (tipoReporte.equals("XLS")) {
-                nombreArchivo = nombreArchivo + ".xls";
-            } else if (tipoReporte.equals("CSV")) {
-                nombreArchivo = nombreArchivo + ".csv";
-            } else if (tipoReporte.equals("HTML")) {
-                nombreArchivo = nombreArchivo + ".html";
-            } else if (tipoReporte.equals("DOCX")) {
-                nombreArchivo = nombreArchivo + ".rtf";
-            }
-            //datosConexion();
-            // if (conexion != null && !conexion.isClosed()) {
-            //pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, null);
-            // pathReporteGenerado = reporte.ejecutarReportinho(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, null);
-            reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
-            //conexion.close();
-            // return pathReporteGenerado;
-            // }
-            return pathReporteGenerado;
-        }
-        return pathReporteGenerado;
-        /*
-         * } catch (SQLException ex) { System.out.println("PUM PUM xD"); return
-         * null;
-         }
-         */
-    }
-
-    @Override
-    public String generarReporte(String nombreReporte, String tipoReporte) {
-        return generarReporte(nombreReporte, tipoReporte, new HashMap() );
-    }
-    
-    @Override
-    public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl) {
-        System.out.println(this.getClass().getName() + ".generarReporte()");
-        try {
-            general = persistenciaGenerales.obtenerRutas(em);
-            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-            String pathReporteGenerado = null;
-            System.out.println("general:  " + general);
-            System.out.println("nombreusuario: " + nombreUsuario);
-            if (general != null && nombreUsuario != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
-                String fechaActual = formato.format(new Date());
-                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
-                String rutaReporte = general.getPathreportes();
-                String rutaGenerado = general.getUbicareportes();
-                System.out.println("general.getPathreportes() : " + general.getPathreportes());
-                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+            System.out.println("general.getPathreportes() : " + general.getPathreportes());
+            System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
 //                if (tipoReporte.equals("PDF")) {
 //                    System.out.println("entró a PDF");
 //                    nombreArchivo = nombreArchivo + ".pdf";
@@ -177,232 +164,232 @@ public class AdministarReportes implements AdministarReportesInterface {
 //                } else if (tipoReporte.equals("DOCX")) {
 //                    nombreArchivo = nombreArchivo + ".rtf";
 //                }
-                String extension = "";
-                switch (tipoReporte){
-                    case "PDF":
-                        extension = ".pdf";
-                        break;
-                    case "XLSX":
-                        extension = ".xlsx";
-                        break;
-                    case "XLS":
-                        extension = ".xls";
-                        break;
-                    case "CSV":
-                        extension = ".csv";
-                        break;
-                    case "HTML":
-                        extension = ".html";
-                        break;
-                    case "DOCX":
-                        extension = ".docx";
-                        break;
-                    default:
-                        extension = "";
-                        break;
-                }
-                nombreArchivo = nombreArchivo + extension;
-                consultarDatosConexion();
-                System.out.println("conexion: " + conexion);
-                if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, paramEmpl);
-                    //conexion.close();
-                    return pathReporteGenerado;
-                }
-                return pathReporteGenerado;
+            String extension = "";
+            switch (tipoReporte) {
+               case "PDF":
+                  extension = ".pdf";
+                  break;
+               case "XLSX":
+                  extension = ".xlsx";
+                  break;
+               case "XLS":
+                  extension = ".xls";
+                  break;
+               case "CSV":
+                  extension = ".csv";
+                  break;
+               case "HTML":
+                  extension = ".html";
+                  break;
+               case "DOCX":
+                  extension = ".docx";
+                  break;
+               default:
+                  extension = "";
+                  break;
             }
-            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-            System.out.println("Sali sin Errores");
+            nombreArchivo = nombreArchivo + extension;
+            consultarDatosConexion();
+            System.out.println("conexion: " + conexion);
+            if (conexion != null && !conexion.isClosed()) {
+               pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, paramEmpl);
+               //conexion.close();
+               return pathReporteGenerado;
+            }
             return pathReporteGenerado;
-        } catch (SQLException ex) {
-            System.out.println("Error AdministrarReporte.generarReporte: " + ex);
-            return null;
-        }
-    }
+         }
+         System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+         System.out.println("Sali sin Errores");
+         return pathReporteGenerado;
+      } catch (SQLException ex) {
+         System.out.println("Error AdministrarReporte.generarReporte: " + ex);
+         return null;
+      }
+   }
 
-    @Override
-    public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte) {
-        if (general == null) {
-            general = persistenciaGenerales.obtenerRutas(em);
-        }
-        String rutaReporte = general.getPathreportes();
-        reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
-    }
+   @Override
+   public void iniciarLlenadoReporte(String nombreReporte, AsynchronousFilllListener asistenteReporte) {
+      if (general == null) {
+         general = persistenciaGenerales.obtenerRutas(em);
+      }
+      String rutaReporte = general.getPathreportes();
+      reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
+   }
 
-    @Override
-    public String crearArchivoReporte(JasperPrint print, String tipoReporte) {
-        String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-        String pathReporteGenerado = null;
-        if (general != null && nombreUsuario != null) {
+   @Override
+   public String crearArchivoReporte(JasperPrint print, String tipoReporte) {
+      String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+      String pathReporteGenerado = null;
+      if (general != null && nombreUsuario != null) {
+         SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+         String fechaActual = formato.format(new Date());
+         String nombreArchivo = "JR" + nombreUsuario + fechaActual;
+         String rutaGenerado = general.getUbicareportes();
+         pathReporteGenerado = reporte.crearArchivoReporte(rutaGenerado, nombreArchivo, tipoReporte, print);
+      }
+      return pathReporteGenerado;
+   }
+
+   public void cancelarReporte() {
+      reporte.cancelarReporte();
+   }
+
+   @Override
+   public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas) {
+      System.out.println(this.getClass().getName() + ".generarReporteCifraControl()");
+      try {
+         System.out.println("Mapa en generar Reporte Cifra Control : " + paramFechas);
+         general = persistenciaGenerales.obtenerRutas(em);
+         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+         String pathReporteGenerado = null;
+         System.out.println("general:  " + general);
+         System.out.println("nombreusuario: " + nombreUsuario);
+         if (general != null && nombreUsuario != null) {
             SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
             String fechaActual = formato.format(new Date());
-            String nombreArchivo = "JR" + nombreUsuario + fechaActual;
+            String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
+            String rutaReporte = general.getPathreportes();
             String rutaGenerado = general.getUbicareportes();
-            pathReporteGenerado = reporte.crearArchivoReporte(rutaGenerado, nombreArchivo, tipoReporte, print);
-        }
-        return pathReporteGenerado;
-    }
-
-    public void cancelarReporte() {
-        reporte.cancelarReporte();
-    }
-
-    @Override
-    public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas) {
-        System.out.println(this.getClass().getName() + ".generarReporteCifraControl()");
-        try {
-            System.out.println("Mapa en generar Reporte Cifra Control : " + paramFechas);
-            general = persistenciaGenerales.obtenerRutas(em);
-            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-            String pathReporteGenerado = null;
-            System.out.println("general:  " + general);
-            System.out.println("nombreusuario: " + nombreUsuario);
-            if (general != null && nombreUsuario != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
-                String fechaActual = formato.format(new Date());
-                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
-                String rutaReporte = general.getPathreportes();
-                String rutaGenerado = general.getUbicareportes();
-                System.out.println("general.getPathreportes() : " + general.getPathreportes());
-                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-                if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
-                    nombreArchivo = nombreArchivo + ".pdf";
-                } 
-                consultarDatosConexion();
-                System.out.println("conexion: " + conexion);
-                if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReporteCifraControl(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion,paramFechas);
-                    //conexion.close();
-                    return pathReporteGenerado;
-                }
-                return pathReporteGenerado;
+            System.out.println("general.getPathreportes() : " + general.getPathreportes());
+            System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+            if (tipoReporte.equals("PDF")) {
+               System.out.println("entró a PDF");
+               nombreArchivo = nombreArchivo + ".pdf";
             }
-            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-            System.out.println("Sali sin Errores");
-            return pathReporteGenerado;
-        } catch (SQLException ex) {
-            System.out.println("Error AdministrarReporte.generarReporte: " + ex);
-            return null;
-        }
-    }
-
-    @Override
-    public String generarReporteFuncionesCargo(String nombreReporte, String tipoReporte, Map parametros) {
-        System.out.println("Administrar.AdministarReportes.generarReporteFuncionesCargo()");
-         try {
-            System.out.println("Mapa en generar Reporte Funciones Cargo : " + parametros);
-            general = persistenciaGenerales.obtenerRutas(em);
-            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-            String pathReporteGenerado = null;
-            System.out.println("general:  " + general);
-            System.out.println("nombreusuario: " + nombreUsuario);
-            if (general != null && nombreUsuario != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
-                String fechaActual = formato.format(new Date());
-                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
-                String rutaReporte = general.getPathreportes();
-                String rutaGenerado = general.getUbicareportes();
-                System.out.println("general.getPathreportes() : " + general.getPathreportes());
-                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-                if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
-                    nombreArchivo = nombreArchivo + ".pdf";
-                } 
-                consultarDatosConexion();
-                System.out.println("conexion: " + conexion);
-                if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReporteCifraControl(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion,parametros);
-                    //conexion.close();
-                    return pathReporteGenerado;
-                }
-                return pathReporteGenerado;
+            consultarDatosConexion();
+            System.out.println("conexion: " + conexion);
+            if (conexion != null && !conexion.isClosed()) {
+               pathReporteGenerado = reporte.ejecutarReporteCifraControl(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, paramFechas);
+               //conexion.close();
+               return pathReporteGenerado;
             }
-            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-            System.out.println("Sali sin Errores");
             return pathReporteGenerado;
-        } catch (SQLException ex) {
-            System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
-            return null;
-        } 
-    }
+         }
+         System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+         System.out.println("Sali sin Errores");
+         return pathReporteGenerado;
+      } catch (SQLException ex) {
+         System.out.println("Error AdministrarReporte.generarReporte: " + ex);
+         return null;
+      }
+   }
 
-    @Override
-    public String generarReporteHojaVida(String nombreReporte, String tipoReporte, Map parametros) {
-        System.out.println("Administrar.AdministarReportes.generarReporteHojaVida()");
-         try {
-           System.out.println("Mapa en generar Reporte Hoja de Vida : " + parametros);
-            general = persistenciaGenerales.obtenerRutas(em);
-            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-            String pathReporteGenerado = null;
-            System.out.println("general:  " + general);
-            System.out.println("nombreusuario: " + nombreUsuario);
-            if (general != null && nombreUsuario != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
-                String fechaActual = formato.format(new Date());
-                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
-                String rutaReporte = general.getPathreportes();
-                String rutaGenerado = general.getUbicareportes();
-                System.out.println("general.getPathreportes() : " + general.getPathreportes());
-                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-                if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
-                    nombreArchivo = nombreArchivo + ".pdf";
-                } 
-                consultarDatosConexion();
-                System.out.println("conexion: " + conexion);
-                if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReporteHojaVida(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion,parametros);
-                    //conexion.close();
-                    return pathReporteGenerado;
-                }
-                return pathReporteGenerado;
+   @Override
+   public String generarReporteFuncionesCargo(String nombreReporte, String tipoReporte, Map parametros) {
+      System.out.println("Administrar.AdministarReportes.generarReporteFuncionesCargo()");
+      try {
+         System.out.println("Mapa en generar Reporte Funciones Cargo : " + parametros);
+         general = persistenciaGenerales.obtenerRutas(em);
+         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+         String pathReporteGenerado = null;
+         System.out.println("general:  " + general);
+         System.out.println("nombreusuario: " + nombreUsuario);
+         if (general != null && nombreUsuario != null) {
+            SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+            String fechaActual = formato.format(new Date());
+            String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
+            String rutaReporte = general.getPathreportes();
+            String rutaGenerado = general.getUbicareportes();
+            System.out.println("general.getPathreportes() : " + general.getPathreportes());
+            System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+            if (tipoReporte.equals("PDF")) {
+               System.out.println("entró a PDF");
+               nombreArchivo = nombreArchivo + ".pdf";
             }
-            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-            System.out.println("Sali sin Errores");
+            consultarDatosConexion();
+            System.out.println("conexion: " + conexion);
+            if (conexion != null && !conexion.isClosed()) {
+               pathReporteGenerado = reporte.ejecutarReporteCifraControl(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, parametros);
+               //conexion.close();
+               return pathReporteGenerado;
+            }
             return pathReporteGenerado;
-        } catch (SQLException ex) {
-            System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
-            return null;
-        } 
-    }
+         }
+         System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+         System.out.println("Sali sin Errores");
+         return pathReporteGenerado;
+      } catch (SQLException ex) {
+         System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
+         return null;
+      }
+   }
 
-    @Override
-    public String generarReportePlanta1(String nombreReporte, String tipoReporte) {
-        System.out.println("Administrar.AdministarReportes.generarReportePlanta1()");
-         try {
-            general = persistenciaGenerales.obtenerRutas(em);
-            String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
-            String pathReporteGenerado = null;
-            System.out.println("general:  " + general);
-            System.out.println("nombreusuario: " + nombreUsuario);
-            if (general != null && nombreUsuario != null) {
-                SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
-                String fechaActual = formato.format(new Date());
-                String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
-                String rutaReporte = general.getPathreportes();
-                String rutaGenerado = general.getUbicareportes();
-                System.out.println("general.getPathreportes() : " + general.getPathreportes());
-                System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-                if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
-                    nombreArchivo = nombreArchivo + ".pdf";
-                } 
-                consultarDatosConexion();
-                System.out.println("conexion: " + conexion);
-                if (conexion != null && !conexion.isClosed()) {
-                    pathReporteGenerado = reporte.ejecutarReportePlanta1(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion);
-                    //conexion.close();
-                    return pathReporteGenerado;
-                }
-                return pathReporteGenerado;
+   @Override
+   public String generarReporteHojaVida(String nombreReporte, String tipoReporte, Map parametros) {
+      System.out.println("Administrar.AdministarReportes.generarReporteHojaVida()");
+      try {
+         System.out.println("Mapa en generar Reporte Hoja de Vida : " + parametros);
+         general = persistenciaGenerales.obtenerRutas(em);
+         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+         String pathReporteGenerado = null;
+         System.out.println("general:  " + general);
+         System.out.println("nombreusuario: " + nombreUsuario);
+         if (general != null && nombreUsuario != null) {
+            SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+            String fechaActual = formato.format(new Date());
+            String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
+            String rutaReporte = general.getPathreportes();
+            String rutaGenerado = general.getUbicareportes();
+            System.out.println("general.getPathreportes() : " + general.getPathreportes());
+            System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+            if (tipoReporte.equals("PDF")) {
+               System.out.println("entró a PDF");
+               nombreArchivo = nombreArchivo + ".pdf";
             }
-            System.out.println("pathReporteGenerado: " + pathReporteGenerado);
-            System.out.println("Sali sin Errores");
+            consultarDatosConexion();
+            System.out.println("conexion: " + conexion);
+            if (conexion != null && !conexion.isClosed()) {
+               pathReporteGenerado = reporte.ejecutarReporteHojaVida(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion, parametros);
+               //conexion.close();
+               return pathReporteGenerado;
+            }
             return pathReporteGenerado;
-        } catch (SQLException ex) {
-            System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
-            return null;
-        } 
-    }
-    }
+         }
+         System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+         System.out.println("Sali sin Errores");
+         return pathReporteGenerado;
+      } catch (SQLException ex) {
+         System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
+         return null;
+      }
+   }
+
+   @Override
+   public String generarReportePlanta1(String nombreReporte, String tipoReporte) {
+      System.out.println("Administrar.AdministarReportes.generarReportePlanta1()");
+      try {
+         general = persistenciaGenerales.obtenerRutas(em);
+         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
+         String pathReporteGenerado = null;
+         System.out.println("general:  " + general);
+         System.out.println("nombreusuario: " + nombreUsuario);
+         if (general != null && nombreUsuario != null) {
+            SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyhhmmss");
+            String fechaActual = formato.format(new Date());
+            String nombreArchivo = "JR" + nombreReporte + nombreUsuario + fechaActual;
+            String rutaReporte = general.getPathreportes();
+            String rutaGenerado = general.getUbicareportes();
+            System.out.println("general.getPathreportes() : " + general.getPathreportes());
+            System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
+            if (tipoReporte.equals("PDF")) {
+               System.out.println("entró a PDF");
+               nombreArchivo = nombreArchivo + ".pdf";
+            }
+            consultarDatosConexion();
+            System.out.println("conexion: " + conexion);
+            if (conexion != null && !conexion.isClosed()) {
+               pathReporteGenerado = reporte.ejecutarReportePlanta1(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, conexion);
+               //conexion.close();
+               return pathReporteGenerado;
+            }
+            return pathReporteGenerado;
+         }
+         System.out.println("pathReporteGenerado: " + pathReporteGenerado);
+         System.out.println("Sali sin Errores");
+         return pathReporteGenerado;
+      } catch (SQLException ex) {
+         System.out.println("Error AdministrarReporte.generarReporteFuncionesCargo: " + ex);
+         return null;
+      }
+   }
+}

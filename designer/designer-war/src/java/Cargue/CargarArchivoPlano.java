@@ -27,16 +27,17 @@ import java.math.BigInteger;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
@@ -47,7 +48,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.UploadedFile;
 
-@ManagedBean
+@Named(value = "cargarArchivoPlano")
 @SessionScoped
 public class CargarArchivoPlano implements Serializable {
 
@@ -55,7 +56,11 @@ public class CargarArchivoPlano implements Serializable {
    AdministrarCargueArchivosInterface administrarCargueArchivos;
    private List<TempNovedades> listTempNovedades;
    private List<TempNovedades> filtrarListTempNovedades;
-   private TempNovedades novedadTablaSeleccionada;
+   private List<TempNovedades> modificarTempNovedades;
+   private List<TempNovedades> borrarTempNovedades;
+   private List<TempNovedades> crearTempNovedades;
+   private TempNovedades tempNovedadSeleccionada;
+   private TempNovedades duplicarTempNovedades, nuevaTempNovedades;
    private TempNovedades editarNovedad;
    private HashSet hs;
    private TempNovedades tNovedades;
@@ -76,7 +81,7 @@ public class CargarArchivoPlano implements Serializable {
    //INPUT NOMBRE ARCHIVO
    private String nombreArchivoPlano;
    //SUBTOTAL CONCEPTOS MANUALES
-   public BigDecimal subTotal;
+   private BigDecimal subTotal;
    //ACTIVAR - DESACTIVAR BOTONES
    private boolean botones;
    private boolean cargue;
@@ -93,20 +98,28 @@ public class CargarArchivoPlano implements Serializable {
    private List<String> documentosEscogidos;
    private ResultadoBorrarTodoNovedades resultadoProceso;
    //ACTUALIZAR COLLECTION
-   Collection<String> elementosActualizar;
+   private Collection<String> elementosActualizar;
    //
    private String infoRegistroFormula, infoRegistroDocumento, infoRegistro;
    //
    private String altoTabla;
+   private String paginaAnterior;
    //
    private int bandera, tipoLista;
    //
-   private Column columnaUnidadFraccion, columnaUnidadEntera, columnaSaldo, columnaTercero, columnaPeriodicidad, columnaValorTotal, columnaDocumentoSoporte, columnaFechaReporte, columnaFechaFinal, columnaFechaInicial, columnaEmpleado, columnaConcepto;
+   private Column columnaUnidadFraccion, columnaUnidadEntera, columnaSaldo, columnaTercero, columnaPeriodicidad, columnaValorTotal,
+           columnaDocumentoSoporte, columnaFechaReporte, columnaFechaFinal, columnaFechaInicial, columnaEmpleado, columnaConcepto;
    //
-   private int index, cualCelda;
+   private int cualCelda;
+   //
+   private boolean guardado;
+   //
+   private DataTable tabla;
+   private int k;
+   private BigInteger l;
 
    public CargarArchivoPlano() {
-      novedadTablaSeleccionada = null;
+      tempNovedadSeleccionada = null;
       cualCelda = -1;
       editarNovedad = new TempNovedades();
       bandera = 0;
@@ -122,13 +135,25 @@ public class CargarArchivoPlano implements Serializable {
       subTotal = new BigDecimal(0);
       botones = false;
       cargue = true;
+      guardado = true;
       documentosSoporteCargados = null;
       //PICKLIST
       documentosSoportes = null;
       documentosEscogidos = new ArrayList<String>();
       resultadoProceso = new ResultadoBorrarTodoNovedades();
       elementosActualizar = new ArrayList<String>();
-
+      listaFormulas = null;
+      listTempNovedades = null;
+      //
+      modificarTempNovedades = new ArrayList<TempNovedades>();
+      borrarTempNovedades = new ArrayList<TempNovedades>();
+      crearTempNovedades = new ArrayList<TempNovedades>();
+      k = 0;
+      //
+      nuevaTempNovedades = new TempNovedades();
+      duplicarTempNovedades = new TempNovedades();
+      //
+      paginaAnterior = "";
    }
 
    @PostConstruct
@@ -137,19 +162,57 @@ public class CargarArchivoPlano implements Serializable {
          FacesContext x = FacesContext.getCurrentInstance();
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargueArchivos.obtenerConexion(ses.getId());
-         listTempNovedades = null;
-         getListTempNovedades();
-         contarRegistros();
       } catch (Exception e) {
          System.out.println("Error postconstruct CargarArchivoPlano: " + e);
          System.out.println("Causa: " + e.getCause());
       }
    }
 
+   public void recibirPagina(String pagina) {
+      paginaAnterior = pagina;
+   }
+
+   public String retornarPagina() {
+      return paginaAnterior;
+   }
+
+   public void cancelarModificaciones() {
+      if (bandera == 1) {
+         restaurarTabla();
+      }
+      nombreArchivoPlano = null;
+      formulaUsada = null;
+//      getFormulaUsada();
+      usarFormulaConcepto = "S";
+      listTempNovedades = null;
+//      getListTempNovedades();
+      contarRegistros();
+      tempNovedadSeleccionada = null;
+      cualCelda = -1;
+      subTotal = new BigDecimal("0");
+      guardado = true;
+      //
+      modificarTempNovedades = new ArrayList<TempNovedades>();
+      borrarTempNovedades = new ArrayList<TempNovedades>();
+      crearTempNovedades = new ArrayList<TempNovedades>();
+      //
+      nuevaTempNovedades = new TempNovedades();
+      duplicarTempNovedades = new TempNovedades();
+      botones = false;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.update("form:FileUp");
+      context.update("form:nombreArchivo");
+      context.update("form:formula");
+      context.update("form:usoFormulaC");
+      context.update("form:subtotal");
+      context.update("form:ACEPTAR");
+      context.update("form:tempNovedades");
+   }
+
    public void editarCelda() {
-      if (novedadTablaSeleccionada != null) {
+      if (tempNovedadSeleccionada != null) {
          RequestContext context = RequestContext.getCurrentInstance();
-         editarNovedad = novedadTablaSeleccionada;
+         editarNovedad = tempNovedadSeleccionada;
          if (cualCelda == 0) {//Concepto
             context.update("formDialogos:editarConcepto");
             context.execute("PF('editarConcepto').show()");
@@ -189,52 +252,68 @@ public class CargarArchivoPlano implements Serializable {
          }
       }
    }
-
-   public void posicionTablaNovedad() {
-      FacesContext context = FacesContext.getCurrentInstance();
-      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-      String name = map.get("n"); // name attribute of node
-      String type = map.get("t"); // type attribute of node
-      index = Integer.parseInt(type);
-      cualCelda = Integer.parseInt(name);
-      novedadTablaSeleccionada = listTempNovedades.get(index);
-      cambiarIndice(novedadTablaSeleccionada, cualCelda);
-   }
+//
+//   public void posicionTablaNovedad() {
+//      FacesContext context = FacesContext.getCurrentInstance();
+//      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+//      String name = map.get("n"); // name attribute of node
+//      String type = map.get("t"); // type attribute of node
+//      index = Integer.parseInt(type);
+//      cualCelda = Integer.parseInt(name);
+//      tempNovedadSeleccionada = listTempNovedades.get(index);
+//      cambiarIndice(tempNovedadSeleccionada, cualCelda);
+//   }
 
    public void cambiarIndice(TempNovedades novedadT, int celda) {
-      novedadTablaSeleccionada = novedadT;
+      tempNovedadSeleccionada = novedadT;
       cualCelda = celda;
-      novedadTablaSeleccionada.getSecuencia();
-      if (cualCelda == 0) {
-         novedadTablaSeleccionada.getConcepto();
-      } else if (cualCelda == 1) {
-         novedadTablaSeleccionada.getEmpleado();
-      } else if (cualCelda == 2) {
-         novedadTablaSeleccionada.getFechainicial();
-      } else if (cualCelda == 3) {
-         novedadTablaSeleccionada.getFechafinal();
-      } else if (cualCelda == 4) {
-         novedadTablaSeleccionada.getFechareporte();
-      } else if (cualCelda == 5) {
-         novedadTablaSeleccionada.getDocumentosoporte();
-      } else if (cualCelda == 6) {
-         novedadTablaSeleccionada.getValortotal();
-      } else if (cualCelda == 7) {
-         novedadTablaSeleccionada.getPeriodicidad();
-      } else if (cualCelda == 8) {
-         novedadTablaSeleccionada.getTercero();
-      } else if (cualCelda == 9) {
-         novedadTablaSeleccionada.getSaldo();
-      } else if (cualCelda == 10) {
-         novedadTablaSeleccionada.getUnidadesparteentera();
-      } else if (cualCelda == 11) {
-         novedadTablaSeleccionada.getUnidadespartefraccion();
+   }
+
+   public void modificarTempNovedad(TempNovedades tempNovedad) {
+      tempNovedadSeleccionada = tempNovedad;
+      if (!crearTempNovedades.contains(tempNovedadSeleccionada)) {
+         if (modificarTempNovedades.isEmpty()) {
+            modificarTempNovedades.add(tempNovedadSeleccionada);
+         } else if (!modificarTempNovedades.contains(tempNovedadSeleccionada)) {
+            modificarTempNovedades.add(tempNovedadSeleccionada);
+         }
+         if (guardado) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
       }
+   }
+
+   public void recordarSeleccion() {
+      if (tempNovedadSeleccionada != null) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         tabla = (DataTable) c.getViewRoot().findComponent("form:tempNovedades");
+         tabla.setSelection(tempNovedadSeleccionada);
+      }
+   }
+
+   public void modificarTempNovedad(TempNovedades tempNovedad, int celda, String valor) {
+      System.out.println("Cargue.CargarArchivoPlano.modificarTempNovedad() tempNovedad : " + tempNovedad + ",  valor : " + valor);
+      tempNovedadSeleccionada = tempNovedad;
+      cualCelda = celda;
+      if (cualCelda == 0) {
+         tempNovedadSeleccionada.setConcepto(new BigInteger(valor));
+      } else if (cualCelda == 1) {
+         tempNovedadSeleccionada.setEmpleado(new BigInteger(valor));
+      }
+      modificarTempNovedad(tempNovedadSeleccionada);
    }
 
    public void cargarArchivo(FileUploadEvent event) throws IOException {
       if (event.getFile().getFileName().substring(event.getFile().getFileName().lastIndexOf(".") + 1).equalsIgnoreCase("prn")) {
          nombreArchivoPlano = event.getFile().getFileName();
+         System.out.println("CargarArchivoPlano.cargarArchivo()");
+         System.out.println("event.getFile().getSize() : " + event.getFile().getSize());
+         System.out.println("event.getFile().getContentType() : " + event.getFile().getContentType());
+         System.out.println("Arrays.toString(event.getFile().getContents()) : " + Arrays.toString(event.getFile().getContents()));
+         System.out.println("event.getFile().getFileName() : " + event.getFile().getFileName());
+         System.out.println("event.getFile().getInputstream() : " + event.getFile().getInputstream());
+
          transformarArchivo(event.getFile().getSize(), event.getFile().getInputstream(), event.getFile().getFileName());
          contarRegistros();
       } else {
@@ -247,8 +326,9 @@ public class CargarArchivoPlano implements Serializable {
    public void transformarArchivo(long size, InputStream in, String nombreArchivo) {
       try {
          if (nombreArchivo.length() <= 30) {
-            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
-
+//            String destino = "C:\\Prueba\\Archivos_Planos_Cargados\\" + nombreArchivo;
+            String destino = administrarCargueArchivos.consultarRuta() + nombreArchivo;
+            System.out.println("transformarArchivo() destino : _" + destino + "_");
             OutputStream out = new FileOutputStream(new File(destino));
             int reader = 0;
             byte[] bytes = new byte[(int) size];
@@ -270,6 +350,7 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void leerTxt(String locArchivo, String nombreArchivo) throws FileNotFoundException, IOException {
+      System.out.println("Cargue.CargarArchivoPlano.leerTxt()");
       try {
          File archivo = new File(locArchivo);
          FileReader fr = new FileReader(archivo);
@@ -569,41 +650,13 @@ public class CargarArchivoPlano implements Serializable {
          RequestContext.getCurrentInstance().update("form:tempNovedades");
          bandera = 1;
       } else if (bandera == 1) {
-         columnaConcepto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaConcepto");
-         columnaConcepto.setFilterStyle("display: none; visibility: hidden;");
-         columnaDocumentoSoporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaDocumentoSoporte");
-         columnaDocumentoSoporte.setFilterStyle("display: none; visibility: hidden;");
-         columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
-         columnaEmpleado.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaFinal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFinal");
-         columnaFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaInicial = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaInicial");
-         columnaFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaReporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaReporte");
-         columnaFechaReporte.setFilterStyle("display: none; visibility: hidden;");
-         columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaPeriodicidad");
-         columnaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-         columnaSaldo = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaSaldo");
-         columnaSaldo.setFilterStyle("display: none; visibility: hidden;");
-         columnaTercero = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaTercero");
-         columnaTercero.setFilterStyle("display: none; visibility: hidden;");
-         columnaUnidadEntera = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadEntera");
-         columnaUnidadEntera.setFilterStyle("display: none; visibility: hidden;");
-         columnaUnidadFraccion = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadFraccion");
-         columnaUnidadFraccion.setFilterStyle("display: none; visibility: hidden;");
-         columnaValorTotal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaValorTotal");
-         columnaValorTotal.setFilterStyle("display: none; visibility: hidden;");
-         altoTabla = "130";
-         RequestContext.getCurrentInstance().update("form:tempNovedades");
-         bandera = 0;
-         filtrarListTempNovedades = null;
-         tipoLista = 0;
+         restaurarTabla();
       }
-      novedadTablaSeleccionada = null;
       cualCelda = -1;
    }
 
    public void validarNovedades() {
+      System.out.println("Cargue.CargarArchivoPlano.validarNovedades()");
       boolean validacion = false;
       List<String> erroresN;
       documentosSoporteCargados = administrarCargueArchivos.consultarDocumentosSoporteCargadosUsuario(UsuarioBD.getAlias());
@@ -886,9 +939,11 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public void revisarNovedad(BigInteger secnovedad) {
-      BigInteger secuencia;
+      System.out.println("Cargue.CargarArchivoPlano.revisarNovedad() secnovedad : " + secnovedad);
+      validarNovedades();
+      erroresNovedad = null;
       for (int i = 0; i < listErrores.size(); i++) {
-         secuencia = listErrores.get(i).getSecNovedad();
+         BigInteger secuencia = listErrores.get(i).getSecNovedad();
          if (secuencia.compareTo(secnovedad) == 0) {
             erroresNovedad = listErrores.get(i);
             i = listErrores.size();
@@ -903,9 +958,147 @@ public class CargarArchivoPlano implements Serializable {
       }
    }
 
+   public void borrar() {
+      if (tempNovedadSeleccionada != null) {
+         if (!modificarTempNovedades.isEmpty() && modificarTempNovedades.contains(tempNovedadSeleccionada)) {
+            modificarTempNovedades.remove(tempNovedadSeleccionada);
+            borrarTempNovedades.add(tempNovedadSeleccionada);
+         } else if (!crearTempNovedades.isEmpty() && crearTempNovedades.contains(tempNovedadSeleccionada)) {
+            crearTempNovedades.remove(tempNovedadSeleccionada);
+         } else {
+            borrarTempNovedades.add(tempNovedadSeleccionada);
+         }
+         listTempNovedades.remove(tempNovedadSeleccionada);
+         if (tipoLista == 1) {
+            filtrarListTempNovedades.remove(tempNovedadSeleccionada);
+         }
+         contarRegistros();
+         RequestContext.getCurrentInstance().update("form:tempNovedades");
+         tempNovedadSeleccionada = null;
+         if (guardado) {
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      }
+   }
+
+   public void duplicar() {
+      if (tempNovedadSeleccionada == null) {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      } else {
+         duplicarTempNovedades = new TempNovedades();
+         k++;
+         l = BigInteger.valueOf(k);
+         duplicarTempNovedades.setSecuencia(l);
+         duplicarTempNovedades.setArchivo(tempNovedadSeleccionada.getArchivo());
+         duplicarTempNovedades.setConcepto(tempNovedadSeleccionada.getConcepto());
+         duplicarTempNovedades.setDocumentosoporte(tempNovedadSeleccionada.getDocumentosoporte());
+         duplicarTempNovedades.setEmpleado(tempNovedadSeleccionada.getEmpleado());
+         duplicarTempNovedades.setEstado(tempNovedadSeleccionada.getEstado());
+         duplicarTempNovedades.setEstadovalidacion(tempNovedadSeleccionada.getEstadovalidacion());
+         duplicarTempNovedades.setFechafinal(tempNovedadSeleccionada.getFechafinal());
+         duplicarTempNovedades.setFechainicial(tempNovedadSeleccionada.getFechainicial());
+         duplicarTempNovedades.setFechareporte(tempNovedadSeleccionada.getFechareporte());
+         duplicarTempNovedades.setMotivonovedad(tempNovedadSeleccionada.getMotivonovedad());
+         duplicarTempNovedades.setObservaciones(tempNovedadSeleccionada.getObservaciones());
+         duplicarTempNovedades.setPeriodicidad(tempNovedadSeleccionada.getPeriodicidad());
+         duplicarTempNovedades.setSaldo(tempNovedadSeleccionada.getSaldo());
+         duplicarTempNovedades.setTercero(tempNovedadSeleccionada.getTercero());
+         duplicarTempNovedades.setTerminal(tempNovedadSeleccionada.getTerminal());
+         duplicarTempNovedades.setTipo(tempNovedadSeleccionada.getTipo());
+         duplicarTempNovedades.setUnidadesparteentera(tempNovedadSeleccionada.getUnidadesparteentera());
+         duplicarTempNovedades.setUnidadespartefraccion(tempNovedadSeleccionada.getUnidadespartefraccion());
+         duplicarTempNovedades.setUsuariobd(tempNovedadSeleccionada.getUsuariobd());
+         duplicarTempNovedades.setUsuarioreporta(tempNovedadSeleccionada.getUsuarioreporta());
+         duplicarTempNovedades.setValortotal(tempNovedadSeleccionada.getValortotal());
+
+         RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
+         RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').show()");
+      }
+   }
+
+   public void confirmarDuplicar() {
+      listTempNovedades.add(duplicarTempNovedades);
+      crearTempNovedades.add(duplicarTempNovedades);
+      tempNovedadSeleccionada = listTempNovedades.get(listTempNovedades.indexOf(duplicarTempNovedades));
+
+      RequestContext.getCurrentInstance().update("form:tempNovedades");
+      contarRegistros();
+      if (guardado) {
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+      if (bandera == 1) {
+         restaurarTabla();
+      }
+      duplicarTempNovedades = new TempNovedades();
+
+      RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
+      RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').hide()");
+   }
+
+   public void nuevaTempNovedad() {
+      k++;
+      l = BigInteger.valueOf(k);
+      nuevaTempNovedades.setSecuencia(l);
+      listTempNovedades.add(nuevaTempNovedades);
+      crearTempNovedades.add(nuevaTempNovedades);
+      tempNovedadSeleccionada = listTempNovedades.get(listTempNovedades.indexOf(nuevaTempNovedades));
+
+      RequestContext.getCurrentInstance().update("form:tempNovedades");
+      contarRegistros();
+      if (guardado) {
+         guardado = false;
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+      if (bandera == 1) {
+         restaurarTabla();
+      }
+      nuevaTempNovedades = new TempNovedades();
+
+      RequestContext.getCurrentInstance().update("formDialogos:nuevaTempNDialogo");
+      RequestContext.getCurrentInstance().execute("PF('nuevaTempNDialogo').hide()");
+   }
+
+   public void limpiarNuevo() {
+      nuevaTempNovedades = new TempNovedades();
+      duplicarTempNovedades = new TempNovedades();
+      RequestContext.getCurrentInstance().update("formDialogos:nuevaTempNDialogo");
+      RequestContext.getCurrentInstance().update("formDialogos:duplicarTempNDialogo");
+   }
+
    public void insertarNovedadTempNovedades() {
       if (!listTempNovedades.isEmpty()) {
          administrarCargueArchivos.crearTempNovedades(listTempNovedades);
+      }
+   }
+
+   public void guardar() {
+      if (guardado == false) {
+         guardado = true;
+         if (!modificarTempNovedades.isEmpty()) {
+            for (int i = 0; i < modificarTempNovedades.size(); i++) {
+               administrarCargueArchivos.modificarTempNovedades(modificarTempNovedades.get(i));
+            }
+         }
+         if (!borrarTempNovedades.isEmpty()) {
+            for (int i = 0; i < borrarTempNovedades.size(); i++) {
+               administrarCargueArchivos.borrarTempNovedad(borrarTempNovedades.get(i));
+            }
+         }
+         if (!crearTempNovedades.isEmpty()) {
+            administrarCargueArchivos.crearTempNovedades(crearTempNovedades);
+         }
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      } else {
+         FacesMessage msg = new FacesMessage("Información", "NO HAY CAMBIOS QUE GUARDAR");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
       }
    }
 
@@ -958,11 +1151,10 @@ public class CargarArchivoPlano implements Serializable {
             coincidencias++;
          }
       }
-
       if (coincidencias == 1) {
          formulaUsada = listaFormulas.get(indiceUnicoElemento);
-         listaFormulas = null;
-         getListaFormulas();
+//         listaFormulas = null;
+//         getListaFormulas();
       } else {
          context.update("formDialogos:formulasDialogo");
          context.execute("PF('formulasDialogo').show()");
@@ -970,55 +1162,37 @@ public class CargarArchivoPlano implements Serializable {
       context.update("form:formula");
    }
 
-   public void cancelarModificacion() {
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         columnaConcepto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaConcepto");
-         columnaConcepto.setFilterStyle("display: none; visibility: hidden;");
-         columnaDocumentoSoporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaDocumentoSoporte");
-         columnaDocumentoSoporte.setFilterStyle("display: none; visibility: hidden;");
-         columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
-         columnaEmpleado.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaFinal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFinal");
-         columnaFechaFinal.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaInicial = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaInicial");
-         columnaFechaInicial.setFilterStyle("display: none; visibility: hidden;");
-         columnaFechaReporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaReporte");
-         columnaFechaReporte.setFilterStyle("display: none; visibility: hidden;");
-         columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaPeriodicidad");
-         columnaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
-         columnaSaldo = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaSaldo");
-         columnaSaldo.setFilterStyle("display: none; visibility: hidden;");
-         columnaTercero = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaTercero");
-         columnaTercero.setFilterStyle("display: none; visibility: hidden;");
-         columnaUnidadEntera = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadEntera");
-         columnaUnidadEntera.setFilterStyle("display: none; visibility: hidden;");
-         columnaUnidadFraccion = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadFraccion");
-         columnaUnidadFraccion.setFilterStyle("display: none; visibility: hidden;");
-         columnaValorTotal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaValorTotal");
-         columnaValorTotal.setFilterStyle("display: none; visibility: hidden;");
-         altoTabla = "130";
-         RequestContext.getCurrentInstance().update("form:tempNovedades");
-         bandera = 0;
-         filtrarListTempNovedades = null;
-         tipoLista = 0;
-      }
-      nombreArchivoPlano = null;
-      formulaUsada = null;
-      getFormulaUsada();
-      usarFormulaConcepto = "S";
-      listTempNovedades = null;
-      getListTempNovedades();
-      contarRegistros();
-      novedadTablaSeleccionada = null;
-      cualCelda = -1;
-      subTotal = new BigDecimal("0");
-      RequestContext context = RequestContext.getCurrentInstance();
-      //context.update("form:infoRegistro");
-      context.update("form:nombreArchivo");
-      context.update("form:formula");
-      context.update("form:usoFormulaC");
-      context.update("form:subtotal");
+   public void restaurarTabla() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      columnaConcepto = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaConcepto");
+      columnaConcepto.setFilterStyle("display: none; visibility: hidden;");
+      columnaDocumentoSoporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaDocumentoSoporte");
+      columnaDocumentoSoporte.setFilterStyle("display: none; visibility: hidden;");
+      columnaEmpleado = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaEmpleado");
+      columnaEmpleado.setFilterStyle("display: none; visibility: hidden;");
+      columnaFechaFinal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaFinal");
+      columnaFechaFinal.setFilterStyle("display: none; visibility: hidden;");
+      columnaFechaInicial = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaInicial");
+      columnaFechaInicial.setFilterStyle("display: none; visibility: hidden;");
+      columnaFechaReporte = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaFechaReporte");
+      columnaFechaReporte.setFilterStyle("display: none; visibility: hidden;");
+      columnaPeriodicidad = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaPeriodicidad");
+      columnaPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
+      columnaSaldo = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaSaldo");
+      columnaSaldo.setFilterStyle("display: none; visibility: hidden;");
+      columnaTercero = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaTercero");
+      columnaTercero.setFilterStyle("display: none; visibility: hidden;");
+      columnaUnidadEntera = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadEntera");
+      columnaUnidadEntera.setFilterStyle("display: none; visibility: hidden;");
+      columnaUnidadFraccion = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaUnidadFraccion");
+      columnaUnidadFraccion.setFilterStyle("display: none; visibility: hidden;");
+      columnaValorTotal = (Column) c.getViewRoot().findComponent("form:tempNovedades:columnaValorTotal");
+      columnaValorTotal.setFilterStyle("display: none; visibility: hidden;");
+      altoTabla = "130";
+      RequestContext.getCurrentInstance().update("form:tempNovedades");
+      bandera = 0;
+      filtrarListTempNovedades = null;
+      tipoLista = 0;
    }
 
    //AUTOCOMPLETAR DOCUMENTO SOPORTE
@@ -1108,11 +1282,11 @@ public class CargarArchivoPlano implements Serializable {
             context.update("form:subtotal");
             listErrores.clear();
             erroresNovedad = null;
-            botones = false;
             cargue = true;
             nombreArchivoPlano = null;
             documentosSoportes = null;
             context.update("form:pickListDocumentosSoporte");
+            botones = false;
             context.update("form:FileUp");
             context.update("form:nombreArchivo");
             context.update("form:formula");
@@ -1124,7 +1298,7 @@ public class CargarArchivoPlano implements Serializable {
 
    public void borrarRegistrosNoCargados() {
       administrarCargueArchivos.borrarRegistrosTempNovedades(UsuarioBD.getAlias());
-      listTempNovedades = null;
+//      listTempNovedades = null;
       listTempNovedades = administrarCargueArchivos.consultarTempNovedades(UsuarioBD.getAlias());
       //modificarInfoRegistro(listTempNovedades.size());
       contarRegistros();
@@ -1243,7 +1417,7 @@ public class CargarArchivoPlano implements Serializable {
          tipoLista = 1;
       }
       contarRegistros();
-      novedadTablaSeleccionada = null;
+      tempNovedadSeleccionada = null;
    }
 
    public void contarRegistrosFormulas() {
@@ -1257,24 +1431,29 @@ public class CargarArchivoPlano implements Serializable {
    public void contarRegistros() {
       RequestContext.getCurrentInstance().update("form:infoRegistro");
    }
+
+   public void contarSubtotal() {
+      if (listTempNovedades != null) {
+         if (!listTempNovedades.isEmpty()) {
+            subTotal = new BigDecimal(0);
+            for (int i = 0; i < listTempNovedades.size(); i++) {
+               if (listTempNovedades.get(i).getValortotal() != null) {
+                  subTotal = subTotal.add(listTempNovedades.get(i).getValortotal());
+               }
+            }
+         }
+      }
+   }
    //GETTER AND SETTER
 
    public List<TempNovedades> getListTempNovedades() {
       if (UsuarioBD == null) {
          UsuarioBD = administrarCargueArchivos.actualUsuario();
       }
-      if (UsuarioBD.getAlias() != null) {
+      if (UsuarioBD.getAlias() != null && listTempNovedades == null) {
          listTempNovedades = administrarCargueArchivos.consultarTempNovedades(UsuarioBD.getAlias());
       }
-      if (listTempNovedades != null) {
-         if (!listTempNovedades.isEmpty()) {
-            subTotal = new BigDecimal(0);
-            for (int i = 0; i < listTempNovedades.size(); i++) {
-               subTotal = subTotal.add(listTempNovedades.get(i).getValortotal());
-            }
-         }
-      }
-
+      contarSubtotal();
       return listTempNovedades;
    }
 
@@ -1287,7 +1466,9 @@ public class CargarArchivoPlano implements Serializable {
    }
 
    public List<Formulas> getListaFormulas() {
-      listaFormulas = administrarCargueArchivos.consultarFormulasCargue();
+      if (listaFormulas == null) {
+         listaFormulas = administrarCargueArchivos.consultarFormulasCargue();
+      }
       return listaFormulas;
    }
 
@@ -1462,13 +1643,13 @@ public class CargarArchivoPlano implements Serializable {
       this.filtrarListTempNovedades = filtrarListTempNovedades;
    }
 
-   public TempNovedades getNovedadTablaSeleccionada() {
+   public TempNovedades getTempNovedadSeleccionada() {
       //getListTempNovedades();
-      return novedadTablaSeleccionada;
+      return tempNovedadSeleccionada;
    }
 
-   public void setNovedadTablaSeleccionada(TempNovedades novedadTablaSeleccionada) {
-      this.novedadTablaSeleccionada = novedadTablaSeleccionada;
+   public void setTempNovedadSeleccionada(TempNovedades tempNovedadSeleccionada) {
+      this.tempNovedadSeleccionada = tempNovedadSeleccionada;
    }
 
    public String getInfoRegistroFormula() {
@@ -1518,6 +1699,30 @@ public class CargarArchivoPlano implements Serializable {
 
    public void setEditarNovedad(TempNovedades editarNovedad) {
       this.editarNovedad = editarNovedad;
+   }
+
+   public boolean isGuardado() {
+      return guardado;
+   }
+
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
+   }
+
+   public TempNovedades getDuplicarTempNovedades() {
+      return duplicarTempNovedades;
+   }
+
+   public void setDuplicarTempNovedades(TempNovedades duplicarTempNovedades) {
+      this.duplicarTempNovedades = duplicarTempNovedades;
+   }
+
+   public TempNovedades getNuevaTempNovedades() {
+      return nuevaTempNovedades;
+   }
+
+   public void setNuevaTempNovedades(TempNovedades nuevaTempNovedades) {
+      this.nuevaTempNovedades = nuevaTempNovedades;
    }
 
 }

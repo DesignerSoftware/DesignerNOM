@@ -109,8 +109,8 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
             Query query = em.createQuery("SELECT COUNT(vwatt) FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador");
             query.setParameter("tipotrabajador", p_tipo);
             Long totalRegistros = (Long) query.getSingleResult();
-            System.out.println("Valor total Registros: " + totalRegistros);
-            System.out.println("Tipo: " + p_tipo);
+//            System.out.println("Valor total Registros: " + totalRegistros);
+//            System.out.println("Tipo: " + p_tipo);
             return totalRegistros.intValue();
          } else {
             System.out.println("Error en PersistenciaVWActualesTiposTrabajadores.obtenerTotalRegistrosTipoTrabajador. " + "No recibió el parametro");

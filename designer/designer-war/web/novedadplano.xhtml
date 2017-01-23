@@ -11,27 +11,31 @@
       <ui:composition template="template.xhtml">
          <ui:define name="body"> 
             <script type="text/javascript">
-               $(window).load(function() {
-               $(".loader").fadeOut("slow");
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
                });
             </script>
             <div class="loader"></div>
             <div style="position: static;"></div>
             <h:form id="form">
+               <p:growl id="growl" showDetail="true"/>
                <f:loadBundle basename="Recursos.novedadplano" var="msg" />
-               <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad"  resizable="false" draggable="true" modal="true" height="100" width="400">  
+
+               <p:dialog id="erroresNovedad" header="#{msg['erroresdelanovedad']}" widgetVar="erroresNovedad" resizable="false" draggable="true" modal="true" height="100" width="400">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errores']}" style="font-weight: bold; position: absolute; left: 80px; top: 10px; color: red;"/>
                   <p:dataGrid var="error" value="#{cargarArchivoPlano.erroresNovedad.mensajeError}" columns="1" styleClass="ui-dataGrid-CargueNovedad">
                      <strong><h:outputText value="#{error}" style="width: 200px; text-align: center;" /></strong>
                   </p:dataGrid>                     
                </p:dialog>
+
                <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
 
                   <p:toolbar styleClass="cssToolbar">
                      <p:toolbarGroup align="left"> 
 
-                        <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{cargarArchivoPlano.guardar()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                         <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
@@ -64,13 +68,16 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         onclick="PF('nuevaTempNDialogo').show()" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                        <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{cargarArchivoPlano.borrar()}" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                        <p:commandButton disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"   process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{cargarArchivoPlano.duplicar()}" process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -81,17 +88,17 @@
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                         actionListener="#{cargarArchivoPlano.cancelarModificacion()}"  process="@this"/>  
+                                         actionListener="#{cargarArchivoPlano.cancelarModificaciones()}" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{cargarArchivoPlano.cancelarModificacion()}" action="novedad" process="@this"/>  
+                                         actionListener="#{cargarArchivoPlano.cancelarModificaciones()}" action="#{cargarArchivoPlano.retornarPagina()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar> 
 
-                  <fieldset style="position: absolute; left: 10px; top: 75px; width: 290px; height: 185px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 10px; top: 75px; width: 290px; height: 178px; border-radius: 10px;">
                      <center><h:outputText value="#{msg['cap']}" style="color: #009; font-weight: bold;"/></center>
                      <br></br>
                      <p:inputText  autocomplete="off" id="nombreArchivo" value="#{cargarArchivoPlano.nombreArchivoPlano}" readonly="true"
@@ -99,16 +106,18 @@
                      <p:watermark for="nombreArchivo" value="#{msg['nombredelarchivo']}" />
 
                      <p:fileUpload id="FileUp" mode="advanced" disabled="#{cargarArchivoPlano.botones}" label="#{msg['examinar']}" auto="true" skinSimple="true"
-                                   style="position: absolute; top: 30px; left: 175px; " fileUploadListener="#{cargarArchivoPlano.cargarArchivo}"
+                                   style="position: absolute; top: 28px; left: 175px;" fileUploadListener="#{cargarArchivoPlano.cargarArchivo}"
                                    invalidSizeMessage="#{msg['tamaño']}"/>
 
-                     <h:outputText value="#{msg['formula']}" style="font-weight: bold; position: absolute; top: 60px;"/>
-                     <p:inputText autocomplete="off" id="formula" value="#{cargarArchivoPlano.formulaUsada.nombrecorto}" disabled="#{cargarArchivoPlano.botones}"
-                                  style="position: absolute; top: 78px; left: 8px; font-weight: bold; text-transform: uppercase; width: 158px; height: 12px;" maxlength="6" onclick="select();">
+                     <h:outputText value="#{msg['formula']}" style="font-weight: bold; position: absolute; top: 69px;"/>
+                     <p:inputText autocomplete="off" id="formula" value="#{cargarArchivoPlano.formulaUsada.nombresFormula}" disabled="#{cargarArchivoPlano.botones}"
+                                  style="position: absolute; top: 86px; left: 8px; text-transform: uppercase; width: 282px; height: 12px;" maxlength="6" onclick="select();">
                         <p:ajax event="dblclick" listener="#{cargarArchivoPlano.botonListaValores()}" process="@this"/>
                         <p:ajax event="select" listener="#{cargarArchivoPlano.valorAnteriorFormula()}"/>
                         <p:ajax event="change" listener="#{cargarArchivoPlano.autocompletarFormula(cargarArchivoPlano.formulaUsada.nombrecorto)}"/>
                      </p:inputText>
+                     <p:commandButton class="cssBotonLovDialogos" style="top: 87px; left: 280px; position: absolute;" value=""
+                                      actionListener="#{cargarArchivoPlano.botonListaValores()}" process="@this"/>
 
                      <h:outputText value="#{msg['usarformula']}" style="font-weight: bold; position: absolute; top: 115px; left: 8px;"/>
                      <p:selectOneMenu id="usoFormulaC" value="#{cargarArchivoPlano.usarFormulaConcepto}" disabled="#{cargarArchivoPlano.botones}"
@@ -119,12 +128,12 @@
                      </p:selectOneMenu>
 
                      <p:commandButton id="cargar" icon="ui-icon-folder-open" value="#{msg['cargar']}" disabled="#{cargarArchivoPlano.cargue}"
-                                      actionListener="#{cargarArchivoPlano.cargarNovedades()}" process="@this" style="position: absolute; top: 165px; left: 98px;"/>
+                                      actionListener="#{cargarArchivoPlano.cargarNovedades()}" process="@this" style="position: absolute; top: 160px; left: 98px;"/>
                      <p:commandButton id="reversar" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['reversar']}" oncomplete="PF('reversarDialogo').show();"
-                                      update="reversarDialogo" process="@this" style="position: absolute; top: 165px; left: 190px;"/>
+                                      update="reversarDialogo" process="@this" style="position: absolute; top: 160px; left: 190px;"/>
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 325px; top: 75px; width: 520px; height: 185px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 325px; top: 75px; width: 520px; height: 178px; border-radius: 10px; ">
 
                      <center><h:outputText value="#{msg['eap']}" style="color: #009; font-weight: bold; position: relative; "/></center>
                      <p:scrollPanel mode="native" style="height:165px; border: none" >
@@ -160,76 +169,82 @@
 
                   </fieldset>
 
-                  <fieldset style="position: absolute; left: 10px; top: 280px; width: 835px; height: 193px; border-radius: 10px; ">
+                  <fieldset style="position: absolute; left: 10px; top: 272px; width: 835px; height: 193px; border-radius: 10px; ">
                      <legend style="color: blue"><strong>#{msg['novedad']}</strong></legend>
 
-                     <p:dataTable id="tempNovedades" var="tNovedades" style="width: 819px; font-size: 11px;" value="#{cargarArchivoPlano.listTempNovedades}"
+                     <p:dataTable id="tempNovedades" var="tNovedades" style="width: 816px; font-size: 11px;" value="#{cargarArchivoPlano.listTempNovedades}"
                                   scrollable="true" scrollHeight="#{cargarArchivoPlano.altoTabla}" scrollWidth="835" emptyMessage="#{msg['noseencontraron']}" widgetVar="tempNovedades"
-                                  rowKey="#{tNovedades.concepto}" rowIndexVar="pos" styleClass="ui-datatable" liveScroll="true" scrollRows="30"
-                                  editable="true" editMode="cell" rowStyleClass="#{tNovedades.estadovalidacion eq 'I' ? 'red' : null}"
-                                  filteredValue="#{cargarArchivoPlano.filtrarListTempNovedades}" selection="#{cargarArchivoPlano.novedadTablaSeleccionada}">
+                                  rowKey="#{tNovedades.secuencia}" rowIndexVar="pos" liveScroll="true" scrollRows="30" editable="true" editMode="cell"
+                                  filteredValue="#{cargarArchivoPlano.filtrarListTempNovedades}" selection="#{cargarArchivoPlano.tempNovedadSeleccionada}">
 
                         <p:ajax event="filter" listener="#{cargarArchivoPlano.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{cargarArchivoPlano.recordarSeleccion()}"/>
 
                         <p:column width="20" exportable="false" sortBy="#{tNovedades.estadovalidacion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
-                           <p:commandButton id="revisar" value="" actionListener="#{cargarArchivoPlano.revisarNovedad(tNovedades.secuencia)}"
-                                            process="@this" style="background-image: url(Imagenes/Iconos/revisar.png); width: 17px; height: 17px; background-repeat: no-repeat; background-size: 100% 100%; border-radius: 2px;"/>
+                           <p:commandButton id="revisar" value="" actionListener="#{cargarArchivoPlano.revisarNovedad(tNovedades.secuencia)}" process="@this" 
+                                            style="background-image: url(Imagenes/Iconos/editar.png); width: 18px; height: 18px; background-repeat: no-repeat; background-size: 100% 100%; border: none;"/>
                         </p:column> 
 
-                        <p:column width="60" id="columnaConcepto" sortBy="#{tNovedades.concepto}" filterBy="#{tNovedades.concepto}"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="70" id="columnaConcepto" sortBy="#{tNovedades.concepto}" filterBy="#{tNovedades.concepto}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="concepto" value="#{msg['conceptoN']}"/>  
                               <p:tooltip  for="concepto" value="#{msg['codigodelconceptoN']}" />
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{tNovedades.concepto}" />
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{tNovedades.concepto}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText autocomplete="off" value="#{tNovedades.concepto}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px;"
-                                              onselect="posicionTablaNovedad([{name: 'n', value: '0'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tNovedades.concepto}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 0)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
 
-                        <p:column width="70" id="columnaEmpleado" filterBy="#{tNovedades.empleado}" sortBy="#{tNovedades.empleado}" style="padding: 0px;" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                        <p:column width="70" id="columnaEmpleado" sortBy="#{tNovedades.empleado}" filterBy="#{tNovedades.empleado}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
                               <h:outputText id="empleado" value="#{msg['empleadoN']}"/>  
                               <p:tooltip  for="empleado" value="#{msg['identificaciondelempleadoN']}" />
                            </f:facet>
                            <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{tNovedades.empleado}" />
-                              </f:facet>  
+                              <f:facet name="output"><h:outputText value="#{tNovedades.empleado}"/></f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.empleado}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '1'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText autocomplete="off" value="#{tNovedades.empleado}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 1)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>  
 
-                        <p:column width="65" id="columnaFechaInicial" filterBy="#{tNovedades.fechainicial}" sortBy="#{tNovedades.fechainicial}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="68" id="columnaFechaInicial" filterBy="#{tNovedades.fechainicial}" sortBy="#{tNovedades.fechainicial}"
+                                  class="cssColumnasCentradas" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
                               <h:outputText id="fechaI" value="#{msg['fechainiN']}"/>  
-                              <p:tooltip for="fechaI" value="#{msg['fechainicialnovedadN']}" />
+                              <p:tooltip for="fechaI" value="#{msg['fechainicialnovedadN']}"/>
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
                                  <h:outputText value="#{tNovedades.fechainicial}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.fechainicial}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '2'}, {name: 't', value: '#{pos}'}]);"
-                                               >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                 </p:inputText>
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{tNovedades.fechainicial}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 2)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="65" id="columnaFechaFinal" filterBy="#{tNovedades.fechafinal}" sortBy="#{tNovedades.fechafinal}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="68" id="columnaFechaFinal" filterBy="#{tNovedades.fechafinal}" sortBy="#{tNovedades.fechafinal}"
+                                  class="cssColumnasCentradas" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
                               <h:outputText id="fechaF" value="#{msg['fechafinalN']}"/> 
                               <p:tooltip  for="fechaF" value="#{msg['fechafinalnovedadN']}"/>
@@ -241,17 +256,18 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.fechafinal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '3'}, {name: 't', value: '#{pos}'}]);"
-                                               >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                 </p:inputText>
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{tNovedades.fechafinal}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 3)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
 
                         </p:column>
 
-                        <p:column width="65" id="columnaFechaReporte" filterBy="#{tNovedades.fechareporte}" sortBy="#{tNovedades.fechareporte}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="68" id="columnaFechaReporte" filterBy="#{tNovedades.fechareporte}" sortBy="#{tNovedades.fechareporte}"
+                                  class="cssColumnasCentradas" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="fechaR" value="#{msg['fechareN']}"/>  
                               <p:tooltip  for="fechaR" value="#{msg['fechareportenovedadN']}"/>
@@ -263,16 +279,17 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.fechareporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '4'}, {name: 't', value: '#{pos}'}]);"
-                                               >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                 </p:inputText>
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{tNovedades.fechareporte}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 4)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:calendar>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column id="columnaDocumentoSoporte" filterBy="#{tNovedades.documentosoporte}" sortBy="#{tNovedades.documentosoporte}" style="padding: 0px;" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
+                        <p:column id="columnaDocumentoSoporte" filterBy="#{tNovedades.documentosoporte}" sortBy="#{tNovedades.documentosoporte}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">  
                            <f:facet name="header">  
                               <h:outputText id="documentoS" value="#{msg['documentoN']}"/>  
                               <p:tooltip  for="documentoS" value="#{msg['documentosoporteN']}"/>
@@ -282,35 +299,39 @@
                                  <h:outputText value="#{tNovedades.documentosoporte}" />
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{tNovedades.documentosoporte}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '5'}, {name: 't', value: '#{pos}'}]);"
-                                               />
+                                 <p:inputText  autocomplete="off" value="#{tNovedades.documentosoporte}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 5)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="65" id="columnaValorTotal" filterBy="#{tNovedades.valortotal}" sortBy="#{tNovedades.valortotal}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="65" id="columnaValorTotal" filterBy="#{tNovedades.valortotal}" sortBy="#{tNovedades.valortotal}"
+                                  class="cssColumnasNumericas" style="padding-right: 5px !important;" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="valorT" value="#{msg['valorN']}"/> 
                               <p:tooltip  for="valorT" value="#{msg['valorN']}"/>
                            </f:facet>
-                           <p:cellEditor>  
-                              <f:facet name="output">
-                                 <h:outputText value="#{tNovedades.valortotal}" >
-                                    <f:convertNumber currencyCode="COP"/>
-                                 </h:outputText>
-                              </f:facet>  
-                              <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.valortotal}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '6'}, {name: 't', value: '#{pos}'}]);"
-                                               >
-                                    <f:convertNumber currencyCode="COP"/>
-                                 </p:inputText> 
-                              </f:facet>   
-                           </p:cellEditor>
+                           <!--<p:cellEditor>-->  
+                           <!--                              <f:facet name="output">
+                                                            <h:outputText value="#{tNovedades.valortotal}" >
+                                                               <f:convertNumber currencyCode="COP"/>
+                                                            </h:outputText>
+                                                         </f:facet>  -->
+                           <!--<f:facet name="input">-->
+                           <p:inputNumber  autocomplete="off"  value="#{tNovedades.valortotal}" symbol="$" decimalPlaces="2">
+                              <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 6)}"
+                                      onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                              <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                           </p:inputNumber> 
+                           <!--                              </f:facet>   
+                                                      </p:cellEditor>-->
                         </p:column>
 
-                        <p:column width="25" id="columnaPeriodicidad" filterBy="#{tNovedades.periodicidad}" sortBy="#{tNovedades.periodicidad}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="25" id="columnaPeriodicidad" filterBy="#{tNovedades.periodicidad}" sortBy="#{tNovedades.periodicidad}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="periodicidad" value="#{msg['peN']}"/>  
                               <p:tooltip for="periodicidad" value="#{msg['periodicidadnovedadN']}"/>
@@ -320,14 +341,17 @@
                                  <h:outputText value="#{tNovedades.periodicidad}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.periodicidad}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '7'}, {name: 't', value: '#{pos}'}]);"
-                                               />
+                                 <p:inputText  autocomplete="off"  value="#{tNovedades.periodicidad}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 7)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="70" id="columnaTercero" filterBy="#{tNovedades.tercero}" sortBy="#{tNovedades.tercero}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="70" id="columnaTercero" filterBy="#{tNovedades.tercero}" sortBy="#{tNovedades.tercero}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="tercero" value="#{msg['terceroN']}"/> 
                               <p:tooltip for="tercero" value="#{msg['nitterceroN']}"/>
@@ -337,14 +361,17 @@
                                  <h:outputText value="#{tNovedades.tercero}" />
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.tercero}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '8'}, {name: 't', value: '#{pos}'}]);"
-                                               />
+                                 <p:inputText  autocomplete="off"  value="#{tNovedades.tercero}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 8)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="65" id="columnaSaldo" filterBy="#{tNovedades.saldo}" sortBy="#{tNovedades.saldo}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="65" id="columnaSaldo" filterBy="#{tNovedades.saldo}" sortBy="#{tNovedades.saldo}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="saldo" value="#{msg['saldoN']}"/>
                               <p:tooltip for="saldo" value="#{msg['saldonovedadN']}"/>
@@ -356,16 +383,17 @@
                                  </h:outputText>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.saldo}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '9'}, {name: 't', value: '#{pos}'}]);"
-                                               >
-                                    <f:convertNumber currencyCode="COP"/>
+                                 <p:inputText  autocomplete="off"  value="#{tNovedades.saldo}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 9)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
                                  </p:inputText>   
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="25" id="columnaUnidadEntera" filterBy="#{tNovedades.unidadesparteentera}" sortBy="#{tNovedades.unidadesparteentera}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="25" id="columnaUnidadEntera" filterBy="#{tNovedades.unidadesparteentera}" sortBy="#{tNovedades.unidadesparteentera}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
                               <h:outputText id="unidadEntera" value="..."/>
                               <p:tooltip  for="unidadEntera" value="#{msg['unidadparteenteraN']}"/>
@@ -375,16 +403,19 @@
                                  <h:outputText value="#{tNovedades.unidadesparteentera}" />
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off"  value="#{tNovedades.unidadesparteentera}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;" 
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '10'}, {name: 't', value: '#{pos}'}]);"
-                                               />
+                                 <p:inputText  autocomplete="off"  value="#{tNovedades.unidadesparteentera}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 10)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
 
-                        <p:column width="25" id="columnaUnidadFraccion" filterBy="#{tNovedades.unidadespartefraccion}" sortBy="#{tNovedades.unidadespartefraccion}" style="padding: 0px;"  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column width="25" id="columnaUnidadFraccion" filterBy="#{tNovedades.unidadespartefraccion}" sortBy="#{tNovedades.unidadespartefraccion}"
+                                  filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">  
-                              <h:outputText id="unidadFraccion" value="..." style="text-align: right"/>  
+                              <h:outputText id="unidadFraccion" value="..." style="text-align: right;"/>  
                               <p:tooltip  for="unidadFraccion" value="#{msg['unidadpartefraccionN']}"/>
                            </f:facet>
                            <p:cellEditor>  
@@ -392,8 +423,11 @@
                                  <h:outputText value="#{tNovedades.unidadespartefraccion}"/>
                               </f:facet>  
                               <f:facet name="input">
-                                 <p:inputText  autocomplete="off" value="#{tNovedades.unidadespartefraccion}" readonly="true" style="border-radius: 0px; width: 99%; border: none; padding-left: 1px; padding-right: 0px;"  
-                                               onselect="posicionTablaNovedad([{name: 'n', value: '11'}, {name: 't', value: '#{pos}'}]);"/>
+                                 <p:inputText  autocomplete="off" value="#{tNovedades.unidadespartefraccion}">
+                                    <p:ajax event="select" listener="#{cargarArchivoPlano.cambiarIndice(tNovedades, 11)}"
+                                            onstart="PF('tempNovedades').unselectAllRows();PF('tempNovedades').selectRow(#{pos});"/>
+                                    <p:ajax event="change" listener="#{cargarArchivoPlano.modificarTempNovedad(tNovedades)}" process="@this"/>
+                                 </p:inputText>
                               </f:facet>   
                            </p:cellEditor>
                         </p:column>
@@ -401,26 +435,27 @@
 
                      <h:outputText id="infoRegistro" value="#{msg['infoRegistro']} #{cargarArchivoPlano.infoRegistro}" style="position: relative; left: 10px; top: 2px; font-weight: bold"/>
                      <!--<div style="">-->
-                     <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: relative; top: 2px; left: 550px"/>
-                     <p:inputText  autocomplete="off" id="subtotal" value="#{cargarArchivoPlano.subTotal}" style="position: relative; top: 2px; left: 570px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 16px !important; padding: 1px;" readonly="true" onclick="select();">
+                     <h:outputText value="#{msg['subtotal']}" style="font-weight: bold; position: relative; top: 2px; left: 370px"/>
+                     <p:inputText  autocomplete="off" id="subtotal" value="$ #{cargarArchivoPlano.subTotal} " readonly="true" onclick="select();"
+                                   style="position: relative; top: 2px; left: 390px; font-weight: bold; width: 80px; border-radius: 2px; text-align: right; height: 14px !important; padding: 1px;">
                         <f:convertNumber currencyCode="COP"/>
                      </p:inputText> 
                      <!--</div>-->
                   </fieldset>
 
-                  <p:commandButton id="borrarTodo" value="#{msg['borrartodo']}" process="@this" style="position: absolute; top: 488px; height: 32px;" class="cssBoton" 
+                  <p:commandButton id="borrarTodo" value="#{msg['borrartodo']}" process="@this" style="position: absolute; top: 481px; height: 32px;" class="cssBoton" 
                                    icon="ui-icon-extlink" oncomplete="PF('borrarTodoDialogo').show();" update="pickListDocumentosSoporte" />
                   <p:commandButton id="borrarNoCargado" value="#{msg['borrarnocargado']}" actionListener="#{cargarArchivoPlano.borrarRegistrosNoCargados()}"
-                                   process="@this" style="position: absolute; top: 490px; left: 145px;" icon="ui-icon-extlink" class="cssBotonLargo" />
+                                   process="@this" style="position: absolute; top: 483px; left: 145px;" icon="ui-icon-extlink" class="cssBotonLargo" />
                   <p:commandButton id="novedadPlanoOcasional" value="#{msg['novedadplanoocasional']}" actionListener="#{cargarArchivoPlano.revisarNovedad(tNovedades.secuencia)}" process="@this"  icon="ui-icon-extlink"
-                                   style="position: absolute; top: 490px; left: 315px;" class="cssBotonLargo"/>
+                                   style="position: absolute; top: 483px; left: 315px;" class="cssBotonLargo"/>
 
-                  <p:commandButton id="aceptarN" value="" actionListener="#{cargarArchivoPlano.host()}" process="@this" class="cssBotonAceptar"/>
-                  <p:commandButton id="atrasN" value="" actionListener="#{cargarArchivoPlano.revisarNovedad(tNovedades.secuencia)}" process="@this" class="cssBotonCancelar" action="novedad"/>
+                  <p:commandButton id="ACEPTAR" value="" disabled="#{cargarArchivoPlano.guardado}" onclick="PF('confirmarGuardar').show()" process="@this" class="cssBotonAceptar"/>
+                  <p:commandButton id="atrasN" value="" actionListener="#{cargarArchivoPlano.cancelarModificaciones()}" process="@this" class="cssBotonCancelar" action="#{cargarArchivoPlano.retornarPagina()}"/>
 
-                  <p:remoteCommand name="posicionTablaNovedad" actionListener="#{cargarArchivoPlano.posicionTablaNovedad()}"/>
+                  <!--<p:remoteCommand name="posicionTablaNovedad" actionListener="#/{cargarArchivoPlano.posicionTablaNovedad()}"/>-->
 
-                  <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295px">  
+                  <p:dialog id="errorArchivo" header="#{msg['error']}" widgetVar="errorArchivo"  resizable="false" draggable="true" modal="true" height="60" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['errorArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
@@ -431,33 +466,33 @@
                      <strong><h:outputText value="#{msg['registroscargados']} #{cargarArchivoPlano.diferenciaRegistrosN})" style="position: absolute; left: 75px; top: 60px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px">  
+                  <p:dialog id="errorExtensionArchivo" header="#{msg['error']}" widgetVar="errorExtensionArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295">  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['errorExtensionArchivo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
+                  <p:dialog id="errorNombreArchivo" header="#{msg['error']}" widgetVar="errorNombreArchivo"  resizable="false" draggable="true" modal="true" height="80" width="295" >  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['errorNombreArchivo']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
+                  <p:dialog id="documentoNoExiste" header="#{msg['error']}" widgetVar="documentoNoExiste"  resizable="false" draggable="true" modal="true" height="80" width="295" >  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['documentoNoExiste']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
+                  <p:dialog id="reversarFallo" header="#{msg['error']}" widgetVar="reversarFallo"  resizable="false" draggable="true" modal="true" height="80" width="295" >  
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['reversarFallo']}" style="position: absolute; left: 75px; top: 10px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
+                  <p:dialog id="reversarExito" header="#{msg['informacion']}" widgetVar="reversarExito"  resizable="false" draggable="true" modal="true" height="80" width="295" >  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['nre']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                      <strong><h:outputText value="#{msg['registrosreversados']} #{cargarArchivoPlano.resultado})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;" /></strong>
                   </p:dialog>
 
-                  <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="121" width="316px">  
+                  <p:dialog id="reversarDialogo" header="#{msg['reversarDialogo']}" widgetVar="reversarDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="121" width="316">  
                      <fieldset style="position: absolute; left: 10px; width: 260px; height: 85px; border-radius: 10px; ">
                         <legend style="color: blue"><strong>Reversar Cargue Novedades</strong></legend>
                         <strong><h:outputText value="#{msg['documentosoporte']}" style="position: absolute; top: 30px; width: 200px;" /></strong>
@@ -470,25 +505,29 @@
                      </fieldset>
                   </p:dialog>
 
-                  <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355px;" >
-                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                     <strong><h:outputText value="#{msg['confirmarReversar']} #{cargarArchivoPlano.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 20px; width: 250px; text-align: center;"/></strong>
-                     <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}" style="position: absolute; top: 70px; left: 145px;" actionListener="#{cargarArchivoPlano.reversar()}"/>
-                     <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}" style="position: absolute; top: 70px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
+                  <p:dialog id="confirmarReversar" header="#{msg['atencion']}" widgetVar="confirmarReversar"  resizable="false" draggable="true" modal="true" height="110" width="355" >
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="55" style="position: absolute; left: 10px; top: 10px;"  />
+                     <strong><h:outputText value="#{msg['confirmarReversar']} #{cargarArchivoPlano.documentoSoporteReversar}, Desea continuar?" style="position: absolute; left: 75px; top: 10px; width: 250px; text-align: center;"/></strong>
+                     <p:commandButton id="aceptarC" icon="ui-icon-check" value="#{msg['continuar']}"
+                                      style="position: absolute; top: 75px; left: 145px;" actionListener="#{cargarArchivoPlano.reversar()}"/>
+                     <p:commandButton id="atrasC" icon="ui-icon-close" value="#{msg['atras']}"
+                                      style="position: absolute; top: 75px; left: 258px;" onclick="PF('confirmarReversar').hide();"/>
                   </p:dialog>
 
-                  <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467px;" >  
+                  <p:dialog id="borrarTodoDialogo" header="#{msg['bvc']}" widgetVar="borrarTodoDialogo"  resizable="false" draggable="true" closable="false" modal="true" height="290" width="467" >  
                      <p:pickList id="pickListDocumentosSoporte" value="#{cargarArchivoPlano.documentosSoportes}" var="documento"   
                                  itemLabel="#{documento}" itemValue="#{documento}" style="position: relative; left: -3px;"
                                  showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains">
                         <f:facet name="sourceCaption">#{msg['documentosSoporte']}</f:facet>  
                         <f:facet name="targetCaption">#{msg['cpb']}</f:facet> 
                      </p:pickList>
-                     <p:commandButton value="#{msg['borrarseleccionados']}" icon="ui-icon-check" actionListener="#{cargarArchivoPlano.confirmarBorrarTodo()}" style="position: relative; left: 180px"/>
-                     <p:commandButton value="#{msg['atras']}" icon="ui-icon-close" actionListener="#{cargarArchivoPlano.cancelarBorrarTodo()}" style="position: relative; left: 180px"/>
+                     <p:commandButton value="#{msg['borrarseleccionados']}" icon="ui-icon-check" actionListener="#{cargarArchivoPlano.confirmarBorrarTodo()}"
+                                      style="position: relative; left: 180px; top: 5px;"/>
+                     <p:commandButton value="#{msg['atras']}" icon="ui-icon-close" actionListener="#{cargarArchivoPlano.cancelarBorrarTodo()}"
+                                      style="position: relative; left: 180px; top: 5px;"/>
                   </p:dialog>
 
-                  <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295px;" >  
+                  <p:dialog id="borrarTodoExito" header="#{msg['informacion']}" widgetVar="borrarTodoExito"  resizable="false" draggable="true" modal="true" height="80" width="295" >  
                      <h:graphicImage value="Imagenes/Iconos/correcto.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                      <strong><h:outputText value="#{msg['novedadesborradasconexito']}" style="position: absolute; left: 75px; top: 20px; width: 200px; text-align: center;" /></strong>
                      <strong><h:outputText value="#{msg['registrosborrados']} #{cargarArchivoPlano.resultadoProceso.registrosBorrados})" style="position: absolute; left: 75px; top: 50px; width: 200px; text-align: center;" /></strong>
@@ -498,18 +537,160 @@
                      <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['erroresBorrarTodo']}" style="font-weight: bold;  position: absolute; left: 80px; top: 10px; color: red;"/>
                      <p:dataGrid var="documentoNoBorrado" value="#{cargarArchivoPlano.resultadoProceso.documentosNoBorrados}" columns="1" styleClass="ui-dataGrid-CargueNovedad" >
-                        <strong><h:outputText value="#{documentoNoBorrado}" style="position: absolute; width: 200px; text-align: center; top: 400px;" /></strong>
+                        <strong><h:outputText value="#{documentoNoBorrado}" style="position: absolute; width: 200px; text-align: center; top: 300px;" /></strong>
                      </p:dataGrid>      
                      <h:outputText value="#{msg['yaqueexisten']}" style="font-weight: bold; position: absolute; left: 10px; top: 70px; color: red;"/>
                      <h:outputText value="#{msg['losdemasdocumentos']}" style="font-weight: bold; position: absolute; left: 10px; top: 90px; color: red;"/>
                   </p:dialog>
                </p:panel>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
             </h:form> 
-            
+
             <h:form id="formDialogos">
+               <p:dialog id="nuevaTempNDialogo" header="#{msg['nuevoregistro']}" widgetVar="nuevaTempNDialogo" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="710">  
+                  <center><strong><h:outputText value="#{msg['ingresarnueva']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="nuevaNovedad" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoConcepto" widgetVar="nuevoConcepto" value="#{cargarArchivoPlano.nuevaTempNovedades.concepto}"
+                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                        <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaEmpleado" value="#{cargarArchivoPlano.nuevaTempNovedades.empleado}" 
+                                   style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                        <p:keyFilter for="nuevaEmpleado" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['fechainicial']}:" style=" position: absolute; top: 135px; left: 40px;"/></strong>
+                     <fielset style=" position: absolute; top: 130px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicaFechaInicial" value="#{cargarArchivoPlano.nuevaTempNovedades.fechainicial}"/>
+                     </fielset>
+
+                     <strong><h:outputText value="#{msg['fechafinal']}:" style="position: absolute; top: 165px; left: 40px;"/></strong>
+                     <div style="position: absolute; top: 160px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="duplicaFechaFinal" value="#{cargarArchivoPlano.nuevaTempNovedades.fechafinal}"/>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['fechareporte']}:" style="position: absolute; top: 195px; left: 40px;"/></strong>
+                     <p:calendar autocomplete="off" id="duplicaFechaReporte" value="#{cargarArchivoPlano.nuevaTempNovedades.fechareporte}"
+                                 style="position: absolute; top: 190px; left: 200px;" mask="true" pattern="dd/MM/yyyy"/>
+
+                     <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 225px; left: 40px;"/></strong>
+                     <p:inputText autocomplete="off" id="duplicaDocumento" value="#{cargarArchivoPlano.nuevaTempNovedades.documentosoporte}" 
+                                  style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;"/>
+
+                     <strong><h:outputText value="#{msg['valortotal']}:" style=" position: absolute; top: 75px; left: 410px;"/></strong>
+                     <p:inputNumber symbol="$" decimalPlaces="2" autocomplete="off" id="duplicaValor" value="#{cargarArchivoPlano.nuevaTempNovedades.valortotal}" 
+                                    style=" width: 122px; position: absolute; left: 550px; top: 70px; text-transform: uppercase;"/>
+
+                     <strong><h:outputText value="#{msg['periodicidad']}:" style=" position: absolute; top: 105px; left: 410px;"/></strong>
+                     <p:inputNumber autocomplete="off" id="duplicaPeriocidad" value="#{cargarArchivoPlano.nuevaTempNovedades.periodicidad}" decimalPlaces="0"
+                                    style=" width: 122px; position: absolute; left: 550px; top: 100px; text-transform: uppercase;"/>
+
+                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px ; left: 410px"/></strong>
+                     <p:inputNumber autocomplete="off" id="nuevoTerceroNit" value="#{cargarArchivoPlano.nuevaTempNovedades.tercero}" decimalPlaces="0" thousandSeparator=""
+                                    style=" width: 122px; position: absolute; left: 550px; top: 130px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['saldo']}:" style=" position: absolute; top: 165px; left: 410px"/></strong>
+                     <p:inputNumber autocomplete="off" id="nuevoSaldo" value="#{cargarArchivoPlano.nuevaTempNovedades.saldo}" decimalPlaces="2" symbol="$"
+                                    style=" width: 122px; position: absolute; left: 550px; top: 160px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
+                     <p:inputNumber  autocomplete="off" id="nuevoHoras" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
+                                     style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;" /></strong>
+                     <p:inputNumber  autocomplete="off" id="nuevoMinutos" value="#{cargarArchivoPlano.nuevaTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
+                                     style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase"/>
+
+                     <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                      actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                     <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                      actionListener="#{cargarArchivoPlano.nuevaTempNovedad()}" process="@this"/>
+                     <p:commandButton value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                      actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('nuevaTempNDialogo').hide();" process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="duplicarTempNDialogo" header="#{msg['nuevoregistro']}" widgetVar="duplicarTempNDialogo" closable="false" resizable="false"  draggable="true" height="310" width="710">  
+                  <center><strong><h:outputText value="#{msg['ingresarnueva']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                  <p:panel id="duplicaNovedad" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['concepto']}:" style=" position: absolute; top: 75px; left: 40px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicaConcepto" widgetVar="duplicaConcepto" value="#{cargarArchivoPlano.duplicarTempNovedades.concepto}"
+                                   style=" width: 122px; position: absolute; left: 200px; top: 70px; text-transform: uppercase">
+                        <p:keyFilter for="duplicaConcepto" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['empleado']}:" style=" position: absolute; top: 105px; left: 40px;"/></strong>
+                     <p:inputText  autocomplete="off"  id="duplicaEmpleado" value="#{cargarArchivoPlano.duplicarTempNovedades.empleado}" 
+                                   style=" width: 122px; position: absolute; left: 200px; top: 100px; text-transform: uppercase;">
+                        <p:keyFilter for="duplicaEmpleado" mask="9999999999"/>
+                     </p:inputText>
+
+                     <strong><h:outputText value="#{msg['fechainicial']}:" style=" position: absolute; top: 135px; left: 40px;"/></strong>
+                     <fielset style=" position: absolute; top: 130px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{cargarArchivoPlano.duplicarTempNovedades.fechainicial}"/>
+                     </fielset>
+
+                     <strong><h:outputText value="#{msg['fechafinal']}:" style="position: absolute; top: 165px; left: 40px;"/></strong>
+                     <div style="position: absolute; top: 160px; left: 200px;">
+                        <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{cargarArchivoPlano.duplicarTempNovedades.fechafinal}"/>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['fechareporte']}:" style="position: absolute; top: 195px; left: 40px;"/></strong>
+                     <p:calendar autocomplete="off" id="nuevaFechaReporte" value="#{cargarArchivoPlano.duplicarTempNovedades.fechareporte}"
+                                 style="position: absolute; top: 190px; left: 200px;" mask="true" pattern="dd/MM/yyyy"/>
+
+                     <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 225px; left: 40px;"/></strong>
+                     <p:inputText autocomplete="off" id="nuevoDocumento" value="#{cargarArchivoPlano.duplicarTempNovedades.documentosoporte}" 
+                                  style=" width: 122px; position: absolute; left: 200px; top: 220px; text-transform: uppercase; text-align: right;"/>
+
+                     <strong><h:outputText value="#{msg['valortotal']}:" style=" position: absolute; top: 75px; left: 410px;"/></strong>
+                     <p:inputNumber symbol="$" decimalPlaces="2" autocomplete="off" id="nuevaValor" value="#{cargarArchivoPlano.duplicarTempNovedades.valortotal}" 
+                                    style=" width: 122px; position: absolute; left: 550px; top: 70px; text-transform: uppercase;"/>
+
+                     <strong><h:outputText value="#{msg['periodicidad']}:" style=" position: absolute; top: 105px; left: 410px;"/></strong>
+                     <p:inputNumber autocomplete="off" id="nuevaPeriocidad" value="#{cargarArchivoPlano.duplicarTempNovedades.periodicidad}" decimalPlaces="0"
+                                    style=" width: 122px; position: absolute; left: 550px; top: 100px; text-transform: uppercase;"/>
+
+                     <strong><h:outputText value="#{msg['tercero']}:" style=" position: absolute; top: 135px ; left: 410px"/></strong>
+                     <p:inputNumber autocomplete="off" id="duplicaTerceroNit" value="#{cargarArchivoPlano.duplicarTempNovedades.tercero}" decimalPlaces="0" thousandSeparator=""
+                                    style=" width: 122px; position: absolute; left: 550px; top: 130px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['saldo']}:" style=" position: absolute; top: 165px; left: 410px"/></strong>
+                     <p:inputNumber autocomplete="off" id="duplicaSaldo" value="#{cargarArchivoPlano.duplicarTempNovedades.saldo}" decimalPlaces="2" symbol="$"
+                                    style=" width: 122px; position: absolute; left: 550px; top: 160px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['unidadentera']}:" style=" position: absolute; top: 195px; left: 410px"/></strong>
+                     <p:inputNumber  autocomplete="off" id="duplicaHoras" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadesparteentera}" decimalPlaces="0" thousandSeparator=""
+                                     style=" width: 122px; position: absolute; left: 550px; top: 190px; text-transform: uppercase"/>
+
+                     <strong><h:outputText value="#{msg['unidadfraccion']}:" style=" position: absolute; top: 225px; left: 410px;" /></strong>
+                     <p:inputNumber  autocomplete="off" id="duplicaMinutos" value="#{cargarArchivoPlano.duplicarTempNovedades.unidadespartefraccion}" decimalPlaces="0" thousandSeparator=""
+                                     style=" width: 122px; position: absolute; left: 550px; top: 220px; text-transform: uppercase"/>
+
+                     <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                      actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                     <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                      onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                      actionListener="#{cargarArchivoPlano.confirmarDuplicar()}" process="@this"/>
+                     <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                      actionListener="#{cargarArchivoPlano.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('duplicarTempNDialogo').hide();" process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
                <p:dialog header="#{msg['formulasF']}" widgetVar="formulasDialogo" draggable="true" resizable="false" closable="false" id="formulasDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                 
+
                   <p:dataTable id="lovFormulas" var="formula" value="#{cargarArchivoPlano.listaFormulas}" rowKey="#{formula.secuencia}"
                                selection="#{cargarArchivoPlano.formulaSelecionada}" selectionMode="single" widgetVar="lovFormulas" scrollable="true" scrollWidth="415" scrollHeight="225"
                                filteredValue="#{cargarArchivoPlano.filtradoFormulas}" emptyMessage="#{msg['lovvacio']}">              
@@ -522,14 +703,14 @@
                         <h:outputText value="#{msg['buscarF']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormulas').filter();" class="cssFiltroLOV"/>
                      </f:facet>
-                     
-                     <p:column filterBy="#{formula.nombrecorto}" filterMatchMode="contains" filterStyle="width: 85% !important;">
+
+                     <p:column filterBy="#{formula.nombrecorto}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombrecortoF']}" />
                         </f:facet>
                         <h:outputText value="#{formula.nombrecorto}" />
                      </p:column>
-                     
+
                      <p:column filterBy="#{formula.nombrelargo}" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombrelargoF']}" />
@@ -537,7 +718,7 @@
                         <h:outputText value="#{formula.nombrelargo}" />
                      </p:column>
                   </p:dataTable>
-                  
+
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{cargarArchivoPlano.infoRegistroFormula}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarF" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{cargarArchivoPlano.aceptar}" actionListener="#{cargarArchivoPlano.formulaParaUsar()}"  process="@this"/>
@@ -547,29 +728,29 @@
 
                <p:dialog header="#{msg['documentosDS']}" widgetVar="documentoSoporteDialogo" draggable="true" resizable="false" closable="false" id="documentoSoporteDialogo"  
                          showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                 
+
                   <p:dataTable id="lovDocumentoSoporte" var="documentoSoporte" value="#{cargarArchivoPlano.documentosSoporteCargados}" rowKey="#{documentoSoporte}"
                                selection="#{cargarArchivoPlano.seleccionDocumentosSoporteCargado}" selectionMode="single" widgetVar="lovDocumentoSoporte" scrollable="true" scrollWidth="415" scrollHeight="225"
                                filteredValue="#{cargarArchivoPlano.filtradoDocumentosSoporteCargados}" emptyMessage="#{msg['lovvacio']}">              
-                   
+
                      <p:ajax event="rowSelect" listener="#{cargarArchivoPlano.activarAceptar()}" update=":formDialogos:aceptarDS"/>
                      <p:ajax event="rowDblselect" process="@this" listener="#{cargarArchivoPlano.seleccionarDocumentoSoporte()}" />
                      <p:ajax event="filter" listener="#{cargarArchivoPlano.contarRegistrosDocumentos()}"/>
-                    
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarDS']}"/>
                         <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovDocumentoSoporte').filter();" class="cssFiltroLOV"/>  
                      </f:facet>
-                     
+
                      <p:column filterBy="#{documentoSoporte}" width="300" filterMatchMode="contains" filterStyle="width: 85% !important;">
                         <f:facet name="header">
                            <h:outputText value="#{msg['nombreDS']}" />
                         </f:facet>
                         <h:outputText value="#{documentoSoporte}" />
                      </p:column>
-                     
+
                   </p:dataTable>
-                  
+
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroDocumento" value="#{msg['infoRegistro']} #{cargarArchivoPlano.infoRegistroDocumento}" class="cssinfoRegistroLOV"/>
                      <p:commandButton id="aceptarDS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{cargarArchivoPlano.aceptar}" actionListener="#{cargarArchivoPlano.seleccionarDocumentoSoporte()}" process="@this"/>
@@ -577,6 +758,15 @@
                   </div>
                </p:dialog> 
 
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').hide();" action="#{cargarArchivoPlano.retornarPagina()}"
+                                   actionListener="#{cargarArchivoPlano.guardar()}" style="position: absolute; top: 50px; left: 125px;" process="@this"/>
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" action="#{cargarArchivoPlano.retornarPagina()}"
+                                   actionListener="#{cargarArchivoPlano.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 187px;" process="@this" />
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w"  onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 254px;" process="@this" />
+               </p:dialog>
 
                <!-- Editar -->
 

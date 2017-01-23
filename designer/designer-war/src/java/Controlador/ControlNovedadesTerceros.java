@@ -113,6 +113,7 @@ public class ControlNovedadesTerceros implements Serializable {
    private boolean todas;
    private boolean actuales;
    private String altoTabla;
+   private String altoTablaReg;
    BigDecimal valor = new BigDecimal(Integer.toString(0));
    //Conteo de registros
    private String infoRegistroTerceros, infoRegistroLovTerceros, infoRegistroNovedades, infoRegistroPeriodi, infoRegistroEmpleados, infoRegistroConceptos, infoRegistroFormulas;
@@ -141,7 +142,7 @@ public class ControlNovedadesTerceros implements Serializable {
       nuevaNovedad.setPeriodicidad(new Periodicidades());
       nuevaNovedad.setFechareporte(new Date());
       nuevaNovedad.setTipo("FIJA");
-      altoTabla = "135";
+      altoTabla = "145";
       nuevaNovedad.setValortotal(valor);
       terceroSeleccionado = null;
       terceroSeleccionadoLOV = null;
@@ -492,7 +493,7 @@ public class ControlNovedadesTerceros implements Serializable {
       if (pasa == 0 && pasa2 == 0) {
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "135";
+            altoTabla = "145";
          }
          //AGREGAR REGISTRO A LA LISTA NOVEDADES .
          k++;
@@ -883,7 +884,7 @@ public class ControlNovedadesTerceros implements Serializable {
          }
          if (bandera == 1) {
             cerrarFiltrado();
-            altoTabla = "135";
+            altoTabla = "145";
          }
 
          // OBTENER EL TERMINAL 
@@ -1112,7 +1113,7 @@ public class ControlNovedadesTerceros implements Serializable {
          nTMinutosHoras.setFilterStyle("width: 85% !important;");
          nTTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesTercero:nTTipo");
          nTTipo.setFilterStyle("width: 85% !important;");
-         altoTabla = "115";
+         altoTabla = "125";
          RequestContext.getCurrentInstance().update("form:datosNovedadesTercero");
          bandera = 1;
          tipoLista = 1;
@@ -1120,7 +1121,7 @@ public class ControlNovedadesTerceros implements Serializable {
          System.out.println("Desactivar");
          System.out.println("TipoLista= " + tipoLista);
          cerrarFiltrado();
-         altoTabla = "135";
+         altoTabla = "145";
       }
    }
 
@@ -1611,7 +1612,7 @@ public class ControlNovedadesTerceros implements Serializable {
    //CANCELAR MODIFICACIONES
    public void cancelarModificacion() {
       if (bandera == 1) {
-         altoTabla = "135";
+         altoTabla = "145";
          cerrarFiltrado();
       }
       mostrarTodos();
@@ -1630,7 +1631,7 @@ public class ControlNovedadesTerceros implements Serializable {
 
    public void salir() {
       if (bandera == 1) {
-         altoTabla = "135";
+         altoTabla = "145";
          cerrarFiltrado();
       }
       listaNovedadesBorrar.clear();
@@ -2033,6 +2034,19 @@ public class ControlNovedadesTerceros implements Serializable {
       this.altoTabla = altoTabla;
    }
 
+   public String getAltoTablaReg() {
+      if (altoTabla.equals("125")) {
+         altoTablaReg = "5";
+      } else {
+         altoTablaReg = "6";
+      }
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
+   }
+
    public boolean isGuardado() {
       return guardado;
    }
@@ -2064,7 +2078,7 @@ public class ControlNovedadesTerceros implements Serializable {
    public String getInfoRegistroEmpleados() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEmpleados:LOVEmpleados");
-       if (filtradoslistaEmpleados != null) {
+      if (filtradoslistaEmpleados != null) {
          if (filtradoslistaEmpleados.size() == 1) {
             seleccionEmpleados = filtradoslistaEmpleados.get(0);
             aceptar = false;

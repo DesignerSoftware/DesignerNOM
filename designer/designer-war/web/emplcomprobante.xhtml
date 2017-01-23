@@ -113,7 +113,7 @@
                                                onselect="posicionComprobante([{name: 'n', value: '0'}, {name: 't', value: '#{indiceComprobante}'}]);"> 
                                     <p:ajax event="change" listener="#{controlEmplComprobantes.modificarComprobantes(comprobante)}" update="@this"/>
                                     <p:ajax event="select" listener="#{controlEmplComprobantes.cambiarIndiceComprobantes(comprobante, 0)}" process="@this"
-                                            onstart="PF('datosComprobantes').unselectAllRows();"/>
+                                            onstart="PF('datosComprobantes').unselectAllRows();PF('datosComprobantes').selectRow(#{indiceComprobante});"/>
                                  </p:inputText>
                               </f:facet>   
                            </p:cellEditor>

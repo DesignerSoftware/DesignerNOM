@@ -37,218 +37,224 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmpleadosInterface {
 
-    @EJB
-    PersistenciaPruebaEmpleadosInterface persistenciaPruebaEmpleados;
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    @EJB
-    PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
-    @EJB
-    PersistenciaNovedadesInterface persistenciaNovedades;
-    @EJB
-    PersistenciaConceptosInterface persistenciaConceptos;
-    @EJB
-    PersistenciaFormulasInterface persistenciaFormulas;
-    @EJB
-    PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
-    @EJB
-    PersistenciaTercerosInterface persistenciaTerceros;
-    @EJB
-    PersistenciaActualUsuarioInterface persistenciaActualUsuario;
-    @EJB
-    PersistenciaUsuariosInterface persistenciaUsuarios;
-    @EJB
-    PersistenciaSolucionesFormulasInterface persistenciaSolucionesFormulas;
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
+   @EJB
+   PersistenciaPruebaEmpleadosInterface persistenciaPruebaEmpleados;
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   @EJB
+   PersistenciaVWActualesTiposTrabajadoresInterface persistenciaVWActualesTiposTrabajadores;
+   @EJB
+   PersistenciaNovedadesInterface persistenciaNovedades;
+   @EJB
+   PersistenciaConceptosInterface persistenciaConceptos;
+   @EJB
+   PersistenciaFormulasInterface persistenciaFormulas;
+   @EJB
+   PersistenciaPeriodicidadesInterface persistenciaPeriodicidades;
+   @EJB
+   PersistenciaTercerosInterface persistenciaTerceros;
+   @EJB
+   PersistenciaActualUsuarioInterface persistenciaActualUsuario;
+   @EJB
+   PersistenciaUsuariosInterface persistenciaUsuarios;
+   @EJB
+   PersistenciaSolucionesFormulasInterface persistenciaSolucionesFormulas;
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManager em;
 
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
-    //Trae los empleados con Novedades dependiendo el Tipo de Trabajador que sea.
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
+   //Trae los empleados con Novedades dependiendo el Tipo de Trabajador que sea.
 
-    @Override
-    public int cuantosEmpleadosNovedad() {
-        try {
-            return persistenciaEmpleados.contarEmpleadosNovedad(em);
-        } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesEmpleados.cuantosEmpleadosNovedad : " + e);
-            return -1;
-        }
-    }
+   @Override
+   public int cuantosEmpleadosNovedad() {
+      try {
+         return persistenciaEmpleados.contarEmpleadosNovedad(em);
+      } catch (Exception e) {
+         System.err.println("Error AdministrarNovedadesEmpleados.cuantosEmpleadosNovedad : " + e);
+         return -1;
+      }
+   }
 
-    @Override
-    public List<PruebaEmpleados> empleadosNovedadSoloAlgunos() {
-        List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedadSoloAlgunos(em);
-        List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
-        for (int i = 0; i < listaEmpleados.size(); i++) {
-            //Traer los datos del empleado con sueldo actual
-            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
+   @Override
+   public List<PruebaEmpleados> empleadosNovedadSoloAlgunos() {
+      List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedadSoloAlgunos(em);
+      List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
+      for (int i = 0; i < listaEmpleados.size(); i++) {
+         //Traer los datos del empleado con sueldo actual
+         PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
 
-            if (p != null) {
+         if (p != null) {
 //                p.setTipo(tipo);
-                listaEmpleadosNovedad.add(p);
-            } else {
-                p = new PruebaEmpleados();
-                p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
-                p.setId(listaEmpleados.get(i).getSecuencia());
-                p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
+            listaEmpleadosNovedad.add(p);
+         } else {
+            p = new PruebaEmpleados();
+            p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
+            p.setId(listaEmpleados.get(i).getSecuencia());
+            p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
 //                p.setTipo(tipo);
-                p.setValor(null);
-                listaEmpleadosNovedad.add(p);
-            }
-        }
-        return listaEmpleadosNovedad;
-    }
+            p.setValor(null);
+            listaEmpleadosNovedad.add(p);
+         }
+      }
+      return listaEmpleadosNovedad;
+   }
 
-    @Override
-    public List<PruebaEmpleados> empleadosNovedad() {
+   //
+//        List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedad(em);
+//        List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
+//        for (int i = 0; i < listaEmpleados.size(); i++) {
+//            //Traer los datos del empleado con sueldo actual
+//            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
+//
+//            if (p != null) {
+////                p.setTipo(tipo);
+//                listaEmpleadosNovedad.add(p);
+//            } else {
+//                p = new PruebaEmpleados();
+//                p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
+//                p.setId(listaEmpleados.get(i).getSecuencia());
+//                p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
+////                p.setTipo(tipo);
+//                p.setValor(null);
+//                listaEmpleadosNovedad.add(p);
+//            }
+//        }
+   @Override
+   public List<PruebaEmpleados> empleadosNovedades() {
+      System.out.println("Administrar.AdministrarNovedadesEmpleados.empleadosNovedades()");
+      try {
+         return persistenciaPruebaEmpleados.empleadosNovedadesEmple(em);
+      } catch (Exception e) {
+         System.out.println("Error empleadosNovedad() e: " + e);
+      return null;
+      }
+   }
 
-        List<Empleados> listaEmpleados = persistenciaEmpleados.empleadosNovedad(em);
-        List<PruebaEmpleados> listaEmpleadosNovedad = new ArrayList<PruebaEmpleados>();
-        for (int i = 0; i < listaEmpleados.size(); i++) {
-            //Traer los datos del empleado con sueldo actual
-            PruebaEmpleados p = persistenciaPruebaEmpleados.empleadosAsignacion(em, listaEmpleados.get(i).getSecuencia());
+   //Trae las novedades del empleado cuya secuencia se envía como parametro//
+   @Override
+   public List<Novedades> novedadesEmpleado(BigInteger secuenciaEmpleado) {
+      System.out.println("novedadesEmpleado() secuenciaEmpleado: " + secuenciaEmpleado);
+      try {
+         return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
+      } catch (Exception e) {
+         System.err.println("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
+         return null;
+      }
+   }
 
-            if (p != null) {
-//                p.setTipo(tipo);
-                listaEmpleadosNovedad.add(p);
-            } else {
-                p = new PruebaEmpleados();
-                p.setCodigo(listaEmpleados.get(i).getCodigoempleado());
-                p.setId(listaEmpleados.get(i).getSecuencia());
-                p.setNombre(listaEmpleados.get(i).getPersona().getNombreCompleto());
-//                p.setTipo(tipo);
-                p.setValor(null);
-                listaEmpleadosNovedad.add(p);
-            }
-        }
-        return listaEmpleadosNovedad;
-    }
+   @Override
+   public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
+      try {
+         return persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaEmpleado);
+      } catch (Exception e) {
+         System.err.println("Error AdministrarNovedadesEmpleados.todasNovedades" + e);
+         return null;
+      }
+   }
 
-    //Trae las novedades del empleado cuya secuencia se envía como parametro//
-    @Override
-    public List<Novedades> novedadesEmpleado(BigInteger secuenciaEmpleado) {
-        System.out.println("novedadesEmpleado() secuenciaEmpleado: " + secuenciaEmpleado);
-        try {
-            return persistenciaNovedades.novedadesEmpleado(em, secuenciaEmpleado);
-        } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesEmpleados.novedadesEmpleado" + e);
-            return null;
-        }
-    }
+   //Ver si está en soluciones formulas y de ser asi no borrarlo
+   @Override
+   public int solucionesFormulas(BigInteger secuenciaNovedad) {
+      return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, secuenciaNovedad);
+   }
 
-    @Override
-    public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
-        try {
-            return persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaEmpleado);
-        } catch (Exception e) {
-            System.err.println("Error AdministrarNovedadesEmpleados.todasNovedades" + e);
-            return null;
-        }
-    }
+   @Override
+   public String alias() {
+      return persistenciaActualUsuario.actualAliasBD(em);
+   }
 
-    //Ver si está en soluciones formulas y de ser asi no borrarlo
-    @Override
-    public int solucionesFormulas(BigInteger secuenciaNovedad) {
-        return persistenciaSolucionesFormulas.validarNovedadesNoLiquidadas(em, secuenciaNovedad);
-    }
+   @Override
+   public Usuarios usuarioBD(String alias) {
+      return persistenciaUsuarios.buscarUsuario(em, alias);
+   }
 
-    @Override
-    public String alias() {
-        return persistenciaActualUsuario.actualAliasBD(em);
-    }
+   //Procesa un solo empleado para volverlo Pruebaempleado
+   @Override
+   public PruebaEmpleados novedadEmpleado(BigInteger secuenciaEmpleado) {
+      return persistenciaPruebaEmpleados.empleadosAsignacion(em, secuenciaEmpleado);
+   }
 
-    @Override
-    public Usuarios usuarioBD(String alias) {
-        return persistenciaUsuarios.buscarUsuario(em, alias);
-    }
+   //Busca el empleado con el Id que se envía
+   @Override
+   public Empleados elEmpleado(BigInteger secuenciaEmpleado) {
+      return persistenciaEmpleados.buscarEmpleado(em, secuenciaEmpleado);
+   }
 
-    //Procesa un solo empleado para volverlo Pruebaempleado
-    @Override
-    public PruebaEmpleados novedadEmpleado(BigInteger secuenciaEmpleado) {
-        return persistenciaPruebaEmpleados.empleadosAsignacion(em, secuenciaEmpleado);
-    }
+   //Listas de Conceptos, Formulas, Periodicidades, Terceros
+   @Override
+   public List<Conceptos> lovConceptos() {
+      return persistenciaConceptos.buscarConceptos(em);
+   }
 
-    //Busca el empleado con el Id que se envía
-    @Override
-    public Empleados elEmpleado(BigInteger secuenciaEmpleado) {
-        return persistenciaEmpleados.buscarEmpleado(em, secuenciaEmpleado);
-    }
+   @Override
+   public List<Formulas> lovFormulas() {
+      return persistenciaFormulas.buscarFormulas(em);
+   }
 
-    //Listas de Conceptos, Formulas, Periodicidades, Terceros
-    @Override
-    public List<Conceptos> lovConceptos() {
-        return persistenciaConceptos.buscarConceptos(em);
-    }
+   @Override
+   public List<Periodicidades> lovPeriodicidades() {
+      return persistenciaPeriodicidades.consultarPeriodicidades(em);
+   }
 
-    @Override
-    public List<Formulas> lovFormulas() {
-        return persistenciaFormulas.buscarFormulas(em);
-    }
+   @Override
+   public List<Terceros> lovTerceros() {
+      return persistenciaTerceros.buscarTerceros(em);
+   }
 
-    @Override
-    public List<Periodicidades> lovPeriodicidades() {
-        return persistenciaPeriodicidades.consultarPeriodicidades(em);
-    }
+   @Override
+   public List<Empleados> lovEmpleados() {
+      return persistenciaEmpleados.empleadosNovedad(em);
+   }
 
-    @Override
-    public List<Terceros> lovTerceros() {
-        return persistenciaTerceros.buscarTerceros(em);
-    }
+   // Que tipo de Trabajador es
+   @Override
+   public List<VWActualesTiposTrabajadores> tiposTrabajadores() {
+      return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(em);
+   }
 
-    @Override
-    public List<Empleados> lovEmpleados() {
-        return persistenciaEmpleados.empleadosNovedad(em);
-    }
+   @Override
+   public Date vigenciaTipoContratoSecEmpleado(BigInteger secuencia) {
+      return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(em, secuencia);
+   }
 
-    // Que tipo de Trabajador es
-    @Override
-    public List<VWActualesTiposTrabajadores> tiposTrabajadores() {
-        return persistenciaVWActualesTiposTrabajadores.tipoTrabajadorEmpleado(em);
-    }
-    
-    @Override
-    public Date vigenciaTipoContratoSecEmpleado(BigInteger secuencia){
-       return persistenciaVWActualesTiposTrabajadores.consultarFechaVigencia(em, secuencia);
-    }
+   @Override
+   public void borrarNovedades(Novedades novedades) {
+      persistenciaNovedades.borrar(em, novedades);
+   }
 
-    @Override
-    public void borrarNovedades(Novedades novedades) {
-        persistenciaNovedades.borrar(em, novedades);
-    }
+   @Override
+   public void crearNovedades(Novedades novedades) {
+      persistenciaNovedades.crear(em, novedades);
+   }
 
-    @Override
-    public void crearNovedades(Novedades novedades) {
-        persistenciaNovedades.crear(em, novedades);
-    }
-
-    @Override
-    public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
-        for (int i = 0; i < listaNovedadesModificar.size(); i++) {
-            System.out.println("Modificando...");
-            if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
-                listaNovedadesModificar.get(i).setTercero(null);
-            }
-            if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
-                listaNovedadesModificar.get(i).setPeriodicidad(null);
-            }
-            if (listaNovedadesModificar.get(i).getSaldo() == null) {
-                listaNovedadesModificar.get(i).setSaldo(null);
-            }
-            if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
-                listaNovedadesModificar.get(i).setUnidadesparteentera(null);
-            }
-            if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
-                listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
-            }
-            persistenciaNovedades.editar(em, listaNovedadesModificar.get(i));
-        }
-    }
+   @Override
+   public void modificarNovedades(List<Novedades> listaNovedadesModificar) {
+      for (int i = 0; i < listaNovedadesModificar.size(); i++) {
+         System.out.println("Modificando...");
+         if (listaNovedadesModificar.get(i).getTercero().getSecuencia() == null) {
+            listaNovedadesModificar.get(i).setTercero(null);
+         }
+         if (listaNovedadesModificar.get(i).getPeriodicidad().getSecuencia() == null) {
+            listaNovedadesModificar.get(i).setPeriodicidad(null);
+         }
+         if (listaNovedadesModificar.get(i).getSaldo() == null) {
+            listaNovedadesModificar.get(i).setSaldo(null);
+         }
+         if (listaNovedadesModificar.get(i).getUnidadesparteentera() == null) {
+            listaNovedadesModificar.get(i).setUnidadesparteentera(null);
+         }
+         if (listaNovedadesModificar.get(i).getUnidadespartefraccion() == null) {
+            listaNovedadesModificar.get(i).setUnidadespartefraccion(null);
+         }
+         persistenciaNovedades.editar(em, listaNovedadesModificar.get(i));
+      }
+   }
 }

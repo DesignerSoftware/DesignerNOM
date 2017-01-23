@@ -842,7 +842,6 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
         if (reporteSeleccionado != null) {
             System.out.println("generando reporte - ingreso al if");
             nombreReporte = reporteSeleccionado.getNombrereporte();

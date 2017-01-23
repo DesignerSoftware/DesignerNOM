@@ -116,6 +116,7 @@ public class ControlNovedadesConceptos implements Serializable {
    private int resultado;
    private boolean todas;
    private boolean actuales;
+   private String altoTablaReg;
    private String altoTabla;
    private String infoRegistroConceptos;
    private String infoRegistroNovedades;
@@ -154,7 +155,7 @@ public class ControlNovedadesConceptos implements Serializable {
       nuevaNovedad.setPeriodicidad(new Periodicidades());
       nuevaNovedad.setFechareporte(new Date());
       nuevaNovedad.setTipo("FIJA");
-      altoTabla = "140";
+      altoTablaReg = "6";
       valor = new BigDecimal(Integer.toString(0));
       nuevaNovedad.setValortotal(valor);
       infoRegistroConceptos = "0";
@@ -478,15 +479,16 @@ public class ControlNovedadesConceptos implements Serializable {
       novedadSeleccionada = novedad;
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
 
-      if (novedadSeleccionada.getFechafinal().compareTo(novedadSeleccionada.getFechainicial()) < 0) {
-         System.out.println("La fecha Final es Menor que la Inicial");
-         RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
-         RequestContext.getCurrentInstance().execute("PF('fechas').show()");
-         novedadSeleccionada.setFechainicial(novedadBackup.getFechainicial());
-         novedadSeleccionada.setFechafinal(novedadBackup.getFechafinal());
-         RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
+      if (novedadSeleccionada.getFechafinal() != null && novedadSeleccionada.getFechainicial() != null) {
+         if (novedadSeleccionada.getFechafinal().compareTo(novedadSeleccionada.getFechainicial()) < 0) {
+            System.out.println("La fecha Final es Menor que la Inicial");
+            RequestContext.getCurrentInstance().update("formularioDialogos:fechas");
+            RequestContext.getCurrentInstance().execute("PF('fechas').show()");
+            novedadSeleccionada.setFechainicial(novedadBackup.getFechainicial());
+            novedadSeleccionada.setFechafinal(novedadBackup.getFechafinal());
+            RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
+         }
       }
 
       if (confirmarCambio.equalsIgnoreCase("N")) {
@@ -1119,7 +1121,7 @@ public class ControlNovedadesConceptos implements Serializable {
          nCMinutosHoras.setFilterStyle("width: 85% !important;");
          nCTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTipo");
          nCTipo.setFilterStyle("width: 85% !important;");
-         altoTabla = "120";
+         altoTablaReg = "5";
 
          RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
          bandera = 1;
@@ -1611,7 +1613,7 @@ public class ControlNovedadesConceptos implements Serializable {
       nCMinutosHoras.setFilterStyle("display: none; visibility: hidden;");
       nCTipo = (Column) c.getViewRoot().findComponent("form:datosNovedadesConcepto:nCTipo");
       nCTipo.setFilterStyle("display: none; visibility: hidden;");
-      altoTabla = "140";
+      altoTablaReg = "6";
 
       RequestContext.getCurrentInstance().update("form:datosNovedadesConcepto");
       bandera = 0;
@@ -2033,7 +2035,20 @@ public class ControlNovedadesConceptos implements Serializable {
       this.guardado = guardado;
    }
 
+   public String getAltoTablaReg() {
+      return altoTablaReg;
+   }
+
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
+   }
+
    public String getAltoTabla() {
+      if (altoTablaReg.equals("5")) {
+         altoTabla = "125";
+      } else {
+         altoTabla = "145";
+      }
       return altoTabla;
    }
 
