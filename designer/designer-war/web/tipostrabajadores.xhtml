@@ -181,7 +181,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 190px;" id="fooTipoCot" action="tiposcotizante" actionListener="#{controlTipoCotizante.recibirPagina('tiposcotizante')}" value=" "/>
+                              <p:commandButton style="width: 190px;" id="fooTipoCot" action="tiposcotizante" actionListener="#{controlTipoCotizante.recibirPaginaEntrante('tiposcotizante')}" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -1113,7 +1113,7 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="405" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;"/>
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposTrabajadores.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 147px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposTrabajadores.guardadoGeneral()}" action="nominaf" style="position: absolute; top: 50px; left: 147px;" process="@this" icon="ui-icon-check" />
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposTrabajadores.cancelarModificaciones()}" style="position: absolute; top: 50px; left: 208px;" process="@this" icon="ui-icon-close" />
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>

@@ -74,7 +74,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" action="nomina" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplAcumulados.cancelarModificacion()}" action="nominaf" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>
                   </p:toolbar>
@@ -476,7 +476,7 @@
                   </fieldset>
 
                   <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplAcumulados.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold"/>
-                  <p:commandButton style=" position: absolute; left: 760px; top: 505px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nomina"   />
+                  <p:commandButton style=" position: absolute; left: 760px; top: 505px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nominaf"   />
 
                </p:panel>
                <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplAcumulados.activarCtrlF11()}"  /> 

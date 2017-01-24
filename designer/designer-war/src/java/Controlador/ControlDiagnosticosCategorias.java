@@ -128,7 +128,7 @@ public class ControlDiagnosticosCategorias implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaDiagnosticosCapitulos = null;
         getListaDiagnosticosCapitulos();

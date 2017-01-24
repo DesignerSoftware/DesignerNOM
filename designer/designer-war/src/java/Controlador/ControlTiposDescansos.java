@@ -86,7 +86,7 @@ public class ControlTiposDescansos implements Serializable {
    }
    private String paginaAnterior;
 
-   public void recibirPagina(String pagina) {
+   public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
    }
 

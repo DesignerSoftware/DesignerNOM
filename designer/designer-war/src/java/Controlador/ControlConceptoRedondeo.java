@@ -863,7 +863,7 @@ public class ControlConceptoRedondeo implements Serializable {
       }
    }
 
-   public void recibirPagina(String paginaAnterior) {
+   public void recibirPaginaEntrante(String paginaAnterior) {
       this.paginaAnterior = paginaAnterior;
    }
 

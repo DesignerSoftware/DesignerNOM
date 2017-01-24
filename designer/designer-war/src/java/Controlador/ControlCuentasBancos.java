@@ -101,7 +101,7 @@ public class ControlCuentasBancos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaanterior = pagina;
         listaCuentasBancos = null;
         getListaCuentasBancos();

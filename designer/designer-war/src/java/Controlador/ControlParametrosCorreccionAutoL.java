@@ -212,7 +212,7 @@ public class ControlParametrosCorreccionAutoL implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaParametrosCorrecciones = null;
         listaAportesCorrecciones = null;

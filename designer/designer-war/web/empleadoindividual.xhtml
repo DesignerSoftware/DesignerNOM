@@ -76,7 +76,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border:none; " 
-                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this"/>  
+                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -545,8 +545,8 @@
                                 <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 249px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
-                                                 process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPagina('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
-                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPagina('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
+                                                 process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
                                 <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 249px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
                             </fieldset>
                         </fieldset>
@@ -562,7 +562,7 @@
                                          value="#{msg['reportesdepersonal']}" process="@this" action="reportePersonal" 
                                          actionListener="#{controlNReportePersonal.iniciarPagina()}"/>
 
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this" />
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this" />
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 660px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
 
                     </p:panel>
@@ -575,8 +575,8 @@
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: relative; left: 0px; top: 20px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: absolute; left: 50%; transform: translate(-50%, 0%);">
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nominaf" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </div>
                     </p:dialog>

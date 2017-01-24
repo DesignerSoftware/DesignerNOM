@@ -108,7 +108,7 @@ public class ControlClasesAusentismos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         getListClasesAusentismos();
         listaTiposausentismos = null;

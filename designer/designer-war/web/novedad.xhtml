@@ -23,8 +23,8 @@
                                     </div>
                                     <div style="height: 50px;">
                                         <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad02.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" 
-                                                         value="" actionListener="#{controlNovedadesConceptos.recibirPagina('novedad')}" action="novedadconcepto" />
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Por Concepto..." actionListener="#{controlNovedadesConceptos.recibirPagina('novedad')}" action="novedadconcepto"/>
+                                                         value="" actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="novedadconcepto" />
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Por Concepto..." actionListener="#{controlNovedadesConceptos.recibirPaginaEntrante('novedad')}" action="novedadconcepto"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por concepto"/>
                                         </div>
@@ -38,15 +38,15 @@
                                     </div>
                                     <div style="height: 50px;">
                                         <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad04.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;"
-                                                         value="" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPagina('novedad')}"/>
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPagina('novedad')}"/>
+                                                         value="" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}"/>
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Cargue de Novedades" action="novedadPlano" actionListener="#{cargarArchivoPlano.recibirPaginaEntrante('novedad')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Cargue de novedades manuales y semiautomáticas"/>
                                         </div>
                                     </div>
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlAusentismos.recibirPagina('atausentismos')}"  action="atausentismos" > </p:commandButton>
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="atausentismos" actionListener="#{controlAusentismos.recibirPagina('novedad')}"/>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad05.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlAusentismos.recibirPaginaEntrante('atausentismos')}"  action="atausentismos" > </p:commandButton>
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Ausentismos..." action="atausentismos" actionListener="#{controlAusentismos.recibirPaginaEntrante('novedad')}"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Registro de ausentismo por empleado"/>
                                         </div>
@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad07.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlNovedadesDefinitivas.recibirPagina('novedad')}" action="definitivas" ></p:commandButton>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad07.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlNovedadesDefinitivas.recibirPaginaEntrante('novedad')}" action="definitivas" ></p:commandButton>
                                         <h:commandLink style="font-weight: bold; color: #14388B;" value="Liquidacion Definitiva" action="definitivas"/>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Registro de retiros por empleado"/>
@@ -76,40 +76,40 @@
                                 <!--<hr style="float: left; height: 120px;"/>-->
                                 <fieldset style="position: relative; left: 5px; width: 245px; border-radius: 10px;">
                                     <div style="height: 50px;">
-                                    <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad12.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATExtraRecargo.recibirPagina('novedad')}" action="atextrarecargo"></p:commandButton>
-                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Configuración Recargos H. E." actionListener="#{controlATExtraRecargo.recibirPagina('novedad')}" action="atextrarecargo" ></h:commandLink>
+                                    <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad12.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}" action="atextrarecargo"></p:commandButton>
+                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Configuración Recargos H. E." actionListener="#{controlATExtraRecargo.recibirPaginaEntrante('novedad')}" action="atextrarecargo" ></h:commandLink>
                                     <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                         <h:outputText style="color: #000;" value="Configuración general de las cuadrillas"/>
                                     </div>
                                     </div>
                                     
                                     <div style="height: 50px;">
-                                    <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad13.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATCuadrilla.recibirPagina('novedad')}" action="atcuadrilla"></p:commandButton>
-                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Configuración Cuadrillas..." actionListener="#{controlATCuadrilla.recibirPagina('novedad')}" action="atcuadrilla"></h:commandLink>
+                                    <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad13.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="atcuadrilla"></p:commandButton>
+                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Configuración Cuadrillas..." actionListener="#{controlATCuadrilla.recibirPaginaEntrante('novedad')}" action="atcuadrilla"></h:commandLink>
                                     <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                         <h:outputText style="color: #000;" value="Configuración de cuadrillas y turnos"/>
                                     </div>
                                     </div>
                                     
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad14.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATParametroTiempo.recibirPagina('novedad')}" action="atparametrotiempo"></p:commandButton>
-                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Parametros Tiempos..." actionListener="#{controlATParametroTiempo.recibirPagina('novedad')}" action="atparametrotiempo"></h:commandLink>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad14.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="atparametrotiempo"></p:commandButton>
+                                    <h:commandLink style="font-weight: bold; color: #14388B; " value="Parametros Tiempos..." actionListener="#{controlATParametroTiempo.recibirPaginaEntrante('novedad')}" action="atparametrotiempo"></h:commandLink>
                                     <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                         <h:outputText style="color: #000;" value="Ejecución de las marcaciones y de las simulaciones"/>
                                     </div>
                                     </div>
                                     
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad15.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATHoraExtra.recibirPagina('novedad')}" action="athoraextra"></p:commandButton>
-                                        <h:commandLink style="font-weight: bold; color: #14388B; " value="Novedad Horas Extras..." actionListener="#{controlATHoraExtra.recibirPagina('novedad')}" action="athoraextra"></h:commandLink>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad15.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="athoraextra"></p:commandButton>
+                                        <h:commandLink style="font-weight: bold; color: #14388B; " value="Novedad Horas Extras..." actionListener="#{controlATHoraExtra.recibirPaginaEntrante('novedad')}" action="athoraextra"></h:commandLink>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Horas extra adicionales a las cuadrillas"/>
                                         </div>   
                                     </div>
                                     
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad16.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATAprobacionHE.recibirPagina('novedad')}" action="ataprobacionhe"></p:commandButton>
-                                        <h:commandLink style="font-weight: bold; color: #14388B; " value="Aprobación Horas Extras..." actionListener="#{controlATAprobacionHE.recibirPagina('novedad')}" action="ataprobacionhe"></h:commandLink>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad16.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top; " value="" actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="ataprobacionhe"></p:commandButton>
+                                        <h:commandLink style="font-weight: bold; color: #14388B; " value="Aprobación Horas Extras..." actionListener="#{controlATAprobacionHE.recibirPaginaEntrante('novedad')}" action="ataprobacionhe"></h:commandLink>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Aprobación de las horas extra para las cuadrillas"/>
                                         </div>   
@@ -154,8 +154,8 @@
                                         </div>
                                     </div>
                                     <div style="height: 50px;">
-                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad19.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlNovedadesReemplazos.recibirPagina('novedadesreemplazo')}" action="novedadesreemplazo"></p:commandButton>
-                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Reemplazos" actionListener="#{controlNovedadesReemplazos.recibirPagina('novedadesreemplazo')}" action="novedadesreemplazo"></h:commandLink>
+                                        <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad19.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedadesreemplazo')}" action="novedadesreemplazo"></p:commandButton>
+                                        <h:commandLink style="font-weight: bold; color: #14388B;" value="Reemplazos" actionListener="#{controlNovedadesReemplazos.recibirPaginaEntrante('novedadesreemplazo')}" action="novedadesreemplazo"></h:commandLink>
                                         <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                             <h:outputText style="color: #000;" value="Reemplazos por empleado"/>
                                         </div>
@@ -190,7 +190,7 @@
                                     </div>
                                 </fieldset>
                             </div>
-                            <p:commandButton id="ATRAS" value="" action="nomina" style="position: absolute; left: 760px; top: 462px;
+                            <p:commandButton id="ATRAS" value="" action="nominaf" style="position: absolute; left: 760px; top: 462px;
                                              width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
                                              background-repeat: no-repeat; border: none; "></p:commandButton>
                         </p:panel>

@@ -85,7 +85,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/>
-                                <p:commandButton id="salir" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nomina" process="@this"
+                                <p:commandButton id="salir" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nominaf" process="@this"
                                                  style="background-image: url(Imagenes/Iconos/salir.png);" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -348,7 +348,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" action="tipoentidademplvigenciasueldo" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciasueldo')}" value=""/>
+                                        <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" action="tipoentidademplvigenciasueldo" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciasueldo')}" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -386,7 +386,7 @@
                         <p:tooltip  for="btnMostrarT" value="#{msg['todos']}" />
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVSEmpleado" process="@this" disabled="#{controlVigenciaSueldo.guardado}"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nomina" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaSueldo.salir()}" action="nominaf" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO MOTIVO CAMBIO SUELDO -->
                         <p:dialog header="#{msg['motivoM']}" widgetVar="MotivoCambioSueldoDialogo" draggable="true" resizable="false" closable="false" id="MotivoCambioSueldoDialogo"  
@@ -558,8 +558,8 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaSueldo.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaSueldo.salir()}" action="nomina" style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaSueldo.guardadoGeneral()}" action="nominaf" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaSueldo.salir()}" action="nominaf" style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 

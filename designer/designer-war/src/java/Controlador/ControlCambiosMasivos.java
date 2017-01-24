@@ -2409,7 +2409,7 @@ public class ControlCambiosMasivos {
       campo = 0;
    }
 
-   public void recibirPagina(String pagina) {
+   public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
    }
 

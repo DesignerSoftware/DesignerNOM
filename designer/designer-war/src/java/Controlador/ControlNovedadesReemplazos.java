@@ -158,7 +158,7 @@ public class ControlNovedadesReemplazos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) { ////se usa este método para ingresar desde la pantalla de novedades
+    public void recibirPaginaEntrante(String pagina) { ////se usa este método para ingresar desde la pantalla de novedades
         paginaanterior = pagina;
         System.out.println("entró a todos");
         botones = false;

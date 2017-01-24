@@ -115,7 +115,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 235px;" id="fooBanco"  value="" action="banco" actionListener="#{controlBancos.recibirPagina('banco')}"/>
+                                        <p:commandButton style="width: 235px;" id="fooBanco"  value="" action="banco" actionListener="#{controlBancos.recibirPaginaEntrante('banco')}"/>
                                     </f:facet>
                                 </p:column>
                                 <p:column headerText="#{msg['ciudad']}" sortBy="#{info.ciudad.nombre}" filterBy="#{info.ciudad.nombre}" filterMatchMode="contains" id="ciudad" width="145" filterStyle="display: none; visibility: hidden;" >                                  

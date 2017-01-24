@@ -244,7 +244,7 @@ public class ControlParametroAutoliq implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaParametrosAutoliq = null;
         listaAportesEntidades = null;

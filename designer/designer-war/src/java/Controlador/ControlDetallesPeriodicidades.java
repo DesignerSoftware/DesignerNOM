@@ -99,7 +99,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina, BigInteger secuenciaPeriodicidad) {
+    public void recibirPaginaEntrante(String pagina, BigInteger secuenciaPeriodicidad) {
         paginaanterior = pagina;
         periodicidadActual = administrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia(secuenciaPeriodicidad);
         listaDetallesP = null;

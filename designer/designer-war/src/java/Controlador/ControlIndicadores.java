@@ -99,7 +99,7 @@ public class ControlIndicadores implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaanterior = pagina;
         getListIndicadores();
         if (listIndicadores != null) {

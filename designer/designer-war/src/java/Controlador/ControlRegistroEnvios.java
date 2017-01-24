@@ -126,16 +126,16 @@ public class ControlRegistroEnvios implements Serializable {
         }
     }
 
-//    public void recibirPagina(String pagina, Inforeportes secReporte) {
-//        System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
+//    public void recibirPaginaEntrante(String pagina, Inforeportes secReporte) {
+//        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
 //        System.out.println("Pagina: " + paginaAnterior);
 //        System.out.println("secReporte: " + secReporte);
 //
 //        paginaAnterior = pagina;
 //        recibirReporte(secReporte);
 //    }
-    public void recibirPagina(String pagina, BigInteger secReporte) {
-        System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
+    public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
+        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
         System.out.println("pagina: " + pagina);
         paginaAnterior = pagina;
         Inforeportes reporte = administrarRegistroEnvio.consultarPorSecuencia(secReporte);

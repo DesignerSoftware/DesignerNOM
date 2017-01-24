@@ -194,7 +194,7 @@
                                  #{msg['CentroDeCosto1']}<br/>#{msg['CentroDeCosto2']}
                               </p:tooltip>
 
-                              <p:commandButton id="tipotrabajador" value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 40px; height: 40px; top: 50px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" action="VigenciaTipoTrabajador" actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado, 'nomina')}" 
+                              <p:commandButton id="tipotrabajador" value="" style="position: absolute; background-image: url(Imagenes/Iconos/tipoTrabajador.png); width: 40px; height: 40px; top: 50px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" action="VigenciaTipoTrabajador" actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado, 'nominaf')}" 
                                                styleClass="bticon"/>
                               <p:tooltip for="tipotrabajador"  >
                                  #{msg['TipoTrabajador1']}<br/>#{msg['TipoTrabajador2']}
@@ -428,7 +428,7 @@
 
                            <hr style="float: left; height: 120px; position: absolute; left: 200px; top: -3px;"/>
 
-                           <p:commandButton id="conceptosnomina" value="" style="position: absolute; left: 255px; top: 7px; width: 95px; height: 95px;  background-image: url(Imagenes/Iconos/nom_hojaconcepto.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlConcepto.recibirPaginaEntrante('nomina')}" action="concepto"
+                           <p:commandButton id="conceptosnomina" value="" style="position: absolute; left: 255px; top: 7px; width: 95px; height: 95px;  background-image: url(Imagenes/Iconos/nom_hojaconcepto.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlConcepto.recibirPaginaEntrante('nominaf')}" action="concepto"
                                             styleClass="bticon"/>
                            <p:tooltip  for="conceptosnomina">
                               #{msg['toolTipConcepto1']}<br/>#{msg['toolTipConcepto2']}
@@ -436,7 +436,7 @@
 
                            <hr style="float: left; height: 120px; position: absolute; left: 405px; top: -3px;"/>
 
-                           <p:commandButton id="formulasliquidacion" value="" style="position: absolute; left: 465px; top: 7px; width: 95px; height: 95px;  background-image: url(Imagenes/Iconos/nom_formulas.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlFormula.recibirPaginaEntrante('nomina')}" action="formula"
+                           <p:commandButton id="formulasliquidacion" value="" style="position: absolute; left: 465px; top: 7px; width: 95px; height: 95px;  background-image: url(Imagenes/Iconos/nom_formulas.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlFormula.recibirPaginaEntrante('nominaf')}" action="formula"
                                             styleClass="bticon"/>
                            <p:tooltip  for="formulasliquidacion">
                               #{msg['toolTipFormulas']}
@@ -444,7 +444,7 @@
 
                            <hr style="float: left; height: 120px; position: absolute; left: 615px; top: -3px;"/>
 
-                           <p:commandButton id="legislacionlaboral2" value="" style="position: absolute; left: 670px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_legislacion.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlLegislacion.recibirPaginaEntrante('nomina')}" action="contrato"
+                           <p:commandButton id="legislacionlaboral2" value="" style="position: absolute; left: 670px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_legislacion.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlLegislacion.recibirPaginaEntrante('nominaf')}" action="contrato"
                                             styleClass="bticon"/>
                            <p:tooltip for="legislacionlaboral2">
                               #{msg['toolTipLegislacion1']}<br/>#{msg['toolTipLegislacion2']}
@@ -556,9 +556,9 @@
                      <p:tab id="integracion" title="#{msg['integracion']}" >  
                         <fieldset style="width: 390px; height: 397px; position: absolute; top: 60px; border-radius: 10px; left: 5px;">
                            <h:outputText value="#{msg['herramientascontables']}" styleClass="outputTextFielset" />
-                           <p:commandButton id="btnpuc" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPUC.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="cuenta" actionListener="#{controlCuenta.recibirPaginaEntrante('nomina')}" styleClass="bticon"/>
-                           <p:commandButton id="btncc"  value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntCentrocosto.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="centrocosto" actionListener="#{controlBetaCentrosCostos.recibirPagina('nomina')}" styleClass="bticon"/>
-                           <p:commandButton id="btnterceros" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 213px; background-image: url(Imagenes/Iconos/IntInfotercero.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="tercero" actionListener="#{controlTercero.recibirPaginaEntrante('nomina')}" styleClass="bticon"/>
+                           <p:commandButton id="btnpuc" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPUC.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="cuenta" actionListener="#{controlCuenta.recibirPaginaEntrante('nominaf')}" styleClass="bticon"/>
+                           <p:commandButton id="btncc"  value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntCentrocosto.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="centrocosto" actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('nominaf')}" styleClass="bticon"/>
+                           <p:commandButton id="btnterceros" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 213px; background-image: url(Imagenes/Iconos/IntInfotercero.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="tercero" actionListener="#{controlTercero.recibirPaginaEntrante('nominaf')}" styleClass="bticon"/>
                            <p:commandButton id="btnpepcont" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 310px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="ReporteContabilidad" actionListener="#{controlNReporteContabilidad.iniciarPagina()}" styleClass="bticon"/>
                            <h:outputText value="#{msg['plandecuentaspuc']}" style="width: 199px; height: 12px; position: absolute; left: 110px; top: 18px; color:#14388B;  font-weight: bold" />
                            <h:outputText value="#{msg['textoplandecuentaspuc']}" style="width: 280px; height: 35px; position: absolute; left: 110px; top: 35px;  text-align: justify" />                            
@@ -572,7 +572,7 @@
 
                         <fieldset style="width: 390px; height: 397px; position: absolute; left: 420px; top: 60px; border-radius: 10px;" >
                            <h:outputText value="#{msg['herramientasdeintegracion']}" styleClass="outputTextFielset" />
-                           <p:commandButton id="btnpila" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPILA.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="parametroautoliq" actionListener="#{controlParametroAutoliq.recibirPagina('nomina')}" styleClass="bticon"/>
+                           <p:commandButton id="btnpila" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPILA.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="parametroautoliq" actionListener="#{controlParametroAutoliq.recibirPaginaEntrante('nominaf')}" styleClass="bticon"/>
                            <p:commandButton id="btnpresup" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntPresupuesto.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" styleClass="bticon"/>
                            <p:commandButton id="btntersoreria" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 213px; background-image: url(Imagenes/Iconos/IntTesoreria.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="reportesbancos" actionListener="#{controlReportesBancos.iniciarPagina}" styleClass="bticon"/>
                            <p:commandButton id="btncontabi" value=" " style="width: 90px; height: 90px; position: absolute; left: 10px; top: 310px; background-image: url(Imagenes/Iconos/IntContabilidad.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" onclick="PF('confirmarprocesointerfacecontable').show()" styleClass="bticon"/>
@@ -589,7 +589,7 @@
                         <p:dialog id="confirmarprocesointerfacecontable" widgetVar="confirmarprocesointerfacecontable" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420"  closable="false">  
                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 15px;"  />
                            <h:outputText value="#{msg['confirmarProcesoInterfaceContable']}" style="position: absolute; left: 100px; top: 15px; width: 320px; font-weight:bold;" />
-                           <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();" action="interfasecontabletotal" actionListener="#{controlInterfaseContableTotal.recibirPagina('nomina')}" style="position: absolute; top: 60px; left: 285px " process="@this" icon="ui-icon-check" />
+                           <p:commandButton value="#{msg['si']}" onclick="PF('confirmarprocesointerfacecontable').hide();" action="interfasecontabletotal" actionListener="#{controlInterfaseContableTotal.recibirPaginaEntrante('nominaf')}" style="position: absolute; top: 60px; left: 285px " process="@this" icon="ui-icon-check" />
                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarprocesointerfacecontable').hide();" style="position: absolute; top: 60px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                      </p:tab> 
@@ -599,7 +599,7 @@
                            <h:outputText value="#{msg['herramientasgerenciales']}" styleClass="outputTextFielset" />
 
                            <p:commandButton id="btngrepor" value=" " style="position: absolute; width: 100px; height: 100px; left: 80px; top: 15px; background-image: url(Imagenes/Iconos/GereGeneradorRepor.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" styleClass="bticon"/>
-                           <p:commandButton id="btnestrucorgan" value=" " style="position: absolute; width: 100px; height: 100px; left: 265px; top: 15px; background-image: url(Imagenes/Iconos/GereEstructuraOrgan.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="estructura" actionListener="#{controlEstructura.recibirPaginaEntrante('nomina')}" styleClass="bticon"/>
+                           <p:commandButton id="btnestrucorgan" value=" " style="position: absolute; width: 100px; height: 100px; left: 265px; top: 15px; background-image: url(Imagenes/Iconos/GereEstructuraOrgan.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="estructura" actionListener="#{controlEstructura.recibirPaginaEntrante('nominaf')}" styleClass="bticon"/>
                            <p:commandButton id="btnsaludocu" value=" " style="position: absolute; width: 100px; height: 100px; left: 450px; top: 15px; background-image: url(Imagenes/Iconos/GereSaludOcupacion.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="gersaludocupacional" styleClass="bticon"/>
                            <p:commandButton id="btnconcepjuridicos" value=" " style="position: absolute; width: 100px; height: 100px; left: 630px; top: 15px; background-image: url(Imagenes/Iconos/GereNormativo.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="conceptojuridico" styleClass="bticon"/>
                            <h:outputText style="width:150px; height:12px ;position:absolute ;color: #14388B;  font-weight: bold; left: 55px; top:117px; text-align:center" value="#{msg['generadordereportes']}"/>
@@ -720,8 +720,8 @@
                         </fieldset>
                      </p:tab>
                   </p:tabView> 
-                  <p:remoteCommand name="dirigirusuario" actionListener="#{controlUsuarios.recibirPaginaEntrante('nomina')}" action="usuario" process="@this"/>
-                  <p:remoteCommand name="dirigirusuariovista" actionListener="#{controlUsuariosVistas.recibirPaginaEntrante('nomina')}" action="usuariovista" process="@this"/>
+                  <p:remoteCommand name="dirigirusuario" actionListener="#{controlUsuarios.recibirPaginaEntrante('nominaf')}" action="usuario" process="@this"/>
+                  <p:remoteCommand name="dirigirusuariovista" actionListener="#{controlUsuariosVistas.recibirPaginaEntrante('nominaf')}" action="usuariovista" process="@this"/>
                </p:panel>
 
                <p:dialog id="alerta" widgetVar="alerta" header="#{msg['nohaydatos']}" resizable="false" draggable="true" modal="true" height="94" width="305"  closable="false">  

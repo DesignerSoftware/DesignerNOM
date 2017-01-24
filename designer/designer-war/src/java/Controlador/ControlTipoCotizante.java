@@ -157,7 +157,7 @@ public class ControlTipoCotizante implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         listaTiposCotizantes = null;
         getListaTiposCotizantes();
         if (listaTiposCotizantes != null) {

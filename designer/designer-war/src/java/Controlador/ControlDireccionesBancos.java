@@ -117,7 +117,7 @@ public class ControlDireccionesBancos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina, BigInteger secuenciaBanco) {
+    public void recibirPaginaEntrante(String pagina, BigInteger secuenciaBanco) {
         paginaanterior = pagina;
         banco = administrarBancos.consultarBancosPorSecuencia(secuenciaBanco);
         listaDirecciones = null;

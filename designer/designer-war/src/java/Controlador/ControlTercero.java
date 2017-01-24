@@ -201,7 +201,7 @@ public class ControlTercero implements Serializable {
     }
 
     /*
-     * public void recibirPagina(String pagina) { paginaAnterior = pagina; }
+     * public void recibirPaginaEntrante(String pagina) { paginaAnterior = pagina; }
      */
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;

@@ -1340,7 +1340,7 @@ public class ControlConceptosSoportes implements Serializable {
       }
    }
 
-   public void recibirPagina(String paginaAnterior) {
+   public void recibirPaginaEntrante(String paginaAnterior) {
       conceptoSoportesSeleccionado = null;
       this.paginaAnterior = paginaAnterior;
    }

@@ -262,7 +262,7 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['cambio']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />                                   
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuariosVistas.guardarCambiosUsuarioVista()}" action="nomina" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuariosVistas.guardarCambiosUsuarioVista()}" action="nominaf" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuariosVistas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>

@@ -192,7 +192,7 @@ public class ControlInterfaseContableSapBO {
         aceptar = false;
     }
 
-    public void recibirPagina(String paginaAnt) {
+    public void recibirPaginaEntrante(String paginaAnt) {
         paginaAnterior = paginaAnt;
         actualUsuarioBD = null;
         getActualUsuarioBD();

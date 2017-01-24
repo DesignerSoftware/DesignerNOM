@@ -247,10 +247,10 @@ public class ControlConcepto implements Serializable {
             controlGrupoConcepto.recibirPaginaEntrante(pagActual);
          } else if (pag.equals("conceptoredondeo")) {
             ControlConceptoRedondeo controlConceptoRedondeo = (ControlConceptoRedondeo) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptoRedondeo}", ControlConceptoRedondeo.class);
-            controlConceptoRedondeo.recibirPagina(pagActual);
+            controlConceptoRedondeo.recibirPaginaEntrante(pagActual);
          } else if (pag.equals("conceptosoporte")) {
             ControlConceptosSoportes controlConceptosSoportes = (ControlConceptosSoportes) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptosSoportes}", ControlConceptosSoportes.class);
-            controlConceptosSoportes.recibirPagina(pagActual);
+            controlConceptosSoportes.recibirPaginaEntrante(pagActual);
          } else if (pag.equals("unidad")) {
             ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
             controlUnidad.recibirPaginaEntrante(pagActual);

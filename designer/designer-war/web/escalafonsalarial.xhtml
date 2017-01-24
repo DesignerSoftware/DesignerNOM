@@ -17,7 +17,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
                         <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nomina" process="@this" />
+                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nominaf" process="@this" />
 
 
                         <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 220px; border-radius: 10px; ">

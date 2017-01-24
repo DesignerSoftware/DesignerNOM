@@ -65,7 +65,7 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlReingresarEmpleado.cancelarModificaciones()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlReingresarEmpleado.salir()}" action="nomina"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -105,7 +105,7 @@
                         </fieldset>
 
                         <p:commandButton style="position: absolute; left: 580px; top: 470px;" icon="ui-icon-check" id="REINGRESAR" value="#{msg['reingresarempleado']}"  process="@this" actionListener="#{controlReingresarEmpleado.reingresarEmpleado}" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 470px;"  icon="ui-icon-closethick" id="ATRAS" actionListener="#{controlReingresarEmpleado.salir()}" action="nomina"  value="#{msg['cancelar']}" process="@this" />
+                        <p:commandButton style="position: absolute; left: 775px; top: 470px;"  icon="ui-icon-closethick" id="ATRAS" actionListener="#{controlReingresarEmpleado.salir()}" action="nominaf"  value="#{msg['cancelar']}" process="@this" />
                     </p:panel>
                 </h:form>
                 <h:form id="formularioDialogos">

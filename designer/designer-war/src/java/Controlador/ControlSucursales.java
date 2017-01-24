@@ -108,7 +108,7 @@ public class ControlSucursales implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaanterior = pagina;
     }
 

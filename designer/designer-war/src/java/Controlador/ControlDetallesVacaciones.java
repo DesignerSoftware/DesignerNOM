@@ -115,7 +115,7 @@ public class ControlDetallesVacaciones {
       }
    }
 
-   public void recibirPagina(String pagina, Empleados empl, BigInteger secVacacion) {
+   public void recibirPaginaEntrante(String pagina, Empleados empl, BigInteger secVacacion) {
       secuenciaVacacion = secVacacion;
       empleado = empl;
       paginaAnterior = pagina;

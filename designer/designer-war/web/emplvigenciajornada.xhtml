@@ -80,7 +80,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                                 actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nomina" process="@this"/>  
+                                                 actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nominaf" process="@this"/>  
                                 <p:tooltip for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>
                         </p:toolbar> 
@@ -160,7 +160,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 115%;" id="fooTIpoDescanso" action="tipodescanso" actionListener="#{controlTiposDescansos.recibirPagina('atrastipodescanso')}" value=""/>
+                                        <p:commandButton style="width: 115%;" id="fooTIpoDescanso" action="tipodescanso" actionListener="#{controlTiposDescansos.recibirPaginaEntrante('atrastipodescanso')}" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>  
@@ -399,7 +399,7 @@
                         </p:dialog>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVJEmpleado" process="@this" disabled="#{controlVigenciaJornada.guardado}"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nomina" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlVigenciaJornada.cancelarModificacion()}" action="nominaf" process="@this" />
                     </p:panel>
 
                     <p:dialog id="validarNuevoFechas" header="#{msg['atencion']}" widgetVar="validarNuevoFechas"  resizable="false" draggable="true" modal="true" height="110" width="470"  closable="false">  
@@ -411,7 +411,7 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaJornada.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaJornada.guardadoGeneral()}" action="nominaf" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciaJornada.cancelarModificacion()}" style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
@@ -734,7 +734,7 @@
                     <p:dialog id="guardarCambiosVigenciaCompensacionTiempo" header="#{msg['atencion']}" widgetVar="guardarCambiosVigenciaCompensacionTiempo"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-circle-check" value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaCompensacionTiempo').hide();" actionListener="#{controlVigenciaJornada.guardarCambiosVCT()}" action="nomina" style="position: absolute; top: 60px; left: 129px;" process="@this" />
+                        <p:commandButton icon="ui-icon-circle-check" value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaCompensacionTiempo').hide();" actionListener="#{controlVigenciaJornada.guardarCambiosVCT()}" action="nominaf" style="position: absolute; top: 60px; left: 129px;" process="@this" />
                         <p:commandButton icon="ui-icon-circle-close" value="#{msg['no']}" onclick="PF('guardarCambiosVigenciaCompensacionTiempo').hide();" actionListener="#{controlVigenciaJornada.cancelarModificacionVCT()}"  style="position: absolute; top: 60px; left: 193px;" process="@this" />
                         <p:commandButton icon="ui-icon-circle-close" value="#{msg['cancelar']}" onclick="PF('guardarCambiosVigenciaCompensacionTiempo').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>
@@ -742,7 +742,7 @@
                     <p:dialog id="guardarCambiosVigenciaCompensacionDinero" header="#{msg['atencion']}" widgetVar="guardarCambiosVigenciaCompensacionDinero"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-circle-check" value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaCompensacionDinero').hide();" actionListener="#{controlVigenciaJornada.guardarCambiosVCD()}" action="nomina" style="position: absolute; top: 60px; left: 129px;" process="@this" />
+                        <p:commandButton icon="ui-icon-circle-check" value="#{msg['si']}" onclick="PF('guardarCambiosVigenciaCompensacionDinero').hide();" actionListener="#{controlVigenciaJornada.guardarCambiosVCD()}" action="nominaf" style="position: absolute; top: 60px; left: 129px;" process="@this" />
                         <p:commandButton icon="ui-icon-circle-close" value="#{msg['no']}" onclick="PF('guardarCambiosVigenciaCompensacionDinero').hide();" actionListener="#{controlVigenciaJornada.cancelarModificacionVCD()}"  style="position: absolute; top: 60px; left: 193px;" process="@this" />
                         <p:commandButton icon="ui-icon-circle-close" value="#{msg['cancelar']}" onclick="PF('guardarCambiosVigenciaCompensacionDinero').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>

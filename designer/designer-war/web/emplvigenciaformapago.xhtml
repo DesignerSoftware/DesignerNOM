@@ -64,7 +64,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nomina" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -155,7 +155,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px;" action="sucursal"  actionListener="#{controlSucursales.recibirPagina('sucursal')}" id="fooSucursal"  process="@this" />
+                                        <p:commandButton value="" style="width: 170px;" action="sucursal"  actionListener="#{controlSucursales.recibirPaginaEntrante('sucursal')}" id="fooSucursal"  process="@this" />
                                     </f:facet>
                                 </p:column> 
 
@@ -216,7 +216,7 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" disabled="#{controlVigenciasFormasPagos.guardado}" onclick="PF('confirmarGuardar').show();"  update="datosVigenciasFormasPagos" process="@this"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nomina"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf"/>
 
                         <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
@@ -376,7 +376,7 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['confirmarGuardar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" action="nomina" style="position: absolute; top: 50px; left: 168px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" action="nominaf" style="position: absolute; top: 50px; left: 168px;" process="@this" icon="ui-icon-check" />
                             <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>

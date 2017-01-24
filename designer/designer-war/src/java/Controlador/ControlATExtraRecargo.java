@@ -186,7 +186,7 @@ public class ControlATExtraRecargo implements Serializable {
         }
     }
 
-    public void recibirPagina(String page) {
+    public void recibirPaginaEntrante(String page) {
         paginaAnterior = page;
     }
 

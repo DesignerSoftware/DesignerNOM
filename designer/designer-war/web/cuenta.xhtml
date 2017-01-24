@@ -78,7 +78,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" actionListener="#{controlCuenta.salir()}" action="nomina" process="@this" styleClass="cssToobarButton"
+                                <p:commandButton id="salir" value="" actionListener="#{controlCuenta.salir()}" action="nominaf" process="@this" styleClass="cssToobarButton"
                                                  style="background-image: url(Imagenes/Iconos/salir.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" />  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
@@ -627,8 +627,8 @@
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" action="nomina" style="position: absolute; top: 50px; left: 135px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.salir()}" action="nomina" style="position: absolute; top: 50px; left: 200px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.guardadoGeneral()}" action="nominaf" style="position: absolute; top: 50px; left: 135px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCuenta.salir()}" action="nominaf" style="position: absolute; top: 50px; left: 200px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 

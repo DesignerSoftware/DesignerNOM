@@ -69,7 +69,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nomina" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>
                         </p:toolbar> 
@@ -371,7 +371,7 @@
                         </fieldset>
 
                         <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nomina" process="@this" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nominaf" process="@this" />
                     </p:panel>
                     
 <!--                    <p:dialog id="liquidacionTerminada" header="#{msg['atencion']}" widgetVar="liquidacionTerminada" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  

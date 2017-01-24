@@ -90,7 +90,7 @@ public class ControlMotivosRetiros implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaanterior = pagina;
         getListMotivosRetiros();
         if (listMotivosRetiros != null) {

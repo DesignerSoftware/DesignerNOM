@@ -189,7 +189,7 @@ public class ControlInterfaseContableSapBOV8 implements Serializable {
         aceptar = false;
     }
 
-    public void recibirPagina(String paginaAnt) {
+    public void recibirPaginaEntrante(String paginaAnt) {
         paginaAnterior = paginaAnt;
         actualUsuarioBD = null;
         getActualUsuarioBD();

@@ -117,8 +117,8 @@ public class ControlEnvioCorreos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina, BigInteger secReporte) {
-        System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
+    public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
+        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
         System.out.println("pagina: " + pagina);
         System.out.println("secReporte: " + secReporte);
         paginaAnterior = pagina;

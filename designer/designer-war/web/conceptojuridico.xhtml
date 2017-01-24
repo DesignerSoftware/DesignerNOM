@@ -93,7 +93,7 @@
                         <h:outputText id="informacionRegistro" value="#{controlConceptoJuridico.infoRegistro}" style="position: absolute; left: 15px; top: 490px; font-weight: bold"/>
 
                         <p:commandButton style="position: absolute; left: 670px; top: 480px;" id="ACEPTAR" disabled="#{controlConceptoJuridico.guardado}" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosConcepto" process="@this" />
-                        <p:commandButton style="position: absolute; left: 770px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick"  actionListener="#{controlConceptoJuridico.salir()}" action="nomina" process="@this" />
+                        <p:commandButton style="position: absolute; left: 770px; top: 480px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick"  actionListener="#{controlConceptoJuridico.salir()}" action="nominaf" process="@this" />
                     </p:panel>
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
@@ -262,7 +262,7 @@
                             <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlConceptoJuridico.cancelarModificacion()}"   process="@this"/>  
                             <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                            <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlConceptoJuridico.salir()}" action="nomina"  process="@this"/>  
+                            <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlConceptoJuridico.salir()}" action="nominaf"  process="@this"/>  
                             <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
 

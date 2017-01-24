@@ -511,7 +511,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 215px;" id="fooTipoAntecedente" value="" action="tiposantecedentes" onclick="#{controlSoTiposAntecedentes.recibirPagina('tiposantecedentes')}" process="@this" />
+                                            <p:commandButton style="width: 215px;" id="fooTipoAntecedente" value="" action="tiposantecedentes" onclick="#{controlSoTiposAntecedentes.recibirPaginaEntrante('tiposantecedentes')}" process="@this" />
                                         </f:facet>
                                     </p:column>
 
@@ -532,7 +532,7 @@
 
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                             <p:commandButton style="width: 215px;" id="fooAntecedente" value=" " action="antecedentes" onclick="#{controlSoAntecedentes.recibirPagina('antecedentes')}" process="@this"/>
+                                             <p:commandButton style="width: 215px;" id="fooAntecedente" value=" " action="antecedentes" onclick="#{controlSoAntecedentes.recibirPaginaEntrante('antecedentes')}" process="@this"/>
                                         </f:facet>
                                     </p:column> 
 
@@ -623,7 +623,7 @@
                                         </p:cellEditor>
 
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipofamiliarvisita" onclick="#{controlTiposFamiliares.recibirPagina('tipofamiliarvisita')}"  value=" " process="@this"/>
+                                            <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="tipofamiliarvisita" onclick="#{controlTiposFamiliares.recibirPaginaEntrante('tipofamiliarvisita')}"  value=" " process="@this"/>
                                         </f:facet>
                                     </p:column> 
                                     <p:column id="servicioMedico" sortBy="#{familiar.serviciomedico}" filterBy="#{familiar.serviciomedico}" width="20"
@@ -1054,7 +1054,7 @@
                                             </f:facet>  
                                         </p:cellEditor>
                                         <f:facet name="footer">
-                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivoretirovisita" actionListener="#{controlMotivosRetiros.recibirPagina('motivoretirovisita')}" process="@this"/>
+                                            <p:commandButton style="width: 170px; margin: -1px; height: 26px;  border: none; color: blue" id="fooMotivo" value="" action="motivoretirovisita" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('motivoretirovisita')}" process="@this"/>
                                         </f:facet>
                                     </p:column>
                                 </p:dataTable>

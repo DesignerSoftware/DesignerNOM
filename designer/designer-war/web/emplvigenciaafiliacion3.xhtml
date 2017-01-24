@@ -70,7 +70,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -159,7 +159,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" actionListener="#{controlTiposEntidades.recibirPagina('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
+                                        <p:commandButton style="width: 120%;" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -251,7 +251,7 @@
                         </fieldset>
                         <h:outputText  id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplVigenciaAfiliacion3.infoRegistro}" style="position: absolute; left: 20px; top: 465px; font-weight: bold"/>
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosVAVigencia" process="@this" disabled="#{controlEmplVigenciaAfiliacion3.guardado}"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nomina" process="@this" />
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlEmplVigenciaAfiliacion3.salir()}" action="nominaf" process="@this" />
 
                         <!-- DIALOGO L.O.V ESTATICO TIPO ENTIDAD -->
                         <p:dialog header="#{msg['tipoTE']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
@@ -387,7 +387,7 @@
                     <p:dialog id="confirmarGuardarSinSalir" header="#{msg['precaucion']}" widgetVar="confirmarGuardarSinSalir"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="nomina" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.guardadoGeneral()}" action="nominaf" 
                                          style="position: absolute; top: 45px; left: 180px;" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSinSalir').hide();" actionListener="#{controlEmplVigenciaAfiliacion3.cancelarModificacionVA()}" 
                                          style="position: absolute; top: 45px; left: 245px;" process="@this" icon="ui-icon-close" />

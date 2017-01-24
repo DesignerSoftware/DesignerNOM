@@ -71,7 +71,7 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlNReporteLaboral.cancelarModificaciones()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlNReporteLaboral.salir()}" action="nomina"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlNReporteLaboral.salir()}" action="nominaf"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -151,10 +151,10 @@
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value=""  actionListener="#{controlNReporteLaboral.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteLaboral.cambiosReporte}" process="@this" />
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" action="nomina" actionListener="#{controlNReporteLaboral.salir()}" process="@this" />
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" action="nominaf" actionListener="#{controlNReporteLaboral.salir()}" process="@this" />
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteLaboral.activarEnvio}"
-                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this" />
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                     </p:panel>
@@ -435,8 +435,8 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteLaboral.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 178px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteLaboral.cancelarYSalir()}" action="nomina"  style="position: absolute; top: 50px; left: 245px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteLaboral.guardarYSalir()}" action="nominaf" style="position: absolute; top: 50px; left: 178px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteLaboral.cancelarYSalir()}" action="nominaf"  style="position: absolute; top: 50px; left: 245px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 

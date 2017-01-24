@@ -99,7 +99,7 @@ public class ControlResultadosIndicesExternos implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaanterior = pagina;
         getListResultados();
         if (listResultados != null) {

@@ -156,7 +156,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaNovedades = null;
         getListaNovedades();

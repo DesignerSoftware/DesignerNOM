@@ -70,7 +70,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" action="cuentasbancos" icon="ui-icon-extlink"  actionListener="#{controlCuentasBancos.recibirPagina('cuentasbancos')}" process="@this" 
+                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" action="cuentasbancos" icon="ui-icon-extlink"  actionListener="#{controlCuentasBancos.recibirPaginaEntrante('cuentasbancos')}" process="@this" 
                                          style="position: relative; top: 430px; left: 10px; "   />
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlBancos.revisarDialogoGuardar()}" disabled="#{controlBancos.guardado}"    process="@this"   />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" action="banco"  actionListener="#{controlBancos.salir()}"  value=""/>
@@ -92,7 +92,7 @@
                                         <p:tooltip for="DetalleC" value="Dirección Banco"/>
                                     </f:facet>
                                     <p:commandButton action="direccionbanco" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                                     value=""  actionListener="#{controlDireccionesBancos.recibirPagina('direccionbanco', controlBancos.bancoSeleccionado.secuencia)}">
+                                                     value=""  actionListener="#{controlDireccionesBancos.recibirPaginaEntrante('direccionbanco', controlBancos.bancoSeleccionado.secuencia)}">
                                     </p:commandButton>   
                                     <f:facet name="footer">
                                         <h:outputText value="" />

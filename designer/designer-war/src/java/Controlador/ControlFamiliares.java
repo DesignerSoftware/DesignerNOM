@@ -142,7 +142,7 @@ public class ControlFamiliares implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina, BigInteger secuencia) {
+    public void recibirPaginaEntrante(String pagina, BigInteger secuencia) {
         imprimir("recibirPagina", "pagina: "+pagina);
         imprimir("recibirPagina", "secuencia: "+secuencia);
         paginaanterior = pagina;

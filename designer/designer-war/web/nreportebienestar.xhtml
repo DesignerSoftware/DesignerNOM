@@ -149,7 +149,7 @@
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 512px; top: 483px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" action="enviocorreo" disabled="#{controlNReporteBienestar.activarEnvio}" 
-                                         actionListener="#{controlEnvioCorreos.recibirPagina('nreportebienestar', controlNReporteBienestar.inforreporteSeleccionado.secuencia)}" process="@this" />
+                                         actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportebienestar', controlNReporteBienestar.inforreporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                         <fieldset style="position: absolute; left: 10px; top: 186px;height: 260px;width: 85px; border-radius: 10px;">

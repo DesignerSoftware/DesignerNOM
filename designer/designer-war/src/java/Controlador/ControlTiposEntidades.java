@@ -109,7 +109,7 @@ public class ControlTiposEntidades implements Serializable {
    }
    private String paginaAnterior;
 
-   public void recibirPagina(String pagina) {
+   public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       getListTiposEntidades();
       if (listTiposEntidades != null) {
