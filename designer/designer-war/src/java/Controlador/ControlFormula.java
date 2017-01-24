@@ -937,7 +937,7 @@ public class ControlFormula implements Serializable {
          paginaRetorno = "nomina";
       }
       if (llamadoPrevioPagina == 0) {
-         paginaRetorno = "retornoDetalleConcepto";
+         paginaRetorno = "detalleconcepto";
       }
       llamadoPrevioPagina = 1;
       return paginaRetorno;

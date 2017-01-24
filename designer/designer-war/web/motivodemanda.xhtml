@@ -65,7 +65,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "  actionListener="#{controlMotivosDemandas.salir()}" action="atrasmotivodemanda" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) "  actionListener="#{controlMotivosDemandas.salir()}" action="empldemanda" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -116,13 +116,13 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlMotivosDemandas.infoRegistro}" style="position: absolute; left: 25px; top: 415px; font-weight: bold"/>
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();"  disabled="#{controlMotivosDemandas.guardado}" update="datosMotivoDemanda"  process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" action="atrasmotivodemanda" id="ATRAS" value=""    />
+                        <p:commandButton class="cssBotonCancelar" action="empldemanda" id="ATRAS" value=""    />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivodemanda" actionListener="#{controlMotivosDemandas.guardarMotivosDemandas()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasmotivodemanda" actionListener="#{controlMotivosDemandas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="empldemanda" actionListener="#{controlMotivosDemandas.guardarMotivosDemandas()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="empldemanda" actionListener="#{controlMotivosDemandas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 

@@ -63,7 +63,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.salir()}" action="atraspruebasaplicadas"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) ; border: none;" actionListener="#{controlEmplVigConvocatorias.salir()}" action="empleadoindividual"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -91,7 +91,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlEmplVigConvocatorias.revisarDialogoGuardar()}" disabled="#{controlEmplVigConvocatorias.isGuardado()}" process="@this" />
-                        <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  actionListener="#{controlEmplVigConvocatorias.salir()}" action="atraspruebasaplicadas" process="@this"  />
+                        <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  actionListener="#{controlEmplVigConvocatorias.salir()}" action="empleadoindividual" process="@this"  />
 
                         <fieldset style="position: absolute;top: 105px;left: 10px;height: 165px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Convocatorias</strong></legend>

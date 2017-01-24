@@ -64,7 +64,7 @@
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPeriodosActivos.salir()}" action="atrascontrolperiodoactivo"  process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlPeriodosActivos.salir()}" action="parametro"  process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
                      </p:toolbarGroup>  
@@ -134,7 +134,7 @@
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlPeriodosActivos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosEmpresas" process="@this"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlPeriodosActivos.salir()}" process="@this" action="atrascontrolperiodoactivo"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlPeriodosActivos.salir()}" process="@this" action="parametro"/>
                </p:panel>
 
                <p:dialog id="validacionModificar" header="ATENCION...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
@@ -152,9 +152,9 @@
                <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}"
+                  <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="parametro" actionListener="#{controlPeriodosActivos.guardarCambiosCentroCosto()}"
                                    style="position: absolute; top: 55px; left: 157px;" process="@this" icon="ui-icon-check"/>
-                  <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrascontrolperiodoactivo" actionListener="#{controlPeriodosActivos.cancelarModificacion()}"
+                  <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="parametro" actionListener="#{controlPeriodosActivos.cancelarModificacion()}"
                                    style="position: absolute; top: 55px; left: 218px;" process="@this" icon="ui-icon-close"/>
                   <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();"
                                    style="position: absolute; top: 55px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>

@@ -63,14 +63,14 @@
                                                  actionListener="#{controlDeportes.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="atrasdeporte" process="@this" />  
+                                <p:commandButton id="salir" value=" " style="background-image: url(Imagenes/Iconos/salir.png);" action="vigenciasdeportes" process="@this" />  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " disabled="#{controlDeportes.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosDeporte"  process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ATRAS" action="atrasdeporte" value=" "    />
+                        <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ATRAS" action="vigenciasdeportes" value=" "    />
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['deportes']}</strong></legend>
 
@@ -121,8 +121,8 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" action="atrasdeporte" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeportes.guardarDeportes()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" action="atrasdeporte" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeportes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 225px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" action="vigenciasdeportes" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeportes.guardarDeportes()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" action="vigenciasdeportes" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlDeportes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 225px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 

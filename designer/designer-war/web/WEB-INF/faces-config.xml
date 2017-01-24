@@ -283,7 +283,7 @@
    <navigation-rule>
       <from-view-id>/formula.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoDetalleConcepto</from-outcome>
+         <from-outcome>detalleconcepto</from-outcome>
          <to-view-id>/detalleconcepto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2664,7 +2664,7 @@
    <navigation-rule>
       <from-view-id>/tipocotizante.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasLegislacion</from-outcome>
+         <from-outcome>legislacion</from-outcome>
          <to-view-id>/legislacion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3377,7 +3377,7 @@
    <navigation-rule>
       <from-view-id>/motivocontrato.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivocontrato</from-outcome>
+         <from-outcome>emplvigenciatipocontrato</from-outcome>
          <to-view-id>/emplvigenciatipocontrato.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3412,7 +3412,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>adelanteVigenciaTalla</from-outcome>
+         <from-outcome>vigenciatalla</from-outcome>
          <to-view-id>/vigenciatalla.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3420,7 +3420,7 @@
    <navigation-rule>
       <from-view-id>/vigenciatalla.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasVigenciaTalla</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3462,7 +3462,7 @@
    <navigation-rule>
       <from-view-id>/acercade.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasAcercaDe</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3478,7 +3478,7 @@
    <navigation-rule>
       <from-view-id>/attipodia.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasAtExtraRecargoTipoDia</from-outcome>
+         <from-outcome>atextrarecargo</from-outcome>
          <to-view-id>/atextrarecargo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3486,7 +3486,7 @@
    <navigation-rule>
       <from-view-id>/bienestar.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasNominaFBienestar</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3495,7 +3495,7 @@
    <navigation-rule>
       <from-view-id>/nreportebienestar.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasReporteBienestar</from-outcome>
+         <from-outcome>bienestar</from-outcome>
          <to-view-id>/bienestar.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3519,7 +3519,7 @@
    <navigation-rule>
       <from-view-id>/clasecategoria.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasCategoriaESCAClaseCategoria</from-outcome>
+         <from-outcome>categoriaesca</from-outcome>
          <to-view-id>/categoriaesca.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3536,7 +3536,7 @@
    <navigation-rule>
       <from-view-id>/clasepension.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasEmplVigenciaTipoTrabajadorClasePension</from-outcome>
+         <from-outcome>emplvigenciatipotrabajador</from-outcome>
          <to-view-id>/emplvigenciatipotrabajador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3570,7 +3570,7 @@
    <navigation-rule>
       <from-view-id>/controlperiodoactivo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrascontrolperiodoactivo</from-outcome>
+         <from-outcome>parametro</from-outcome>
          <to-view-id>/parametro.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3587,7 +3587,7 @@
    <navigation-rule>
       <from-view-id>/departamento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasdepartamento</from-outcome>
+         <from-outcome>ciudades</from-outcome>
          <to-view-id>/ciudades.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3604,7 +3604,7 @@
    <navigation-rule>
       <from-view-id>/deporte.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasdeporte</from-outcome>
+         <from-outcome>vigenciasdeportes</from-outcome>
          <to-view-id>/vigenciasdeportes.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3631,7 +3631,7 @@
    <navigation-rule>
       <from-view-id>/empresabanco.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasempresabanco</from-outcome>
+         <from-outcome>empresa</from-outcome>
          <to-view-id>/empresa.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3648,7 +3648,7 @@
    <navigation-rule>
       <from-view-id>/enfoque.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrascargo</from-outcome>
+         <from-outcome>cargo</from-outcome>
          <to-view-id>/cargo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3665,7 +3665,7 @@
    <navigation-rule>
       <from-view-id>/errorliquidacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atraserrorliquidacion</from-outcome>
+         <from-outcome>barra</from-outcome>
          <to-view-id>/barra.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3682,7 +3682,7 @@
    <navigation-rule>
       <from-view-id>/evalcompetencia.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasevalcompetencia</from-outcome>
+         <from-outcome>cargo</from-outcome>
          <to-view-id>/cargo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3699,7 +3699,7 @@
    <navigation-rule>
       <from-view-id>/evento.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasevento</from-outcome>
+         <from-outcome>emplvigenciaevento</from-outcome>
          <to-view-id>/emplvigenciaevento.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3716,7 +3716,7 @@
    <navigation-rule>
       <from-view-id>/firmareporte.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasfirmareporte</from-outcome>
+         <from-outcome>empresa</from-outcome>
          <to-view-id>/empresa.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3726,7 +3726,7 @@
    <navigation-rule>
       <from-view-id>/gersaludocupacional.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasgersaludocupacional</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3743,7 +3743,7 @@
    <navigation-rule>
       <from-view-id>/grupoinfadicional.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasgrupoinfadicional</from-outcome>
+         <from-outcome>emplinformacionadicional</from-outcome>
          <to-view-id>/emplinformacionadicional.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3760,7 +3760,7 @@
    <navigation-rule>
       <from-view-id>/grupoviatico.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasgrupoviatico</from-outcome>
+         <from-outcome>cargo</from-outcome>
          <to-view-id>/cargo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3777,7 +3777,7 @@
    <navigation-rule>
       <from-view-id>/idioma.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasidioma</from-outcome>
+         <from-outcome>idiomapersona</from-outcome>
          <to-view-id>/idiomapersona.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3794,7 +3794,7 @@
    <navigation-rule>
       <from-view-id>/liquidacionlog.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasliquidacionlog</from-outcome>
+         <from-outcome>barra</from-outcome>
          <to-view-id>/barra.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3804,7 +3804,7 @@
    <navigation-rule>
       <from-view-id>/liquidarproyeccion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasliquidarproyeccion</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3821,17 +3821,16 @@
    <navigation-rule>
       <from-view-id>/liquidarproyeccion1.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasliquidarproyeccion1</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
        
-    
    <navigation-rule>
       <from-view-id>/menucapacitacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmenucapacitacion</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3848,7 +3847,7 @@
    <navigation-rule>
       <from-view-id>/metodospagos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmetodospagos</from-outcome>
+         <from-outcome>emplvigenciaformapago</from-outcome>
          <to-view-id>/emplvigenciaformapago.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3865,7 +3864,7 @@
    <navigation-rule>
       <from-view-id>/moneda.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmoneda</from-outcome>
+         <from-outcome>empresa</from-outcome>
          <to-view-id>/empresa.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3882,7 +3881,7 @@
    <navigation-rule>
       <from-view-id>/motivocambiocargo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivocambiocargo</from-outcome>
+         <from-outcome>emplvigenciascargos</from-outcome>
          <to-view-id>/emplvigenciascargos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3899,7 +3898,7 @@
    <navigation-rule>
       <from-view-id>/motivocambiosueldo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivocambiosueldo</from-outcome>
+         <from-outcome>emplvigenciasueldo</from-outcome>
          <to-view-id>/emplvigenciasueldo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3916,7 +3915,7 @@
    <navigation-rule>
       <from-view-id>/motivodemanda.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivodemanda</from-outcome>
+         <from-outcome>empldemanda</from-outcome>
          <to-view-id>/empldemanda.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3933,7 +3932,7 @@
    <navigation-rule>
       <from-view-id>/motivolocalizacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivolocalizacion</from-outcome>
+         <from-outcome>emplvigencialocalizacion</from-outcome>
          <to-view-id>/emplvigencialocalizacion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3950,7 +3949,7 @@
    <navigation-rule>
       <from-view-id>/motivomvr.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivomvr</from-outcome>
+         <from-outcome>emplmvrs</from-outcome>
          <to-view-id>/emplmvrs.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3967,7 +3966,7 @@
    <navigation-rule>
       <from-view-id>/motivoreemplazo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivoreemplazo</from-outcome>
+         <from-outcome>emplvigenciatipotrabajador</from-outcome>
          <to-view-id>/emplvigenciatipotrabajador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3984,7 +3983,7 @@
    <navigation-rule>
       <from-view-id>/pais.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atraspais</from-outcome>
+         <from-outcome>departamento</from-outcome>
          <to-view-id>/departamento.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4001,7 +4000,7 @@
    <navigation-rule>
       <from-view-id>/opciones.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasopciones</from-outcome>
+         <from-outcome>liquidarproyeccion1</from-outcome>
          <to-view-id>/liquidarproyeccion1.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4018,7 +4017,7 @@
    <navigation-rule>
       <from-view-id>/periodicidad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasperiodicidad</from-outcome>
+         <from-outcome>emplvigenciaformapago</from-outcome>
          <to-view-id>/emplvigenciaformapago.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4035,7 +4034,7 @@
    <navigation-rule>
       <from-view-id>/socondiciontrabajo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrassocondiciontrabajo</from-outcome>
+         <from-outcome>gersaludocupacional</from-outcome>
          <to-view-id>/gersaludocupacional.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4061,7 +4060,7 @@
    <navigation-rule>
       <from-view-id>/detalleconcepto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposcentroscostosdetalleconcepto</from-outcome>
+         <from-outcome>tipocentrocosto</from-outcome>
          <to-view-id>/tipocentrocosto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4069,7 +4068,7 @@
    <navigation-rule>
       <from-view-id>/tipocentrocosto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrastiposcentroscostosdetalleconcepto</from-outcome>
+         <from-outcome>detalleconcepto</from-outcome>
          <to-view-id>/detalleconcepto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5673,8 +5672,16 @@
    <navigation-rule>
       <from-view-id>/vigenciaaficion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>aficion</from-outcome>
+         <from-outcome>aficiones</from-outcome>
          <to-view-id>/aficiones.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/aficiones.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>vigenciaaficion</from-outcome>
+         <to-view-id>/vigenciaaficion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -5777,7 +5784,7 @@
    <navigation-rule>
       <from-view-id>/indicadores.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasindicador</from-outcome>
+         <from-outcome>emplvigenciaindicador</from-outcome>
          <to-view-id>/emplvigenciaindicador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5794,7 +5801,7 @@
    <navigation-rule>
       <from-view-id>/resultadosindicesexternos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasresultadoindice</from-outcome>
+         <from-outcome>indicadores</from-outcome>
          <to-view-id>/indicadores.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5811,7 +5818,7 @@
    <navigation-rule>
       <from-view-id>/indicesexternos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasindiceexterno</from-outcome>
+         <from-outcome>resultadosindicesexternos</from-outcome>
          <to-view-id>/resultadosindicesexternos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5828,7 +5835,7 @@
    <navigation-rule>
       <from-view-id>/sectoreseconomicos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrassectoreconomico</from-outcome>
+         <from-outcome>perexperiencialaboral</from-outcome>
          <to-view-id>/perexperiencialaboral.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5845,7 +5852,7 @@
    <navigation-rule>
       <from-view-id>/emplvigconvocatoria.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atraspruebasaplicadas</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5862,7 +5869,7 @@
    <navigation-rule>
       <from-view-id>/pervigenciadomiciliaria.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasvisitadomiciliaria</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>

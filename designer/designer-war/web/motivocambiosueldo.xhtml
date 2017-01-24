@@ -64,7 +64,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlMotivosCambiosSueldos.salir()}" action="atrasmotivocambiosueldo"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlMotivosCambiosSueldos.salir()}" action="emplvigenciasueldo"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -124,15 +124,15 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlMotivosCambiosSueldos.infoRegistro}" style="position: relative; left: 15px; top: 380px; font-weight: bold"/>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  onclick="PF('confirmarGuardar').show();" disabled="#{controlMotivosCambiosSueldos.guardado}" update="datosMotivoCambioSueldo"  process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="atrasmotivocambiosueldo" value="" actionListener="#{controlMotivosCambiosSueldos.salir()}"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="emplvigenciasueldo" value="" actionListener="#{controlMotivosCambiosSueldos.salir()}"/>
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasmotivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="emplvigenciasueldo" actionListener="#{controlMotivosCambiosSueldos.guardarMotivosCambiosSueldos()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="emplvigenciasueldo" actionListener="#{controlMotivosCambiosSueldos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 

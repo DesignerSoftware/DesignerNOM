@@ -180,7 +180,7 @@
                                     </f:facet>  
                                  </p:cellEditor>
                                  <f:facet name="footer">
-                                    <p:commandButton style="width: 140px;" id="fooTipoCC" action="tiposcentroscostosdetalleconcepto" actionListener="#{controlTiposCentrosCostos.recibirPaginaAnterior('atrastiposcentroscostosdetalleconcepto')}" value=" "/>
+                                    <p:commandButton style="width: 140px;" id="fooTipoCC" action="tipocentrocosto" actionListener="#{controlTiposCentrosCostos.recibirPaginaAnterior('detalleconcepto')}" value=" "/>
                                  </f:facet>
                               </p:column>
 
@@ -766,7 +766,7 @@
                            <h:outputText id="infoRegistroFormulaConcepto" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroFormulaConcepto}" style=" left: 10px; top: 0px; font-weight: bold; display: table;"/>
 
                            <p:commandButton value="#{msg['detalle']}" icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; display: table;
-                                            width: 120px; height: 29px; left: 680px; top: -16px; color: white;" id="detalleFormula" disabled="#{controlDetalleConcepto.formulaSeleccionada}" immediate="#{controlFormula.recibirPaginaEntrante('retornoDetalleConcepto')}"
+                                            width: 120px; height: 29px; left: 680px; top: -16px; color: white;" id="detalleFormula" disabled="#{controlDetalleConcepto.formulaSeleccionada}" immediate="#{controlFormula.recibirPaginaEntrante('detalleconcepto')}"
                                             action="formulaSeleccionada" actionListener="#{controlFormula.obtenerFormulaSecuencia(controlDetalleConcepto.actualFormulaConcepto.formula.secuencia)}"/>
                            <p:tooltip  for="detalleFormula" value="#{msg['detallesdelaformulaseleccionada']}" />
                         </fieldset>

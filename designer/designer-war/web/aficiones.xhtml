@@ -123,8 +123,8 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" action="atrasdeporte" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAficiones.guardarAficiones()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" action="atrasdeporte" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAficiones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 225px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" action="vigenciaaficion" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAficiones.guardarAficiones()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" action="vigenciaaficion" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAficiones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 225px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 

@@ -73,7 +73,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                                 action="atrascargo" process="@this" actionListener="#{controlEnfoques.salir()}"/>  
+                                                 action="cargo" process="@this" actionListener="#{controlEnfoques.salir()}"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -130,7 +130,7 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEnfoques.infoRegistro}" style="position: relative; left: 15px; top: 380px; font-weight: bold"/>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  disabled="#{controlEnfoques.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosEnfoque"  process="@this"   />
-                        <p:commandButton  class="cssBotonCancelar" id="ATRAS" value=""  action="atrascargo" actionListener="#{controlEnfoques.salir()}"  />
+                        <p:commandButton  class="cssBotonCancelar" id="ATRAS" value=""  action="cargo" actionListener="#{controlEnfoques.salir()}"  />
 
 
                     </p:panel>
@@ -138,8 +138,8 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrascargo" actionListener="#{controlEnfoques.guardarEnfoques()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrascargo" actionListener="#{controlEnfoques.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="cargo" actionListener="#{controlEnfoques.guardarEnfoques()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="cargo" actionListener="#{controlEnfoques.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
                     
