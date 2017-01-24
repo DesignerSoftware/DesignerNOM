@@ -78,7 +78,7 @@
                                          value="#{controlMotivosRetiros.listMotivosRetiros}" scrollable="true" scrollHeight="#{controlMotivosRetiros.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlMotivosRetiros.filtrarMotivosRetiros}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="15"   selection="#{controlMotivosRetiros.motivoRetiroSelecciodo}" selectionMode="single"
-                                         >
+                                         widgetVar="datosMotivosRetiros" >
                                 <p:ajax event="filter" listener="#{controlMotivosRetiros.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -86,7 +86,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosMotivosRetiros').unselectAllRows();PF('datosMotivosRetiros').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlMotivosRetiros.modificarMotivosRetiros(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -102,7 +103,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosMotivosRetiros').unselectAllRows();PF('datosMotivosRetiros').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlMotivosRetiros.modificarMotivosRetiros(info, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

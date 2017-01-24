@@ -93,7 +93,7 @@
                             <legend style="color: blue;text-align:left"><strong>#{msg['idiomas']}</strong></legend>
 
                             <p:dataTable id="datosIdiomas" widgetVar="datosIdiomas" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left"                           
-                                         value="#{controlIdiomaPersona.listIdiomasPersonas}" scrollable="true" scrollHeight="#{controlIdiomaPersona.altoTabla}" 
+                                         value="#{controlIdiomaPersona.listIdiomasPersonas}" scrollable="true" scrollHeight="#{controlIdiomaPersona.altoTabla}" widgetVar="datosIdiomas"
                                          filteredValue="#{controlIdiomaPersona.filtrarListIdiomasPersonas}" emptyMessage="#{msg['vacio']}" selectionMode="single"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlIdiomaPersona.idiomaTablaSeleccionado}">
 
@@ -107,7 +107,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.idioma.nombre}" id="editarIdioma" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info, 'IDIOMAS', info.idioma.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info, 0)}"
+                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlIdiomaPersona.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -125,7 +126,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.habla}" id="editarConversacion" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarConversacion" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,1)}" process="@this" onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarConversacion"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -142,7 +143,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.lectura}" id="editarLectura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarLectura" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,2)}" process="@this"
+                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarLectura"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -159,7 +161,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.escritura}" id="editarEscritura" maxlength="3" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarEscritura" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIdiomaPersona.cambiarIndice(info,3)}" process="@this" 
+                                                       onstart="PF('datosIdiomas').unselectAllRows();PF('datosIdiomas').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlIdiomaPersona.modificarIdiomaPersona(info)}" process="@this" update="editarEscritura"/>                                   
                                             </p:inputText>
                                         </f:facet>  

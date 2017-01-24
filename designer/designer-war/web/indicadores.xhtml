@@ -75,7 +75,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Indicador</strong></legend>
 
-                            <p:dataTable id="datosIndicadores" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosIndicadores" var="info" widgetVar="datosIndicadores" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlIndicadores.listIndicadores}" scrollable="true" scrollHeight="#{controlIndicadores.tamano}"
                                          scrollWidth="830" filteredValue="#{controlIndicadores.filtrarListIndicadores}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" selection="#{controlIndicadores.indicadorSeleccionado}"
@@ -87,7 +87,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="eCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlIndicadores.modificarIndicador(info, 'N', info.codigo)}"  update="eCodigo"/>
                                             </p:inputText>
                                         </f:facet> 
@@ -102,7 +103,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="eNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info, 'N', info.descripcion)}" update="eNombre"/>
                                             </p:inputText>
                                         </f:facet> 
@@ -116,7 +118,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipoindicador.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipoindicador.descripcion}" maxlength="50" id="eTipo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 2)}" process="@this"
+                                                       onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info, 'N', info.tipoindicador.descripcion)}" update="eTipo"/>
                                                 <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 0)}"/>
                                             </p:inputText>

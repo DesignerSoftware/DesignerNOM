@@ -75,9 +75,7 @@
                                          value="#{controlGruposViaticos.listGruposViaticos}" scrollHeight="#{controlGruposViaticos.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlGruposViaticos.filtrarGruposViaticos}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  scrollable="true"
-                                         selection="#{controlGruposViaticos.grupoViaticoSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         selection="#{controlGruposViaticos.grupoViaticoSeleccionado}" widgetVar="datosGruposViaticos"    selectionMode="single" >
                                 <p:ajax event="filter" listener="#{controlGruposViaticos.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -85,7 +83,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 0)}" process="@this" 
+                                                       onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -99,7 +98,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 1)}" process="@this" 
+                                                        onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -113,7 +113,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.porcentajelastday}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputNumber autocomplete="off"  value="#{info.porcentajelastday}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 2)}" process="@this"
+                                                       onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.porcentajelastday)}" update="estado"/>
                                             </p:inputNumber>
                                         </f:facet>  

@@ -72,7 +72,7 @@
                             <p:dataTable id="datosMetodoPago" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlMetodoPago.listMetodosPagos}" scrollable="true" scrollHeight="#{controlMetodoPago.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlMetodoPago.filtrarMetodosPagos}" emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
+                                         editable="true" editMode="cell"   liveScroll="true" scrollRows="50"   widgetVar="datosMetodoPago"
                                          selection="#{controlMetodoPago.metodoPagoSeleccionado}"
                                          selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlMetodoPago.eventoFiltrar()}"/>
@@ -82,7 +82,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 0)}" process="@this"
+                                                       onstart="PF('datosMetodoPago').unselectAllRows();PF('datosMetodoPago').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlMetodoPago.modificarMetodosPagos(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -93,7 +94,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMetodoPago.cambiarIndice(indice, 1)}" process="@this"
+                                                       onstart="PF('datosMetodoPago').unselectAllRows();PF('datosMetodoPago').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlMetodoPago.modificarMetodosPagos(indice, 'N', info.descripcion)}"  update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -101,7 +103,9 @@
 
                                 </p:column>
                                 <p:column headerText="Pago" sortBy="#{info.pago}" filterBy="#{info.pago}" style="padding: 0px;" filterMatchMode="contains" id="pago" width="100" filterStyle="display: none; visibility: hidden;" >                                                              
-                                    <p:selectOneMenu id="editarPago" value="#{info.pago}"  panelStyle="width: 42%" >  
+                                    <p:selectOneMenu id="editarPago" value="#{info.pago}"  panelStyle="width: 42%"
+                                                     onblur="PF('datosMetodoPago').unselectAllRows();PF('datosMetodoPago').selectRow(#{indice});"
+                                                     onfocus="PF('datosMetodoPago').unselectAllRows();PF('datosMetodoPago').selectRow(#{indice});">  
                                         <f:selectItem itemLabel=" " itemValue="" />  
                                         <f:selectItem itemLabel="CONSIGNACION" itemValue="CONSIGNACION" />
                                         <f:selectItem itemLabel="TRANSFERENCIA" itemValue="TRANSFERENCIA" />  
