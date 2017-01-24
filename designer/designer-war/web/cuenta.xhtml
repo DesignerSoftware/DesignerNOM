@@ -95,7 +95,7 @@
                         <fieldset style="position: absolute; left: 5px; top: 110px; width: 835px; height: 360px; border-radius: 10px;">
                             <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
-                            <p:dataTable id="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
+                            <p:dataTable id="datosCuenta" widgetVar="datosCuenta" var="infoC" rowKey="#{infoC.secuencia}" rowIndexVar="indice" style="border: 1px; width: 830px;"   
                                          value="#{controlCuenta.listCuentas}" scrollable="true" scrollHeight="#{controlCuenta.altoTabla}" scrollWidth="830"
                                          filteredValue="#{controlCuenta.filtrarListCuentas}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="15" selectionMode="single" selection="#{controlCuenta.cuentaTablaSeleccionada}">
@@ -131,7 +131,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.codigo}" maxlength="20"  id="editarCuentaCodigo" 
                                                           style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 1)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 1)}" process="@this"
+                                                         onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -154,7 +155,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.descripcion}" maxlength="100" id="editarCuentaDescripcion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 2)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 2)}" process="@this"
+                                                        onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCuenta.modificarCuenta(infoC)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -176,7 +178,9 @@
                                             <!--<h:outputText value="#{(infoC.naturaleza == null)||(infoC.naturaleza == '') ? ' ': infoC.naturaleza}"/>-->
                                         </f:facet> 
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase">  
+                                            <p:selectOneMenu id="editarCuentaNaturaleza" value="#{infoC.naturaleza}" style="width: 58px; font-weight: bold;text-transform: uppercase"
+                                                             onblur="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
+                                                             onfocus="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel=" " itemValue="NULL" /> 
                                                 <f:selectItem itemLabel="#{msg['debito']}" itemValue="DEBITO" />  
                                                 <f:selectItem itemLabel="#{msg['credito']}" itemValue="CREDITO" /> 
@@ -201,7 +205,9 @@
                                             <h:outputText value="#{infoC.tipo}"/>
                                         </f:facet> 
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 70px; font-weight: bold; text-transform: uppercase">  
+                                            <p:selectOneMenu id="editarCuentaTipo" value="#{infoC.tipo}" style="width: 70px; font-weight: bold; text-transform: uppercase"
+                                                             onblur="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});"
+                                                             onfocus="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel=" " itemValue="NULL" /> 
                                                 <f:selectItem itemLabel="#{msg['ctaxpagar']}" itemValue="CXP" />  
                                                 <f:selectItem itemLabel="#{msg['ctaxcobrar']}" itemValue="CXC" />  
@@ -229,7 +235,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.contracuentatesoreria.codigo}"  id="editarCuentaContracuenta" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 5)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'CONTRACUENTA', infoC.contracuentatesoreria.codigo)}" process="@this" update="editarCuentaContracuenta"/>
                                                 <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,0,0)}" process="@this" update="editarCuentaContracuenta"/>
                                             </p:inputText>
@@ -253,7 +259,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoC.rubropresupuestal.descripcion}"  id="editarCuentaRubro" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlCuenta.cambiarIndice(infoC, 6)}" process="@this" onstart="PF('datosCuenta').unselectAllRows();PF('datosCuenta').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCuenta.modificarCuentaAutocompletar(infoC, 'RUBRO', infoC.rubropresupuestal.descripcion)}" process="@this" update="editarCuentaRubro"/>
                                                 <p:ajax event="dblclick" listener="#{controlCuenta.asignarIndex(infoC,1,0)}" process="@this" update="editarCuentaRubro"/>
                                             </p:inputText>

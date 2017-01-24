@@ -78,7 +78,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 105px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['empleados']}</strong></legend>
 
-                            <p:dataTable id="datosEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left; width: 600px;"                           
+                            <p:dataTable id="datosEmpleado" widgetVar="datosEmpleado" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left; width: 600px;"                           
                                          value="#{controlATHoraExtra.listaEmpleados}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaEmpleado}"  scrollWidth="615"
                                          filteredValue="#{controlATHoraExtra.filtrarListaEmpleados}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATHoraExtra.empleadoSeleccionado}" selectionMode="single">
@@ -96,6 +96,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{info.codigoempleadoSTR}" id="editarCodigoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosEmpleado').unselectAllRows();PF('datosEmpleado').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -109,6 +110,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{info.persona.nombreCompleto}" id="editarNombreEmpleadoEmpleado" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionEmpleado([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosEmpleado').unselectAllRows();PF('datosEmpleado').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -125,7 +127,7 @@
                         <fieldset style="position: absolute;top: 200px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['horasExtras']}</strong></legend>
 
-                            <p:dataTable id="datosHoraExtra" var="infoHE" rowKey="#{infoHE.secuencia}" rowIndexVar="indiceHE" style=" border: 1px; text-align: left; width: 815px;"                           
+                            <p:dataTable id="datosHoraExtra" widgetVar="datosHoraExtra" var="infoHE" rowKey="#{infoHE.secuencia}" rowIndexVar="indiceHE" style=" border: 1px; text-align: left; width: 815px;"                           
                                          value="#{controlATHoraExtra.listaTurnosEmpleados}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaHorasExtras}"  scrollWidth="830"
                                          filteredValue="#{controlATHoraExtra.filtrarListaTurnosEmpleados}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATHoraExtra.turnoEmpleadoSeleccionado}" selectionMode="single">
@@ -160,7 +162,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaInicialHoraExtra" value="#{infoHE.fechainicial}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,1)}" update="editarFechaInicialHoraExtra" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,1)}" update="editarFechaInicialHoraExtra" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,1)}" process="@this"
+                                                       onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" /> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -180,7 +183,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaFinalHoraExtra" value="#{infoHE.fechafinal}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,2)}" update="editarFechaInicialHoraExtra" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarFechaTurno(indiceHE,2)}" update="editarFechaInicialHoraExtra" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE,2)}" process="@this"
+                                                       onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" /> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -195,7 +199,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoHE.motivoturno.nombre}" id="editarMotivoTurnoHoraExtra" style=" border-radius: 0px; width: 98%; text-transform: uppercase; " > 
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE, 'MOTIVO', infoHE.motivoturno.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 3)}" />
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 3)}"
+                                                       onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" />
                                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 0, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -215,7 +220,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoHE.descuentahorasalimentacion}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoHE.descuentahorasalimentacion}" id="editarNHAHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 4)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 4)}" process="@this" 
+                                                       onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" />
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarNHAHoraExtra"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -234,7 +240,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoHE.pagavalesalimentacion}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoHE.pagavalesalimentacion}" id="editarNVAHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 5)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 5)}" process="@this"
+                                                        onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" />
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarNVAHoraExtra"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -264,7 +271,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{nfoHE.estructuraaprueba.nombre}" id="editarEstructuraHoraExtra" style=" border-radius: 0px; width: 98%; text-transform: uppercase; " > 
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE, 'ESTRUCTURA', nfoHE.estructuraaprueba.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 7)}" />
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 7)}" 
+                                                        onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" />
                                                 <p:ajax event="dblclick" listener="#{controlATHoraExtra.asignarIndex(indiceHE, 1, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -279,7 +287,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoHE.comentario}" style="width: 100px;  text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoHE.comentario}" id="editarComentarioHoraExtra" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 8)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATHoraExtra.cambiarIndiceHoraExtra(indiceHE, 8)}" process="@this"
+                                                       onstart="PF('datosHoraExtra').unselectAllRows();PF('datosHoraExtra').selectRow(#{indiceHE});" />
                                                 <p:ajax event="change" listener="#{controlATHoraExtra.modificarTurnoEmpleado(indiceHE)}" process="@this" update="editarComentarioHoraExtra"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -296,7 +305,7 @@
                             <legend style=" color: blue;text-align:left"><strong>#{msg['detallesHorasExtras']}</strong></legend>
 
                             
-                            <p:dataTable id="datosDetalle" var="infoD" rowKey="#{infoD.eerdetalle}" rowIndexVar="indiceD" style=" border: 1px; text-align: left; width: 815px;"                           
+                            <p:dataTable id="datosDetalle" widgetVar="datosDetalle" var="infoD" rowKey="#{infoD.eerdetalle}" rowIndexVar="indiceD" style=" border: 1px; text-align: left; width: 815px;"                           
                                          value="#{controlATHoraExtra.listaVWEstadosExtras}" scrollable="true" scrollHeight="#{controlATHoraExtra.altoTablaDetalleHoraExtra}"  scrollWidth="830"
                                          filteredValue="#{controlATHoraExtra.filtrarListaVWEstadosExtras}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATHoraExtra.detalleSeleccionado}" selectionMode="single">
@@ -314,6 +323,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.conceptodescripcion}" id="editarConceptoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -329,6 +339,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.fechapago}" id="editarFechaPagoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>  
@@ -346,6 +357,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.horas}" id="editarHorasDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -362,6 +374,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.minutos}" id="editarMinutosDetalle" 
                                                          style=" border-radius: 0px; width: 99%;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -378,6 +391,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.aprobado}" id="editarApobadoDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -394,6 +408,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.descripcion}" id="editarDescripcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -410,6 +425,7 @@
                                             <p:inputText  autocomplete="off"   onclick="select();" value="#{infoD.opcion}" id="editarOpcionDetalle" 
                                                          style=" border-radius: 0px; width: 99%;text-transform: uppercase;" readonly="true"
                                                          onselect="posicionDetalleHoraExtra([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                 <p:ajax event="select" onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>

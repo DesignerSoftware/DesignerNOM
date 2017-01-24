@@ -64,7 +64,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 300px; border-radius: 10px; ">
                             <legend style="font-size: 12px; color: blue;text-align:left"><strong>#{msg['escalafones']}</strong></legend>
 
-                            <p:dataTable id="datosCategoria" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="font-size: 11px; border: 1px; text-align: left"                           
+                            <p:dataTable id="datosCategoria" widgetVar="datosCategoria" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="font-size: 11px; border: 1px; text-align: left"                           
                                          value="#{controlCategoriaEsca.listaCategorias}" scrollable="true" scrollHeight="#{controlCategoriaEsca.algoTabla}" 
                                          filteredValue="#{controlCategoriaEsca.filtrarListaCategorias}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" paginator="true" paginatorPosition="top"
@@ -81,7 +81,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice)}" update="editarCodigo"/>
-                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 0)}" />
+                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 0)}"
+                                                        onstart="PF('datosCategoria').unselectAllRows();PF('datosCategoria').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -97,7 +98,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.descripcion}"  maxlength="100" id="editarDescripcion" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice)}"/>
-                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 1)}" />
+                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 1)}" 
+                                                       onstart="PF('datosCategoria').unselectAllRows();PF('datosCategoria').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -114,7 +116,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.clasecategoria.descripcion}" id="editarClaseCategoria" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'CLASE', info.clasecategoria.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 2)}" />
+                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 2)}" 
+                                                        onstart="PF('datosCategoria').unselectAllRows();PF('datosCategoria').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -132,7 +135,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.tiposueldo.descripcion}" id="editarTipoSueldo" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'TIPO', info.tiposueldo.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 3)}" />
+                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 3)}" 
+                                                        onstart="PF('datosCategoria').unselectAllRows();PF('datosCategoria').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,1)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -150,7 +154,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.concepto.descripcion}" id="editarConcepto" style="border-radius: 0px; width: 99.5%;text-transform: uppercase" onclick="select();"> 
                                                 <p:ajax event="change" listener="#{controlCategoriaEsca.modificarCategoria(indice, 'CONCEPTO', info.concepto.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 4)}" />
+                                                <p:ajax event="select" listener="#{controlCategoriaEsca.cambiarIndice(indice, 4)}" 
+                                                       onstart="PF('datosCategoria').unselectAllRows();PF('datosCategoria').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlCategoriaEsca.asignarIndex(indice,0,2)}"/>
                                             </p:inputText>
                                         </f:facet>  

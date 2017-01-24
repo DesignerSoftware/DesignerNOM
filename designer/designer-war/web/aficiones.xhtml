@@ -71,19 +71,18 @@
                         </p:toolbar>
 
                         <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR"
-                                         value=" " disabled="#{controlAficiones.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosDeporte"  process="@this"   />
+                                         value=" " disabled="#{controlAficiones.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosAficiones"  process="@this"   />
                         <p:commandButton style=" position: absolute; left: 770px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ATRAS"
                                          action="#{controlAficiones.retornarPagina()}" actionListener="#{controlAficiones.salir()}" value=" "    />
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['aficiones']}</strong></legend>
 
-                            <p:dataTable id="datosDeporte" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosAficiones" widgetVar="datosAficiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlAficiones.listAficiones}" scrollHeight="#{controlAficiones.tamano}"  
                                          filteredValue="#{controlAficiones.filtrarAficiones }" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlAficiones.aficionSeleccionada}" selectionMode="single"
                                          editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830" >
                                 <p:ajax event="filter" listener="#{controlAficiones.eventoFiltrar()}"/>
-                                <!--<f:event type="preRenderView" listener="#{controlAficiones.recordarSeleccionAficion()}"/>-->
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
@@ -91,7 +90,8 @@
                                         <f:facet name="input">
                                             <!--<p:inputText  autocomplete="off"   value="#{info.codigo}"  maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase">--> 
                                             <p:inputMask id="editarCodigo" value="#{info.codigo}" mask="9999" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase;">
-                                                <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 0)}" process="@this" 
+                                                        onstart="PF('datosAficiones').unselectAllRows();PF('datosAficiones').selectRow(#{indice});"/> 
                                                 <p:ajax event="change" listener="#{controlAficiones.modificarAficion(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputMask>
                                         </f:facet>  
@@ -106,8 +106,9 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlAficiones.modificarAficion(info, 'M', info.nombre)}" update="descripcion"/>
+                                                <p:ajax event="select" listener="#{controlAficiones.cambiarIndice(info, 1)}" process="@this"
+                                                         onstart="PF('datosAficiones').unselectAllRows();PF('datosAficiones').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlAficiones.modificarAficion(info, 'M', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

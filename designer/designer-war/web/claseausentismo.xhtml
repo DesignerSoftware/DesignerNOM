@@ -77,15 +77,11 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo1']}</strong></legend>
                             
-                            <p:dataTable id="datosClasesAusentismos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlClasesAusentismos.listClasesAusentismos}" scrollHeight="#{controlClasesAusentismos.tamano}"
+                            <p:dataTable id="datosClasesAusentismos" widgetVar="datosClasesAusentismos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" 
+                                         style="width: 810px ; border: 1px;"  value="#{controlClasesAusentismos.listClasesAusentismos}" scrollHeight="#{controlClasesAusentismos.tamano}"
                                          filteredValue="#{controlClasesAusentismos.filtrarClasesAusentismos}" 
-                                         emptyMessage="#{msg['lovvacio']}"
-                                         selection="#{controlClasesAusentismos.clasesAusentismoSeleccionado}"
-                                         selectionMode="single"
-                                         editable="true" editMode="cell" scrollable="true" liveScroll="true"
-                                         scrollRows="50"  scrollWidth="830"
-                                         >
+                                         emptyMessage="#{msg['lovvacio']}"   selection="#{controlClasesAusentismos.clasesAusentismoSeleccionado}"
+                                         selectionMode="single"  editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"   >
                                 <p:ajax event="filter" listener="#{controlClasesAusentismos.eventoFiltrar()}"/>
 
                                 <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -93,7 +89,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="5" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 0)}" process="@this" 
+                                                        onstart="PF('datosClasesAusentismos').unselectAllRows();PF('datosClasesAusentismos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlClasesAusentismos.modificarClasesAusentismos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -105,7 +102,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 1)}" process="@this" 
+                                                        onstart="PF('datosClasesAusentismos').unselectAllRows();PF('datosClasesAusentismos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlClasesAusentismos.modificarClasesAusentismos(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -117,7 +115,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipo.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.tipo.descripcion}" id="editarPersonaFirma" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlClasesAusentismos.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosClasesAusentismos').unselectAllRows();PF('datosClasesAusentismos').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlClasesAusentismos.asignarIndex(info, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlClasesAusentismos.modificarClasesAusentismos(info, 'PERSONAS', info.tipo.descripcion)}" update="personafir"/>
                                             </p:inputText>

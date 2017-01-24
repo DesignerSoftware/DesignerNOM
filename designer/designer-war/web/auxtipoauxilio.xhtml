@@ -11,46 +11,11 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                    
+
                     <f:loadBundle basename="Recursos.auxtipoauxilio" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
-                    
+
                     <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="PanelTotal">  
-                        <fieldset style="position: absolute; left: 10px; top: 90px; width: 835px; height: 370px; border-radius: 10px; ">
-                            <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
-
-                            <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 819px ;border: 1px;"                           
-                                         value="#{controlTiposAuxilios.listTiposAuxilios}" scrollable="true" scrollHeight="#{controlTiposAuxilios.altoTabla}" scrollWidth="835"
-                                         filteredValue="#{controlTiposAuxilios.filtrarTiposAuxilios}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25" selection="#{controlTiposAuxilios.tipoAuxilioTablaSeleccionado}">
-                                <p:ajax event="filter" listener="#{controlTiposAuxilios.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.codigo)}"  update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.descripcion}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" id="editarNombre" style="border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.descripcion)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-                            </p:dataTable>
-
-                        </fieldset>
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -74,7 +39,7 @@
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlTiposAuxilios.limpiarNuevoTiposAuxilios()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="TIPOSAUXILIOS" encoding="UTF-8"/> 
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoAuxilioExportar" fileName="TIPOSAUXILIOS" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
@@ -82,7 +47,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroTiposReemplazos').show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
@@ -91,22 +56,59 @@
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlTiposAuxilios.duplicandoTiposAuxilios()}" process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlTiposAuxilios.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlTiposAuxilios.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
+
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlTiposAuxilios.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>                                
 
                             </p:toolbarGroup>  
                         </p:toolbar>
+                        <fieldset style="position: absolute; left: 10px; top: 90px; width: 835px; height: 370px; border-radius: 10px; ">
+                            <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+
+                            <p:dataTable id="datosTipoAuxilio" widgetVar="datosTipoAuxilio" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 819px ;border: 1px;"                           
+                                         value="#{controlTiposAuxilios.listTiposAuxilios}" scrollable="true" scrollHeight="#{controlTiposAuxilios.altoTabla}" scrollWidth="835"
+                                         filteredValue="#{controlTiposAuxilios.filtrarTiposAuxilios}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                         editable="true" editMode="cell" liveScroll="true" scrollRows="25" selection="#{controlTiposAuxilios.tipoAuxilioTablaSeleccionado}">
+                                <p:ajax event="filter" listener="#{controlTiposAuxilios.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.codigo)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" id="editarNombre" style="border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposAuxilios.cambiarIndice(indice, 1)}" process="@this"
+                                                        onstart="PF('datosTipoAuxilio').unselectAllRows();PF('datosTipoAuxilio').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlTiposAuxilios.modificandoTipoAuxilio(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+
+                        </fieldset>
+
 
                         <p:commandButton style=" position: absolute; left: 683px; top: 480px;" icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlTiposAuxilios.guardado}" actionListener="#{controlTiposAuxilios.revisarDialogoGuardar()}"     process="@this"   />
                         <p:commandButton style=" position: absolute; left: 775px; top: 480px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}"    />
@@ -126,25 +128,25 @@
                         <h:outputText value="#{msg['validacionDuplicarVigencia']} #{controlTiposAuxilios.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="validacionModificar" header="#{msg['atencion']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
                         <h:outputText value=" #{controlTiposAuxilios.mensajeValidacion}" style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="validacionBorrar" header="#{msg['atencion']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
                         <h:outputText value="#{msg['mostrarBorrados1']} #{controlTiposAuxilios.registrosBorrados} #{msg['mostrarBorrados2']}" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="validacionNuevaCentroCosto" header="#{msg['atencion']}" widgetVar="validacionNuevaCentroCosto"  resizable="false" draggable="true" modal="true" height="95" width="450" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['validacionNuevaCentroCosto']} #{controlTiposAuxilios.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
@@ -245,7 +247,7 @@
                             <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style="position: absolute; left: 210px; top: 140px;"  update="duplicarTTR" onclick="PF('duplicarRegistroTiposReemplazos').hide();" actionListener="#{controlTiposAuxilios.limpiarDuplicarTiposAuxilios()}"  process="@this"/>
                         </p:panel>
                     </p:dialog>
-                    
+
                     <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.codigo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
@@ -253,11 +255,11 @@
                     <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea  value="#{controlTiposAuxilios.editarTipoAuxilio.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                 </h:form>
 
                 <h:form id="formExportar">
-                    <p:dataTable id="datosTipoReemplazoExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                    <p:dataTable id="datosTipoAuxilioExportar" var="infoExp" style="visibility: hidden; display: none;"                           
                                  value="#{controlTiposAuxilios.listTiposAuxilios}">
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet> 

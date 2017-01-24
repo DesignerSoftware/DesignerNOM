@@ -473,10 +473,10 @@
                                                actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaLaboral')}" immediate="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>  
                                 <p:inputText  autocomplete="off"  id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
-                                <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaFamiliar')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
+                                <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
                                                  style="background-image: url(Imagenes/Iconos/referenciafamiliar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; text-transform: uppercase" process="@this"/>
                                 <h:commandLink value="#{msg['referenciafamiliar']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B;"
-                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaFamiliar')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnExperienciaLaboral" value="" process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
@@ -510,9 +510,9 @@
                                 <p:inputText  autocomplete="off"  id="censos" value="#{controlEmpleadoIndividual.indicadoresP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnDemandas" value="" style="background-image: url(Imagenes/Iconos/demanda.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;" 
-                                                 process="@this" action="demandaEmpl" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                                 process="@this" action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <h:commandLink value="#{msg['demandas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 123px;"
-                                               action="demandaEmpl" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnVisitasDomiciliarias" value="" style="background-image: url(Imagenes/Iconos/visitadomiciliaria.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"

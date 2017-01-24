@@ -55,8 +55,8 @@
                                 <legend style="color: blue;text-align: left; font-weight: bold">#{msg['empleados']}</legend>
                                 <p:dataTable id="datosEmpleadosParametros" var="empleadoParametro" style="width: 779px;text-align: left" value="#{controlCerrarLiquidacion.listaParametros}"
                                              scrollable="true" scrollWidth="795"  editable="true" editMode="cell" rowKey="#{empleadoParametro.secuencia}" scrollHeight="#{controlCerrarLiquidacion.altoTabla}" 
-                                             filteredValue="#{controlCerrarLiquidacion.filtradoListaParametros}" emptyMessage="#{msg['vacio']}"
-                                             selection="#{controlCerrarLiquidacion.empleadoTablaSeleccionado}" selectionMode="single">
+                                             filteredValue="#{controlCerrarLiquidacion.filtradoListaParametros}" emptyMessage="#{msg['vacio']}" widgetVar="datosEmpleadosParametros"
+                                             selection="#{controlCerrarLiquidacion.empleadoTablaSeleccionado}" selectionMode="single" rowIndexVar="indice" >
 
                                     <p:ajax event="filter" listener="#{controlCerrarLiquidacion.eventoFiltrar()}"/>
 
@@ -66,7 +66,9 @@
                                                 <h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase" readonly="true"/>
+                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase" readonly="true" >
+                                                <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
+                                                </p:inputText>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
@@ -77,7 +79,9 @@
                                                 <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
                                             </f:facet>  
                                             <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase" readonly="true"/>
+                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase" readonly="true" >
+                                                <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
+                                                </p:inputText>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>

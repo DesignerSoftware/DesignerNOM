@@ -174,14 +174,14 @@ public class ControlTiposDias implements Serializable {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
+            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:tipo");
             tipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             bandera = 0;
             filtrarTiposDias = null;
             tipoLista = 0;
@@ -203,7 +203,7 @@ public class ControlTiposDias implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros: " + listTiposDias.size();
         }
-        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:datosTipoDia");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -211,14 +211,14 @@ public class ControlTiposDias implements Serializable {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
-            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
+            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:tipo");
             tipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             bandera = 0;
             filtrarTiposDias = null;
             tipoLista = 0;
@@ -234,7 +234,7 @@ public class ControlTiposDias implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:datosTipoDia");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -242,26 +242,26 @@ public class ControlTiposDias implements Serializable {
         if (bandera == 0) {
             FacesContext c = FacesContext.getCurrentInstance();
             tamano = 250;
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
             codigo.setFilterStyle("width: 85% !important;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
-            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
+            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:tipo");
             tipo.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             tamano = 270;
             System.out.println("Desactivar");
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:tipo");
+            tipo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:tipo");
             tipo.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             bandera = 0;
             filtrarTiposDias = null;
             tipoLista = 0;
@@ -309,7 +309,7 @@ public class ControlTiposDias implements Serializable {
                     }
                 }
             }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         System.out.println("Indice: " + index + " Celda: " + cualCelda);
@@ -540,7 +540,7 @@ public class ControlTiposDias implements Serializable {
                 }
 
             }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
@@ -583,7 +583,7 @@ public class ControlTiposDias implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + listTiposDias.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             index = -1;
             secRegistro = null;
@@ -663,7 +663,7 @@ public class ControlTiposDias implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             k = 0;
         }
         index = -1;
@@ -754,11 +754,11 @@ public class ControlTiposDias implements Serializable {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
                 System.out.println("Desactivar");
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoDia");
                 bandera = 0;
                 filtrarTiposDias = null;
                 tipoLista = 0;
@@ -773,7 +773,7 @@ public class ControlTiposDias implements Serializable {
 
             listTiposDias.add(nuevoTipoDia);
             nuevoTipoDia = new TiposDias();
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             infoRegistro = "Cantidad de registros: " + listTiposDias.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             if (guardado == true) {
@@ -877,7 +877,7 @@ public class ControlTiposDias implements Serializable {
             }
             listTiposDias.add(duplicarTipoDia);
             crearTiposDias.add(duplicarTipoDia);
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoDia");
             infoRegistro = "Cantidad de registros: " + listTiposDias.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             index = -1;
@@ -889,11 +889,11 @@ public class ControlTiposDias implements Serializable {
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoDia:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoDia:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoDia");
                 bandera = 0;
                 filtrarTiposDias = null;
                 tipoLista = 0;
@@ -913,7 +913,7 @@ public class ControlTiposDias implements Serializable {
     }
 
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoDiaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSDIAS", false, false, "UTF-8", null, null);
@@ -923,7 +923,7 @@ public class ControlTiposDias implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoDiaExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSDIAS", false, false, "UTF-8", null, null);

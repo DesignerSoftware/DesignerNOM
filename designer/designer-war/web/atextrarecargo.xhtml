@@ -80,7 +80,7 @@
                         <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 190px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['recargos']}</strong></legend>
 
-                            <p:dataTable id="datosExtraRecargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 815px;" scrollWidth="830"                          
+                            <p:dataTable id="datosExtraRecargo" widgetVar="datosExtraRecargo" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;width: 815px;" scrollWidth="830"                          
                                          value="#{controlATExtraRecargo.listExtrasRecargos}" scrollable="true" scrollHeight="#{controlATExtraRecargo.altoTablaRecargo}"
                                          filteredValue="#{controlATExtraRecargo.filtrarListExtrasRecargos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" 
@@ -96,7 +96,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarExtraCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice)}" update="editarExtraCodigo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 0)}"  process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 0)}"  process="@this"
+                                                        onstart="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -114,7 +115,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="40" id="editarExtraDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionExtraRecargo(indice)}" update="editarExtraDescripcion" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 1)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 1)}" process="@this" 
+                                                        onstart="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -132,7 +134,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.tipodia.descripcion}" id="editarExtraTipoDia" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 2)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 2)}" process="@this"
+                                                        onstart="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'DIAS', info.tipodia.descripcion)}" process="@this" update="editarExtraTipoDia"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,0,0,0)}" process="@this" update="editarExtraTipoDia"/>
                                             </p:inputText>
@@ -155,7 +158,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.tipojornada.descripcion}" id="editarExtraTipoJornada" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'JORNADA', info.tipojornada.descripcion)}" process="@this" update="editarExtraTipoJornada"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,1,0,0)}" process="@this" update="editarExtraTipoJornada"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 3)}" />
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 3)}" onstart="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -175,7 +178,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.tipolegislacion.descripcion}" id="editarExtraTipoLegislacion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice, 'LEGISLACION', info.tipolegislacion.descripcion)}" process="@this" update="editarExtraTipoLegislacion"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indice,2,0,0)}" process="@this" update="editarExtraTipoLegislacion"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 4)}" />
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndice(indice, 4)}" onstart="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -192,7 +195,9 @@
                                         <p:tooltip for="textT" value="#{msg['textT']}" /> 
                                     </f:facet>
 
-                                    <p:selectBooleanCheckbox id="editarExtraTurno" style="alignment-adjust: central;" value="#{info.checkTurno}">
+                                    <p:selectBooleanCheckbox id="editarExtraTurno" style="alignment-adjust: central;" value="#{info.checkTurno}"
+                                                             onblur="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});"
+                                                             onfocus="PF('datosExtraRecargo').unselectAllRows();PF('datosExtraRecargo').selectRow(#{indice});">
                                         <p:ajax event="change" listener="#{controlATExtraRecargo.modificarExtraRecargo(indice)}" process="@this"/>
                                     </p:selectBooleanCheckbox>
 
@@ -227,7 +232,7 @@
                             <legend style="color: blue"><strong>#{msg['detalles']}</strong></legend>
 
 
-                            <p:dataTable id="datosDetalleExtraRecargo" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style="border: 1px; text-align: left;width: 815px"
+                            <p:dataTable id="datosDetalleExtraRecargo" widgetVar="datosDetalleExtraRecargo" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style="border: 1px; text-align: left;width: 815px"
                                          value="#{controlATExtraRecargo.listDetallesExtrasRecargos}" scrollable="true" scrollHeight="#{controlATExtraRecargo.altoTablaDetalle}" scrollWidth="830"
                                          filteredValue="#{controlATExtraRecargo.filtrarListDetallesExtrasRecargos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATExtraRecargo.detalleTablaSeleccionado}" selectionMode="single">
@@ -249,7 +254,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoD.horasinicial}" id="editarDetalleHI" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionDetalleExtraRecargo(indiceD)}" update="editarDetalleHI" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,0)}" process="@this"
+                                                        onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" /> 
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -273,7 +279,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoD.horasfinal}" id="editarDetalleHF" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.procesoModificacionDetalleExtraRecargo(indiceD)}" update="editarDetalleHF" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD,1)}" process="@this" onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" /> 
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -292,7 +298,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoD.concepto.descripcion}" id="editarDetalleConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'CONCEPTO', infoD.concepto.descripcion)}" process="@this" update="editarDetalleConcepto"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indiceD,0,0,1)}" process="@this" update="editarDetalleConcepto"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 2)}" />
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 2)}"
+                                                        onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -311,7 +318,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoD.concepto.empresa.nombre}" id="editarDetalleEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD, 'EMPRESA', infoD.concepto.empresa.nombre)}" process="@this" update="editarDetalleEmpresa"/>
                                                 <p:ajax event="dblclick" listener="#{controlATExtraRecargo.asignarIndex(indiceD,1,0,1)}" process="@this" update="editarDetalleEmpresa"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 3)}" process="@this" />
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 3)}" process="@this" 
+                                                        onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -323,7 +331,9 @@
 
                                 <p:column  headerText="#{msg['diasemana']}" style="padding: 0px;" sortBy="#{infoD.dia}" filterBy="#{infoD.dia}" filterMatchMode="contains" 
                                            id="detalleDia" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:selectOneMenu value="#{infoD.dia}"  style="width: 108px; font-weight: bold;"  panelStyle="width: 120px">  
+                                    <p:selectOneMenu value="#{infoD.dia}"  style="width: 108px; font-weight: bold;"  panelStyle="width: 120px"
+                                                     onblur="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});"
+                                                     onfocus="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});">  
                                         <f:selectItem itemLabel="#{msg['lunes']}" itemValue="LUN" />  
                                         <f:selectItem itemLabel="#{msg['martes']}" itemValue="MAR" />  
                                         <f:selectItem itemLabel="#{msg['miercoles']}" itemValue="MIE" />  
@@ -365,7 +375,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoD.minimominutospagar}" id="editarDetalleMinuto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}"  process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 5)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 5)}" process="@this"
+                                                        onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -398,7 +409,8 @@
                                         <f:selectItem itemLabel="#{msg['inicio']}" itemValue="INI" />  
                                         <f:selectItem itemLabel="#{msg['final']}" itemValue="FIN" /> 
                                         <p:ajax event="change" listener="#{controlATExtraRecargo.modificarDetalleExtraRecargo(indiceD)}" process="@this"/>
-                                        <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 6)}"  process="@this" />
+                                        <p:ajax event="select" listener="#{controlATExtraRecargo.cambiarIndiceDER(indiceD, 6)}"  process="@this"
+                                                onstart="PF('datosDetalleExtraRecargo').unselectAllRows();PF('datosDetalleExtraRecargo').selectRow(#{indiceD});" />
                                     </p:selectOneMenu>
                                     <f:facet name="footer">
                                         <h:outputText value="" />

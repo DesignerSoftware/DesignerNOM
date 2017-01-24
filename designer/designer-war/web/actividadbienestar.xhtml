@@ -14,61 +14,6 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <f:loadBundle basename="Recursos.actividadesbienestar" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo']}</strong></legend>
-
-                            <p:dataTable id="datosActividades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 800px ; border: 1px;"                           
-                                         value="#{controlActividades.listActividades}" scrollHeight="#{controlActividades.tamano}"  
-                                         filteredValue="#{controlActividades.filtrarActividades}" emptyMessage="#{msg['lovvacio']}"
-                                         selection="#{controlActividades.actividadSeleccionada}" selectionMode="single"
-                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
-                                         >           
-                                <p:ajax event="filter" listener="#{controlActividades.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="40" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActividades.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlActividades.modificarActividades(indice, 'N', info.codigo)}"  update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="200" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActividades.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlActividades.modificarActividades(indice, 'N', info.descripcion)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-                                <p:column headerText="#{msg['clase']}" sortBy="#{info.claseactividad}" filterBy="#{info.claseactividad}" filterMatchMode="contains" id="dimensiones" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{info.claseactividad}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:selectOneMenu effect="fold" value="#{info.claseactividad}" style="height: 20px; ;width:99%">  
-                                                <f:selectItem  itemLabel="" itemValue=" "/>  
-                                                <f:selectItem itemLabel="BIENESTAR" itemValue="BIENESTAR" />                
-                                                <f:selectItem itemLabel="EPIDEMIOLOGICA" itemValue="EPIDEMIOLOGICA"/>  
-                                                <f:selectItem itemLabel="RECREACION" itemValue="RECREACION" />  
-                                                <f:selectItem itemLabel="PREVENCION" itemValue="PREVENCION" />  
-                                                <f:selectItem itemLabel="MEDICA" itemValue="MEDICA" />  
-                                                <f:selectItem itemLabel="SEGURIDAD INDUSTRIAL" itemValue="SEGURIDAD INDUSTRIAL" />  
-                                                <p:ajax event="change" listener="#{controlActividades.mostrarInfo(indice, 2)}" update="dimensiones"/>
-                                            </p:selectOneMenu>                                          
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                            </p:dataTable>
-
-                        </fieldset>
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -122,6 +67,65 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar>
+                        
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>#{msg['titulo']}</strong></legend>
+
+                            <p:dataTable id="datosActividades" widgetVar="datosActividades" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 800px ; border: 1px;"                           
+                                         value="#{controlActividades.listActividades}" scrollHeight="#{controlActividades.tamano}"  
+                                         filteredValue="#{controlActividades.filtrarActividades}" emptyMessage="#{msg['lovvacio']}"
+                                         selection="#{controlActividades.actividadSeleccionada}" selectionMode="single"
+                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830" >           
+                                <p:ajax event="filter" listener="#{controlActividades.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="40" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActividades.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosActividades').unselectAllRows();PF('datosActividades').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlActividades.modificarActividades(indice, 'N', info.codigo)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="200" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActividades.cambiarIndice(indice, 1)}" process="@this"
+                                                        onstart="PF('datosActividades').unselectAllRows();PF('datosActividades').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlActividades.modificarActividades(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['clase']}" sortBy="#{info.claseactividad}" filterBy="#{info.claseactividad}" filterMatchMode="contains" id="dimensiones" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{info.claseactividad}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu effect="fold" value="#{info.claseactividad}" style="height: 20px; ;width:99%"
+                                                             onblur="PF('datosActividades').unselectAllRows();PF('datosActividades').selectRow(#{indice});"
+                                                             onfocus="PF('datosActividades').unselectAllRows();PF('datosActividades').selectRow(#{indice});">  
+                                                <f:selectItem  itemLabel="" itemValue=" "/>  
+                                                <f:selectItem itemLabel="BIENESTAR" itemValue="BIENESTAR" />                
+                                                <f:selectItem itemLabel="EPIDEMIOLOGICA" itemValue="EPIDEMIOLOGICA"/>  
+                                                <f:selectItem itemLabel="RECREACION" itemValue="RECREACION" />  
+                                                <f:selectItem itemLabel="PREVENCION" itemValue="PREVENCION" />  
+                                                <f:selectItem itemLabel="MEDICA" itemValue="MEDICA" />  
+                                                <f:selectItem itemLabel="SEGURIDAD INDUSTRIAL" itemValue="SEGURIDAD INDUSTRIAL" />  
+                                                <p:ajax event="change" listener="#{controlActividades.mostrarInfo(indice, 2)}" update="dimensiones"/>
+                                            </p:selectOneMenu>                                          
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </fieldset>
+
 
                         <h:outputText id="informacionRegistro" value="#{controlActividades.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
 

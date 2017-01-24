@@ -123,11 +123,11 @@ public class ControlTiposAuxilios implements Serializable {
             //CERRAR FILTRADO
             altoTabla = "330";
             FacesContext c = FacesContext.getCurrentInstance();
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -150,7 +150,7 @@ public class ControlTiposAuxilios implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -158,19 +158,19 @@ public class ControlTiposAuxilios implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             altoTabla = "310";
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("width: 85% !important;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "330";
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -297,7 +297,7 @@ public class ControlTiposAuxilios implements Serializable {
                 }
 
             }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
@@ -359,7 +359,7 @@ public class ControlTiposAuxilios implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             index = -1;
             secRegistro = null;
@@ -402,7 +402,7 @@ public class ControlTiposAuxilios implements Serializable {
                 }
                 listTiposAuxilios = null;
                 guardado = true;
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 k = 0;
                 index = -1;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -475,11 +475,11 @@ public class ControlTiposAuxilios implements Serializable {
             if (bandera == 1) {
                 altoTabla = "330";
                 FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
@@ -492,7 +492,7 @@ public class ControlTiposAuxilios implements Serializable {
 
             listTiposAuxilios.add(nuevoTipoAuxilios);
             nuevoTipoAuxilios = new TiposAuxilios();
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -576,7 +576,7 @@ public class ControlTiposAuxilios implements Serializable {
             duplicarTipoAuxilio.setSecuencia(l);
             listTiposAuxilios.add(duplicarTipoAuxilio);
             crearTiposAuxilios.add(duplicarTipoAuxilio);
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
@@ -586,11 +586,11 @@ public class ControlTiposAuxilios implements Serializable {
             if (bandera == 1) {
                 altoTabla = "330";
                 FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
@@ -612,7 +612,7 @@ public class ControlTiposAuxilios implements Serializable {
     }
 
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoAuxilioExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSAUXILIOS", false, false, "UTF-8", null, null);
@@ -622,7 +622,7 @@ public class ControlTiposAuxilios implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoAuxilioExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSAUXILIOS", false, false, "UTF-8", null, null);
