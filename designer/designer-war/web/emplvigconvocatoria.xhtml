@@ -107,7 +107,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.enfoque}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"
                                                           onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 0)}" process="@this"
+                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -123,7 +124,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.evalvigconvocatoria.codigo}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
                                                           onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 1)}" process="@this"
+                                                        onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -139,7 +141,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.fechainicio}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 2)}" process="@this"
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -155,7 +158,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.fechalimite}" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 3)}" process="@this"
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -170,7 +174,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.objetivos}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase" 
                                                           onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 4)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceConvocatorias(info, 4)}" process="@this"
+                                                       onstart="PF('datosConvocatorias').unselectAllRows();PF('datosConvocatorias').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -185,7 +190,7 @@
 
                         <fieldset style="position: absolute;top: 305px;left: 10px;height: 165px;width: 510px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Evaluaciones</strong></legend>
-                            <p:dataTable id="datosResultados" widgetVar="datosResultados" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indice" style="width: 510px ; border: none; "                           
+                            <p:dataTable id="datosResultados" widgetVar="datosResultados" var="info2" rowKey="#{info2.secuencia}"  rowIndexVar="indiceR" style="width: 510px ; border: none; "                           
                                          value="#{controlEmplVigConvocatorias.listEvalResultadosConv}" scrollable="true" scrollHeight="#{controlEmplVigConvocatorias.altoTabla2}" scrollRows="40"
                                          scrollWidth="500"  filteredValue="#{controlEmplVigConvocatorias.listEvalResultadosConvFiltrar}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlEmplVigConvocatorias.evalResultadosConvSeleccionado}" selectionMode="single" >
@@ -196,7 +201,8 @@
                                         <f:facet name="output"><h:outputText value="#{info2.nombreprueba}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info2.nombreprueba}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 0)}" process="@this"
+                                                       onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -211,7 +217,8 @@
                                         <f:facet name="output"><h:outputText value="#{info2.puntajeobtenido}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info2.puntajeobtenido}"  style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 1)}" process="@this"
+                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -231,7 +238,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info2.fechaperiododesde}" > 
                                                 <p:ajax event="dateSelect"  update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,2)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 2)}" process="@this"
+                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});" /> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -251,7 +259,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info2.fechaperiododesde}" > 
                                                 <p:ajax event="dateSelect" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigConvocatorias.modificarFechas(info2,3)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigConvocatorias.cambiarIndiceResultados(info2, 3)}" process="@this"
+                                                        onstart="PF('datosResultados').unselectAllRows();PF('datosResultados').selectRow(#{indiceR});"/> 
                                             </p:calendar>
                                         </f:facet>  
                                     </p:cellEditor>

@@ -115,7 +115,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                             </p:calendar> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -137,7 +138,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                             </p:calendar> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -154,7 +156,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" 
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -176,7 +179,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -197,7 +201,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"
+                                                      onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"  /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -218,7 +223,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -239,7 +245,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  

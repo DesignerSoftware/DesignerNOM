@@ -75,7 +75,7 @@
 
                         <fieldset style="position: absolute;top: 70px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Capítulo</strong></legend>
-                            <p:dataTable id="datosCapitulos" var="capitulo" rowKey="#{capitulo.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
+                            <p:dataTable id="datosCapitulos" widgetVar="datosCapitulos" var="capitulo" rowKey="#{capitulo.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: none; "                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCapitulos}" scrollable="true" scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCapitulos}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCapituloSeleccionado}" selectionMode="single" >
@@ -86,7 +86,8 @@
                                         <f:facet name="output"><h:outputText value="#{capitulo.codigo}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{capitulo.codigo}" maxlength="10"  id="editarCodigoCategoria" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 0)}" process="@this"
+                                                        onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.codigo)}"  update="codigoCapitulo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -101,7 +102,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{capitulo.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{capitulo.descripcion}" maxlength="200" id="editarDescripcionCategoria" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceCapitulo(capitulo, 1)}"
+                                                        onstart="PF('datosCapitulos').unselectAllRows();PF('datosCapitulos').selectRow(#{indice});" process="@this"/> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCapitulo(capitulo, 'N', info.descripcion)}" update="descripcionCapitulo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -115,7 +117,7 @@
                         </fieldset>
                         <fieldset style="position: absolute;top: 205px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Sección</strong></legend>
-                            <p:dataTable id="datosSecciones" var="seccion" rowKey="#{seccion.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosSecciones" widgetVar="datosSecciones" var="seccion" rowKey="#{seccion.secuencia}"  rowIndexVar="indiceDS" style="width: 810px ; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosSecciones}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosSecciones}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoSeccionSeleccionado}" selectionMode="single" >
@@ -126,7 +128,8 @@
                                         <f:facet name="output"><h:outputText value="#{seccion.codigo}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{seccion.codigo}" maxlength="10"  id="editarCodigoSeccion" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 0)}"
+                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});" process="@this"/> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.codigo)}"  update="codigoSeccion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -140,7 +143,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{seccion.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{seccion.descripcion}" maxlength="200" id="editarDescripcionSeccion" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndiceSeccion(seccion, 1)}" process="@this"
+                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDS});" /> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarSeccion(seccion, 'N', info.descripcion)}" update="descripcionSeccion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -156,7 +160,7 @@
 
                         <fieldset style="position: absolute;top: 340px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Categoría</strong></legend>
-                            <p:dataTable id="datosCategorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosCategorias" widgetVar="datosCategorias" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indiceDC" style="width: 810px ; border: 1px;"                           
                                          value="#{controlDiagnosticosCategorias.listaDiagnosticosCategorias}" scrollable="true"  scrollHeight="#{controlDiagnosticosCategorias.altoTabla}" scrollRows="40"
                                          scrollWidth="830"  filteredValue="#{controlDiagnosticosCategorias.listaFiltrarDiagnosticosCategorias}"  emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"   selection="#{controlDiagnosticosCategorias.diagnosticoCategoriaSeleccionado}" selectionMode="single" >
@@ -167,7 +171,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="10"  id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});" /> 
                                                 <p:ajax event="change" listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -181,7 +186,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="200" id="editarDescripcion" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDiagnosticosCategorias.cambiarIndice(info, 1)}" process="@this"
+                                                         onstart="PF('datosSecciones').unselectAllRows();PF('datosSecciones').selectRow(#{indiceDC});" /> 
                                                 <p:ajax event="change"  listener="#{controlDiagnosticosCategorias.modificarCategoria(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

@@ -108,7 +108,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.personafamiliar.nombreCompleto}" id="editarNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this" />   
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarNombre" />
                                             </p:inputText>
                                         </f:facet>   
@@ -128,7 +129,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.ocupacion}" id="editarOcu" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"  >
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this" />   
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 2)}"  process="@this"
+                                                       onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarOcu" />
 
                                             </p:inputText>
@@ -147,7 +149,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipofamiliar.tipo}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliar(info, 'N', info.tipofamiliar.tipo )}"/>
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" />
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 3)}" 
+                                                        onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlFamiliares.asignarIndex(info, 2, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -231,7 +234,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.valorupcadicional}" id="editarVlorUpc" style="border-radius: 0px; width: 93.5%;text-transform: uppercase; text-align: center"  >
                                                 <p:keyFilter for="editarVlorUpc" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" />   
+                                                <p:ajax event="select" listener="#{controlFamiliares.cambiarIndice(info, 8)}" process="@this" 
+                                                       onstart="PF('datosFamiliares').unselectAllRows();PF('datosFamiliares').selectRow(#{indice});" />   
                                                 <p:ajax event="change" listener="#{controlFamiliares.modificarFamiliares(info)}" process="@this" update="editarVlorUpc" />
 
                                             </p:inputText>

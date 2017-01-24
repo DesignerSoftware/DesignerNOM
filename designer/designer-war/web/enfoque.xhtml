@@ -83,7 +83,7 @@
                             <legend style="font-size: 14px; color: blue"><strong> Enfoques </strong></legend>
 
 
-                            <p:dataTable id="datosEnfoque" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosEnfoque" widgetVar="datosEnfoque" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlEnfoques.listEnfoques}" scrollable="true" scrollHeight="#{controlEnfoques.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlEnfoques.filtrarEnfoques}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" 
@@ -97,7 +97,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosEnfoque').unselectAllRows();PF('datosEnfoque').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEnfoques.modificarEnfoques(info)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -113,7 +114,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEnfoques.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosEnfoque').unselectAllRows();PF('datosEnfoque').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlEnfoques.modificarEnfoques(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

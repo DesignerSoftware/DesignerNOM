@@ -74,7 +74,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>#{msg['deportes']}</strong></legend>
 
-                            <p:dataTable id="datosDeporte" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosDeporte" widgetVar="datosDeporte"  var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlDeportes.listDeportes}" scrollHeight="#{controlDeportes.tamano}"  
                                          filteredValue="#{controlDeportes.filtrarDeportes }" emptyMessage="#{msg['vacio']}"
                                          selection="#{controlDeportes.deporteSeleccionado}" selectionMode="single"
@@ -88,7 +88,8 @@
                                         <f:facet name="input">
                                             <!--<p:inputText  autocomplete="off"  value="#{info.codigo}"  maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase">--> 
                                             <p:inputMask id="editarCodigo" value="#{info.codigo}" mask="9999" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase;">
-                                                <p:ajax event="select" listener="#{controlDeportes.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDeportes.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosDeporte').unselectAllRows();PF('datosDeporte').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlDeportes.modificarDeporte(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputMask>
                                         </f:facet>  
@@ -103,7 +104,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlDeportes.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlDeportes.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosDeporte').unselectAllRows();PF('datosDeporte').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlDeportes.modificarDeporte(info, 'M', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

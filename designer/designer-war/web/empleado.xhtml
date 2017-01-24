@@ -107,7 +107,7 @@
                                         </f:facet>  
 
                                         <f:facet name="input">
-                                            <h:inputText readonly="true" onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);" />   
+                                            <h:inputText readonly="true" onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);" >
                                         </f:facet>    
                                     </p:cellEditor>
 
@@ -123,7 +123,9 @@
                                             <h:outputText value="#{info.persona.nombreCompleto}" />
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <h:inputText readonly="true" onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" />
+                                            <h:inputText readonly="true" onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" >
+                                            <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});" />
+                                            </h:inputText>   
                                         </f:facet>   
                                     </p:cellEditor>
 
@@ -137,10 +139,11 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativodeudor}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <h:inputText  autocomplete="off"  value="#{info.codigoalternativodeudor}" id="editarcodigodeudor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionOtro([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigodeudor"/>                                   
-                                            </p:inputText>
+                                            <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});" />
+                                            </h:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
@@ -154,10 +157,11 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigoalternativoacreedor}" style="width: 100px;"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
+                                            <h:inputText  autocomplete="off"  value="#{info.codigoalternativoacreedor}" id="editarcodigoacreedor" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
                                                 <p:ajax event="change" listener="#{controlEmpleado.modificarEmpleados(info)}" process="@this" update="editarcodigoacreedor"/>                                   
-                                            </p:inputText>
+                                            <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});" />
+                                            </h:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
@@ -174,7 +178,9 @@
                                             </h:outputText>    
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" /> 
+                                            <h:inputText  autocomplete="off"   readonly="true" onselect="posicionOtro([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);" > 
+                                                <p:ajax event="select" onstart="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indice});" />
+                                            </h:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">

@@ -96,7 +96,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="codcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:keyFilter for="codcurso" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,0)}" />
+                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,0)}" 
+                                                       onstart="PF('datosCursos').unselectAllRows();PF('datosCursos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.codigo)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
@@ -114,7 +115,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" id="desccurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,1)}" />
+                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,1)}"
+                                                        onstart="PF('datosCursos').unselectAllRows();PF('datosCursos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.nombre)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
@@ -132,7 +134,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipocurso.descripcion}" id="tipocurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,2)}" />
+                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,2)}"
+                                                        onstart="PF('datosCursos').unselectAllRows();PF('datosCursos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.tipocurso.descripcion)}" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlCursos.asignarIndex(3, 0)}"/>
 
@@ -152,7 +155,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.objetivo}" id="objcurso" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
-                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,3)}" />
+                                                <p:ajax event="select" listener="#{controlCursos.cambiarIndice(info,3)}" 
+                                                        onstart="PF('datosCursos').unselectAllRows();PF('datosCursos').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlCursos.modificarCursos(info, 'N', info.objetivo)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
