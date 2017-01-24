@@ -18,7 +18,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciascargos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -27,7 +27,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontablesapbohp.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -35,7 +35,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciatipocontrato.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -43,7 +43,7 @@
    <navigation-rule>
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -51,7 +51,7 @@
    <navigation-rule>
       <from-view-id>/personaindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -59,7 +59,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -67,7 +67,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontablesapbov8.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -75,7 +75,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontablesapbovca.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -83,7 +83,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontablesapbopq.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -91,7 +91,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontablesapbope.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -99,7 +99,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicsro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -107,7 +107,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicspl.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -115,7 +115,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicsmt.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -123,7 +123,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicsps.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -131,7 +131,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicsvt.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -139,7 +139,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicsyv.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -147,7 +147,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicscps.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -155,7 +155,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabledynamicssx.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -340,7 +340,7 @@
    <navigation-rule>
       <from-view-id>/conceptojuridico.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -348,7 +348,7 @@
    <navigation-rule>
       <from-view-id>/cuenta.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -356,7 +356,7 @@
    <navigation-rule>
       <from-view-id>/emplvacapendiente.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -364,7 +364,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciaafiliacion3.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -388,7 +388,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -412,7 +412,7 @@
    <navigation-rule>
       <from-view-id>/emplubicaciongeografica.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1180,7 +1180,7 @@
    <navigation-rule>
       <from-view-id>/emplsets.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1188,7 +1188,7 @@
    <navigation-rule>
       <from-view-id>/parametroautoliq.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1196,7 +1196,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciareformalaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1204,7 +1204,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciasueldo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1212,7 +1212,7 @@
    <navigation-rule>
       <from-view-id>/empllegislacionlaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1220,7 +1220,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciajornada.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1228,7 +1228,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciatipotrabajador.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1236,7 +1236,7 @@
    <navigation-rule>
       <from-view-id>/emplvigencialocalizacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1244,7 +1244,7 @@
    <navigation-rule>
       <from-view-id>/nreportenomina.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1348,7 +1348,7 @@
    <navigation-rule>
       <from-view-id>/reportesbancos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1356,7 +1356,7 @@
    <navigation-rule>
       <from-view-id>/nreportescontabilidad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1364,7 +1364,7 @@
    <navigation-rule>
       <from-view-id>/nreportelaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1372,7 +1372,7 @@
    <navigation-rule>
       <from-view-id>/emplmvrs.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1380,7 +1380,7 @@
    <navigation-rule>
       <from-view-id>/emplnovedad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1389,7 +1389,7 @@
    <navigation-rule>
       <from-view-id>/estructura.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1431,7 +1431,7 @@
    <navigation-rule>
       <from-view-id>/novedad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1647,7 +1647,7 @@
    <navigation-rule>
       <from-view-id>/emplcomprobante.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1754,7 +1754,7 @@
    <navigation-rule>
       <from-view-id>/concepto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1779,7 +1779,7 @@
    <navigation-rule>
       <from-view-id>/formula.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1804,7 +1804,7 @@
    <navigation-rule>
       <from-view-id>/legislacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2011,7 +2011,7 @@
    <navigation-rule>
       <from-view-id>/barra.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2020,7 +2020,7 @@
    <navigation-rule>
       <from-view-id>/comprobante.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2030,7 +2030,7 @@
    <navigation-rule>
       <from-view-id>/cerrarliquidacion.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2164,7 +2164,7 @@
    <navigation-rule>
       <from-view-id>/iniciored.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2182,7 +2182,7 @@
    <navigation-rule>
       <from-view-id>/proverbio.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/iniciored.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2252,7 +2252,7 @@
    <navigation-rule>
       <from-view-id>/parametro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2707,7 +2707,7 @@
    <navigation-rule>
       <from-view-id>/proverbio.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2820,7 +2820,7 @@
    <navigation-rule>
       <from-view-id>/emplviajero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2943,7 +2943,7 @@
    <navigation-rule>
       <from-view-id>/emplvigenciaformapago.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3286,7 +3286,7 @@
    <navigation-rule>
       <from-view-id>/emplacumulados.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3403,7 +3403,7 @@
    <navigation-rule>
       <from-view-id>/centrocosto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3440,14 +3440,6 @@
       <navigation-case>
          <from-outcome>unidad</from-outcome>
          <to-view-id>/unidad.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/conceptotest.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>salir</from-outcome>
-         <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -4665,7 +4657,7 @@
    <navigation-rule>
       <from-view-id>/usuario.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4675,7 +4667,7 @@
    <navigation-rule>
       <from-view-id>/reingresarempleado.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4709,7 +4701,7 @@
    <navigation-rule>
       <from-view-id>/usuariovista.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4827,6 +4819,23 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+     
+   <navigation-rule>
+      <from-view-id>/grupoconcepto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>rastrotabla</from-outcome>
+         <to-view-id>/rastro.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/rastro.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>grupoconcepto</from-outcome>
+         <to-view-id>/grupoconcepto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
     
    <navigation-rule>
       <from-view-id>/estadocivil.xhtml</from-view-id>
@@ -4892,7 +4901,7 @@
    <navigation-rule>
       <from-view-id>/grupoconcepto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasgrupoconcepto</from-outcome>
+         <from-outcome>concepto</from-outcome>
          <to-view-id>/concepto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4926,7 +4935,7 @@
    <navigation-rule>
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasEmplVigenciaSueldo</from-outcome>
+         <from-outcome>emplvigenciasueldo</from-outcome>
          <to-view-id>/emplvigenciasueldo.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4952,7 +4961,7 @@
    <navigation-rule>
       <from-view-id>/novedadvacaciones.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasvacaciones</from-outcome>
+         <from-outcome>novedad</from-outcome>
          <to-view-id>/novedad.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4994,7 +5003,7 @@
    <navigation-rule>
       <from-view-id>/cargo.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasVcargo</from-outcome>
+         <from-outcome>emplvigenciascargos</from-outcome>
          <to-view-id>/emplvigenciascargos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5005,14 +5014,6 @@
       <navigation-case>
          <from-outcome>estructura</from-outcome>
          <to-view-id>/estructuraplanta.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/estructuraplanta.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>atrasVcargo</from-outcome>
-         <to-view-id>/emplvigenciascargos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -5097,7 +5098,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>nomina</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6496,7 +6497,7 @@
          <redirect />
       </navigation-case>
       
-            <navigation-case>
+      <navigation-case>
          <from-outcome>emplubicaciongeografica</from-outcome>
          <to-view-id>/emplubicaciongeografica.xhtml</to-view-id>
          <redirect />

@@ -687,6 +687,7 @@ public class ControlGrupoConcepto implements Serializable {
       contarRegistros();
       contarRegistros();
       deshabilitarBotonLov();
+      navegar("atras");
    }
 
    //CANCELAR MODIFICACIONES
@@ -1451,19 +1452,30 @@ public class ControlGrupoConcepto implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo";
+         String pagActual = "grupoconcepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
 //         mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("grupoviatico")) {
-//            ControlGruposViaticos controlGruposViaticos = (ControlGruposViaticos) fc.getApplication().evaluateExpressionGet(fc, "#{controlGruposViaticos}", ControlGruposViaticos.class);
-//            controlGruposViaticos.recibirParametros(mapParaEnviar);
-//            controlGruposViaticos.recibirPaginaEntrante(pagActual);
-//         } else if(){}
-
+//         mas Parametros
+         if (pag.equals("rastrotablaGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.recibirDatosTabla(grupoConceptoSeleccionado.getSecuencia(), "GruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaHGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.historicosTabla("GruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaVGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.recibirDatosTabla(vigenciaGrupoCSeleccionado.getSecuencia(), "VigenciasGruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaHVGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
+            pag = "rastrotabla";
+         }
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + paginaAnterior);
+      System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 

@@ -300,25 +300,22 @@ public class ControlCargo implements Serializable {
 
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
-      //ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-//         controlListaNavegacion.quitarPagina();
-         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
+         controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "cargo";
-         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         mapParametros.put("paginaAnterior", pagActual);
+//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+//         mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("grupoviatico")) {
 //            ControlGruposViaticos controlGruposViaticos = (ControlGruposViaticos) fc.getApplication().evaluateExpressionGet(fc, "#{controlGruposViaticos}", ControlGruposViaticos.class);
 //            controlGruposViaticos.recibirParametros(mapParaEnviar);
 //            controlGruposViaticos.recibirPaginaEntrante(pagActual);
 //         } else if(){}
-
-//         controlListaNavegacion.adicionarPagina(pagActual);
-         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
+         controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }

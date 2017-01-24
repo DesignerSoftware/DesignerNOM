@@ -238,6 +238,7 @@ public class ControlConcepto implements Serializable {
          } else if (pag.equals("rastrotablaH")) {
             ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
             controlRastro.historicosTabla("Conceptos", pagActual);
+            pag = "rastrotabla";
          } else if (pag.equals("tercero")) {
             ControlTercero controlTercero = (ControlTercero) fc.getApplication().evaluateExpressionGet(fc, "#{controlTercero}", ControlTercero.class);
             controlTercero.recibirPaginaEntrante(pagActual);

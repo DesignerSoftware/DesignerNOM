@@ -79,7 +79,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png)"
-                                                 id="salir" value="" action="atrasvacaciones" actionListener="#{controlNovedadesVacaciones.salir()}"/>  
+                                                 id="salir" value="" action="novedad" actionListener="#{controlNovedadesVacaciones.salir()}"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -324,7 +324,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" value="" id="ACEPTAR" disabled="#{controlNovedadesVacaciones.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="atrasvacaciones"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNovedadesVacaciones.salir()}" action="novedad"/>
 
                     </p:panel>
                 </h:form>
