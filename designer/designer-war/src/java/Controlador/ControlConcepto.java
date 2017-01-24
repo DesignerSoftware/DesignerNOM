@@ -1,5 +1,6 @@
 package Controlador;
 
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.*;
 import Exportar.ExportarPDFTablasAnchas;
 import Exportar.ExportarXLS;
@@ -93,6 +94,7 @@ public class ControlConcepto implements Serializable {
    private Conceptos conceptoClon;
    private int cambioConcepto;
    private String paginaAnterior;
+   private Map<String, Object> mapParametros;
    //
    private String altoTabla;
    private String infoRegistro;
@@ -160,7 +162,9 @@ public class ControlConcepto implements Serializable {
       infoRegistroTercero = "0";
       infoRegistroEmpresa = "0";
       infoRegistroConcepto = "0";
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
+      mapParametros = new LinkedHashMap<String, Object>();
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    @PostConstruct
@@ -200,6 +204,61 @@ public class ControlConcepto implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
+      inicializarCosas();
+      //Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      inicializarCosas();
+      //Inicializar cosas de ser necesario
+   }
+
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+//      HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+//      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) session.getAttribute("controlListaNavegacion");
+
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "concepto";
+//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+//         mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+         if (pag.equals("rastrotabla")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         } else if (pag.equals("rastrotablaH")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.historicosTabla("Conceptos", pagActual);
+         } else if (pag.equals("tercero")) {
+            ControlTercero controlTercero = (ControlTercero) fc.getApplication().evaluateExpressionGet(fc, "#{controlTercero}", ControlTercero.class);
+            controlTercero.recibirPaginaEntrante(pagActual);
+         } else if (pag.equals("grupoconcepto")) {
+            ControlGrupoConcepto controlGrupoConcepto = (ControlGrupoConcepto) fc.getApplication().evaluateExpressionGet(fc, "#{controlGrupoConcepto}", ControlGrupoConcepto.class);
+            controlGrupoConcepto.recibirPagina(pagActual);
+         } else if (pag.equals("conceptoredondeo")) {
+            ControlConceptoRedondeo controlConceptoRedondeo = (ControlConceptoRedondeo) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptoRedondeo}", ControlConceptoRedondeo.class);
+            controlConceptoRedondeo.recibirPagina(pagActual);
+         } else if (pag.equals("conceptosoporte")) {
+            ControlConceptosSoportes controlConceptosSoportes = (ControlConceptosSoportes) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptosSoportes}", ControlConceptosSoportes.class);
+            controlConceptosSoportes.recibirPagina(pagActual);
+         } else if (pag.equals("unidad")) {
+            ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
+            controlUnidad.recibirPaginaEntrante(pagActual);
+         }
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
+
+   public void inicializarCosas() {
       estadoConceptoEmpresa = "S";
       lovConceptosEmpresa = null;
       backUpEstadoConceptoEmpresa = "S";
@@ -215,11 +274,7 @@ public class ControlConcepto implements Serializable {
       getListaConceptosEmpresa();
    }
 
-   public String redirigir() {
-      return paginaAnterior;
-   }
    //SELECCIONAR NATURALEZA
-
    public void seleccionarItem(String itemSeleccionado, Conceptos conceptoS, int celda) {
       if (celda == 2) {
          if (itemSeleccionado.equals("NETO")) {
@@ -1043,10 +1098,12 @@ public class ControlConcepto implements Serializable {
    public void guardarSalir() {
       guardarCambios();
       refrescar();
+      navegar("atras");
    }
 
    public void cancelarSalir() {
       refrescar();
+      navegar("atras");
    }
 
    //GUARDAR

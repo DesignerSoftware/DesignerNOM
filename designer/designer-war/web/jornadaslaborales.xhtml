@@ -896,7 +896,7 @@
                   <h:outputText value="#{msg['confirmarRastroJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaLaboralSeleccionada.secuencia, 'JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
                
@@ -905,7 +905,7 @@
                   <h:outputText value="#{msg['confirmarRastroHistoricoJL']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
                                    actionListener="#{controlRastro.historicosTabla('JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 60px; left: 208px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -924,7 +924,7 @@
                   <h:outputText value="#{msg['errorTablaConRastroJL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaLaboralSeleccionada.secuencia, 'JornadasLaborales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 65px; left: 208px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 65px; left: 208px;" action="rastrotabla" process="@this" />
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -950,7 +950,7 @@
                   <h:outputText value="#{msg['confirmarRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaSemanalSeleccionada.secuencia, 'JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -959,7 +959,7 @@
                   <h:outputText value="#{msg['confirmarRastroHistoricoSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();"
                                    actionListener="#{controlRastro.historicosTabla('JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -978,7 +978,7 @@
                   <h:outputText value="#{msg['errorTablaConRastroSL']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlJornadasLaborales.jornadaSemanalSeleccionada.secuencia, 'JornadasSemanales', 'jornadaslaborales')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

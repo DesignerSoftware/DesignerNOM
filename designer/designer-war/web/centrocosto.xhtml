@@ -474,7 +474,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" actionListener="#{controlRastro.recibirDatosTabla(controlBetaCentrosCostos.centroCostoSeleccionado.secuencia , 'CentrosCostos', 'CentroCosto')}" 
-                                         onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 200px;" action="rastro" process="@this" />
+                                         onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 200px;" action="rastrotabla" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 260px;" process="@this" />
                     </p:dialog>
 
@@ -482,7 +482,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('CentrosCostos', 'CentroCosto')}" 
-                                         style="position: absolute; top: 60px; left: 200px;" action="rastro" process="@this" />
+                                         style="position: absolute; top: 60px; left: 200px;" action="rastrotabla" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                     </p:dialog>
 
@@ -500,7 +500,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" actionListener="#{controlRastro.recibirDatosTabla(controlBetaCentrosCostos.centroCostoSeleccionado.secuencia, 'CentrosCostos', 'CentroCosto')}" 
-                                         onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 62px; left: 200px;" action="rastro" process="@this" />
+                                         onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 62px; left: 200px;" action="rastrotabla" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 62px; left: 260px;" process="@this" />
                     </p:dialog>
 

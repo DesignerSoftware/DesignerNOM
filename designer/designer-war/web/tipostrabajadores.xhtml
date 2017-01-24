@@ -1121,7 +1121,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 70px; left: 185px;" oncomplete="PF('#{controlTiposTrabajadores.anularBotonLOV()}" 
-                                   actionListener="#{controlRastro.recibirDatosTabla(controlTiposTrabajadores.tipoTrabajadorSeleccionado.secuencia, 'TiposTrabajadores', 'tipoTrabajador')}" action="rastro" process="@this"/>
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlTiposTrabajadores.tipoTrabajadorSeleccionado.secuencia, 'TiposTrabajadores', 'tipoTrabajador')}" action="rastrotabla" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 70px; left: 190px;" process="@this" />
                </p:dialog>
 
@@ -1129,7 +1129,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposTrabajadores', 'tipoTrabajador')}" 
-                                   style="position: relative; top: 60px; left: 185px;" action="rastro" oncomplete="PF('#{controlTiposTrabajadores.anularBotonLOV()}" process="@this" />
+                                   style="position: relative; top: 60px; left: 185px;" action="rastrotabla" oncomplete="PF('#{controlTiposTrabajadores.anularBotonLOV()}" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 60px; left: 190px;" process="@this" />
                </p:dialog>
 
@@ -1146,7 +1146,7 @@
                                    <p:dialog id="errorTablaConRastro" header="#/{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                                        <h:outputText value="#/{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                                       <p:commandButton icon="ui-icon-check" value="#/{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 60px; left: 185px;" action="rastro" 
+                                       <p:commandButton icon="ui-icon-check" value="#/{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 60px; left: 185px;" action="rastrotabla" 
                                                         actionListener="#/{controlRastro.recibirDatosTabla(controlTiposTrabajadores., 'TiposTrabajadores', 'tipoTrabajador')}" process="@this" />
                                        <p:commandButton icon="ui-icon-close" value="#/{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 60px; left: 190px;" process="@this" />
                                    </p:dialog>-->

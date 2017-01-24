@@ -203,7 +203,7 @@
                     <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla 'TIPOSDESCANSOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" action="rastro" process="@this"
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" action="rastrotabla" process="@this"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}"
                                          style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
@@ -212,7 +212,7 @@
                     <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="La tabla TIPOSDESCANSOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" action="rastro" process="@this"
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" action="rastrotabla" process="@this"
                                          actionListener="#{controlRastro.historicosTabla('TiposDescansos', 'tipodescanso')}"
                                          style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
@@ -231,7 +231,7 @@
                     <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" action="rastro" process="@this"
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" action="rastrotabla" process="@this"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlTiposDescansos.secRegistro, 'TiposDescansos', 'tipodescanso')}"
                                          style="position: absolute; top: 63px; left: 208px;" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>

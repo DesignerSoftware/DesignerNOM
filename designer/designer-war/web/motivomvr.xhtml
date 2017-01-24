@@ -167,7 +167,7 @@
                   <h:outputText value="La tabla 'MOTIVOSMVRS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlMotivosMvrs.motivoMvrSeleccionada.secuencia, 'MotivosMvrs', 'motivosmvr')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" />
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -176,7 +176,7 @@
                   <h:outputText value="La tabla MOTIVOSMVRS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check"
                                    actionListener="#{controlRastro.historicosTabla('MotivosMvrs', 'motivosmvr')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -195,7 +195,7 @@
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('errorTablaConRastro').hide();"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlMotivosMvrs.motivoMvrSeleccionada.secuencia, 'MotivosMvrs', 'motivosmvr')}"
-                                   style="position: absolute; top: 63px; left: 208px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 208px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 

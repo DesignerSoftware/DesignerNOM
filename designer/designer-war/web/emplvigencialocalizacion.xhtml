@@ -721,7 +721,7 @@
                   <h:outputText value="#{controlVigenciaLocalizacion.msnConfirmarRastro}" id="msnConfirmarRastro" 
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
-                                   style="position: absolute; top: 67px; left: 200px;" action="rastro" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
+                                   style="position: absolute; top: 67px; left: 200px;" action="rastrotabla" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 67px; left: 262px;" process="@this" />
                </p:dialog>
@@ -731,7 +731,7 @@
                   <h:outputText value="#{controlVigenciaLocalizacion.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" 
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
-                                   style="position: absolute; top: 65px; left: 200px;" action="rastro" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
+                                   style="position: absolute; top: 65px; left: 200px;" action="rastrotabla" oncomplete="PF('#{controlVigenciaLocalizacion.anularLOV()}" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlVigenciaLocalizacion.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 65px; left: 262px;" process="@this" />
                </p:dialog>
@@ -750,7 +750,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaLocalizacion.backUp, controlVigenciaLocalizacion.nombreTablaRastro , 'vigenciasLocalizaciones')}" 
-                                   style="position: absolute; top: 65px; left: 200px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 65px; left: 200px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 262px;" process="@this" />
                </p:dialog>
 

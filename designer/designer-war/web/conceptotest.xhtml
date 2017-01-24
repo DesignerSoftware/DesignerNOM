@@ -227,7 +227,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 90px;" value="" id="footUn" action="unidades" actionListener="#{controlUnidad.recibirPaginaEntrante('atrasConcepto')}" process="@this"/>
+                              <p:commandButton style="width: 90px;" value="" id="footUn" action="unidad" actionListener="#{controlUnidad.recibirPaginaEntrante('concepto')}" process="@this"/>
                            </f:facet>
                         </p:column> 
 
@@ -350,7 +350,7 @@
                            </p:cellEditor>
                            <f:facet name="footer">
                               <p:commandButton style="width: 190px;" value="" id="footTercero"
-                                               action="terceroPag" actionListener="#{controlTercero.recibirPaginaEntrante('atrasTerceroConcepto')}" process="@this"/>
+                                               action="tercero" actionListener="#{controlTercero.recibirPaginaEntrante('concepto')}" process="@this"/>
                            </f:facet>
                         </p:column>
 
@@ -426,13 +426,13 @@
 
                   <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                    width: 130px; height: 30px; position: absolute; left: 10px; top: 397px; color: white;" value="#{msg['grupoconceptos']}" id="grupoConcepto" 
-                                   action="grupoconceptoPag" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlGrupoConcepto.recibirPagina('atrasgrupoconcepto')}" process="@this" update="@this"/>
+                                   action="grupoconcepto" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlGrupoConcepto.recibirPagina('atrasgrupoconcepto')}" process="@this" update="@this"/>
                   <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                    width: 130px; height: 30px; position: absolute; left: 145px; top: 397px; color: white;" value="#{msg['conceptosredondeos']}" id="conceptoRedondeos" 
-                                   action="conceptoredondeoPag" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlConceptoTestRedondeo.recibirPagina('atrasconceptoredondeo') }" process="@this" update="@this"/>
+                                   action="conceptoredondeo" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlConceptoTestRedondeo.recibirPagina('concepto') }" process="@this" update="@this"/>
                   <p:commandButton icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                    width: 130px; height: 30px; position: absolute; left: 280px; top: 397px; color: white;" value="#{msg['unidadconcepto']}" id="unidadesConcepto" 
-                                   action="conceptosoporte" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlConceptoTestsSoportes.recibirPagina('atrasconceptosporte')}" process="@this" update="@this"/>
+                                   action="conceptosoporte" immediate="#{controlConceptoTest.activarSelec()}" actionListener="#{controlConceptoTestsSoportes.recibirPagina('concepto')}" process="@this" update="@this"/>
 
                   <p:commandButton style="width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
                                    background-repeat: no-repeat; border: none; position: absolute; left: 680px; top: 399px;" 
@@ -932,7 +932,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoTest.conceptoSeleccionado.secuencia, 'Conceptos', 'concepto')}" 
-                                   onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
+                                   onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -941,7 +941,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Conceptos', 'concepto')}" 
-                                   style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -959,7 +959,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptoTest.conceptoSeleccionado.secuencia , 'Conceptos', 'concepto')}" 
-                                   style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 

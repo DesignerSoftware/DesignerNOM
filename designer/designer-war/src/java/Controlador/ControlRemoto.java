@@ -2,6 +2,7 @@ package Controlador;
 
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.*;
 import InterfaceAdministrar.*;
 import javax.ejb.EJB;
@@ -1068,11 +1069,22 @@ public class ControlRemoto implements Serializable {
    public void redireccion(Tablas tabla) {
       tablaSeleccionada = tabla;
       if (tablaSeleccionada != null) {
-         if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOS")) {
-            RequestContext.getCurrentInstance().execute("dirigirusuario()");
-         } else if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOSVISTAS")) {
-            RequestContext.getCurrentInstance().execute("dirigirusuariovista()");
+         String pag = administrarCarpetaDesigner.consultarNombrePantalla(tablaSeleccionada.getSecuencia());
+         pag = pag.toLowerCase();
+         System.out.println("ControlRemoto.redireccion() pag : " + pag);
+
+         if (pag != null) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+
+            ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+            controlListaNavegacion.adicionarPagina("nominaf");
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
+//         if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOS")) {
+//            RequestContext.getCurrentInstance().execute("dirigirusuario()");
+//         } else if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOSVISTAS")) {
+//            RequestContext.getCurrentInstance().execute("dirigirusuariovista()");
+//         }
       }
       infoTablas(tablaSeleccionada);
    }

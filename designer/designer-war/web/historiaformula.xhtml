@@ -475,7 +475,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" onclick="PF('confirmarRastro').hide();"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" onclick="PF('confirmarRastro').hide();"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    icon="ui-icon-close" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -484,7 +484,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
+                                   style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -503,7 +503,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
+                                   style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>

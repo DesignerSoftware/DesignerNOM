@@ -337,7 +337,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlTipoContrato.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
-                                   style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
@@ -346,7 +346,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlTipoContrato.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
-                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoContrato.limpiarMSNRastros()}" 
                                    icon="ui-icon-close" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -365,7 +365,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoContrato.backUp, controlTipoContrato.nombreTablaRastro , 'rastroTipoContra')}" 
-                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" />
+                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                </p:dialog>
 
