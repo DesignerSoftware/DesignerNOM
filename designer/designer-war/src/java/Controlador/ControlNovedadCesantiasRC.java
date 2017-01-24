@@ -108,7 +108,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
     private List<BigDecimal> listafiltrarvalorintcesantias;
     private BigDecimal valorintcesantiaSeleccionado;
     private BigDecimal provisionlov, provisioncesantias;
-    private boolean todas, actuales;
+    private boolean todas, actuales,activarLov;
 
     public ControlNovedadCesantiasRC() {
         listaEmpleadosNovedad = null;
@@ -119,6 +119,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         guardado = true;
         tipoLista = 0;
         listaEmpleadosLOV = null;
+        listaMotivosCesantiasLOV = null;
         permitirIndex = true;
         altotabla = 110;
         paginaAnterior = "";
@@ -144,6 +145,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
         provisionlov = null;
         provisioncesantias = null;
         actuales = false;
+        activarLov = true;
     }
 
     @PostConstruct
@@ -486,6 +488,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
         empleadoSeleccionado = listaEmpleadosNovedad.get(0);
         listaNovedades = administrarNovedadesSistema.cesantiasEmpleado(empleadoSeleccionado.getSecuencia());
+        contarRegistrosNovedades();
         listaFiltrarNovedades = null;
         aceptar = true;
         novedadSeleccionada = null;
@@ -528,20 +531,28 @@ public class ControlNovedadCesantiasRC implements Serializable {
             cualCelda = celda;
             novedadSeleccionada.getSecuencia();
             if (cualCelda == 0) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getFechainicialdisfrute();
             } else if (cualCelda == 1) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getFechacortecesantia();
             } else if (cualCelda == 2) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getValorcesantia();
             } else if (cualCelda == 3) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getValorinterescesantia();
             } else if (cualCelda == 4) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getValorsolicitado();
             } else if (cualCelda == 5) {
+                habilitarBotonLov();
                 novedadSeleccionada.getMotivocesantia().getNombre();
             } else if (cualCelda == 6) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getObservaciones();
             } else if (cualCelda == 7) {
+                deshabilitarBotonLov();
                 novedadSeleccionada.getBeneficiario();
             }
         }
@@ -553,7 +564,8 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoActualizacion = LND;
         contarRegistrosNovedades();
         if (dlg == 5) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
+            cargarLovMotivos();
+            RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
             RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').show()");
         }
     }
@@ -629,10 +641,9 @@ public class ControlNovedadCesantiasRC implements Serializable {
     public void abrirLista(int listaV) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (listaV == 0) {
-            empleadoSeleccionadoLOV = null;
+            cargarLovEmpleados();
             contarRegistroEmpleadosLov();
-            contarRegistrosNovedades();
-            RequestContext.getCurrentInstance().update("formularioDialogos:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
         }
     }
@@ -654,10 +665,13 @@ public class ControlNovedadCesantiasRC implements Serializable {
         activarMTodos = false;
         contarRegistroEmpleados();
         contarRegistrosNovedades();
-        context.reset("formularioDialogos:LOVEmpleados:globalFilter");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarE");
+        context.reset("formLovEmpleados:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
-        RequestContext.getCurrentInstance().update("formularioDialogos:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
         RequestContext.getCurrentInstance().update("form:datosEmpleados");
         RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
         RequestContext.getCurrentInstance().update("form:btnMostrarTodos");
@@ -694,11 +708,11 @@ public class ControlNovedadCesantiasRC implements Serializable {
         tipoActualizacion = -1;
         cualCelda = -1;
 
-        RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:lovmotivoscesantias");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:lovmotivoscesantias");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:aceptarP");
 
-        context.reset("formularioDialogos:lovmotivoscesantias:globalFilter");
+        context.reset("formLovMotivosC:lovmotivoscesantias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').hide()");
     }
@@ -818,9 +832,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
             FacesMessage msg = new FacesMessage("Información", "Error en el guardado, Intente nuevamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
-
         }
-
     }
 
     public void cancelarCambioMotivoCesantias() {
@@ -833,10 +845,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:motivoscesantiasDialogo");
-        RequestContext.getCurrentInstance().update("formularioDialogos:lovmotivoscesantias");
-        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarP");
-        context.reset("formularioDialogos:lovmotivoscesantias:globalFilter");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:lovmotivoscesantias");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:aceptarP");
+        context.reset("formLovMotivosC:lovmotivoscesantias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').hide()");
 
@@ -855,7 +867,10 @@ public class ControlNovedadCesantiasRC implements Serializable {
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formularioDialogos:LOVEmpleados:globalFilter");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarE");
+        context.reset("formLovEmpleados:LOVEmpleados:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
     }
@@ -938,11 +953,11 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public void contarRegistroEmpleadosLov() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroEmpleadosLOV");
+        RequestContext.getCurrentInstance().update("formLovEmpleados:infoRegistroEmpleadosLOV");
     }
 
     public void contarRegistroMotivosNovedades() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroMotivosNovedades");
+        RequestContext.getCurrentInstance().update("formLovMotivosC:infoRegistroMotivosNovedades");
     }
 
     public void contarRegistrosNovedades() {
@@ -1049,7 +1064,41 @@ public class ControlNovedadCesantiasRC implements Serializable {
             }
         }
     }
+    
+    public void listaValoresBoton(){
+        if(cualCelda == 5){
+            cargarLovMotivos();
+            contarRegistroMotivosNovedades();
+            RequestContext.getCurrentInstance().update("formLovMotivosC:motivoscesantiasDialogo");
+            RequestContext.getCurrentInstance().execute("PF('motivoscesantiasDialogo').show()");
+        }
+    }
+    
 
+    public void cargarLovEmpleados() {
+        if (listaEmpleadosLOV == null) {
+            listaEmpleadosLOV = administrarNovedadesPagoCesantias.empleadosCesantias();
+        }
+
+    }
+
+    public void cargarLovMotivos() {
+        if (listaMotivosCesantiasLOV == null) {
+            listaMotivosCesantiasLOV = administrarNovedadesPagoCesantias.consultarMotivosCesantias();
+        }
+    }
+
+    public void habilitarBotonLov(){
+    activarLov = false;
+    RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void deshabilitarBotonLov(){
+    activarLov = true;
+    RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    
     ///////////////////////GETS Y SETS////////////////////////////////////////////////
     public List<Empleados> getListaEmpleadosNovedad() {
         if (listaEmpleadosNovedad == null) {
@@ -1172,9 +1221,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public List<Empleados> getListaEmpleadosLOV() {
-        if (listaEmpleadosLOV == null) {
-            listaEmpleadosLOV = administrarNovedadesPagoCesantias.empleadosCesantias();
-        }
         return listaEmpleadosLOV;
     }
 
@@ -1199,7 +1245,6 @@ public class ControlNovedadCesantiasRC implements Serializable {
     }
 
     public List<MotivosCesantias> getListaMotivosCesantiasLOV() {
-        listaMotivosCesantiasLOV = administrarNovedadesPagoCesantias.consultarMotivosCesantias();
         return listaMotivosCesantiasLOV;
     }
 
@@ -1260,7 +1305,20 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public String getInfoRegistroEmpleadosLov() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVEmpleados");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovEmpleados:LOVEmpleados");
+        if (listaFiltrarEmpleadosLOV != null) {
+         if (listaFiltrarEmpleadosLOV.size() == 1) {
+            empleadoSeleccionadoLOV = listaFiltrarEmpleadosLOV.get(0);
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();PF('LOVEmpleados').selectRow(0);");
+         } else {
+            empleadoSeleccionadoLOV = null;
+            RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').unselectAllRows();");
+         }
+      } else {
+         empleadoSeleccionadoLOV = null;
+         aceptar = true;
+      }
         infoRegistroEmpleadosLov = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpleadosLov;
     }
@@ -1271,7 +1329,20 @@ public class ControlNovedadCesantiasRC implements Serializable {
 
     public String getInfoRegistroMotivosCesantias() {
         FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovmotivoscesantias");
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formLovMotivosC:lovmotivoscesantias");
+        if (listaFiltrarMotivosCesantiasLOV != null) {
+         if (listaFiltrarMotivosCesantiasLOV.size() == 1) {
+            motivoCesantiaSeleccionado = listaFiltrarMotivosCesantiasLOV.get(0);
+            aceptar = false;
+            RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').unselectAllRows();PF('lovmotivoscesantias').selectRow(0);");
+         } else {
+            motivoCesantiaSeleccionado = null;
+            RequestContext.getCurrentInstance().execute("PF('lovmotivoscesantias').unselectAllRows();");
+         }
+      } else {
+         motivoCesantiaSeleccionado = null;
+         aceptar = true;
+      }
         infoRegistroMotivosCesantias = String.valueOf(tabla.getRowCount());
         return infoRegistroMotivosCesantias;
     }
@@ -1381,4 +1452,12 @@ public class ControlNovedadCesantiasRC implements Serializable {
         this.actuales = actuales;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+    
 }

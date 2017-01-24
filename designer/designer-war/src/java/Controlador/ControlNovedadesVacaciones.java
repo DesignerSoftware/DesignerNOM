@@ -483,7 +483,7 @@ public class ControlNovedadesVacaciones implements Serializable {
                 novedadSeleccionada.getDias();
             } else if (cualCelda == 3) {
                 novedadSeleccionada.getFechasiguientefinvaca();
-                RequestContext.getCurrentInstance().execute("PF('proceso').show()");
+//                RequestContext.getCurrentInstance().execute("PF('proceso').show()");
             } else if (cualCelda == 4) {
                 novedadSeleccionada.getSubtipo();
             } else if (cualCelda == 5) {

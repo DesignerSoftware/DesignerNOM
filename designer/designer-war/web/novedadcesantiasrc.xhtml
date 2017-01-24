@@ -12,7 +12,14 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
+            <ui:define name="body">  
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $(".loader").fadeOut("slow");
+                    });
+                </script>
+                <div class="loader"></div>
+                <div style="position: static;"></div>                
                 <h:form id="form"> 
                     <f:loadBundle basename="Recursos.novedadcesantiasrc" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
@@ -31,7 +38,7 @@
                                 <p:separator />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
-                                                 id="listaValores" value="" onclick="PF('botonDesactivado').show()" process="@this"/>
+                                                 id="listaValores" value="" actionListener="#{controlMotivosCesantias.listaValoresBoton()}" process="@this" disabled="#{controlMotivosCesantias.activarLov}"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);" 
@@ -125,11 +132,15 @@
 
                         </fieldset>
                         <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/buscardbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;
-                                         position: absolute; left: 650px; top: 100px; " id="btnBuscarEmpleados" actionListener="#{controlNovedadCesantiasRC.abrirLista(0)}"  value="" process="@this"/>
+                                         position: absolute; left: 650px; top: 100px; " id="btnBuscarEmpleados" actionListener="#{controlNovedadCesantiasRC.abrirLista(0)}"  value="" process="@this"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                         <p:commandButton style="width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                          position: absolute;left: 650px; top: 135px;" id="btnMostrarTodos" widgetVar="btnMostrarTodos" value="" 
-                                         actionListener="#{controlNovedadCesantiasRC.mostrarTodos()}" disabled="#{controlNovedadCesantiasRC.activarMTodos}" process="@this"/>
-                        <p:commandButton style="position: absolute; left: 650px; top: 170px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 35px; color: white;" icon="ui-icon-extlink" id="NOLIQUIDADAS" value="No liquidados" actionListener="#{controlNovedadCesantiasRC.empleadosCesantiasNoLiquidadas()}" disabled="#{controlNovedadCesantiasRC.actuales}" process="@this" />
+                                         actionListener="#{controlNovedadCesantiasRC.mostrarTodos()}" disabled="#{controlNovedadCesantiasRC.activarMTodos}" process="@this"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
+                        <p:commandButton style="position: absolute; left: 650px; top: 170px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 150px; height: 35px; color: white;" icon="ui-icon-extlink" id="NOLIQUIDADAS" value="No liquidados"
+                                         actionListener="#{controlNovedadCesantiasRC.empleadosCesantiasNoLiquidadas()}" disabled="#{controlNovedadCesantiasRC.actuales}" process="@this"
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                         <p:tooltip  for="NOLIQUIDADAS" value="#{msg['emplnoliq']}" />
 
                         <fieldset style="position: absolute; left: 10px; top: 250px; width: 830px; height: 205px; border-radius: 10px; ">
@@ -165,7 +176,7 @@
                                                           onselect="posicionOtro([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);
                                                                   PF('datosNovedadesEmpleado').unselectAllRows();
                                                                   PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                                                  "  >
+                                                          "  >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>  
@@ -193,8 +204,9 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off" readonly="true"  id="editarfechacorteintcesantia"  value="#{novedades.fechacortecesantia}" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase;height:12px" 
                                                           onselect="posicionOtro([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);
-                                                                 PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                                                 " >
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();
+                                                                  PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                                          " >
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>  
@@ -245,10 +257,11 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   id="editarvalorintcesantias" readonly="true" value="#{novedades.valorinterescesantia}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px" 
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
-                                                                  PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});
-                                                                  " >
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();
+                                                                  PF('datosNovedadesEmpleado').selectRow(#{indice});
+                                                          " >
 <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 3)}" process="@this" 
-                                                         onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
+                                                 onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>-->
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -268,7 +281,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarvalorsolicitado" readonly="true" value="#{novedades.valorsolicitado}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px"
                                                           onselect="posicionOtro([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);
-                                                               PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"     >
+                                                                  PF('datosNovedadesEmpleado').unselectAllRows();
+                                                                  PF('datosNovedadesEmpleado').selectRow(#{indice});"     >
    <!--                                                <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 4)}" process="@this"
                                                             onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />-->
                                             </p:inputText>
@@ -293,7 +307,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarmotivocesantia"  value="#{novedades.motivocesantia.nombre}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px">
-                                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,0)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,0)}"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 5)}" process="@this"
                                                         onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}"/>
@@ -319,7 +334,7 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="editarobservaciones" value="#{novedades.observaciones}"  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase;height:12px;"    >
-                                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this" />
+                                                <p:ajax event="change" listener="#{controlNovedadCesantiasRC.modificarNovedadCesantias(novedades)}" update="@this" process="@this" />
                                                 <p:ajax event="select" listener="#{controlNovedadCesantiasRC.cambiarIndice(novedades, 6)}" process="@this"
                                                         onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                             </p:inputText>
@@ -361,6 +376,84 @@
                     <p:remoteCommand name="posicionOtro" actionListener="#{controlNovedadCesantiasRC.posicionOtro()}"/>
                 </h:form>
                 <!--//////////////////////-->
+
+                <h:form id="formLovMotivosC">
+                    <p:dialog id="motivoscesantiasDialogo" header="Motivos Cesantías" widgetVar="motivoscesantiasDialogo" draggable="true" resizable="false"  closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="460" height="350" >
+                        <p:dataTable  id="lovmotivoscesantias" style=" width: 410px;" var="mov" value="#{controlNovedadCesantiasRC.listaMotivosCesantiasLOV}"
+                                      scrollable="true" scrollHeight="220" scrollWidth="440" widgetVar="lovmotivoscesantias" rowKey="#{mov.secuencia}"
+                                      filteredValue="#{controlNovedadCesantiasRC.listaFiltrarMotivosCesantiasLOV}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
+                                      selection="#{controlNovedadCesantiasRC.motivoCesantiaSeleccionado}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formLovMotivosC:aceptarP"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroMotivosNovedades()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Periodo: "  />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column style="text-align: center" sortBy="#{mov.codigo}" filterStyle="width: 94%" filterBy="#{mov.codigo}" width="70" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Código" />
+                                </f:facet>
+                                <h:outputText value="#{mov.codigo}" />  
+                            </p:column>
+
+                            <p:column style="text-align: center" sortBy="#{mov.nombre}" filterStyle="width: 94%" filterBy="#{mov.nombre}" filterMatchMode="contains" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{mov.nombre}" />  
+                            </p:column>
+
+                        </p:dataTable>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
+                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
+                        </div>
+                    </p:dialog> 
+                </h:form>
+
+                <h:form id="formLovEmpleados">
+                    <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
+                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadCesantiasRC.listaEmpleadosLOV}"
+                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
+                                      filteredValue="#{controlNovedadCesantiasRC.listaFiltrarEmpleadosLOV}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{emp.secuencia}" selection="#{controlNovedadCesantiasRC.empleadoSeleccionadoLOV}" selectionMode="single">
+
+                            <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formLovEmpleados:aceptarE"/>
+                            <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this" />
+                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroEmpleadosLov()}"/>
+                            <f:facet name="header">  
+                                <h:outputText value="Nombre: " />  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Codigo" />
+                                </f:facet>
+                                <h:outputText value="#{emp.codigoempleado}" />  
+                            </p:column>
+
+                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
+                            </p:column>
+                        </p:dataTable>
+                        <div class="cssBotonesLOV"> 
+                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
+                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
+                        </div>
+                    </p:dialog>    
+                </h:form>
+
                 <h:form id="formularioDialogos">
 
                     <!-- DIALOGO NUEVO REGISTRO -->
@@ -404,16 +497,16 @@
                                           style=" width: 122px; position: absolute; left: 220px; top: 220px; text-transform: uppercase; text-align: right;" onclick="select();">
                             </p:inputText>
                             <p:keyFilter for="vlrsolicitado" mask="num"/>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; top: 220px; left: 355px; " value="" 
-                                             actionListener="#{controlNovedadCesantiasRC.autocompletarVlrSolicitado()}" />
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/generarReporte.png) ;background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;
+                                             position: absolute; top: 220px; left: 355px; " value="" actionListener="#{controlNovedadCesantiasRC.autocompletarVlrSolicitado()}" />
 
                             <strong><h:outputText value="#{msg['motcesantias']}" style=" position: absolute; top: 265px;" /></strong>
                             <p:inputText  autocomplete="off"  id="motivoces" value="#{controlNovedadCesantiasRC.nuevaNovedad.motivocesantia.nombre}"  readonly="true"
                                           style=" width: 122px; position: absolute; left: 220px; top: 260px; text-align: right; " onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades,5, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades,5, 1)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 355px; top: 260px; "
-                                             id="btnNuevoMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,1)}" value="" process="@this" />
+                                             id="btnNuevoMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,1)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;" /></strong>
                             <p:inputText  autocomplete="off"  id="obsv" value="#{controlNovedadCesantiasRC.nuevaNovedad.observaciones}" 
@@ -483,10 +576,10 @@
                                           style=" width: 122px; position: absolute; left: 200px; top: 260px; text-transform: uppercase" readonly="true" onclick="select();">
                                 <p:ajax event="click" listener="#{controlNovedadCesantiasRC.autocompletar(2,'MOTIVO')}"/>
                                 <p:ajax event="change" listener="#{controlNovedadCesantiasRC.valoresautocompletarnuevo('MOTIVO', controlNovedadCesantiasRC.duplicarNovedad.motivocesantia.nombre, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px; position: absolute; left: 355px; top: 260px; "
-                                             id="btnDuplicarMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}" value="" process="@this" />
+                                             id="btnDuplicarMotivo" actionListener="#{controlNovedadCesantiasRC.asignarIndex(novedades, 5,2)}" value="" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="#{msg['obs']}" style=" position: absolute; top: 305px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarobsv" value="#{controlNovedadCesantiasRC.duplicarNovedad.observaciones}" 
@@ -552,6 +645,11 @@
                         <p:inputTextarea value="#{controlNovedadCesantiasRC.editarNovedades.beneficiario}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
+                    <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                    </p:dialog>
+
                     <p:dialog id="botonDesactivado" header="#{msg['atencion']}" widgetVar="botonDesactivado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['botonlov']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
@@ -582,90 +680,17 @@
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionvlrsolicitado').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog header="Buscar Empleado" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="646" height="330" >
-                        <p:dataTable  id="LOVEmpleados" style=" width: 600px;" var="emp" value="#{controlNovedadCesantiasRC.listaEmpleadosLOV}"
-                                      scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" 
-                                      filteredValue="#{controlNovedadCesantiasRC.listaFiltrarEmpleadosLOV}" emptyMessage="#{msg['lovvacio']}"
-                                      rowKey="#{emp.secuencia}" selection="#{controlNovedadCesantiasRC.empleadoSeleccionadoLOV}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formularioDialogos:aceptarE"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroEmpleadosLov()}"/>
-                            <f:facet name="header">  
-                                <h:outputText value="Nombre: " />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVEmpleados').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column style="text-align: center" sortBy="#{emp.codigoempleado}" filterBy="#{emp.codigoempleado}" width="80" filterMatchMode="contains" filterStyle="width: 94%"> 
-                                <f:facet name="header">
-                                    <h:outputText value="Codigo" />
-                                </f:facet>
-                                <h:outputText value="#{emp.codigoempleado}" />  
-                            </p:column>
-
-                            <p:column sortBy="#{emp.persona.nombreCompleto}" filterBy="#{emp.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 94%"> 
-                                <f:facet name="header">
-                                    <h:outputText value="Nombre" />
-                                </f:facet>
-                                <h:outputText value="#{emp.persona.nombreCompleto}" />  
-                            </p:column>
-                        </p:dataTable>
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroEmpleadosLOV" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroEmpleadosLov} " class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarE" value="#{msg['aceptar']}" icon="ui-icon-check" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarEmpleadosNovedad()}" process="@this"  disabled="#{controlNovedadCesantiasRC.aceptar}"/>
-                            <p:commandButton id="atrasE" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV" actionListener="#{controlNovedadCesantiasRC.cancelarCambioEmpleados()}" process="@this"/>
-                        </div>
-                    </p:dialog>
-
-                    <p:dialog id="motivoscesantiasDialogo" header="Motivos Cesantías" widgetVar="motivoscesantiasDialogo" draggable="true" resizable="false"  closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="460" height="350" >
-                        <p:dataTable  id="lovmotivoscesantias" style=" width: 410px;" var="mov" value="#{controlNovedadCesantiasRC.listaMotivosCesantiasLOV}"
-                                      scrollable="true" scrollHeight="220" scrollWidth="440" widgetVar="lovmotivoscesantias" rowKey="#{mov.secuencia}"
-                                      filteredValue="#{controlNovedadCesantiasRC.listaFiltrarMotivosCesantiasLOV}" emptyMessage="No se encontraron resultados con el criterio de búsqueda."
-                                      selection="#{controlNovedadCesantiasRC.motivoCesantiaSeleccionado}" selectionMode="single">
-
-                            <p:ajax event="rowSelect" listener="#{controlNovedadCesantiasRC.activarAceptar()}" update=":formularioDialogos:aceptarP"/>
-                            <p:ajax event="rowDblselect" listener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}" process="@this" />
-                            <p:ajax event="filter" listener="#{controlNovedadCesantiasRC.contarRegistroMotivosNovedades()}"/>
-                            <f:facet name="header">  
-                                <h:outputText value="Buscar Periodo: "  />  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmotivoscesantias').filter();" class="cssFiltroLOV" />  
-                            </f:facet>
-
-                            <p:column style="text-align: center" sortBy="#{mov.codigo}" filterStyle="width: 94%" filterBy="#{mov.codigo}" width="70" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="Código" />
-                                </f:facet>
-                                <h:outputText value="#{mov.codigo}" />  
-                            </p:column>
-
-                            <p:column style="text-align: center" sortBy="#{mov.nombre}" filterStyle="width: 94%" filterBy="#{mov.nombre}" filterMatchMode="contains" > 
-                                <f:facet name="header">
-                                    <h:outputText value="Nombre" />
-                                </f:facet>
-                                <h:outputText value="#{mov.nombre}" />  
-                            </p:column>
-
-                        </p:dataTable>
-                        <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroMotivosNovedades" value="#{msg['infoRegistros']} #{controlNovedadCesantiasRC.infoRegistroMotivosCesantias} " class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlNovedadCesantiasRC.aceptar}" class="cssAceptarLOV" actionListener="#{controlNovedadCesantiasRC.actualizarMotivosCesantias()}"  process="@this"/>
-                            <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-close" class="cssAtrasLOV"  actionListener="#{controlNovedadCesantiasRC.cancelarCambioMotivoCesantias()}"  process="@this"/>
-                        </div>
-                    </p:dialog>
-
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 5px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadCesantiasRC.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadpagoparcialcesantias')}" style="position: absolute; top: 75px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadCesantiasRC.novedadSeleccionada.secuencia, 'Novedades', 'novedadpagoparcialcesantias')}" style="position: absolute; top: 75px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 75px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 5px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -682,7 +707,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadCesantiasRC.novedadSeleccionada.getSecuencia(), 'Novedades', 'novedadpagoparcialcesantias')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadCesantiasRC.novedadSeleccionada.secuencia, 'Novedades', 'novedadpagoparcialcesantias')}" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" />
                     </p:dialog>
 
