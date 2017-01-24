@@ -134,6 +134,8 @@ public class ControlRemoto implements Serializable {
    private boolean resultadoBusquedaAv = false;
    private List<VWActualesTiposTrabajadores> listaBusquedaAvanzada;
 
+   ControlListaNavegacion controlListaNavegacion;
+
    public ControlRemoto() {
       lovEmpresas = null;
       extension = ".png";
@@ -229,6 +231,7 @@ public class ControlRemoto implements Serializable {
 
    public void datosIniciales(int pestaña) {
       numPestanha = pestaña;
+
    }
 
    public void valorInputText() throws ParseException {
@@ -1075,8 +1078,7 @@ public class ControlRemoto implements Serializable {
 
          if (pag != null) {
             FacesContext fc = FacesContext.getCurrentInstance();
-
-            ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+            controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
             controlListaNavegacion.adicionarPagina("nominaf");
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
@@ -1087,6 +1089,14 @@ public class ControlRemoto implements Serializable {
 //         }
       }
       infoTablas(tablaSeleccionada);
+   }
+
+   public void adicionarPagina(String pag) {
+      controlListaNavegacion.adicionarPagina(pag);
+   }
+
+   public void quitarPagina() {
+     controlListaNavegacion.quitarPagina();
    }
 
    public void infoTablas(Tablas tab) {
@@ -2021,6 +2031,14 @@ public class ControlRemoto implements Serializable {
 
    public void setInfoRegistroMod(String infoRegistroMod) {
       this.infoRegistroMod = infoRegistroMod;
+   }
+
+   public ControlListaNavegacion getControlListaNavegacion() {
+      return controlListaNavegacion;
+   }
+
+   public void setControlListaNavegacion(ControlListaNavegacion controlListaNavegacion) {
+      this.controlListaNavegacion = controlListaNavegacion;
    }
 
 }

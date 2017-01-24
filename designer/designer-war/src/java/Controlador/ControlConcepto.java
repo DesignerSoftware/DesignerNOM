@@ -106,6 +106,7 @@ public class ControlConcepto implements Serializable {
    private DataTable tabla;
    //recordar seleccion
    private boolean unaVez;
+//   private List<String> listaNavegacion;
 
    public ControlConcepto() {
 
@@ -221,10 +222,10 @@ public class ControlConcepto implements Serializable {
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
 //      HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 //      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) session.getAttribute("controlListaNavegacion");
-
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
+//         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "concepto";
@@ -242,7 +243,7 @@ public class ControlConcepto implements Serializable {
             controlTercero.recibirPaginaEntrante(pagActual);
          } else if (pag.equals("grupoconcepto")) {
             ControlGrupoConcepto controlGrupoConcepto = (ControlGrupoConcepto) fc.getApplication().evaluateExpressionGet(fc, "#{controlGrupoConcepto}", ControlGrupoConcepto.class);
-            controlGrupoConcepto.recibirPagina(pagActual);
+            controlGrupoConcepto.recibirPaginaEntrante(pagActual);
          } else if (pag.equals("conceptoredondeo")) {
             ControlConceptoRedondeo controlConceptoRedondeo = (ControlConceptoRedondeo) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptoRedondeo}", ControlConceptoRedondeo.class);
             controlConceptoRedondeo.recibirPagina(pagActual);
@@ -254,6 +255,7 @@ public class ControlConcepto implements Serializable {
             controlUnidad.recibirPaginaEntrante(pagActual);
          }
          controlListaNavegacion.adicionarPagina(pagActual);
+//         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }

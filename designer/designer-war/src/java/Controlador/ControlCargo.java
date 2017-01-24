@@ -300,11 +300,12 @@ public class ControlCargo implements Serializable {
 
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      //ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
+//         controlListaNavegacion.quitarPagina();
+         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
       } else {
          String pagActual = "cargo";
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -315,8 +316,9 @@ public class ControlCargo implements Serializable {
 //            controlGruposViaticos.recibirParametros(mapParaEnviar);
 //            controlGruposViaticos.recibirPaginaEntrante(pagActual);
 //         } else if(){}
-         
-         controlListaNavegacion.adicionarPagina(pagActual);
+
+//         controlListaNavegacion.adicionarPagina(pagActual);
+         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }

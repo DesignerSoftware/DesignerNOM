@@ -7,43 +7,35 @@ package ControlNavegacion;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author user
  */
-//@Named(value = "controlListaNavegacion")
-//@Dependent
-@ManagedBean
-@SessionScoped
-public class ControlListaNavegacion {
-
+public class AdministradorNavegacion {
+   
    private List<String> listaPaginasAnteriores;
-
-   /**
-    * Creates a new instance of ControlListaNavegacion
-    */
-   public ControlListaNavegacion() {
+   
+   public AdministradorNavegacion() {
+//      ArrayList<String> listaPaginasAnteriores = new ArrayList<String>();
       listaPaginasAnteriores = new ArrayList<String>();
       listaPaginasAnteriores.add("iniciored");
    }
 
    public void adicionarPagina(String pag) {
       listaPaginasAnteriores.add(pag);
-      System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("AdministradorNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
    }
 
    public void quitarPagina() {
       listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-      System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("AdministradorNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
    }
 
    public String retornarPaginaAnterior() {
       String s = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
       listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-      System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("AdministradorNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores);
       return s;
    }
 
@@ -54,5 +46,4 @@ public class ControlListaNavegacion {
    public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
       this.listaPaginasAnteriores = listaPaginasAnteriores;
    }
-
 }
