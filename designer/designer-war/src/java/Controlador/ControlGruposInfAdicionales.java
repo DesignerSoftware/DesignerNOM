@@ -15,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -36,55 +37,55 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class ControlGruposInfAdicionales implements Serializable {
 
-    @EJB
-    AdministrarGruposInfAdicionalesInterface administrarGruposInfAdicionales;
-    @EJB
-    AdministrarRastrosInterface administrarRastros;
-    private List<GruposInfAdicionales> listGruposInfAdicionales;
-    private List<GruposInfAdicionales> filtrarGruposInfAdicionales;
-    private List<GruposInfAdicionales> crearGruposInfAdicionales;
-    private List<GruposInfAdicionales> modificarGruposInfAdicionales;
-    private List<GruposInfAdicionales> borrarGruposInfAdicionales;
-    private GruposInfAdicionales nuevoGruposInfAdicionales;
-    private GruposInfAdicionales duplicarGruposInfAdicionales;
-    private GruposInfAdicionales editarGruposInfAdicionales;
-    private GruposInfAdicionales grupoInfAdSeleccionado;
-    //otros
-    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
-    private BigInteger l;
-    private boolean aceptar, guardado;
-    //AutoCompletar
-    private boolean permitirIndex;
-    //RASTRO
-    private Column codigo, descripcion, estado;
-    //borrado
-    private int registrosBorrados;
-    private String mensajeValidacion;
-    //filtrado table
-    private int tamano;
-    private Integer backupCodigo;
-    private String backupDescripcion;
-    private String infoRegistro;
-    private DataTable tablaC;
-    private boolean activarLov;
-    private String paginaanterior;
+   @EJB
+   AdministrarGruposInfAdicionalesInterface administrarGruposInfAdicionales;
+   @EJB
+   AdministrarRastrosInterface administrarRastros;
+   private List<GruposInfAdicionales> listGruposInfAdicionales;
+   private List<GruposInfAdicionales> filtrarGruposInfAdicionales;
+   private List<GruposInfAdicionales> crearGruposInfAdicionales;
+   private List<GruposInfAdicionales> modificarGruposInfAdicionales;
+   private List<GruposInfAdicionales> borrarGruposInfAdicionales;
+   private GruposInfAdicionales nuevoGruposInfAdicionales;
+   private GruposInfAdicionales duplicarGruposInfAdicionales;
+   private GruposInfAdicionales editarGruposInfAdicionales;
+   private GruposInfAdicionales grupoInfAdSeleccionado;
+   //otros
+   private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
+   private BigInteger l;
+   private boolean aceptar, guardado;
+   //AutoCompletar
+   private boolean permitirIndex;
+   //RASTRO
+   private Column codigo, descripcion, estado;
+   //borrado
+   private int registrosBorrados;
+   private String mensajeValidacion;
+   //filtrado table
+   private int tamano;
+   private Integer backupCodigo;
+   private String backupDescripcion;
+   private String infoRegistro;
+   private DataTable tablaC;
+   private boolean activarLov;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlGruposInfAdicionales() {
-        listGruposInfAdicionales = null;
-        crearGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
-        modificarGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
-        borrarGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
-        permitirIndex = true;
-        editarGruposInfAdicionales = new GruposInfAdicionales();
-        nuevoGruposInfAdicionales = new GruposInfAdicionales();
-        duplicarGruposInfAdicionales = new GruposInfAdicionales();
-        guardado = true;
-        tamano = 270;
-        activarLov = true;
-    }
+   public ControlGruposInfAdicionales() {
+      listGruposInfAdicionales = null;
+      crearGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
+      modificarGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
+      borrarGruposInfAdicionales = new ArrayList<GruposInfAdicionales>();
+      permitirIndex = true;
+      editarGruposInfAdicionales = new GruposInfAdicionales();
+      nuevoGruposInfAdicionales = new GruposInfAdicionales();
+      duplicarGruposInfAdicionales = new GruposInfAdicionales();
+      guardado = true;
+      tamano = 270;
+      activarLov = true;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -95,9 +96,9 @@ public class ControlGruposInfAdicionales implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -105,962 +106,954 @@ public class ControlGruposInfAdicionales implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         String pagActual = "grupoinfadicional";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+   }
 
    @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarGruposInfAdicionales.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarGruposInfAdicionales.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
 
-    public void recibirPag(String pagina) {
-        paginaanterior = pagina;
-        listGruposInfAdicionales = null;
-        getListGruposInfAdicionales();
-        deshabilitarBotonLov();
-        if (!listGruposInfAdicionales.isEmpty()) {
-            grupoInfAdSeleccionado = listGruposInfAdicionales.get(0);
-        }
-    }
+   public void recibirPag(String pagina) {
+      paginaAnterior = pagina;
+      listGruposInfAdicionales = null;
+      getListGruposInfAdicionales();
+      deshabilitarBotonLov();
+      if (!listGruposInfAdicionales.isEmpty()) {
+         grupoInfAdSeleccionado = listGruposInfAdicionales.get(0);
+      }
+   }
 
-    public String retornarPagina() {
-        return paginaanterior;
-    }
+   public String retornarPagina() {
+      return paginaAnterior;
+   }
 
-    private String backUpEstado;
+   private String backUpEstado;
 
-    public void cambiarIndice(GruposInfAdicionales grupoInfAdicional, int celda) {
-        if (permitirIndex == true) {
-            grupoInfAdSeleccionado = grupoInfAdicional;
-            cualCelda = celda;
-            grupoInfAdSeleccionado.getSecuencia();
+   public void cambiarIndice(GruposInfAdicionales grupoInfAdicional, int celda) {
+      if (permitirIndex == true) {
+         grupoInfAdSeleccionado = grupoInfAdicional;
+         cualCelda = celda;
+         grupoInfAdSeleccionado.getSecuencia();
+         deshabilitarBotonLov();
+         if (tipoLista == 0) {
             deshabilitarBotonLov();
-            if (tipoLista == 0) {
-                deshabilitarBotonLov();
-                backupCodigo = grupoInfAdSeleccionado.getCodigo();
-                backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
-                backUpEstado = grupoInfAdSeleccionado.getEstado();
-            } else if (tipoLista == 1) {
-                deshabilitarBotonLov();
-                backupCodigo = grupoInfAdSeleccionado.getCodigo();
-                backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
-                backUpEstado = grupoInfAdSeleccionado.getEstado();
-            }
-        }
-    }
-
-    public void asignarIndex(GruposInfAdicionales grupoInfAdicional, int LND, int dig) {
-        try {
-            grupoInfAdSeleccionado = grupoInfAdicional;
+            backupCodigo = grupoInfAdSeleccionado.getCodigo();
+            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
+            backUpEstado = grupoInfAdSeleccionado.getEstado();
+         } else if (tipoLista == 1) {
             deshabilitarBotonLov();
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
+            backupCodigo = grupoInfAdSeleccionado.getCodigo();
+            backupDescripcion = grupoInfAdSeleccionado.getDescripcion();
+            backUpEstado = grupoInfAdSeleccionado.getEstado();
+         }
+      }
+   }
 
-        } catch (Exception e) {
-            System.out.println("ERROR ControlGruposInfAdicionales.asignarIndex ERROR======" + e.getMessage());
-        }
-    }
+   public void asignarIndex(GruposInfAdicionales grupoInfAdicional, int LND, int dig) {
+      try {
+         grupoInfAdSeleccionado = grupoInfAdicional;
+         deshabilitarBotonLov();
+         if (LND == 0) {
+            tipoActualizacion = 0;
+         } else if (LND == 1) {
+            tipoActualizacion = 1;
+            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+         } else if (LND == 2) {
+            tipoActualizacion = 2;
+         }
 
-    public void activarAceptar() {
-        aceptar = false;
-    }
+      } catch (Exception e) {
+         System.out.println("ERROR ControlGruposInfAdicionales.asignarIndex ERROR======" + e.getMessage());
+      }
+   }
 
-    public void listaValoresBoton() {
-    }
+   public void activarAceptar() {
+      aceptar = false;
+   }
 
-    public void cancelarModificacion() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 1) {
-            //CERRAR FILTRADO
-            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-            estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            bandera = 0;
-            filtrarGruposInfAdicionales = null;
-            tipoLista = 0;
-        }
+   public void listaValoresBoton() {
+   }
 
-        borrarGruposInfAdicionales.clear();
-        crearGruposInfAdicionales.clear();
-        modificarGruposInfAdicionales.clear();
-        deshabilitarBotonLov();
-        grupoInfAdSeleccionado = null;
-        k = 0;
-        listGruposInfAdicionales = null;
-        guardado = true;
-        permitirIndex = true;
-        getListGruposInfAdicionales();
-        contarRegistros();
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void cancelarModificacion() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 1) {
+         //CERRAR FILTRADO
+         codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+         estado.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         bandera = 0;
+         filtrarGruposInfAdicionales = null;
+         tipoLista = 0;
+      }
 
-    public void salir() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 1) {
-            //CERRAR FILTRADO
-            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-            estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            bandera = 0;
-            filtrarGruposInfAdicionales = null;
-            tipoLista = 0;
-        }
+      borrarGruposInfAdicionales.clear();
+      crearGruposInfAdicionales.clear();
+      modificarGruposInfAdicionales.clear();
+      deshabilitarBotonLov();
+      grupoInfAdSeleccionado = null;
+      k = 0;
+      listGruposInfAdicionales = null;
+      guardado = true;
+      permitirIndex = true;
+      getListGruposInfAdicionales();
+      contarRegistros();
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-        borrarGruposInfAdicionales.clear();
-        crearGruposInfAdicionales.clear();
-        modificarGruposInfAdicionales.clear();
-        grupoInfAdSeleccionado = null;
-        grupoInfAdSeleccionado = null;
-        k = 0;
-        listGruposInfAdicionales = null;
-        guardado = true;
-        permitirIndex = true;
-        getListGruposInfAdicionales();
-        RequestContext context = RequestContext.getCurrentInstance();
-        contarRegistros();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-        RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void salir() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 1) {
+         //CERRAR FILTRADO
+         codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+         estado.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         bandera = 0;
+         filtrarGruposInfAdicionales = null;
+         tipoLista = 0;
+      }
 
-    public void activarCtrlF11() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 0) {
-            tamano = 250;
-            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-            codigo.setFilterStyle("width: 85% !important");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-            descripcion.setFilterStyle("width: 85% !important");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-            estado.setFilterStyle("width: 85% !important");
-            System.out.println("Activar");
-            bandera = 1;
-        } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            tamano = 270;
-            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-            codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-            descripcion.setFilterStyle("display: none; visibility: hidden;");
-            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-            estado.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            bandera = 0;
-            filtrarGruposInfAdicionales = null;
-            tipoLista = 0;
-        }
-    }
+      borrarGruposInfAdicionales.clear();
+      crearGruposInfAdicionales.clear();
+      modificarGruposInfAdicionales.clear();
+      grupoInfAdSeleccionado = null;
+      grupoInfAdSeleccionado = null;
+      k = 0;
+      listGruposInfAdicionales = null;
+      guardado = true;
+      permitirIndex = true;
+      getListGruposInfAdicionales();
+      RequestContext context = RequestContext.getCurrentInstance();
+      contarRegistros();
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    public void modificarGruposInfAdicionales(GruposInfAdicionales grupoInfAdicional, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
-        grupoInfAdSeleccionado = grupoInfAdicional;
+   public void activarCtrlF11() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         tamano = 250;
+         codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+         codigo.setFilterStyle("width: 85% !important");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+         descripcion.setFilterStyle("width: 85% !important");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+         estado.setFilterStyle("width: 85% !important");
+         System.out.println("Activar");
+         bandera = 1;
+      } else if (bandera == 1) {
+         System.out.println("Desactivar");
+         tamano = 270;
+         codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+         codigo.setFilterStyle("display: none; visibility: hidden;");
+         descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+         descripcion.setFilterStyle("display: none; visibility: hidden;");
+         estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+         estado.setFilterStyle("display: none; visibility: hidden;");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         bandera = 0;
+         filtrarGruposInfAdicionales = null;
+         tipoLista = 0;
+      }
+   }
 
-        int contador = 0, pass = 0;
+   public void modificarGruposInfAdicionales(GruposInfAdicionales grupoInfAdicional, String confirmarCambio, String valorConfirmar) {
+      System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+      grupoInfAdSeleccionado = grupoInfAdicional;
 
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+      int contador = 0, pass = 0;
 
-                    System.out.println("backupCodigo : " + backupCodigo);
-                    System.out.println("backupDescripcion : " + backupDescripcion);
+      RequestContext context = RequestContext.getCurrentInstance();
+      System.err.println("TIPO LISTA = " + tipoLista);
+      if (confirmarCambio.equalsIgnoreCase("N")) {
+         System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
+         if (tipoLista == 0) {
+            if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
 
-                    if (grupoInfAdSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
+               System.out.println("backupCodigo : " + backupCodigo);
+               System.out.println("backupDescripcion : " + backupDescripcion);
 
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                        } else {
-                            pass++;
-                        }
+               if (grupoInfAdSeleccionado.getCodigo() == null) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setCodigo(backupCodigo);
+               } else {
+                  for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                     if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                        contador++;
+                     }
+                  }
 
-                    }
-                    if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  if (contador > 0) {
+                     mensajeValidacion = "CODIGOS REPETIDOS";
+                     grupoInfAdSeleccionado.setCodigo(backupCodigo);
+                  } else {
+                     pass++;
+                  }
 
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               }
+               if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
 
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+                  grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+               } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
 
-                    } else {
-                        pass++;
-                    }
-                    if (grupoInfAdSeleccionado.getEstado() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-                    } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
+                  grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
 
-                    } else {
-                        pass++;
-                    }
+               } else {
+                  pass++;
+               }
+               if (grupoInfAdSeleccionado.getEstado() == null) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setEstado(backUpEstado);
+               } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setEstado(backUpEstado);
 
-                    if (pass == 3) {
-                        if (modificarGruposInfAdicionales.isEmpty()) {
-                            modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                        } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                            modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
+               } else {
+                  pass++;
+               }
 
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+               if (pass == 3) {
+                  if (modificarGruposInfAdicionales.isEmpty()) {
+                     modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+                  } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+                     modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+                  }
+                  if (guardado == true) {
+                     guardado = false;
+                  }
 
-                    }
-                    grupoInfAdSeleccionado = null;
-                    grupoInfAdSeleccionado = null;
-                    RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                } else {
+               } else {
+                  RequestContext.getCurrentInstance().update("form:validacionModificar");
+                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
 
-                    System.out.println("backupCodigo : " + backupCodigo);
-                    System.out.println("backupDescripcion : " + backupDescripcion);
-
-                    if (grupoInfAdSeleccionado.getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                            if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                        } else {
-                            pass++;
-                        }
-
-                    }
-                    if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                    } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-
-                    } else {
-                        pass++;
-                    }
-                    if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-                    } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        grupoInfAdSeleccionado.setEstado(backUpEstado);
-
-                    } else {
-                        pass++;
-                    }
-                    if (pass == 3) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-
-                    }
-                    grupoInfAdSeleccionado = null;
-                    grupoInfAdSeleccionado = null;
-                    RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                }
-            } else if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                if (grupoInfAdSeleccionado.getCodigo() == null) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                } else {
-                    for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
-                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                            contador++;
-                        }
-                    }
-                    for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                            contador++;
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
-
-                    } else {
-                        pass++;
-                    }
-
-                }
-
-                if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                } else {
-                    pass++;
-                }
-                if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setEstado(backUpEstado);
-                } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setEstado(backUpEstado);
-
-                } else {
-                    pass++;
-                }
-                if (pass == 3) {
-                    if (modificarGruposInfAdicionales.isEmpty()) {
-                        modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                    } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                        modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-                grupoInfAdSeleccionado = null;
-                grupoInfAdSeleccionado = null;
+               }
+               grupoInfAdSeleccionado = null;
+               grupoInfAdSeleccionado = null;
+               RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                if (grupoInfAdSeleccionado.getCodigo() == null) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setCodigo(backupCodigo);
-                } else {
-                    for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
-                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                            contador++;
-                        }
-                    }
-                    for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
-                        if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
-                            contador++;
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        grupoInfAdSeleccionado.setCodigo(backupCodigo);
 
-                    } else {
-                        pass++;
-                    }
+               System.out.println("backupCodigo : " + backupCodigo);
+               System.out.println("backupDescripcion : " + backupDescripcion);
 
-                }
+               if (grupoInfAdSeleccionado.getCodigo() == null) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setCodigo(backupCodigo);
+               } else {
+                  for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                     if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                        contador++;
+                     }
+                  }
 
-                if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
-                } else {
-                    pass++;
-                }
-                if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setEstado(backUpEstado);
-                } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    grupoInfAdSeleccionado.setEstado(backUpEstado);
+                  if (contador > 0) {
+                     mensajeValidacion = "CODIGOS REPETIDOS";
+                     grupoInfAdSeleccionado.setCodigo(backupCodigo);
+                  } else {
+                     pass++;
+                  }
 
-                } else {
-                    pass++;
-                }
-                if (pass == 3) {
-                    if (guardado == true) {
-                        guardado = false;
-                    }
+               }
+               if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+               } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
 
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-                grupoInfAdSeleccionado = null;
-                grupoInfAdSeleccionado = null;
+               } else {
+                  pass++;
+               }
+               if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setEstado(backUpEstado);
+               } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                  grupoInfAdSeleccionado.setEstado(backUpEstado);
+
+               } else {
+                  pass++;
+               }
+               if (pass == 3) {
+                  if (guardado == true) {
+                     guardado = false;
+                  }
+               } else {
+                  RequestContext.getCurrentInstance().update("form:validacionModificar");
+                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+
+               }
+               grupoInfAdSeleccionado = null;
+               grupoInfAdSeleccionado = null;
+               RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
             }
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
-
-    }
-
-    public void borrandoGruposInfAdicionales() {
-
-        if (grupoInfAdSeleccionado != null) {
-            System.out.println("Entro a borrandoGruposInfAdicionales");
-            if (!modificarGruposInfAdicionales.isEmpty() && modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                int modIndex = modificarGruposInfAdicionales.indexOf(grupoInfAdSeleccionado);
-                modificarGruposInfAdicionales.remove(modIndex);
-                borrarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-            } else if (!crearGruposInfAdicionales.isEmpty() && crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
-                int crearIndex = crearGruposInfAdicionales.indexOf(grupoInfAdSeleccionado);
-                crearGruposInfAdicionales.remove(crearIndex);
+         } else if (!crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+            if (grupoInfAdSeleccionado.getCodigo() == null) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setCodigo(backupCodigo);
             } else {
-                borrarGruposInfAdicionales.add(grupoInfAdSeleccionado);
-            }
-            listGruposInfAdicionales.remove(grupoInfAdSeleccionado);
-            if (tipoLista == 1) {
-                filtrarGruposInfAdicionales.remove(grupoInfAdSeleccionado);
+               for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
+                  if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                     contador++;
+                  }
+               }
+               for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                  if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                     contador++;
+                  }
+               }
+               if (contador > 0) {
+                  mensajeValidacion = "CODIGOS REPETIDOS";
+                  grupoInfAdSeleccionado.setCodigo(backupCodigo);
+
+               } else {
+                  pass++;
+               }
 
             }
-            contarRegistros();
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+
+            if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+            } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+            } else {
+               pass++;
+            }
+            if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setEstado(backUpEstado);
+            } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setEstado(backUpEstado);
+
+            } else {
+               pass++;
+            }
+            if (pass == 3) {
+               if (modificarGruposInfAdicionales.isEmpty()) {
+                  modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+               } else if (!modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+                  modificarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+               }
+               if (guardado == true) {
+                  guardado = false;
+               }
+
+            } else {
+               RequestContext.getCurrentInstance().update("form:validacionModificar");
+               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+            }
             grupoInfAdSeleccionado = null;
+            grupoInfAdSeleccionado = null;
+         } else {
+            if (grupoInfAdSeleccionado.getCodigo() == null) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setCodigo(backupCodigo);
+            } else {
+               for (int j = 0; j < filtrarGruposInfAdicionales.size(); j++) {
+                  if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                     contador++;
+                  }
+               }
+               for (int j = 0; j < listGruposInfAdicionales.size(); j++) {
+                  if (grupoInfAdSeleccionado.getCodigo() == listGruposInfAdicionales.get(j).getCodigo()) {
+                     contador++;
+                  }
+               }
+               if (contador > 0) {
+                  mensajeValidacion = "CODIGOS REPETIDOS";
+                  grupoInfAdSeleccionado.setCodigo(backupCodigo);
 
-            if (guardado == true) {
-                guardado = false;
+               } else {
+                  pass++;
+               }
+
             }
+
+            if (grupoInfAdSeleccionado.getDescripcion().isEmpty()) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+            } else if (grupoInfAdSeleccionado.getDescripcion().equals(" ")) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setDescripcion(backupDescripcion);
+            } else {
+               pass++;
+            }
+            if (grupoInfAdSeleccionado.getEstado().isEmpty()) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setEstado(backUpEstado);
+            } else if (grupoInfAdSeleccionado.getEstado().equals(" ")) {
+               mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               grupoInfAdSeleccionado.setEstado(backUpEstado);
+
+            } else {
+               pass++;
+            }
+            if (pass == 3) {
+               if (guardado == true) {
+                  guardado = false;
+               }
+
+            } else {
+               RequestContext.getCurrentInstance().update("form:validacionModificar");
+               RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+            }
+            grupoInfAdSeleccionado = null;
+            grupoInfAdSeleccionado = null;
+         }
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+
+   }
+
+   public void borrandoGruposInfAdicionales() {
+
+      if (grupoInfAdSeleccionado != null) {
+         System.out.println("Entro a borrandoGruposInfAdicionales");
+         if (!modificarGruposInfAdicionales.isEmpty() && modificarGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+            int modIndex = modificarGruposInfAdicionales.indexOf(grupoInfAdSeleccionado);
+            modificarGruposInfAdicionales.remove(modIndex);
+            borrarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+         } else if (!crearGruposInfAdicionales.isEmpty() && crearGruposInfAdicionales.contains(grupoInfAdSeleccionado)) {
+            int crearIndex = crearGruposInfAdicionales.indexOf(grupoInfAdSeleccionado);
+            crearGruposInfAdicionales.remove(crearIndex);
+         } else {
+            borrarGruposInfAdicionales.add(grupoInfAdSeleccionado);
+         }
+         listGruposInfAdicionales.remove(grupoInfAdSeleccionado);
+         if (tipoLista == 1) {
+            filtrarGruposInfAdicionales.remove(grupoInfAdSeleccionado);
+
+         }
+         contarRegistros();
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         grupoInfAdSeleccionado = null;
+
+         if (guardado == true) {
+            guardado = false;
+         }
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+      }
+
+   }
+
+   public void verificarBorrado() {
+      System.out.println("Estoy en verificarBorrado");
+      BigInteger verificarInformacionesAdicionales;
+
+      try {
+         System.err.println("Control Secuencia de ControlGruposInfAdicionales ");
+         if (tipoLista == 0) {
+            verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
+         } else {
+            verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
+         }
+         if (verificarInformacionesAdicionales.equals(new BigInteger("0"))) {
+            System.out.println("Borrado==0");
+            borrandoGruposInfAdicionales();
+         } else {
+            System.out.println("Borrado>0");
+
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:validacionBorrar");
+            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+            grupoInfAdSeleccionado = null;
+            verificarInformacionesAdicionales = new BigInteger("-1");
+
+         }
+      } catch (Exception e) {
+         System.err.println("ERROR ControlGruposInfAdicionales verificarBorrado ERROR " + e);
+      }
+   }
+
+   public void revisarDialogoGuardar() {
+
+      if (!borrarGruposInfAdicionales.isEmpty() || !crearGruposInfAdicionales.isEmpty() || !modificarGruposInfAdicionales.isEmpty()) {
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+      }
+
+   }
+
+   public void guardarGruposInfAdicionales() {
+      RequestContext context = RequestContext.getCurrentInstance();
+
+      if (guardado == false) {
+         System.out.println("Realizando guardarGruposInfAdicionales");
+         if (!borrarGruposInfAdicionales.isEmpty()) {
+            administrarGruposInfAdicionales.borrarGruposInfAdicionales(borrarGruposInfAdicionales);
+            //mostrarBorrados
+            registrosBorrados = borrarGruposInfAdicionales.size();
+            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
+            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
+            borrarGruposInfAdicionales.clear();
+         }
+         if (!modificarGruposInfAdicionales.isEmpty()) {
+            administrarGruposInfAdicionales.modificarGruposInfAdicionales(modificarGruposInfAdicionales);
+            modificarGruposInfAdicionales.clear();
+         }
+         if (!crearGruposInfAdicionales.isEmpty()) {
+            administrarGruposInfAdicionales.crearGruposInfAdicionales(crearGruposInfAdicionales);
+            crearGruposInfAdicionales.clear();
+         }
+         System.out.println("Se guardaron los datos con exito");
+         listGruposInfAdicionales = null;
+         getListGruposInfAdicionales();
+         contarRegistros();
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         k = 0;
+         guardado = true;
+      }
+      grupoInfAdSeleccionado = null;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+
+   }
+
+   public void editarCelda() {
+      if (grupoInfAdSeleccionado != null) {
+         editarGruposInfAdicionales = grupoInfAdSeleccionado;
+
+         RequestContext context = RequestContext.getCurrentInstance();
+         System.out.println("Entro a editar... valor celda: " + cualCelda);
+         if (cualCelda == 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
+            RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 1) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
+            RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
+            cualCelda = -1;
+         } else if (cualCelda == 2) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:editEstado");
+            RequestContext.getCurrentInstance().execute("PF('editEstado').show()");
+            cualCelda = -1;
+         }
+
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+      }
+
+   }
+
+   public void agregarNuevoGruposInfAdicionales() {
+      int contador = 0;
+      int duplicados = 0;
+
+      Integer a = 0;
+      a = null;
+      mensajeValidacion = " ";
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (nuevoGruposInfAdicionales.getCodigo() == a) {
+         mensajeValidacion = "Campo Código vacío \n";
+      } else {
+
+         for (int x = 0; x < listGruposInfAdicionales.size(); x++) {
+            if (listGruposInfAdicionales.get(x).getCodigo() == nuevoGruposInfAdicionales.getCodigo()) {
+               duplicados++;
+            }
+         }
+
+         if (duplicados > 0) {
+            mensajeValidacion = "No puede haber códigos repetidos \n";
+         } else {
+            contador++;
+         }
+      }
+      if (nuevoGruposInfAdicionales.getDescripcion() == null || nuevoGruposInfAdicionales.getDescripcion().isEmpty()) {
+         mensajeValidacion = "Campo Descripción vacío \n";
+
+      } else {
+         contador++;
+      }
+      if (nuevoGruposInfAdicionales.getEstado() == null || nuevoGruposInfAdicionales.getEstado().isEmpty()) {
+         mensajeValidacion = "Campo Estado vacío \n";
+      } else {
+         contador++;
+      }
+
+      System.out.println("contador " + contador);
+
+      if (contador == 3) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         if (bandera == 1) {
+            //CERRAR FILTRADO
+            System.out.println("Desactivar");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+            estado.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+            bandera = 0;
+            filtrarGruposInfAdicionales = null;
+            tamano = 270;
+            tipoLista = 0;
+         }
+         System.out.println("Despues de la bandera");
+
+         k++;
+         l = BigInteger.valueOf(k);
+         nuevoGruposInfAdicionales.setSecuencia(l);
+         crearGruposInfAdicionales.add(nuevoGruposInfAdicionales);
+         listGruposInfAdicionales.add(nuevoGruposInfAdicionales);
+         contarRegistros();
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         grupoInfAdSeleccionado = nuevoGruposInfAdicionales;
+         nuevoGruposInfAdicionales = new GruposInfAdicionales();
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         if (guardado == true) {
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
-        }
+         }
 
-    }
+         RequestContext.getCurrentInstance().execute("PF('nuevoRegistroGruposInfAdicionales').hide()");
 
-    public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
-        BigInteger verificarInformacionesAdicionales;
+      } else {
+         RequestContext.getCurrentInstance().update("form:validacionNuevoGrupoInfAd");
+         RequestContext.getCurrentInstance().execute("PF('validacionNuevoGrupoInfAd').show()");
+         contador = 0;
+      }
+   }
 
-        try {
-            System.err.println("Control Secuencia de ControlGruposInfAdicionales ");
-            if (tipoLista == 0) {
-                verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
-            } else {
-                verificarInformacionesAdicionales = administrarGruposInfAdicionales.verificarInformacionesAdicionales(grupoInfAdSeleccionado.getSecuencia());
+   public void limpiarNuevoGruposInfAdicionales() {
+      nuevoGruposInfAdicionales = new GruposInfAdicionales();
+   }
+
+   //------------------------------------------------------------------------------
+   public void duplicandoGruposInfAdicionales() {
+      System.out.println("duplicandoGruposInfAdicionales");
+      if (grupoInfAdSeleccionado != null) {
+         duplicarGruposInfAdicionales = new GruposInfAdicionales();
+         k++;
+         l = BigInteger.valueOf(k);
+
+         if (tipoLista == 0) {
+            duplicarGruposInfAdicionales.setSecuencia(l);
+            duplicarGruposInfAdicionales.setCodigo(grupoInfAdSeleccionado.getCodigo());
+            duplicarGruposInfAdicionales.setDescripcion(grupoInfAdSeleccionado.getDescripcion());
+            duplicarGruposInfAdicionales.setEstado(grupoInfAdSeleccionado.getEstado());
+         }
+         if (tipoLista == 1) {
+            duplicarGruposInfAdicionales.setSecuencia(l);
+            duplicarGruposInfAdicionales.setCodigo(grupoInfAdSeleccionado.getCodigo());
+            duplicarGruposInfAdicionales.setDescripcion(grupoInfAdSeleccionado.getDescripcion());
+            duplicarGruposInfAdicionales.setEstado(grupoInfAdSeleccionado.getEstado());
+            tamano = 270;
+
+         }
+
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroGruposInfAdicionales').show()");
+
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+      }
+   }
+
+   public void confirmarDuplicar() {
+      int contador = 0;
+      mensajeValidacion = " ";
+      int duplicados = 0;
+      RequestContext context = RequestContext.getCurrentInstance();
+      Integer a = 0;
+      a = null;
+
+      if (duplicarGruposInfAdicionales.getCodigo() == a) {
+         mensajeValidacion = "Campo Código vacío \n";
+      } else {
+         for (int x = 0; x < listGruposInfAdicionales.size(); x++) {
+            if (listGruposInfAdicionales.get(x).getCodigo() == duplicarGruposInfAdicionales.getCodigo()) {
+               duplicados++;
             }
-            if (verificarInformacionesAdicionales.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
-                borrandoGruposInfAdicionales();
-            } else {
-                System.out.println("Borrado>0");
-
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                grupoInfAdSeleccionado = null;
-                verificarInformacionesAdicionales = new BigInteger("-1");
-
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR ControlGruposInfAdicionales verificarBorrado ERROR " + e);
-        }
-    }
-
-    public void revisarDialogoGuardar() {
-
-        if (!borrarGruposInfAdicionales.isEmpty() || !crearGruposInfAdicionales.isEmpty() || !modificarGruposInfAdicionales.isEmpty()) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-        }
-
-    }
-
-    public void guardarGruposInfAdicionales() {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (guardado == false) {
-            System.out.println("Realizando guardarGruposInfAdicionales");
-            if (!borrarGruposInfAdicionales.isEmpty()) {
-                administrarGruposInfAdicionales.borrarGruposInfAdicionales(borrarGruposInfAdicionales);
-                //mostrarBorrados
-                registrosBorrados = borrarGruposInfAdicionales.size();
-                RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-                RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
-                borrarGruposInfAdicionales.clear();
-            }
-            if (!modificarGruposInfAdicionales.isEmpty()) {
-                administrarGruposInfAdicionales.modificarGruposInfAdicionales(modificarGruposInfAdicionales);
-                modificarGruposInfAdicionales.clear();
-            }
-            if (!crearGruposInfAdicionales.isEmpty()) {
-                administrarGruposInfAdicionales.crearGruposInfAdicionales(crearGruposInfAdicionales);
-                crearGruposInfAdicionales.clear();
-            }
-            System.out.println("Se guardaron los datos con exito");
-            listGruposInfAdicionales = null;
-            getListGruposInfAdicionales();
-            contarRegistros();
-            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            k = 0;
-            guardado = true;
-        }
-        grupoInfAdSeleccionado = null;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-    }
-
-    public void editarCelda() {
-        if (grupoInfAdSeleccionado != null) {
-                editarGruposInfAdicionales = grupoInfAdSeleccionado;
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
-            if (cualCelda == 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
-                RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
-                cualCelda = -1;
-            } else if (cualCelda == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editDescripcion");
-                RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
-                cualCelda = -1;
-            }else if (cualCelda == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editEstado");
-                RequestContext.getCurrentInstance().execute("PF('editEstado').show()");
-                cualCelda = -1;
-            }
-
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
-        }
-
-    }
-
-    public void agregarNuevoGruposInfAdicionales() {
-        int contador = 0;
-        int duplicados = 0;
-
-        Integer a = 0;
-        a = null;
-        mensajeValidacion = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (nuevoGruposInfAdicionales.getCodigo() == a) {
-            mensajeValidacion = "Campo Código vacío \n";
-        } else {
-
-            for (int x = 0; x < listGruposInfAdicionales.size(); x++) {
-                if (listGruposInfAdicionales.get(x).getCodigo() == nuevoGruposInfAdicionales.getCodigo()) {
-                    duplicados++;
-                }
-            }
-
-            if (duplicados > 0) {
-                mensajeValidacion = "No puede haber códigos repetidos \n";
-            } else {
-                contador++;
-            }
-        }
-        if (nuevoGruposInfAdicionales.getDescripcion() == null || nuevoGruposInfAdicionales.getDescripcion().isEmpty()) {
-            mensajeValidacion = "Campo Descripción vacío \n";
-
-        } else {
+         }
+         if (duplicados > 0) {
+            mensajeValidacion = "No puede haber códigos repetidos \n";
+         } else {
             contador++;
-        }
-        if (nuevoGruposInfAdicionales.getEstado() == null || nuevoGruposInfAdicionales.getEstado().isEmpty()) {
-            mensajeValidacion = "Campo Estado vacío \n";
-        } else {
-            contador++;
-        }
+            duplicados = 0;
+         }
+      }
+      if (duplicarGruposInfAdicionales.getDescripcion() == null || duplicarGruposInfAdicionales.getDescripcion().isEmpty()) {
+         mensajeValidacion = "Campo Descripción vacío \n";
 
-        System.out.println("contador " + contador);
+      } else {
+         System.out.println("Bandera : ");
+         contador++;
+      }
+      if (duplicarGruposInfAdicionales.getEstado() == null || duplicarGruposInfAdicionales.getEstado().isEmpty()) {
+         mensajeValidacion = "Campo Estado vacío \n";
 
-        if (contador == 3) {
+      } else {
+         contador++;
+      }
+
+      if (contador == 3) {
+
+         System.out.println("Datos Duplicando: " + duplicarGruposInfAdicionales.getSecuencia() + "  " + duplicarGruposInfAdicionales.getCodigo());
+         if (crearGruposInfAdicionales.contains(duplicarGruposInfAdicionales)) {
+            System.out.println("Ya lo contengo.");
+         }
+         listGruposInfAdicionales.add(duplicarGruposInfAdicionales);
+         crearGruposInfAdicionales.add(duplicarGruposInfAdicionales);
+         RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
+         grupoInfAdSeleccionado = duplicarGruposInfAdicionales;
+         contarRegistros();
+         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         if (guardado == true) {
+            guardado = false;
+         }
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
-            if (bandera == 1) {
-                //CERRAR FILTRADO
-                System.out.println("Desactivar");
-                codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-                codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
-                estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-                estado.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-                bandera = 0;
-                filtrarGruposInfAdicionales = null;
-                tamano = 270;
-                tipoLista = 0;
-            }
-            System.out.println("Despues de la bandera");
-
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoGruposInfAdicionales.setSecuencia(l);
-            crearGruposInfAdicionales.add(nuevoGruposInfAdicionales);
-            listGruposInfAdicionales.add(nuevoGruposInfAdicionales);
-            contarRegistros();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            grupoInfAdSeleccionado = nuevoGruposInfAdicionales;
-            nuevoGruposInfAdicionales = new GruposInfAdicionales();
+            //CERRAR FILTRADO
+            codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
+            codigo.setFilterStyle("display: none; visibility: hidden;");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
+            descripcion.setFilterStyle("display: none; visibility: hidden;");
+            estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
+            estado.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            bandera = 0;
+            filtrarGruposInfAdicionales = null;
+            tipoLista = 0;
+         }
+         duplicarGruposInfAdicionales = new GruposInfAdicionales();
+         RequestContext.getCurrentInstance().execute("PF('duplicarRegistroGruposInfAdicionales').hide()");
 
-            RequestContext.getCurrentInstance().execute("PF('nuevoRegistroGruposInfAdicionales').hide()");
+      } else {
+         contador = 0;
+         RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
+         RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
+      }
+   }
 
-        } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevoGrupoInfAd");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoGrupoInfAd').show()");
-            contador = 0;
-        }
-    }
+   public void limpiarDuplicarGruposInfAdicionales() {
+      duplicarGruposInfAdicionales = new GruposInfAdicionales();
+   }
 
-    public void limpiarNuevoGruposInfAdicionales() {
-        nuevoGruposInfAdicionales = new GruposInfAdicionales();
-    }
+   public void exportPDF() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosGruposInfAdicionalesExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarPDF();
+      exporter.export(context, tabla, "GRUPOSINFADICIONALES", false, false, "UTF-8", null, null);
+      context.responseComplete();
+      grupoInfAdSeleccionado = null;
+   }
 
-    //------------------------------------------------------------------------------
-    public void duplicandoGruposInfAdicionales() {
-        System.out.println("duplicandoGruposInfAdicionales");
-        if (grupoInfAdSeleccionado != null) {
-            duplicarGruposInfAdicionales = new GruposInfAdicionales();
-            k++;
-            l = BigInteger.valueOf(k);
+   public void exportXLS() throws IOException {
+      DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosGruposInfAdicionalesExportar");
+      FacesContext context = FacesContext.getCurrentInstance();
+      Exporter exporter = new ExportarXLS();
+      exporter.export(context, tabla, "GRUPOSINFADICIONALES", false, false, "UTF-8", null, null);
+      context.responseComplete();
+      grupoInfAdSeleccionado = null;
+   }
 
-            if (tipoLista == 0) {
-                duplicarGruposInfAdicionales.setSecuencia(l);
-                duplicarGruposInfAdicionales.setCodigo(grupoInfAdSeleccionado.getCodigo());
-                duplicarGruposInfAdicionales.setDescripcion(grupoInfAdSeleccionado.getDescripcion());
-                duplicarGruposInfAdicionales.setEstado(grupoInfAdSeleccionado.getEstado());
-            }
-            if (tipoLista == 1) {
-                duplicarGruposInfAdicionales.setSecuencia(l);
-                duplicarGruposInfAdicionales.setCodigo(grupoInfAdSeleccionado.getCodigo());
-                duplicarGruposInfAdicionales.setDescripcion(grupoInfAdSeleccionado.getDescripcion());
-                duplicarGruposInfAdicionales.setEstado(grupoInfAdSeleccionado.getEstado());
-                tamano = 270;
+   public void verificarRastro() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (grupoInfAdSeleccionado != null) {
+         int resultado = administrarRastros.obtenerTabla(grupoInfAdSeleccionado.getSecuencia(), "GRUPOSINFADICIONALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         System.out.println("resultado: " + resultado);
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+         }
+      } else if (administrarRastros.verificarHistoricosTabla("GRUPOSINFADICIONALES")) { // igual acá
+         RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+      }
+   }
 
-            }
+   public void eventoFiltrar() {
+      if (tipoLista == 0) {
+         tipoLista = 1;
+         contarRegistros();
+      }
+   }
 
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroGruposInfAdicionales').show()");
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
 
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
-        }
-    }
+   public void recordarSeleccion() {
+      if (grupoInfAdSeleccionado != null) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         tablaC = (DataTable) c.getViewRoot().findComponent("form:datosGruposInfAdicionales");
+         tablaC.setSelection(grupoInfAdSeleccionado);
+      }
+   }
 
-    public void confirmarDuplicar() {
-        int contador = 0;
-        mensajeValidacion = " ";
-        int duplicados = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        Integer a = 0;
-        a = null;
+   public void habilitarBotonLov() {
+      activarLov = false;
+      RequestContext.getCurrentInstance().update("form:listaValores");
+   }
 
-        if (duplicarGruposInfAdicionales.getCodigo() == a) {
-            mensajeValidacion = "Campo Código vacío \n";
-        } else {
-            for (int x = 0; x < listGruposInfAdicionales.size(); x++) {
-                if (listGruposInfAdicionales.get(x).getCodigo() == duplicarGruposInfAdicionales.getCodigo()) {
-                    duplicados++;
-                }
-            }
-            if (duplicados > 0) {
-                mensajeValidacion = "No puede haber códigos repetidos \n";
-            } else {
-                contador++;
-                duplicados = 0;
-            }
-        }
-        if (duplicarGruposInfAdicionales.getDescripcion() == null || duplicarGruposInfAdicionales.getDescripcion().isEmpty()) {
-            mensajeValidacion = "Campo Descripción vacío \n";
+   public void deshabilitarBotonLov() {
+      activarLov = true;
+      RequestContext.getCurrentInstance().update("form:listaValores");
+   }
 
-        } else {
-            System.out.println("Bandera : ");
-            contador++;
-        }
-        if (duplicarGruposInfAdicionales.getEstado() == null || duplicarGruposInfAdicionales.getEstado().isEmpty()) {
-            mensajeValidacion = "Campo Estado vacío \n";
+   //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
+   public List<GruposInfAdicionales> getListGruposInfAdicionales() {
+      if (listGruposInfAdicionales == null) {
+         listGruposInfAdicionales = administrarGruposInfAdicionales.consultarGruposInfAdicionales();
+      }
+      return listGruposInfAdicionales;
+   }
 
-        } else {
-            contador++;
-        }
+   public void setListGruposInfAdicionales(List<GruposInfAdicionales> listGruposInfAdicionales) {
+      this.listGruposInfAdicionales = listGruposInfAdicionales;
+   }
 
-        if (contador == 3) {
+   public List<GruposInfAdicionales> getFiltrarGruposInfAdicionales() {
+      return filtrarGruposInfAdicionales;
+   }
 
-            System.out.println("Datos Duplicando: " + duplicarGruposInfAdicionales.getSecuencia() + "  " + duplicarGruposInfAdicionales.getCodigo());
-            if (crearGruposInfAdicionales.contains(duplicarGruposInfAdicionales)) {
-                System.out.println("Ya lo contengo.");
-            }
-            listGruposInfAdicionales.add(duplicarGruposInfAdicionales);
-            crearGruposInfAdicionales.add(duplicarGruposInfAdicionales);
-            RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-            grupoInfAdSeleccionado = duplicarGruposInfAdicionales;
-            contarRegistros();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            if (guardado == true) {
-                guardado = false;
-            }
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {
-                FacesContext c = FacesContext.getCurrentInstance();
-                //CERRAR FILTRADO
-                codigo = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:codigo");
-                codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:descripcion");
-                descripcion.setFilterStyle("display: none; visibility: hidden;");
-                estado = (Column) c.getViewRoot().findComponent("form:datosGruposInfAdicionales:estado");
-                estado.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-                bandera = 0;
-                filtrarGruposInfAdicionales = null;
-                tipoLista = 0;
-            }
-            duplicarGruposInfAdicionales = new GruposInfAdicionales();
-            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroGruposInfAdicionales').hide()");
+   public void setFiltrarGruposInfAdicionales(List<GruposInfAdicionales> filtrarGruposInfAdicionales) {
+      this.filtrarGruposInfAdicionales = filtrarGruposInfAdicionales;
+   }
 
-        } else {
-            contador = 0;
-            RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
-            RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
-        }
-    }
+   public GruposInfAdicionales getNuevoGruposInfAdicionales() {
+      return nuevoGruposInfAdicionales;
+   }
 
-    public void limpiarDuplicarGruposInfAdicionales() {
-        duplicarGruposInfAdicionales = new GruposInfAdicionales();
-    }
+   public void setNuevoGruposInfAdicionales(GruposInfAdicionales nuevoGruposInfAdicionales) {
+      this.nuevoGruposInfAdicionales = nuevoGruposInfAdicionales;
+   }
 
-    public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosGruposInfAdicionalesExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "GRUPOSINFADICIONALES", false, false, "UTF-8", null, null);
-        context.responseComplete();
-        grupoInfAdSeleccionado = null;
-    }
+   public GruposInfAdicionales getDuplicarGruposInfAdicionales() {
+      return duplicarGruposInfAdicionales;
+   }
 
-    public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosGruposInfAdicionalesExportar");
-        FacesContext context = FacesContext.getCurrentInstance();
-        Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "GRUPOSINFADICIONALES", false, false, "UTF-8", null, null);
-        context.responseComplete();
-        grupoInfAdSeleccionado = null;
-    }
+   public void setDuplicarGruposInfAdicionales(GruposInfAdicionales duplicarGruposInfAdicionales) {
+      this.duplicarGruposInfAdicionales = duplicarGruposInfAdicionales;
+   }
 
-    public void verificarRastro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (grupoInfAdSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(grupoInfAdSeleccionado.getSecuencia(), "GRUPOSINFADICIONALES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
-            if (resultado == 1) {
-                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-        } else if (administrarRastros.verificarHistoricosTabla("GRUPOSINFADICIONALES")) { // igual acá
-            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-        }
-    }
+   public GruposInfAdicionales getEditarGruposInfAdicionales() {
+      return editarGruposInfAdicionales;
+   }
 
-    public void eventoFiltrar() {
-        if (tipoLista == 0) {
-            tipoLista = 1;
-            contarRegistros();
-        }
-    }
+   public void setEditarGruposInfAdicionales(GruposInfAdicionales editarGruposInfAdicionales) {
+      this.editarGruposInfAdicionales = editarGruposInfAdicionales;
+   }
 
-    public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
+   public int getRegistrosBorrados() {
+      return registrosBorrados;
+   }
 
-    public void recordarSeleccion() {
-        if (grupoInfAdSeleccionado != null) {
-            FacesContext c = FacesContext.getCurrentInstance();
-            tablaC = (DataTable) c.getViewRoot().findComponent("form:datosGruposInfAdicionales");
-            tablaC.setSelection(grupoInfAdSeleccionado);
-        }
-    }
+   public void setRegistrosBorrados(int registrosBorrados) {
+      this.registrosBorrados = registrosBorrados;
+   }
 
-    public void habilitarBotonLov() {
-        activarLov = false;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-    }
+   public String getMensajeValidacion() {
+      return mensajeValidacion;
+   }
 
-    public void deshabilitarBotonLov() {
-        activarLov = true;
-        RequestContext.getCurrentInstance().update("form:listaValores");
-    }
+   public void setMensajeValidacion(String mensajeValidacion) {
+      this.mensajeValidacion = mensajeValidacion;
+   }
 
-    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
-    public List<GruposInfAdicionales> getListGruposInfAdicionales() {
-        if (listGruposInfAdicionales == null) {
-            listGruposInfAdicionales = administrarGruposInfAdicionales.consultarGruposInfAdicionales();
-        }
-        return listGruposInfAdicionales;
-    }
+   public boolean isGuardado() {
+      return guardado;
+   }
 
-    public void setListGruposInfAdicionales(List<GruposInfAdicionales> listGruposInfAdicionales) {
-        this.listGruposInfAdicionales = listGruposInfAdicionales;
-    }
+   public void setGuardado(boolean guardado) {
+      this.guardado = guardado;
+   }
 
-    public List<GruposInfAdicionales> getFiltrarGruposInfAdicionales() {
-        return filtrarGruposInfAdicionales;
-    }
+   public int getTamano() {
+      return tamano;
+   }
 
-    public void setFiltrarGruposInfAdicionales(List<GruposInfAdicionales> filtrarGruposInfAdicionales) {
-        this.filtrarGruposInfAdicionales = filtrarGruposInfAdicionales;
-    }
+   public void setTamano(int tamano) {
+      this.tamano = tamano;
+   }
 
-    public GruposInfAdicionales getNuevoGruposInfAdicionales() {
-        return nuevoGruposInfAdicionales;
-    }
+   public GruposInfAdicionales getGrupoInfAdSeleccionado() {
+      return grupoInfAdSeleccionado;
+   }
 
-    public void setNuevoGruposInfAdicionales(GruposInfAdicionales nuevoGruposInfAdicionales) {
-        this.nuevoGruposInfAdicionales = nuevoGruposInfAdicionales;
-    }
+   public void setGrupoInfAdSeleccionado(GruposInfAdicionales grupoInfAdSeleccionado) {
+      this.grupoInfAdSeleccionado = grupoInfAdSeleccionado;
+   }
 
-    public GruposInfAdicionales getDuplicarGruposInfAdicionales() {
-        return duplicarGruposInfAdicionales;
-    }
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosGruposInfAdicionales");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
 
-    public void setDuplicarGruposInfAdicionales(GruposInfAdicionales duplicarGruposInfAdicionales) {
-        this.duplicarGruposInfAdicionales = duplicarGruposInfAdicionales;
-    }
+   public void setInfoRegistro(String infoRegistro) {
+      this.infoRegistro = infoRegistro;
+   }
 
-    public GruposInfAdicionales getEditarGruposInfAdicionales() {
-        return editarGruposInfAdicionales;
-    }
+   public boolean isActivarLov() {
+      return activarLov;
+   }
 
-    public void setEditarGruposInfAdicionales(GruposInfAdicionales editarGruposInfAdicionales) {
-        this.editarGruposInfAdicionales = editarGruposInfAdicionales;
-    }
-
-    public int getRegistrosBorrados() {
-        return registrosBorrados;
-    }
-
-    public void setRegistrosBorrados(int registrosBorrados) {
-        this.registrosBorrados = registrosBorrados;
-    }
-
-    public String getMensajeValidacion() {
-        return mensajeValidacion;
-    }
-
-    public void setMensajeValidacion(String mensajeValidacion) {
-        this.mensajeValidacion = mensajeValidacion;
-    }
-
-    public boolean isGuardado() {
-        return guardado;
-    }
-
-    public void setGuardado(boolean guardado) {
-        this.guardado = guardado;
-    }
-
-    public int getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(int tamano) {
-        this.tamano = tamano;
-    }
-
-    public GruposInfAdicionales getGrupoInfAdSeleccionado() {
-        return grupoInfAdSeleccionado;
-    }
-
-    public void setGrupoInfAdSeleccionado(GruposInfAdicionales grupoInfAdSeleccionado) {
-        this.grupoInfAdSeleccionado = grupoInfAdSeleccionado;
-    }
-
-    public String getInfoRegistro() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosGruposInfAdicionales");
-        infoRegistro = String.valueOf(tabla.getRowCount());
-        return infoRegistro;
-    }
-
-    public void setInfoRegistro(String infoRegistro) {
-        this.infoRegistro = infoRegistro;
-    }
-
-    public boolean isActivarLov() {
-        return activarLov;
-    }
-
-    public void setActivarLov(boolean activarLov) {
-        this.activarLov = activarLov;
-    }
-
-    public String getPaginaanterior() {
-        return paginaanterior;
-    }
-
-    public void setPaginaanterior(String paginaanterior) {
-        this.paginaanterior = paginaanterior;
-    }
+   public void setActivarLov(boolean activarLov) {
+      this.activarLov = activarLov;
+   }
 
 }

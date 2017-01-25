@@ -150,7 +150,8 @@ public class ControlReformaLaboral implements Serializable {
     }
 
        private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
