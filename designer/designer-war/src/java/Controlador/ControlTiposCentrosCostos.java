@@ -318,76 +318,15 @@ public class ControlTiposCentrosCostos implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void modificarTipoCentroCosto(TiposCentrosCostos tipocc, String confirmarCambio, String valorConfirmar) {
+    public void modificarTipoCentroCosto(TiposCentrosCostos tipocc) {
         tipoCentroCostoSeleccionado = tipocc;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        int contador = 0;
-        int pass = 0;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoCentroCostoSeleccionado.getCodigo() == a) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                tipoCentroCostoSeleccionado.setCodigo(tipoCentroCostoSeleccionado.getCodigo());
-            } else {
-                for (int j = 0; j < listTiposCentrosCostos.size(); j++) {
-                    if (tipoCentroCostoSeleccionado.getCodigo() == listTiposCentrosCostos.get(j).getCodigo()) {
-                        contador++;
-                    }
-                }
-                if (contador > 0) {
-                    mensajeValidacion = "CODIGOS REPETIDOS";
-                    tipoCentroCostoSeleccionado.setCodigo(tipoCentroCostoSeleccionado.getCodigo());
-                } else {
-                    pass++;
-                }
-
-            }
-            if (tipoCentroCostoSeleccionado.getNombre() == null || tipoCentroCostoSeleccionado.getNombre().isEmpty()) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                tipoCentroCostoSeleccionado.setNombre(tipoCentroCostoSeleccionado.getNombre());
-            } else {
-                pass++;
-            }
-            if (pass == 2) {
-                if (modificarTiposCentrosCostos.isEmpty()) {
-                    modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
-                } else if (!modificarTiposCentrosCostos.contains(tipoCentroCostoSeleccionado)) {
-                    modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
-
-            } else {
-                RequestContext.getCurrentInstance().update("form:validacionModificar");
-                RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-
-            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
-        } else if (confirmarCambio.equalsIgnoreCase("GRUPOSTIPOSCC")) {
-            tipoCentroCostoSeleccionado.getGrupotipocc().setDescripcion(grupoTipoCCAutoCompletar);
-
-            for (int i = 0; i < listaGruposTiposCC.size(); i++) {
-                if (listaGruposTiposCC.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                tipoCentroCostoSeleccionado.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
-                listaGruposTiposCC.clear();
-                listaGruposTiposCC = null;
-                getListaGruposTiposCC();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('gruposTiposCentrosCostosDialogo').show()");
-                tipoActualizacion = 0;
-            }
+        if (modificarTiposCentrosCostos.isEmpty()) {
+            modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
+        } else if (!modificarTiposCentrosCostos.contains(tipoCentroCostoSeleccionado)) {
+            modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
         }
+        guardado = false;
+
         RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }

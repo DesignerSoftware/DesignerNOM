@@ -95,7 +95,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 0)}" process="@this"
                                                        onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'N', info.codigo)}" update="codigo"/>
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -108,7 +108,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 295px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 1)}" process="@this"
                                                        onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'N', info.nombre)}" update="nombre"/>
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -121,7 +121,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.grupotipocc.descripcion}" id="editarGrupoTipoCC" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 2)}" process="@this"
                                                        onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'GRUPOSTIPOSCC', info.grupotipocc.descripcion)}" update="grupoTipoCC"/>                                         
+                                                <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info)}" update="grupoTipoCC"/>                                         
                                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarIndex(info, 0,2)}" process="@this"/>   
                                             </p:inputText>
                                         </f:facet>  
