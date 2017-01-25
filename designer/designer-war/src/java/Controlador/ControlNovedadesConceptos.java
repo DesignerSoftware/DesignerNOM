@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -129,7 +130,8 @@ public class ControlNovedadesConceptos implements Serializable {
    private String infoRegistroLovTerceros;
    private BigDecimal valor;
    private boolean activarLOV;
-   public String paginaAnterior;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlNovedadesConceptos() {
       permitirIndex = true;
@@ -169,24 +171,36 @@ public class ControlNovedadesConceptos implements Serializable {
       infoRegistroLovTerceros = "0";
       activarLOV = true;
       paginaAnterior = "";
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      getListaConceptosNovedad();
+      if (listaConceptosNovedad != null) {
+         conceptoSeleccionado = listaConceptosNovedad.get(0);
+      }
+      if (conceptoSeleccionado != null) {
+         listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
+      }
+      novedadSeleccionada = null;
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      getListaConceptosNovedad();
+      if (listaConceptosNovedad != null) {
+         conceptoSeleccionado = listaConceptosNovedad.get(0);
+      }
+      if (conceptoSeleccionado != null) {
+         listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
+      }
+      novedadSeleccionada = null;
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -194,22 +208,22 @@ public class ControlNovedadesConceptos implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         String pagActual = "novedadconcepto";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+   }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -223,18 +237,6 @@ public class ControlNovedadesConceptos implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      getListaConceptosNovedad();
-      if (listaConceptosNovedad != null) {
-         conceptoSeleccionado = listaConceptosNovedad.get(0);
-      }
-      if (conceptoSeleccionado != null) {
-         listaNovedades = administrarNovedadesConceptos.novedadesConcepto(conceptoSeleccionado.getSecuencia());
-      }
-      novedadSeleccionada = null;
    }
 
    public String retornarPagina() {

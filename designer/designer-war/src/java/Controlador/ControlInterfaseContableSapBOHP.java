@@ -94,8 +94,6 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
     private Procesos procesoSeleccionado;
     private String infoRegistroProceso;
     //
-    private String paginaAnterior;
-    //
     private boolean guardado;
     private Date fechaDeParametro;
     private boolean aceptar;
@@ -138,6 +136,8 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
     private FTPClient ftpClient;
     private DefaultStreamedContent download;
     private UsuariosInterfases usuarioInterfaseContabilizacion;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlInterfaseContableSapBOHP() {
         ftpClient = new FTPClient();
@@ -171,20 +171,28 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
         activarEnviar = true;
         activarDeshacer = true;
         msnFechasActualizar = "";
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
    }
       
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -196,7 +204,7 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "interfasecontablesapbohp";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -228,16 +236,6 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
 
     public void activarAceptar() {
         aceptar = false;
-    }
-
-    public void recibirPaginaEntrante(String paginaAnt) {
-        paginaAnterior = paginaAnt;
-        actualUsuarioBD = null;
-        getActualUsuarioBD();
-        listaParametrosContables = null;
-        getListaParametrosContables();
-        parametroContableActual = null;
-        getParametroContableActual();
     }
 
     public String redirigir() {

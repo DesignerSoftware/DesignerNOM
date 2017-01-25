@@ -95,8 +95,6 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
     private Empleados empleadoSeleccionado;
     private String infoRegistroEmpleado;
     //
-    private String paginaAnterior;
-    //
     private boolean guardado;
     private Date fechaDeParametro;
     private boolean aceptar;
@@ -127,6 +125,8 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
     private String msnPaso1;
     //
     private String fechaIniRecon, fechaFinRecon;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlInterfaseContableDynamicsVT() {
         msnPaso1 = "";
@@ -169,20 +169,28 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
         permitirIndexParametro = true;
         indexParametroContable = -1;
         guardado = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
    }
       
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -194,7 +202,7 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "interfasecontabledynamicsvt";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -226,16 +234,6 @@ public class ControlInterfaseContableDynamicsVT implements Serializable {
 
     public void activarAceptar() {
         aceptar = false;
-    }
-
-    public void recibirPaginaEntrante(String paginaAnt) {
-        paginaAnterior = paginaAnt;
-        actualUsuarioBD = null;
-        getActualUsuarioBD();
-        listaParametrosContables = null;
-        getListaParametrosContables();
-        parametroContableActual = null;
-        getParametroContableActual();
     }
 
     public String redirigir() {

@@ -95,8 +95,6 @@ public class ControlNovedadesDefinitivas implements Serializable {
     private String celda;
     //Desactivar Campos
     private Boolean activate;
-    //Pagina Anterior
-    private String paginaAnterior;
     //Activar boton mostrar todos
     private boolean activarMostrarTodos;
     private String infoRegistro;
@@ -107,6 +105,8 @@ public class ControlNovedadesDefinitivas implements Serializable {
     private DataTable tablaC;
     private boolean activarNoRango;
     private boolean activarLOV;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlNovedadesDefinitivas() {
         paginaAnterior = "";
@@ -133,20 +133,30 @@ public class ControlNovedadesDefinitivas implements Serializable {
         listaModificar = new ArrayList<NovedadesSistema>();
         empleadoBack = new Empleados();
         activarLOV = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      listaNovedades = null;
+        getListaNovedades();
+
+        getListaEmpleados();
+        if (listaEmpleados != null) {
+            empleadoSeleccionado = listaEmpleados.get(0);
+        }
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      listaNovedades = null;
+        getListaNovedades();
+
+        getListaEmpleados();
+        if (listaEmpleados != null) {
+            empleadoSeleccionado = listaEmpleados.get(0);
+        }
    }
       
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -158,7 +168,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "novedaddefinitivas";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -195,17 +205,6 @@ public class ControlNovedadesDefinitivas implements Serializable {
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
-        }
-    }
-
-    public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-        listaNovedades = null;
-        getListaNovedades();
-
-        getListaEmpleados();
-        if (listaEmpleados != null) {
-            empleadoSeleccionado = listaEmpleados.get(0);
         }
     }
 
