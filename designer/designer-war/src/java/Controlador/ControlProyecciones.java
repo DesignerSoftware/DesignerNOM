@@ -74,23 +74,13 @@ public class ControlProyecciones implements Serializable {
     private Proyecciones editarProyeccion;
     private Proyecciones nuevaProyeccion;
 
-    private Column descripcionConcepto,
-            nombreEmpleado,
-            fechaDesde,
-            fechaHasta,
-            valor,
-            formula,
-            centroCosto,
-            codigoCuentaC,
-            descripcionCuentaC,
-            codigoCuentaD,
-            descripcionCuentaD,
-            nit,
-            nitNombre;
+    private Column descripcionConcepto, nombreEmpleado, fechaDesde, fechaHasta, valor, formula, centroCosto,
+            codigoCuentaC, descripcionCuentaC, codigoCuentaD, descripcionCuentaD, nit, nitNombre;
 
     private Proyecciones ProyeccionesSeleccionada;
-
     private int tamano;
+   private String paginaAnterior = "nominaf";
+private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlProyecciones() {
         borrarProyecciones = new ArrayList<Proyecciones>();
@@ -107,11 +97,9 @@ public class ControlProyecciones implements Serializable {
         tamano = 270;
         buscarCentrocosto = false;
         mostrartodos = true;
+       mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -132,7 +120,7 @@ public class ControlProyecciones implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "proyeccion";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -161,8 +149,6 @@ public class ControlProyecciones implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
-
-    private String paginaAnterior;
 
     public void recibirAtras(String atras) {
         paginaAnterior = atras;

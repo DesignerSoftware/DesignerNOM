@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Papeles;
 import Entidades.Empresas;
 import Exportar.ExportarPDF;
@@ -18,7 +17,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -82,6 +82,8 @@ public class ControlPapeles implements Serializable {
     private String nuevoTipoCCAutoCompletar;
     private Empresas backUpEmpresaActual;
 
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private Papeles PapelesPorEmpresaSeleccionado;
     private boolean banderaSeleccionPapelesPorEmpresa;
 
@@ -103,49 +105,10 @@ public class ControlPapeles implements Serializable {
         guardado = true;
         banderaSeleccionPapelesPorEmpresa = false;
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -156,6 +119,43 @@ public class ControlPapeles implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "papel";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -190,14 +190,12 @@ public class ControlPapeles implements Serializable {
                 } else if (cualCelda == 2) {
                     backUpCodigoAlternativo = listPapelesPorEmpresa.get(indice).getCodigoalternativo();
                 }
-            } else {
-                if (cualCelda == 0) {
-                    backUpCodigo = filtrarPapeles.get(indice).getCodigo();
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = filtrarPapeles.get(indice).getDescripcion();
-                } else if (cualCelda == 2) {
-                    backUpCodigoAlternativo = filtrarPapeles.get(indice).getCodigoalternativo();
-                }
+            } else if (cualCelda == 0) {
+                backUpCodigo = filtrarPapeles.get(indice).getCodigo();
+            } else if (cualCelda == 1) {
+                backUpDescripcion = filtrarPapeles.get(indice).getDescripcion();
+            } else if (cualCelda == 2) {
+                backUpCodigoAlternativo = filtrarPapeles.get(indice).getCodigoalternativo();
             }
 
             System.err.println("CAMBIAR INDICE CUALCELDA = " + cualCelda);
@@ -283,73 +281,69 @@ public class ControlPapeles implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearPapeles.contains(filtrarPapeles.get(indice))) {
-                    if (filtrarPapeles.get(indice).getCodigo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarPapeles.get(indice).setCodigo(backUpCodigo);
-                    } else if (filtrarPapeles.get(indice).getCodigo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarPapeles.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPapelesPorEmpresa.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarPapeles.get(indice).getCodigo().equals(listPapelesPorEmpresa.get(j).getCodigo())) {
-                                    contador++;
-                                }
+            } else if (!crearPapeles.contains(filtrarPapeles.get(indice))) {
+                if (filtrarPapeles.get(indice).getCodigo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarPapeles.get(indice).setCodigo(backUpCodigo);
+                } else if (filtrarPapeles.get(indice).getCodigo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarPapeles.get(indice).setCodigo(backUpCodigo);
+                } else {
+                    for (int j = 0; j < listPapelesPorEmpresa.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarPapeles.get(indice).getCodigo().equals(listPapelesPorEmpresa.get(j).getCodigo())) {
+                                contador++;
                             }
                         }
-                        for (int j = 0; j < filtrarPapeles.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarPapeles.get(indice).getCodigo().equals(filtrarPapeles.get(j).getCodigo())) {
-                                    contador++;
-                                }
+                    }
+                    for (int j = 0; j < filtrarPapeles.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarPapeles.get(indice).getCodigo().equals(filtrarPapeles.get(j).getCodigo())) {
+                                contador++;
                             }
                         }
-                        if (contador > 0) {
-                            filtrarPapeles.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
                     }
-
-                    if (filtrarPapeles.get(indice).getDescripcion().isEmpty()) {
-                        filtrarPapeles.get(indice).setDescripcion(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                    }
-                    if (filtrarPapeles.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarPapeles.get(indice).setDescripcion(backUpDescripcion);
-                        banderita1 = false;
+                    if (contador > 0) {
+                        filtrarPapeles.get(indice).setCodigo(backUpCodigo);
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
                     } else {
-                        banderita1 = true;
+                        banderita = true;
                     }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarPapeles.isEmpty()) {
-                            modificarPapeles.add(filtrarPapeles.get(indice));
-                        } else if (!modificarPapeles.contains(filtrarPapeles.get(indice))) {
-                            modificarPapeles.add(filtrarPapeles.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
 
+                if (filtrarPapeles.get(indice).getDescripcion().isEmpty()) {
+                    filtrarPapeles.get(indice).setDescripcion(backUpDescripcion);
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                }
+                if (filtrarPapeles.get(indice).getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarPapeles.get(indice).setDescripcion(backUpDescripcion);
+                    banderita1 = false;
+                } else {
+                    banderita1 = true;
+                }
+
+                if (banderita == true && banderita1 == true) {
+                    if (modificarPapeles.isEmpty()) {
+                        modificarPapeles.add(filtrarPapeles.get(indice));
+                    } else if (!modificarPapeles.contains(filtrarPapeles.get(indice))) {
+                        modificarPapeles.add(filtrarPapeles.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                    cancelarModificacion();
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosPapeles");
         }
@@ -492,7 +486,8 @@ public class ControlPapeles implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosPapeles");
                 RequestContext.getCurrentInstance().execute("PF('buscarPapelesDialogo').hide()");
                 context.reset("formularioDialogos:lovPapeles:globalFilter");
-            } /*else {
+            }
+            /*else {
              System.err.println("listPapelesPorEmpresa tamaño " + listPapelesPorEmpresa.size());
              System.err.println("listPapelesPorEmpresa nombre " + listPapelesPorEmpresa.get(0).getDescripcion());
              banderaSeleccionPapelesPorEmpresa = true;
@@ -1136,13 +1131,10 @@ public class ControlPapeles implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("CENTROSCOSTOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Formulas;
 import Entidades.FormulasProcesos;
 import Entidades.Operandos;
@@ -18,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -121,8 +121,6 @@ public class ControlProceso implements Serializable {
     private boolean cambiosPagina;
     private String altoTablaProcesos, altoTablaFormulasProcesos, altoTablaOperandosLogs;
     //
-    private String paginaAnterior;
-    //
     private Procesos procesoNuevoClonado, procesoBaseClonado;
     private List<Procesos> lovProcesos;
     private List<Procesos> filtrarLovProcesos;
@@ -133,6 +131,8 @@ public class ControlProceso implements Serializable {
     //
     private String infoRegistroFormula, infoRegistroTipoPago, infoRegistroProceso, infoRegistroOperando;
     private String altoTablaProceso;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlProceso() {
         //clonado
@@ -218,49 +218,10 @@ public class ControlProceso implements Serializable {
         bandera = 0;
         banderaFormulasProcesos = 0;
         banderaOperandosLogs = 0;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -273,8 +234,45 @@ public class ControlProceso implements Serializable {
         }
     }
 
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "proceso";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public String valorPaginaAnterior() {
-       System.out.println("Entro en valorPaginaAnterior(), retorno : " + paginaAnterior);
+        System.out.println("Entro en valorPaginaAnterior(), retorno : " + paginaAnterior);
         return paginaAnterior;
     }
 
@@ -306,10 +304,8 @@ public class ControlProceso implements Serializable {
             }
             if (aux.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (aux.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (aux.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 1) {
@@ -318,10 +314,8 @@ public class ControlProceso implements Serializable {
             }
             if (nuevoProceso.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (nuevoProceso.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (nuevoProceso.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         if (i == 2) {
@@ -330,10 +324,8 @@ public class ControlProceso implements Serializable {
             }
             if (duplicarProceso.getDescripcion() == null) {
                 retorno = false;
-            } else {
-                if (duplicarProceso.getDescripcion().isEmpty()) {
-                    retorno = false;
-                }
+            } else if (duplicarProceso.getDescripcion().isEmpty()) {
+                retorno = false;
             }
         }
         return retorno;
@@ -1846,9 +1838,9 @@ public class ControlProceso implements Serializable {
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
     public void salir() {
-       System.out.println("Entro en Salud");
+        System.out.println("Entro en Salud");
         if (bandera == 1) {
-           System.out.println("Entro en bandera == 1");
+            System.out.println("Entro en bandera == 1");
             altoTablaProcesos = "110";
             procesoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosProceso:procesoCodigo");
             procesoCodigo.setFilterStyle("display: none; visibility: hidden;");
@@ -1876,7 +1868,7 @@ public class ControlProceso implements Serializable {
             tipoLista = 0;
         }
         if (banderaFormulasProcesos == 1) {
-           System.out.println("Entro en banderaFormulasProcesos == 1");
+            System.out.println("Entro en banderaFormulasProcesos == 1");
             altoTablaFormulasProcesos = "115";
             formulaProcesoPeriodicidad = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulaProceso:formulaProcesoPeriodicidad");
             formulaProcesoPeriodicidad.setFilterStyle("display: none; visibility: hidden;");
@@ -1888,7 +1880,7 @@ public class ControlProceso implements Serializable {
             tipoListaFormulasProcesos = 0;
         }
         if (banderaOperandosLogs == 1) {
-           System.out.println("Entro en banderaOperandosLogs == 1");
+            System.out.println("Entro en banderaOperandosLogs == 1");
             altoTablaOperandosLogs = "115";
             operandoOperando = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosOperando:operandoOperando");
             operandoOperando.setFilterStyle("display: none; visibility: hidden;");
@@ -2549,15 +2541,13 @@ public class ControlProceso implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("PROCESOS")) {
+            nombreTablaRastro = "Procesos";
+            msnConfirmarRastroHistorico = "La tabla PROCESOS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PROCESOS")) {
-                nombreTablaRastro = "Procesos";
-                msnConfirmarRastroHistorico = "La tabla PROCESOS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -2587,15 +2577,13 @@ public class ControlProceso implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("FORMULASPROCESOS")) {
+            nombreTablaRastro = "FormulasProcesos";
+            msnConfirmarRastroHistorico = "La tabla FORMULASPROCESOS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("FORMULASPROCESOS")) {
-                nombreTablaRastro = "FormulasProcesos";
-                msnConfirmarRastroHistorico = "La tabla FORMULASPROCESOS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         indexFormulasProcesos = -1;
     }
@@ -2625,15 +2613,13 @@ public class ControlProceso implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("OPERANDOSLOGS")) {
+            nombreTablaRastro = "OperandosLogs";
+            msnConfirmarRastroHistorico = "La tabla OPERANDOSLOGS tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("OPERANDOSLOGS")) {
-                nombreTablaRastro = "OperandosLogs";
-                msnConfirmarRastroHistorico = "La tabla OPERANDOSLOGS tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         indexOperandosLogs = -1;
     }

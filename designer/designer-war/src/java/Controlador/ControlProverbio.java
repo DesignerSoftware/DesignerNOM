@@ -14,7 +14,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -97,11 +98,13 @@ public class ControlProverbio implements Serializable {
     //Modificar Detalles Tipos Cotizantes
     private List<Recordatorios> listaMensajesUsuariosModificar;
     private List<Recordatorios> listaMensajesUsuariosBorrar;
-    private String paginaAnterior, mensaje;
+    private String mensaje;
     private int ano, dia, mes;
     private List<Short> anios;
     private Short anioactual;
     private String infoRegistroProverbios, infoRegistroMsgUsuario;
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String paginaAnterior = "nominaf";
 
     public ControlProverbio() {
         cambiosPagina = true;
@@ -146,49 +149,10 @@ public class ControlProverbio implements Serializable {
 //            Short agno = new Short(String.valueOf(i + 1900));
             anios.add(new Short(String.valueOf(i + 1900)));
         }
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -201,37 +165,68 @@ public class ControlProverbio implements Serializable {
         }
     }
 
-    public void recibirPaginaEntrante(String pagina) {
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaProverbios = null;
+        listaMensajesUsuario = null;
+        getListaMensajesUsuario();
+        getListaProverbios();
+        if (listaProverbios != null) {
+            infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
+        } else {
+            infoRegistroProverbios = String.valueOf(0);
+        }
 
+        if (listaMensajesUsuario != null) {
+            infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
+        } else {
+            infoRegistroMsgUsuario = String.valueOf(0);
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "proverbio";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaProverbios = null;
         listaMensajesUsuario = null;
         getListaMensajesUsuario();
         getListaProverbios();
         if (listaProverbios != null) {
-            /*if (!listaProverbios.isEmpty()) {
-                infoRegistroProverbios = String.valueOf(listaProverbios.size());
-//            modificarInfoRegistroProverbios(listaProverbios.size());
-            } else {
-                infoRegistroProverbios = String.valueOf(0);
-            }*/
             infoRegistroProverbios = (!listaProverbios.isEmpty()) ? String.valueOf(listaProverbios.size()) : String.valueOf(0);
         } else {
             infoRegistroProverbios = String.valueOf(0);
-//            modificarInfoRegistroProverbios(0);
         }
 
         if (listaMensajesUsuario != null) {
-            /*if (!listaMensajesUsuario.isEmpty()) {
-                infoRegistroMsgUsuario = String.valueOf(listaMensajesUsuario.size());
-//            modificarInfoRegistroMsgUsuarios(listaMensajesUsuario.size());
-            } else {
-                infoRegistroMsgUsuario = String.valueOf(0);
-            }*/
             infoRegistroMsgUsuario = (!listaMensajesUsuario.isEmpty()) ? String.valueOf(listaMensajesUsuario.size()) : String.valueOf(0);
         } else {
             infoRegistroMsgUsuario = String.valueOf(0);
-//            modificarInfoRegistroMsgUsuarios(0);
         }
     }
 
@@ -1135,7 +1130,7 @@ public class ControlProverbio implements Serializable {
         HashMap agnosLetras = AgnosMesesDiasNumeros.getAgnos(Calendar.getInstance().get(Calendar.YEAR));
         if (tipoNuevo == 1) {
             if (estadoAno != null) {
-                if (agnosLetras.containsKey(estadoAno.toUpperCase())){
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
                     nuevoRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
                 }
                 /*
@@ -1184,14 +1179,14 @@ public class ControlProverbio implements Serializable {
                 } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
                     nuevoRegistroMensajesUsuarios.setAno(new Short("0"));
                 }
-                */
+                 */
             } else {
                 nuevoRegistroMensajesUsuarios.setAno(null);
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAno");
         } else {
             if (estadoAno != null) {
-                if (agnosLetras.containsKey(estadoAno.toUpperCase())){
+                if (agnosLetras.containsKey(estadoAno.toUpperCase())) {
                     duplicarRegistroMensajesUsuarios.setAno((short) agnosLetras.get(estadoAno.toUpperCase()));
                 }
                 /*
@@ -1240,7 +1235,7 @@ public class ControlProverbio implements Serializable {
                 } else if (estadoAno.equalsIgnoreCase("TODOS LOS AÑOS")) {
                     duplicarRegistroMensajesUsuarios.setAno(new Short("0"));
                 }
-                */
+                 */
             } else {
                 duplicarRegistroMensajesUsuarios.setAno(null);
             }
@@ -1575,7 +1570,7 @@ public class ControlProverbio implements Serializable {
                 } else if (resultado == 5) {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
                 }
-                */
+                 */
                 switch (resultado) {
                     case 1:
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -1614,7 +1609,7 @@ public class ControlProverbio implements Serializable {
                 } else if (resultadoNF == 5) {
                     RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastroNF').show()");
                 }*/
-                switch (resultadoNF){
+                switch (resultadoNF) {
                     case 1:
                         RequestContext.getCurrentInstance().execute("PF('errorObjetosDBNF').show()");
                         break;

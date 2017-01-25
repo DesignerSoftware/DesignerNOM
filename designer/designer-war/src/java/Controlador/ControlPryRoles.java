@@ -19,7 +19,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -60,11 +61,13 @@ public class ControlPryRoles implements Serializable {
     private boolean permitirIndex;
     private Column codigo, descripcion;
     private int registrosBorrados;
-    private String mensajeValidacion, paginaanterior;
+    private String mensajeValidacion;
     private int tamano;
     private boolean activarLov;
     private String infoRegistro;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlPryRoles() {
         listPryRoles = null;
@@ -80,49 +83,10 @@ public class ControlPryRoles implements Serializable {
         cualCelda = -1;
         pryRolSeleccionado = null;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -136,7 +100,7 @@ public class ControlPryRoles implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listPryRoles = null;
         getListPryRoles();
         deshabilitarBotonLov();
@@ -145,8 +109,46 @@ public class ControlPryRoles implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+       listPryRoles = null;
+        getListPryRoles();
+        deshabilitarBotonLov();
+        if (listPryRoles != null) {
+            pryRolSeleccionado = listPryRoles.get(0);
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "pry_rol";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(PryRoles pryrol, int celda) {
@@ -172,7 +174,7 @@ public class ControlPryRoles implements Serializable {
     public void activarAceptar() {
         aceptar = false;
     }
-    
+
     public void cancelarModificacion() {
         if (bandera == 1) {
             //CERRAR FILTRADO
@@ -201,7 +203,7 @@ public class ControlPryRoles implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosPryRoles");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
-    
+
     public void salir() {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -248,7 +250,7 @@ public class ControlPryRoles implements Serializable {
             tipoLista = 0;
         }
     }
-    
+
     public void modificarPryRoles(PryRoles pryrol, String confirmarCambio, String valorConfirmar) {
         pryRolSeleccionado = pryrol;
         int contador = 0;
@@ -314,8 +316,8 @@ public class ControlPryRoles implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
-    
-     public void revisarDialogoGuardar() {
+
+    public void revisarDialogoGuardar() {
 
         if (!borrarListPryRoles.isEmpty() || !crearListPryRoles.isEmpty() || !modificarListPryRoles.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
@@ -364,7 +366,7 @@ public class ControlPryRoles implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
         }
     }
-    
+
     public void editarCelda() {
         if (pryRolSeleccionado != null) {
             editarpryRol = pryRolSeleccionado;
@@ -431,7 +433,7 @@ public class ControlPryRoles implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosPryRoles");
             }
             k++;
-            l = BigDecimal.valueOf(k); 
+            l = BigDecimal.valueOf(k);
             nuevopryRol.setSecuencia(l);
             crearListPryRoles.add(nuevopryRol);
             listPryRoles.add(nuevopryRol);
@@ -562,7 +564,7 @@ public class ControlPryRoles implements Serializable {
         } else if (administrarRastros.verificarHistoricosTabla("TIPOSCURSOS")) { // igual acá
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-           RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -585,18 +587,17 @@ public class ControlPryRoles implements Serializable {
         }
     }
 
-    
-    public void contarRegistros(){
+    public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
-    
+
     public void deshabilitarBotonLov() {
         activarLov = true;
     }
-    
+
     ///////gets y sets//////////
     public List<PryRoles> getListPryRoles() {
-        if(listPryRoles == null){
+        if (listPryRoles == null) {
             listPryRoles = administrarPryRoles.PryRoles();
         }
         return listPryRoles;
@@ -705,6 +706,4 @@ public class ControlPryRoles implements Serializable {
         this.registrosBorrados = registrosBorrados;
     }
 
-    
-    
 }

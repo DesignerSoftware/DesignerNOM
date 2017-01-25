@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.Rastros;
 import Entidades.RastrosValores;
 import Exportar.ExportarPDF;
@@ -11,7 +10,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -54,6 +54,8 @@ public class ControlRastro implements Serializable {
     //BOTON ELIMINADOS O INSERTADOS Y ACTUALIZADOS
     private String btnValor;
     private int estadoBtn;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlRastro() {
         listaRastros = null;
@@ -64,49 +66,10 @@ public class ControlRastro implements Serializable {
         campoEmpl = true;
         btnValor = "Consultar Eliminados";
         estadoBtn = 1;
-    }
-    
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -118,6 +81,43 @@ public class ControlRastro implements Serializable {
         }
     }
 
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "rastrotabla";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     //PARAMETROS PARA EL RASTRO
     public void recibirDatosTabla(BigInteger secRegistro, String nombreTablaR, String nombrePagina) {
         listaRastros = null;
@@ -125,7 +125,7 @@ public class ControlRastro implements Serializable {
         nombreTablaRastro = nombreTablaR;
         nomPagina = nombrePagina;
         listaRastros = administrarRastros.rastrosTabla(secRegistroT, nombreTablaRastro);
-        System.out.println("recibirDatosTabla() : " );
+        System.out.println("recibirDatosTabla() : ");
         System.out.println("Secuencia tabla " + secRegistroT);
         System.out.println("nombreTablaRastro : " + nombreTablaRastro);
         //System.out.println("listaRastros : " + listaRastros.get(bandera));
@@ -141,7 +141,7 @@ public class ControlRastro implements Serializable {
         nombreTablaRastro = nombreTablaR;
         nomPagina = nombrePagina;
         getListaRastros();
-        System.out.println("ControlRastro.historicosTabla() : " );
+        System.out.println("ControlRastro.historicosTabla() : ");
         System.out.println("Secuencia tabla " + secRegistroT);
         System.out.println("nombreTablaRastro : " + nombreTablaRastro);
         System.out.println("nombrePagina : " + nomPagina);
@@ -167,6 +167,7 @@ public class ControlRastro implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorEliminados').show()");
         }
     }
+
     public void historicosTablaEliminadosEmpleado() {
         RequestContext context = RequestContext.getCurrentInstance();
         backUplistaLOVRastros = listaRastros;

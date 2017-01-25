@@ -131,6 +131,8 @@ public class ControlReportesBancos implements Serializable {
     private String tipoReporte;
     private boolean estadoReporte;
     private String resultadoReporte;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlReportesBancos() {
         activoMostrarTodos = true;
@@ -170,11 +172,21 @@ public class ControlReportesBancos implements Serializable {
         ciudadSeleccionada = new Ciudades();
         permitirIndex = true;
         reporteSeleccionadoLOV = null;
+       mapParametros.put ("paginaAnterior", paginaAnterior);
+    }
+   @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarReportesBancos.obtenerConexion(ses.getId());
+            administarReportes.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -195,7 +207,7 @@ public class ControlReportesBancos implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "reportesbancos";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -212,18 +224,6 @@ public class ControlReportesBancos implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarReportesBancos.obtenerConexion(ses.getId());
-            administarReportes.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
 
     public void iniciarPagina() {
         activoMostrarTodos = true;

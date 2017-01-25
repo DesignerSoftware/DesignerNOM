@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.ProcesosProductivos;
 import Entidades.CentrosCostos;
 import Exportar.ExportarPDF;
@@ -17,7 +16,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -78,6 +78,8 @@ public class ControlProcesosProductivos implements Serializable {
     private String backupBanco;
     private String infoRegistro;
     private String infoRegistroCentroCostos;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlProcesosProductivos() {
         listProcesosProductivos = null;
@@ -95,49 +97,10 @@ public class ControlProcesosProductivos implements Serializable {
         guardado = true;
         tamano = 270;
         aceptar = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -148,6 +111,43 @@ public class ControlProcesosProductivos implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "procesoproductivo";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -547,121 +547,117 @@ public class ControlProcesosProductivos implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
-            } else {
-
-                if (!crearProcesosProductivos.contains(filtrarProcesosProductivos.get(indice))) {
-                    if (filtrarProcesosProductivos.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarProcesosProductivos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < listProcesosProductivos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarProcesosProductivos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
-                    }
-                    if (filtrarProcesosProductivos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarProcesosProductivos.isEmpty()) {
-                            modificarProcesosProductivos.add(filtrarProcesosProductivos.get(indice));
-                        } else if (!modificarProcesosProductivos.contains(filtrarProcesosProductivos.get(indice))) {
-                            modificarProcesosProductivos.add(filtrarProcesosProductivos.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearProcesosProductivos.contains(filtrarProcesosProductivos.get(indice))) {
+                if (filtrarProcesosProductivos.get(indice).getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
                 } else {
-                    if (filtrarProcesosProductivos.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    for (int j = 0; j < filtrarProcesosProductivos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < listProcesosProductivos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                         filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
-                    } else {
-                        for (int j = 0; j < filtrarProcesosProductivos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < listProcesosProductivos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarProcesosProductivos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
-                    }
-                    if (filtrarProcesosProductivos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita1 = false;
-                        filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
                     }
-                    index = -1;
-                    secRegistro = null;
+
                 }
 
+                if (filtrarProcesosProductivos.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
+                }
+                if (filtrarProcesosProductivos.get(indice).getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
+                }
+
+                if (banderita == true && banderita1 == true) {
+                    if (modificarProcesosProductivos.isEmpty()) {
+                        modificarProcesosProductivos.add(filtrarProcesosProductivos.get(indice));
+                    } else if (!modificarProcesosProductivos.contains(filtrarProcesosProductivos.get(indice))) {
+                        modificarProcesosProductivos.add(filtrarProcesosProductivos.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarProcesosProductivos.get(indice).getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
+                } else {
+                    for (int j = 0; j < filtrarProcesosProductivos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < listProcesosProductivos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarProcesosProductivos.get(indice).getCodigo() == listProcesosProductivos.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
+                        filtrarProcesosProductivos.get(indice).setCodigo(backupCodigo);
+
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (filtrarProcesosProductivos.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
+                }
+                if (filtrarProcesosProductivos.get(indice).getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita1 = false;
+                    filtrarProcesosProductivos.get(indice).setDescripcion(backupDescripcion);
+                }
+
+                if (banderita == true && banderita1 == true) {
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosProcesosProductivos");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -947,24 +943,21 @@ public class ControlProcesosProductivos implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
-            } else {
-                if (tipoNuevo == 2) {
-                    //duplicarProcesosProductivos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-                    System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-                    System.out.println("DUPLICAR INDEX : " + index);
-                    duplicarProcesosProductivos.setCentrocosto(new CentrosCostos());
-                    duplicarProcesosProductivos.getCentrocosto().setNombre(" ");
+            } else if (tipoNuevo == 2) {
+                //duplicarProcesosProductivos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
+                System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+                System.out.println("DUPLICAR INDEX : " + index);
+                duplicarProcesosProductivos.setCentrocosto(new CentrosCostos());
+                duplicarProcesosProductivos.getCentrocosto().setNombre(" ");
 
-                    System.out.println("DUPLICAR PERSONA  : " + duplicarProcesosProductivos.getCentrocosto().getNombre());
-                    System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
-                    if (tipoLista == 0) {
-                        listProcesosProductivos.get(index).getCentrocosto().setNombre(nuevoYduplicarCompletarPersona);
-                        System.err.println("tipo lista" + tipoLista);
-                        System.err.println("Secuencia Parentesco " + listProcesosProductivos.get(index).getCentrocosto().getSecuencia());
-                    } else if (tipoLista == 1) {
-                        filtrarProcesosProductivos.get(index).getCentrocosto().setNombre(nuevoYduplicarCompletarPersona);
-                    }
-
+                System.out.println("DUPLICAR PERSONA  : " + duplicarProcesosProductivos.getCentrocosto().getNombre());
+                System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
+                if (tipoLista == 0) {
+                    listProcesosProductivos.get(index).getCentrocosto().setNombre(nuevoYduplicarCompletarPersona);
+                    System.err.println("tipo lista" + tipoLista);
+                    System.err.println("Secuencia Parentesco " + listProcesosProductivos.get(index).getCentrocosto().getSecuencia());
+                } else if (tipoLista == 1) {
+                    filtrarProcesosProductivos.get(index).getCentrocosto().setNombre(nuevoYduplicarCompletarPersona);
                 }
 
             }
@@ -1388,13 +1381,10 @@ public class ControlProcesosProductivos implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("PROCESOSPRODUCTIVOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("PROCESOSPRODUCTIVOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

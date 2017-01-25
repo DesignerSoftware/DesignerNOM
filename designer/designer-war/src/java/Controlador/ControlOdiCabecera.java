@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.Empleados;
 import Entidades.Empresas;
 import Entidades.OdisCabeceras;
@@ -25,7 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -101,7 +101,6 @@ public class ControlOdiCabecera implements Serializable {
     private int bandera;
     private boolean permitirIndex, activarlov, editarDetalles;
     private int altotabla;
-    private String paginaAnterior;
     private BigInteger l, auxiliar, secuenciaParametro, anioParametro, mesParametro;
     //RASTROS
     private boolean guardado, incluirdetalles;
@@ -112,6 +111,8 @@ public class ControlOdiCabecera implements Serializable {
     private Column empresa, sucursal, nombreTercero, tipoEntidad, valor, numautorizacion, origen, detalle, anio, mes;
     //COLUMNASODIDETALLES
     private Column empleado, numdetalle, observacion, relacion, numcertificado, valorcobrado, valordetalle;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlOdiCabecera() {
 
@@ -161,50 +162,11 @@ public class ControlOdiCabecera implements Serializable {
         activarlov = true;
         incluirdetalles = false;
         editarDetalles = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
 
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -215,6 +177,43 @@ public class ControlOdiCabecera implements Serializable {
             System.out.println("Error postconstruct ControlOdiCabecera: " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "odicabecera";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirParametros(Short anio, Short mes, BigInteger secuenciaEmpresa) {
@@ -586,7 +585,6 @@ public class ControlOdiCabecera implements Serializable {
         }
     }
 
-    
     public void seleccionarExportarXML() throws IOException {
         if (OdiDetallesSeleccionada != null) {
             exportXMLTablaDetalles();
@@ -597,7 +595,7 @@ public class ControlOdiCabecera implements Serializable {
         }
     }
 
-    public void nombreXML(){
+    public void nombreXML() {
         if (OdiDetallesSeleccionada != null) {
             exportXMLNombreArchivoDetalles();
         } else if (odiCabeceraSeleccionada != null) {
@@ -606,7 +604,7 @@ public class ControlOdiCabecera implements Serializable {
             exportXMLNombreArchivo();
         }
     }
-    
+
     public void exportPDF() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosCabeceraExportar");
         FacesContext context = FacesContext.getCurrentInstance();
@@ -1183,18 +1181,16 @@ public class ControlOdiCabecera implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 }
             }
-        } else {
-            if (!listaOdiCabeceraCrear.contains(odiCabeceraSeleccionada)) {
+        } else if (!listaOdiCabeceraCrear.contains(odiCabeceraSeleccionada)) {
 
-                if (listaOdiCabeceraModificar.isEmpty()) {
-                    listaOdiCabeceraModificar.add(odiCabeceraSeleccionada);
-                } else if (!listaOdiCabeceraModificar.contains(odiCabeceraSeleccionada)) {
-                    listaOdiCabeceraModificar.add(odiCabeceraSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+            if (listaOdiCabeceraModificar.isEmpty()) {
+                listaOdiCabeceraModificar.add(odiCabeceraSeleccionada);
+            } else if (!listaOdiCabeceraModificar.contains(odiCabeceraSeleccionada)) {
+                listaOdiCabeceraModificar.add(odiCabeceraSeleccionada);
+            }
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         RequestContext.getCurrentInstance().update("form:datosCabecera");
@@ -1389,12 +1385,10 @@ public class ControlOdiCabecera implements Serializable {
             } else if (result == 5) {
                 RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("ODISCABECERAS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("ODISCABECERAS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -2117,10 +2111,10 @@ public class ControlOdiCabecera implements Serializable {
         modificarInfoRegistroOdicabecera(filtrarListaOdiCabecera.size());
     }
 
-    public void recolectarINP(){
-        
+    public void recolectarINP() {
+
     }
-    
+
     public void checkdetalles() {
         if (nuevaOdiCabecera.isCheckDetalles() == false) {
             nuevaOdiCabecera.setIncluirdetalles("N");

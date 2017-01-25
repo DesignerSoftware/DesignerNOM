@@ -47,13 +47,24 @@ public class ControlPruebaEnvioCorreo implements Serializable {
     private String mensajeValidacion;
     private String nombreArchivo;
     private String tipoTrabajador;
-
-    public ControlPruebaEnvioCorreo() {
-    }
-
        private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+
+    public ControlPruebaEnvioCorreo() {
    mapParametros.put ("paginaAnterior", paginaAnterior);
+    }
+   @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administarReportes.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -74,7 +85,7 @@ public class ControlPruebaEnvioCorreo implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "enviocorreo";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -91,17 +102,6 @@ public class ControlPruebaEnvioCorreo implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administarReportes.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
     
     public void cargarArchivo(FileUploadEvent event) throws IOException {
         nombreArchivo = event.getFile().getFileName();
