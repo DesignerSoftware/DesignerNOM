@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -85,7 +86,8 @@ public class ControlFormulaConcepto implements Serializable {
    private String altoTabla;
    private String infoRegistroLovConcepto, infoRegistroLovFCOrden;
    //
-   private String paginaEntrante;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlFormulaConcepto() {
       altoTabla = "300";
@@ -123,47 +125,8 @@ public class ControlFormulaConcepto implements Serializable {
       duplicarFormulaConcepto = new FormulasConceptos();
       cambiosFormulasConceptos = false;
 
-      paginaEntrante = "";
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
-
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -178,17 +141,54 @@ public class ControlFormulaConcepto implements Serializable {
       }
    }
 
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
    public void recibirFormula(Formulas formula, String pagina) {
       System.out.println("Controlador.ControlFormulaConcepto.recibirFormula()");
       System.out.println("formula : " + formula + " , y pagina : " + pagina);
-      paginaEntrante = pagina;
+      paginaAnterior = pagina;
       formulaActual = formula;
       listFormulasConceptos = null;
       getListFormulasConceptos();
    }
 
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "formulaconcepto";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
+
    public String retornarPagina() {
-      return paginaEntrante;
+      return paginaAnterior;
    }
 
    public void modificarFormulaConcepto(FormulasConceptos fc) {
@@ -867,9 +867,9 @@ public class ControlFormulaConcepto implements Serializable {
 
    public boolean validarFechasRegistroFormulas(FormulasConceptos formulaCon) {
       boolean retorno = false;
-         if (formulaCon.getFechainicial().after(fechaParametro) && (formulaCon.getFechainicial().before(formulaCon.getFechafinal()))) {
-            retorno = true;
-         }
+      if (formulaCon.getFechainicial().after(fechaParametro) && (formulaCon.getFechainicial().before(formulaCon.getFechafinal()))) {
+         retorno = true;
+      }
       return retorno;
    }
 

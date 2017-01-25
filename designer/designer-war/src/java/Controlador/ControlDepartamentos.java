@@ -75,6 +75,8 @@ public class ControlDepartamentos implements Serializable {
     private Paises paisSeleccionado;
     private String nuevoYduplicarCompletarPais;
     private String infoRegistro;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDepartamentos() {
         listDepartamentos = null;
@@ -92,10 +94,9 @@ public class ControlDepartamentos implements Serializable {
         guardado = true;
         tamano = 270;
         aceptar = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -116,7 +117,7 @@ public class ControlDepartamentos implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "departamento";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

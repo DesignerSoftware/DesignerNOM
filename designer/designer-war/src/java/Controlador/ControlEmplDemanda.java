@@ -76,6 +76,8 @@ public class ControlEmplDemanda implements Serializable {
     private String altoTabla;
     private DataTable tablaC;
     private boolean activarLov;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
 
     public ControlEmplDemanda() {
         altoTabla = "280";
@@ -100,10 +102,9 @@ public class ControlEmplDemanda implements Serializable {
         nuevaDemandaEmpleado.setFecha(new Date());
         listDemandaEmpleadoCrear = new ArrayList<Demandas>();
         activarLov = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -124,7 +125,7 @@ public class ControlEmplDemanda implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "empldemanda";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

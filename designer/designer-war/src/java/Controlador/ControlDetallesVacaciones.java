@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.inject.Named;
@@ -65,8 +66,10 @@ public class ControlDetallesVacaciones {
    private String infoRegistro, infoRegistroPeriodo;
    private int tamano;
    //
-   private String paginaAnterior;
    private BigInteger secuenciaVacacion;
+
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    /**
     * Creates a new instance of ControlDetallesVacaciones
@@ -102,46 +105,8 @@ public class ControlDetallesVacaciones {
       infoRegistroPeriodo = "0";
       paginaAnterior = "";
       //
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
-
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -156,10 +121,47 @@ public class ControlDetallesVacaciones {
       }
    }
 
-   public void recibirPaginaEntrante(String pagina, Empleados empl, BigInteger secVacacion) {
+   public void recibirVariasCosas(String pagina, Empleados empl, BigInteger secVacacion) {
       secuenciaVacacion = secVacacion;
       empleado = empl;
       paginaAnterior = pagina;
+   }
+
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "detallesvacaciones";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public String redirigirPaginaAnterior() {
@@ -354,7 +356,7 @@ public class ControlDetallesVacaciones {
 //      colFechaIni.setFilterStyle("width: 85% !important;");
       String estilo = colFechaIni.getFilterStyle();
       System.out.println("getTamano() estilo : " + estilo);
-      if (estilo.startsWith("width: 85%")){
+      if (estilo.startsWith("width: 85%")) {
          tamano = 310;
       } else {
          tamano = 330;

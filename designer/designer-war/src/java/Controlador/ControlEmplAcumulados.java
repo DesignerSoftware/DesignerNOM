@@ -57,6 +57,8 @@ public class ControlEmplAcumulados implements Serializable {
     private int tamano;
     public String altoTabla;
     public String infoRegistro;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
 
     public ControlEmplAcumulados() {
         empleadoSeleccionado = null;
@@ -65,10 +67,9 @@ public class ControlEmplAcumulados implements Serializable {
         editarVWAcumuladosPorEmpleado = new VWAcumulados();
         secRegistro = null;
         altoTabla = "292";
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -89,7 +90,7 @@ public class ControlEmplAcumulados implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "emplacumulados";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

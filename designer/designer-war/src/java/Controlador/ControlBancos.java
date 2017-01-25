@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Bancos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -17,11 +16,10 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -129,7 +127,7 @@ public class ControlBancos implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-            String pagActual = "banco";
+         String pagActual = "banco";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
 //         mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

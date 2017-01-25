@@ -165,6 +165,8 @@ public class ControlEmpleadoIndividual implements Serializable {
     private String cabezeraVisor;
     private boolean estadoReporte;
     private String resultadoReporte;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlEmpleadoIndividual() {
         imprimir("0: constructor.", null);
@@ -177,10 +179,9 @@ public class ControlEmpleadoIndividual implements Serializable {
         guardado = true;
         existenHV = true;
         persona = new Personas();
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -201,7 +202,7 @@ public class ControlEmpleadoIndividual implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "empleadoindividual";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

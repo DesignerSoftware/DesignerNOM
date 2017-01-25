@@ -90,6 +90,8 @@ public class ControlDependenciaOperando implements Serializable {
     private List<Operandos> lovFiltradosListaOperandos;
     private Operandos seleccionOperandos;
     private String nombre;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDependenciaOperando() {
         cambiosPagina = true;
@@ -106,10 +108,9 @@ public class ControlDependenciaOperando implements Serializable {
         altoTabla = "245";
         duplicarDependenciaOperando = new DependenciasOperandos();
         lovListaOperandos = null;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -130,7 +131,7 @@ public class ControlDependenciaOperando implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "dependenciaoperando";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

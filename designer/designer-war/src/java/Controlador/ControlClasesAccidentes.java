@@ -80,10 +80,11 @@ public class ControlClasesAccidentes implements Serializable {
         duplicarClaseAccidente = new ClasesAccidentes();
         guardado = true;
         tamano = 270;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
        private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -104,7 +105,7 @@ public class ControlClasesAccidentes implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "claseaccidente";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

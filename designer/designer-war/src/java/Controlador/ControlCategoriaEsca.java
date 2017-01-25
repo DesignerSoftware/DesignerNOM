@@ -89,6 +89,8 @@ public class ControlCategoriaEsca implements Serializable {
     private boolean cambiosPagina;
     //
     private String algoTabla;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlCategoriaEsca() {
         algoTabla = "200";
@@ -115,10 +117,9 @@ public class ControlCategoriaEsca implements Serializable {
         secRegistro = null;
         permitirIndex = true;
         backUpSecRegistro = null;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -139,7 +140,7 @@ public class ControlCategoriaEsca implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "categoriaesca";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

@@ -34,7 +34,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -157,17 +158,18 @@ public class ControlCambiosMasivos {
    private String infoRegistroClasesausentismos;
    private Clasesausentismos clasesausentismosSeleccionado;
 
-   private String paginaAnterior;
    private boolean guardado, aceptar;
    private String infoRegistroParametros, infoRegistroCambiosMasivos;
    private int panelActivo, campo;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlCambiosMasivos() {
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;
       parametroCambioMasivoActual = null;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //LOVS
       estructuraSeleccionada = null;
       motivoDefinitivaSeleccionada = null;
@@ -228,10 +230,9 @@ public class ControlCambiosMasivos {
       panelActivo = 1;
       aceptar = true;
       guardado = true;
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -242,9 +243,9 @@ public class ControlCambiosMasivos {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -252,22 +253,22 @@ public class ControlCambiosMasivos {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         String pagActual = "cambiosmasivos";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+   }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -2448,10 +2449,6 @@ public class ControlCambiosMasivos {
    public void onTabClose(TabCloseEvent event) {
       panelActivo = 0;
       campo = 0;
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
    }
 
    public String valorPaginaAnterior() {

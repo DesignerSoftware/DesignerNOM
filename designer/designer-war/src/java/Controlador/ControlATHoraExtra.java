@@ -102,7 +102,6 @@ public class ControlATHoraExtra implements Serializable {
     private BigInteger backUpSecRegistro;
     private Date fechaParametro;
     private boolean aceptar;
-    private String paginaAnterior;
     private String nombreTablaXML, nombreArchivoXML;
     private int tipoActualizacion;
     private boolean activarBuscar, activarMostrarTodos;
@@ -110,6 +109,8 @@ public class ControlATHoraExtra implements Serializable {
     private Column empleadoCodigo, empleadoNombre;
     private Column horaExtraProcesado, horaExtraFechaInicial, horaExtraFechaFinal, horaExtraMotivo, horaExtraNHA, horaExtraNVA, horaExtraPagaVale, horaExtraEstructura, horaExtraComentario;
     private Column detalleConcepto, detalleFechaPago, detalleHoras, detalleMinutos, detalleAprobado, detalleDescripcion, detalleOpcion;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlATHoraExtra() {
         activarBuscar = false;
@@ -168,10 +169,9 @@ public class ControlATHoraExtra implements Serializable {
         totalHoras = 0;
         totalMinutos = 0;
         k = 0;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -192,7 +192,7 @@ public class ControlATHoraExtra implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "athoraextra";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -220,10 +220,6 @@ public class ControlATHoraExtra implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
-    }
-
-    public void recibirPaginaEntrante(String page) {
-        paginaAnterior = page;
     }
 
     public String redirigir() {

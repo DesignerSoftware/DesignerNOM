@@ -151,6 +151,8 @@ public class ControlEmplComprobantes implements Serializable {
    private Date auxFechaEntregadoComprobante;
 
    private DataTable tabla1, tabla2;
+      private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlEmplComprobantes() {
       permitirIndex = true;
@@ -214,10 +216,9 @@ public class ControlEmplComprobantes implements Serializable {
       infoRegistroCuentaD = "0";
       infoRegistroCentroCostoD = "0";
       infoRegistroCentroCostoC = "0";
+   mapParametros.put ("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -238,7 +239,7 @@ public class ControlEmplComprobantes implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "emplcomprobante";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

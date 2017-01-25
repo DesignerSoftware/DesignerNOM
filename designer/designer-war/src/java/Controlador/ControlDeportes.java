@@ -71,6 +71,8 @@ public class ControlDeportes implements Serializable {
     private BigInteger verificarBorradoVigenciasDeportes;
     private BigInteger contadorDeportesPersonas;
     private BigInteger contadorParametrosInformes;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDeportes() {
         listDeportes = null;
@@ -86,10 +88,9 @@ public class ControlDeportes implements Serializable {
         tamano = 270;
         paginaanterior = "";
         activarLOV = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -110,7 +111,7 @@ public class ControlDeportes implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "deporte";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros

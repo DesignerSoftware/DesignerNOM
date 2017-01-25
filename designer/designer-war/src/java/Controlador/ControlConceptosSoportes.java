@@ -17,7 +17,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -85,14 +86,14 @@ public class ControlConceptosSoportes implements Serializable {
    private List<ConceptosSoportes> filterLovConceptosSoportes;
    private ConceptosSoportes conceptoSoporteLovSeleccionado;
 
-   private String paginaAnterior;
-
    private boolean cambioConceptosSoportes;
    private String infoRegistro, infoRegistroLovCS, infoRegistroLovConceptos, infoRegistroLovOperandos;
 
    private boolean mostrarTodos;
    private boolean buscarConceptoSoporte;
    private BigInteger nuevoYduplicarCompletarCodigoConcepto;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlConceptosSoportes() {
       paginaAnterior = "";
@@ -121,23 +122,22 @@ public class ControlConceptosSoportes implements Serializable {
       aceptar = true;
       buscarConceptoSoporte = false;
       cambioConceptosSoportes = false;
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+   public void recibirPaginaEntrante(String paginaAnterior) {
+      conceptoSoportesSeleccionado = null;
+      this.paginaAnterior = paginaAnterior;
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      this.paginaAnterior = paginaAnterior;
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -145,22 +145,22 @@ public class ControlConceptosSoportes implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         String pagActual = "conceptosoporte";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+   }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -1379,11 +1379,6 @@ public class ControlConceptosSoportes implements Serializable {
       } catch (Exception e) {
          System.out.println("ERROR CONTROLBETACENTROSCOSTOS.cancelarSeleccionVigencia ERROR====" + e.getMessage());
       }
-   }
-
-   public void recibirPaginaEntrante(String paginaAnterior) {
-      conceptoSoportesSeleccionado = null;
-      this.paginaAnterior = paginaAnterior;
    }
 
    public String volverPaginaAnterior() {

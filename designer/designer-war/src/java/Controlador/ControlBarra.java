@@ -48,6 +48,8 @@ public class ControlBarra implements Serializable {
    private int banderaFiltros;
    private boolean liquifinalizada;
    private String infoRegistroCerradas, infoRegistroEnProceso;
+      private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlBarra() {
       totalEmpleadosParaLiquidar = 0;
@@ -73,10 +75,9 @@ public class ControlBarra implements Serializable {
       liquifinalizada = false;
       infoRegistroCerradas = "0";
       infoRegistroEnProceso = "0";
+   mapParametros.put ("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -97,7 +98,7 @@ public class ControlBarra implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "barra";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
