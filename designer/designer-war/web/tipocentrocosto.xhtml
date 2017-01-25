@@ -76,7 +76,7 @@
 
                             <p:dataTable id="datosTipoCentroCosto" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlTiposCentrosCostos.listTiposCentrosCostos}" 
-
+                                         widgetVar="datosTipoCentroCosto"
                                          scrollable="true"
                                          scrollHeight="#{controlTiposCentrosCostos.tamano}"
                                          scrollWidth="830"
@@ -93,7 +93,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'N', info.codigo)}" update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -105,7 +106,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 295px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'N', info.nombre)}" update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -117,7 +119,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.grupotipocc.descripcion}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.grupotipocc.descripcion}" id="editarGrupoTipoCC" style="height: 12px;  border-radius: 0px; width: 290px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposCentrosCostos.cambiarIndice(info, 2)}" process="@this"
+                                                       onstart="PF('datosTipoCentroCosto').unselectAllRows();PF('datosTipoCentroCosto').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposCentrosCostos.modificarTipoCentroCosto(info, 'GRUPOSTIPOSCC', info.grupotipocc.descripcion)}" update="grupoTipoCC"/>                                         
                                                 <p:ajax event="dblclick" listener="#{controlTiposCentrosCostos.asignarIndex(info, 0,2)}" process="@this"/>   
                                             </p:inputText>

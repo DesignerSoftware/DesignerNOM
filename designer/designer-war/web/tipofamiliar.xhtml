@@ -76,7 +76,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipo Familiar</strong></legend>
 
-                            <p:dataTable id="datosTiposFamiliares" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosTiposFamiliares" var="info" rowKey="#{info.secuencia}" widgetVar="datosTiposFamiliares"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlTiposFamiliares.listTiposFamiliares}"  scrollable="true"  scrollHeight="#{controlTiposFamiliares.tamano}"
                                          scrollWidth="830" filteredValue="#{controlTiposFamiliares.filtrarTiposFamiliares}"   emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  selection="#{controlTiposFamiliares.tiposFamiliaresSeleccionado}"  selectionMode="single" >
@@ -88,7 +88,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposFamiliares.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposFamiliares.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosTiposFamiliares').unselectAllRows();PF('datosTiposFamiliares').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposFamiliares.modificarTiposFamiliares(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -104,7 +105,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipo}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipo}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposFamiliares.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposFamiliares.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosTiposFamiliares').unselectAllRows();PF('datosTiposFamiliares').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlTiposFamiliares.modificarTiposFamiliares(info, 'N', info.tipo)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

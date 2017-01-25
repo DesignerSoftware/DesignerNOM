@@ -19,7 +19,7 @@
 
                             <p:dataTable id="datosSectoresEvaluaciones" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
                                          value="#{controlSectoresEvaluaciones.listSectoresEvaluaciones}"
-                                         scrollable="true"
+                                         scrollable="true" widgetVar="datosSectoresEvaluaciones"
                                          scrollHeight="#{controlSectoresEvaluaciones.tamano}"
                                          scrollWidth="830"
                                          filteredValue="#{controlSectoresEvaluaciones.filtrarSectoresEvaluaciones}"
@@ -35,7 +35,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 0)}" process="@this"
+                                                       onstart="PF('datosSectoresEvaluaciones').unselectAllRows();PF('datosSectoresEvaluaciones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlSectoresEvaluaciones.modificarSectoresEvaluaciones(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -47,7 +48,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="100" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 440px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 1)}" process="@this"
+                                                       onstart="PF('datosSectoresEvaluaciones').unselectAllRows();PF('datosSectoresEvaluaciones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlSectoresEvaluaciones.modificarSectoresEvaluaciones(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  

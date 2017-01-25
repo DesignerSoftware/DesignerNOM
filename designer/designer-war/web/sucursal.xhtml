@@ -76,7 +76,7 @@
 
                             <p:dataTable id="datosSucursales" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlSucursales.listSucursales}" scrollable="true" scrollHeight="#{controlSucursales.tamano}"  scrollWidth="830"
-                                         filteredValue="#{controlSucursales.filtrarSucursales}" emptyMessage="#{msg['lovvacio']}"
+                                         filteredValue="#{controlSucursales.filtrarSucursales}" emptyMessage="#{msg['lovvacio']}" widgetVar="datosSucursales"
                                          editable="true" editMode="cell"  selection="#{controlSucursales.sucursalSeleccionada}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlSucursales.eventoFiltrar()}"/>
 
@@ -85,7 +85,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="5" id="editarCodigo" style="  border-radius: 0px; width: 400px; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlSucursales.modificarSucursales(info)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -97,7 +98,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30"  id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -108,7 +110,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.banco.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.banco.nombre}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 2)}" process="@this"
+                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlSucursales.asignarIndex(info, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info)}" update="banco"/>
                                             </p:inputText>
@@ -123,7 +126,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.ciudad.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarCCciudad" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
-                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 3)}" process="@this"
+                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlSucursales.asignarIndex(info, 0,3)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info, 'CARGOS', info.ciudad.nombre)}" update="banco"/>
                                             </p:inputText>

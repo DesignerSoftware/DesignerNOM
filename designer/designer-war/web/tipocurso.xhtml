@@ -75,7 +75,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipos del Curso</strong></legend>
 
-                            <p:dataTable id="datosTiposCursos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                            <p:dataTable id="datosTiposCursos" widgetVar="datosTiposCursos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                          value="#{controlTiposCursos.listTiposCursos}" scrollable="true" scrollHeight="#{controlTiposCursos.tamano}"
                                          scrollWidth="830" filteredValue="#{controlTiposCursos.filtrarTiposCursos}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" selection="#{controlTiposCursos.tiposCursosSeleccionado}"
@@ -87,7 +87,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposCursos.modificarTiposCursos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet> 
@@ -102,7 +103,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlTiposCursos.modificarTiposCursos(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet> 
