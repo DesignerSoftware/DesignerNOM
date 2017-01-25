@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.VigenciasPlantas;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -17,7 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -65,6 +65,8 @@ public class ControlVigenciasPlantas implements Serializable {
     private String mensajeValidacion;
     private String infoRegistro;
     private int tamano;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlVigenciasPlantas() {
         listVigenciasPlantas = null;
@@ -77,48 +79,10 @@ public class ControlVigenciasPlantas implements Serializable {
         duplicarVigenciaPlanta = new VigenciasPlantas();
         guardado = true;
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -129,6 +93,43 @@ public class ControlVigenciasPlantas implements Serializable {
             System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "vigenciaplanta";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -496,87 +497,83 @@ public class ControlVigenciasPlantas implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
+            } else if (!crearVigenciasPlantas.contains(filtrarVigenciasPlantas.get(indice))) {
+                if (filtrarVigenciasPlantas.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
 
-                if (!crearVigenciasPlantas.contains(filtrarVigenciasPlantas.get(indice))) {
-                    if (filtrarVigenciasPlantas.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
-
-                    } else {
-                        for (int j = 0; j < filtrarVigenciasPlantas.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarVigenciasPlantas.get(indice).getCodigo().equals(filtrarVigenciasPlantas.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (banderita == true) {
-                        if (modificarVigenciasPlantas.isEmpty()) {
-                            modificarVigenciasPlantas.add(filtrarVigenciasPlantas.get(indice));
-                        } else if (!modificarVigenciasPlantas.contains(filtrarVigenciasPlantas.get(indice))) {
-                            modificarVigenciasPlantas.add(filtrarVigenciasPlantas.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
                 } else {
-                    if (filtrarVigenciasPlantas.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    for (int j = 0; j < filtrarVigenciasPlantas.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarVigenciasPlantas.get(indice).getCodigo().equals(filtrarVigenciasPlantas.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                         filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
 
                     } else {
-                        for (int j = 0; j < filtrarVigenciasPlantas.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarVigenciasPlantas.get(indice).getCodigo().equals(filtrarVigenciasPlantas.get(j).getCodigo())) {
-                                    contador++;
-                                }
+                        banderita = true;
+                    }
+
+                }
+                if (banderita == true) {
+                    if (modificarVigenciasPlantas.isEmpty()) {
+                        modificarVigenciasPlantas.add(filtrarVigenciasPlantas.get(indice));
+                    } else if (!modificarVigenciasPlantas.contains(filtrarVigenciasPlantas.get(indice))) {
+                        modificarVigenciasPlantas.add(filtrarVigenciasPlantas.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarVigenciasPlantas.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
+
+                } else {
+                    for (int j = 0; j < filtrarVigenciasPlantas.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarVigenciasPlantas.get(indice).getCodigo().equals(filtrarVigenciasPlantas.get(j).getCodigo())) {
+                                contador++;
                             }
                         }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
-
-                        } else {
-                            banderita = true;
-                        }
-
                     }
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
+                        filtrarVigenciasPlantas.get(indice).setCodigo(backUpCodigo);
 
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
                     }
-                    index = -1;
-                    secRegistro = null;
-                }
 
+                }
+                if (banderita == true) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosVigenciaPlanta");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -994,13 +991,10 @@ public class ControlVigenciasPlantas implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASPLANTAS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("VIGENCIASPLANTAS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

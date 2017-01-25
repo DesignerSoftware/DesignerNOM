@@ -83,6 +83,8 @@ public class ControlVigenciasTiposContratos implements Serializable {
    //
    private DataTable tablaC;
    private boolean activarLOV;
+      private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlVigenciasTiposContratos() {
       permitirIndex = true;
@@ -117,10 +119,21 @@ public class ControlVigenciasTiposContratos implements Serializable {
       vigenciaSeleccionada = null;
       altoTabla = "280";
       activarLOV = true;
+       mapParametros.put ("paginaAnterior", paginaAnterior);
    }
 
-      private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarVigenciasTiposContratos.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -141,7 +154,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "emplvigenciatipocontrato";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -158,18 +171,6 @@ public class ControlVigenciasTiposContratos implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarVigenciasTiposContratos.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
-   }
 
    //EMPLEADO DE LA VIGENCIA
    public void recibirEmpleado(Empleados emp) {

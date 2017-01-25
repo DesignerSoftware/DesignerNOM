@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposDocumentos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -16,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -62,6 +62,8 @@ public class ControlTiposDocumentos implements Serializable {
     private int tamano;
     private String infoRecurso;
     private String backUpNombreLargo;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposDocumentos() {
         listTiposDocumentos = null;
@@ -74,48 +76,10 @@ public class ControlTiposDocumentos implements Serializable {
         duplicarTiposDocumentos = new TiposDocumentos();
         guardado = true;
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -128,12 +92,50 @@ public class ControlTiposDocumentos implements Serializable {
         }
     }
 
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipodocumento";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public void eventoFiltrar() {
         try {
             System.out.println("\n ENTRE A ControlTiposDocumentos.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
-            }  RequestContext context = RequestContext.getCurrentInstance();
+            }
+            RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros: " + filtrarTiposDocumentos.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } catch (Exception e) {
@@ -185,7 +187,8 @@ public class ControlTiposDocumentos implements Serializable {
     }
     private String infoRegistro;
 
-    public void cancelarModificacion() {FacesContext c = FacesContext.getCurrentInstance();
+    public void cancelarModificacion() {
+        FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             //CERRAR FILTRADO
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
@@ -220,7 +223,8 @@ public class ControlTiposDocumentos implements Serializable {
     }
 
     public void salir() {
-        if (bandera == 1) {FacesContext c = FacesContext.getCurrentInstance();
+        if (bandera == 1) {
+            FacesContext c = FacesContext.getCurrentInstance();
             //CERRAR FILTRADO
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -253,7 +257,8 @@ public class ControlTiposDocumentos implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void activarCtrlF11() {FacesContext c = FacesContext.getCurrentInstance();
+    public void activarCtrlF11() {
+        FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             tamano = 250;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
@@ -379,102 +384,98 @@ public class ControlTiposDocumentos implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearTiposDocumentos.contains(filtrarTiposDocumentos.get(indice))) {
-                    if (filtrarTiposDocumentos.get(indice).getNombrecorto() != null) {
-                        if (filtrarTiposDocumentos.get(indice).getNombrecorto().length() > 3) {
-                            mensajeValidacion = "EL NOMBRE CORTO MAXIMO DEBE TENER 3 CARACTERES";
-                        } else {
-                            for (int j = 0; j < filtrarTiposDocumentos.size(); j++) {
-                                if (j != indice) {
-                                    if (filtrarTiposDocumentos.get(indice).getNombrecorto().equals(filtrarTiposDocumentos.get(j).getNombrecorto())) {
-                                        contador++;
-                                    }
+            } else if (!crearTiposDocumentos.contains(filtrarTiposDocumentos.get(indice))) {
+                if (filtrarTiposDocumentos.get(indice).getNombrecorto() != null) {
+                    if (filtrarTiposDocumentos.get(indice).getNombrecorto().length() > 3) {
+                        mensajeValidacion = "EL NOMBRE CORTO MAXIMO DEBE TENER 3 CARACTERES";
+                    } else {
+                        for (int j = 0; j < filtrarTiposDocumentos.size(); j++) {
+                            if (j != indice) {
+                                if (filtrarTiposDocumentos.get(indice).getNombrecorto().equals(filtrarTiposDocumentos.get(j).getNombrecorto())) {
+                                    contador++;
                                 }
                             }
-                            if (contador > 0) {
-                                mensajeValidacion = "NOMBRES CORTOS REPETIDOS";
-                            } else {
-                                pass++;
-                            }
                         }
-                    } else {
-                        pass++;
-                    }
-                    if (filtrarTiposDocumentos.get(indice).getNombrelargo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
-
-                    } else if (filtrarTiposDocumentos.get(indice).getNombrelargo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
-                    } else {
-                        pass++;
-                    }
-
-                    if (pass == 2) {
-                        if (modificarTiposDocumentos.isEmpty()) {
-                            modificarTiposDocumentos.add(filtrarTiposDocumentos.get(indice));
-                        } else if (!modificarTiposDocumentos.contains(filtrarTiposDocumentos.get(indice))) {
-                            modificarTiposDocumentos.add(filtrarTiposDocumentos.get(indice));
+                        if (contador > 0) {
+                            mensajeValidacion = "NOMBRES CORTOS REPETIDOS";
+                        } else {
+                            pass++;
                         }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                     }
-                    index = -1;
-                    secRegistro = null;
                 } else {
-                    if (filtrarTiposDocumentos.get(indice).getNombrecorto() != null) {
-                        if (filtrarTiposDocumentos.get(indice).getNombrecorto().length() > 3) {
-                            mensajeValidacion = "EL NOMBRE CORTO MAXIMO DEBE TENER 3 CARACTERES";
-                        } else {
-                            for (int j = 0; j < filtrarTiposDocumentos.size(); j++) {
-                                if (j != indice) {
-                                    if (filtrarTiposDocumentos.get(indice).getNombrecorto().equals(filtrarTiposDocumentos.get(j).getNombrecorto())) {
-                                        contador++;
-                                    }
-                                }
-                            }
-                            if (contador > 0) {
-                                mensajeValidacion = "NOMBRES CORTOS REPETIDOS";
-                            } else {
-                                pass++;
-                            }
-                        }
-                    } else {
-                        pass++;
-                    }
-                    if (filtrarTiposDocumentos.get(indice).getNombrelargo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
+                    pass++;
+                }
+                if (filtrarTiposDocumentos.get(indice).getNombrelargo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
 
-                    } else if (filtrarTiposDocumentos.get(indice).getNombrelargo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
-                    } else {
-                        pass++;
-                    }
-
-                    if (pass == 2) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+                } else if (filtrarTiposDocumentos.get(indice).getNombrelargo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
+                } else {
+                    pass++;
                 }
 
+                if (pass == 2) {
+                    if (modificarTiposDocumentos.isEmpty()) {
+                        modificarTiposDocumentos.add(filtrarTiposDocumentos.get(indice));
+                    } else if (!modificarTiposDocumentos.contains(filtrarTiposDocumentos.get(indice))) {
+                        modificarTiposDocumentos.add(filtrarTiposDocumentos.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarTiposDocumentos.get(indice).getNombrecorto() != null) {
+                    if (filtrarTiposDocumentos.get(indice).getNombrecorto().length() > 3) {
+                        mensajeValidacion = "EL NOMBRE CORTO MAXIMO DEBE TENER 3 CARACTERES";
+                    } else {
+                        for (int j = 0; j < filtrarTiposDocumentos.size(); j++) {
+                            if (j != indice) {
+                                if (filtrarTiposDocumentos.get(indice).getNombrecorto().equals(filtrarTiposDocumentos.get(j).getNombrecorto())) {
+                                    contador++;
+                                }
+                            }
+                        }
+                        if (contador > 0) {
+                            mensajeValidacion = "NOMBRES CORTOS REPETIDOS";
+                        } else {
+                            pass++;
+                        }
+                    }
+                } else {
+                    pass++;
+                }
+                if (filtrarTiposDocumentos.get(indice).getNombrelargo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
+
+                } else if (filtrarTiposDocumentos.get(indice).getNombrelargo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposDocumentos.get(indice).setNombrelargo(backUpNombreLargo);
+                } else {
+                    pass++;
+                }
+
+                if (pass == 2) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosTiposDocumentos");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -674,7 +675,8 @@ public class ControlTiposDocumentos implements Serializable {
         System.out.println("contador " + contador);
 
         if (contador == 2) {
-            if (bandera == 1) {FacesContext c = FacesContext.getCurrentInstance();
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
                 System.out.println("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
@@ -803,7 +805,8 @@ public class ControlTiposDocumentos implements Serializable {
             infoRegistro = "Cantidad de registros: " + listTiposDocumentos.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            if (bandera == 1) {FacesContext c = FacesContext.getCurrentInstance();
+            if (bandera == 1) {
+                FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
                 codigo = (Column) c.getViewRoot().findComponent("form:datosTiposDocumentos:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -870,13 +873,10 @@ public class ControlTiposDocumentos implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSDOCUMENTOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSDOCUMENTOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

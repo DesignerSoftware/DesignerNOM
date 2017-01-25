@@ -67,6 +67,8 @@ public class ControlSectoresEvaluaciones implements Serializable {
     private String backUpDescripcion;
     private String infoRegistro;
     private Integer backUpCodigo;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
 
     public ControlSectoresEvaluaciones() {
         listSectoresEvaluaciones = null;
@@ -79,10 +81,22 @@ public class ControlSectoresEvaluaciones implements Serializable {
         duplicarSectoresEvaluaciones = new SectoresEvaluaciones();
         guardado = true;
         tamano = 270;
+       mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
+   @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarSectoresEvaluaciones.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
+    
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -103,7 +117,7 @@ public class ControlSectoresEvaluaciones implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "sectorevaluacion";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -120,18 +134,6 @@ public class ControlSectoresEvaluaciones implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarSectoresEvaluaciones.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
 
     public void eventoFiltrar() {
         try {

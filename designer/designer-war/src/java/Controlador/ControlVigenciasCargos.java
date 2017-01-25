@@ -26,7 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -158,8 +159,6 @@ public class ControlVigenciasCargos implements Serializable {
     //
     private boolean activarLOV;
     //
-    private String paginaAnterior;
-    //
     private StreamedContent reporte;
     private String pathReporteGenerado = null;
     private String nombreReporte, tipoReporte;
@@ -167,6 +166,8 @@ public class ControlVigenciasCargos implements Serializable {
     private String cabezeraVisor;
     private boolean estadoReporte;
     private String resultadoReporte;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     //------------------------------------------------------------------------------------------
     //CONSTRUCTOR(ES)
@@ -218,49 +219,11 @@ public class ControlVigenciasCargos implements Serializable {
         tipoReporte = "PDF";
         estadoReporte = false;
         lovPapeles = null;
+        mapParametros.put("paginaAnterior", paginaAnterior);
 
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -275,6 +238,43 @@ public class ControlVigenciasCargos implements Serializable {
             System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "vigenciascargos";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     //------------------------------------------------------------------------------------------
@@ -1221,7 +1221,7 @@ public class ControlVigenciasCargos implements Serializable {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarClaseRiesgo");
                 RequestContext.getCurrentInstance().execute("PF('editarClaseRiesgo').show()");
                 cualCelda = -1;
-            }else if (cualCelda == 7) {
+            } else if (cualCelda == 7) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPapelCargo");
                 RequestContext.getCurrentInstance().execute("PF('editarPapelCargo').show()");
                 cualCelda = -1;
@@ -2218,7 +2218,7 @@ public class ControlVigenciasCargos implements Serializable {
 
     public List<Papeles> getLovPapeles() {
         if (lovPapeles == null) {
-           BigDecimal secEmpresa = administrarVigenciasCargos.consultarEmpresaPorEmpl(empleado.getSecuencia());
+            BigDecimal secEmpresa = administrarVigenciasCargos.consultarEmpresaPorEmpl(empleado.getSecuencia());
             System.out.println("sec empresa : " + secEmpresa);
             lovPapeles = administrarVigenciasCargos.lovPapeles(secEmpresa.toBigInteger());
         }

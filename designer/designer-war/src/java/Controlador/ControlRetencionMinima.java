@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.RetencionesMinimas;
 import Entidades.VigenciasRetencionesMinimas;
 import Exportar.ExportarPDF;
@@ -20,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -96,7 +96,7 @@ public class ControlRetencionMinima implements Serializable {
     private boolean cambiosPagina;
     //FILTRADO
     private Column vCodigo, vFechaVigencia;
-    private Column rMensualizado, rRetencion, rPorcentaje,rRestaUvt;
+    private Column rMensualizado, rRetencion, rPorcentaje, rRestaUvt;
     //Tabla a Imprimir
     private String tablaImprimir, nombreArchivo;
     //Sec Abajo Duplicar
@@ -108,6 +108,8 @@ public class ControlRetencionMinima implements Serializable {
     private Date fechaVigencia;
 
     private Integer cualTabla;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlRetencionMinima() {
         permitirIndex = true;
@@ -131,48 +133,10 @@ public class ControlRetencionMinima implements Serializable {
         nuevoRetencion = new RetencionesMinimas();
         m = 0;
         cambiosPagina = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -180,21 +144,56 @@ public class ControlRetencionMinima implements Serializable {
             administrarRetencionesMinimas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct "+ this.getClass().getName() +": " + e);
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "retencionminima";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     //CREAR Vigencia Retencion
     public void agregarNuevoVigencia() {
         int pasa = 0;
         int pasar = 0;
-        
+
         mensajeValidacion = new String();
 
         RequestContext context = RequestContext.getCurrentInstance();
-        
-        
 
         if (nuevoVigenciasRetenciones.getCodigo() == null) {
             mensajeValidacion = mensajeValidacion + " * Codigo\n";
@@ -204,7 +203,7 @@ public class ControlRetencionMinima implements Serializable {
             mensajeValidacion = mensajeValidacion + " * Fecha Vigencia\n";
             pasa++;
         }
-        
+
         for (int i = 0; i < listaVigenciasRetenciones.size(); i++) {
             if (nuevoVigenciasRetenciones.getCodigo() == listaVigenciasRetenciones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:codigos");
@@ -396,7 +395,7 @@ public class ControlRetencionMinima implements Serializable {
             System.out.println("Realizando Operaciones retenciones");
             if (!listaVigenciasRetencionesBorrar.isEmpty()) {
                 for (int i = 0; i < listaVigenciasRetencionesBorrar.size(); i++) {
-                    System.out.println("Borrando..."); 
+                    System.out.println("Borrando...");
                     administrarRetencionesMinimas.borrarVigenciaRetencion(listaVigenciasRetencionesBorrar.get(i));
                     System.out.println("Entra");
                     listaVigenciasRetencionesBorrar.clear();
@@ -406,7 +405,7 @@ public class ControlRetencionMinima implements Serializable {
                 for (int i = 0; i < listaVigenciasRetencionesCrear.size(); i++) {
                     System.out.println("Creando...");
                     System.out.println(listaVigenciasRetencionesCrear.size());
-                    
+
                     administrarRetencionesMinimas.crearVigenciaRetencion(listaVigenciasRetencionesCrear.get(i));
                 }
 
@@ -674,7 +673,7 @@ public class ControlRetencionMinima implements Serializable {
                 if (!listaVigenciasRetencionesBorrar.isEmpty()) {
                     for (int i = 0; i < listaVigenciasRetencionesBorrar.size(); i++) {
                         System.out.println("Borrando...");
-                         
+
                         administrarRetencionesMinimas.borrarVigenciaRetencion(listaVigenciasRetencionesBorrar.get(i));
 
                         System.out.println("Entra");
@@ -685,7 +684,7 @@ public class ControlRetencionMinima implements Serializable {
                     for (int i = 0; i < listaVigenciasRetencionesCrear.size(); i++) {
                         System.out.println("Creando...");
                         System.out.println(listaVigenciasRetencionesCrear.size());
-                       
+
                         administrarRetencionesMinimas.crearVigenciaRetencion(listaVigenciasRetencionesCrear.get(i));
                     }
 
@@ -723,7 +722,7 @@ public class ControlRetencionMinima implements Serializable {
                 if (!listaRetencionesBorrar.isEmpty()) {
                     for (int i = 0; i < listaRetencionesBorrar.size(); i++) {
                         System.out.println("Borrando...");
-                        
+
                         administrarRetencionesMinimas.borrarRetencion(listaRetencionesBorrar.get(i));
                     }
 
@@ -735,7 +734,7 @@ public class ControlRetencionMinima implements Serializable {
                 for (int i = 0; i < listaRetencionesCrear.size(); i++) {
                     System.out.println("Creando...");
                     System.out.println(listaRetencionesCrear.size());
-                    
+
                     administrarRetencionesMinimas.crearRetencion(listaRetencionesCrear.get(i));
 
                 }
@@ -780,7 +779,7 @@ public class ControlRetencionMinima implements Serializable {
             pasa++;
         }
 
-        if (nuevoRetencion.getRetencion()== null) {
+        if (nuevoRetencion.getRetencion() == null) {
             mensajeValidacion = mensajeValidacion + " * Retencion en Uvt\n";
             pasa++;
         }
@@ -790,7 +789,7 @@ public class ControlRetencionMinima implements Serializable {
             pasa++;
         }
 
-        if (nuevoRetencion.getRestauvt()== null) {
+        if (nuevoRetencion.getRestauvt() == null) {
             mensajeValidacion = mensajeValidacion + " * Resta UVT\n";
             pasa++;
         }
@@ -939,10 +938,10 @@ public class ControlRetencionMinima implements Serializable {
                 duplicarRetencion.setPorcentaje(listaRetenciones.get(indexD).getPorcentaje());
                 duplicarRetencion.setRestauvt(listaRetenciones.get(indexD).getRestauvt());
                 duplicarRetencion.setVigenciaretencionminima(listaRetenciones.get(indexD).getVigenciasretencionminima());
-                
+
             }
             if (tipoListaD == 1) {
-                
+
                 duplicarRetencion.setSecuencia(n);
                 duplicarRetencion.setMensualizado(filtradoListaRetenciones.get(indexD).getMensualizado());
                 duplicarRetencion.setRetencion(filtradoListaRetenciones.get(indexD).getRetencion());
@@ -1008,7 +1007,7 @@ public class ControlRetencionMinima implements Serializable {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarRestaR");
                 RequestContext.getCurrentInstance().execute("PF('editarRestaR').show()");
                 cualCeldaD = -1;
-            } 
+            }
             indexD = -1;
         }
         secRegistro = null;
@@ -1340,13 +1339,10 @@ public class ControlRetencionMinima implements Serializable {
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASRETENCIONES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("VIGENCIASRETENCIONES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
             index = -1;
         } else {
@@ -1371,13 +1367,10 @@ public class ControlRetencionMinima implements Serializable {
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroNF').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("RETENCIONES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("RETENCIONES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
             }
             indexD = -1;
         }

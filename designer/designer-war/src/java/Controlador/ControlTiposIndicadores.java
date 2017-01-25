@@ -15,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -64,7 +65,9 @@ public class ControlTiposIndicadores implements Serializable {
     //filtrado table
     private int tamano;
     private Integer backUpCodigo;
-    private String backUpDescripcion,paginaanterior;
+    private String backUpDescripcion;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposIndicadores() {
         listTiposIndicadores = null;
@@ -77,48 +80,10 @@ public class ControlTiposIndicadores implements Serializable {
         duplicarTiposIndicadores = new TiposIndicadores();
         guardado = true;
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposIndicadores PostConstruct ");
@@ -132,22 +97,59 @@ public class ControlTiposIndicadores implements Serializable {
         }
     }
 
-    
-    public void recibirPaginaEntrante(String pagina){
-        paginaanterior = pagina;
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
         listTiposIndicadores = null;
         getListTiposIndicadores();
-        if(listTiposIndicadores != null){
-            if(!listTiposIndicadores.isEmpty()){
+        if (listTiposIndicadores != null) {
+            if (!listTiposIndicadores.isEmpty()) {
                 tiposindicadoresSeleccionado = listTiposIndicadores.get(0);
             }
         }
     }
-    
-    public String retornarPagina(){
-        return paginaanterior;
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listTiposIndicadores = null;
+        getListTiposIndicadores();
+        if (listTiposIndicadores != null) {
+            if (!listTiposIndicadores.isEmpty()) {
+                tiposindicadoresSeleccionado = listTiposIndicadores.get(0);
+            }
+        }
     }
-    
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoindicador";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+    public String retornarPagina() {
+        return paginaAnterior;
+    }
+
     public void cambiarIndice(TiposIndicadores tipo, int celda) {
         if (permitirIndex == true) {
             tiposindicadoresSeleccionado = tipo;
@@ -302,14 +304,14 @@ public class ControlTiposIndicadores implements Serializable {
             System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
             if (tipoLista == 0) {
                 if (!crearTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
-                        if (modificarTiposIndicadores.isEmpty()) {
-                            modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
-                        } else if (!modificarTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
-                            modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
+                    if (modificarTiposIndicadores.isEmpty()) {
+                        modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
+                    } else if (!modificarTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
+                        modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
 
                 } else {
                     if (tiposindicadoresSeleccionado.getCodigo() == a) {
@@ -354,7 +356,7 @@ public class ControlTiposIndicadores implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
                 }
             }
-        } 
+        }
         RequestContext.getCurrentInstance().update("form:datosTiposIndicadores");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }

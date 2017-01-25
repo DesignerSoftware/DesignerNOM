@@ -73,6 +73,8 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
     private NormasLaborales normasLaboralesPrueba;
     private String banderaPruebas;
     private int div;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
 
     public ControlVigenciasNormasEmpleado() {
         vigenciasNormasEmpleado = null;
@@ -102,10 +104,20 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
         secuenciaEmpleado = BigInteger.valueOf(10664356);
         normasLaboralesPrueba = new NormasLaborales();
         banderaPruebas = "visible";
+           mapParametros.put ("paginaAnterior", paginaAnterior);
     }
     
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
+   @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarVigenciaNormaLaboral.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -126,7 +138,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "vigencianormasempleado";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -143,17 +155,6 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarVigenciaNormaLaboral.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
     
     public void recibirEmpleado(BigInteger sec) {
         vigenciasNormasEmpleado = null;

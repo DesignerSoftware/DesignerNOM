@@ -17,7 +17,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -73,7 +74,6 @@ public class ControlSucursalesPila implements Serializable {
     private boolean banderaSeleccionSucursalesPilaPorEmpresa;
     private int tamano;
     private String infoRegistro;
-    private String paginaAnterior;
     private BigInteger contarNovedadesAutoLiquidacionesSucursal_Pila;
     private BigInteger contarNovedadesCorreccionesAutolSucursal_Pila;
     private BigInteger contarOdisCabecerasSucursal_Pila;
@@ -81,6 +81,8 @@ public class ControlSucursalesPila implements Serializable {
     private BigInteger contarParametrosInformesSucursal_Pila;
     private BigInteger contarUbicacionesGeograficasSucursal_Pila;
     private boolean activarLov;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSucursalesPila() {
         permitirIndex = true;
@@ -100,48 +102,10 @@ public class ControlSucursalesPila implements Serializable {
         banderaSeleccionSucursalesPilaPorEmpresa = false;
         tamano = 270;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -166,6 +130,47 @@ public class ControlSucursalesPila implements Serializable {
         listSucursalesPilaPorEmpresa = null;
         getListaEmpresas();
 
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaEmpresas = null;
+        getListaEmpresas();
+        if (listaEmpresas != null) {
+            if (!listaEmpresas.isEmpty()) {
+                empresaSeleccionada = listaEmpresas.get(0);
+            }
+        }
+        listSucursalesPilaPorEmpresa = null;
+        getListaEmpresas();
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "sucursal_pila";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String retornarPagina() {
@@ -469,8 +474,8 @@ public class ControlSucursalesPila implements Serializable {
                 contarParametrosInformesSucursal_Pila = new BigInteger("-1");
                 contarUbicacionesGeograficasSucursal_Pila = new BigInteger("-1");
             }
-        }else{
-        RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -498,7 +503,7 @@ public class ControlSucursalesPila implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } 
+        }
     }
 
     public void guardarCambiosCentroCosto() {

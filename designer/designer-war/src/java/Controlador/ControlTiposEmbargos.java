@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposEmbargos;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -17,7 +16,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -62,18 +62,9 @@ public class ControlTiposEmbargos implements Serializable {
     //borrado
     private int registrosBorrados;
     private Integer a;
-    /*
-     prueba
-     */
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private boolean prueba;
-
-    public boolean isPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(Boolean prueba) {
-        this.prueba = prueba;
-    }
 
     //----------------------
     public ControlTiposEmbargos() {
@@ -87,48 +78,10 @@ public class ControlTiposEmbargos implements Serializable {
         permitirIndex = true;
         a = null;
         guardado = true;
-    }
-    
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -136,11 +89,48 @@ public class ControlTiposEmbargos implements Serializable {
             administrarTiposEmbargos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct "+ this.getClass().getName() +": " + e);
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoembargo";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public void eventoFiltrar() {
         try {
             System.out.println("\n ENTRE A CONTROLTIPOSEMBARGOS EVENTO FILTRAR \n");
@@ -327,70 +317,66 @@ public class ControlTiposEmbargos implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
+            } else if (!crearTiposEmbargos.contains(filtrarTiposEmbargos.get(indice))) {
+                if (filtrarTiposEmbargos.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                } else {
+                    for (int j = 0; j < listTiposEmbargos.size(); j++) {
+                        if (filtrarTiposEmbargos.get(indice).getCodigo().equals(listTiposEmbargos.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
 
-                if (!crearTiposEmbargos.contains(filtrarTiposEmbargos.get(indice))) {
-                    if (filtrarTiposEmbargos.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < listTiposEmbargos.size(); j++) {
-                            if (filtrarTiposEmbargos.get(indice).getCodigo().equals(listTiposEmbargos.get(j).getCodigo())) {
+                    for (int j = 0; j < filtrarTiposEmbargos.size(); j++) {
+                        if (j == indice) {
+                            if (filtrarTiposEmbargos.get(indice).getCodigo().equals(filtrarTiposEmbargos.get(j).getCodigo())) {
                                 contador++;
                             }
                         }
-
-                        for (int j = 0; j < filtrarTiposEmbargos.size(); j++) {
-                            if (j == indice) {
-                                if (filtrarTiposEmbargos.get(indice).getCodigo().equals(filtrarTiposEmbargos.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            contadorGuardar++;
-                        }
-
                     }
-
-                    if (filtrarTiposEmbargos.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    } else if (filtrarTiposEmbargos.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                     } else {
                         contadorGuardar++;
                     }
-                    if (filtrarTiposEmbargos.get(indice).getManejaSaldoPromedio() == true) {
-                        listTiposEmbargos.get(indice).setManejaSaldo("S");
-                    }
-                    if (filtrarTiposEmbargos.get(indice).getManejaSaldoPromedio() == false) {
-                        listTiposEmbargos.get(indice).setManejaSaldo("N");
-                    }
 
-                    if (contadorGuardar == 2) {
-                        if (modificarTiposEmbargos.isEmpty()) {
-                            modificarTiposEmbargos.add(filtrarTiposEmbargos.get(indice));
-                        } else if (!modificarTiposEmbargos.contains(filtrarTiposEmbargos.get(indice))) {
-                            modificarTiposEmbargos.add(filtrarTiposEmbargos.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
 
+                if (filtrarTiposEmbargos.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                } else if (filtrarTiposEmbargos.get(indice).getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                } else {
+                    contadorGuardar++;
+                }
+                if (filtrarTiposEmbargos.get(indice).getManejaSaldoPromedio() == true) {
+                    listTiposEmbargos.get(indice).setManejaSaldo("S");
+                }
+                if (filtrarTiposEmbargos.get(indice).getManejaSaldoPromedio() == false) {
+                    listTiposEmbargos.get(indice).setManejaSaldo("N");
+                }
+
+                if (contadorGuardar == 2) {
+                    if (modificarTiposEmbargos.isEmpty()) {
+                        modificarTiposEmbargos.add(filtrarTiposEmbargos.get(indice));
+                    } else if (!modificarTiposEmbargos.contains(filtrarTiposEmbargos.get(indice))) {
+                        modificarTiposEmbargos.add(filtrarTiposEmbargos.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                    cancelarModificacion();
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosTiposEmbargos");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -805,13 +791,10 @@ public class ControlTiposEmbargos implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSEMBARGOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSEMBARGOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -890,6 +873,14 @@ public class ControlTiposEmbargos implements Serializable {
 
     public void setGuardado(boolean guardado) {
         this.guardado = guardado;
+    }
+
+    public boolean isPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(Boolean prueba) {
+        this.prueba = prueba;
     }
 
 }

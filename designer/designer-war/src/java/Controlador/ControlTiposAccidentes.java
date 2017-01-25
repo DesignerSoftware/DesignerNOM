@@ -67,6 +67,8 @@ public class ControlTiposAccidentes implements Serializable {
     private int tamano;
     private String backUpCodigo;
     private String backUpDescripcion;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposAccidentes() {
         listTiposAccidentes = null;
@@ -79,11 +81,23 @@ public class ControlTiposAccidentes implements Serializable {
         duplicarTiposAccidentes = new TiposAccidentes();
         guardado = true;
         tamano = 270;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
         System.out.println("controlTiposAccidentes Constructor");
     }
+   @PostConstruct
+    public void inicializarAdministrador() {
+        try {
+            System.out.println("ControlTiposAccidentes PostConstruct ");
+            FacesContext x = FacesContext.getCurrentInstance();
+            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            administrarTiposAccidentes.obtenerConexion(ses.getId());
+            administrarRastros.obtenerConexion(ses.getId());
+        } catch (Exception e) {
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+            System.out.println("Causa: " + e.getCause());
+        }
+    }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -104,7 +118,7 @@ public class ControlTiposAccidentes implements Serializable {
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
       } else {
-         String pagActual = "cargo"XXX;
+         String pagActual = "tipoaccidente";
         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
@@ -121,19 +135,6 @@ public class ControlTiposAccidentes implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
-    public void inicializarAdministrador() {
-        try {
-            System.out.println("ControlTiposAccidentes PostConstruct ");
-            FacesContext x = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-            administrarTiposAccidentes.obtenerConexion(ses.getId());
-            administrarRastros.obtenerConexion(ses.getId());
-        } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
-        }
-    }
 
     public void eventoFiltrar() {
         try {

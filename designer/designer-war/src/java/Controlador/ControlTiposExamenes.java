@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposExamenes;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -17,7 +16,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -70,6 +70,8 @@ public class ControlTiposExamenes implements Serializable {
     private Integer backUpCodigo;
     private String infoRegistro;
     private String backUpDescripcion;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposExamenes() {
         listTiposExamenes = null;
@@ -82,48 +84,10 @@ public class ControlTiposExamenes implements Serializable {
         nuevoTipoExamen = new TiposExamenes();
         duplicarTipoExamen = new TiposExamenes();
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -134,6 +98,43 @@ public class ControlTiposExamenes implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoexamen";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -421,114 +422,110 @@ public class ControlTiposExamenes implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearTiposExamenes.contains(filtrarTiposExamenes.get(indice))) {
-                    if (filtrarTiposExamenes.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listTiposExamenes.size(); j++) {
-                            if (j == indice) {
-                                if (listTiposExamenes.get(indice).getCodigo() == listTiposExamenes.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < filtrarTiposExamenes.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposExamenes.get(indice).getCodigo().equals(filtrarTiposExamenes.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
-                        } else {
-                            pass++;
-                        }
-
-                    }
-
-                    if (filtrarTiposExamenes.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
-                    } else if (filtrarTiposExamenes.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
-                    } else {
-                        pass++;
-                    }
-
-                    if (pass == 2) {
-                        if (modificarTiposExamenes.isEmpty()) {
-                            modificarTiposExamenes.add(filtrarTiposExamenes.get(indice));
-                        } else if (!modificarTiposExamenes.contains(filtrarTiposExamenes.get(indice))) {
-                            modificarTiposExamenes.add(filtrarTiposExamenes.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearTiposExamenes.contains(filtrarTiposExamenes.get(indice))) {
+                if (filtrarTiposExamenes.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
                 } else {
-                    if (filtrarTiposExamenes.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listTiposExamenes.size(); j++) {
-                            if (j == indice) {
-                                if (listTiposExamenes.get(indice).getCodigo() == listTiposExamenes.get(j).getCodigo()) {
-                                    contador++;
-                                }
+                    for (int j = 0; j < listTiposExamenes.size(); j++) {
+                        if (j == indice) {
+                            if (listTiposExamenes.get(indice).getCodigo() == listTiposExamenes.get(j).getCodigo()) {
+                                contador++;
                             }
                         }
-                        for (int j = 0; j < filtrarTiposExamenes.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposExamenes.get(indice).getCodigo().equals(filtrarTiposExamenes.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
-                        } else {
-                            pass++;
-                        }
-
                     }
-
-                    if (filtrarTiposExamenes.get(indice).getNombre() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
-                    } else if (filtrarTiposExamenes.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
+                    for (int j = 0; j < filtrarTiposExamenes.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarTiposExamenes.get(indice).getCodigo().equals(filtrarTiposExamenes.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
                     } else {
                         pass++;
                     }
 
-                    if (pass == 2) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
 
+                if (filtrarTiposExamenes.get(indice).getNombre() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
+                } else if (filtrarTiposExamenes.get(indice).getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
+                } else {
+                    pass++;
+                }
+
+                if (pass == 2) {
+                    if (modificarTiposExamenes.isEmpty()) {
+                        modificarTiposExamenes.add(filtrarTiposExamenes.get(indice));
+                    } else if (!modificarTiposExamenes.contains(filtrarTiposExamenes.get(indice))) {
+                        modificarTiposExamenes.add(filtrarTiposExamenes.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarTiposExamenes.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
+                } else {
+                    for (int j = 0; j < listTiposExamenes.size(); j++) {
+                        if (j == indice) {
+                            if (listTiposExamenes.get(indice).getCodigo() == listTiposExamenes.get(j).getCodigo()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < filtrarTiposExamenes.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarTiposExamenes.get(indice).getCodigo().equals(filtrarTiposExamenes.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        filtrarTiposExamenes.get(indice).setCodigo(backUpCodigo);
+                    } else {
+                        pass++;
+                    }
+
+                }
+
+                if (filtrarTiposExamenes.get(indice).getNombre() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
+                } else if (filtrarTiposExamenes.get(indice).getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposExamenes.get(indice).setNombre(backUpDescripcion);
+                } else {
+                    pass++;
+                }
+
+                if (pass == 2) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosTipoExamen");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -961,13 +958,10 @@ public class ControlTiposExamenes implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSEXAMENES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSEXAMENES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

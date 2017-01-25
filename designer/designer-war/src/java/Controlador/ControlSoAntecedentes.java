@@ -20,7 +20,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -68,6 +69,8 @@ public class ControlSoAntecedentes implements Serializable {
     private String infoRegistro, infoRegistroLov, paginaanterior;
     private String altoTabla, mensajeValidacion;
     private int cualCelda;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSoAntecedentes() {
         permitirIndex = true;
@@ -85,48 +88,10 @@ public class ControlSoAntecedentes implements Serializable {
         duplicarAntecedente = new SoAntecedentes();
         k = 0;
         altoTabla = "300";
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); mapParametros.put ("paginaAnterior", paginaAnterior);
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "cargo"XXX;
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -148,6 +113,44 @@ public class ControlSoAntecedentes implements Serializable {
                 antecedenteSeleccionado = listAntecedentes.get(0);
             }
         }
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listAntecedentes = null;
+        getListAntecedentes();
+        if (listAntecedentes != null) {
+            if (!listAntecedentes.isEmpty()) {
+                antecedenteSeleccionado = listAntecedentes.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "antecedentes";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String retornarPaginaAnterior() {
@@ -501,13 +504,13 @@ public class ControlSoAntecedentes implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
         }
     }
-    
+
     public void salir() {
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 1) {
 
-               Codigo = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:codigo");
+            Codigo = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:codigo");
             Codigo.setFilterStyle("display: none; visibility: hidden;");
             Descripcion = (Column) c.getViewRoot().findComponent("form:datosAntecedentes:descripcion");
             Descripcion.setFilterStyle("display: none; visibility: hidden;");
@@ -531,11 +534,11 @@ public class ControlSoAntecedentes implements Serializable {
         permitirIndex = true;
 
     }
-    
-     public void activarAceptar() {
+
+    public void activarAceptar() {
         aceptar = false;
     }
-    
+
     public void asignarIndex(SoAntecedentes antecedente, int dlg, int LND) {
         antecedenteSeleccionado = antecedente;
         tipoActualizacion = LND;
@@ -544,9 +547,9 @@ public class ControlSoAntecedentes implements Serializable {
             contarRegistrosLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').show()");
-        } 
-    } 
-     
+        }
+    }
+
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (antecedenteSeleccionado != null) {
@@ -569,18 +572,17 @@ public class ControlSoAntecedentes implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
-    
-    
+
     public void actualizarTiposAntecedentes() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-                antecedenteSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
-                if (!listAntecedentesCrear.contains(antecedenteSeleccionado)) {
-                    if (listAntecedentesModificar.isEmpty()) {
-                        listAntecedentesModificar.add(antecedenteSeleccionado);
-                    } else if (!listAntecedentesModificar.contains(antecedenteSeleccionado)) {
-                        listAntecedentesModificar.add(antecedenteSeleccionado);
-                    }
+            antecedenteSeleccionado.setTipoantecedente(tipoAntecedenteSeleccionado);
+            if (!listAntecedentesCrear.contains(antecedenteSeleccionado)) {
+                if (listAntecedentesModificar.isEmpty()) {
+                    listAntecedentesModificar.add(antecedenteSeleccionado);
+                } else if (!listAntecedentesModificar.contains(antecedenteSeleccionado)) {
+                    listAntecedentesModificar.add(antecedenteSeleccionado);
+                }
             }
             if (guardado == true) {
                 guardado = false;
@@ -608,7 +610,6 @@ public class ControlSoAntecedentes implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').hide()");
     }
 
-    
     public void cancelarCambioTiposAntecedentes() {
         lovTiposAntecedentesFiltrar = null;
         tipoAntecedenteSeleccionado = null;
@@ -624,15 +625,14 @@ public class ControlSoAntecedentes implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('lovTipoAntecedente').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').hide()");
     }
-    
-    
-     public void eventoFiltrar() {
+
+    public void eventoFiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
         contarRegistros();
     }
-    
+
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
@@ -653,8 +653,8 @@ public class ControlSoAntecedentes implements Serializable {
 
     /////////GETS Y SETS ////////////
     public List<SoAntecedentes> getListAntecedentes() {
-        if(listAntecedentes == null){
-           listAntecedentes = administrarAntecedentes.consultarAntecedentes();
+        if (listAntecedentes == null) {
+            listAntecedentes = administrarAntecedentes.consultarAntecedentes();
         }
         return listAntecedentes;
     }
@@ -704,7 +704,7 @@ public class ControlSoAntecedentes implements Serializable {
     }
 
     public List<SoTiposAntecedentes> getLovTiposAntecedentes() {
-        if(lovTiposAntecedentes == null){
+        if (lovTiposAntecedentes == null) {
             lovTiposAntecedentes = administrarAntecedentes.consultarTiposAntecedentes();
         }
         return lovTiposAntecedentes;
@@ -792,6 +792,4 @@ public class ControlSoAntecedentes implements Serializable {
         this.mensajeValidacion = mensajeValidacion;
     }
 
-    
-    
 }
