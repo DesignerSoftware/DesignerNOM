@@ -6355,7 +6355,7 @@
    <navigation-rule>
       <from-view-id>/sucursal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>banco</from-outcome>
+         <from-outcome>bancos</from-outcome>
          <to-view-id>/bancos.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6363,7 +6363,7 @@
    <navigation-rule>
       <from-view-id>/bancos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>banco</from-outcome>
+         <from-outcome>sucursal</from-outcome>
          <to-view-id>/sucursal.xhtml</to-view-id>
          <redirect />
       </navigation-case>

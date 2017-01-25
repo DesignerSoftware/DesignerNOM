@@ -26,8 +26,7 @@
                                   emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" paginator="false" 
                                   selection="#{controlClasesPensiones.clasesPensionesSeleccionado}"
-                                  selectionMode="single"
-                                  >
+                                  selectionMode="single">
                         <p:ajax event="filter" listener="#{controlClasesPensiones.eventoFiltrar()}"/>
 
                         <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -109,7 +108,7 @@
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlClasesPensiones.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="refrescar"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlClasesPensiones.salir()}" action="#{controlClasesPensiones.redireccionarAtras()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlClasesPensiones.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
 
                      </p:toolbarGroup>  
@@ -117,13 +116,21 @@
 
                   <h:outputText id="informacionRegistro" value="#{controlClasesPensiones.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
                   <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlClasesPensiones.revisarDialogoGuardar()}" disabled="#{controlClasesPensiones.guardado}"    process="@this"   />
-                  <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"  action="#{controlClasesPensiones.redireccionarAtras()}"     />
+                  <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"  actionListener="#{controlClasesPensiones.salir()}"/>
 
                   <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  action="#{controlClasesPensiones.redireccionarAtras()}"  actionListener="#{controlClasesPensiones.guardarClasesPensiones()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  action="#{controlClasesPensiones.redireccionarAtras()}"  actionListener="#{controlClasesPensiones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"
+                                      style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check">
+                        <f:actionListener binding="#{controlClasesPensiones.navegar('atras')}" />
+                        <f:actionListener binding="#{controlClasesPensiones.guardarClasesPensiones()}" />
+                     </p:commandButton>
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"
+                                      style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close">
+                        <f:actionListener binding="#{controlClasesPensiones.navegar('atras')}" />
+                        <f:actionListener binding="#{controlClasesPensiones.cancelarModificacion()}" />
+                     </p:commandButton>
                      <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
                </p:panel>
