@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ValoresConceptos;
 import Entidades.Conceptos;
 import Exportar.ExportarPDF;
@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -79,6 +81,8 @@ public class ControlValoresConceptos implements Serializable {
     private List<ValoresConceptos> listValoresConceptosBoton;
     private List<ValoresConceptos> filterValoresConceptosBoton;
     private ValoresConceptos conceptoSoporteSeleccionado;
+    private String paginaAnterior;
+    private Map<String, Object> mapParametros;
 
     public ControlValoresConceptos() {
         listValoresConceptosBoton = null;
@@ -97,6 +101,9 @@ public class ControlValoresConceptos implements Serializable {
         guardado = true;
         tamano = 270;
         aceptar = true;
+        paginaAnterior = "nominaf";
+        mapParametros = new LinkedHashMap<String, Object>();
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -110,6 +117,42 @@ public class ControlValoresConceptos implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "valoresconceptos";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+            //         if (pag.equals("rastrotabla")) {
+            //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -289,6 +332,7 @@ public class ControlValoresConceptos implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosValoresConceptos");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -525,99 +569,95 @@ public class ControlValoresConceptos implements Serializable {
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
                 }
-            } else {
-
-                if (!crearValoresConceptos.contains(filtrarValoresConceptos.get(indice))) {
-                    if (filtrarValoresConceptos.get(indice).getValorunitario() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
-                    } else {
-                        for (int j = 0; j < filtrarValoresConceptos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < listValoresConceptos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (banderita == true && banderita1 == true) {
-                        if (modificarValoresConceptos.isEmpty()) {
-                            modificarValoresConceptos.add(filtrarValoresConceptos.get(indice));
-                        } else if (!modificarValoresConceptos.contains(filtrarValoresConceptos.get(indice))) {
-                            modificarValoresConceptos.add(filtrarValoresConceptos.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearValoresConceptos.contains(filtrarValoresConceptos.get(indice))) {
+                if (filtrarValoresConceptos.get(indice).getValorunitario() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
                 } else {
-                    if (filtrarValoresConceptos.get(indice).getValorunitario() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    for (int j = 0; j < filtrarValoresConceptos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < listValoresConceptos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
                         filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
-                    } else {
-                        for (int j = 0; j < filtrarValoresConceptos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        for (int j = 0; j < listValoresConceptos.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                            filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
-
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (banderita == true) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
                     }
-                    index = -1;
-                    secRegistro = null;
+
                 }
 
+                if (banderita == true && banderita1 == true) {
+                    if (modificarValoresConceptos.isEmpty()) {
+                        modificarValoresConceptos.add(filtrarValoresConceptos.get(indice));
+                    } else if (!modificarValoresConceptos.contains(filtrarValoresConceptos.get(indice))) {
+                        modificarValoresConceptos.add(filtrarValoresConceptos.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarValoresConceptos.get(indice).getValorunitario() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
+                } else {
+                    for (int j = 0; j < filtrarValoresConceptos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    for (int j = 0; j < listValoresConceptos.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarValoresConceptos.get(indice).getValorunitario() == listValoresConceptos.get(j).getValorunitario()) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
+                        filtrarValoresConceptos.get(indice).setValorunitario(backupValorVoluntario);
+
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (banderita == true) {
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosValoresConceptos");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1080,23 +1120,20 @@ public class ControlValoresConceptos implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
-            } else {
-                if (tipoNuevo == 2) {
-                    //duplicarValoresConceptos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-                    System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-                    System.out.println("DUPLICAR INDEX : " + index);
-                    duplicarValoresConceptos.setConcepto(new Conceptos());
+            } else if (tipoNuevo == 2) {
+                //duplicarValoresConceptos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
+                System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+                System.out.println("DUPLICAR INDEX : " + index);
+                duplicarValoresConceptos.setConcepto(new Conceptos());
 
-                    System.out.println("DUPLICAR PERSONA  : " + duplicarValoresConceptos.getConcepto().getCodigo());
-                    System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarCodigoConcepto);
-                    if (tipoLista == 0) {
-                        listValoresConceptos.get(index).getConcepto().setCodigo(nuevoYduplicarCompletarCodigoConcepto);
-                        System.err.println("tipo lista" + tipoLista);
-                        System.err.println("Secuencia Parentesco " + listValoresConceptos.get(index).getConcepto().getSecuencia());
-                    } else if (tipoLista == 1) {
-                        filtrarValoresConceptos.get(index).getConcepto().setCodigo(nuevoYduplicarCompletarCodigoConcepto);
-                    }
-
+                System.out.println("DUPLICAR PERSONA  : " + duplicarValoresConceptos.getConcepto().getCodigo());
+                System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarCodigoConcepto);
+                if (tipoLista == 0) {
+                    listValoresConceptos.get(index).getConcepto().setCodigo(nuevoYduplicarCompletarCodigoConcepto);
+                    System.err.println("tipo lista" + tipoLista);
+                    System.err.println("Secuencia Parentesco " + listValoresConceptos.get(index).getConcepto().getSecuencia());
+                } else if (tipoLista == 1) {
+                    filtrarValoresConceptos.get(index).getConcepto().setCodigo(nuevoYduplicarCompletarCodigoConcepto);
                 }
 
             }
@@ -1134,24 +1171,21 @@ public class ControlValoresConceptos implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                     tipoActualizacion = tipoNuevo;
                 }
-            } else {
-                if (tipoNuevo == 2) {
-                    //duplicarValoresConceptos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
-                    System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
-                    System.out.println("DUPLICAR INDEX : " + index);
-                    duplicarValoresConceptos.setConcepto(new Conceptos());
-                    duplicarValoresConceptos.getConcepto().setDescripcion(" ");
+            } else if (tipoNuevo == 2) {
+                //duplicarValoresConceptos.getEmpresa().setNombre(nuevoYduplicarCompletarPais);
+                System.out.println("DUPLICAR valorConfirmar cuando es vacio: " + valorConfirmar);
+                System.out.println("DUPLICAR INDEX : " + index);
+                duplicarValoresConceptos.setConcepto(new Conceptos());
+                duplicarValoresConceptos.getConcepto().setDescripcion(" ");
 
-                    System.out.println("DUPLICAR PERSONA  : " + duplicarValoresConceptos.getConcepto().getDescripcion());
-                    System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
-                    if (tipoLista == 0) {
-                        listValoresConceptos.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarPersona);
-                        System.err.println("tipo lista" + tipoLista);
-                        System.err.println("Secuencia Parentesco " + listValoresConceptos.get(index).getConcepto().getSecuencia());
-                    } else if (tipoLista == 1) {
-                        filtrarValoresConceptos.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarPersona);
-                    }
-
+                System.out.println("DUPLICAR PERSONA  : " + duplicarValoresConceptos.getConcepto().getDescripcion());
+                System.out.println("nuevoYduplicarCompletarPERSONA : " + nuevoYduplicarCompletarPersona);
+                if (tipoLista == 0) {
+                    listValoresConceptos.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarPersona);
+                    System.err.println("tipo lista" + tipoLista);
+                    System.err.println("Secuencia Parentesco " + listValoresConceptos.get(index).getConcepto().getSecuencia());
+                } else if (tipoLista == 1) {
+                    filtrarValoresConceptos.get(index).getConcepto().setDescripcion(nuevoYduplicarCompletarPersona);
                 }
 
             }
@@ -1485,13 +1519,10 @@ public class ControlValoresConceptos implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("VALORESCONCEPTOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("VALORESCONCEPTOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
