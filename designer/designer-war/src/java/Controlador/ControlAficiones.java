@@ -61,7 +61,7 @@ public class ControlAficiones implements Serializable {
    private int registrosBorrados;
    private String mensajeValidacion;
    private Integer a;
-   private String infoRegistro, paginaanterior;
+   private String infoRegistro;
    private DataTable tablaC;
    private boolean activarLOV;
    private BigInteger verificarBorradoVigenciasDeportes;
@@ -82,7 +82,7 @@ public class ControlAficiones implements Serializable {
       a = null;
       guardado = true;
       tamano = 270;
-      paginaanterior = "";
+      paginaAnterior = "nominaf";
       activarLOV = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -139,14 +139,14 @@ public class ControlAficiones implements Serializable {
    }
 
    public void recibirPag(String pagina) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       listAficiones = null;
       getListAficiones();
       aficionSeleccionada = listAficiones.get(0);
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(Aficiones aficion, int celda) {

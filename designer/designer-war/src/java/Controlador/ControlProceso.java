@@ -140,7 +140,7 @@ public class ControlProceso implements Serializable {
         procesoBaseClonado = new Procesos();
         lovProcesos = null;
         //
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
         //altos tablas
         altoTablaProcesos = "110";
         altoTablaFormulasProcesos = "115";

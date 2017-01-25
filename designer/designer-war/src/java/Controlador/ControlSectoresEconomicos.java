@@ -67,7 +67,7 @@ public class ControlSectoresEconomicos implements Serializable {
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion, paginaanterior;
+    private String mensajeValidacion;
     //filtrado table
     private int tamano;
     private boolean activarLov;
@@ -109,7 +109,7 @@ public class ControlSectoresEconomicos implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         if (lovEmpresas == null) {
             getLovEmpresas();
         }
@@ -170,7 +170,7 @@ public class ControlSectoresEconomicos implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(SectoresEconomicos sectores, int celda) {

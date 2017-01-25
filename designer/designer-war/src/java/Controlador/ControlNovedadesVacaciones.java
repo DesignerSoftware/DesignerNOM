@@ -144,7 +144,7 @@ public class ControlNovedadesVacaciones implements Serializable {
       diasTotales = BigInteger.valueOf(0);
       diasAplazadosTotal = Short.parseShort(cero);
       altoTabla = "110";
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       activarMTodos = true;
       novedadSeleccionada = null;
       periodicidadCodigoDos = BigInteger.valueOf(19847);

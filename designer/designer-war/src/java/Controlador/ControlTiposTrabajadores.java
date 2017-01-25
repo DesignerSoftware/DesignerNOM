@@ -148,7 +148,7 @@ public class ControlTiposTrabajadores implements Serializable {
         editarTT = new TiposTrabajadores();
         //duplicar
         duplicarTT = new TiposTrabajadores();
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
         activarLOV = true;
         tipoCotizanteBack = new TiposCotizantes();
         fechaVDBack = new Date();

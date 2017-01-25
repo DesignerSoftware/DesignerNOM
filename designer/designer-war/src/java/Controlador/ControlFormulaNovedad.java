@@ -111,7 +111,7 @@ public class ControlFormulaNovedad implements Serializable {
       duplicarFormulaNovedad = new FormulasNovedades();
       formulaNovedadSeleccionada = null;
       formulaActual = new Formulas();
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 

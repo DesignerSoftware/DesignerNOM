@@ -58,7 +58,7 @@ public class ControlIndicesExternos implements Serializable {
    private boolean permitirIndex;
    private Column codigo, descripcion;
    private int registrosBorrados;
-   private String mensajeValidacion, paginaanterior;
+   private String mensajeValidacion;
    private int tamano;
    private boolean activarLov;
    private String infoRegistro;
@@ -144,7 +144,7 @@ public class ControlIndicesExternos implements Serializable {
    }
 
    public String redirigir() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(IndicesExternos indiceex, int celda) {

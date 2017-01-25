@@ -130,7 +130,7 @@ public class ControlFormulaContrato implements Serializable {
       duplicarFormulaContrato = new Formulascontratos();
       cambiosFormulaContrato = false;
       activarLOV = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 

@@ -78,7 +78,7 @@ public class ControlDireccionesBancos implements Serializable {
    private int k;
    private String mensajeValidacion;
    private String altoTabla;
-   private String infoRegistro, infoRegistroCiudades, paginaanterior;
+   private String infoRegistro, infoRegistroCiudades;
    private boolean activarLOV;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -161,7 +161,7 @@ public class ControlDireccionesBancos implements Serializable {
    }
 
    public void recibirPaginaEntrante(String pagina, BigInteger secuenciaBanco) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       banco = administrarBancos.consultarBancosPorSecuencia(secuenciaBanco);
       listaDirecciones = null;
       getListaDirecciones();
@@ -173,7 +173,7 @@ public class ControlDireccionesBancos implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(Direcciones direccion, int celda) {

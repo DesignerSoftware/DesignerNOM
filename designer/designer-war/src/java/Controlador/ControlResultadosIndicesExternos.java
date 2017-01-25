@@ -66,7 +66,7 @@ public class ControlResultadosIndicesExternos implements Serializable {
     private Column indiceexterno, anio, mes, valor, referencia;
     private int registroBorrados;
     private String mensajeValidacion;
-    private String infoRegistro, infoRegistroIndice, paginaanterior;
+    private String infoRegistro, infoRegistroIndice;
     private DataTable tablaC;
     private boolean activarLov;
     private String paginaAnterior = "nominaf";
@@ -84,7 +84,7 @@ public class ControlResultadosIndicesExternos implements Serializable {
         editarResultado = new ResultadosIndicesExternos();
         guardado = true;
         tamano = 270;
-        paginaanterior = "";
+        paginaAnterior = "nominaf";
         activarLov = true;
         lovIndicesExternos = null;
         indiceExternoSeleccionado = null;
@@ -106,7 +106,7 @@ public class ControlResultadosIndicesExternos implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         getListResultados();
         if (listResultados != null) {
             if (!listResultados.isEmpty()) {
@@ -153,7 +153,7 @@ public class ControlResultadosIndicesExternos implements Serializable {
     }
 
     public String retornarPagina() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(ResultadosIndicesExternos resultados, int celda) {

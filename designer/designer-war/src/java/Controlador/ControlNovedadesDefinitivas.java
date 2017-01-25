@@ -109,7 +109,7 @@ public class ControlNovedadesDefinitivas implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlNovedadesDefinitivas() {
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
         permitirIndex = true;
         listaEmpleadosLOV = null;
         listaEmpleados = null;

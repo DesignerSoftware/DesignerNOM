@@ -242,7 +242,7 @@ public class ControlParametrosConjuntos implements Serializable {
         filtradoConceptos = new ArrayList<Conceptos>();
         conceptoSeleccionado = null;
         //Navegabilidad
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
         tipoLista = 0;
         tipoListaLB = 0;
         infoRegistro = "0";

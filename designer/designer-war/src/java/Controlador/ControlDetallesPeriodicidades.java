@@ -63,7 +63,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
    private BigInteger l;
    private int k;
    private String altoTabla;
-   private String infoRegistro, paginaanterior;
+   private String infoRegistro;
    private boolean activarLOV;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -143,7 +143,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
    }
 
    public void recibirPaginaEntrante(String pagina, BigInteger secuenciaPeriodicidad) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       periodicidadActual = administrarDetallesPeriodicidades.consultarPeriodicidadPorSecuencia(secuenciaPeriodicidad);
       listaDetallesP = null;
       getListaDetallesP();
@@ -155,7 +155,7 @@ public class ControlDetallesPeriodicidades implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(DetallesPeriodicidades detallesp, int celda) {

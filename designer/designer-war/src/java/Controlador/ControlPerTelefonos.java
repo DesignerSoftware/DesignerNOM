@@ -81,7 +81,7 @@ public class ControlPerTelefonos implements Serializable {
     //Duplicar
     private Telefonos duplicarTelefono;
     //RASTRO
-    private String altoTabla, infoRegistro, infoRegistroTT, infoRegistroCiudad, paginaanterior;
+    private String altoTabla, infoRegistro, infoRegistroTT, infoRegistroCiudad;
     private DataTable tablaC;
 //    private Empleados empleado;
     private boolean activarLov;
@@ -117,7 +117,7 @@ public class ControlPerTelefonos implements Serializable {
         guardado = true;
 //        empleado = new Empleados();
         activarLov = true;
-        paginaanterior = " ";
+        paginaAnterior = " ";
         mapParametros.put("paginaAnterior", paginaAnterior);
 
     }
@@ -173,7 +173,7 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listaTelefonos = null;
         listaTiposTelefonos = null;
 //        empleado = administrarTelefonos.empleadoActual(secuencia);
@@ -187,7 +187,7 @@ public class ControlPerTelefonos implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void refrescar() {

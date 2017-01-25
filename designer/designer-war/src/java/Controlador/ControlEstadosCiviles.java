@@ -67,7 +67,6 @@ public class ControlEstadosCiviles implements Serializable {
    private int tamano;
    private Integer backUpCodigo;
    private String backUpDescripcion;
-   private String paginaanterior;
    private DataTable tablaC;
    private boolean activarLov;
    private String paginaAnterior = "nominaf";
@@ -140,7 +139,7 @@ public class ControlEstadosCiviles implements Serializable {
    }
 
    public void recibirPag(String pagina) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       listEstadosCiviles = null;
       getListEstadosCiviles();
       deshabilitarBotonLov();
@@ -150,7 +149,7 @@ public class ControlEstadosCiviles implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(EstadosCiviles estadoCivil, int celda) {
@@ -809,11 +808,11 @@ public class ControlEstadosCiviles implements Serializable {
    }
 
    public String getPaginaanterior() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
-   public void setPaginaanterior(String paginaanterior) {
-      this.paginaanterior = paginaanterior;
+   public void setPaginaanterior(String paginaAnterior) {
+      this.paginaAnterior = paginaAnterior;
    }
 
    public boolean isActivarLov() {

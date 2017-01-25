@@ -232,7 +232,7 @@ public class ControlHistoriaFormula implements Serializable {
       cambiosHistoriaFormula = false;
       cambiosNodos = false;
 
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       infoRegistro = "";
       infoRegistroOperador = "";
       infoRegistroOperando = "";

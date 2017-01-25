@@ -60,7 +60,7 @@ public class ControlMotivosDemandas implements Serializable {
    private Column codigo, descripcion;
    //borrado
    private int registrosBorrados;
-   private String mensajeValidacion, paginaanterior;
+   private String mensajeValidacion;
    private BigInteger contarDemandasMotivoDemanda;
    private int tamano;
 
@@ -149,7 +149,7 @@ public class ControlMotivosDemandas implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(MotivosDemandas motivo, int celda) {

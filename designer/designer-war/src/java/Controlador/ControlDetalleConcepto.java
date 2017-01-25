@@ -419,7 +419,7 @@ public class ControlDetalleConcepto implements Serializable {
       activarLOV = true;
       System.err.println("ControlDetalleConcepto() : 2");
       num = 1;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 

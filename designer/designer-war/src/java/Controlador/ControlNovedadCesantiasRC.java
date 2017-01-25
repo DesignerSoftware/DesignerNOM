@@ -127,7 +127,7 @@ public class ControlNovedadCesantiasRC implements Serializable {
       listaMotivosCesantiasLOV = null;
       permitirIndex = true;
       altotabla = 110;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       empleadoSeleccionado = null;
       novedadSeleccionada = null;
       nuevaNovedad = new NovedadesSistema();

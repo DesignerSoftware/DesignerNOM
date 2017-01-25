@@ -82,7 +82,7 @@ public class ControlPerDirecciones implements Serializable {
     //Duplicar
     private Direcciones duplicarDireccion;
     private String altoTabla;
-    private String infoRegistro, infoRegistroCiudades, paginaanterior;
+    private String infoRegistro, infoRegistroCiudades;
     private boolean activarLOV;
     private DataTable tablaC;
     private String paginaAnterior = "nominaf";
@@ -107,7 +107,7 @@ public class ControlPerDirecciones implements Serializable {
         listaDirecciones = null;
         k = 0;
         altoTabla = "270";
-        paginaanterior = " ";
+        paginaAnterior = " ";
         activarLOV = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
@@ -164,7 +164,7 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listaDirecciones = null;
         persona = administrarDirecciones.consultarPersona(secuencia);
         getListaDirecciones();
@@ -177,7 +177,7 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(Direcciones direccion, int celda) {

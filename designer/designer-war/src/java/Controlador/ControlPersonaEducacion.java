@@ -129,7 +129,7 @@ public class ControlPersonaEducacion implements Serializable {
     //Cual Insertar
     private String cualInsertar;
     //Cual Nuevo Update
-    private String cualNuevo, paginaanterior;
+    private String cualNuevo;
     public String altoTabla1;
     public String altoTabla2;
     private String infoRegistroF, infoRegistroNF, infoRegistroEducacion, infoRegistroCursos, infoRegistrosProfesion, infoRegistroInstituciones, infoRegistroInstitucionesF, infoRegistroAdiestramientosF, infoRegistroAdiestramientosNF;
@@ -188,7 +188,7 @@ public class ControlPersonaEducacion implements Serializable {
         altoTabla1 = "105";
         altoTabla2 = "105";
         activarLov = true;
-        paginaanterior = " ";
+        paginaAnterior = " ";
         listaTiposEducaciones = null;
         listaProfesiones = null;
         listaInstituciones = null;
@@ -250,7 +250,7 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public void recibirPersona(BigInteger secEmpl, String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         persona = administrarVigenciasFormales.encontrarPersona(secEmpl);
         getPersona();
         listaVigenciasFormales = null;
@@ -263,7 +263,7 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     //Ubicacion Celda.

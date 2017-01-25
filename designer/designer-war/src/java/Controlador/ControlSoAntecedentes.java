@@ -66,7 +66,7 @@ public class ControlSoAntecedentes implements Serializable {
     private BigInteger l;
     private int k;
     private boolean permitirIndex;
-    private String infoRegistro, infoRegistroLov, paginaanterior;
+    private String infoRegistro, infoRegistroLov;
     private String altoTabla, mensajeValidacion;
     private int cualCelda;
     private String paginaAnterior = "nominaf";
@@ -83,7 +83,7 @@ public class ControlSoAntecedentes implements Serializable {
         listAntecedentes = null;
         guardado = true;
         activarLov = true;
-        paginaanterior = " ";
+        paginaAnterior = " ";
         nuevoAntecedente = new SoAntecedentes();
         duplicarAntecedente = new SoAntecedentes();
         k = 0;
@@ -105,7 +105,7 @@ public class ControlSoAntecedentes implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listAntecedentes = null;
         getListAntecedentes();
         if (listAntecedentes != null) {
@@ -154,7 +154,7 @@ public class ControlSoAntecedentes implements Serializable {
     }
 
     public String retornarPaginaAnterior() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cancelarModificacion() {

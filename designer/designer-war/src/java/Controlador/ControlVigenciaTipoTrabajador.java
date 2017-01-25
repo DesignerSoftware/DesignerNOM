@@ -232,7 +232,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         cambiosPagina = true;
         mensajeValidacion = " ";
         activarLOV = true;
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
 
         estiloRetiradosInput = "position: absolute; left: 440px; top: 310px; width: 415px; height: 185px; border-radius: 10px; text-align: left; visibility: hidden; display: none;";
         estiloPensionadosMensaje = "position: absolute; left: 12px; top: 310px; width: 410px; height: 185px; border-radius: 10px; text-align: left; visibility: visible";

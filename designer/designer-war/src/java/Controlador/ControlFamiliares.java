@@ -89,7 +89,7 @@ public class ControlFamiliares implements Serializable {
    private int k;
    private int cualCelda, tipoLista;
    private boolean permitirIndex;
-   private String altoTabla, paginaanterior, mensajeValidacion;
+   private String altoTabla, mensajeValidacion;
    private Column nombre, ocupacion, columnaTipo, smedico, sfamiliar, beneficiario, upcadicional, valorupc;
    private String infoRegistroFamiliar, infoRegistroPersonas, infoRegistroTipoFamiliar, infoRegistroTipoDocumento, infoRegistroCiudades, infoRegistroCiudadNacimiento;
    private DataTable tablaC;
@@ -188,7 +188,7 @@ public class ControlFamiliares implements Serializable {
    public void recibirPaginaEntrante(String pagina, BigInteger secuencia) {
       imprimir("recibirPagina", "pagina: " + pagina);
       imprimir("recibirPagina", "secuencia: " + secuencia);
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       getListaFamiliares();
       personas = administrarFamiliares.consultarPersona(secuencia);
       if (listaFamiliares != null) {
@@ -200,7 +200,7 @@ public class ControlFamiliares implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(Familiares familiar, int celda) {

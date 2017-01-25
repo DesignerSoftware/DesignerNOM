@@ -59,7 +59,7 @@ public class ControlProfesiones implements Serializable {
     private int k, bandera, tipoLista, cualCelda;
     private Column codigo, descripcion;
     private boolean aceptar, permitirIndex, guardado, activarLov;
-    private String altoTabla, inforegistro, paginaanterior, mensajeValidacion;
+    private String altoTabla, inforegistro, mensajeValidacion;
     private DataTable tablaC;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -142,7 +142,7 @@ public class ControlProfesiones implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void editarCelda() {

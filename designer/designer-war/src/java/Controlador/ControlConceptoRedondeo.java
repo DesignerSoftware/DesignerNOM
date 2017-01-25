@@ -119,7 +119,7 @@ public class ControlConceptoRedondeo implements Serializable {
       duplicarConceptoRedondeo = new ConceptosRedondeos();
       conceptoRedondeoSeleccionado = null;
       cambiosPagina = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //Conteo de registros
       infoRegistro = "";
       infoRegistroLov = "";

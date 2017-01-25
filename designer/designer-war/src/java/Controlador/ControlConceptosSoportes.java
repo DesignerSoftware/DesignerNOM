@@ -96,7 +96,7 @@ public class ControlConceptosSoportes implements Serializable {
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlConceptosSoportes() {
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       banderaConceptoEscogido = true;
       lovConceptosSoportes = null;
       listConceptosSoportes = null;

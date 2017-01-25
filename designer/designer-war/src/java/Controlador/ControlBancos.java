@@ -55,7 +55,7 @@ public class ControlBancos implements Serializable {
    private boolean permitirIndex;
    private Column codigo, nombre, compensacion, codalt, prefijo, numid, cuenta;
    private int registrosBorrados;
-   private String mensajeValidacion, paginaanterior;
+   private String mensajeValidacion;
    private int tamano;
    private boolean activarLov;
    private String infoRegistro;
@@ -97,7 +97,7 @@ public class ControlBancos implements Serializable {
    }
 
    public void recibirPaginaEntrante(String pagina) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       listaBancos = null;
       getListaBancos();
       if (listaBancos != null) {

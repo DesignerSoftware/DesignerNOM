@@ -127,7 +127,7 @@ public class ControlEstructuraPlanta implements Serializable {
       organigramaSeleccionado = null;
       estructuraSeleccionada = null;
       activoEstructura = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //altos tablas
       altoTablaOrganigrama = "65";
       altoTablaEstructura = "210";

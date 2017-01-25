@@ -65,7 +65,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
    private Short backupCodigo;
    private String backupNombre;
    private int tamano;
-   private String infoRegistro, paginaanterior;
+   private String infoRegistro;
    private boolean activarLOV;
 //
    private DataTable tablaC;
@@ -87,7 +87,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
       duplicarMotivoCambioCargo = new MotivosCambiosCargos();
       guardado = true;
       tamano = 315;
-      paginaanterior = "";
+      paginaAnterior = "nominaf";
       activarLOV = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -143,7 +143,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
    }
 
    public void recibirPag(String pagina) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       getListMotivosCambiosCargos();
       if (listMotivosCambiosCargos != null) {
          if (!listMotivosCambiosCargos.isEmpty()) {
@@ -153,7 +153,7 @@ public class ControlMotivosCambiosCargos implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void cambiarIndice(MotivosCambiosCargos motivoCambioCargo, int celda) {
@@ -761,11 +761,11 @@ public class ControlMotivosCambiosCargos implements Serializable {
    }
 
    public String getPaginaanterior() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
-   public void setPaginaanterior(String paginaanterior) {
-      this.paginaanterior = paginaanterior;
+   public void setPaginaanterior(String paginaAnterior) {
+      this.paginaAnterior = paginaAnterior;
    }
 
    public int getRegistrosBorrados() {

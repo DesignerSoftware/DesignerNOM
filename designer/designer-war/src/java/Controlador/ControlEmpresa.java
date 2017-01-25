@@ -147,7 +147,7 @@ public class ControlEmpresa implements Serializable {
       activoCasillaClonado = true;
       activoVigencia = true;
       activoCircular = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //altos tablas
       altoTablaEmpresa = "112";
       altoTablaVigencia = "110";

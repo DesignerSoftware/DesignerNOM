@@ -85,7 +85,7 @@ public class ControlIndicadores implements Serializable {
       duplicarIndicador = new Indicadores();
       guardado = true;
       tamano = 270;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       activarLov = true;
       lovTiposIndicadores = null;
       tipoIndicadorSeleccionado = null;

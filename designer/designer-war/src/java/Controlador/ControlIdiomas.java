@@ -60,7 +60,7 @@ public class ControlIdiomas implements Serializable {
    private Column codigo, descripcion;
    //borrado
    private int registrosBorrados;
-   private String mensajeValidacion, paginaanterior;
+   private String mensajeValidacion;
    //filtrado table
    private int tamano;
    private Integer backupCodigo;
@@ -152,7 +152,7 @@ public class ControlIdiomas implements Serializable {
    }
 
    public void recibirPag(String pagina) {
-      paginaanterior = pagina;
+      paginaAnterior = pagina;
       listIdiomas = null;
       getListIdiomas();
       deshabilitarBotonLov();
@@ -162,7 +162,7 @@ public class ControlIdiomas implements Serializable {
    }
 
    public String retornarPagina() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
    public void asignarIndex(Idiomas idioma, int LND, int dig) {
@@ -986,11 +986,11 @@ public class ControlIdiomas implements Serializable {
    }
 
    public String getPaginaanterior() {
-      return paginaanterior;
+      return paginaAnterior;
    }
 
-   public void setPaginaanterior(String paginaanterior) {
-      this.paginaanterior = paginaanterior;
+   public void setPaginaanterior(String paginaAnterior) {
+      this.paginaAnterior = paginaAnterior;
    }
 
 }

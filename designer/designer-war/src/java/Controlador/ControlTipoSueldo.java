@@ -127,7 +127,7 @@ public class ControlTipoSueldo implements Serializable {
         activoFormulaConcepto = true;
         activoGrupoDistribucion = true;
         activoTipoEntidad = true;
-        paginaAnterior = "";
+        paginaAnterior = "nominaf";
         altoTablaTiposSueldos = "60";
         altoTablaTSFormulas = "220";
         altoTablaTSGrupos = "60";

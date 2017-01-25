@@ -65,7 +65,7 @@ public class ControlDeportes implements Serializable {
     private Integer a;
     private Integer backUpCodigo;
     private String backUpDescripcion;
-    private String infoRegistro, paginaanterior;
+    private String infoRegistro;
     private DataTable tablaC;
     private boolean activarLOV;
     private BigInteger verificarBorradoVigenciasDeportes;
@@ -86,7 +86,7 @@ public class ControlDeportes implements Serializable {
         a = null;
         guardado = true;
         tamano = 270;
-        paginaanterior = "";
+        paginaAnterior = "nominaf";
         activarLOV = true;
    mapParametros.put ("paginaAnterior", paginaAnterior);
     }
@@ -142,7 +142,7 @@ public class ControlDeportes implements Serializable {
     }
 
     public void recibirPag(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listDeportes = null;
         getListDeportes();
         if (listDeportes != null) {
@@ -153,7 +153,7 @@ public class ControlDeportes implements Serializable {
     }
 
     public String retornarPagina() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(Deportes deporte, int celda) {
@@ -789,11 +789,11 @@ public class ControlDeportes implements Serializable {
     }
 
     public String getPaginaanterior() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
-    public void setPaginaanterior(String paginaanterior) {
-        this.paginaanterior = paginaanterior;
+    public void setPaginaanterior(String paginaAnterior) {
+        this.paginaAnterior = paginaAnterior;
     }
 
     public boolean isGuardado() {

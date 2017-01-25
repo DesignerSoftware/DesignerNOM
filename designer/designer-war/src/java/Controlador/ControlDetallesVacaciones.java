@@ -103,7 +103,7 @@ public class ControlDetallesVacaciones {
       //
       infoRegistro = "0";
       infoRegistroPeriodo = "0";
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //
       mapParametros.put("paginaAnterior", paginaAnterior);
    }

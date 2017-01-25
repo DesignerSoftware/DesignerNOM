@@ -170,7 +170,7 @@ public class ControlNovedadesConceptos implements Serializable {
       infoRegistroLovPeriodicidades = "0";
       infoRegistroLovTerceros = "0";
       activarLOV = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
