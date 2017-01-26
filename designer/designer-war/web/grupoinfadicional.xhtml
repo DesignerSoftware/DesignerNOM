@@ -100,7 +100,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});" /> 
-                                    <p:ajax event="change" listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.codigo)}"  update="codigo"/>
+                                    <p:ajax event="change" listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info)}"  update="codigo"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -115,7 +115,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});"  /> 
-                                    <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.descripcion)}" update="descripcion"/>
+                                    <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info)}" update="descripcion"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -130,7 +130,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.estado}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlGruposInfAdicionales.cambiarIndice(info, 2)}" process="@this" 
                                             onstart="PF('datosGruposInfAdicionales').unselectAllRows();PF('datosGruposInfAdicionales').selectRow(#{indice});"  /> 
-                                    <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info, 'N', info.estado)}" update="estado"/>
+                                    <p:ajax event="change"  listener="#{controlGruposInfAdicionales.modificarGruposInfAdicionales(info)}" update="estado"/>
                                  </p:inputText>
                               </f:facet>  
                            </p:cellEditor>
@@ -144,18 +144,18 @@
 
                   <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                     <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 140px; top: 20px; width: 250px; font-weight:bold;" />
                      <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"
                                       style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check">
                         <f:actionListener binding="#{controlGruposInfAdicionales.guardarGruposInfAdicionales()}" />
                         <f:actionListener binding="#{controlGruposInfAdicionales.navegar('atras')}" />
                      </p:commandButton>
                      <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"
-                                      style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close">
+                                      style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close">
                         <f:actionListener binding="#{controlGruposInfAdicionales.cancelarModificacion()}" />
                         <f:actionListener binding="#{controlGruposInfAdicionales.navegar('atras')}" />
                      </p:commandButton>
-                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                     <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
 
                </p:panel>

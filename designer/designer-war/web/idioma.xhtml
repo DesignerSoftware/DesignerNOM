@@ -93,13 +93,12 @@
                                   value="#{controlIdiomas.listIdiomas}" scrollHeight="#{controlIdiomas.tamano}"  scrollWidth="830"
                                   filteredValue="#{controlIdiomas.filtrarIdiomas}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                   editable="true" editMode="cell" paginator="false"  scrollable="true"
-                                  selection="#{controlIdiomas.idiomaSeleccionado}" widgetVar="datosIdiomas"
-                                  selectionMode="single"  >
+                                  selection="#{controlIdiomas.idiomaSeleccionado}" selectionMode="single" >
 
                         <p:ajax event="filter" listener="#{controlIdiomas.eventoFiltrar()}"/>
                         <f:event type="preRenderView" listener="#{controlIdiomas.recordarSeleccion()}"/>
 
-                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                               <f:facet name="input">
@@ -115,7 +114,7 @@
                               <h:outputText value="" />
                            </f:facet>
                         </p:column>
-                        <p:column headerText="Idioma" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="155" filterStyle="display: none; visibility: hidden;" >                                  
+                        <p:column headerText="Idioma" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion"  filterStyle="display: none; visibility: hidden;" >                                  
                            <p:cellEditor>  
                               <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                               <f:facet name="input">

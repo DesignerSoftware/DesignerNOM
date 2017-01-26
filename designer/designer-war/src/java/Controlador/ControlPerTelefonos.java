@@ -869,6 +869,21 @@ public class ControlPerTelefonos implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
     }
 
+    public void modificarTelefonos(Telefonos telefono) {
+        telefonoSeleccionado = telefono;
+        if (!listaTelefonosCrear.contains(telefonoSeleccionado)) {
+
+            if (listaTelefonosModificar.isEmpty()) {
+                listaTelefonosModificar.add(telefonoSeleccionado);
+            } else if (!listaTelefonosModificar.contains(telefonoSeleccionado)) {
+                listaTelefonosModificar.add(telefonoSeleccionado);
+            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }
+        RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
+    }
+
     //GUARDAR
     public void guardarCambiosTelefono() {
         if (guardado == false) {

@@ -155,24 +155,24 @@
 
                     <!-- Ya Existe Nombre-->
 
-                    <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="sobrepasaCaracteres" header="#{msg['error']}" widgetVar="sobrepasaCaracteres"  resizable="false" draggable="true" modal="true" height="70" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 25px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El límite de Caracteres para el nombre del tipo de teléfono es 20" style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('sobrepasaCaracteres').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 40px; left: 280px;" process="@this" />
                     </p:dialog>
 
                     <!-- Ya Existe Codigo -->
 
-                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="70" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 280px;" process="@this" />
                     </p:dialog>
 
-                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+                    <p:dialog id="existeNombre" header="#{msg['error']}" widgetVar="existeNombre"  resizable="false" draggable="true" modal="true" height="70" width="400"  closable ="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                        <h:outputText value="El nombre digitado ya está en uso. Por favor, ingrese otro nombre." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                        <p:commandButton value="Aceptar" onclick="PF('existeNombre').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 280px;" process="@this" />
                     </p:dialog>
 
 
@@ -181,20 +181,20 @@
                         <center><strong><h:outputText value="Ingresar un nuevo Tipo de Teléfono" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevoTipoEducacion" style="border: none;">
-                            <strong><h:outputText value="Código: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigoTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <strong><h:outputText value="*Código: " style=" position: absolute; top: 63px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoCodigoTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoCodigoTipoEducacion" value="Código" />
 
-                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombreTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 93px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoNombreTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNombreTipoEducacion" value="Nombre" />
 
                             <strong><h:outputText value="Nivel Educativo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNivelTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="nuevoNivelTipoEducacion" value="#{controlTiposEducaciones.nuevoTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText> 
                             <p:watermark for="nuevoNivelTipoEducacion" value="Nivel Educativo" />
@@ -208,25 +208,24 @@
                     <!--DIALOGO DUPLICAR-->
 
                     <p:dialog id="DuplicarRegistroTipoEducacion" header="Duplicar Registro" widgetVar="DuplicarRegistroTipoEducacion" closable="false" resizable="false"  draggable="true" modal="true"  height="200" width="320" style=" padding: 0px">  
-
                         <center><strong><h:outputText value="Ingresar información tipo Educación " style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarTipoEducacion" style="border: none;">
 
-                            <strong><h:outputText value="Codigo: " style=" position: absolute; top: 63px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlTiposEducaciones.duplicarTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" onclick="PF('select();">
+                            <strong><h:outputText value="*Codigo: " style=" position: absolute; top: 63px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlTiposEducaciones.duplicarTipoEducacion.codigo}" maxlength="4" style=" width: 122px; position: absolute; left: 130px; top: 59px; text-transform: uppercase" >
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarCodigo" value="Código" />
 
-                            <strong><h:outputText value="Nombre: " style=" position: absolute; top: 93px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlTiposEducaciones.duplicarTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" onclick="PF('select();">
+                            <strong><h:outputText value="*Nombre: " style=" position: absolute; top: 93px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlTiposEducaciones.duplicarTipoEducacion.nombre}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 89px; text-transform: uppercase" >
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="Nombre" />
 
                             <strong><h:outputText value="Nivel Educativo: " style=" position: absolute; top: 124px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNivel" value="#{controlTiposEducaciones.duplicarTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" onclick="PF('select();">
+                            <p:inputText  autocomplete="off"  id="duplicarNivel" value="#{controlTiposEducaciones.duplicarTipoEducacion.niveleducativo}" maxlength="20" style=" width: 122px; position: absolute; left: 130px; top: 119px; text-transform: uppercase" >
                                 <p:ajax event="change" update="duplicarTipoEducacion"/>
                             </p:inputText>
                             <p:watermark for="duplicarNivel" value="Nivel Educativo" />
@@ -239,7 +238,7 @@
 
                     <p:dialog id="validacionNuevoTipoEducacion" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoEducacion"  resizable="false" draggable="true" modal="true" height="95" width="440" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
-                        <h:outputText value="Para agregar un nuevo Tipo de Educación es necesario adicionar: #{controlTiposEducaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <h:outputText value="#{controlTiposEducaciones.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionNuevoTipoEducacion').hide();" icon="ui-icon-circle-check" style="position: absolute; top: 60px; left: 300px;" process="@this" />
                     </p:dialog>
 
@@ -261,33 +260,35 @@
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 180px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEducaciones.tipoEducacionSeleccionado.getSecuencia(), 'TiposEducaciones', 'tiposeducaciones')}" style="position: absolute; top: 65px; left: 205px;" action="rastrotabla" process="@this" icon="ui-icon-circle-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" icon="ui-icon-circle-close"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 7px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEducaciones.tipoEducacionSeleccionado.getSecuencia(), 'TiposEducaciones', 'tiposeducaciones')}" style="position: absolute; top: 65px; left: 175px;" 
+                                         action="rastrotabla" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"  />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposEducaciones', 'tiposeducaciones')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-circle-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposEducaciones', 'tiposeducaciones')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
+                        <p:commandButton value="No" icon="ui-icon-circle-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEducaciones.tipoEducacionSeleccionado.getSecuencia(), 'TiposEducaciones', 'tiposeducaciones')}" style="position: absolute; top: 70px; left: 170px;" action="rastrotabla" process="@this" icon="ui-icon-circle-check" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 235px;" process="@this" icon="ui-icon-circle-close" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposEducaciones.tipoEducacionSeleccionado.getSecuencia(), 'TiposEducaciones', 'tiposeducaciones')}"
+                                         style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-circle-check" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-circle-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
@@ -297,7 +298,7 @@
 
                     <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 5px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
@@ -305,10 +306,8 @@
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <!--HotKey-->
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlTiposEducaciones.activarCtrlF11()}" process="@this"/>
 
-                    <!-- DIALOGOS EDITAR -->
 
                     <p:dialog id="editarCodigosTiposEducaciones" header="Código" widgetVar="editarCodigosTiposEducaciones" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlTiposEducaciones.editarTipoEducacion.codigo}" style="overflow: auto;" readonly="true"/>

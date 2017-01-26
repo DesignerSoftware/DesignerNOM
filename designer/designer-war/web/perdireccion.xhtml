@@ -158,7 +158,7 @@
                                             <p:inputText  autocomplete="off"  value="#{direccion.ppal}" id="editarDescripcionUbicacionPrincipal" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 2)}" 
                                                         onstart="PF('datosDireccionesPersona').unselectAllRows();PF('datosDireccionesPersona').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.ppal)}"/>
+                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -202,7 +202,7 @@
                                             <p:inputText  autocomplete="off"  value="#{direccion.secundario}" id="editarDescripcionUbicacionSecundaria" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 4)}" 
                                                         onstart="PF('datosDireccionesPersona').unselectAllRows();PF('datosDireccionesPersona').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.secundario)}"/>
+                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -223,7 +223,7 @@
                                             <p:inputText  autocomplete="off"  value="#{direccion.interior}" id="editarInterior" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 5)}" 
                                                         onstart="PF('datosDireccionesPersona').unselectAllRows();PF('datosDireccionesPersona').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.interior)}"/>
+                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -239,7 +239,7 @@
                                         <f:facet name="output"><h:outputText value="#{direccion.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{direccion.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'CIUDAD', direccion.ciudad.nombre)}"/>
+                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion)}"/>
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 6)}" 
                                                         onstart="PF('datosDireccionesPersona').unselectAllRows();PF('datosDireccionesPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPerDirecciones.asignarIndex(direccion)}"/>
@@ -299,7 +299,7 @@
                                             <p:inputText  autocomplete="off"  value="#{direccion.direccionalternativa}" id="editarDireccionAlternativa" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="select" listener="#{controlPerDirecciones.cambiarIndice(direccion, 9)}" 
                                                         onstart="PF('datosDireccionesPersona').unselectAllRows();PF('datosDireccionesPersona').selectRow(#{indice});"/>
-                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion, 'N', direccion.direccionalternativa)}"/>
+                                                <p:ajax event="change" listener="#{controlPerDirecciones.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -312,13 +312,8 @@
                             </p:dataTable>  
                             <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlPerDirecciones.infoRegistro}" style="position: relative; left: 15px; top: 1px; font-weight: bold"/>
                         </fieldset>
-
-
-
                     </p:panel>
                 </h:form>
-                
-                
                 <!-- NUEVO REGISTRO --> 
                 <h:form id="formularioDialogos" >
 

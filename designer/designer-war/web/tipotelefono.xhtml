@@ -99,7 +99,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigosTiposTelefonos" style=" border-radius: 0px; width: 93.5%; text-transform: uppercase ;height: 12px;"> 
                                                 <p:keyFilter for="editarCodigosTiposTelefonos" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,0)}" onstart="PF('datosTiposTelefonos').unselectAllRows();PF('datosTiposTelefonos').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.codigo)}" update="@this"/>
+                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info)}" update="@this"/>
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -118,7 +118,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombresTiposTelefonos" maxlength="20" style=" border-radius: 0px; width: 99%; text-transform: uppercase;height: 12px;"> 
                                                 <p:ajax event="select" listener="#{controlTiposTelefonos.cambiarIndice(info,1)}" onstart="PF('datosTiposTelefonos').unselectAllRows();PF('datosTiposTelefonos').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info, 'N', info.nombre)}" update="@this" />
+                                                <p:ajax event="change" listener="#{controlTiposTelefonos.modificarTiposTelefonos(info)}" update="@this" />
                                             </p:inputText> 
                                         </f:facet>   
                                     </p:cellEditor>

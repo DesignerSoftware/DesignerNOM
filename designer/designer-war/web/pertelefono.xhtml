@@ -125,7 +125,7 @@
                                         <f:facet name="output"><h:outputText value="#{telefono.tipotelefono.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{telefono.tipotelefono.nombre}" id="editarTipoTelefono" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
-                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'TIPOTELEFONO', telefono.tipotelefono.nombre)}"
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono)}"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 1)}" 
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
@@ -148,7 +148,7 @@
                                                 <p:keyFilter for="editarNumeroTelefono" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 2)}"  process="@this"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
-                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'N', telefono.numerotelefono)}"/>
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -163,7 +163,7 @@
                                         <f:facet name="output"><h:outputText value="#{telefono.ciudad.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{telefono.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
-                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono, 'CIUDAD', telefono.ciudad.nombre)}"/>
+                                                <p:ajax event="change" listener="#{controlPerTelefonos.modificarTelefonos(telefono)}"/>
                                                 <p:ajax event="select" listener="#{controlPerTelefonos.cambiarIndice(telefono, 3)}" process="@this"
                                                         onstart="PF('datosTelefonosPersona').unselectAllRows();PF('datosTelefonosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlPerTelefonos.asignarIndex(telefono, 1, 0)}"/>

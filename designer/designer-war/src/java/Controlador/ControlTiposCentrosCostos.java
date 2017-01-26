@@ -421,7 +421,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoTipoCentroCosto.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposCentrosCostos.size(); x++) {
                 if (listTiposCentrosCostos.get(x).getCodigo() == nuevoTipoCentroCosto.getCodigo()) {
@@ -430,21 +430,21 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
 
             if (duplicados > 0) {
-                mensajeValidacion = " *Códigos Repetidos \n";
+                mensajeValidacion = " Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
             } else {
                 System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoTipoCentroCosto.getNombre() == (null)) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
+          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             contador++;
 
         }
         if (nuevoTipoCentroCosto.getGrupotipocc().getSecuencia() == null) {
-            mensajeValidacion = mensajeValidacion + " *Grupo Tipo CC \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             contador++;
@@ -564,8 +564,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         a = null;
 
         if (duplicarTipoCentroCosto.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposCentrosCostos.size(); x++) {
                 if (listTiposCentrosCostos.get(x).getCodigo() == duplicarTipoCentroCosto.getCodigo()) {
@@ -573,8 +572,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = "Código repetido \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -582,15 +580,14 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
         }
         if (duplicarTipoCentroCosto.getNombre() == null || duplicarTipoCentroCosto.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             System.out.println("Bandera : ");
             contador++;
         }
         if (duplicarTipoCentroCosto.getGrupotipocc().getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + "   *Grupo Tipo CC \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
         } else {
             contador++;

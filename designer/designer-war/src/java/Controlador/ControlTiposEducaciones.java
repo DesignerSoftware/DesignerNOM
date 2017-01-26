@@ -238,11 +238,11 @@ public class ControlTiposEducaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         mensajeValidacion = " ";
         if (nuevoTipoEducacion.getNombre().equals(" ") || nuevoTipoEducacion.getNombre().equals("")) {
-            mensajeValidacion = mensajeValidacion + " * Nombre de Tipo de Telefono \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevoTipoEducacion.getCodigo() == 0) {
-            mensajeValidacion = mensajeValidacion + " * Codigo \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
@@ -255,25 +255,11 @@ public class ControlTiposEducaciones implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasaA++;
             }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
-
-            }
-        }
-
-        for (int i = 0; i < listaTiposEducaciones.size(); i++) {
-            System.out.println("Codigos: " + listaTiposEducaciones.get(i).getCodigo());
             if (listaTiposEducaciones.get(i).getCodigo() == nuevoTipoEducacion.getCodigo()) {
                 System.out.println("Entro al IF Tipo Telefono");
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
                 RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasaA++;
-            }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoTelefono");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
-
             }
         }
 
@@ -281,6 +267,12 @@ public class ControlTiposEducaciones implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:sobrepasaCaracteres");
             RequestContext.getCurrentInstance().execute("PF('sobrepasaCaracteres').show()");
             pasa++;
+        }
+
+        if (pasa != 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoEducacion').show()");
+
         }
 
         if (pasa == 0 && pasaA == 0) {

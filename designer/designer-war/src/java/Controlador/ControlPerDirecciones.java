@@ -320,88 +320,16 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     //AUTOCOMPLETAR
-    public void modificarDirecciones(Direcciones direccion, String confirmarCambio, String valorConfirmar) {
+    public void modificarDirecciones(Direcciones direccion) {
         direccionSeleccionada = direccion;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                    if (listaDireccionesModificar.isEmpty()) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                }
-
-            } else if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
-            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
-        } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
-            if (tipoLista == 0) {
-                direccionSeleccionada.getCiudad().setNombre(Ciudad);
-            } else {
-                direccionSeleccionada.getCiudad().setNombre(Ciudad);
-            }
-
-            for (int i = 0; i < listaCiudades.size(); i++) {
-                if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    direccionSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                } else {
-                    direccionSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                }
-                listaCiudades = null;
-                getListaCiudades();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                    if (listaDireccionesModificar.isEmpty()) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                }
-            } else if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }

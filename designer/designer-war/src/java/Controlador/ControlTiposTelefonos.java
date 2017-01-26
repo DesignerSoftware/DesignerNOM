@@ -578,42 +578,19 @@ public class ControlTiposTelefonos implements Serializable {
     }
 
     //AUTOCOMPLETAR
-    public void modificarTiposTelefonos(TiposTelefonos tiposTelefonos, String confirmarCambio, String valorConfirmar) {
+    public void modificarTiposTelefonos(TiposTelefonos tiposTelefonos) {
         tipoTelefonoSeleccionado = tiposTelefonos;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaTiposTelefonosCrear.contains(tipoTelefonoSeleccionado)) {
+        if (!listaTiposTelefonosCrear.contains(tipoTelefonoSeleccionado)) {
 
-                    if (listaTiposTelefonosModificar.isEmpty()) {
-                        listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                    } else if (!listaTiposTelefonosModificar.contains(tipoTelefonoSeleccionado)) {
-                        listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
-                }
-            } else if (!listaTiposTelefonosCrear.contains(tipoTelefonoSeleccionado)) {
-
-                if (listaTiposTelefonosModificar.isEmpty()) {
-                    listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                } else if (!listaTiposTelefonosModificar.contains(tipoTelefonoSeleccionado)) {
-                    listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                }
+            if (listaTiposTelefonosModificar.isEmpty()) {
+                listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
+            } else if (!listaTiposTelefonosModificar.contains(tipoTelefonoSeleccionado)) {
+                listaTiposTelefonosModificar.add(tipoTelefonoSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        RequestContext.getCurrentInstance().update("form:datosTiposTelefonos");
     }
 
     public void verificarRastro() {

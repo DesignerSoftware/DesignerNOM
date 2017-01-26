@@ -105,7 +105,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 0)}" process="@this"
                                                         onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlEstadosCiviles.modificarEstadoCivil(info, 'N', info.codigo)}"  update="codigo"/>
+                                                <p:ajax event="change" listener="#{controlEstadosCiviles.modificarEstadoCivil(info)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -113,14 +113,14 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
-                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="20" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlEstadosCiviles.cambiarIndice(info, 1)}" process="@this"
                                                         onstart="PF('datosEstadosCiviles').unselectAllRows();PF('datosEstadosCiviles').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlEstadosCiviles.modificarEstadoCivil(info, 'N', info.descripcion)}" update="descripcion"/>
+                                                <p:ajax event="change"  listener="#{controlEstadosCiviles.modificarEstadoCivil(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
