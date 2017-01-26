@@ -560,9 +560,9 @@ public class ControlErroresLiquidacion implements Serializable {
       listErroresLiquidacion = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void borrandoErroresLiquidaciones() {
@@ -767,8 +767,6 @@ public class ControlErroresLiquidacion implements Serializable {
    }
 
    public void guardarErroresLiquidacion() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (guardado == false) {
          System.out.println("Realizando guardarClasesPensiones");
          if (!borrarErroresLiquidacion.isEmpty()) {

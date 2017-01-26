@@ -79,7 +79,7 @@
 
                         <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlFormula.salir()}" action="#{controlFormula.redirigir()}" process="@this"/>  
+                                         actionListener="#{controlFormula.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -248,22 +248,22 @@
 
                      <p:commandButton icon="ui-icon-extlink" id="novedadFormula" widgetVar="novedadFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Novedades"
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px;color: white; position: relative; top: -5px; left: 15px;  " 
-                                      action="novedadesFormula" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada, 'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
+                                      action="novedadesFormula" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
                      <p:tooltip for="novedadFormula" value="#{msg['novedades']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="procesoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Procesos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="procesosFormula" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada, 'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="procesosFormula" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="procesoFormula" value="#{msg['procesos']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="conceptoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Conceptos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="conceptoFormula" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada,'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="conceptoFormula" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="conceptoFormula" value="#{msg['conceptos']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="legislacionFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Legislación" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="legislacionFormula" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada,'retornoFormula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="legislacionFormula" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="legislacionFormula" value="#{msg['legislacion']}"/>
 
                      <p:commandButton style="position: relative; left: 670px; top: -35px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
@@ -303,7 +303,7 @@
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" disabled="#{controlFormula.guardado}" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();"  process="@this" />
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" action="#{controlFormula.redirigir()}" actionListener="#{controlFormula.refrescar()}" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlFormula.salir()}" process="@this" />
                </p:panel>
             </h:form>
             <h:form>
@@ -459,9 +459,9 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormula.guardarSalir()}" action="#{controlFormula.redirigir()}"
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormula.guardarSalir()}"
                                    style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormula.cancelarSalir()}"  action="#{controlFormula.redirigir()}"
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFormula.cancelarSalir()}"
                                    style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>

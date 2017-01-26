@@ -81,13 +81,19 @@ public class ControlMotivosCesantias implements Serializable {
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      getListMotivosCesantias();
+      if (!listMotivosCesantias.isEmpty()) {
+         motivoCesantiaSeleccionado = listMotivosCesantias.get(0);
+      }
    }
 
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      getListMotivosCesantias();
+      if (!listMotivosCesantias.isEmpty()) {
+         motivoCesantiaSeleccionado = listMotivosCesantias.get(0);
+      }
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -126,14 +132,6 @@ public class ControlMotivosCesantias implements Serializable {
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
-      }
-   }
-
-   public void recibirPag(String pag) {
-      paginaAnterior = pag;
-      getListMotivosCesantias();
-      if (!listMotivosCesantias.isEmpty()) {
-         motivoCesantiaSeleccionado = listMotivosCesantias.get(0);
       }
    }
 
@@ -177,6 +175,11 @@ public class ControlMotivosCesantias implements Serializable {
    public void listaValoresBoton() {
    }
 
+   public void salir(){
+      cancelarModificacion();
+      navegar("atras");
+   }
+   
    public void cancelarModificacion() {
       if (bandera == 1) {
          //CERRAR FILTRADO

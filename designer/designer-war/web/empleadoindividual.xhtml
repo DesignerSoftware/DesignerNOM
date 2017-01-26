@@ -452,9 +452,9 @@
                                 <p:inputText  autocomplete="off"  id="educacion" value="#{controlEmpleadoIndividual.educacionP}" readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnIdiomas" value="" style="background-image: url(Imagenes/Iconos/idioma.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; " 
-                                                 action="idiomaPerson" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                                                 action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
                                 <h:commandLink value="#{msg['idiomas']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B; "
-                                               action="idiomaPerson" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="idiomas" value="#{controlEmpleadoIndividual.idiomasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnProyectos" value="" style="background-image: url(Imagenes/Iconos/proyecto.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;" 

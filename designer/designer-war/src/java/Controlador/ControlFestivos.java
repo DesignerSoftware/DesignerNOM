@@ -412,6 +412,7 @@ public class ControlFestivos implements Serializable {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
       RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

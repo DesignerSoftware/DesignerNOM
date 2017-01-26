@@ -234,9 +234,9 @@ public class ControlAficiones implements Serializable {
       guardado = true;
       permitirIndex = true;
       contarRegistros();
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosAficion");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

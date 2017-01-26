@@ -748,15 +748,16 @@ public class ControlFormula implements Serializable {
       }
       activoBuscarTodos = false;
 
-      RequestContext.getCurrentInstance().update("form:mostrarTodos");
-      RequestContext.getCurrentInstance().execute("PF('datosFormulas').clearFilters()");
-      RequestContext.getCurrentInstance().update("form:datosFormulas");
-      RequestContext.getCurrentInstance().update("form:nombreLargoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:nombreCortoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:observacionFormulaClon");
-      RequestContext.getCurrentInstance().update("form:descripcionClon");
+      context.update("form:mostrarTodos");
+      context.execute("PF('datosFormulas').clearFilters()");
+      context.update("form:datosFormulas");
+      context.update("form:nombreLargoFormulaClon");
+      context.update("form:nombreCortoFormulaClon");
+      context.update("form:observacionFormulaClon");
+      context.update("form:descripcionClon");
 
       formulaSeleccionada = null;
+      navegar("atras");
    }
 
    public void refrescar() {
@@ -907,7 +908,7 @@ public class ControlFormula implements Serializable {
       formulaSeleccionada = formula;
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
-      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "retornoFormula");
+      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "formula");
 
    }
 

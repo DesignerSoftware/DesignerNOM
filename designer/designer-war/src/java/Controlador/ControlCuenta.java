@@ -1015,8 +1015,8 @@ public class ControlCuenta implements Serializable {
       k = 0;
       listCuentas = null;
       guardado = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void asignarIndex(Cuentas cuenta, int dlg, int LND) {

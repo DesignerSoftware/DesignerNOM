@@ -718,6 +718,7 @@ public class ControlEstructura implements Serializable {
       arbolEstructuras = null;
       RequestContext.getCurrentInstance().update("form:arbolEstructuras");
       permitirIndex = true;
+      navegar("atras");
    }
 
 //BORRAR

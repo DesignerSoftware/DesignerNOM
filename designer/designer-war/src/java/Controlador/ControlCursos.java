@@ -152,10 +152,6 @@ public class ControlCursos implements Serializable {
       }
    }
 
-   public String redirigir() {
-      return paginaAnterior;
-   }
-
    public void editarCelda() {
       if (cursoSeleccionado != null) {
          editarCurso = cursoSeleccionado;
@@ -259,7 +255,7 @@ public class ControlCursos implements Serializable {
       listaCursos = null;
       guardado = true;
       permitirIndex = true;
-
+      navegar("atras");
    }
 
    public void agregarNuevoCurso() {

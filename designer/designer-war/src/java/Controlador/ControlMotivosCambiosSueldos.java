@@ -173,7 +173,6 @@ public class ControlMotivosCambiosSueldos implements Serializable {
       listMotivosCambiosSueldos = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       getListMotivosCambiosSueldos();
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
@@ -205,11 +204,11 @@ public class ControlMotivosCambiosSueldos implements Serializable {
       listMotivosCambiosSueldos = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
       getListMotivosCambiosSueldos();
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosMotivoCambioSueldo");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

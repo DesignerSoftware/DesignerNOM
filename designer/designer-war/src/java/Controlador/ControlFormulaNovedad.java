@@ -579,6 +579,7 @@ public class ControlFormulaNovedad implements Serializable {
       guardado = true;
       formulaActual = null;
 //      lovFormulas = null;
+      navegar("atras");
    }
 
    public void listaValoresBoton() {

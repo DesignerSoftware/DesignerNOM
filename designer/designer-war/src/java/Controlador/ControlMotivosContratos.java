@@ -144,10 +144,6 @@ public class ControlMotivosContratos implements Serializable {
       contarRegistros();
    }
 
-   public String redirigir() {
-      return paginaAnterior;
-   }
-
    public void cambiarIndice(int indice, int celda) {
       System.err.println("TIPO LISTA = " + tipoLista);
       if (permitirIndex == true) {
@@ -263,6 +259,8 @@ public class ControlMotivosContratos implements Serializable {
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      cancelarModificacion();
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

@@ -213,9 +213,9 @@ public class ControlIdiomas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       getListIdiomas();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosIdiomas");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosIdiomas");
+      context.update("form:ACEPTAR");
    }
 
    public void salir() {
@@ -243,9 +243,10 @@ public class ControlIdiomas implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       getListIdiomas();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosIdiomas");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosIdiomas");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

@@ -985,9 +985,9 @@ public class ControlEmpresa implements Serializable {
       }
       activoBtnesAdd = true;
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:DETALLES");
-      RequestContext.getCurrentInstance().update("form:EMPRESABANCO");
-      RequestContext.getCurrentInstance().update("form:DIRECCIONES");
+      context.update("form:DETALLES");
+      context.update("form:EMPRESABANCO");
+      context.update("form:DIRECCIONES");
    }
 
    //GUARDAR
@@ -2187,10 +2187,11 @@ public class ControlEmpresa implements Serializable {
       lovCentrosCostos = null;
       activoBtnesAdd = true;
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:DETALLES");
-      RequestContext.getCurrentInstance().update("form:EMPRESABANCO");
-      RequestContext.getCurrentInstance().update("form:DIRECCIONES");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:DETALLES");
+      context.update("form:EMPRESABANCO");
+      context.update("form:DIRECCIONES");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void listaValoresBoton() {

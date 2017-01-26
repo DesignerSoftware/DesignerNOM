@@ -6,290 +6,304 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.motivocesantias" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="Motivos Cesantías" styleClass="panelTotal" >  
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <f:loadBundle basename="Recursos.motivocesantias" var="msg" />
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="Motivos Cesantías" styleClass="panelTotal" >  
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;" actionListener="#{controlMotivosCesantias.guardarMotivoCesantia()}" process="@this" />
-                                <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); "
+                                         actionListener="#{controlMotivosCesantias.guardarMotivoCesantia()}" process="@this" />
+                        <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none;" actionListener="#{controlMotivosCesantias.editarCelda()}"  process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); "
+                                         actionListener="#{controlMotivosCesantias.editarCelda()}"  process="@this"/>
+                        <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
 
-                                <p:separator />
+                        <p:separator />
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none;" actionListener="#{controlMotivosCesantias.listaValoresBoton()}"  disabled="#{controlMotivosCesantias.activarLov}"  process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); "
+                                         actionListener="#{controlMotivosCesantias.listaValoresBoton()}"  disabled="#{controlMotivosCesantias.activarLov}"  process="@this"/>
+                        <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none;" actionListener="#{controlMotivosCesantias.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); "
+                                         actionListener="#{controlMotivosCesantias.activarCtrlF11()}"  process="@this"/>
+                        <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}" />
 
-                                <p:separator />
+                        <p:separator />
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none;" actionListener="#{controlMotivosCesantias.exportXLS()}"  ajax="false"/>
-                                <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); "
+                                         actionListener="#{controlMotivosCesantias.exportXLS()}"  ajax="false"/>
+                        <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none;" actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="MOTIVOSCESANTIAS" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); "
+                                         actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}"  ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="MOTIVOSCESANTIAS" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none;" actionListener="#{controlMotivosCesantias.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); "
+                                         actionListener="#{controlMotivosCesantias.exportPDF()}" ajax="false"/>
+                        <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
-                                <p:separator /> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none;"  oncomplete="PF('nuevoRegistroTiposReemplazos').show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
-                                <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
+                        <p:separator /> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); "
+                                         oncomplete="PF('nuevoRegistroTiposReemplazos').show()" update=":formularioDialogos:nuevaTipoReemplazo" process="@this"/> 
+                        <p:tooltip style="font-size: 12px;" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none;"  actionListener="#{controlMotivosCesantias.verificarBorrado()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); "
+                                         actionListener="#{controlMotivosCesantias.verificarBorrado()}" process="@this"/>  
+                        <p:tooltip style="font-size: 12px;" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;" actionListener="#{controlMotivosCesantias.duplicandoMotivosCesantias()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
-                                <p:separator /> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" actionListener="#{controlMotivosCesantias.verificarRastro()}" process="@this"/>  
-                                <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
-                                
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                                 oncomplete="window.location.reload()" actionListener="#{controlMotivosCesantias.cancelarModificacion()}" process="@this" />  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); "
+                                         actionListener="#{controlMotivosCesantias.duplicandoMotivosCesantias()}" process="@this"/>  
+                        <p:tooltip style="font-size: 12px;" for="duplicar" value="#{msg['duplicar']}" />
+                        <p:separator /> 
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); "
+                                         actionListener="#{controlMotivosCesantias.verificarRastro()}" process="@this"/>  
+                        <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                                 action="atrasmotivocesantias" actionListener="#{controlMotivosCesantias.cancelarModificacion()}" process="@this" />  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         oncomplete="window.location.reload()" actionListener="#{controlMotivosCesantias.cancelarModificacion()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                            </p:toolbarGroup>  
-                        </p:toolbar>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlMotivosCesantias.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 487px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" "  disabled="#{controlMotivosCesantias.guardado}" actionListener="#{controlMotivosCesantias.revisarDialogoGuardar()}"     process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 487px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=""  action="atrasmotivocesantias" actionListener="#{controlMotivosCesantias.cancelarModificacion()}"   />
+                     </p:toolbarGroup>  
+                  </p:toolbar>
 
-                        
-                        <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 370px; border-radius: 10px; ">
-                            <legend style="font-size: 14px; color: blue"><strong>Motivos de las Cesantías</strong></legend>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlMotivosCesantias.guardado}" actionListener="#{controlMotivosCesantias.revisarDialogoGuardar()}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlMotivosCesantias.salir()}"/>
 
-                            <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
-                                         value="#{controlMotivosCesantias.listMotivosCesantias}" scrollable="true" scrollHeight="280"  scrollWidth="830"
-                                         filteredValue="#{controlMotivosCesantias.filtrarMotivosCesantias}" emptyMessage="No se encontraron resultados para la búsqueda"
-                                         editable="true" editMode="cell" selection="#{controlMotivosCesantias.motivoCesantiaSeleccionado}" selectionMode="single"  
-                                         widgetVar="datosTipoReemplazo" >
-                                <p:ajax event="filter" listener="#{controlMotivosCesantias.eventoFiltrar()}"/>
+                  <fieldset style="position: absolute; left: 10px; top: 90px; font-size: 10px; width: 835px; height: 370px; border-radius: 10px;">
+                     <legend style="font-size: 14px; color: blue"><strong>Motivos de las Cesantías</strong></legend>
 
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;"
-                                          style="font-size: 12px;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 0)}" process="@this"
-                                                       onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});" /> 
-                                                <p:ajax event="change" listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.codigo)}"  update="codigo"/>
-                                                 <p:keyFilter for="editarCodigo" mask="num"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
+                     <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ;font-size: 10px; border: 1px;"                           
+                                  value="#{controlMotivosCesantias.listMotivosCesantias}" scrollable="true" scrollHeight="280"  scrollWidth="830"
+                                  filteredValue="#{controlMotivosCesantias.filtrarMotivosCesantias}" emptyMessage="No se encontraron resultados para la búsqueda"
+                                  editable="true" editMode="cell" selection="#{controlMotivosCesantias.motivoCesantiaSeleccionado}" selectionMode="single"  
+                                  widgetVar="datosTipoReemplazo" >
+                        <p:ajax event="filter" listener="#{controlMotivosCesantias.eventoFiltrar()}"/>
 
-                                    <f:facet name="footer">
-                                        <h:outputText value=" "/>
-                                    </f:facet>
-                                </p:column>
-                                <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;"
-                                          style="font-size: 12px;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.nombre}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 1)}" process="@this"
-                                                       onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.nombre)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
+                        <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="100" filterStyle="display: none; visibility: hidden;"
+                                  style="font-size: 12px;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                    <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});" /> 
+                                    <p:ajax event="change" listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.codigo)}"  update="codigo"/>
+                                    <p:keyFilter for="editarCodigo" mask="num"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
 
-                                    <f:facet name="footer">
-                                        <h:outputText value=" "/>
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>
-                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCesantias.infoRegistro}" style="position: relative; left: 7px; top: 15px; font-weight: bold ; font-size: 12px;"/>
-                        </fieldset>
-
-                        <p:dialog header="#{msg['atencion']}" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
-                                  showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" icon="ui-icon-check" actionListener="#{controlMotivosCesantias.guardarMotivoCesantia()}" style="position: absolute; top: 60px; left: 125px " process="@this" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 190px;" process="@this" />
-                            <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
-                        </p:dialog>
-                    </p:panel>
-
-
-                    <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlMotivosCesantias.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
-                    <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
-                        <h:outputText value=" #{controlMotivosCesantias.mensajeValidacion}   validacion modificar " style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
-                    </p:dialog>
-                    <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionborrar']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
-                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
-                        <h:outputText value="Se han borrado #{controlMotivosCesantias.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
-                    </p:dialog>
-                    <p:dialog id="validacionNuevoMotivo" header="#{msg['atencion']}" widgetVar="validacionNuevoMotivo"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosCesantias.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevoMotivo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlMotivosCesantias.activarCtrlF11()}"/> 
-                </h:form>
-
-                <h:form id="formularioDialogos">
-
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCesantias.secRegistro,'MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCesantias.secRegistro,'MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccioneRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-
-
-                    <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px;">  
-                        <p:inputTextarea value="#{controlMotivosCesantias.editarMotivoCesantia.codigo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editDescripcion" header="Descripción " widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px;">  
-                        <p:inputTextarea value="#{controlMotivosCesantias.editarMotivoCesantia.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-
-
-                    <p:dialog id="nuevoRegistroTiposReemplazos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Motivo Cesantía" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevaTipoReemplazo" style="border: none;">
-
-                            <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlMotivosCesantias.nuevoMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
-                                <p:ajax event="change" update="@this"/>
-                                 <p:keyFilter for="nuevoCodigo" mask="num"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoCodigo" value="Código" />
-
-                            <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px;" /></strong>
-                            <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlMotivosCesantias.nuevoMotivoCesantia.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoNombre" value="Descripción " />
-
-                            <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 220px;"  actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}" update="nuevaTipoReemplazo" process="@this"/>
-                            <p:commandButton id="agregarTE" value="Agregar"  icon="ui-icon-check" style="font-size: 11px; position: absolute; left: 145px; top: 220px;" actionListener="#{controlMotivosCesantias.agregarNuevoMotivosCesantias() }" process="@this" />
-                            <p:commandButton id="cancelarTE" value="Cancelar" icon="ui-icon-close" style="font-size: 11px; position: absolute; left: 240px; top: 220px;"  update="nuevaTipoReemplazo" onclick="PF('nuevoRegistroTiposReemplazos').hide();"  actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-
-
-                    <p:dialog id="duplicarRegistroTiposReemplazos" header="Duplicar Registro" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Cesantía" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarTTR" style="border: none;">
-                            <strong><h:outputText value="Código "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlMotivosCesantias.duplicarMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
-                                <p:ajax event="change" update="@this"/>
-                                 <p:keyFilter for="duplicarCodigo" mask="num"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarCodigo" value="Código" />
-
-                            <strong><h:outputText value="Descripción:"  style="font-size: 12px; position: absolute; top: 110px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlMotivosCesantias.duplicarMotivoCesantia.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarNombre" value="Descripción" />
-
-                            <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 220px;"  actionListener="#{controlMotivosCesantias.limpiarDuplicarMotivosCesantias()}" update="duplicarTTR"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-check" style="font-size: 11px; position: absolute; left: 145px; top: 220px;" actionListener="#{controlMotivosCesantias.confirmarDuplicar()}"  process="@this" />
-                            <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-close" style="font-size: 11px; position: absolute; left: 240px; top: 220px;"  update="duplicarTTR" onclick="PF('duplicarRegistroTiposReemplazos').hide();" actionListener="#{controlMotivosCesantias.limpiarDuplicarMotivosCesantias()}"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-                </h:form>
-
-
-                <h:form id="formExportar">
-                    <p:dataTable id="datosTipoReemplazoExportar" var="info" style="visibility: hidden; display: none;"                           
-                                 value="#{controlMotivosCesantias.listMotivosCesantias}">
-                        <p:column>                                  
-                            <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
-                            <h:outputText value="#{info.codigo}" />
-                        </p:column>  
-
-                        <p:column>  
-                            <f:facet name="header"><h:outputText value="Descripcion" /></f:facet>
-                            <h:outputText value="#{info.nombre}"/>
+                           <f:facet name="footer">
+                              <h:outputText value=" "/>
+                           </f:facet>
                         </p:column>
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                        <p:column headerText="Descripción" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="descripcion" width="275" filterStyle="display: none; visibility: hidden;"
+                                  style="font-size: 12px;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText style="text-transform: uppercase; width: 99%" value="#{info.nombre}"  /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style=" border-radius: 0px; width: 99%; text-transform: uppercase"  > 
+                                    <p:ajax event="select" listener="#{controlMotivosCesantias.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosTipoReemplazo').unselectAllRows();PF('datosTipoReemplazo').selectRow(#{indice});" /> 
+                                    <p:ajax event="change"  listener="#{controlMotivosCesantias.modificandoMotivoCensantia(info, 'N', info.nombre)}" update="descripcion"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=" "/>
+                           </f:facet>
+                        </p:column>
+
+                     </p:dataTable>
+                     <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlMotivosCesantias.infoRegistro}" style="position: relative; left: 7px; top: 15px; font-weight: bold ; font-size: 12px;"/>
+                  </fieldset>
+
+                  <p:dialog header="#{msg['atencion']}" widgetVar="confirmarGuardar" draggable="true" resizable="false" closable="false" id="confirmarGuardar"  
+                            showEffect="fade" hideEffect="fade" width="400" height="110" modal="true" style="font-size: 11px;">
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" icon="ui-icon-check"
+                                      style="position: absolute; top: 60px; left: 125px " process="@this">
+                        <f:actionListener binding="#{controlMotivosCesantias.guardarMotivoCesantia()}" />
+                        <f:actionListener binding="#{controlMotivosCesantias.navegar('atras')}"/>
+                     </p:commandButton>
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" icon="ui-icon-close"
+                                      style="position: absolute; top: 60px; left: 190px;" actionListener="#{controlMotivosCesantias.salir()}" process="@this" />
+                     <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
+                  </p:dialog>
+               </p:panel>
+
+               <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:outputText value="Necesita : #{controlMotivosCesantias.mensajeValidacion}" style="position: absolute; left: 80px; top: 20px; width: 300px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               </p:dialog>
+               <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 30px; top: 20px;"  />
+                  <h:outputText value=" #{controlMotivosCesantias.mensajeValidacion}   validacion modificar " style="position: absolute; left: 100px; top: 25px; width: 250px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
+               </p:dialog>
+               <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 25px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionborrar']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               </p:dialog>
+               <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="50" height="70" style="position: absolute; left: 40px; top: 10px;"  />
+                  <h:outputText value="Se han borrado #{controlMotivosCesantias.registrosBorrados}  Registros" style="position: absolute; left: 100px; top: 20px; width: 250px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 60px; left: 200px;" process="@this" />
+               </p:dialog>
+               <p:dialog id="validacionNuevoMotivo" header="#{msg['atencion']}" widgetVar="validacionNuevoMotivo"  resizable="false" draggable="true" modal="true" height="95" width="450" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="Para agregar es necesario adicionar: #{controlMotivosCesantias.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevoMotivo').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               </p:dialog>
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlMotivosCesantias.activarCtrlF11()}"/> 
+            </h:form>
+
+            <h:form id="formularioDialogos">
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCesantias.secRegistro,'MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosCesantias.secRegistro,'MotivosCesantias', 'motivocesantia')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccioneRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+
+
+               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px;">  
+                  <p:inputTextarea value="#{controlMotivosCesantias.editarMotivoCesantia.codigo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editDescripcion" header="Descripción " widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="font-size: 12px;">  
+                  <p:inputTextarea value="#{controlMotivosCesantias.editarMotivoCesantia.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+
+
+               <p:dialog id="nuevoRegistroTiposReemplazos" header="Nuevo Registro" widgetVar="nuevoRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
+                  <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Motivo Cesantía" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="nuevaTipoReemplazo" style="border: none;">
+
+                     <strong><h:outputText value="Código: "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoCodigo" value="#{controlMotivosCesantias.nuevoMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                        <p:ajax event="change" update="@this"/>
+                        <p:keyFilter for="nuevoCodigo" mask="num"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoCodigo" value="Código" />
+
+                     <strong><h:outputText value="Descripción: "  style="font-size: 12px; position: absolute; top: 110px;" /></strong>
+                     <p:inputText  autocomplete="off"   id="nuevoNombre" value="#{controlMotivosCesantias.nuevoMotivoCesantia.nombre}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;text-transform: uppercase">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoNombre" value="Descripción " />
+
+                     <p:commandButton id="limpiar" value="Limpiar" icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 220px;"  actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}" update="nuevaTipoReemplazo" process="@this"/>
+                     <p:commandButton id="agregarTE" value="Agregar"  icon="ui-icon-check" style="font-size: 11px; position: absolute; left: 145px; top: 220px;" actionListener="#{controlMotivosCesantias.agregarNuevoMotivosCesantias() }" process="@this" />
+                     <p:commandButton id="cancelarTE" value="Cancelar" icon="ui-icon-close" style="font-size: 11px; position: absolute; left: 240px; top: 220px;"  update="nuevaTipoReemplazo" onclick="PF('nuevoRegistroTiposReemplazos').hide();"  actionListener="#{controlMotivosCesantias.limpiarNuevoMotivosCesantias()}"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+
+
+               <p:dialog id="duplicarRegistroTiposReemplazos" header="Duplicar Registro" widgetVar="duplicarRegistroTiposReemplazos" closable="false" resizable="false"  draggable="true" modal="true" height="255" width="340" style="font-size: 12px; padding: 0px">  
+                  <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Motivo Cesantía" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="duplicarTTR" style="border: none;">
+                     <strong><h:outputText value="Código "  style="font-size: 12px; position: absolute; top: 60px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarCodigo" value="#{controlMotivosCesantias.duplicarMotivoCesantia.codigo}" style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 55px;">
+                        <p:ajax event="change" update="@this"/>
+                        <p:keyFilter for="duplicarCodigo" mask="num"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarCodigo" value="Código" />
+
+                     <strong><h:outputText value="Descripción:"  style="font-size: 12px; position: absolute; top: 110px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarNombre" value="#{controlMotivosCesantias.duplicarMotivoCesantia.nombre}"  style="font-size: 12px; width: 135px; position: absolute; left: 160px; top: 105px;" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarNombre" value="Descripción" />
+
+                     <p:commandButton id="limpiarD" value="Limpiar" icon="ui-icon-trash" style=" font-size: 11px ;position: absolute; left: 10px; top: 220px;"  actionListener="#{controlMotivosCesantias.limpiarDuplicarMotivosCesantias()}" update="duplicarTTR"  process="@this"/>
+                     <p:commandButton id="duplicarVFP" value="Agregar" icon="ui-icon-check" style="font-size: 11px; position: absolute; left: 145px; top: 220px;" actionListener="#{controlMotivosCesantias.confirmarDuplicar()}"  process="@this" />
+                     <p:commandButton id="cancelarDuplicarVFP" value="Cancelar" icon="ui-icon-close" style="font-size: 11px; position: absolute; left: 240px; top: 220px;"  update="duplicarTTR" onclick="PF('duplicarRegistroTiposReemplazos').hide();" actionListener="#{controlMotivosCesantias.limpiarDuplicarMotivosCesantias()}"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+            </h:form>
+
+
+            <h:form id="formExportar">
+               <p:dataTable id="datosTipoReemplazoExportar" var="info" style="visibility: hidden; display: none;"                           
+                            value="#{controlMotivosCesantias.listMotivosCesantias}">
+                  <p:column>                                  
+                     <f:facet name="header"><h:outputText value="Codigo"/></f:facet> 
+                     <h:outputText value="#{info.codigo}" />
+                  </p:column>  
+
+                  <p:column>  
+                     <f:facet name="header"><h:outputText value="Descripcion" /></f:facet>
+                     <h:outputText value="#{info.nombre}"/>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

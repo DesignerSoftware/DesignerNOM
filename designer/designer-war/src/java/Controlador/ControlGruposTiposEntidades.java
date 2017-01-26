@@ -209,6 +209,7 @@ public class ControlGruposTiposEntidades implements Serializable {
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosGruposTiposEntidades");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

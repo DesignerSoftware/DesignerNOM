@@ -219,7 +219,7 @@
    <navigation-rule>
       <from-view-id>/formulanovedad.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoFormula</from-outcome>
+         <from-outcome>formula</from-outcome>
          <to-view-id>/formula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -235,7 +235,7 @@
    <navigation-rule>
       <from-view-id>/historiaformula.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoFormula</from-outcome>
+         <from-outcome>formula</from-outcome>
          <to-view-id>/formula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -251,7 +251,7 @@
    <navigation-rule>
       <from-view-id>/formulacontrato.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoFormula</from-outcome>
+         <from-outcome>formula</from-outcome>
          <to-view-id>/formula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -267,7 +267,7 @@
    <navigation-rule>
       <from-view-id>/formulaconcepto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoFormula</from-outcome>
+         <from-outcome>formula</from-outcome>
          <to-view-id>/formula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -291,7 +291,7 @@
    <navigation-rule>
       <from-view-id>/formulaproceso.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>retornoFormula</from-outcome>
+         <from-outcome>formula</from-outcome>
          <to-view-id>/formula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -1268,7 +1268,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>idiomaPerson</from-outcome>
+         <from-outcome>idiomapersona</from-outcome>
          <to-view-id>/idiomapersona.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -2244,7 +2244,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>infoAdicionalRastro</from-outcome>
+         <from-outcome>emplinformacionadicional</from-outcome>
          <to-view-id>/emplinformacionadicional.xhtml</to-view-id>
       </navigation-case>
    </navigation-rule>
@@ -5164,7 +5164,7 @@
    <navigation-rule>
       <from-view-id>/motivocesantia.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasmotivocesantias</from-outcome>
+         <from-outcome>novedadcesantiasrc</from-outcome>
          <to-view-id>/novedadcesantiasrc.xhtml</to-view-id>
          <redirect />
       </navigation-case>

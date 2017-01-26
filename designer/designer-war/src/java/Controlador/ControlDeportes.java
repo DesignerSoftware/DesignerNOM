@@ -212,7 +212,6 @@ public class ControlDeportes implements Serializable {
         permitirIndex = true;
         getListDeportes();
         contarRegistros();
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosDeporte");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -242,9 +241,9 @@ public class ControlDeportes implements Serializable {
         guardado = true;
         permitirIndex = true;
         contarRegistros();
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosDeporte");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

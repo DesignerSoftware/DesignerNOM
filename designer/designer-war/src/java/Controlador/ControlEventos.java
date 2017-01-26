@@ -283,9 +283,10 @@ public class ControlEventos implements Serializable {
       getListEventos();
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosEvento");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosEvento");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

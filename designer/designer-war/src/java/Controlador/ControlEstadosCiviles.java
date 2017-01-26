@@ -258,9 +258,10 @@ public class ControlEstadosCiviles implements Serializable {
       getListEstadosCiviles();
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
-      RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:infoRegistro");
+      context.update("form:datosEstadosCiviles");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

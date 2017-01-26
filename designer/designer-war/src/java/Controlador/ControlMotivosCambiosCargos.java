@@ -224,9 +224,9 @@ public class ControlMotivosCambiosCargos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       getListMotivosCambiosCargos();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
-      RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:infoRegistro");
+      context.update("form:datosMotivoCambioCargo");
+      context.update("form:ACEPTAR");
    }
 
    public void salir() {
@@ -256,9 +256,10 @@ public class ControlMotivosCambiosCargos implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       getListMotivosCambiosCargos();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
-      RequestContext.getCurrentInstance().update("form:datosMotivoCambioCargo");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:infoRegistro");
+      context.update("form:datosMotivoCambioCargo");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

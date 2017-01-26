@@ -206,9 +206,9 @@ public class ControlIndicadores implements Serializable {
       getListIndicadores();
       contarRegistros();
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:infoRegistro");
-      RequestContext.getCurrentInstance().update("form:datosIndicadores");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:infoRegistro");
+      context.update("form:datosIndicadores");
+      context.update("form:ACEPTAR");
    }
 
    public void salir() {
@@ -237,9 +237,9 @@ public class ControlIndicadores implements Serializable {
       guardado = true;
       permitirIndex = true;
       contarRegistros();
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:datosIndicadores");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

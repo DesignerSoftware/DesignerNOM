@@ -225,9 +225,9 @@ public class ControlGruposInfAdicionales implements Serializable {
       getListGruposInfAdicionales();
       contarRegistros();
       RequestContext context = RequestContext.getCurrentInstance();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosGruposInfAdicionales");
+      context.update("form:ACEPTAR");
    }
 
    public void salir() {
@@ -258,9 +258,10 @@ public class ControlGruposInfAdicionales implements Serializable {
       getListGruposInfAdicionales();
       RequestContext context = RequestContext.getCurrentInstance();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosGruposInfAdicionales");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosGruposInfAdicionales");
+      context.update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void activarCtrlF11() {

@@ -5,474 +5,474 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">
-               <script type="text/javascript">
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">
+            <script type="text/javascript">
                $(window).load(function () {
                   $(".loader").fadeOut("slow");
                });
             </script>
-                <h:form id="form">
+            <h:form id="form">
 
-                    <f:loadBundle basename="Recursos.barra" var="msg"/>
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-                        <p:toolbar styleClass="cssToolbar">
-                            <p:toolbarGroup align="left"> 
+               <f:loadBundle basename="Recursos.barra" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                  <p:toolbar styleClass="cssToolbar">
+                     <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this" />
-                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" disabled="true" process="@this" />
+                        <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" disabled="true" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlBarra.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" onclick="PF('exportarExcel').show();" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="PF('exportarXML').show();"/>
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" onclick="PF('exportarXML').show();"/>
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="PF('exportarPDF').show();"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" onclick="PF('exportarPDF').show();"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  disabled="true" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
-                                <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" disabled="true" process="@this"/>  
+                        <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  disabled="true" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" disabled="true" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" disabled="true" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" disabled="true" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nominaf" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                            </p:toolbarGroup>
-                        </p:toolbar> 
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBarra.salir()}" action="nominaf" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>
+                  </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 7px; top: 70px; width: 470px; height: 417px; border-radius: 10px; padding-top: 0px; padding-right: 0px;">
-                            <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['progreso']}</legend>
+                  <fieldset style="position: absolute; left: 7px; top: 70px; width: 470px; height: 417px; border-radius: 10px; padding-top: 0px; padding-right: 0px;">
+                     <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['progreso']}</legend>
 
-                            <h:outputText id="imagen" style="background-image: url(Imagenes/Iconos/#{controlBarra.imagenEstado}); width: 130px; height: 120px; background-repeat: no-repeat;
-                                          border: none; background-size: 100% 100%;; z-index: 1; top: 20px; left: 30px; display: inline-block; border-radius: 8px; margin-top: 4px;"/>
+                     <h:outputText id="imagen" style="background-image: url(Imagenes/Iconos/#{controlBarra.imagenEstado}); width: 130px; height: 120px; background-repeat: no-repeat;
+                                   border: none; background-size: 100% 100%;; z-index: 1; top: 20px; left: 30px; display: inline-block; border-radius: 8px; margin-top: 4px;"/>
 
-                            <fieldset style="position: relative; top: -120px; left: 137px; width: 320px; height: 105px; border-radius: 10px; ">
-                                <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['indicadores']}</legend>
-                                <div>
-                                    <h:outputText value="#{msg['ttal']}" style="font-weight: bold; position: relative; top: 0px; left: 15px; display: block;"/>
-                                    <h:outputText value="#{msg['ttl']}" style="font-weight: bold; position: relative; top: 10px; left: 15px; display: block;"/>
-                                    <h:outputText value="#{msg['hil']}" style="font-weight: bold; position: relative; top: 20px; left: 15px; display: block;"/>
-                                    <h:outputText value="#{msg['hfl']}" style="font-weight: bold; position: relative; top: 30px; left: 15px; display: block;"/>
-                                </div>
-                                <div>
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.totalEmpleadosParaLiquidar}" style="position: relative; text-align: right; width: 80px; right: 0px; display: block; top: -60px; left: 220px; height: 12px;" readonly="true"/>
-                                    <p:inputText  autocomplete="off" id="empleadosLiquidados" value="#{controlBarra.totalEmpleadosLiquidados}" style="position: relative; text-align: right; width: 80px; top: -58px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/> 
-                                    <p:inputText  autocomplete="off" id="horaI" value="#{controlBarra.horaInicialLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -56px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/>
-                                    <p:inputText  autocomplete="off" id="horaF" value="#{controlBarra.horaFinalLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -54px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true" /> 
-                                </div>
-                            </fieldset>
+                     <fieldset style="position: relative; top: -120px; left: 137px; width: 320px; height: 105px; border-radius: 10px; ">
+                        <legend style="; color: blue;text-align: left; font-weight: bold">#{msg['indicadores']}</legend>
+                        <div>
+                           <h:outputText value="#{msg['ttal']}" style="font-weight: bold; position: relative; top: 0px; left: 15px; display: block;"/>
+                           <h:outputText value="#{msg['ttl']}" style="font-weight: bold; position: relative; top: 10px; left: 15px; display: block;"/>
+                           <h:outputText value="#{msg['hil']}" style="font-weight: bold; position: relative; top: 20px; left: 15px; display: block;"/>
+                           <h:outputText value="#{msg['hfl']}" style="font-weight: bold; position: relative; top: 30px; left: 15px; display: block;"/>
+                        </div>
+                        <div>
+                           <p:inputText  autocomplete="off" value="#{controlBarra.totalEmpleadosParaLiquidar}" style="position: relative; text-align: right; width: 80px; right: 0px; display: block; top: -60px; left: 220px; height: 12px;" readonly="true"/>
+                           <p:inputText  autocomplete="off" id="empleadosLiquidados" value="#{controlBarra.totalEmpleadosLiquidados}" style="position: relative; text-align: right; width: 80px; top: -58px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/> 
+                           <p:inputText  autocomplete="off" id="horaI" value="#{controlBarra.horaInicialLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -56px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true"/>
+                           <p:inputText  autocomplete="off" id="horaF" value="#{controlBarra.horaFinalLiquidacion}" style="position: relative; text-align: right; width: 80px; top: -54px; right: 0px; display: block; left: 220px; height: 12px;" readonly="true" /> 
+                        </div>
+                     </fieldset>
 
-                            <p:panel id="panelLiquidacion" style="border: none; position: relative; top: -120px; left: 0px; width: 470px;">
-                                <fieldset style="position: relative; left: -20px; top: 0px; ; width: 460px; height: 90px; border-width: 3px; padding-top: 0px;">
-                                    <h:outputText value="#{msg['fechai']}" style="font-weight: bold; position: absolute; top: 5px; left: 10px"/>
-                                    <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 5px; left: 110px"/>
+                     <p:panel id="panelLiquidacion" style="border: none; position: relative; top: -120px; left: 0px; width: 470px;">
+                        <fieldset style="position: relative; left: -20px; top: 0px; ; width: 460px; height: 90px; border-width: 3px; padding-top: 0px;">
+                           <h:outputText value="#{msg['fechai']}" style="font-weight: bold; position: absolute; top: 5px; left: 10px"/>
+                           <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 5px; left: 110px"/>
 
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 10px; width: 80px; top: 20px; height: 12px;" readonly="true">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </p:inputText>
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.estructura.nombre}" style="position: absolute; left: 110px; width: 340px; top: 20px; height: 12px;" readonly="true"/>
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 10px; width: 80px; top: 20px; height: 12px;" readonly="true">
+                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                           </p:inputText>
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.estructura.nombre}" style="position: absolute; left: 110px; width: 340px; top: 20px; height: 12px;" readonly="true"/>
 
-                                    <h:outputText value="#{msg['fechaf']}" style="font-weight: bold; position: absolute; top: 50px; left: 10px"/>
-                                    <h:outputText value="#{msg['proceso']}" style="font-weight: bold; position: absolute; top: 50px; left: 110px"/>
-                                    <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 50px; left: 290px"/>
+                           <h:outputText value="#{msg['fechaf']}" style="font-weight: bold; position: absolute; top: 50px; left: 10px"/>
+                           <h:outputText value="#{msg['proceso']}" style="font-weight: bold; position: absolute; top: 50px; left: 110px"/>
+                           <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 50px; left: 290px"/>
 
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechahastacausado}" style="position: absolute; left: 10px; width: 80px; top: 65px; height: 12px;" readonly="true">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </p:inputText>
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 110px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
-                                    <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 290px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
-                                </fieldset>
-
-                                <fieldset style="position: relative; left: -20px; top: 0px; width: 460px; height: 60px; border-width: 3px">
-                                    <h:outputText value="#{msg['progresoliquidacion']}" style="font-weight: bold; position: absolute; top: 10px; left: 10px"/>
-
-                                    <p:progressBar id="barra" widgetVar="barra" ajax="true" value="#{controlBarra.barra}" labelTemplate="#{controlBarra.mensajeBarra}"
-                                                   styleClass="#{controlBarra.liquifinalizada ? 'finished':'animated'}" interval="700" style="position: relative; top: 25px; width: 446px; left: 5px;"/>
-                                    <h:outputText id="estadoLiquidacion" value="#{controlBarra.mensajeEstado}" style="font-weight: bold; position: absolute; top: 57px; left: 0px; color: blue; width: 460px; text-align: center;"/>
-                                </fieldset>
-                            </p:panel>
-
-                            <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
-                               <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" process="@this"
-                                                 style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
-                                <p:commandButton value="#{msg['repcontrol']}" style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
-                                <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
-                                                 style="position: relative; top: 13px; left: 0px; width: 120px; border-color: #B61B26; border-width: 2px; background-color: white;"/>
-                                <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="liquidacionlog"/>
-                                <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" action="errorliquidacion"/>
-                            </fieldset>
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.fechahastacausado}" style="position: absolute; left: 10px; width: 80px; top: 65px; height: 12px;" readonly="true">
+                              <f:convertDateTime pattern="dd/MM/yyyy" />
+                           </p:inputText>
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 110px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
+                           <p:inputText  autocomplete="off" value="#{controlBarra.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 290px; width: 160px; top: 65px; height: 12px;" readonly="true" /> 
                         </fieldset>
 
-                        <p:commandButton value="#{msg['consultar']}" icon="ui-icon-extlink" actionListener="#{controlBarra.consultarDatos()}" style="position: absolute; left: 700px; top: 77px; width: 160px; height: 28px; 
-                                         background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white; z-index: 999;"/>
+                        <fieldset style="position: relative; left: -20px; top: 0px; width: 460px; height: 60px; border-width: 3px">
+                           <h:outputText value="#{msg['progresoliquidacion']}" style="font-weight: bold; position: absolute; top: 10px; left: 10px"/>
 
-                        <fieldset style="position: absolute; left: 510px; top: 75px; width: 340px; height: 407px; border-radius: 10px; padding-left: 10px; z-index: 1; font-size: 11px;">
-                        <h:outputText value="#{msg['liquidacionescerradas']}" style="font-weight: bold; color: blue; ; position: absolute; top: 20px; left: 12px"/>
-                            <fieldset style="padding: 0px; position: absolute; top: 35px; border: none;">
-                                <p:dataTable id="datosLiquidacionesCerradas" var="liquidacionCerrada" style="width: 322px;" value="#{controlBarra.liquidacionesCerradas}"
-                                             scrollable="true" scrollWidth="340" editable="true" editMode="cell" widgetVar="datosLiquidacionesCerradas"
-                                             scrollHeight="#{controlBarra.altoScrollLiquidacionesCerradas}" filteredValue="#{controlBarra.filtradoLiquidacionesCerradas}" emptyMessage="#{msg['sinregistro']}">
-
-                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada()}"/>
-
-                                    <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;" > 
-                                        <f:facet name="header">
-                                            <h:outputText id="headCorte" value="#{msg['corte']}"/>
-                                            <p:tooltip for="headCorte" value="#{msg['corteH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionCerrada.corte}">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionCerrada.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="empresa" headerText=".." sortBy="#{liquidacionCerrada.empresaCodigo}" width="20" filterBy="#{liquidacionCerrada.empresaCodigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headEmpresa" value="#{msg['puntos']}"/>
-                                            <p:tooltip for="headEmpresa" value="#{msg['puntosH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionCerrada.empresaCodigo}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionCerrada.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="proceso" headerText="#{msg['procesoD']}" sortBy="#{liquidacionCerrada.descripcion}" width="50"  filterBy="#{liquidacionCerrada.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headProceso" value="#{msg['Proceso']}"/>
-                                            <p:tooltip for="headProceso" value="#{msg['procesoH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionCerrada.descripcion}">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionCerrada.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="totalEmpleados" headerText="#" sortBy="#{liquidacionCerrada.total}" width="20" filterBy="#{liquidacionCerrada.total}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headTotalEmpleados" value="#{msg['totalEmpleados']}"/>
-                                            <p:tooltip for="headTotalEmpleados" value="#{msg['totalEmpleadosH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionCerrada.total}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionCerrada.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="observacion"  sortBy="#{liquidacionCerrada.observaciones}" filterBy="#{liquidacionCerrada.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
-                                        <f:facet name="header">
-                                            <h:outputText id="headObservacion" value="#{msg['observacion']}" />
-                                            <p:tooltip for="headObservacion" value="#{msg['observacionH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionCerrada.observaciones}" style="text-align: right">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionCerrada.observaciones}" style="width: 89%; text-transform: uppercase; text-align: right" readonly="true">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-                                </p:dataTable>
-
-                                <h:outputText id="infoRegistroCerradas" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroCerradas}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
-                            </fieldset>
-
-                            <h:outputText value="#{msg['liquidacionesenproceso']}" style="font-weight: bold; color: blue; ; position: absolute; top: 222px; left: 10px; margin: 0px;"/>
-
-                            <fieldset style="padding: 0px; position: absolute; top: 237px; border: none; margin: 0px;">
-                                <p:dataTable id="datosLiquidacionesAbiertas" var="liquidacionAbierta" style="width: 322px;" value="#{controlBarra.liquidacionesAbiertas}"
-                                             scrollable="true" scrollWidth="340" widgetVar="datosLiquidacionesAbiertas"
-                                             editable="true" editMode="cell" scrollHeight="#{controlBarra.altoScrollLiquidacionesAbiertas}" filteredValue="#{controlBarra.filtradoLiquidacionesAbiertas}" emptyMessage="#{msg['sinregistro']}">
-
-                                    <p:ajax event="filter" listener="#{controlBarra.contarRegistrosEnProceso()}"/>
-
-                                    <p:column id="corteLA" headerText="#{msg['corte']}" sortBy="#{liquidacionAbierta.corte}" width="60" filterBy="#{liquidacionAbierta.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headcorteLA" value="#{msg['corte']}"/>
-                                            <p:tooltip for="headcorteLA" value="#{msg['corteH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionAbierta.corte}">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionAbierta.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="empresaLA" headerText=".." sortBy="#{liquidacionAbierta.empresaCodigo}" width="20" filterBy="#{liquidacionAbierta.empresaCodigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headEmpresaLA" value="#{msg['puntos']}"/>
-                                            <p:tooltip for="headEmpresaLA" value="#{msg['puntosH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionAbierta.empresaCodigo}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionAbierta.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="procesoLA" headerText="#{msg['procesoD']}" sortBy="#{liquidacionAbierta.descripcion}" width="50"  filterBy="#{liquidacionAbierta.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headProcesoLA" value="#{msg['Proceso']}"/>
-                                            <p:tooltip for="headProcesoLA" value="#{msg['procesoH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionAbierta.descripcion}">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionAbierta.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="totalEmpleadosLA" headerText="#" sortBy="#{liquidacionAbierta.total}" width="20" filterBy="#{liquidacionAbierta.total}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
-                                        <f:facet name="header">
-                                            <h:outputText id="headTotalEmpleadosLA" value="#{msg['totalEmpleados']}"/>
-                                            <p:tooltip for="headTotalEmpleadosLA" value="#{msg['totalEmpleadosH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionAbierta.total}" />
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionAbierta.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-
-                                    <p:column id="observacionLA"  sortBy="#{liquidacionAbierta.observaciones}" filterBy="#{liquidacionAbierta.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
-                                        <f:facet name="header">
-                                            <h:outputText id="headObservacionLA" value="#{msg['observacion']}" />
-                                            <p:tooltip for="headObservacionLA" value="#{msg['observacionH']}"/>
-                                        </f:facet>
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{liquidacionAbierta.observaciones}" style="text-align: right">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </h:outputText>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off" value="#{liquidacionAbierta.observaciones}" style="width: 89%; text-transform: uppercase; text-align: right" readonly="true">
-                                                    <f:convertNumber currencyCode="COP"/>
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
-                                    </p:column>
-                                </p:dataTable>
-                                <h:outputText id="infoRegistroEnProceso" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroEnProceso}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
-                            </fieldset>
+                           <p:progressBar id="barra" widgetVar="barra" ajax="true" value="#{controlBarra.barra}" labelTemplate="#{controlBarra.mensajeBarra}"
+                                          styleClass="#{controlBarra.liquifinalizada ? 'finished':'animated'}" interval="700" style="position: relative; top: 25px; width: 446px; left: 5px;"/>
+                           <h:outputText id="estadoLiquidacion" value="#{controlBarra.mensajeEstado}" style="font-weight: bold; position: absolute; top: 57px; left: 0px; color: blue; width: 460px; text-align: center;"/>
                         </fieldset>
+                     </p:panel>
 
-                        <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nominaf" process="@this" />
-                    </p:panel>
-                    
+                     <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
+                        <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" process="@this"
+                                         style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
+                        <p:commandButton value="#{msg['repcontrol']}" style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
+                        <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
+                                         style="position: relative; top: 13px; left: 0px; width: 120px; border-color: #B61B26; border-width: 2px; background-color: white;"/>
+                        <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="liquidacionlog" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
+                        <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" action="errorliquidacion" actionListener="#{controlErroresLiquidacion.recibirPaginaEntrante('barra')}"/>
+                     </fieldset>
+                  </fieldset>
+
+                  <p:commandButton value="#{msg['consultar']}" icon="ui-icon-extlink" actionListener="#{controlBarra.consultarDatos()}" style="position: absolute; left: 700px; top: 77px; width: 160px; height: 28px; 
+                                   background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; color: white; z-index: 999;"/>
+
+                  <fieldset style="position: absolute; left: 510px; top: 75px; width: 340px; height: 407px; border-radius: 10px; padding-left: 10px; z-index: 1; font-size: 11px;">
+                     <h:outputText value="#{msg['liquidacionescerradas']}" style="font-weight: bold; color: blue; ; position: absolute; top: 20px; left: 12px"/>
+                     <fieldset style="padding: 0px; position: absolute; top: 35px; border: none;">
+                        <p:dataTable id="datosLiquidacionesCerradas" var="liquidacionCerrada" style="width: 322px;" value="#{controlBarra.liquidacionesCerradas}"
+                                     scrollable="true" scrollWidth="340" editable="true" editMode="cell" widgetVar="datosLiquidacionesCerradas"
+                                     scrollHeight="#{controlBarra.altoScrollLiquidacionesCerradas}" filteredValue="#{controlBarra.filtradoLiquidacionesCerradas}" emptyMessage="#{msg['sinregistro']}">
+
+                           <p:ajax event="filter" listener="#{controlBarra.contarRegistrosCerrada()}"/>
+
+                           <p:column id="corte" headerText="#{msg['corte']}" sortBy="#{liquidacionCerrada.corte}" width="60" filterBy="#{liquidacionCerrada.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px;" > 
+                              <f:facet name="header">
+                                 <h:outputText id="headCorte" value="#{msg['corte']}"/>
+                                 <p:tooltip for="headCorte" value="#{msg['corteH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionCerrada.corte}">
+                                       <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
+                                       <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="empresa" headerText=".." sortBy="#{liquidacionCerrada.empresaCodigo}" width="20" filterBy="#{liquidacionCerrada.empresaCodigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headEmpresa" value="#{msg['puntos']}"/>
+                                 <p:tooltip for="headEmpresa" value="#{msg['puntosH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionCerrada.empresaCodigo}" />
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="proceso" headerText="#{msg['procesoD']}" sortBy="#{liquidacionCerrada.descripcion}" width="50"  filterBy="#{liquidacionCerrada.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headProceso" value="#{msg['Proceso']}"/>
+                                 <p:tooltip for="headProceso" value="#{msg['procesoH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionCerrada.descripcion}">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="totalEmpleados" headerText="#" sortBy="#{liquidacionCerrada.total}" width="20" filterBy="#{liquidacionCerrada.total}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headTotalEmpleados" value="#{msg['totalEmpleados']}"/>
+                                 <p:tooltip for="headTotalEmpleados" value="#{msg['totalEmpleadosH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionCerrada.total}" />
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="observacion"  sortBy="#{liquidacionCerrada.observaciones}" filterBy="#{liquidacionCerrada.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
+                              <f:facet name="header">
+                                 <h:outputText id="headObservacion" value="#{msg['observacion']}" />
+                                 <p:tooltip for="headObservacion" value="#{msg['observacionH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionCerrada.observaciones}" style="text-align: right">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionCerrada.observaciones}" style="width: 89%; text-transform: uppercase; text-align: right" readonly="true">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+                        </p:dataTable>
+
+                        <h:outputText id="infoRegistroCerradas" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroCerradas}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
+                     </fieldset>
+
+                     <h:outputText value="#{msg['liquidacionesenproceso']}" style="font-weight: bold; color: blue; ; position: absolute; top: 222px; left: 10px; margin: 0px;"/>
+
+                     <fieldset style="padding: 0px; position: absolute; top: 237px; border: none; margin: 0px;">
+                        <p:dataTable id="datosLiquidacionesAbiertas" var="liquidacionAbierta" style="width: 322px;" value="#{controlBarra.liquidacionesAbiertas}"
+                                     scrollable="true" scrollWidth="340" widgetVar="datosLiquidacionesAbiertas"
+                                     editable="true" editMode="cell" scrollHeight="#{controlBarra.altoScrollLiquidacionesAbiertas}" filteredValue="#{controlBarra.filtradoLiquidacionesAbiertas}" emptyMessage="#{msg['sinregistro']}">
+
+                           <p:ajax event="filter" listener="#{controlBarra.contarRegistrosEnProceso()}"/>
+
+                           <p:column id="corteLA" headerText="#{msg['corte']}" sortBy="#{liquidacionAbierta.corte}" width="60" filterBy="#{liquidacionAbierta.corte}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headcorteLA" value="#{msg['corte']}"/>
+                                 <p:tooltip for="headcorteLA" value="#{msg['corteH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionAbierta.corte}">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.corte}" style="width: 87%; text-transform: uppercase" readonly="true">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="empresaLA" headerText=".." sortBy="#{liquidacionAbierta.empresaCodigo}" width="20" filterBy="#{liquidacionAbierta.empresaCodigo}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headEmpresaLA" value="#{msg['puntos']}"/>
+                                 <p:tooltip for="headEmpresaLA" value="#{msg['puntosH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionAbierta.empresaCodigo}" />
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.empresaCodigo}" style="width: 60%; text-transform: uppercase" readonly="true"/>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="procesoLA" headerText="#{msg['procesoD']}" sortBy="#{liquidacionAbierta.descripcion}" width="50"  filterBy="#{liquidacionAbierta.descripcion}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headProcesoLA" value="#{msg['Proceso']}"/>
+                                 <p:tooltip for="headProcesoLA" value="#{msg['procesoH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionAbierta.descripcion}">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.descripcion}" style="width: 85% !important; text-transform: uppercase" readonly="true">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="totalEmpleadosLA" headerText="#" sortBy="#{liquidacionAbierta.total}" width="20" filterBy="#{liquidacionAbierta.total}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" style="padding-left: 3px"> 
+                              <f:facet name="header">
+                                 <h:outputText id="headTotalEmpleadosLA" value="#{msg['totalEmpleados']}"/>
+                                 <p:tooltip for="headTotalEmpleadosLA" value="#{msg['totalEmpleadosH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionAbierta.total}" />
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.total}" style="width: 70%; text-transform: uppercase" readonly="true"/>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+
+                           <p:column id="observacionLA"  sortBy="#{liquidacionAbierta.observaciones}" filterBy="#{liquidacionAbierta.observaciones}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;" >                                    
+                              <f:facet name="header">
+                                 <h:outputText id="headObservacionLA" value="#{msg['observacion']}" />
+                                 <p:tooltip for="headObservacionLA" value="#{msg['observacionH']}"/>
+                              </f:facet>
+                              <p:cellEditor>  
+                                 <f:facet name="output">
+                                    <h:outputText value="#{liquidacionAbierta.observaciones}" style="text-align: right">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </h:outputText>
+                                 </f:facet>  
+                                 <f:facet name="input">
+                                    <p:inputText  autocomplete="off" value="#{liquidacionAbierta.observaciones}" style="width: 89%; text-transform: uppercase; text-align: right" readonly="true">
+                                       <f:convertNumber currencyCode="COP"/>
+                                    </p:inputText>
+                                 </f:facet>
+                              </p:cellEditor>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:column>
+                        </p:dataTable>
+                        <h:outputText id="infoRegistroEnProceso" value="#{msg['infoRegistro']} #{controlBarra.infoRegistroEnProceso}" style="position: relative; left: 10px; top: 0px; font-weight: bold"/>
+                     </fieldset>
+                  </fieldset>
+
+                  <p:commandButton style="position: absolute; left: 770px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" id="ATRAS"  actionListener="#{controlBarra.salir()}" action="nominaf" process="@this" />
+               </p:panel>
+
 <!--                    <p:dialog id="liquidacionTerminada" header="#{msg['atencion']}" widgetVar="liquidacionTerminada" resizable="false" draggable="true" modal="true" height="95" width="400" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>-->
-                </h:form>
-                <h:form>
-                    <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('permisoLiquidacion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
+    <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+    <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+    <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+</p:dialog>-->
+            </h:form>
+            <h:form>
+               <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['permisoLiquidacion']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('permisoLiquidacion').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                        <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportXLS(0)}" ajax="false" 
-                                         onclick="PF('exportarExcel').hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
-                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportXLS(1)}" ajax="false"  
-                                         onclick="PF('exportarExcel').hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="exportarExcel" header="#{msg['informacion']}" widgetVar="exportarExcel"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportXLS(0)}" ajax="false" 
+                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                  <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportXLS(1)}" ajax="false"  
+                                   onclick="PF('exportarExcel').hide();" style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                        <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="PF('exportarPDF').hide();" 
-                                         style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
-                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportPDF(1)}" ajax="false"  onclick="PF('exportarPDF').hide();" 
-                                         style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="exportarPDF" header="#{msg['informacion']}" widgetVar="exportarPDF"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <p:commandButton value="#{msg['liquidacionesCerradas']}" actionListener="#{controlBarra.exportPDF(0)}" ajax="false" onclick="PF('exportarPDF').hide();" 
+                                   style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this" />
+                  <p:commandButton value="#{msg['liquidacionesPrenomina']}" actionListener="#{controlBarra.exportPDF(1)}" ajax="false"  onclick="PF('exportarPDF').hide();" 
+                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
-                        <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
-                        <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="PF('exportarXML').hide();" 
-                                         style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this">
-                            <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesCerradasExportar" fileName="LiquidacionesCerradasXML" encoding="UTF-8"/>
-                        </p:commandButton>
-                        <p:commandButton value="#{msg['liquidacionesPrenomina']}" ajax="false"  onclick="PF('exportarXML').hide();" 
-                                         style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" >
-                            <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesAbiertasExportar" fileName="LiquidacionesAbiertasXML" encoding="UTF-8"/>
-                        </p:commandButton>
-                    </p:dialog>
-                </h:form>
-               
-                <h:form id="formExportar">
-                    <p:dataTable id="datosLiquidacionesCerradasExportar" var="liquidacionCerradaE" style="display: none; visibility: hidden" value="#{controlBarra.liquidacionesCerradas}">
+               <p:dialog id="exportarXML" header="#{msg['informacion']}" widgetVar="exportarXML"  resizable="false" draggable="true" modal="true" height="110" width="400" style=";">  
+                  <h:outputText value="#{msg['export']}" style="position: absolute; left: 10px; top: 10px; width: 380px; font-weight: bold; text-align: center;" />
+                  <p:commandButton value="#{msg['liquidacionesCerradas']}" ajax="false" onclick="PF('exportarXML').hide();" 
+                                   style="position: absolute; top: 40px; left: 100px; height: 28px; width: 200px;" process="@this">
+                     <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesCerradasExportar" fileName="LiquidacionesCerradasXML" encoding="UTF-8"/>
+                  </p:commandButton>
+                  <p:commandButton value="#{msg['liquidacionesPrenomina']}" ajax="false"  onclick="PF('exportarXML').hide();" 
+                                   style="position: absolute; top: 72px; left: 100px; height: 28px; width: 200px;" process="@this" >
+                     <p:dataExporter type="xml" target=":formExportar:datosLiquidacionesAbiertasExportar" fileName="LiquidacionesAbiertasXML" encoding="UTF-8"/>
+                  </p:commandButton>
+               </p:dialog>
+            </h:form>
 
-                        <p:column headerText="#{msg['corte']}">
-                            <f:facet name="header"><h:outputText value="#{msg['corte']}"/></f:facet>
-                            <h:outputText value="#{liquidacionCerradaE.corte}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
+            <h:form id="formExportar">
+               <p:dataTable id="datosLiquidacionesCerradasExportar" var="liquidacionCerradaE" style="display: none; visibility: hidden" value="#{controlBarra.liquidacionesCerradas}">
 
-                        <p:column headerText="#{msg['codigoempresaE']}"> 
-                            <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
-                            <h:outputText value="#{liquidacionCerradaE.empresaCodigo}" />
-                        </p:column>
+                  <p:column headerText="#{msg['corte']}">
+                     <f:facet name="header"><h:outputText value="#{msg['corte']}"/></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.corte}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
 
-                        <p:column headerText="#{msg['procesoD']}">
-                            <f:facet name="header"><h:outputText value="#{msg['procesoD']}" /></f:facet>
-                            <h:outputText value="#{liquidacionCerradaE.descripcion}" />
-                        </p:column>
+                  <p:column headerText="#{msg['codigoempresaE']}"> 
+                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.empresaCodigo}" />
+                  </p:column>
 
-                        <p:column>                                    
-                            <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
-                            <h:outputText value="#{liquidacionCerradaE.observaciones}" style="text-align: right">
-                                <f:convertNumber currencyCode="COP"/>
-                            </h:outputText>
-                        </p:column>
-                    </p:dataTable>
+                  <p:column headerText="#{msg['procesoD']}">
+                     <f:facet name="header"><h:outputText value="#{msg['procesoD']}" /></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.descripcion}" />
+                  </p:column>
 
-                    <p:dataTable id="datosLiquidacionesAbiertasExportar" var="liquidacionAbiertaE" style="display: none; visibility: hidden" value="#{controlBarra.liquidacionesAbiertas}">
+                  <p:column>                                    
+                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
+                     <h:outputText value="#{liquidacionCerradaE.observaciones}" style="text-align: right">
+                        <f:convertNumber currencyCode="COP"/>
+                     </h:outputText>
+                  </p:column>
+               </p:dataTable>
 
-                        <p:column headerText="#{msg['corte']}">
-                            <f:facet name="header"><h:outputText value="#{msg['corte']}" /></f:facet>
-                            <h:outputText value="#{liquidacionAbiertaE.corte}">
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
+               <p:dataTable id="datosLiquidacionesAbiertasExportar" var="liquidacionAbiertaE" style="display: none; visibility: hidden" value="#{controlBarra.liquidacionesAbiertas}">
 
-                        <p:column headerText="#{msg['codigoempresaE']}"> 
-                            <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
-                            <h:outputText value="#{liquidacionAbiertaE.empresaCodigo}" />
-                        </p:column>
+                  <p:column headerText="#{msg['corte']}">
+                     <f:facet name="header"><h:outputText value="#{msg['corte']}" /></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.corte}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
 
-                        <p:column headerText="#{msg['procesoD']}">
-                            <f:facet name="header"><h:outputText value="#{msg['proceso']}" /></f:facet>
-                            <h:outputText value="#{liquidacionAbiertaE.descripcion}" />
-                        </p:column>
+                  <p:column headerText="#{msg['codigoempresaE']}"> 
+                     <f:facet name="header"><h:outputText value="#{msg['codigoempresa']}" /></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.empresaCodigo}" />
+                  </p:column>
 
-                        <p:column>                                    
-                            <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
-                            <h:outputText value="#{liquidacionAbiertaE.observaciones}" style="text-align: right">
-                                <f:convertNumber currencyCode="COP"/>
-                            </h:outputText>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                  <p:column headerText="#{msg['procesoD']}">
+                     <f:facet name="header"><h:outputText value="#{msg['proceso']}" /></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.descripcion}" />
+                  </p:column>
+
+                  <p:column>                                    
+                     <f:facet name="header"><h:outputText value="#{msg['observacionE']}" /></f:facet>
+                     <h:outputText value="#{liquidacionAbiertaE.observaciones}" style="text-align: right">
+                        <f:convertNumber currencyCode="COP"/>
+                     </h:outputText>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>
 
