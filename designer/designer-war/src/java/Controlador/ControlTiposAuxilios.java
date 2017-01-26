@@ -444,13 +444,13 @@ public class ControlTiposAuxilios implements Serializable {
                 k = 0;
                 index = -1;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarTiposAuxilio : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }

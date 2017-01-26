@@ -489,7 +489,7 @@ public class ControlNReportePersonal implements Serializable {
                administrarNReportePersonal.guardarCambiosInfoReportes(listaInfoReportesModificados);
             }
             cambiosReporte = true;
-            FacesMessage msg = new FacesMessage("Información", "Los datos se guardarón con Éxito.");
+            FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");

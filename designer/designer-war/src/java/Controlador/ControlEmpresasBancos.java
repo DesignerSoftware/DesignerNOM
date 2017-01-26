@@ -1545,7 +1545,7 @@ public class ControlEmpresasBancos implements Serializable {
          }
          System.out.println("Se guardaron los datos con exito");
          listEmpresasBancos = null;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          RequestContext.getCurrentInstance().update("form:datosEmpresasBancos");

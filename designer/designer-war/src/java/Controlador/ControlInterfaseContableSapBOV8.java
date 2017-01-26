@@ -1211,7 +1211,7 @@ public class ControlInterfaseContableSapBOV8 implements Serializable {
          parametroContableActual = null;
          getParametroContableActual();
          cambiosParametro = false;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          RequestContext.getCurrentInstance().update("form:PanelTotal");
@@ -1695,7 +1695,7 @@ public class ControlInterfaseContableSapBOV8 implements Serializable {
                RequestContext.getCurrentInstance().update("form:enviarSAPBO");
                RequestContext.getCurrentInstance().update("form:PLANO");
                RequestContext.getCurrentInstance().update("form:PanelTotal");
-               FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+               FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                FacesContext.getCurrentInstance().addMessage(null, msg);
                RequestContext.getCurrentInstance().update("form:growl");
             } else {

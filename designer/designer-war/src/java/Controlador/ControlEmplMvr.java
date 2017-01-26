@@ -803,7 +803,7 @@ public class ControlEmplMvr implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
          paraNuevaMenValRet = 0;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Mvrs con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Mvrs con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          cambiosMvr = false;
@@ -837,7 +837,7 @@ public class ControlEmplMvr implements Serializable {
 
          contarRegistrosOC();
 
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Otros Certificados con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Otros Certificados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }

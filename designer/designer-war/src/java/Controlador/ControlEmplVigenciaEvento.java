@@ -478,7 +478,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             k = 0;
             vigenciaTablaSeleccionada = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
          }

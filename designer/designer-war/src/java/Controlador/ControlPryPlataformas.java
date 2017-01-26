@@ -375,7 +375,7 @@ public class ControlPryPlataformas implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listPryPlataformas = null;
             RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:growl");

@@ -522,7 +522,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
             listTiposCentrosCostos = null;
             RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;

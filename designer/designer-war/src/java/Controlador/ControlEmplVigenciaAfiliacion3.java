@@ -1368,7 +1368,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
          k = 0;
          System.out.println("ControlEmplVigenciaAfiliacion3.guardarCambiosVA, Empleado: " + empleado);
          permitirIndexVA = true;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
 //            listVigenciasAfiliaciones = null;

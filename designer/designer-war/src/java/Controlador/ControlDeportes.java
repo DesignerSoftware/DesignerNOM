@@ -438,7 +438,7 @@ public class ControlDeportes implements Serializable {
                 modificarDeportes.clear();
             }
             listDeportes = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:growl");

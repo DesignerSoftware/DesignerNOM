@@ -604,7 +604,7 @@ public class ControlTiposDocumentos implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listTiposDocumentos = null;
             RequestContext.getCurrentInstance().update("form:datosTiposDocumentos");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;

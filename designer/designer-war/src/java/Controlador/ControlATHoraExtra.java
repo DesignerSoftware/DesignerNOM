@@ -1067,7 +1067,7 @@ public class ControlATHoraExtra implements Serializable {
             indexEmpleado = -1;
             indexHorasExtras = -1;
             secRegistro = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Horas Extras con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Horas Extras con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         } catch (Exception e) {

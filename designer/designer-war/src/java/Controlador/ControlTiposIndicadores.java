@@ -463,7 +463,7 @@ public class ControlTiposIndicadores implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposIndicadores");
             k = 0;
             guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }

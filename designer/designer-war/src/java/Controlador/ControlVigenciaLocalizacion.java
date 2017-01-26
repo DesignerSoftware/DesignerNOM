@@ -1491,7 +1491,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
 
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Localizacion con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Localizacion con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             paraNuevaV = 0;
@@ -1553,7 +1553,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             paraNuevaV = 0;
             RequestContext context = RequestContext.getCurrentInstance();
             cambioVigenciaP = false;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Prorrateo Centro Costo con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Prorrateo Centro Costo con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
@@ -1595,7 +1595,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             contarRegistrosVPP();
             paraNuevaV = 0;
             cambioVigenciaPP = false;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Prorrateo Proyecto con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Prorrateo Proyecto con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }

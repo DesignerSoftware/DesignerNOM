@@ -418,7 +418,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
             activarLOV = true;
             RequestContext.getCurrentInstance().update("form:listaValores");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             intNuevaSec = 0;

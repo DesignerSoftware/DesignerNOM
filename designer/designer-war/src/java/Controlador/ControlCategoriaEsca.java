@@ -616,7 +616,7 @@ public class ControlCategoriaEsca implements Serializable {
             cambiosPagina = true;
             listaCategorias = null;
             getListaCategorias();
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:growl");
