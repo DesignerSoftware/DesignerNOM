@@ -229,7 +229,7 @@ public class ControlTiposEducaciones implements Serializable {
         listaTiposEducaciones = null;
         guardado = true;
         permitirIndex = true;
-
+        navegar("atras");
     }
 
     public void agregarNuevoTipoEducacion() {

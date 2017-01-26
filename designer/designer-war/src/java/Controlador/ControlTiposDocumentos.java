@@ -255,6 +255,7 @@ public class ControlTiposDocumentos implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosTiposDocumentos");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

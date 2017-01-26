@@ -240,6 +240,7 @@ public class ControlTiposViajeros implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTiposViajeros");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("salir");
     }
 
     public void cerrarFiltrado() {

@@ -269,6 +269,7 @@ public class ControlSucursalesPila implements Serializable {
         }
         RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarAceptar() {

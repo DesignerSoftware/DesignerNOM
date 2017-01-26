@@ -496,6 +496,7 @@ public class ControlTiposEntidades implements Serializable {
         k = 0;
         listTiposEntidades = null;
         guardado = true;
+        navegar("atras");
     }
 
     public void cerrarFiltrado() {

@@ -2091,6 +2091,7 @@ public class ControlTipoSueldo implements Serializable {
         contarRegistrosTipoEntidades();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void listaValoresBoton() {

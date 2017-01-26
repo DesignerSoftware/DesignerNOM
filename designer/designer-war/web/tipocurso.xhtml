@@ -63,14 +63,14 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " action="atrastipocurso"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlTiposCursos.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlTiposCursos.revisarDialogoGuardar()}" disabled="#{controlTiposCursos.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="atrastipocurso"  actionListener="#{controlTiposCursos.salir()}"  value=""/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  actionListener="#{controlTiposCursos.salir()}"  value=""/>
 
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipos del Curso</strong></legend>
@@ -88,14 +88,14 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 0)}" process="@this"
-                                                       onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposCursos.modificarTiposCursos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet> 
                                     </p:cellEditor>
-                                        <f:facet name="footer">
-                                            <h:outputText value="" />
-                                        </f:facet>
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
 
                                 </p:column>
                                 <p:column headerText="Descripción" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="160" filterStyle="display: none; visibility: hidden;" >                                  
@@ -104,7 +104,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposCursos.cambiarIndice(info, 1)}" process="@this"
-                                                       onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosTiposCursos').unselectAllRows();PF('datosTiposCursos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlTiposCursos.modificarTiposCursos(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet> 
@@ -120,8 +120,14 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCursos.guardarTiposCursos()}" style="position: absolute; top: 50px; left: 145px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposCursos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 145px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlTiposCursos.guardarTiposCursos()}" />
+                                <f:actionListener binding="#{controlTiposCursos.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlTiposCursos.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlTiposCursos.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>

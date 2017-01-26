@@ -277,6 +277,7 @@ public class ControlTiposUnidades implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTiposUnidades");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

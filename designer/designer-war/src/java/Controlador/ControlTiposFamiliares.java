@@ -269,6 +269,7 @@ public class ControlTiposFamiliares implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTiposFamiliares");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

@@ -148,14 +148,20 @@
                         </p:toolbar>
 
                         <h:outputText id="informacionRegistro" value="#{controlTiposExamenes.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTiposExamenes.guardado}" value="Aceptar"  actionListener="#{controlTiposExamenes.revisarDialogoGuardar()}"     process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"    />
+                        <p:commandButton class="cssBotonCancelar" id="ACEPTAR" disabled="#{controlTiposExamenes.guardado}" value=""  actionListener="#{controlTiposExamenes.revisarDialogoGuardar()}"     process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTiposExamenes.salir()}"   />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposExamenes.guardarTiposExamenes()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposExamenes.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlTiposExamenes.guardarTiposExamenes()}" />
+                                <f:actionListener binding="#{controlTiposExamenes.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlTiposExamenes.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlTiposExamenes.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>

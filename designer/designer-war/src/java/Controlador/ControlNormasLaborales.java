@@ -229,6 +229,7 @@ public class ControlNormasLaborales implements Serializable {
       k = 0;
       listNormasLaborales = null;
       guardado = true;
+      navegar("atras");
    }
 
    public void cerrarFiltrado() {

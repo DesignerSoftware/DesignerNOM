@@ -262,6 +262,7 @@ public class ControlTiposTelefonos implements Serializable {
         guardado = true;
         permitirIndex = true;
         guardado = true;
+        navegar("atras");
 
     }
 

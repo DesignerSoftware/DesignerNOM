@@ -49,9 +49,6 @@
                                     </p:cellEditor>
 
                                 </p:column>
-
-
-
                             </p:dataTable>
 
                         </fieldset>
@@ -104,21 +101,27 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlPaises.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="refrescar"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlPaises.salir()}" action="departamento"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlPaises.salir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
                         <h:outputText id="informacionRegistro" value="#{controlPaises.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlPaises.revisarDialogoGuardar()}" disabled="#{controlPaises.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" action="departamento" id="ATRAS" value="Atras"    />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlPaises.revisarDialogoGuardar()}" disabled="#{controlPaises.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlPaises.salir()}" id="ATRAS" value=""    />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="departamento" actionListener="#{controlPaises.guardarPaises()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="departamento" actionListener="#{controlPaises.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlPaises.guardarPaises()}" />
+                                <f:actionListener binding="#{controlPaises.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlPaises.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlPaises.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>

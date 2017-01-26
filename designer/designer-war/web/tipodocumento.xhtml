@@ -88,7 +88,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombrecorto}" maxlength="3" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDocumentos.cambiarIndice(indice, 0)}" process="@this"
-                                                       onstart="PF('datosTiposDocumentos').unselectAllRows();PF('datosTiposDocumentos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosTiposDocumentos').unselectAllRows();PF('datosTiposDocumentos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlTiposDocumentos.modificarTiposDocumentos(indice, 'N', info.nombrecorto)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -101,7 +101,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombrelargo}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 550px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlTiposDocumentos.cambiarIndice(indice, 1)}" process="@this"
-                                                       onstart="PF('datosTiposDocumentos').unselectAllRows();PF('datosTiposDocumentos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosTiposDocumentos').unselectAllRows();PF('datosTiposDocumentos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlTiposDocumentos.modificarTiposDocumentos(indice, 'N', info.nombrelargo)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -114,14 +114,20 @@
 
 
                         <h:outputText id="informacionRegistro" value="#{controlTiposDocumentos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar"  actionListener="#{controlTiposDocumentos.revisarDialogoGuardar()}" disabled="#{controlTiposDocumentos.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="Atras"    />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlTiposDocumentos.revisarDialogoGuardar()}" disabled="#{controlTiposDocumentos.guardado}"    process="@this"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTiposDocumentos.salir()}"    />
 
                         <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposDocumentos.guardarTiposDocumentos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposDocumentos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlTiposDocumentos.guardarTiposDocumentos()}" />
+                                <f:actionListener binding="#{controlTiposDocumentos.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlTiposDocumentos.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlTiposDocumentos.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>

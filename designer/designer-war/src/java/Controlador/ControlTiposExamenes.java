@@ -283,6 +283,7 @@ public class ControlTiposExamenes implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:datosTipoExamen");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

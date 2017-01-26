@@ -1154,6 +1154,7 @@ public class ControlTipoContrato implements Serializable {
         guardadoDias = true;
         cambiosPagina = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void listaValoresBoton() {

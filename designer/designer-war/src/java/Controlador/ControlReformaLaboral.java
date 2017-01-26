@@ -1301,6 +1301,7 @@ public class ControlReformaLaboral implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         reformaActualTabla = new ReformasLaborales();
         detalleActualTabla = new DetallesReformasLaborales();
+        navegar("atras");
     }
 
     /**

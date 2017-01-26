@@ -11,7 +11,7 @@
         <ui:composition template="/template.xhtml">
             <ui:define name="body">                  
                 <h:form id="form">
-                     <f:loadBundle basename="Recursos.sucursalespila" var="msg" />
+                    <f:loadBundle basename="Recursos.sucursalespila" var="msg" />
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="#{msg['sucursal']}" styleClass="panelTotal">  
                         <p:toolbar styleClass="cssToolbar">  
@@ -19,7 +19,7 @@
 
                                 <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlSucursalesPila.guardarCambiosCentroCosto()}" process="@this" />
                                 <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
-                                
+
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlSucursalesPila.editarCelda()}" process="@this"/>
                                 <p:tooltip style="" for="editar" value="#{msg['editar']}" />
 
@@ -62,7 +62,7 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlSucursalesPila.cancelarModificacion()}" oncomplete="window.location.reload()"  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlSucursalesPila.salir()}" action="#{controlSucursalesPila.retornarPagina()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlSucursalesPila.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -93,7 +93,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigoCC" style="height: 12px; border-radius: 0px; width: 99%; text-transform: uppercase" > 
                                                 <p:ajax  event="change" listener="#{controlSucursalesPila.modificandoSucursalPila(info)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlSucursalesPila.cambiarIndice(info,0)}" 
-                                                       onstart="PF('datosSucursalesPila').unselectAllRows();PF('datosSucursalesPila').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosSucursalesPila').unselectAllRows();PF('datosSucursalesPila').selectRow(#{indice});" /> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -121,13 +121,19 @@
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlSucursalesPila.infoRegistro}" style="position: relative; left: 1px; top: -1px; font-weight: bold"/>
                         </fieldset>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlSucursalesPila.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosSucursalesPila" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" action="#{controlSucursalesPila.retornarPagina()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlSucursales.salir()}" process="@this" />
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSucursalesPila.guardarCambiosCentroCosto()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSucursalesPila.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlSucursalesPila.guardarCambiosCentroCosto()}" />
+                                <f:actionListener binding="#{controlSucursalesPila.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlSucursalesPila.cancelarModificacion()}" />
+                               <f:actionListener binding="#{controlSucursalesPila.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
@@ -156,7 +162,7 @@
                         <h:outputText value="#{controlSucursalesPila.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevaSucursal').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlSucursalesPila.activarCtrlF11()}"/> 
                     <p:hotkey bind="alt+p" actionListener="#{controlSucursalesPila.lovEmpresas()}"/> 
                 </h:form>
@@ -280,9 +286,9 @@
                             </p:column>
                         </p:dataTable>
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlSucursalesPila.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlSucursalesPila.aceptar}" actionListener="#{controlSucursalesPila.cambiarEmpresa()}"  process="@this"/>
-                        <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="Cancelar" actionListener="#{controlSucursalesPila.cancelarCambioEmpresa()}" process="@this"/>
+                            <h:outputText id="infoRegistroEmpresas" value="#{msg['infoRegistro']} #{controlSucursalesPila.infoRegistroEmpresas}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="Aceptar" disabled="#{controlSucursalesPila.aceptar}" actionListener="#{controlSucursalesPila.cambiarEmpresa()}"  process="@this"/>
+                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="Cancelar" actionListener="#{controlSucursalesPila.cancelarCambioEmpresa()}" process="@this"/>
                         </div>
                     </p:dialog>
 

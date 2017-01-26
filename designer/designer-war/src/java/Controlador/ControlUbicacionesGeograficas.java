@@ -371,6 +371,7 @@ public class ControlUbicacionesGeograficas implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosUbicacionesGeograficas");
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            navegar("atras");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLUBICACIONESGEOGRAFICAS.ModificarModificacion ERROR====================" + E.getMessage());
         }

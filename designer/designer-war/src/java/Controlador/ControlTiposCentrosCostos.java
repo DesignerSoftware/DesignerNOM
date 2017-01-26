@@ -316,6 +316,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void modificarTipoCentroCosto(TiposCentrosCostos tipocc) {

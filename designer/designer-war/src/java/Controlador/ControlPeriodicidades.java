@@ -166,7 +166,6 @@ public class ControlPeriodicidades implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-
     public String redirigir() {
         return paginaAnterior;
     }
@@ -326,6 +325,7 @@ public class ControlPeriodicidades implements Serializable {
             guardado = true;
             RequestContext.getCurrentInstance().update("form:datosPeriodicidades");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            navegar("atras");
         } catch (Exception E) {
             System.out.println("ERROR CONTROLPERIODICIDADES.ModificarModificacion ERROR====================" + E.getMessage());
         }

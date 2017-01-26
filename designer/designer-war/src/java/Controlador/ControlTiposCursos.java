@@ -227,6 +227,7 @@ public class ControlTiposCursos implements Serializable {
         k = 0;
         listTiposCursos = null;
         guardado = true;
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

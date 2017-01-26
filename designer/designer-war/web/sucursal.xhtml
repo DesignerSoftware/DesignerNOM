@@ -65,7 +65,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlSucursales.salir()}" action="#{controlSucursales.retornarPagina()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlSucursales.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -86,7 +86,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="5" id="editarCodigo" style="  border-radius: 0px; width: 400px; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 0)}" process="@this"
-                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlSucursales.modificarSucursales(info)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -99,7 +99,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30"  id="editarNombre" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 1)}" process="@this"
-                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -111,7 +111,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.banco.nombre}" id="editarPersonaFirma" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 2)}" process="@this"
-                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlSucursales.asignarIndex(info, 0,2)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info)}" update="banco"/>
                                             </p:inputText>
@@ -127,7 +127,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.ciudad.nombre}" id="editarCCciudad" style="  border-radius: 0px; width: 99%; text-transform: uppercase; height: 12px;"  > 
                                                 <p:ajax event="select" listener="#{controlSucursales.cambiarIndice(info, 3)}" process="@this"
-                                                       onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosSucursales').unselectAllRows();PF('datosSucursales').selectRow(#{indice});" /> 
                                                 <p:ajax event="dblclick" listener="#{controlSucursales.asignarIndex(info, 0,3)}" process="@this"/>
                                                 <p:ajax event="change"  listener="#{controlSucursales.modificarSucursales(info, 'CARGOS', info.ciudad.nombre)}" update="banco"/>
                                             </p:inputText>
@@ -142,10 +142,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  actionListener="#{controlSucursales.revisarDialogoGuardar()}" disabled="#{controlSucursales.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlSucursales.salir()}" action="#{controlSucursales.retornarPagina()}" id="ATRAS" value="" process="@this"    />
-
-
-
+                        <p:commandButton class="cssBotonCancelar" actionListener="#{controlSucursales.salir()}" id="ATRAS" value="" process="@this"    />
 
                         <p:dialog header="#{msg['bancoD']}" widgetVar="bancosDialogo" draggable="true" resizable="false" closable="false" id="bancosDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true" style="">
@@ -217,11 +214,16 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" action="atrassucursal" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSucursales.guardarSucursales()}"  style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" action="atrassucursal" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlSucursales.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}"  onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlSucursales.guardarSucursales()}" />
+                                <f:actionListener binding="#{controlSucursales.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="#{msg['no']}"  onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlSucursales.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlSucursales.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
-
                     </p:panel>
 
 

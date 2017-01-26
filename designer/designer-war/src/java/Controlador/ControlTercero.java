@@ -1348,6 +1348,7 @@ public class ControlTercero implements Serializable {
         cambiosTercero = true;
         cambiosTerceroSucursal = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 
@@ -1941,13 +1942,11 @@ public class ControlTercero implements Serializable {
             //Dialogo para seleccionar el rastro Historico de la tabla deseada
             RequestContext.getCurrentInstance().execute("PF('verificarRastrosTablas').show()");
         } else //Cuando se selecciono registro:            
-        {
-            if (terceroSucursalTablaSeleccionado != null) {
+         if (terceroSucursalTablaSeleccionado != null) {
                 verificarRastroTercerosSucursales();
             } else if (terceroTablaSeleccionado != null) {
                 verificarRastroTerceros();
             }
-        }
     }
 
     //Verificar Rastro Vigencia Terceros

@@ -17,7 +17,7 @@
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
                         <p:commandButton style="position: absolute; left: 683px; top: 482px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlReformaLaboral.cambiosPagina}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlReformaLaboral.salir()}" action="emplRefLab" process="@this" />
+                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlReformaLaboral.salir()}" process="@this" />
 
 
                         <fieldset style="position: absolute; left: 10px; top: 65px;width: 830px; height: 205px; border-radius: 10px; ">
@@ -32,7 +32,7 @@
                                 <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrar()}"/>
 
                                 <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                          id="reformaCodigo" width="20" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="reformaCodigo" width="20" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
@@ -46,7 +46,7 @@
                                 </p:column>
 
                                 <p:column  headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
-                                          id="reformaNombre" width="130" filterStyle="display: none; visibility: hidden;" >                                  
+                                           id="reformaNombre" width="130" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -71,7 +71,7 @@
                                         <p:ajax event="change" listener="#{controlReformaLaboral.modificarReformaLaboral(indice)}" process="@this"/>
                                         <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 2)}"  process="@this"/>
                                     </p:selectOneMenu>
-                                   
+
                                 </p:column>
 
                             </p:dataTable>  
@@ -120,18 +120,18 @@
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}"   process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReformaLaboral.cancelarYSalir()}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
-                                
+
+
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
@@ -213,20 +213,26 @@
 
 
                     </p:panel>
-                    
+
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReformaLaboral.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                            <f:actionListener binding="#{controlReformaLaboral.guardarGeneral()}" />
+                            <f:actionListener binding="#{controlReformaLaboral.salir()}" />
+                        </p:commandButton>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                            <f:actionListener binding="#{controlReformaLaboral.cancelarModificacionGeneral()}" />
+                            <f:actionListener binding="#{controlReformaLaboral.salir()}" />
+                        </p:commandButton>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
-                    
+
                     <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}" action="emplRefLab" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
@@ -345,11 +351,11 @@
                                 <h:outputText value="#{reforma.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <h:outputText id="infoRegistroReforma" value="#{controlReformaLaboral.infoRegistroReforma}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
+
                         <p:commandButton id="aceptarRL" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReformaLaboral.aceptar}"   actionListener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this"/>
-                        
+
                         <p:commandButton id="atrasRL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReformaLaboral.cancelarReformaLaboralClonar()}" process="@this"/>
                     </p:dialog>
 

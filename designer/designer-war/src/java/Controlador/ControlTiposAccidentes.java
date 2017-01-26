@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.TiposAccidentes;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -16,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -81,10 +81,11 @@ public class ControlTiposAccidentes implements Serializable {
         duplicarTiposAccidentes = new TiposAccidentes();
         guardado = true;
         tamano = 270;
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+        mapParametros.put("paginaAnterior", paginaAnterior);
         System.out.println("controlTiposAccidentes Constructor");
     }
-   @PostConstruct
+
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposAccidentes PostConstruct ");
@@ -98,43 +99,42 @@ public class ControlTiposAccidentes implements Serializable {
         }
     }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "tipoaccidente";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoaccidente";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
 
     public void eventoFiltrar() {
         try {
@@ -271,6 +271,7 @@ public class ControlTiposAccidentes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosTiposAccidentes");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -406,108 +407,104 @@ public class ControlTiposAccidentes implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearTiposAccidentes.contains(filtrarTiposAccidentes.get(indice))) {
-                    if (filtrarTiposAccidentes.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-
-                        for (int j = 0; j < filtrarTiposAccidentes.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposAccidentes.get(indice).getCodigo().equals(filtrarTiposAccidentes.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarTiposAccidentes.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
-                    }
-                    if (filtrarTiposAccidentes.get(indice).getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-                        if (modificarTiposAccidentes.isEmpty()) {
-                            modificarTiposAccidentes.add(filtrarTiposAccidentes.get(indice));
-                        } else if (!modificarTiposAccidentes.contains(filtrarTiposAccidentes.get(indice))) {
-                            modificarTiposAccidentes.add(filtrarTiposAccidentes.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearTiposAccidentes.contains(filtrarTiposAccidentes.get(indice))) {
+                if (filtrarTiposAccidentes.get(indice).getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
+                    banderita = false;
                 } else {
-                    if (filtrarTiposAccidentes.get(indice).getCodigo() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+
+                    for (int j = 0; j < filtrarTiposAccidentes.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarTiposAccidentes.get(indice).getCodigo().equals(filtrarTiposAccidentes.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
                         banderita = false;
                     } else {
-
-                        for (int j = 0; j < filtrarTiposAccidentes.size(); j++) {
-                            if (j != indice) {
-                                if (filtrarTiposAccidentes.get(indice).getCodigo().equals(filtrarTiposAccidentes.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
+                        banderita = true;
                     }
 
-                    if (filtrarTiposAccidentes.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
-                    }
-                    if (filtrarTiposAccidentes.get(indice).getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
 
+                if (filtrarTiposAccidentes.get(indice).getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
+                }
+                if (filtrarTiposAccidentes.get(indice).getNombre().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
+                }
+
+                if (banderita == true) {
+                    if (modificarTiposAccidentes.isEmpty()) {
+                        modificarTiposAccidentes.add(filtrarTiposAccidentes.get(indice));
+                    } else if (!modificarTiposAccidentes.contains(filtrarTiposAccidentes.get(indice))) {
+                        modificarTiposAccidentes.add(filtrarTiposAccidentes.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarTiposAccidentes.get(indice).getCodigo() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
+                    banderita = false;
+                } else {
+
+                    for (int j = 0; j < filtrarTiposAccidentes.size(); j++) {
+                        if (j != indice) {
+                            if (filtrarTiposAccidentes.get(indice).getCodigo().equals(filtrarTiposAccidentes.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        filtrarTiposAccidentes.get(indice).setCodigo(backUpCodigo);
+                        banderita = false;
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (filtrarTiposAccidentes.get(indice).getNombre().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
+                }
+                if (filtrarTiposAccidentes.get(indice).getNombre().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarTiposAccidentes.get(indice).setNombre(backUpDescripcion);
+                }
+
+                if (banderita == true) {
+
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosTiposAccidentes");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -923,13 +920,10 @@ public class ControlTiposAccidentes implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSACCIDENTES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSACCIDENTES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

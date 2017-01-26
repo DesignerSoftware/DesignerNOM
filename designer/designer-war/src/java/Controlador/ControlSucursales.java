@@ -272,6 +272,7 @@ public class ControlSucursales implements Serializable {
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosSucursales");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {

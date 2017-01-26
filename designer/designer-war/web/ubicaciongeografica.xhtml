@@ -64,7 +64,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUbicacionesGeograficas.salir()}" action="#{controlUbicacionesGeograficas.redirigirPaginaAnterior()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlUbicacionesGeograficas.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -359,7 +359,7 @@
 
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlUbicacionesGeograficas.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosUbicacionesGeograficas" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  value="" actionListener="#{controlUbicacionesGeograficas.salir()}" action="#{controlUbicacionesGeograficas.redirigirPaginaAnterior()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS"  value="" actionListener="#{controlUbicacionesGeograficas.salir()}" process="@this" />
 
                     </p:panel>
 
@@ -391,8 +391,14 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="#{controlUbicacionesGeograficas.redirigirPaginaAnterior()}" actionListener="#{controlUbicacionesGeograficas.guardarCambiosUbicacionGeografica()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlUbicacionesGeograficas.redirigirPaginaAnterior()}" actionListener="#{controlUbicacionesGeograficas.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
+                            <f:actionListener binding="#{controlUbicacionesGeograficas.guardarCambiosUbicacionGeografica()}" />
+                            <f:actionListener binding="#{controlUbicacionesGeograficas.navegar('atras')}" />
+   </p:commandButton>
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                            <f:actionListener binding="#{controlUbicacionesGeograficas.cancelarModificacion()}" />
+                            <f:actionListener binding="#{controlUbicacionesGeograficas.navegar('atras')}" />
+   </p:commandButton>
                         <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 

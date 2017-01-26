@@ -1408,6 +1408,7 @@ public class ControlTiposTrabajadores implements Serializable {
         listaTiposTrabajadores = null;
         perderSeleccionTT();
         guardado = true;
+        navegar("atras");
     }
 
     //MOSTRAR DATOS CELDA

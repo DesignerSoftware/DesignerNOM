@@ -1927,6 +1927,7 @@ public class ControlProceso implements Serializable {
         lovProcesos = null;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         System.out.println("4");
+        navegar("atras");
     }
 
     public void listaValoresBoton() {
