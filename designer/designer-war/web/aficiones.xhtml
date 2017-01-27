@@ -76,7 +76,7 @@
                   <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                      <legend style="font-size: 14px; color: blue"><strong>#{msg['aficiones']}</strong></legend>
 
-                     <p:dataTable id="datosAficiones" widgetVar="datosAficiones" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                     <p:dataTable id="datosAficion" widgetVar="datosAficion" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
                                   value="#{controlAficiones.listAficiones}" scrollHeight="#{controlAficiones.tamano}"  
                                   filteredValue="#{controlAficiones.filtrarAficiones }" emptyMessage="#{msg['vacio']}"
                                   selection="#{controlAficiones.aficionSeleccionada}" selectionMode="single"
@@ -121,16 +121,16 @@
 
                   <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                     <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                     <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;" />
                      <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();"
                                       style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check">
-                        <f:actionListener binding="#{controlAficiones.navegar("atras")}" />
+                        <f:actionListener binding="#{controlAficiones.navegar('atras')}" />
                         <f:actionListener binding="#{controlAficiones.guardarAficiones()}" />
                      </p:commandButton>
                      <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"
                                       style="position: absolute; top: 50px; left: 225px;" process="@this" icon="ui-icon-close">
-                        <f:actionListener binding="#{controlAficiones.navegar("atras")}" />
-                        <f:actionListener binding="#{controlAficiones.cancelarModificacion()}" />
+                        <f:actionListener binding="#{controlAficiones.navegar('atras')}"/>
+                        <f:actionListener binding="#{controlAficiones.cancelarModificacion()}"/>
                      </p:commandButton>
                      <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
@@ -220,11 +220,11 @@
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 4px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
-                  <p:inputTextarea  value="#{controlAficiones.editarDeportes.codigo}" style="overflow: auto;" readonly="true"/>
+               <p:dialog id="editCodigo" header="#{msg['editCodigo']}" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase;">
+                  <p:inputTextarea  value="#{controlAficiones.editarAficion.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
                <p:dialog id="editDescripcion" header="#{msg['editDescripcion']}" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
-                  <p:inputTextarea  value="#{controlAficiones.editarDeportes.nombre}" style="overflow: auto;" readonly="true"/>
+                  <p:inputTextarea  value="#{controlAficiones.editarAficion.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
                <p:dialog id="nuevoRegistroAficion" header="#{msg['nuevoregistro']}" widgetVar="nuevoRegistroAficion" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="330" style=" padding: 0px">  

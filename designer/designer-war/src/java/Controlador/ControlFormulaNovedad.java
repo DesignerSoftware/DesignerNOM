@@ -814,9 +814,11 @@ public class ControlFormulaNovedad implements Serializable {
          if (listFormulasNovedades.isEmpty()) {
             if (formulaActual.getSecuencia() != null) {
                listFormulasNovedades = administrarFormulaNovedad.listFormulasNovedadesParaFormula(formulaActual.getSecuencia());
-               if (listFormulasNovedades == null) {
-                  listFormulasNovedades = new ArrayList<FormulasNovedades>();
-               }
+            } else {
+               listFormulasNovedades = administrarFormulaNovedad.listFormulasNovedadesParaFormula(null);
+            }
+            if (listFormulasNovedades == null) {
+               listFormulasNovedades = new ArrayList<FormulasNovedades>();
             }
          }
          return listFormulasNovedades;

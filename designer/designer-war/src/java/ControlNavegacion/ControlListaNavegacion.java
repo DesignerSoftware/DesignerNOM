@@ -5,6 +5,7 @@
  */
 package ControlNavegacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,7 @@ import javax.faces.bean.SessionScoped;
 //@Dependent
 @ManagedBean
 @SessionScoped
-public class ControlListaNavegacion {
+public class ControlListaNavegacion implements Serializable{
 
     private List<String> listaPaginasAnteriores;
 

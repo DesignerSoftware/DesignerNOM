@@ -80,7 +80,7 @@
                      </p:toolbarGroup>  
                   </p:toolbar>
 
-                  <p:commandButton style=" position: absolute; left: 680px; top: 480px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value=" " disabled="#{controlDeportes.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosDeporte"  process="@this"   />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlDeportes.guardado}" onclick="PF('confirmarGuardar').show();"   update="datosDeporte"  process="@this"   />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlDeportes.salir()}" value=" "    />
                   <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                      <legend style="font-size: 14px; color: blue"><strong>#{msg['deportes']}</strong></legend>

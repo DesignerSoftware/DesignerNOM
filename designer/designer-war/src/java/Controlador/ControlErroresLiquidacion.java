@@ -84,7 +84,7 @@ public class ControlErroresLiquidacion implements Serializable {
       guardado = true;
       aceptar = true;
       tamano = 270;
-      secuenciaEmpleado = null;
+      secuenciaEmpleado = new BigInteger("0");
       System.out.println("controlErroresLiquidacion Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -157,7 +157,7 @@ public class ControlErroresLiquidacion implements Serializable {
 
    public void recibirEmpleado(BigInteger secEmpleado) {
       if (secEmpleado.equals(new BigInteger("0"))) {
-         secuenciaEmpleado = null;
+//         secuenciaEmpleado = null;
       } else {
          secuenciaEmpleado = secEmpleado;
       }

@@ -644,8 +644,6 @@ public class ControlSucursalesPila implements Serializable {
 
     public void cambiarEmpresa() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("Cambiar empresa  GUARDADO = " + guardado);
-        System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         RequestContext.getCurrentInstance().update("form:nitEmpresa");
         getListSucursalesPilaPorEmpresa();

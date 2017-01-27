@@ -253,10 +253,6 @@ public class ControlEstructuraPlanta implements Serializable {
       }
    }
 
-   public String valorPaginaAnterior() {
-      return paginaAnterior;
-   }
-
    public void inicializarPagina(String paginaLlamado) {
       paginaAnterior = paginaLlamado;
       getListaOrganigramas();
@@ -1437,6 +1433,7 @@ public class ControlEstructuraPlanta implements Serializable {
       altoTablaEstructura = "210";
       RequestContext.getCurrentInstance().update("form:datosEstructura");
       RequestContext.getCurrentInstance().update("form:datosOrganigramas");
+      navegar("atras");
    }
 
    public void listaValoresBoton() {

@@ -20,9 +20,6 @@
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                  <p:commandButton style="position: absolute; left: 683px; top: 502px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlEstructuraPlanta.cambiosPagina}" process="@this" />
-                  <p:commandButton style="position: absolute; left: 773px; top: 502px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEstructuraPlanta.salir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" process="@this" />
-
                   <p:toolbar  styleClass="cssToolbar">  
                      <p:toolbarGroup align="left"> 
 
@@ -86,7 +83,7 @@
 
                         <p:separator style="position: relative; top: -9px"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                         actionListener="#{controlEstructuraPlanta.salir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}"   process="@this"/>  
+                                         actionListener="#{controlEstructuraPlanta.salir()}"  process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -201,6 +198,9 @@
                      </p:dataTable>  
                      <h:outputText id="infoRegistroOrg" value="#{msg['infoRegistro']} #{controlEstructuraPlanta.infoRegistroOr}" style="position: relative; left: 10px; top: 1px; font-weight: bold"/>
                   </fieldset> 
+
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlEstructuraPlanta.cambiosPagina}" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEstructuraPlanta.salir()}" process="@this" />
 
                   <p:remoteCommand name="posicionOrganigrama" actionListener="#{controlEstructuraPlanta.posicionOrganigrama()}"/>
                   <p:remoteCommand name="posicionEstructura" actionListener="#{controlEstructuraPlanta.posicionEstructura()}"/>
@@ -472,9 +472,9 @@
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.guardarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.cancelarYSalir()}" action="#{controlEstructuraPlanta.valorPaginaAnterior()}" 
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEstructuraPlanta.cancelarYSalir()}"
                                    style="position: absolute; top: 50px; left: 219px;" process="@this" icon="ui-icon-close" />
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" 
                                    style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />

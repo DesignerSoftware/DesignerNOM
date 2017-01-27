@@ -343,7 +343,6 @@ public class ControlCargo implements Serializable {
          empresaSeleccionada = empresaActual;
          listaCargos = null;
          getListaCargos();
-         System.out.println("listaCargos : " + listaCargos);
          if (listaCargos.size() > 0) {
             cargoTablaSeleccionado = listaCargos.get(0);
             listaSueldosMercados = null;
@@ -2309,7 +2308,6 @@ public class ControlCargo implements Serializable {
       }
       if (banderaTipoDetalle == 1) {
          restaurarTablaTipoD();
-
       }
       listCargosBorrar.clear();
       listCargosCrear.clear();
@@ -2342,8 +2340,8 @@ public class ControlCargo implements Serializable {
       lovGruposSalariales = null;
       lovProcesosProductivos = null;
       lovTiposEmpresas = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void restaurarTablaCargos() {

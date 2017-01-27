@@ -145,14 +145,14 @@
                               <p:commandLink id="txttipotrabajador" style="position: absolute; left: 325px; top: 50px; ; font-weight: bold; color: #14388B; " value="#{msg['tipotrabajador']}" action="VigenciaTipoTrabajador" actionListener="#{controlVigenciaTipoTrabajador.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
                               <p:commandLink id="txtlegislacionlaboral" style="position: absolute; left: 325px; top: 95px; ; font-weight: bold; color: #14388B; " value="#{msg['legislacionlaboral']}" action="LegislacionLaboral" actionListener="#{controlVigenciasContratos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
                               <p:commandLink id="txtjornada" style="position: absolute; left: 325px; top: 140px; ; font-weight: bold; color: #14388B; " value="#{msg['jornada']}" action="VigenciaJornada" actionListener="#{controlVigenciaJornada.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
-                              <p:commandLink id="txtmenorvalorretencion" style="position: absolute; left: 325px; top: 185px; ; font-weight: bold; color: #14388B; " value="#{msg['menorvalorretencion']}" action="mvrsEmpl" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
+                              <p:commandLink id="txtmenorvalorretencion" style="position: absolute; left: 325px; top: 185px; ; font-weight: bold; color: #14388B; " value="#{msg['menorvalorretencion']}" action="emplmvrs" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
                               <p:commandLink id="txtvacaciones" style="position: absolute; left: 325px; top: 230px; ; font-weight: bold; color: #14388B; " value="#{msg['vacaciones']}" action="vacaciones" actionListener="#{controlEmplVacaPendiente.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
                               <p:commandLink id="txtsueldo" style="position: absolute; left: 595px; top: 5px; ; font-weight: bold; color: #14388B; " value="#{msg['sueldo']}" action="VigenciaSueldo" actionListener="#{controlVigenciaSueldo.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
                               <p:commandLink id="txttiposalario" style="position: absolute; left: 595px; top: 50px; ; font-weight: bold; color: #14388B; " value="#{msg['tiposalario']}" action="emplvigenciareformalaboral" actionListener="#{controlVigenciasReformasLaborales.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
                               <p:commandLink id="txtubicaciongeografica" style="position: absolute; left: 595px; top: 95px; ; font-weight: bold; color: #14388B; " value="#{msg['ubicaciongeografica']}" action="emplubicaciongeografica" actionListener="#{controlVigenciasUbicaciones.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
                               <p:commandLink id="txtformadepago" style="position: absolute; left: 595px; top: 140px; ; font-weight: bold; color: #14388B; " value="#{msg['formadepago']}" action="emplvigenciaformapago" actionListener="#{controlVigenciasFormasPagos.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia) }"/>
                               <p:commandLink id="txtset" style="position: absolute; left: 595px; top: 185px; ; font-weight: bold; color: #14388B; " value="#{msg['set']}" action="EmplSets" actionListener="#{controlSets.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado)}"/>
-                              <p:commandLink id="txtcomprobantesdepago" style="position: absolute; left: 595px; top: 230px; ; font-weight: bold; color: #14388B; " value="#{msg['comprobantesdepago']}" action="emplComprobante" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
+                              <p:commandLink id="txtcomprobantesdepago" style="position: absolute; left: 595px; top: 230px; ; font-weight: bold; color: #14388B; " value="#{msg['comprobantesdepago']}" action="emplcomprobante" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"/>
 
                               <!-- Botones Panel Central -->
                               <p:commandButton id="cargodesempenhado" value="" style="position: absolute; background-image: url(Imagenes/Iconos/cargoDesempenado.png); width: 40px; height: 40px; top: 5px; left: 5px; background-repeat: no-repeat; background-size: 100% 100%; border: outset; border-width: 0px;" 
@@ -212,7 +212,7 @@
                                  #{msg['Jornada1']}<br/>#{msg['Jornada2']}
                               </p:tooltip>
 
-                              <p:commandButton id="menorvalorretencio" value="" style="position: absolute; background-image: url(Imagenes/Iconos/valorRetencion.png); width: 40px; height: 40px; top: 185px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" disabled="#{controlRemoto.acumulado}" action="mvrsEmpl" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                              <p:commandButton id="menorvalorretencio" value="" style="position: absolute; background-image: url(Imagenes/Iconos/valorRetencion.png); width: 40px; height: 40px; top: 185px; background-repeat: no-repeat; background-size: 100% 100%; left: 280px; border: none;" disabled="#{controlRemoto.acumulado}" action="emplmvrs" actionListener="#{controlEmplMvr.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
                                                styleClass="bticon"/>
                               <p:tooltip for="menorvalorretencio" >
                                  #{msg['MenorValorRetencio1']}<br/>#{msg['MenorValorRetencio2']}
@@ -254,7 +254,7 @@
                                  #{msg['SET1']}<br/>#{msg['SET2']}
                               </p:tooltip>
 
-                              <p:commandButton id="comprobantes" value="" style="position: absolute; background-image: url(Imagenes/Iconos/comprobantePago.png); width: 40px; height: 40px; top: 230px; background-repeat: no-repeat; background-size: 100% 100%; left: 550px; border: none;" action="emplComprobante" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}" 
+                              <p:commandButton id="comprobantes" value="" style="position: absolute; background-image: url(Imagenes/Iconos/comprobantePago.png); width: 40px; height: 40px; top: 230px; background-repeat: no-repeat; background-size: 100% 100%; left: 550px; border: none;" action="emplcomprobante" actionListener="#{controlEmplComprobantes.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}" 
                                                styleClass="bticon"/>
                               <p:tooltip for="comprobantes" >
                                  #{msg['Comprobantes1']}<br/>#{msg['Comprobantes2']}
@@ -332,7 +332,7 @@
                               <p:tooltip  for="acumuladosnomina">
                                  #{msg['AcumuladosNomina1']}<br/>#{msg['AcumuladosNomina2']}
                               </p:tooltip>
-                              <p:commandButton id="novedadesempleado" value="" disabled="#{controlRemoto.novedad}" style="background-image: url(Imagenes/Iconos/novedadEmpleado.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="novedadEmpl" actionListener="#{controlEmplNovedad.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
+                              <p:commandButton id="novedadesempleado" value="" disabled="#{controlRemoto.novedad}" style="background-image: url(Imagenes/Iconos/novedadEmpleado.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="emplnovedad" actionListener="#{controlEmplNovedad.recibirEmpleado(controlRemoto.vwActualesTiposTrabajadoresPosicion.empleado.secuencia)}"
                                                styleClass="bticon"/>
                               <p:tooltip   for="novedadesempleado">
                                  #{msg['NovedadesEmpleado1']} 
@@ -720,22 +720,19 @@
                         </fieldset>
                      </p:tab>
                   </p:tabView> 
-                  <p:remoteCommand name="dirigirusuario" actionListener="#{controlUsuarios.recibirPaginaEntrante('nominaf')}" action="usuario" process="@this"/>
-                  <p:remoteCommand name="dirigirusuariovista" actionListener="#{controlUsuariosVistas.recibirPaginaEntrante('nominaf')}" action="usuariovista" process="@this"/>
                </p:panel>
 
-               <p:dialog id="alerta" widgetVar="alerta" header="#{msg['nohaydatos']}" resizable="false" draggable="true" modal="true" height="94" width="305"  closable="false">  
+               <p:dialog id="alerta" widgetVar="alerta" header="#{msg['nohaydatos']}" resizable="false" draggable="true" modal="true" height="94" width="305" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['noexistepersonal']} #{controlRemoto.mensaje} #{msg['dentrodelabasededatos']}" style="position: absolute; left: 75px; top: 20px; width: 210px;" />
+                  <h:outputText value="#{msg['noexistepersonal']} #{controlRemoto.mensaje} #{msg['dentrodelabasededatos']}" style="position: absolute; left: 75px; top: 20px; width: 210px;"/>
                   <p:commandButton value="#{msg['aceptar']}" onclick="PF('alerta').hide();" style="position: absolute; top: 60px; left: 200px;"/>
                </p:dialog>
 
-               <p:dialog id="ventanatab" widgetVar="ventanatab" header="#{msg['ventanaseguntabla']}" resizable="false" draggable="true" modal="true" height="95" width="285"  closable="false">   
-                  <h:outputText value="#{controlRemoto.pantalla.nombre}" style="position: absolute; left: 60px; top: 20px; width: 220px;" />
-                  <p:commandButton value="#{msg['atras']}" onclick="PF('VentanaTab').hide();" style="position: absolute; top: 60px; left: 200px;" />
+               <p:dialog id="ventanatab" widgetVar="ventanatab" header="#{msg['ventanaseguntabla']}" resizable="false" draggable="true" modal="true" height="50" width="285" closable="true">   
+                  <h:outputText value="#{controlRemoto.pantalla.nombre}" style="position: absolute; left: 60px; top: 20px; width: 220px;"/>
                </p:dialog>
 
-               <p:dialog id="lvbr" widgetVar="lvbr" header="#{msg['busquedarapida']}" resizable="false" draggable="true" modal="true"  width="750" closable="false">
+               <p:dialog id="lvbr" widgetVar="lvbr" header="#{msg['busquedarapida']}" resizable="false" draggable="true" modal="true" width="750" closable="false">
                   <p:dataTable id="lvbusquedarapida" widgetVar="lvbusquedarapida"  var="item" value="#{controlRemoto.busquedaRapida}" scrollable="true"
                                scrollHeight="162" scrollWidth="725" filteredValue="#{controlRemoto.filterBusquedaRapida}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionado}" selectionMode="single">

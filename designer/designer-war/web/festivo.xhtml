@@ -71,71 +71,85 @@
                   <p:toolbar styleClass="cssToolbar"> 
                      <p:toolbarGroup align="left"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlFestivos.guardarFestivos()}" process="@this" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlFestivos.guardarFestivos()}" process="@this" />
                         <p:tooltip style="" for="guardarRapido" value="Guardar" />
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlFestivos.editarCelda()}"  process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlFestivos.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="Editar" />
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlFestivos.listaValoresBoton()}"   process="@this"/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         actionListener="#{controlFestivos.listaValoresBoton()}"   process="@this"/>
                         <p:tooltip style="" for="listaValores" value="Lista de Valores" />
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlFestivos.activarCtrlF11()}"  process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlFestivos.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="Activar filtrado" />
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " actionListener="#{controlFestivos.exportXLS()}"  ajax="false"/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         actionListener="#{controlFestivos.exportXLS()}"  ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="Exportar a XLS" />
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlFestivos.limpiarNuevoFestivos()}"  ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlFestivos.limpiarNuevoFestivos()}"  ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosHvEntrevistaExportar" fileName="FESTIVOS" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="" for="exportarXML" value="Exportar a XML" />
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlFestivos.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlFestivos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="Exportar a PDF" />
 
                         <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) "  oncomplete="PF('nuevoRegistroEvalEmpresas').show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         oncomplete="PF('nuevoRegistroEvalEmpresas').show()" update=":formularioDialogos:nuevaaEvalEmpresa" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="Nueva Festivo" />
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) "  actionListener="#{controlFestivos.borrandoFestivos()}" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlFestivos.borrandoFestivos()}" process="@this"/>  
                         <p:tooltip style="" for="eliminar" value="Eliminar Festivo" />
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlFestivos.duplicandoFestivos()}" process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlFestivos.duplicandoFestivos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="Duplicar Festivo" />
                         <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlFestivos.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlFestivos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="Rastro"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlFestivos.cancelarModificacion()}" process="@this"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlFestivos.cancelarModificacion()}" process="@this"/>  
                         <p:tooltip  for="refrescar" value="Refrescar"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlFestivos.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlFestivos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
                   <h:outputText id="informacionRegistro" value="#{controlFestivos.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
-                  <p:commandButton style=" position: absolute; left: 688px; top: 475px; " icon="ui-icon-check" id="ACEPTAR" value="Aceptar" disabled="#{controlFestivos.guardado}"  actionListener="#{controlFestivos.revisarDialogoGuardar()}"     process="@this"   />
-                  <p:commandButton style=" position: absolute; left: 785px; top: 475px; " icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" action="normalaboralNominaF" value="Atras"    />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlFestivos.guardado}" actionListener="#{controlFestivos.revisarDialogoGuardar()}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlFestivos.salir()}" value=""/>
 
-
-
-
-                  <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <p:dialog id="confirmarGuardar" header="ATENCION...!" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFestivos.guardarFestivos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFestivos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"
+                                      style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check">
+                        <f:actionListener binding="#{controlFestivos.guardarFestivos()}"/>
+                        <f:actionListener binding="#{controlFestivos.navegar('atras')}"/>
+                     </p:commandButton>
+                     <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlFestivos.salir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
                      <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
 
-                  <p:dialog id="confirmarPais" header="ATENCION...!" widgetVar="confirmarPais"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <p:dialog id="confirmarPais" header="ATENCION...!" widgetVar="confirmarPais" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                      <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                      <p:commandButton value="Si" onclick="PF('confirmarPais').hide();" actionListener="#{controlFestivos.guardarFestivos()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
@@ -145,19 +159,19 @@
 
                </p:panel>
 
-               <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+               <p:dialog id="validacionDuplicarVigencia" header="ATENCIÓN...!" widgetVar="validacionDuplicarVigencia" resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="Necesita : #{controlFestivos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
+               <p:dialog id="validacionModificar" header="ATENCIÓN...!" widgetVar="validacionModificar" resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value=" #{controlFestivos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 230px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
+               <p:dialog id="validacionBorrar" header="ATENCIÓN...!" widgetVar="validacionBorrar" resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="No se puede borrar este elemento porque esta relacionado con otra tabla" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 300px;" process="@this" />

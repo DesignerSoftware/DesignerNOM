@@ -73,6 +73,9 @@ public class ControlFestivos implements Serializable {
    private List<Paises> listPaisesFiltrar;
    private int tamano;
    private String infoRegistro;
+   
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlFestivos() {
       listFestivosPorPais = null;
@@ -88,9 +91,6 @@ public class ControlFestivos implements Serializable {
       tamano = 180;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
-
-   private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
@@ -143,8 +143,6 @@ public class ControlFestivos implements Serializable {
    }
 
    public void recibirPais() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       System.out.println("PAIS ESCOGIDO : " + paisSeleccionado.getNombre());
       System.out.println("PAIS ESCOGIDO : " + crearFestivosPorPais.size());
       System.out.println("PAIS ESCOGIDO : " + modificarFestivosPorPais.size());
@@ -257,7 +255,6 @@ public class ControlFestivos implements Serializable {
                      RequestContext.getCurrentInstance().update("form:ACEPTAR");
                   }
                   RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-
                }
             } else {
                RequestContext.getCurrentInstance().update("form:validacionModificar");
@@ -265,7 +262,6 @@ public class ControlFestivos implements Serializable {
                cancelarModificacion();
 
             }
-
             index = -1;
             secRegistro = null;
          }
@@ -381,37 +377,7 @@ public class ControlFestivos implements Serializable {
    }
 
    public void salir() {
-      if (bandera == 1) {
-         FacesContext c = FacesContext.getCurrentInstance();
-         //CERRAR FILTRADO
-         fecha = (Column) c.getViewRoot().findComponent("form:datosHvEntrevista:fecha");
-         fecha.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-         bandera = 0;
-         filtrarFestivosPorPais = null;
-         tipoLista = 0;
-      }
-
-      borrarFestivosPorPais.clear();
-      crearFestivosPorPais.clear();
-      modificarFestivosPorPais.clear();
-      index = -1;
-      secRegistro = null;
-      k = 0;
-      listFestivosPorPais = null;
-      guardado = true;
-      permitirIndex = true;
-      getListFestivosPorPais();
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listFestivosPorPais != null && !listFestivosPorPais.isEmpty()) {
-         festivoSeleccionado = listFestivosPorPais.get(0);
-         infoRegistro = "Cantidad de registros: " + listFestivosPorPais.size();
-      } else {
-         infoRegistro = "Cantidad de registros: 0";
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosHvEntrevista");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      cancelarModificacion();
       navegar("atras");
    }
 

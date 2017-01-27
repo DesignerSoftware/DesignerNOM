@@ -248,22 +248,22 @@
 
                      <p:commandButton icon="ui-icon-extlink" id="novedadFormula" widgetVar="novedadFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Novedades"
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px;color: white; position: relative; top: -5px; left: 15px;  " 
-                                      action="novedadesFormula" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
+                                      action="formulanovedad" actionListener="#{controlFormulaNovedad.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>
                      <p:tooltip for="novedadFormula" value="#{msg['novedades']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="procesoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Procesos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="procesosFormula" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="formulaproceso" actionListener="#{controlFormulaProceso.recibirFormula(controlFormula.formulaSeleccionada, 'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="procesoFormula" value="#{msg['procesos']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="conceptoFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Conceptos" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="conceptoFormula" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="formulaconcepto" actionListener="#{controlFormulaConcepto.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="conceptoFormula" value="#{msg['conceptos']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" id="legislacionFormula" disabled="#{controlFormula.disabledPropiedadesFormula}" value="Legislación" 
                                       style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white; position: relative; top: -5px; left: 15px; " 
-                                      action="legislacionFormula" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
+                                      action="formulacontrato" actionListener="#{controlFormulaContrato.recibirFormula(controlFormula.formulaSeleccionada,'formula')}" immediate="#{controlFormula.activarSelec()}" process="@this"/>  
                      <p:tooltip for="legislacionFormula" value="#{msg['legislacion']}"/>
 
                      <p:commandButton style="position: relative; left: 670px; top: -35px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
