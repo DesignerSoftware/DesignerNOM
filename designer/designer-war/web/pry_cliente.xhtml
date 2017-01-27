@@ -14,7 +14,7 @@
                 <h:form id="form"> 
                     <f:loadBundle basename="Recursos.pry_cliente" var="msg" />
                     <p:growl id="growl" showDetail="true"/> 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+                    <p:panel  id="PanelTotal" header="Clientes" styleClass="panelTotal" >  
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -70,27 +70,21 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 370px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 330px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="color: blue"><strong>Clientes</strong></legend>
                             <p:dataTable id="datosPryCliente" widgetVar="datosPryCliente" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
-                                         value="#{controlPryClientes.listPryClientes}" 
-                                         scrollable="true"
-                                         scrollHeight="#{controlPryClientes.tamano}"
-                                         scrollWidth="830"
-                                         filteredValue="#{controlPryClientes.filtrarPryClientes}"
-                                         emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlPryClientes.pryClienteSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         value="#{controlPryClientes.listPryClientes}"  scrollable="true" scrollHeight="#{controlPryClientes.tamano}"  scrollWidth="830"
+                                         filteredValue="#{controlPryClientes.filtrarPryClientes}"  emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false"  selection="#{controlPryClientes.pryClienteSeleccionado}" selectionMode="single" >
                                 <p:ajax event="filter" listener="#{controlPryClientes.eventoFiltrar()}"/>
 
-                                <p:column headerText="Nombre" sortBy="#{info.nombre}" style="text-transform: uppercase" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="200" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.nombre}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="50" id="editarNombre" style="height: 12px;   border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 0)}" process="@this"
+                                                       onstart="PF('datosPryCliente').unselectAllRows();PF('datosPryCliente').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlPryClientes.modificarPryCliente(info)}"  update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -106,7 +100,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.direccion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.direccion}" maxlength="50" id="editarDireccion" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosPryCliente').unselectAllRows();PF('datosPryCliente').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="direccion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -117,13 +112,14 @@
 
                                 </p:column>
 
-                                <p:column headerText="Telefono" sortBy="#{info.telefono}" filterBy="#{info.telefono}" filterMatchMode="contains" id="telefono" width="100" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Teléfono" sortBy="#{info.telefono}" filterBy="#{info.telefono}" filterMatchMode="contains" id="telefono" width="100" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.telefono}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.telefono}" maxlength="30" id="editarTelefono" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:keyFilter for="telefono" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 2)}" process="@this"
+                                                        onstart="PF('datosPryCliente').unselectAllRows();PF('datosPryCliente').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="telefono"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -138,7 +134,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.contacto}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.contacto}" maxlength="30" id="editarContacto" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlPryClientes.cambiarIndice(info, 3)}" process="@this" 
+                                                        onstart="PF('datosPryCliente').unselectAllRows();PF('datosPryCliente').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlPryClientes.modificarPryCliente(info)}" update="contacto"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -148,29 +145,23 @@
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText id="infoRegistro" value="Registros: #{controlPryClientes.infoRegistro}" style="position: relative; left: 15px; top: 40px; font-weight: bold"/>
+                            <h:outputText id="infoRegistro" value="Registros: #{controlPryClientes.infoRegistro}" style="position: relative; top: 10px; font-weight: bold"/>
                         </fieldset>
 
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPryClientes.guardarPryCliente()}" action="#{controlPryClientes.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 130px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPryClientes.cancelarModificacion()}" action="#{controlPryClientes.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 195px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 265px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPryClientes.guardarPryCliente()}" action="#{controlPryClientes.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlPryClientes.cancelarModificacion()}" action="#{controlPryClientes.redirigirPaginaAnterior()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarPryC" header="#{msg['atencion']}" widgetVar="validacionDuplicarPryC"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlPryClientes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <h:outputText value="#{controlPryClientes.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarPryC').hide();" style="position: absolute; top: 50px; left: 280px;" process="@this" icon="ui-icon-check" />
-                    </p:dialog>
-
-                    <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value=" #{controlPryClientes.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
@@ -179,7 +170,7 @@
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 270px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlPryClientes.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 150px;" process="@this" icon="ui-icon-check" />
@@ -198,35 +189,35 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPryClientes.secRegistro, 'PryClientes', 'pry_cliente')}" 
-                                         style="position: absolute; top: 63px; left: 180px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 245px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPryClientes.pryClienteSeleccionado.secuencia, 'PryClientes', 'pry_cliente')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('PryClientes', 'pry_cliente')}" 
-                                         style="position: absolute; top: 60px; left: 180px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 245px;" process="@this" icon="ui-icon-close" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPryClientes.pryClienteSeleccionado.getSecuencia(),'PryClientes', 'pry_cliente')}"
-                                         style="position: absolute; top: 65px; left: 180px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 245px;" process="@this" icon="ui-icon-close" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(ccontrolPryClientes.pryClienteSeleccionado.secuencia,'PryClientes', 'pry_cliente')}"
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
@@ -244,44 +235,42 @@
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 2px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editNombre" header="Nombre" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPryClientes.editarPryCliente.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editDireccion" header="Dirección" widgetVar="editDireccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editDireccion" header="Dirección" widgetVar="editDireccion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPryClientes.editarPryCliente.direccion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editTelefono" header="Telefono" widgetVar="editTelefono" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editTelefono" header="Teléfono" widgetVar="editTelefono" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPryClientes.editarPryCliente.telefono}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    <p:dialog id="editContacto" header="Contacto" widgetVar="editContacto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+                    <p:dialog id="editContacto" header="Contacto" widgetVar="editContacto" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlPryClientes.editarPryCliente.contacto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-
-
 
                     <p:dialog id="nuevoRegistroPryClientes" header="Nuevo Registro" widgetVar="nuevoRegistroPryClientes" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="320" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Cliente" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaaPryCliente" style="border: none;">
 
-                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoNombre" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="Nombre" />
 
-                            <strong><h:outputText value="Direccion: "  style=" position: absolute; top: 90px;" /></strong>
+                            <strong><h:outputText value="Dirección: "  style=" position: absolute; top: 90px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoDireccion" maxlength="50" value="#{controlPryClientes.nuevoPryCliente.direccion}" style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoDireccion" value="Descripción" />
+                            <p:watermark for="nuevoDireccion" value="Dirección" />
 
-                            <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
+                            <strong><h:outputText value="Teléfono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:keyFilter for="nuevoTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="nuevoTelefono" value="Telefono" />
+                            <p:watermark for="nuevoTelefono" value="Teléfono" />
 
                             <strong><h:outputText value="Contacto: "  style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoContacto" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">
@@ -300,7 +289,7 @@
                         <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Cliente" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarPRYC" style="border: none;">
-                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*Nombre: "  style=" position: absolute; top: 60px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 55px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
@@ -310,14 +299,14 @@
                             <p:inputText  autocomplete="off"  id="duplicarDireccion" maxlength="50" value="#{controlPryClientes.duplicarPryCliente.direccion}"  style=" width: 140px; position: absolute; left: 150px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarDireccion" value="Direccion" />
+                            <p:watermark for="duplicarDireccion" value="Dirección" />
 
-                            <strong><h:outputText value="Telefono: "  style=" position: absolute; top: 120px;" /></strong>
+                            <strong><h:outputText value="Teléfono: "  style=" position: absolute; top: 120px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarTelefono" maxlength="30" value="#{controlPryClientes.nuevoPryCliente.telefono}" style="width: 140px; position: absolute; left: 150px; top: 115px;text-transform: uppercase">
                                 <p:keyFilter for="duplicarTelefono" mask="num"/>
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
-                            <p:watermark for="duplicarTelefono" value="Telefono" />
+                            <p:watermark for="duplicarTelefono" value="Teléfono" />
 
                             <strong><h:outputText value="Contacto: "  style=" position: absolute; top: 150px;" /></strong>
                             <p:inputText  autocomplete="off"   id="duplicarContacto"  maxlength="30" value="#{controlPryClientes.nuevoPryCliente.contacto}" style="width: 140px; position: absolute; left: 150px; top: 145px;text-transform: uppercase">

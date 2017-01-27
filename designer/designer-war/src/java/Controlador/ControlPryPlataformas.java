@@ -424,27 +424,22 @@ public class ControlPryPlataformas implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoPryPlataforma.getCodigo() == a) {
-            mensajeValidacion = " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-
             for (int x = 0; x < listPryPlataformas.size(); x++) {
                 if (listPryPlataformas.get(x).getCodigo() == nuevoPryPlataforma.getCodigo()) {
                     duplicados++;
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *No pueden haber códigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
                 System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoPryPlataforma.getDescripcion() == (null)) {
-            mensajeValidacion = mensajeValidacion + " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
@@ -535,12 +530,8 @@ public class ControlPryPlataformas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarPryPlataforma.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarPryPlataforma.getDescripcion());
-
         if (duplicarPryPlataforma.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "Existen campos vacíos\n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listPryPlataformas.size(); x++) {
                 if (listPryPlataformas.get(x).getCodigo() == duplicarPryPlataforma.getCodigo()) {
@@ -548,8 +539,7 @@ public class ControlPryPlataformas implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " Código repetido \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+               mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -557,8 +547,7 @@ public class ControlPryPlataformas implements Serializable {
             }
         }
         if (duplicarPryPlataforma.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             System.out.println("Bandera : ");

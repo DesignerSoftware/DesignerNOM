@@ -202,10 +202,10 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         String referenciaF;
         try {
             em.clear();
-            String sql = "SELECT R.NOMBREPERSONA\n"
-                    + "   FROM  HVREFERENCIAS R\n"
-                    + "   WHERE R.HOJADEVIDA = ? AND\n"
-                    + "   R.TIPO = 'FAMILIARES'\n"
+            String sql = "SELECT R.NOMBREPERSONA \n"
+                    + "   FROM  HVREFERENCIAS R \n"
+                    + "   WHERE R.HOJADEVIDA = ? AND \n"
+                    + "   R.TIPO = 'FAMILIARES' \n"
                     + "   AND rownum = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secHV);
@@ -222,11 +222,12 @@ public class PersistenciaHvReferencias implements PersistenciaHvReferenciasInter
         String referenciaP;
         try {
             em.clear();
-            String sql = "SELECT R.NOMBREPERSONA\n"
-                    + "   FROM  HVREFERENCIAS R\n"
-                    + "   WHERE R.HOJADEVIDA = ? AND\n"
-                    + "   R.TIPO = 'PERSONALES'\n"
-                    + "   AND R.secuencia = (SELECT MAX(RI.SECUENCIA) FROM HVREFERENCIAS RI WHERE RI.hojadevida = R.HOJADEVIDA)";
+            String sql = "SELECT R.NOMBREPERSONA \n"
+                    + "   FROM  HVREFERENCIAS R \n"
+                    + "   WHERE R.HOJADEVIDA = ? AND \n"
+                    + "   R.TIPO = 'PERSONALES' \n"
+                    + "   AND rownum = 1";
+                    
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secHV);
             referenciaP = (String) query.getSingleResult();

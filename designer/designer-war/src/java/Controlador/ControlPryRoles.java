@@ -112,7 +112,7 @@ public class ControlPryRoles implements Serializable {
     public void recibirParametros(Map<String, Object> map) {
         mapParametros = map;
         paginaAnterior = (String) mapParametros.get("paginaAnterior");
-       listPryRoles = null;
+        listPryRoles = null;
         getListPryRoles();
         deshabilitarBotonLov();
         if (listPryRoles != null) {
@@ -145,7 +145,6 @@ public class ControlPryRoles implements Serializable {
         }
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
-
 
     public String redirigir() {
         return paginaAnterior;
@@ -251,41 +250,18 @@ public class ControlPryRoles implements Serializable {
         }
     }
 
-    public void modificarPryRoles(PryRoles pryrol, String confirmarCambio, String valorConfirmar) {
+    public void modificarPryRoles(PryRoles pryrol) {
         pryRolSeleccionado = pryrol;
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!crearListPryRoles.contains(pryRolSeleccionado)) {
-                    if (modificarListPryRoles.isEmpty()) {
-                        modificarListPryRoles.add(pryRolSeleccionado);
-                    } else if (!modificarListPryRoles.contains(pryRolSeleccionado)) {
-                        modificarListPryRoles.add(pryRolSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!crearListPryRoles.contains(pryRolSeleccionado)) {
-                if (!crearListPryRoles.contains(pryRolSeleccionado)) {
-                    if (modificarListPryRoles.isEmpty()) {
-                        modificarListPryRoles.add(pryRolSeleccionado);
-                    } else if (!modificarListPryRoles.contains(pryRolSeleccionado)) {
-                        modificarListPryRoles.add(pryRolSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                RequestContext.getCurrentInstance().update("form:datosPryRoles");
+        if (!crearListPryRoles.contains(pryRolSeleccionado)) {
+            if (modificarListPryRoles.isEmpty()) {
+                modificarListPryRoles.add(pryRolSeleccionado);
+            } else if (!modificarListPryRoles.contains(pryRolSeleccionado)) {
+                modificarListPryRoles.add(pryRolSeleccionado);
             }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
+        RequestContext.getCurrentInstance().update("form:datosPryRoles");
     }
 
     public void borrandoPryRoles() {
@@ -396,11 +372,11 @@ public class ControlPryRoles implements Serializable {
         mensajeValidacion = " ";
 
         if (nuevopryRol.getDescripcion().equals(" ") || nuevopryRol.getDescripcion().equals("")) {
-            mensajeValidacion = mensajeValidacion + " * Descripción \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
         if (nuevopryRol.getCodigo() == null) {
-            mensajeValidacion = mensajeValidacion + " * Codigo \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
 

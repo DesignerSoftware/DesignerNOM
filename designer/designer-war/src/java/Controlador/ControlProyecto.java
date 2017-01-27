@@ -208,35 +208,18 @@ public class ControlProyecto implements Serializable {
     public boolean validarFechasRegistro(int i) {
         boolean retorno = false;
         if (i == 0) {
-            if (tipoListaP == 0) {
-                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() != null) {
-                    if (proyectoTablaSeleccionado.getFechainicial().before(proyectoTablaSeleccionado.getFechafinal())) {
-                        retorno = true;
-                    } else {
-                        retorno = false;
-                    }
-                }
-                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() == null) {
+            if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() != null) {
+                if (proyectoTablaSeleccionado.getFechainicial().before(proyectoTablaSeleccionado.getFechafinal())) {
                     retorno = true;
-                }
-                if (proyectoTablaSeleccionado.getFechainicial() == null && proyectoTablaSeleccionado.getFechafinal() != null) {
+                } else {
                     retorno = false;
                 }
             }
-            if (tipoListaP == 1) {
-                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() != null) {
-                    if (proyectoTablaSeleccionado.getFechainicial().before(proyectoTablaSeleccionado.getFechafinal())) {
-                        retorno = true;
-                    } else {
-                        retorno = false;
-                    }
-                }
-                if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() == null) {
-                    retorno = true;
-                }
-                if (proyectoTablaSeleccionado.getFechainicial() == null && proyectoTablaSeleccionado.getFechafinal() != null) {
-                    retorno = false;
-                }
+            if (proyectoTablaSeleccionado.getFechainicial() != null && proyectoTablaSeleccionado.getFechafinal() == null) {
+                retorno = true;
+            }
+            if (proyectoTablaSeleccionado.getFechainicial() == null && proyectoTablaSeleccionado.getFechafinal() != null) {
+                retorno = false;
             }
 
         }
@@ -316,11 +299,7 @@ public class ControlProyecto implements Serializable {
         boolean retorno = true;
         if (i == 0) {
             Proyectos aux = null;
-            if (tipoListaP == 0) {
-                aux = proyectoTablaSeleccionado;
-            } else {
-                aux = proyectoTablaSeleccionado;
-            }
+            aux = proyectoTablaSeleccionado;
             if (aux.getCodigo() == null) {
                 retorno = false;
             } else if (aux.getCodigo().isEmpty()) {
@@ -362,226 +341,18 @@ public class ControlProyecto implements Serializable {
 
     public void modificarProyecto(Proyectos proyecto) { //(int indice)
 
-        if (validarDatosNull(0) == true) {
-            if (tipoListaP == 0) {
-                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
-                    if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoTablaSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
-                        listProyectoModificar.add(proyectoTablaSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-
-            } else if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
-                if (listProyectoModificar.isEmpty()) {
-                    listProyectoModificar.add(proyectoTablaSeleccionado);
-                } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
-                    listProyectoModificar.add(proyectoTablaSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+//        if (validarDatosNull(0) == true) {
+        if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
+            if (listProyectoModificar.isEmpty()) {
+                listProyectoModificar.add(proyectoTablaSeleccionado);
+            } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
+                listProyectoModificar.add(proyectoTablaSeleccionado);
             }
-
-        }
-    }
-
-    public void modificarProyecto(Proyectos proyecto, String confirmarCambio, String valorConfirmar) {
-        proyectoTablaSeleccionado = proyecto;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("EMPRESAS")) {
-            if (!valorConfirmar.isEmpty()) {
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.getEmpresa().setNombre(empresas);
-                } else {
-                    proyectoTablaSeleccionado.getEmpresa().setNombre(empresas);
-                }
-                for (int i = 0; i < listEmpresas.size(); i++) {
-                    if (listEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoListaP == 0) {
-                        proyectoTablaSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
-                    } else {
-                        proyectoTablaSeleccionado.setEmpresa(listEmpresas.get(indiceUnicoElemento));
-                    }
-                    listEmpresas = null;
-                    getListEmpresas();
-
-                } else {
-                    permitirIndexP = false;
-                    RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            } else {
-                coincidencias = 1;
-                listEmpresas = null;
-                getListEmpresas();
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.setEmpresa(new Empresas());
-                } else {
-                    proyectoTablaSeleccionado.setEmpresa(new Empresas());
-                }
-            }
-            deshabilitarLov();
-        } else if (confirmarCambio.equalsIgnoreCase("CLIENTES")) {
-            if (!valorConfirmar.isEmpty()) {
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.getPryCliente().setNombre(clientes);
-                } else {
-                    proyectoTablaSeleccionado.getPryCliente().setNombre(clientes);
-                }
-                for (int i = 0; i < listPryClientes.size(); i++) {
-                    if (listPryClientes.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoListaP == 0) {
-                        proyectoTablaSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
-                    } else {
-                        proyectoTablaSeleccionado.setPryCliente(listPryClientes.get(indiceUnicoElemento));
-                    }
-                    listPryClientes = null;
-                    getListPryClientes();
-
-                } else {
-                    permitirIndexP = false;
-                    RequestContext.getCurrentInstance().update("form:ClientesDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('ClientesDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            } else {
-                coincidencias = 1;
-                listPryClientes = null;
-                getListPryClientes();
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.setPryCliente(new PryClientes());
-                } else {
-                    proyectoTablaSeleccionado.setPryCliente(new PryClientes());
-                }
-            }
-            deshabilitarLov();
-        } else if (confirmarCambio.equalsIgnoreCase("PLATAFORMAS")) {
-            if (!valorConfirmar.isEmpty()) {
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.getPryPlataforma().setDescripcion(plataformas);
-                } else {
-                    proyectoTablaSeleccionado.getPryPlataforma().setDescripcion(plataformas);
-                }
-                for (int i = 0; i < listPryPlataformas.size(); i++) {
-                    if (listPryPlataformas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoListaP == 0) {
-                        proyectoTablaSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
-                    } else {
-                        proyectoTablaSeleccionado.setPryPlataforma(listPryPlataformas.get(indiceUnicoElemento));
-                    }
-                    listPryPlataformas = null;
-                    getListPryPlataformas();
-                } else {
-                    permitirIndexP = false;
-                    RequestContext.getCurrentInstance().update("form:PlataformasDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('PlataformasDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            } else {
-                coincidencias = 1;
-                listPryPlataformas = null;
-                getListPryPlataformas();
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.setPryPlataforma(new PryPlataformas());
-                } else {
-                    proyectoTablaSeleccionado.setPryPlataforma(new PryPlataformas());
-                }
-            }
-            deshabilitarLov();
-        } else if (confirmarCambio.equalsIgnoreCase("MONEDAS")) {
-            if (!valorConfirmar.isEmpty()) {
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.getTipomoneda().setNombre(monedas);
-                } else {
-                    proyectoTablaSeleccionado.getTipomoneda().setNombre(monedas);
-                }
-                for (int i = 0; i < listMonedas.size(); i++) {
-                    if (listMonedas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    if (tipoListaP == 0) {
-                        proyectoTablaSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
-                    } else {
-                        proyectoTablaSeleccionado.setTipomoneda(listMonedas.get(indiceUnicoElemento));
-                    }
-
-                    listMonedas = null;
-                    getListMonedas();
-                } else {
-                    permitirIndexP = false;
-                    RequestContext.getCurrentInstance().update("form:MonedasDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('MonedasDialogo').show()");
-                    tipoActualizacion = 0;
-                }
-            } else {
-                coincidencias = 1;
-                listMonedas = null;
-                getListMonedas();
-                if (tipoListaP == 0) {
-                    proyectoTablaSeleccionado.setTipomoneda(new Monedas());
-                } else {
-                    proyectoTablaSeleccionado.setTipomoneda(new Monedas());
-                }
-            }
-            deshabilitarLov();
-        }
-        if (coincidencias == 1) {
-            if (tipoListaP == 0) {
-                if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
-
-                    if (listProyectoModificar.isEmpty()) {
-                        listProyectoModificar.add(proyectoTablaSeleccionado);
-                    } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
-                        listProyectoModificar.add(proyectoTablaSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-
-            } else if (!listProyectoCrear.contains(proyectoTablaSeleccionado)) {
-
-                if (listProyectoModificar.isEmpty()) {
-                    listProyectoModificar.add(proyectoTablaSeleccionado);
-                } else if (!listProyectoModificar.contains(proyectoTablaSeleccionado)) {
-                    listProyectoModificar.add(proyectoTablaSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-            deshabilitarLov();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosProyectos");
+//        }
     }
 
     public void valoresBackupAutocompletarProyecto(int tipoNuevo, String Campo) {
@@ -801,65 +572,41 @@ public class ControlProyecto implements Serializable {
         if (permitirIndexP == true) {
             proyectoTablaSeleccionado = proyecto;
             cualCeldaP = celda;
-            if (tipoListaP == 0) {
-                auxCodigo = proyectoTablaSeleccionado.getCodigo();
-                auxNombre = proyectoTablaSeleccionado.getNombreproyecto();
-                fechaFin = proyectoTablaSeleccionado.getFechafinal();
-                fechaInic = proyectoTablaSeleccionado.getFechainicial();
-                proyectoTablaSeleccionado.getSecuencia();
-                empresas = proyectoTablaSeleccionado.getEmpresa().getNombre();
-                clientes = proyectoTablaSeleccionado.getPryCliente().getNombre();
-                plataformas = proyectoTablaSeleccionado.getPryPlataforma().getDescripcion();
-                if (proyectoTablaSeleccionado.getTipomoneda() != null) {
-                    monedas = proyectoTablaSeleccionado.getTipomoneda().getNombre();
-                }
+            proyectoTablaSeleccionado.getSecuencia();
+            deshabilitarLov();
+            if (cualCeldaP == 0) {
+                habilitarLov();
+                proyectoTablaSeleccionado.getEmpresa().getNombre();
+            } else if (cualCeldaP == 1) {
                 deshabilitarLov();
-                if (cualCeldaP == 0) {
-                    contarRegistros();
-                    //deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 3) {
-                    contarRegistros();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 4) {
-                    contarRegistros();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 6) {
-                    contarRegistros();
-                    habilitarLov();
-                }
-            }
-            if (tipoListaP == 1) {
-                auxCodigo = proyectoTablaSeleccionado.getCodigo();
-                auxNombre = proyectoTablaSeleccionado.getNombreproyecto();
-                fechaFin = proyectoTablaSeleccionado.getFechafinal();
-                fechaInic = proyectoTablaSeleccionado.getFechainicial();
-                proyectoTablaSeleccionado.getSecuencia();
-                empresas = proyectoTablaSeleccionado.getEmpresa().getNombre();
-                clientes = proyectoTablaSeleccionado.getPryCliente().getNombre();
-                plataformas = proyectoTablaSeleccionado.getPryPlataforma().getDescripcion();
-                monedas = proyectoTablaSeleccionado.getTipomoneda().getNombre();
+                proyectoTablaSeleccionado.getCodigo();
+            } else if (cualCeldaP == 2) {
                 deshabilitarLov();
-                if (cualCeldaP == 0) {
-                    contarRegistros();
-                    //deporte = vigenciaTablaSeleccionada.getDeporte().getNombre();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 3) {
-                    contarRegistros();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 4) {
-                    contarRegistros();
-                    habilitarLov();
-                }
-                if (cualCeldaP == 6) {
-                    contarRegistros();
-                    habilitarLov();
-                }
+                proyectoTablaSeleccionado.getNombreproyecto();
+            } else if (cualCeldaP == 3) {
+                habilitarLov();
+                proyectoTablaSeleccionado.getPryCliente().getNombre();
+            } else if (cualCeldaP == 4) {
+                habilitarLov();
+                proyectoTablaSeleccionado.getPryPlataforma().getDescripcion();
+            } else if (cualCeldaP == 5) {
+                deshabilitarLov();
+                proyectoTablaSeleccionado.getMonto();
+            } else if (cualCeldaP == 6) {
+                habilitarLov();
+                proyectoTablaSeleccionado.getTipomoneda().getNombre();
+            } else if (cualCeldaP == 7) {
+                deshabilitarLov();
+                proyectoTablaSeleccionado.getCantidadpersonas();
+            } else if (cualCeldaP == 8) {
+                deshabilitarLov();
+                proyectoTablaSeleccionado.getFechainicial();
+            } else if (cualCeldaP == 9) {
+                deshabilitarLov();
+                proyectoTablaSeleccionado.getFechafinal();
+            } else if (cualCeldaP == 10) {
+                deshabilitarLov();
+                proyectoTablaSeleccionado.getDescripcionproyecto();
             }
 
         }
@@ -1037,8 +784,8 @@ public class ControlProyecto implements Serializable {
     }
 
     public void agregarNuevaP() {
-        if (validarFechasRegistro(1) == true) {
-            if (validarDatosNull(1) == true) {
+        if (validarDatosNull(1) == true) {
+            if (validarFechasRegistro(1) == true) {
                 if (banderaP == 1) {
                     FacesContext c = FacesContext.getCurrentInstance();
                     altoTabla = "300";
@@ -1095,12 +842,10 @@ public class ControlProyecto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
                 RequestContext.getCurrentInstance().execute("PF('NuevoRegistroP').hide()");
             } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
         }
     }
 
@@ -1132,34 +877,18 @@ public class ControlProyecto implements Serializable {
     public void duplicarProyectoM() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (proyectoTablaSeleccionado != null) {
-            if (tipoListaP == 0) {
-                duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
-                duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
-                duplicarProyecto.setEmpresa(proyectoTablaSeleccionado.getEmpresa());
-                duplicarProyecto.setNombreproyecto(proyectoTablaSeleccionado.getNombreproyecto());
-                duplicarProyecto.setCodigo(proyectoTablaSeleccionado.getCodigo());
-                duplicarProyecto.setPryCliente(proyectoTablaSeleccionado.getPryCliente());
-                duplicarProyecto.setPryPlataforma(proyectoTablaSeleccionado.getPryPlataforma());
-                duplicarProyecto.setMonto(proyectoTablaSeleccionado.getMonto());
-                duplicarProyecto.setTipomoneda(proyectoTablaSeleccionado.getTipomoneda());
-                duplicarProyecto.setDescripcionproyecto(proyectoTablaSeleccionado.getDescripcionproyecto());
-                duplicarProyecto.setCantidadpersonas(proyectoTablaSeleccionado.getCantidadpersonas());
-                deshabilitarLov();
-            }
-            if (tipoListaP == 1) {
-                duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
-                duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
-                duplicarProyecto.setEmpresa(proyectoTablaSeleccionado.getEmpresa());
-                duplicarProyecto.setNombreproyecto(proyectoTablaSeleccionado.getNombreproyecto());
-                duplicarProyecto.setCodigo(proyectoTablaSeleccionado.getCodigo());
-                duplicarProyecto.setPryCliente(proyectoTablaSeleccionado.getPryCliente());
-                duplicarProyecto.setPryPlataforma(proyectoTablaSeleccionado.getPryPlataforma());
-                duplicarProyecto.setMonto(proyectoTablaSeleccionado.getMonto());
-                duplicarProyecto.setTipomoneda(proyectoTablaSeleccionado.getTipomoneda());
-                duplicarProyecto.setDescripcionproyecto(proyectoTablaSeleccionado.getDescripcionproyecto());
-                duplicarProyecto.setCantidadpersonas(proyectoTablaSeleccionado.getCantidadpersonas());
-                deshabilitarLov();
-            }
+            duplicarProyecto.setFechafinal(proyectoTablaSeleccionado.getFechafinal());
+            duplicarProyecto.setFechainicial(proyectoTablaSeleccionado.getFechainicial());
+            duplicarProyecto.setEmpresa(proyectoTablaSeleccionado.getEmpresa());
+            duplicarProyecto.setNombreproyecto(proyectoTablaSeleccionado.getNombreproyecto());
+            duplicarProyecto.setCodigo(proyectoTablaSeleccionado.getCodigo());
+            duplicarProyecto.setPryCliente(proyectoTablaSeleccionado.getPryCliente());
+            duplicarProyecto.setPryPlataforma(proyectoTablaSeleccionado.getPryPlataforma());
+            duplicarProyecto.setMonto(proyectoTablaSeleccionado.getMonto());
+            duplicarProyecto.setTipomoneda(proyectoTablaSeleccionado.getTipomoneda());
+            duplicarProyecto.setDescripcionproyecto(proyectoTablaSeleccionado.getDescripcionproyecto());
+            duplicarProyecto.setCantidadpersonas(proyectoTablaSeleccionado.getCantidadpersonas());
+            deshabilitarLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarP");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroP').show()");
         } else {
@@ -1168,8 +897,8 @@ public class ControlProyecto implements Serializable {
     }
 
     public void confirmarDuplicarP() {
-        if (validarFechasRegistro(2) == true) {
-            if (validarDatosNull(2) == true) {
+        if (validarDatosNull(2) == true) {
+            if (validarFechasRegistro(2) == true) {
                 k++;
                 l = BigInteger.valueOf(k);
                 duplicarProyecto.setSecuencia(l);
@@ -1222,12 +951,10 @@ public class ControlProyecto implements Serializable {
                 RequestContext.getCurrentInstance().update("form:datosProyectos");
                 RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroP').hide()");
             } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
+                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
             }
         } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+            RequestContext.getCurrentInstance().execute("PF('errorDatosNull').show()");
         }
     }
 

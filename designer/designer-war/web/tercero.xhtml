@@ -129,8 +129,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.nombre}" maxlength="30"  id="editarTerceroNombre" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 0)}" process="@this"/>
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 0)}" process="@this"
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -150,8 +150,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.nit}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.nit}"  id="editarTerceroNIT" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 1)}" process="@this"/>
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 1)}" process="@this"
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -171,8 +171,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.digitoverificacion}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.digitoverificacion}"  id="editarTerceroDigitoVerificacion" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 2)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 2)}" process="@this" 
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -192,8 +192,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.nitalternativo}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.nitalternativo}" maxlength="30" id="editarTerceroNITAlternativo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 3)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 3)}" process="@this" 
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -213,8 +213,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.codigoss}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.codigoss}" maxlength="6" id="editarTerceroCodigoSS" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 4)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 4)}" process="@this" 
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -234,8 +234,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.codigosp}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.codigosp}" maxlength="6" id="editarTerceroCodigoSP" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 5)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 5)}" process="@this"
+                                                         onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -255,8 +255,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.codigosc}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off" value="#{infoT.codigosc}" maxlength="6" id="editarTerceroCodigoSC" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 6)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 6)}" process="@this"
+                                                         onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -276,8 +276,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.nombre}"  id="editarTConsolidador" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 7)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 7)}" process="@this"
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'TERCEROCONSOLIDADOR', infoT.terceroconsolidador.nombre)}" process="@this" update="editarTConsolidador"/>
                                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,0,0)}" process="@this" update="editarTConsolidador"/>
                                             </p:inputText>
@@ -298,8 +298,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.terceroconsolidador.strNit}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.terceroconsolidador.strNit}"  id="editarTerceroNITConsolidado" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 8)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 8)}" process="@this" 
+                                                        onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -319,8 +319,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.ciudad.nombre}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.ciudad.nombre}"  id="editarTerceroCiudad" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 9)}" process="@this" />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 9)}" process="@this"
+                                                         onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTerceroAutocompletar(infoT, 'CIUDAD', infoT.ciudad.nombre)}" process="@this" update="editarTerceroCiudad"/>
                                                 <p:ajax event="dblclick" listener="#{controlTercero.asignarIndex(infoT,1, 0)}" process="@this" update="editarTerceroCiudad"/>
                                             </p:inputText>
@@ -341,8 +341,8 @@
                                         <f:facet name="output"><h:outputText value="#{infoT.strCodAlt}"/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{infoT.strCodAlt}"  id="editarTerceroCodigoAlterno" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this"  />
-                                                        <!--onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});"-->
+                                                <p:ajax event="select" listener="#{controlTercero.cambiarIndice(infoT, 10)}" process="@this" 
+                                                         onstart="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlTercero.modificarTercero(infoT)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -357,8 +357,8 @@
                                     <p:cellEditor>   
                                         <f:facet name="output"><h:outputText value="#{infoT.tiponit}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarTerceroTipoNIT" value="#{infoT.tiponit}" style="text-align: left; width: 90px">
-                                                             <!--onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">-->  
+                                            <p:selectOneMenu id="editarTerceroTipoNIT" value="#{infoT.tiponit}" style="text-align: left; width: 90px"
+                                                             onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel=""/> 
                                                 <f:selectItem itemLabel="#{msg['natural']}" itemValue="N" />  
                                                 <f:selectItem itemLabel="#{msg['juridica']}" itemValue="J" />
@@ -378,8 +378,8 @@
                                     <p:cellEditor>   
                                         <f:facet name="output"><h:outputText value="#{infoT.codigotercerosap}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarTerceroCodigoSAP" value="#{infoT.codigotercerosap}" style="text-align: left; width: 90px" >
-           <!--                                                  onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  -->
+                                            <p:selectOneMenu id="editarTerceroCodigoSAP" value="#{infoT.codigotercerosap}" style="text-align: left; width: 90px" 
+                                                             onblur="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});" onfocus="PF('datosTerceros').unselectAllRows();PF('datosTerceros').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel=""/> 
                                                 <f:selectItem itemLabel="#{msg['EPS']}" itemValue="EPS" />  
                                                 <f:selectItem itemLabel="#{msg['AFP']}" itemValue="AFP" />

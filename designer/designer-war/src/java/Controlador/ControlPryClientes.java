@@ -443,9 +443,7 @@ public class ControlPryClientes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevoPryCliente.getNombre() == null || nuevoPryCliente.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "El campo nombre es obligatorio";
         } else {
             System.out.println("bandera");
             contador++;
@@ -539,13 +537,8 @@ public class ControlPryClientes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Short a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar nombre " + duplicarPryCliente.getNombre());
-        System.err.println("ConfirmarDuplicar direccion " + duplicarPryCliente.getDireccion());
-
         if (duplicarPryCliente.getNombre() == null || duplicarPryCliente.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " No pueden haber cambios vacios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+             mensajeValidacion = "El campo nombre es obligatorio";
         } else {
             System.out.println("Bandera : ");
             contador++;
