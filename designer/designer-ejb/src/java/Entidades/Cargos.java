@@ -91,11 +91,10 @@ public class Cargos implements Serializable {
     }
 
     public String getNombre() {
-        if (nombre != null) {
-            return nombre.toUpperCase();
-        } else {
-            return nombre;
+        if (nombre == null) {
+            nombre = " ";
         }
+        return nombre;
     }
 
     public void setNombre(String nombre) {

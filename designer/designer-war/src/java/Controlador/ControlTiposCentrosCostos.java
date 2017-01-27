@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -71,9 +74,10 @@ public class ControlTiposCentrosCostos implements Serializable {
     private String mensajeValidacion;
     private String infoRegistro;
     private String infoRegistroTiposCentrosCostos;
-    private String paginaAnterior;
     private int tamano;
     private boolean activarLov;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     /**
      * Creates a new instance of ControlTiposCentrosCostos
@@ -94,6 +98,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         aceptar = true;
         tamano = 270;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -107,6 +112,43 @@ public class ControlTiposCentrosCostos implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipocentrocosto";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirPaginaAnterior(String pagina) {
@@ -274,78 +316,18 @@ public class ControlTiposCentrosCostos implements Serializable {
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
-    public void modificarTipoCentroCosto(TiposCentrosCostos tipocc, String confirmarCambio, String valorConfirmar) {
+    public void modificarTipoCentroCosto(TiposCentrosCostos tipocc) {
         tipoCentroCostoSeleccionado = tipocc;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        int contador = 0;
-        int pass = 0;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoCentroCostoSeleccionado.getCodigo() == a) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                tipoCentroCostoSeleccionado.setCodigo(tipoCentroCostoSeleccionado.getCodigo());
-            } else {
-                for (int j = 0; j < listTiposCentrosCostos.size(); j++) {
-                    if (tipoCentroCostoSeleccionado.getCodigo() == listTiposCentrosCostos.get(j).getCodigo()) {
-                        contador++;
-                    }
-                }
-                if (contador > 0) {
-                    mensajeValidacion = "CODIGOS REPETIDOS";
-                    tipoCentroCostoSeleccionado.setCodigo(tipoCentroCostoSeleccionado.getCodigo());
-                } else {
-                    pass++;
-                }
-
-            }
-            if (tipoCentroCostoSeleccionado.getNombre() == null || tipoCentroCostoSeleccionado.getNombre().isEmpty()) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                tipoCentroCostoSeleccionado.setNombre(tipoCentroCostoSeleccionado.getNombre());
-            } else {
-                pass++;
-            }
-            if (pass == 2) {
-                if (modificarTiposCentrosCostos.isEmpty()) {
-                    modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
-                } else if (!modificarTiposCentrosCostos.contains(tipoCentroCostoSeleccionado)) {
-                    modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
-
-            } else {
-                RequestContext.getCurrentInstance().update("form:validacionModificar");
-                RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-            }
-
-            RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
-        } else if (confirmarCambio.equalsIgnoreCase("GRUPOSTIPOSCC")) {
-            tipoCentroCostoSeleccionado.getGrupotipocc().setDescripcion(grupoTipoCCAutoCompletar);
-
-            for (int i = 0; i < listaGruposTiposCC.size(); i++) {
-                if (listaGruposTiposCC.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                tipoCentroCostoSeleccionado.setGrupotipocc(listaGruposTiposCC.get(indiceUnicoElemento));
-                listaGruposTiposCC.clear();
-                listaGruposTiposCC = null;
-                getListaGruposTiposCC();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("form:gruposTiposCentrosCostosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('gruposTiposCentrosCostosDialogo').show()");
-                tipoActualizacion = 0;
-            }
+        if (modificarTiposCentrosCostos.isEmpty()) {
+            modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
+        } else if (!modificarTiposCentrosCostos.contains(tipoCentroCostoSeleccionado)) {
+            modificarTiposCentrosCostos.add(tipoCentroCostoSeleccionado);
         }
+        guardado = false;
+
         RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
@@ -439,7 +421,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoTipoCentroCosto.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposCentrosCostos.size(); x++) {
                 if (listTiposCentrosCostos.get(x).getCodigo() == nuevoTipoCentroCosto.getCodigo()) {
@@ -448,21 +430,21 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
 
             if (duplicados > 0) {
-                mensajeValidacion = " *Códigos Repetidos \n";
+                mensajeValidacion = " Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
             } else {
                 System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoTipoCentroCosto.getNombre() == (null)) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
+          mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             contador++;
 
         }
         if (nuevoTipoCentroCosto.getGrupotipocc().getSecuencia() == null) {
-            mensajeValidacion = mensajeValidacion + " *Grupo Tipo CC \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             contador++;
@@ -540,7 +522,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
             listTiposCentrosCostos = null;
             RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;
@@ -582,8 +564,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         a = null;
 
         if (duplicarTipoCentroCosto.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposCentrosCostos.size(); x++) {
                 if (listTiposCentrosCostos.get(x).getCodigo() == duplicarTipoCentroCosto.getCodigo()) {
@@ -591,8 +572,7 @@ public class ControlTiposCentrosCostos implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = "Código repetido \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido \n";
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -600,15 +580,14 @@ public class ControlTiposCentrosCostos implements Serializable {
             }
         }
         if (duplicarTipoCentroCosto.getNombre() == null || duplicarTipoCentroCosto.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + "   *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             System.out.println("Bandera : ");
             contador++;
         }
         if (duplicarTipoCentroCosto.getGrupotipocc().getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + "   *Grupo Tipo CC \n";
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             System.out.println("Mensaje validacion : " + mensajeValidacion);
         } else {
             contador++;
@@ -767,7 +746,7 @@ public class ControlTiposCentrosCostos implements Serializable {
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoCentroCostoSeleccionado != null) {
-            int resultado = administrarRastros.obtenerTabla(tipoCentroCostoSeleccionado.getSecuencia(), "TIPOSCENTROSCOSTOS"); 
+            int resultado = administrarRastros.obtenerTabla(tipoCentroCostoSeleccionado.getSecuencia(), "TIPOSCENTROSCOSTOS");
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {

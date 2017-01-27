@@ -76,7 +76,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border:none; " 
-                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this"/>  
+                                                 actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -86,7 +86,7 @@
                                             alt="Foto empleado" value="#{controlEmpleadoIndividual.fotoEmpleado}" onclick="PF('subirFoto').show();"
                                             style="position: relative; top: 0px; left: 0px;"/> 
 
-                            <p:commandButton value="#{msg['tallas']}" process="@this" action="adelanteVigenciaTalla" 
+                            <p:commandButton value="#{msg['tallas']}" process="@this" action="vigenciatalla" 
                                              actionListener="#{controlVigenciasTallas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
                                              style="position: relative; left: -107px; top: 20px; height: 23px; width: 115px; font-size: 12px;"/>
                             <p:commandButton id="bntAntContratos" value="#{msg['anteriorescontratos']}" 
@@ -452,9 +452,9 @@
                                 <p:inputText  autocomplete="off"  id="educacion" value="#{controlEmpleadoIndividual.educacionP}" readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnIdiomas" value="" style="background-image: url(Imagenes/Iconos/idioma.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; " 
-                                                 action="idiomaPerson" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                                                 action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
                                 <h:commandLink value="#{msg['idiomas']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B; "
-                                               action="idiomaPerson" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="idiomapersona" actionListener="#{controlIdiomaPersona.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="idiomas" value="#{controlEmpleadoIndividual.idiomasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnProyectos" value="" style="background-image: url(Imagenes/Iconos/proyecto.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;" 
@@ -473,10 +473,10 @@
                                                actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaLaboral')}" immediate="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>  
                                 <p:inputText  autocomplete="off"  id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
-                                <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaFamiliar')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
+                                <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
                                                  style="background-image: url(Imagenes/Iconos/referenciafamiliar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; text-transform: uppercase" process="@this"/>
                                 <h:commandLink value="#{msg['referenciafamiliar']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B;"
-                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaFamiliar')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnExperienciaLaboral" value="" process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
@@ -510,9 +510,9 @@
                                 <p:inputText  autocomplete="off"  id="censos" value="#{controlEmpleadoIndividual.indicadoresP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnDemandas" value="" style="background-image: url(Imagenes/Iconos/demanda.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;" 
-                                                 process="@this" action="demandaEmpl" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                                 process="@this" action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <h:commandLink value="#{msg['demandas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 123px;"
-                                               action="demandaEmpl" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="empldemanda" actionListener="#{controlEmplDemanda.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="demandas" value="#{controlEmpleadoIndividual.demandasP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnVisitasDomiciliarias" value="" style="background-image: url(Imagenes/Iconos/visitadomiciliaria.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;"
@@ -545,8 +545,8 @@
                                 <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 249px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
-                                                 process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPagina('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
-                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPagina('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
+                                                 process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                                <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
                                 <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 249px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
                             </fieldset>
                         </fieldset>
@@ -562,7 +562,7 @@
                                          value="#{msg['reportesdepersonal']}" process="@this" action="reportePersonal" 
                                          actionListener="#{controlNReportePersonal.iniciarPagina()}"/>
 
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" process="@this" />
+                        <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this" />
                         <p:commandButton id="ACEPTAR" style="position: absolute; left: 660px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
 
                     </p:panel>
@@ -575,8 +575,8 @@
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: relative; left: 0px; top: 20px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: absolute; left: 50%; transform: translate(-50%, 0%);">
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nomina" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.guardarCambios()}" action="nominaf" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" style="position: relative; top: 0px; left: 0px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: relative; top: 0px; left: 97px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </div>
                     </p:dialog>
@@ -746,7 +746,7 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastrotabla" process="@this" />
                             <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>
@@ -760,7 +760,7 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['confirmarRastroHistorico']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastrotabla" process="@this" />
                             <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>
@@ -794,7 +794,7 @@
                             <h:outputText value="#{msg['latabla']} #{controlEmpleadoIndividual.nombreTabla} #{msg['errorTablaConRastro']}" style="position: relative; left: 10px; top: 10px; width: 250px; font-weight:bold;" />
                         </div>
                         <div style="position: relative; top: -30px;">
-                            <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastro" process="@this" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmpleadoIndividual.secRastro, controlEmpleadoIndividual.nombreTabla, 'hojaVida')}" style="position: relative; top: 0px; left: 0px; width: 60px;" action="rastrotabla" process="@this" />
                             <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 0px; left: 0px; width: 60px;" process="@this" />
                         </div>
                     </p:dialog>

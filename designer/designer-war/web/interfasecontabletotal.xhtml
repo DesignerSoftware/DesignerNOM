@@ -187,7 +187,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontableempleado"  actionListener="#{controlEmpleado.recibirPagina('interfasecontabletotal')}"/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontableempleado"  actionListener="#{controlEmpleado.recibirPaginaEntrante('interfasecontabletotal')}"/>
                                     </f:facet>
                                 </p:column>  
 
@@ -342,7 +342,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontableempleado"  actionListener="#{controlEmpleado.recibirPagina('interfasecontabletotal')}"/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontableempleado"  actionListener="#{controlEmpleado.recibirPaginaEntrante('interfasecontabletotal')}"/>
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
@@ -458,7 +458,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontablecentrocosto"  actionListener="#{controlBetaCentrosCostos.recibirPagina('interfasecontabletotal')}"/>
+                                        <p:commandButton style="width: 360px; margin: -14px; height: 40px;  border: none; " value="" action="interfasecontablecentrocosto"  actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('interfasecontabletotal')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -498,7 +498,7 @@
                         <p:commandButton style="position: absolute; left: 675px; top: 495px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
                                          id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();"  process="@this" disabled="#{controlInterfaseContableTotal.guardado}"/>
                         <p:commandButton style="position: absolute; left: 770px; top: 495px;width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                         id="ATRAS" value=" "  actionListener="#{controlInterfaseContableTotal.salir()}" action="nomina" process="@this" />
+                                         id="ATRAS" value=" "  actionListener="#{controlInterfaseContableTotal.salir()}" action="nominaf" process="@this" />
 
 
 
@@ -593,14 +593,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350px"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 63px; left: 175px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 63px; left: 175px" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 60px; left: 175px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 60px; left: 175px" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px" process="@this" />
                     </p:dialog>
 
@@ -617,7 +617,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 70px; left: 175px" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 70px; left: 175px" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px" process="@this" />
                     </p:dialog>
 

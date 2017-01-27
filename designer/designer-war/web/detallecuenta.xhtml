@@ -86,7 +86,7 @@
 
                         <fieldset style="position: absolute; left: 10px; top: 120px; width: 830px; height: 160px; border-radius: 10px; text-align: left">
                             <legend style="color: blue"><strong>#{msg['cuentadebito']}</strong></legend> 
-                            <p:dataTable id="datosCuentaDebito" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlDetalleCuenta.listCuentasDebito}" 
+                            <p:dataTable id="datosCuentaDebito" widgetVar="datosCuentaDebito" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceD" value="#{controlDetalleCuenta.listCuentasDebito}" 
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasDebito}" editable="true" editMode="cell" liveScroll="true" scrollRows="12"
                                          scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaDebito}" scrollWidth="830" emptyMessage="#{msg['vacio']}" 
                                          selection="#{controlDetalleCuenta.cuentaDebitoTablaSeleccionada}" selectionMode="single" style="border: 1px;width: 830px">
@@ -103,7 +103,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{info.fechainicial}" id="editarFechaInicialDebito"   
                                                           styleClass="ui-datepicker, myClass" 
-                                                          onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">      
+                                                          onselect="posicionD([{name: 'n', value: '0'}, {name: 't', value: '#{indiceD}'}]);">    
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>   
@@ -126,6 +127,7 @@
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{info.fechafinal}" id="editarFechaFinalDebito" 
                                                           styleClass="ui-datepicker, myClass" 
                                                           onselect="posicionD([{name: 'n', value: '1'}, {name: 't', value: '#{indiceD}'}]);">                                         
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>   
@@ -146,6 +148,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.concepto.codigo}" id="editarCodigoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionD([{name: 'n', value: '2'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -161,6 +164,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{info.concepto.descripcion}"  id="editarDescipcionDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionD([{name: 'n', value: '3'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -179,6 +183,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.nombre}" id="editarDescripcionCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionD([{name: 'n', value: '4'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -197,6 +202,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{info.consolidadord.codigo}" id="editarCCDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionD([{name: 'n', value: '5'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -216,6 +222,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{info.tipocc.nombre}" id="editarTipoDebito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionD([{name: 'n', value: '6'}, {name: 't', value: '#{indiceD}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaDebito').unselectAllRows();PF('datosCuentaDebito').selectRow(#{indiceD});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -232,7 +239,7 @@
                             <legend style="color: blue"><strong>#{msg['cuentacredito']}</strong></legend>
                             <!-- TABLA EMPLVIGENCIALOCALIZACION -->
 
-                            <p:dataTable id="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px;width: 820px;"   
+                            <p:dataTable id="datosCuentaCredito" widgetVar="datosCuentaCredito" var="infoCredito" rowKey="#{infoCredito.secuencia}" rowIndexVar="indice" style="border: 1px;width: 820px;"   
                                          value="#{controlDetalleCuenta.listCuentasCredito}" scrollable="true" scrollHeight="#{controlDetalleCuenta.altoTablaCredito}" scrollWidth="835"
                                          filteredValue="#{controlDetalleCuenta.filtrarListCuentasCredito}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" liveScroll="true" scrollRows="12"
@@ -252,6 +259,7 @@
                                             <p:inputText  autocomplete="off"  readonly="true" value="#{infoCredito.fechainicial}" id="editarFechaInicialCredito"   
                                                           styleClass="ui-datepicker, myClass"  onselect="posicionC([{name: 'n', value: '0'}, {name: 't', value: '#{indice}'}]);">      
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -272,6 +280,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.fechafinal}" id="editarFechaFinalCredito" 
                                                           styleClass="ui-datepicker, myClass"   onselect="posicionC([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);">                                         
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                                             </p:inputText>
                                         </f:facet>   
@@ -292,6 +301,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.concepto.codigo}" id="editarCodigoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionC([{name: 'n', value: '2'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -307,6 +317,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   readonly="true" value="#{infoCredito.concepto.descripcion}"  id="editarDescripcionCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionC([{name: 'n', value: '3'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -325,6 +336,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.nombre}" id="editarDescripcionCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionC([{name: 'n', value: '4'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -343,6 +355,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.consolidadorc.codigo}" id="editarCCCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionC([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -361,6 +374,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  readonly="true"  value="#{infoCredito.tipocc.nombre}" id="editarTipoCredito" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"
                                                           onselect="posicionC([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);"> 
+                                                <p:ajax event="select" onstart="PF('datosCuentaCredito').unselectAllRows();PF('datosCuentaCredito').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -368,7 +382,6 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
-
                             </p:dataTable>
                             <h:outputText id="infoRegistroCredito" value="#{msg['infoRegistro']} #{controlDetalleCuenta.infoRegistroCredito}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
                         </fieldset>
@@ -392,14 +405,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlDetalleCuenta.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlDetalleCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -416,7 +429,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDetalleCuenta.backUp, controlDetalleCuenta.nombreTablaRastro , 'detalleCuentaRastro')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 

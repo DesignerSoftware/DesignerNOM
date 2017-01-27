@@ -90,7 +90,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                                 actionListener="#{controlVigenciasCargos.salir()}" action="nomina" process="@this"/>  
+                                                 actionListener="#{controlVigenciasCargos.salir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar> 
@@ -160,7 +160,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 200px;" id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('atrasVcargo')}"/>
+                                        <p:commandButton value="" style="width: 200px;" id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('emplvigenciascargos')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -178,7 +178,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 200px;" action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('atrasmotivocambiocargo')}" id="fooMotivos" />
+                                        <p:commandButton value="" style="width: 200px;" action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('emplvigenciascargos')}" id="fooMotivos" />
                                     </f:facet>
                                 </p:column>
 
@@ -196,7 +196,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer" >
-                                        <p:commandButton value="" style="width: 200px;" id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('atrasVcargo') }" action="cargo"/>
+                                        <p:commandButton value="" style="width: 200px;" id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('emplvigenciascargos') }" action="cargo"/>
                                     </f:facet>
                                 </p:column>  
 
@@ -215,7 +215,7 @@
                                     </p:cellEditor>
                                     <f:facet name="footer" >
                                         <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" id="fooCentrosCostos"
-                                                         actionListener="#{controlBetaCentrosCostos.recibirPagina('atrascentrocostoemplvigenciacargo')}"/>
+                                                         actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('atrascentrocostoemplvigenciacargo')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -306,7 +306,7 @@
                         </fieldset>
 
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVCEmpleado" process="@this" disabled="#{controlVigenciasCargos.guardado}"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasCargos.salir()}" action="nomina" process="@this" />
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasCargos.salir()}" action="nominaf" process="@this" />
                         <!-- CAMPO DE LOS DIALOGOS -->      
                         <!-- DIALOGO L.O.V PARA ESTRUCTURAS-->
                         <p:dialog header="#{msg['estructurasE']}" widgetVar="dlgEstructuras" draggable="true" resizable="false" id="dlgEstructuras"  
@@ -604,7 +604,7 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 140px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasCargos.guardarCambiosVC()}" action="nomina" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasCargos.guardarCambiosVC()}" action="nominaf" 
                                          style="position: relative; top: 45px; left: 130px;" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasCargos.cancelarModificacion()}" 
                                          style="position: relative; top: 45px; left: 135px;" process="@this" icon="ui-icon-close" />
@@ -628,7 +628,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" 
-                                         style="position: relative; top: 60px; left: 185px;" action="rastro" oncomplete="PF('#{controlVigenciasCargos.anularLOV()}" process="@this"
+                                         style="position: relative; top: 60px; left: 185px;" action="rastrotabla" oncomplete="PF('#{controlVigenciasCargos.anularLOV()}" process="@this"
                                          actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasCargos.vigenciaSeleccionada.secuencia , 'VigenciasCargos', 'vigenciasC')}"/>
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 60px; left: 190px;" process="@this" />
                     </p:dialog>
@@ -637,7 +637,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 60px; left: 185px"
-                                         actionListener="#{controlRastro.historicosTabla('VigenciasCargos', 'vigenciasC')}" action="rastro" oncomplete="PF('#{controlVigenciasCargos.anularLOV()}"  process="@this" />
+                                         actionListener="#{controlRastro.historicosTabla('VigenciasCargos', 'vigenciasC')}" action="rastrotabla" oncomplete="PF('#{controlVigenciasCargos.anularLOV()}"  process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 60px; left: 190px;" process="@this" />
                     </p:dialog>
 
@@ -655,7 +655,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 60px; left: 185px"
-                                         actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasCargos.vigenciaSeleccionada.secuencia, 'VigenciasCargos', 'vigenciasC')}" action="rastro" process="@this" />
+                                         actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasCargos.vigenciaSeleccionada.secuencia, 'VigenciasCargos', 'vigenciasC')}" action="rastrotabla" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: relative; top: 60px; left: 190px;" process="@this" />
                     </p:dialog>
 

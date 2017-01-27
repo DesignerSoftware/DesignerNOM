@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -104,8 +107,10 @@ public class ControlTipoCotizante implements Serializable {
     private String altoTabla;
     private String altoTablaNF;
     private boolean cambiosPagina;
-    private String paginaAnterior, infoRegistroTipoC, infoRegistroDetalleTC;
+    private String infoRegistroTipoC, infoRegistroDetalleTC;
     private String infoRegistroLovTE, infoRegistroLovTC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTipoCotizante() {
         cambiosPagina = true;
@@ -140,7 +145,47 @@ public class ControlTipoCotizante implements Serializable {
         nombreArchivo = "TiposCotizantesXML";
         k = 0;
         m = 0;
-        paginaAnterior = "";
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaTiposCotizantes = null;
+        getListaTiposCotizantes();
+        if (listaTiposCotizantes != null) {
+            if (!listaTiposCotizantes.isEmpty()) {
+                tipoCotizanteSeleccionado = listaTiposCotizantes.get(0);
+                listaDetallesTiposCotizantes = null;
+                getListaDetallesTiposCotizantes();
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipocotizante";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -157,7 +202,8 @@ public class ControlTipoCotizante implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
         listaTiposCotizantes = null;
         getListaTiposCotizantes();
         if (listaTiposCotizantes != null) {
@@ -167,7 +213,6 @@ public class ControlTipoCotizante implements Serializable {
                 getListaDetallesTiposCotizantes();
             }
         }
-        paginaAnterior = pagina;
     }
 
     public String retornarPagina() {

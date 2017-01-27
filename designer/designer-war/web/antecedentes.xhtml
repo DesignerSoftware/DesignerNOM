@@ -77,7 +77,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 380px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>Antecedentes</strong></legend>
 
-                            <p:dataTable id="datosAntecedentes" var="info" value="#{controlSoAntecedentes.listAntecedentes}"
+                            <p:dataTable id="datosAntecedentes" widgetVar="datosAntecedentes"  var="info" value="#{controlSoAntecedentes.listAntecedentes}"
                                          rowKey="#{info.secuencia}" rowIndexVar="indice"                           
                                          scrollable="true"  scrollWidth="830" filteredValue="#{controlSoAntecedentes.listAntecedentesFiltrar}"
                                          scrollHeight="#{controlSoAntecedentes.altoTabla}" style="border: 1px;width: 830px"
@@ -92,7 +92,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:keyFilter for="editarCodAntecedente" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 0)}" />
+                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 0)}"
+                                                        onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.modificarAntecedentes(info)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -109,7 +110,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" id="editarDescAntecedente" style=" border-radius: 0px; width: 95.5%;text-transform: uppercase ;height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.modificarAntecedentes(info)}"/>
-                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 1)}" />
+                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 1)}"
+                                                        onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -125,7 +127,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.tipoantecedente.descripcion}" id="editarTipoAntecedentee" style=" border-radius: 0px; width: 96.5%;text-transform: uppercase;height: 12px;"> 
                                                 <p:ajax event="change" listener="#{controlSoAntecedentes.actualizarTiposAntecedentes()}"/>
-                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlSoAntecedentes.cambiarIndice(info, 2)}"
+                                                        onstart="PF('datosAntecedentes').unselectAllRows();PF('datosAntecedentes').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlSoAntecedentes.asignarIndex(info, 0, 0)}"/>
                                             </p:inputText>
                                         </f:facet>
@@ -133,7 +136,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 295px;" id="fooTipoAntecedente" value=" " action="sotiposantecedentes"  onclick="#{controlSoTiposAntecedentes.recibirPagina('sotiposantecedentes')}" process="@this" />
+                                        <p:commandButton style="width: 295px;" id="fooTipoAntecedente" value=" " action="sotiposantecedentes"  onclick="#{controlSoTiposAntecedentes.recibirPaginaEntrante('sotiposantecedentes')}" process="@this" />
                                     </f:facet>
                                 </p:column>
 
@@ -281,14 +284,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 63px; left: 170px;" action="rastro" icon="ui-icon-check" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 63px; left: 170px;" action="rastrotabla" icon="ui-icon-check" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 60px; left: 170px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
@@ -305,7 +308,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 67px; left: 170px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSoAntecedentes.antecedenteSeleccionado.secuencia, 'SoAntecedentes', 'soantecedentes')}" style="position: absolute; top: 67px; left: 170px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 

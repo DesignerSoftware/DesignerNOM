@@ -81,7 +81,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                                 id="salir" value="" actionListener="#{controlNReporteEvalCompetencia.cancelarYSalir()}" action="nomina" process="@this"/>  
+                                                 id="salir" value="" actionListener="#{controlNReporteEvalCompetencia.cancelarYSalir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -165,12 +165,12 @@
                                          actionListener="#{controlNReporteEvalCompetencia.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteEvalCompetencia.cambiosReporte}" process="@this" />
 
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nomina" 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nominaf" 
                                          actionListener="#{controlNReporteEvalCompetencia.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteEvalCompetencia.activarEnvio}"
-                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportenomina', controlNReporteEvalCompetencia.reporteSeleccionado.secuencia)}" process="@this" />
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportenomina', controlNReporteEvalCompetencia.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                     </p:panel>

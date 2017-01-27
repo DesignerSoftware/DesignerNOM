@@ -87,8 +87,8 @@ public class Proyectos implements Serializable {
     }
 
     public String getDescripcionproyecto() {
-        if (descripcionproyecto != null) {
-            return descripcionproyecto.toUpperCase();
+        if (descripcionproyecto == null) {
+            descripcionproyecto = " ";
         }
         return descripcionproyecto;
     }
@@ -138,6 +138,9 @@ public class Proyectos implements Serializable {
     }
 
     public PryPlataformas getPryPlataforma() {
+        if (pryPlataforma == null) {
+            pryPlataforma = new PryPlataformas();
+        }
         return pryPlataforma;
     }
 
@@ -146,6 +149,9 @@ public class Proyectos implements Serializable {
     }
 
     public PryClientes getPryCliente() {
+        if (pryCliente == null) {
+            pryCliente = new PryClientes();
+        }
         return pryCliente;
     }
 
@@ -154,6 +160,9 @@ public class Proyectos implements Serializable {
     }
 
     public Monedas getTipomoneda() {
+        if (tipomoneda == null) {
+            tipomoneda = new Monedas();
+        }
         return tipomoneda;
     }
 

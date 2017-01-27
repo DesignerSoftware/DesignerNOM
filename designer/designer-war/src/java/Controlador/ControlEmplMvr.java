@@ -20,7 +20,9 @@ import java.math.BigInteger;
 import java.security.acl.Group;
 import java.util.*;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -120,6 +122,8 @@ public class ControlEmplMvr implements Serializable {
    private boolean activarLOV;
    private String estadoMientras;
    private HashMap<Integer, String> hMapEstados;
+      private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlEmplMvr() {
       listMvrsEmpleado = null;
@@ -178,7 +182,45 @@ public class ControlEmplMvr implements Serializable {
 
       estadoMientras = "";
       hMapEstados = new HashMap<Integer, String>();
+   mapParametros.put ("paginaAnterior", paginaAnterior);
    }
+
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+      
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "emplmvrs";
+        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -761,7 +803,7 @@ public class ControlEmplMvr implements Serializable {
          RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosMvrEmpleado");
          paraNuevaMenValRet = 0;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Mvrs con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Mvrs con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          cambiosMvr = false;
@@ -795,7 +837,7 @@ public class ControlEmplMvr implements Serializable {
 
          contarRegistrosOC();
 
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos de Otros Certificados con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos de Otros Certificados con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }

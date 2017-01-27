@@ -16,7 +16,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -65,6 +67,8 @@ public class ControlTiposConclusiones implements Serializable {
     private int tamano;
     private Integer backUpCodigo;
     private String backUpDescripcion;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposConclusiones() {
         listTiposConclusiones = null;
@@ -77,10 +81,11 @@ public class ControlTiposConclusiones implements Serializable {
         duplicarTiposConclusiones = new TiposConclusiones();
         guardado = true;
         tamano = 270;
+       mapParametros.put ("paginaAnterior", paginaAnterior);
         System.out.println("controlTiposConclusiones Constructor");
     }
 
-    @PostConstruct
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposConclusiones PostConstruct ");
@@ -93,6 +98,43 @@ public class ControlTiposConclusiones implements Serializable {
             System.out.println("Causa: " + e.getCause());
         }
     }
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+      
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "tipoconclusion";
+        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
 
     public void eventoFiltrar() {
         try {
@@ -585,7 +627,7 @@ public class ControlTiposConclusiones implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosTiposConclusiones");
             k = 0;
             guardado = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }

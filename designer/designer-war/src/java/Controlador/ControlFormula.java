@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -75,7 +78,6 @@ public class ControlFormula implements Serializable {
    private boolean activoDetalleFormula, activoBuscarTodos;
    //0 - Detalle Concepto / 1 - Nomina
    private int llamadoPrevioPagina;
-   private String paginaAnterior;
    //
    private String infoRegistro;
    private String infoRegistroFormula;
@@ -84,6 +86,8 @@ public class ControlFormula implements Serializable {
    private boolean unaVez;
 //   private int regSolucion;
    private String nombreLargoMientras;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlFormula() {
       llamadoPrevioPagina = 1;
@@ -116,6 +120,46 @@ public class ControlFormula implements Serializable {
 //      regSolucion = -1;
       nombreLargoMientras = "0";
       tipoLista = 0;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      listaFormulas = null;
+      getListaFormulas();
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      listaFormulas = null;
+      getListaFormulas();
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "formula";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    @PostConstruct
@@ -129,12 +173,6 @@ public class ControlFormula implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      listaFormulas = null;
-      getListaFormulas();
    }
 
    public String redirigir() {
@@ -486,7 +524,7 @@ public class ControlFormula implements Serializable {
             if (verMostrarTodos) {
                mostrarTodasFormulas();
             }
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
          }
@@ -710,15 +748,16 @@ public class ControlFormula implements Serializable {
       }
       activoBuscarTodos = false;
 
-      RequestContext.getCurrentInstance().update("form:mostrarTodos");
-      RequestContext.getCurrentInstance().execute("PF('datosFormulas').clearFilters()");
-      RequestContext.getCurrentInstance().update("form:datosFormulas");
-      RequestContext.getCurrentInstance().update("form:nombreLargoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:nombreCortoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:observacionFormulaClon");
-      RequestContext.getCurrentInstance().update("form:descripcionClon");
+      context.update("form:mostrarTodos");
+      context.execute("PF('datosFormulas').clearFilters()");
+      context.update("form:datosFormulas");
+      context.update("form:nombreLargoFormulaClon");
+      context.update("form:nombreCortoFormulaClon");
+      context.update("form:observacionFormulaClon");
+      context.update("form:descripcionClon");
 
       formulaSeleccionada = null;
+      navegar("atras");
    }
 
    public void refrescar() {
@@ -869,8 +908,8 @@ public class ControlFormula implements Serializable {
       formulaSeleccionada = formula;
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
-      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "retornoFormula");
-      
+      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "formula");
+
    }
 
    public void activarAceptar() {
@@ -937,7 +976,7 @@ public class ControlFormula implements Serializable {
          paginaRetorno = "nomina";
       }
       if (llamadoPrevioPagina == 0) {
-         paginaRetorno = "retornoDetalleConcepto";
+         paginaRetorno = "detalleconcepto";
       }
       llamadoPrevioPagina = 1;
       return paginaRetorno;

@@ -82,7 +82,7 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" actionListener="#{controlCargo.salir()}" action="#{controlCargo.valorPaginaAnterior()}" process="@this"
+                        <p:commandButton id="salir" value="" actionListener="#{controlCargo.salir()}" process="@this"
                                          style="background-image: url(Imagenes/Iconos/salir.png)"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
@@ -172,7 +172,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 150px;" id="fooGrupoSalarial" action="gruposalarial" actionListener="#{controlGrupoSalarial.recibirPagina('cargo')}" value=" "/>
+                              <p:commandButton style="width: 150px;" id="fooGrupoSalarial" action="gruposalarial" actionListener="#{controlGrupoSalarial.recibirPaginaEntrante('cargo')}" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -265,7 +265,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120px;" id="fooGrupoViatico" action="grupoviatico"  value=" "/>
+                              <p:commandButton style="width: 120px;" id="fooGrupoViatico" action="grupoviatico" actionListener="#{controlGruposViaticos.recibirPaginaEntrante('cargo')}" value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -387,7 +387,7 @@
                                     </f:facet>   
                                  </p:cellEditor>
                                  <f:facet name="footer">
-                                    <p:commandButton style="width: 180px;" id="fooTipoEmpresa" action="tipoempresa"  value=" "/>
+                                    <p:commandButton style="width: 180px;" id="fooTipoEmpresa" action="tipoempresa" actionListener="#{controlTiposEmpresas.recibirPaginaEntrante('cargo')}" value=" "/>
                                  </f:facet>
                               </p:column>
 
@@ -464,7 +464,7 @@
                                     </f:facet>   
                                  </p:cellEditor>
                                  <f:facet name="footer">
-                                    <p:commandButton style="width: 530px;" id="fooEvalCompetencias"  value=" "  action="evalcompetencia" />
+                                    <p:commandButton style="width: 530px;" id="fooEvalCompetencias"  value=""  action="evalcompetencia" actionListener="#{controlEvalCompetencias.recibirPaginaEntrante('cargo')}"/>
                                  </f:facet>
                               </p:column>
                            </p:dataTable> 
@@ -542,7 +542,7 @@
                                     </f:facet>   
                                  </p:cellEditor>
                                  <f:facet name="footer">
-                                    <p:commandButton style="width: 120%;" id="fooEnfoque"  action="cargo" value=" "/>
+                                    <p:commandButton style="width: 120%;" id="fooEnfoque" action="cargo" actionListener="#{controlEnfoques.recibirPaginaEntrante('cargo')}" value=" "/>
                                  </f:facet>
                               </p:column>
                            </p:dataTable>  
@@ -559,10 +559,8 @@
                         </fieldset> 
                      </p:scrollPanel>
                   </fieldset>
-                  <p:commandButton style="position: absolute; left: 680px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" 
-                                   id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlCargo.cambiosPagina}" process="@this" />
-                  <p:commandButton style="position: absolute; left: 770px; top: 500px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; border: none;" 
-                                   id="ATRAS" value="" actionListener="#{controlCargo.salir()}" action="#{controlCargo.redirigir()}" process="@this" />
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlCargo.cambiosPagina}" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlCargo.salir()}" process="@this" />
                </p:panel>
 
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
@@ -579,9 +577,9 @@
                <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="95" width="400" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCargo.guardarYSalir()}" action="#{controlCargo.valorPaginaAnterior()}" 
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCargo.guardarYSalir()}"
                                    style="position: absolute; top: 50px; left: 125px;" process="@this" />
-                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCargo.cancelarYSalir()}" action="#{controlCargo.valorPaginaAnterior()}" 
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlCargo.cancelarYSalir()}"
                                    style="position: absolute; top: 50px; left: 185px;" process="@this" />
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" 
                                    style="position: absolute; top: 50px; left: 250px;" process="@this" />
@@ -616,7 +614,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlCargo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCargo.backUp, controlCargo.nombreTablaRastro , 'rastroCargo')}" 
-                                   style="position: absolute; top: 63px; left: 190px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 190px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlCargo.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 63px; left: 250px;" process="@this" />
                </p:dialog>
@@ -625,7 +623,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlCargo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlCargo.nombreTablaRastro , 'rastroCargo')}" 
-                                   style="position: absolute; top: 60px; left: 190px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 60px; left: 190px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlCargo.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 60px; left: 250px;" process="@this" />
                </p:dialog>
@@ -643,7 +641,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="105" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCargo.backUp, controlCargo.nombreTablaRastro , 'rastroCargo')}" style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCargo.backUp, controlCargo.nombreTablaRastro , 'rastroCargo')}" style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -920,7 +918,7 @@
                      <p:ajax event="filter" listener="#{controlCargo.contarRegistrosEnfo()}"/>
                      <p:ajax event="rowSelect" listener="#{controlCargo.activarAceptar()}" update=":form:aceptarE"/>
                      <p:ajax event="rowDblselect" listener="#{controlCargo.actualizarEnfoque()}"  process="@this"  />
-               
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarE']}"/>  
                         <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovFormula').filter();" class="cssFiltroLOV"/>  

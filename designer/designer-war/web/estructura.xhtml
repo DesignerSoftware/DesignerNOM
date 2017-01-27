@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
+      xmlns:f="http://java.sun.com/jsf/core">
    <h:head>
    </h:head>
    <h:body>
@@ -81,7 +80,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                         id="salir" value="" actionListener="#{controlEstructura.salir()}" action="#{controlEstructura.redirigir()}" process="@this"/>  
+                                         id="salir" value="" actionListener="#{controlEstructura.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -233,10 +232,9 @@
                   </fieldset>
                </p:panel>
 
-               <p:commandButton id="ACEPTAR" value="" style="position: absolute; top: 507px; left: 683px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                background-repeat: no-repeat; border: none;" onclick="PF('confirmarGuardar').show();" disabled="#{controlEstructura.guardado}" update=":form:datosOrganigramas" process="@this" />
-               <p:commandButton id="ATRAS" value="" style="position: absolute; top: 507px; left: 775px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
-                                background-repeat: no-repeat; border: none;" actionListener="#{controlEstructura.salir()}"  process="@this" action="#{controlEstructura.redirigir()}" />
+               <p:commandButton id="ACEPTAR" value="" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();" disabled="#{controlEstructura.guardado}"
+                                update=":form:datosOrganigramas" process="@this" />
+               <p:commandButton id="ATRAS" value="" class="cssBotonCancelar" actionListener="#{controlEstructura.salir()}"  process="@this"/>
 
                <!-- DIALOGO L.O.V ESTATICO DE EMPRESAS -->
                <p:dialog header="#{msg['empresasEM']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  
@@ -267,7 +265,7 @@
                         <h:outputText  value="#{empresa.nombre}" />
                      </p:column>
                   </p:dataTable>
-                  
+
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistro']} #{controlEstructura.infoRegistroEmpresa}" class="cssinfoRegistroLOV"/>
                      <p:commandButton icon="ui-icon-check" id="aceptarE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEstructura.aceptar}" actionListener="#{controlEstructura.actualizarEmpresa()}"  process="@this" />
@@ -279,7 +277,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEstructura.organigramaSeleccionado.secuencia , 'Organigramas', 'estructuraRastro')}" 
-                                   style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -287,7 +285,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Organigramas', 'estructuraRastro')}"
-                                   style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -305,7 +303,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEstructura.organigramaSeleccionado.secuencia , 'Organigramas', 'estructuraRastro')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -328,8 +326,11 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEstructura.guardarCambiosOrganigramas()}" 
-                                   action="#{controlEstructura.redirigir()}" style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEstructura.salir()}" action="#{controlEstructura.redirigir()}"
+                                   style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check">
+                     <f:actionListener binding="#{controlEstructura.guardarCambiosOrganigramas()}" />
+                     <f:actionListener binding="#{controlEstructura.navegar('atras')}" />
+                  </p:commandButton>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEstructura.salir()}"
                                    style="position: absolute; top: 50px; left: 218px;" process="@this" icon="ui-icon-close" />
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
@@ -478,9 +479,9 @@
                <p:dialog id="editarEs" header="#{msg['estadoE']}" widgetVar="editarEs" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEstructura.editarOrganigrama.estado}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-                
-                
-                 <p:dialog  id="verReportePDF" header="#{controlEstructura.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+
+
+               <p:dialog  id="verReportePDF" header="#{controlEstructura.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                   <p:media value="#{controlEstructura.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlEstructura.reporte != null}"/>
                </p:dialog>
                <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlEstructura.reiniciarStreamedContent()}"/>
@@ -494,8 +495,8 @@
                   <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                   <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlEstructura.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
                </p:dialog>
-                
-                
+
+
             </h:form>
             <h:form id="formExportar">
                <p:dataTable id="datosOrganigramasExportar" var="infoExp" style="visibility: hidden; display: none;"                           

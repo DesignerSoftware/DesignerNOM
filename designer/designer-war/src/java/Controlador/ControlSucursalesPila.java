@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -71,7 +74,6 @@ public class ControlSucursalesPila implements Serializable {
     private boolean banderaSeleccionSucursalesPilaPorEmpresa;
     private int tamano;
     private String infoRegistro;
-    private String paginaAnterior;
     private BigInteger contarNovedadesAutoLiquidacionesSucursal_Pila;
     private BigInteger contarNovedadesCorreccionesAutolSucursal_Pila;
     private BigInteger contarOdisCabecerasSucursal_Pila;
@@ -79,6 +81,8 @@ public class ControlSucursalesPila implements Serializable {
     private BigInteger contarParametrosInformesSucursal_Pila;
     private BigInteger contarUbicacionesGeograficasSucursal_Pila;
     private boolean activarLov;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSucursalesPila() {
         permitirIndex = true;
@@ -98,6 +102,7 @@ public class ControlSucursalesPila implements Serializable {
         banderaSeleccionSucursalesPilaPorEmpresa = false;
         tamano = 270;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -113,7 +118,7 @@ public class ControlSucursalesPila implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaEmpresas = null;
         getListaEmpresas();
@@ -125,6 +130,47 @@ public class ControlSucursalesPila implements Serializable {
         listSucursalesPilaPorEmpresa = null;
         getListaEmpresas();
 
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaEmpresas = null;
+        getListaEmpresas();
+        if (listaEmpresas != null) {
+            if (!listaEmpresas.isEmpty()) {
+                empresaSeleccionada = listaEmpresas.get(0);
+            }
+        }
+        listSucursalesPilaPorEmpresa = null;
+        getListaEmpresas();
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "sucursal_pila";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String retornarPagina() {
@@ -223,6 +269,7 @@ public class ControlSucursalesPila implements Serializable {
         }
         RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarAceptar() {
@@ -428,8 +475,8 @@ public class ControlSucursalesPila implements Serializable {
                 contarParametrosInformesSucursal_Pila = new BigInteger("-1");
                 contarUbicacionesGeograficasSucursal_Pila = new BigInteger("-1");
             }
-        }else{
-        RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -457,7 +504,7 @@ public class ControlSucursalesPila implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosSucursalesPila");
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        } 
+        }
     }
 
     public void guardarCambiosCentroCosto() {
@@ -480,7 +527,7 @@ public class ControlSucursalesPila implements Serializable {
                 administrarSucursalesPila.modificarSucursalesPila(modificarSucursalesPila);
                 modificarSucursalesPila.clear();
             }
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             System.out.println("Se guardaron los datos con exito");
@@ -597,8 +644,6 @@ public class ControlSucursalesPila implements Serializable {
 
     public void cambiarEmpresa() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("Cambiar empresa  GUARDADO = " + guardado);
-        System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
         RequestContext.getCurrentInstance().update("form:nitEmpresa");
         getListSucursalesPilaPorEmpresa();

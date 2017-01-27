@@ -79,7 +79,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                                 <p:separator style="position: relative; top: -9px"/> 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                                 id="salir" value="" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nomina" process="@this"/>  
+                                                 id="salir" value="" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -90,11 +90,11 @@
 
                             <p:dataTable id="reportesNomina" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 675px;"                           
                                          value="#{controlNReporteNomina.listaIR}" scrollable="true" scrollHeight="#{controlNReporteNomina.altoTabla}" scrollWidth="696"
-                                         filteredValue="#{controlNReporteNomina.filtrarListIRU}" selectionMode="single" emptyMessage="#{msg['vacio']}"
+                                         filteredValue="#{controlNReporteNomina.filtrarListIRU}" selectionMode="single" emptyMessage="#{msg['vacio']}" widgetVar="reportesNomina"
                                          editable="true" editMode="cell" selection="#{controlNReporteNomina.reporteSeleccionado}"  liveScroll="true" scrollRows="8">
 
                                 <p:ajax event="filter" listener="#{controlNReporteNomina.eventoFiltrar()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlNReporteNomina.seleccionRegistro()}" process="@this" />
+                                <p:ajax event="rowSelect" listener="#{controlNReporteNomina.seleccionRegistro()}" onstart="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});" process="@this" />
                                 <p:ajax event="rowDblselect" listener="#{controlNReporteNomina.requisitosParaReporte()}" process="@this" />
 
                                 <p:column id="codigoIR" style="text-align: center" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
@@ -109,7 +109,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.tipo}"  style="width: 98%; font-weight: bold; ">  
+                                            <p:selectOneMenu value="#{info.tipo}"  style="width: 98%; font-weight: bold; "
+                                                          onblur="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});"
+                                                          onfocus="PF('reportesNomina').unselectAllRows();PF('reportesNomina').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF" />  
                                                 <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML" />  
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS" />  
@@ -165,12 +167,12 @@
                                          actionListener="#{controlNReporteNomina.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteNomina.cambiosReporte}" process="@this" />
 
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nomina" 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nominaf" 
                                          actionListener="#{controlNReporteNomina.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteNomina.activarEnvio}"
-                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportenomina', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this" />
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportenomina', controlNReporteNomina.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
                         <p:commandButton id="ENVIOLOTE" icon="ui-icon-extlink" style="position: absolute; left: 145px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -184,8 +186,8 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.guardarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 184px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nomina" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.guardarYSalir()}" action="nominaf" style="position: absolute; top: 50px; left: 184px;" process="@this" icon="ui-icon-check" />
+                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNReporteNomina.cancelarYSalir()}" action="nominaf" style="position: absolute; top: 50px; left: 248px;" process="@this" icon="ui-icon-close" />
                             <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 

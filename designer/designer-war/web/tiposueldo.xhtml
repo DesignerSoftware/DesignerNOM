@@ -72,7 +72,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTipoSueldo.salir()}" action="#{controlTipoSueldo.valorPaginaAnterior()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTipoSueldo.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -192,7 +192,7 @@
                             <h:outputText id="infoRegistroTS" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTS}" style="position: relative; top: 1px; font-weight: bold"/>
                         </fieldset> 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=""  onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlTipoSueldo.cambiosPagina}" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTipoSueldo.salir()}" action="#{controlTipoSueldo.valorPaginaAnterior()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=""  actionListener="#{controlTipoSueldo.salir()}"  process="@this" />
 
                         <fieldset style="position: absolute; left: 10px; top: 210px; width: 415px; height: 283px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['tsFormula']}</strong></legend>
@@ -315,7 +315,7 @@
                                         </f:facet>   
                                     </p:cellEditor>   
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 410px;" id="fooTipoEntidad" action="grupotipoentidadtiposueldo" actionListener="#{controlGruposTiposEntidades.recibirPagina('atrasgrupotipoentidadtiposueldo')}"  value=" " />
+                                        <p:commandButton style="width: 410px;" id="fooTipoEntidad" action="grupotipoentidadtiposueldo" actionListener="#{controlGruposTiposEntidades.recibirPaginaEntrante('atrasgrupotipoentidadtiposueldo')}"  value=" " />
                                     </f:facet>
 
                                 </p:column> 
@@ -352,7 +352,7 @@
                                         </f:facet>   
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120px;" id="fooTipoEntidad" action="tipoentidad" actionListener="#{controlTiposEntidades.recibirPagina('tipoentidad')}"  value=" " />
+                                        <p:commandButton style="width: 120px;" id="fooTipoEntidad" action="tipoentidad" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" " />
                                     </f:facet>
                                 </p:column>
 
@@ -421,22 +421,28 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoSueldo.guardarGeneral()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoSueldo.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
+                            <f:actionListener binding="#{controlTipoSueldo.guardarGeneral()}" />
+                            <f:actionListener binding="#{controlTipoSueldo.navegar('atras')}" />
+                        </p:commandButton>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                            <f:actionListener binding="#{controlTipoSueldo.cancelarModificacionGeneral()}" />
+                            <f:actionListener binding="#{controlTipoSueldo.navegar('atras')}" />
+                        </p:commandButton>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTipoSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTipoSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'rastroTipoSueldo')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'rastroTipoSueldo')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -453,7 +459,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 70px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'rastroTipoContra')}" style="position: absolute; top: 70px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -486,7 +492,7 @@
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorDatosNullTSGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                     <p:dialog id="errorGrupoRepetido" header="#{msg['error']}" widgetVar="errorGrupoRepetido"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorGrupoRepetido']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
@@ -521,11 +527,11 @@
                                 <h:outputText value="#{formula.nombrelargo}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormula}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormula()}"  process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormula()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/> 
+                            <h:outputText id="infoRegistroFormula" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormula}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarF" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormula()}"  process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasF" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormula()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/> 
                         </div>
                     </p:dialog>
 
@@ -560,11 +566,11 @@
                                 <h:outputText value="#{concept.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroConcepto" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroConcepto}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarConcepto()}" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasC" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioConcepto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <h:outputText id="infoRegistroConcepto" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroConcepto}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarC" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarConcepto()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasC" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioConcepto()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                     </p:dialog>
 
@@ -593,11 +599,11 @@
                                 <h:outputText value="#{grupo.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroGrupo}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarG" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarGrupo()}" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasG" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioGrupo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <h:outputText id="infoRegistroGrupo" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroGrupo}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarG" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarGrupo()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasG" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioGrupo()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                     </p:dialog>
 
@@ -626,11 +632,11 @@
                                 <h:outputText value="#{tipoE.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarTipoEntidad()}" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioTipoEntidad()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}" actionListener="#{controlTipoSueldo.actualizarTipoEntidad()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioTipoEntidad()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                     </p:dialog>
 
@@ -653,11 +659,11 @@
                                 <h:outputText value="#{formulaTE.nombrelargo}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroFormulaTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormulaTE}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarFTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormulaTE()}" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasFTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormulaTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <h:outputText id="infoRegistroFormulaTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroFormulaTE}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarFTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"  actionListener="#{controlTipoSueldo.actualizarFormulaTE()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasFTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioFormulaTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                     </p:dialog>
 
@@ -692,11 +698,11 @@
                                 <h:outputText value="#{conceptTE.empresa.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroConceptoTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroConceptoTE}" class="cssinfoRegistroLOV"/>
-                        <p:commandButton id="aceptarCTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"   actionListener="#{controlTipoSueldo.actualizarConceptoTE()}" process="@this" icon="ui-icon-check"/>
-                        <p:commandButton id="atrasCTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioConceptoTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
+                            <h:outputText id="infoRegistroConceptoTE" value="#{msg['infoRegistro']} #{controlTipoSueldo.infoRegistroConceptoTE}" class="cssinfoRegistroLOV"/>
+                            <p:commandButton id="aceptarCTE" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlTipoSueldo.aceptar}"   actionListener="#{controlTipoSueldo.actualizarConceptoTE()}" process="@this" icon="ui-icon-check"/>
+                            <p:commandButton id="atrasCTE" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlTipoSueldo.cancelarCambioConceptoTE()}" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                         </div>
                     </p:dialog>
 

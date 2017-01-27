@@ -19,7 +19,7 @@
 
                             <p:dataTable id="datosSectoresEvaluaciones" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 830px ; border: 1px;"                           
                                          value="#{controlSectoresEvaluaciones.listSectoresEvaluaciones}"
-                                         scrollable="true"
+                                         scrollable="true" widgetVar="datosSectoresEvaluaciones"
                                          scrollHeight="#{controlSectoresEvaluaciones.tamano}"
                                          scrollWidth="830"
                                          filteredValue="#{controlSectoresEvaluaciones.filtrarSectoresEvaluaciones}"
@@ -35,7 +35,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 0)}" process="@this"
+                                                       onstart="PF('datosSectoresEvaluaciones').unselectAllRows();PF('datosSectoresEvaluaciones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlSectoresEvaluaciones.modificarSectoresEvaluaciones(indice, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -47,7 +48,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="100" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 440px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlSectoresEvaluaciones.cambiarIndice(indice, 1)}" process="@this"
+                                                       onstart="PF('datosSectoresEvaluaciones').unselectAllRows();PF('datosSectoresEvaluaciones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlSectoresEvaluaciones.modificarSectoresEvaluaciones(indice, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -160,14 +162,14 @@
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'SECTORESEVALUACIONES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSectoresEvaluaciones.secRegistro, 'SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSectoresEvaluaciones.secRegistro, 'SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla SECTORESEVALUACIONES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -184,7 +186,7 @@
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSectoresEvaluaciones.secRegistro, 'SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSectoresEvaluaciones.secRegistro, 'SectoresEvaluaciones', 'sectorevaluacion')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 

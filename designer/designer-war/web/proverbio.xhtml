@@ -70,14 +70,13 @@
                         </p:toolbar>
                         <p:commandButton style="position: absolute; left: 688px; top: 478px;  width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  id="ACEPTAR" disabled="#{controlProverbio.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosProverbios, :form:datosMensajesUsuarios" process="@this" />
                         <p:commandButton style="position: absolute; left: 785px; top: 478px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " id="ATRAS" value="" actionListener="#{controlProverbio.salir()}" action="#{controlProverbio.redirigir()}" process="@this" />
-                        <!--<p:commandButton style="position: absolute; left: 15px; top: 478px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlProverbio.cancelarModificacion()}" process="@this" />-->
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 182px; width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: #14388B"><strong>#{msg['proverbio']}</strong></legend>
                             <p:dataTable id="datosProverbios" var="p" value="#{controlProverbio.listaProverbios}"
                                          rowKey="#{p.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 815px;"                           
                                          scrollable="true" scrollHeight="#{controlProverbio.altoTabla}" scrollWidth="830" filteredValue="#{controlProverbio.filtradosListaProverbios}" 
-                                         emptyMessage="#{msg['vacio']}" editable="true"
+                                         emptyMessage="#{msg['vacio']}" editable="true" widgetVar="datosProverbios"
                                          editMode="cell" selectionMode="single" selection="#{controlProverbio.proverbioSeleccionado}">
 
                                 <p:ajax event="filter" listener="#{controlProverbio.eventoFiltrar()}" process="@this"/>
@@ -88,7 +87,8 @@
                                         <f:facet name="output"><h:outputText value="#{p.mensaje}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{p.mensaje}" id="editarMensaje" style=" border-radius: 0px; width: 99%; text-transform: uppercase; height:12px; border-radius: 3px;" > 
-                                                <p:ajax event="select" listener="#{controlProverbio.cambiarIndice(p, 0)}" />
+                                                <p:ajax event="select" listener="#{controlProverbio.cambiarIndice(p, 0)}"
+                                                        onstart="PF('datosProverbios').unselectAllRows();PF('datosProverbios').selectRow(#{indice});"/>
                                                 <p:ajax event="change" listener="#{controlProverbio.modificarProverbio(p, 'N', p.mensaje)}" update="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -107,15 +107,17 @@
 
                             <p:dataTable id="datosMensajesUsuarios" var="m" value="#{controlProverbio.listaMensajesUsuario}"   rowKey="#{m.secuencia}" rowIndexVar="indiceNF" style=" border: 0px;width: 820px;"                           
                                          scrollable="true" scrollHeight="#{controlProverbio.altoTablaNF}" liveScroll="true" scrollRows="10" filteredValue="#{controlProverbio.filtradosListaMensajesUsuario}" 
-                                         emptyMessage="Vacio" scrollWidth="820"    editable="true" editMode="cell"  selectionMode="single" selection="#{controlProverbio.mensajeUsuarioSeleccionado}">
-                                <p:ajax event="filter" listener="#{controlProverbio.eventoFiltrarNF()}"/>
+                                         emptyMessage="Vacio" scrollWidth="820"    editable="true" editMode="cell" widgetVar="datosMensajesUsuarios"  selectionMode="single" selection="#{controlProverbio.mensajeUsuarioSeleccionado}">
+                                <p:ajax event="filter" listener="#{controlProverbio.eventoFiltrarNF()}"  />
 
                                 <p:column style="padding: 0px;" headerText="#{msg['ano']}" sortBy="#{m.estadoAno}" filterBy="#{m.estadoAno}" filterMatchMode="contains" id="mAno" filterStyle="display: none; visibility: hidden;" >                                  
 
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText id="outano" value="#{m.ano}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu  id="editarAno" value="#{m.ano}" style="width: 98.5%; height: 100%">  
+                                            <p:selectOneMenu  id="editarAno" value="#{m.ano}" style="width: 98.5%; height: 100%"
+                                                              onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
+                                                              onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
                                                 <f:selectItem itemLabel="" itemValue="null" />  
                                                 <f:selectItem itemLabel="#{msg['todoslosanos']}" itemValue="0" />  
                                                 <f:selectItem itemLabel="2005" itemValue="2005" />  
@@ -152,7 +154,9 @@
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText id="outmes" value="#{m.mes}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu  id="editarMes" value="#{m.mes}" style="width: 98.5%; height: 100%">  
+                                            <p:selectOneMenu  id="editarMes" value="#{m.mes}" style="width: 98.5%; height: 100%" 
+                                                              onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
+                                                              onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
                                                 <f:selectItem itemLabel="" itemValue="null" />  
                                                 <f:selectItem itemLabel="#{msg['todoslosmeses']}" itemValue="0" />  
                                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
@@ -181,7 +185,9 @@
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText id="outdia" value="#{m.dia}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu  id="editarDia" value="#{m.dia}"  style="width: 98.5%; height: 100%">  
+                                            <p:selectOneMenu  id="editarDia" value="#{m.dia}"  style="width: 98.5%; height: 100%"
+                                                              onblur="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});"
+                                                              onfocus="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});">  
                                                 <f:selectItem itemLabel="" itemValue="null" />  
                                                 <f:selectItem itemLabel="#{msg['todoslosdias']}" itemValue="0" />  
                                                 <f:selectItem itemLabel="01" itemValue="1" />  
@@ -229,7 +235,8 @@
                                         <f:facet name="output"><h:outputText value="#{m.mensaje}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{m.mensaje}" id="editarMensaje2" style=" border-radius: 0px; width: 98.5%;text-transform: uppercase; " > 
-                                                <p:ajax event="select" listener="#{controlProverbio.cambiarIndiceNF(m, 3)}" />
+                                                <p:ajax event="select" listener="#{controlProverbio.cambiarIndiceNF(m, 3)}" 
+                                                       onstart="PF('datosMensajesUsuarios').unselectAllRows();PF('datosMensajesUsuarios').selectRow(#{indiceNF});" />
                                                 <p:ajax event="change" listener="#{controlProverbio.modificarMensajeUsuario(m, 'N', m.mensaje)}" update="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -495,14 +502,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.proverbioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.proverbioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Recordatorios', 'recordatorios')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Recordatorios', 'recordatorios')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -519,7 +526,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.proverbioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.proverbioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -549,7 +556,7 @@
                     <p:dialog id="confirmarRastroNF" header="#{msg['informacion']}" widgetVar="confirmarRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.mensajeUsuarioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.mensajeUsuarioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
 
                     </p:dialog>
@@ -557,7 +564,7 @@
                     <p:dialog id="confirmarRastroHistoricoNF" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistoricoNF']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Recordatorios', 'recordatorios')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Recordatorios', 'recordatorios')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -574,7 +581,7 @@
                     <p:dialog id="errorTablaConRastroNF" header="#{msg['informacion']}" widgetVar="errorTablaConRastroNF"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastroNF']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.mensajeUsuarioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 70px; left: 175px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProverbio.mensajeUsuarioSeleccionado.getSecuencia(), 'Recordatorios', 'recordatorios')}" style="position: absolute; top: 70px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 

@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -63,8 +66,10 @@ public class ControlCursos implements Serializable {
     private int k, bandera, tipoLista, cualCelda, tipoActualizacion;
     private Column codigo, descripcion, tipocurso, objetivo;
     private boolean aceptar, permitirIndex, guardado, activarLov;
-    private String altoTabla, inforegistro, paginaanterior, mensajeValidacion, infoRegistroLov;
+    private String altoTabla, inforegistro, mensajeValidacion, infoRegistroLov;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlCursos() {
         listaCursosCrear = new ArrayList<Cursos>();
@@ -82,6 +87,56 @@ public class ControlCursos implements Serializable {
         guardado = true;
         activarLov = true;
         listaCursos = null;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listaCursos = null;
+        getListaCursos();
+        lovTiposCursos = null;
+        deshabilitarBotonLov();
+        if (listaCursos != null) {
+            cursoSeleccionado = listaCursos.get(0);
+        }
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaCursos = null;
+        getListaCursos();
+        lovTiposCursos = null;
+        deshabilitarBotonLov();
+        if (listaCursos != null) {
+            cursoSeleccionado = listaCursos.get(0);
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "curso";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -95,21 +150,6 @@ public class ControlCursos implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
-    }
-
-    public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
-        listaCursos = null;
-        getListaCursos();
-        lovTiposCursos = null;
-        deshabilitarBotonLov();
-        if (listaCursos != null) {
-            cursoSeleccionado = listaCursos.get(0);
-        }
-    }
-
-    public String redirigir() {
-        return paginaanterior;
     }
 
     public void editarCelda() {
@@ -215,7 +255,7 @@ public class ControlCursos implements Serializable {
         listaCursos = null;
         guardado = true;
         permitirIndex = true;
-
+        navegar("atras");
     }
 
     public void agregarNuevoCurso() {
@@ -506,38 +546,18 @@ public class ControlCursos implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosCursos");
     }
 
-    public void modificarCursos(Cursos curso, String confirmarCambio, String valorConfirmar) {
+    public void modificarCursos(Cursos curso) {
         cursoSeleccionado = curso;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaCursosCrear.contains(cursoSeleccionado)) {
-                    if (listaCursosModificar.isEmpty()) {
-                        listaCursosModificar.add(cursoSeleccionado);
-                    } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
-                        listaCursosModificar.add(cursoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!listaCursosCrear.contains(cursoSeleccionado)) {
-
-                if (listaCursosModificar.isEmpty()) {
-                    listaCursosModificar.add(cursoSeleccionado);
-                } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
-                    listaCursosModificar.add(cursoSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+        if (!listaCursosCrear.contains(cursoSeleccionado)) {
+            if (listaCursosModificar.isEmpty()) {
+                listaCursosModificar.add(cursoSeleccionado);
+            } else if (!listaCursosModificar.contains(cursoSeleccionado)) {
+                listaCursosModificar.add(cursoSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosCursos");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
+        RequestContext.getCurrentInstance().update("form:datosCursos");
     }
 
     public void actualizarTiposCursos() {

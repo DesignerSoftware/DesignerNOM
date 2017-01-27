@@ -22,6 +22,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -95,6 +98,8 @@ public class ControlVigenciasProyectos implements Serializable {
     private String altoTabla;
     private String infoRegistro, infoRegistroRol, infoRegistroCargo, infoRegistroProyecto;
     private Date fechaParametro;
+    private String paginaAnterior;
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlVigenciasProyectos() {
         permitirIndex = true;
@@ -122,6 +127,8 @@ public class ControlVigenciasProyectos implements Serializable {
         listaProyectos = null;
         listaPryRoles = null;
         listaCargos = null;
+        paginaAnterior = "nominaf";
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -136,6 +143,43 @@ public class ControlVigenciasProyectos implements Serializable {
             System.out.println("Error postconstruct ControlVigenciasCargos: " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "vigenciasproyectos";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirEmpleado(BigInteger secEmpleado) {
@@ -316,28 +360,15 @@ public class ControlVigenciasProyectos implements Serializable {
             vigenciaProyectoSeleccionado = vigencia;
             cualCelda = celda;
             getProyectoParametro();
-            if (tipoLista == 0) {
-                vigenciaProyectoSeleccionado.getSecuencia();
-                if (cualCelda == 2) {
-                    Proyecto = vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto();
-                } else if (cualCelda == 3) {
-                    PryRol = vigenciaProyectoSeleccionado.getPryRol().getDescripcion();
-                } else if (cualCelda == 4) {
-                    Cargo = vigenciaProyectoSeleccionado.getPryCargoproyecto().getNombre();
-                } else if (cualCelda == 5) {
-                    vigenciaProyectoSeleccionado.getCantidadpersonaacargo();
-                }
-            } else {
-                vigenciaProyectoSeleccionado.getSecuencia();
-                if (cualCelda == 2) {
-                    Proyecto = vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto();
-                } else if (cualCelda == 3) {
-                    PryRol = vigenciaProyectoSeleccionado.getPryRol().getDescripcion();
-                } else if (cualCelda == 4) {
-                    Cargo = vigenciaProyectoSeleccionado.getPryCargoproyecto().getNombre();
-                } else if (cualCelda == 5) {
-                    vigenciaProyectoSeleccionado.getCantidadpersonaacargo();
-                }
+            vigenciaProyectoSeleccionado.getSecuencia();
+            if (cualCelda == 2) {
+                Proyecto = vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto();
+            } else if (cualCelda == 3) {
+                PryRol = vigenciaProyectoSeleccionado.getPryRol().getDescripcion();
+            } else if (cualCelda == 4) {
+                Cargo = vigenciaProyectoSeleccionado.getPryCargoproyecto().getNombre();
+            } else if (cualCelda == 5) {
+                vigenciaProyectoSeleccionado.getCantidadpersonaacargo();
             }
 
         }
@@ -348,16 +379,19 @@ public class ControlVigenciasProyectos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
+            listaProyectos = null;
             getListaProyectos();
             contarRegistroProyecto();
             RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
             RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
         } else if (dlg == 1) {
+            listaPryRoles = null;
             getListaPryRoles();
             contarRegistroRol();
             RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
             RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
         } else if (dlg == 2) {
+            listaCargos = null;
             getListaCargos();
             contarRegistroCargo();
             RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
@@ -556,16 +590,19 @@ public class ControlVigenciasProyectos implements Serializable {
         if (vigenciaProyectoSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
+                listaProyectos = null;
                 getListaProyectos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:proyectosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('proyectosDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
+                listaPryRoles = null;
                 getListaPryRoles();
                 RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 4) {
+                listaCargos = null;
                 getListaCargos();
                 RequestContext.getCurrentInstance().update("formularioDialogos:cargosDialogo");
                 RequestContext.getCurrentInstance().execute("PF('cargosDialogo').show()");
@@ -625,26 +662,25 @@ public class ControlVigenciasProyectos implements Serializable {
     public void agregarNuevaVigenciaProyecto() {
         int pasa = 0;
         mensajeValidacion = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevaVigenciaProyectos.getFechainicial() == null) {
             System.out.println("Entro a Fecha");
-            mensajeValidacion = " * Fecha Inicial \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-//        if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ")) {
-//            System.out.println("Entro a Proyecto");
-//            mensajeValidacion = mensajeValidacion + " * Proyecto\n";
-//            pasa++;
-//        }
-        if (nuevaVigenciaProyectos.getPryRol().getDescripcion().equals(" ")) {
+        if (nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals(" ") || nuevaVigenciaProyectos.getProyecto().getNombreproyecto().equals("")) {
+            System.out.println("Entro a Proyecto");
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+            pasa++;
+        }
+        if (nuevaVigenciaProyectos.getPryRol().getDescripcion().equals(" ") || nuevaVigenciaProyectos.getPryRol().getDescripcion().equals("")) {
             System.out.println("Entro a Rol");
-            mensajeValidacion = mensajeValidacion + " * Rol\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        if (nuevaVigenciaProyectos.getPryCargoproyecto().getNombre().equals(" ")) {
+        if (nuevaVigenciaProyectos.getPryCargoproyecto().getNombre().equals(" ") || nuevaVigenciaProyectos.getPryCargoproyecto().getNombre().equals("")) {
             System.out.println("Entro a Cargo");
-            mensajeValidacion = mensajeValidacion + " * Cargo\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (pasa == 0) {
@@ -891,6 +927,31 @@ public class ControlVigenciasProyectos implements Serializable {
         listaPryRoles = null;
         guardado = true;
         permitirIndex = true;
+        proyectoParametro.setNombreproyecto("");
+        proyectoParametro.setCodigo("");
+        proyectoParametro.setMonto(null);
+        proyectoParametro.setFechainicial(null);
+        proyectoParametro.setFechafinal(null);
+        proyectoParametro.getTipomoneda().setNombre("");
+        proyectoParametro.setCantidadpersonas(null);
+        proyectoParametro.getPryCliente().setNombre("");
+        proyectoParametro.getPryCliente().setDireccion("");
+        proyectoParametro.getPryCliente().setTelefono("");
+        proyectoParametro.getPryCliente().setContacto("");
+        proyectoParametro.getPryPlataforma().setDescripcion("");
+        proyectoParametro.getPryPlataforma().setObservacion("");
+        proyectoParametro.setDescripcionproyecto(" ");
+        RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+        RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+        RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+        RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+        RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+        RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+        RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
+
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
     }
@@ -920,12 +981,36 @@ public class ControlVigenciasProyectos implements Serializable {
             filtradosListaVigenciasProyectos = null;
             tipoLista = 0;
         }
+        proyectoParametro.setNombreproyecto("");
+        proyectoParametro.setCodigo("");
+        proyectoParametro.setMonto(null);
+        proyectoParametro.setFechainicial(null);
+        proyectoParametro.setFechafinal(null);
+        proyectoParametro.getTipomoneda().setNombre("");
+        proyectoParametro.setCantidadpersonas(null);
+        proyectoParametro.getPryCliente().setNombre("");
+        proyectoParametro.getPryCliente().setDireccion("");
+        proyectoParametro.getPryCliente().setContacto("");
+        proyectoParametro.getPryCliente().setTelefono("");
+        proyectoParametro.getPryPlataforma().setDescripcion("");
+        proyectoParametro.getPryPlataforma().setObservacion("");
+        proyectoParametro.setDescripcionproyecto(" ");
+        RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");
+        RequestContext.getCurrentInstance().update("formularioDetalles:cliente");
+        RequestContext.getCurrentInstance().update("formularioDetalles:plataforma");
+        RequestContext.getCurrentInstance().update("formularioDetalles:totalPersonas");
+        RequestContext.getCurrentInstance().update("formularioDetalles:detalleProyecto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaInicial");
+        RequestContext.getCurrentInstance().update("formularioDetalles:monto");
+        RequestContext.getCurrentInstance().update("formularioDetalles:fechaFinal");
+        RequestContext.getCurrentInstance().update("formularioDetalles:codigoProyecto");
 
         listaVigenciasProyectosBorrar.clear();
         listaVigenciasProyectosCrear.clear();
         listaVigenciasProyectosModificar.clear();
         vigenciaProyectoSeleccionado = null;
-             listaProyectos = null;
+        listaProyectos = null;
         listaCargos = null;
         listaPryRoles = null;
         //  k = 0;
@@ -980,7 +1065,7 @@ public class ControlVigenciasProyectos implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
             guardado = true;
             permitirIndex = true;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -1546,9 +1631,6 @@ public class ControlVigenciasProyectos implements Serializable {
         if (vigenciaProyectoSeleccionado != null) {
             if (!listaVigenciasProyectos.isEmpty()) {
                 proyectoParametro = administrarVigenciasProyectos.buscarProyectoPorNombreVigencia(vigenciaProyectoSeleccionado.getProyecto().getNombreproyecto());
-                /*RequestContext context = RequestContext.getCurrentInstance();
-                 RequestContext.getCurrentInstance().update("formularioDialogos:pryRolesDialogo");
-                 RequestContext.getCurrentInstance().execute("PF('pryRolesDialogo').show()");*/
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formularioDetalles:nomProyecto");
                 RequestContext.getCurrentInstance().update("formularioDetalles:tipoMoneda");

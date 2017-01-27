@@ -75,7 +75,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlConceptosSoportes.salir()}" action="atrasconceptosporte" process="@this"/>  
+                                         actionListener="#{controlConceptosSoportes.salir()}" action="concepto" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
@@ -281,9 +281,9 @@
                   <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                      <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 10px; top: 10px;"/>
                      <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 280px; font-weight: bold;"/>
-                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" action="atrasconceptosporte" actionListener="#{controlConceptosSoportes.guardarConceptosSoportes()}"
+                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" action="concepto" actionListener="#{controlConceptosSoportes.guardarConceptosSoportes()}"
                                       style="position: absolute; top: 60px; left: 147px;" process="@this" icon="ui-icon-check"/>
-                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" action="atrasconceptosporte" actionListener="#{controlConceptosSoportes.cancelarModificacion()}"
+                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" action="concepto" actionListener="#{controlConceptosSoportes.cancelarModificacion()}"
                                       style="position: absolute; top: 60px; left: 209px;" process="@this" icon="ui-icon-close"/>
                      <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" 
                                       style="position: absolute; top: 60px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
@@ -335,7 +335,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosSoportes.secRegistro, 'ConceptosSoportes','conceptosoporte')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this" />
                </p:dialog>
 
@@ -343,7 +343,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('ConceptosSoportes','conceptosoporte')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this" />
                </p:dialog>
 
@@ -361,7 +361,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight: bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlConceptosSoportes.secRegistro, 'ConceptosSoportes','conceptosoporte')}"
-                                   style="position: absolute; top: 70px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 70px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
                </p:dialog>
 

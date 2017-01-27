@@ -23,6 +23,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -47,918 +50,957 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class ControlNReporteCapacitacion implements Serializable {
 
-    @EJB
-    AdministrarNReporteCapacitacionInterface administrarNReporteCapacitacion;
-    @EJB
-    AdministarReportesInterface administarReportes;
+   @EJB
+   AdministrarNReporteCapacitacionInterface administrarNReporteCapacitacion;
+   @EJB
+   AdministarReportesInterface administarReportes;
 
-    //PARAMETROS REPORTES
-    private ParametrosReportes parametroDeReporte;
-    private ParametrosReportes parametroModificacion;
-    //INFOREPORTES
-    private List<Inforeportes> listaIR;
-    private Inforeportes reporteSeleccionado;
-    private List<Inforeportes> filtrarListIRU;
-    private List<Inforeportes> listaInfoReportesModificados;
-    //INFOREPORTES LOV
-    private List<Inforeportes> listValInforeportes;
-    private Inforeportes reporteSeleccionadoLOV;
-    private List<Inforeportes> filtrarLovInforeportes;
-    private List<Inforeportes> filtrarReportes;
-    //EMPLEADOS
-    private List<Empleados> listValEmpleados;
-    private Empleados empleadoSeleccionado;
-    private List<Empleados> filtrarListEmpleados;
-    //EMPRESAS
-    private List<Empresas> listValEmpresas;
-    private Empresas empresaSeleccionada;
-    private List<Empresas> filtrarListEmpresas;
+   //PARAMETROS REPORTES
+   private ParametrosReportes parametroDeReporte;
+   private ParametrosReportes parametroModificacion;
+   //INFOREPORTES
+   private List<Inforeportes> listaIR;
+   private Inforeportes reporteSeleccionado;
+   private List<Inforeportes> filtrarListIRU;
+   private List<Inforeportes> listaInfoReportesModificados;
+   //INFOREPORTES LOV
+   private List<Inforeportes> listValInforeportes;
+   private Inforeportes reporteSeleccionadoLOV;
+   private List<Inforeportes> filtrarLovInforeportes;
+   private List<Inforeportes> filtrarReportes;
+   //EMPLEADOS
+   private List<Empleados> listValEmpleados;
+   private Empleados empleadoSeleccionado;
+   private List<Empleados> filtrarListEmpleados;
+   //EMPRESAS
+   private List<Empresas> listValEmpresas;
+   private Empresas empresaSeleccionada;
+   private List<Empresas> filtrarListEmpresas;
 //GENERAR    
-    private String reporteGenerar;
-    //OTROS
-    private int bandera;
-    private boolean aceptar;
-    private int casilla;
-    private int posicionReporte;
-    private String requisitosReporte;
-    private String empresa, estado;
-    private boolean permitirIndex, cambiosReporte;
-    private String color, decoracion;
-    private String color2, decoracion2;
-    //INPUT    
-    private InputText empleadoDesdeParametro, empleadoHastaParametro;
-    //private InputText empresaParametro,  procesoParametro, notasParametro, asociacionParametro, ubicacionGeograficaParametro, tipoAsociacionParametro;
-    private SelectOneMenu estadoParametro;
-    //ALTO SCROLL TABLA
-    private String altoTabla;
-    //EXPORTAR REPORTE
-    private String pathReporteGenerado;
-    private String nombreReporte, tipoReporte;
-    //DATE
-    private Date fechaDesde, fechaHasta;
-    private BigDecimal emplDesde, emplHasta;
-    //MOSTRAR TODOS
-    private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
-    //VISUALIZAR REPORTE PDF
-    private StreamedContent reporte;
-    private String cabezeraVisor;
-    //Listener reporte
-    private AsynchronousFilllListener asistenteReporte;
-    //BANDERAS
-    private boolean estadoReporte;
-    private String resultadoReporte;
-    //FileInputStream prueba;
-    //
-    private String infoRegistro, infoRegistroLovReportes, infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa;
-    private DataTable tabla;
-    private int tipoLista;
-    private int casillaInforReporte;
-    private Column codigoIR, reporteIR;
+   private String reporteGenerar;
+   //OTROS
+   private int bandera;
+   private boolean aceptar;
+   private int casilla;
+   private int posicionReporte;
+   private String requisitosReporte;
+   private String empresa, estado;
+   private boolean permitirIndex, cambiosReporte;
+   private String color, decoracion;
+   private String color2, decoracion2;
+   //INPUT    
+   private InputText empleadoDesdeParametro, empleadoHastaParametro;
+   //private InputText empresaParametro,  procesoParametro, notasParametro, asociacionParametro, ubicacionGeograficaParametro, tipoAsociacionParametro;
+   private SelectOneMenu estadoParametro;
+   //ALTO SCROLL TABLA
+   private String altoTabla;
+   //EXPORTAR REPORTE
+   private String pathReporteGenerado;
+   private String nombreReporte, tipoReporte;
+   //DATE
+   private Date fechaDesde, fechaHasta;
+   private BigDecimal emplDesde, emplHasta;
+   //MOSTRAR TODOS
+   private boolean activoMostrarTodos, activoBuscarReporte, activarEnvio;
+   //VISUALIZAR REPORTE PDF
+   private StreamedContent reporte;
+   private String cabezeraVisor;
+   //Listener reporte
+   private AsynchronousFilllListener asistenteReporte;
+   //BANDERAS
+   private boolean estadoReporte;
+   private String resultadoReporte;
+   //FileInputStream prueba;
+   //
+   private String infoRegistro, infoRegistroLovReportes, infoRegistroEmpleadoDesde, infoRegistroEmpleadoHasta, infoRegistroEmpresa;
+   private DataTable tabla;
+   private int tipoLista;
+   private int casillaInforReporte;
+   private Column codigoIR, reporteIR;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
-    public ControlNReporteCapacitacion() {
-        System.out.println(this.getClass().getName() + ".Constructor()");
-        activoMostrarTodos = true;
-        activoBuscarReporte = false;
-        activarEnvio = true;
-        color = "black";
-        decoracion = "none";
-        color2 = "black";
-        decoracion2 = "none";
-        reporteSeleccionadoLOV = null;
-        reporteSeleccionado = null;
-        cambiosReporte = true;
-        listaInfoReportesModificados = new ArrayList<>();
-        parametroDeReporte = null;
-        listaIR = null;
-        bandera = 0;
-        aceptar = true;
-        casilla = -1;
-        parametroModificacion = new ParametrosReportes();
-        reporteGenerar = "";
-        requisitosReporte = "";
-        posicionReporte = -1;
-        listValInforeportes = null;
-        listValEmpleados = new ArrayList<>();
-        listValEmpresas = null;
-        tipoLista = 0;
-        empleadoSeleccionado = new Empleados();
-        empresaSeleccionada = new Empresas();
-        permitirIndex = true;
-        altoTabla = "200";
-        cabezeraVisor = null;
-        estadoReporte = false;
-        casillaInforReporte = -1;
-        System.out.println(this.getClass().getName() + " fin del Constructor()");
-    }
+   public ControlNReporteCapacitacion() {
+      System.out.println(this.getClass().getName() + ".Constructor()");
+      activoMostrarTodos = true;
+      activoBuscarReporte = false;
+      activarEnvio = true;
+      color = "black";
+      decoracion = "none";
+      color2 = "black";
+      decoracion2 = "none";
+      reporteSeleccionadoLOV = null;
+      reporteSeleccionado = null;
+      cambiosReporte = true;
+      listaInfoReportesModificados = new ArrayList<>();
+      parametroDeReporte = null;
+      listaIR = null;
+      bandera = 0;
+      aceptar = true;
+      casilla = -1;
+      parametroModificacion = new ParametrosReportes();
+      reporteGenerar = "";
+      requisitosReporte = "";
+      posicionReporte = -1;
+      listValInforeportes = null;
+      listValEmpleados = new ArrayList<>();
+      listValEmpresas = null;
+      tipoLista = 0;
+      empleadoSeleccionado = new Empleados();
+      empresaSeleccionada = new Empresas();
+      permitirIndex = true;
+      altoTabla = "200";
+      cabezeraVisor = null;
+      estadoReporte = false;
+      casillaInforReporte = -1;
+      System.out.println(this.getClass().getName() + " fin del Constructor()");
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
 
-    @PostConstruct
-    public void iniciarAdministradores() {
-        System.out.println(this.getClass().getName() + ".iniciarAdministradores()");
-        try {
-            FacesContext contexto = FacesContext.getCurrentInstance();
-            HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
-            administarReportes.obtenerConexion(ses.getId());
-            administrarNReporteCapacitacion.obtenerConexion(ses.getId());
-            System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
-        } catch (Exception e) {
-            System.out.println("Error postconstruct controlNReporteNomina" + e);
-            System.out.println("Causa: " + e.getMessage());
-        }
-    }
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    public void iniciarPagina() {
-        System.out.println(this.getClass().getName() + ".iniciarPagina()");
-        activoMostrarTodos = true;
-        activoBuscarReporte = false;
-        activarEnvio = true;
-        getListaIR();
-    }
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    //TOOLTIP
-    //GUARDAR CAMBIOS
-    public void guardarCambios() {
-        System.out.println(this.getClass().getName() + ".guardarCambios()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("cambiosReporte " + cambiosReporte);
-        try {
-            if (!cambiosReporte) {
-                System.out.println("Entre a if (cambiosReporte == false)");
-                if (parametroDeReporte.getUsuario() != null) {
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "nreportecapacitacion";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
 
-                    if (parametroDeReporte.getCodigoempleadodesde() == null) {
-                        parametroDeReporte.setCodigoempleadodesde(null);
-                    }
-                    if (parametroDeReporte.getCodigoempleadohasta() == null) {
-                        parametroDeReporte.setCodigoempleadohasta(null);
-                    }
-                    if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
-                        parametroDeReporte.setEmpresa(null);
-                    }
-                    administrarNReporteCapacitacion.modificarParametrosReportes(parametroDeReporte);
-                }
-                if (!listaInfoReportesModificados.isEmpty()) {
-                    administrarNReporteCapacitacion.guardarCambiosInfoReportes(listaInfoReportesModificados);
-                }
-                cambiosReporte = true;
-                FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                RequestContext.getCurrentInstance().update("form:growl");
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
-                parametroDeReporte.setFechadesde(fechaDesde);
-                parametroDeReporte.setFechahasta(fechaHasta);
-                RequestContext.getCurrentInstance().update("formParametros");
-                RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+   @PostConstruct
+   public void iniciarAdministradores() {
+      System.out.println(this.getClass().getName() + ".iniciarAdministradores()");
+      try {
+         FacesContext contexto = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
+         administarReportes.obtenerConexion(ses.getId());
+         administrarNReporteCapacitacion.obtenerConexion(ses.getId());
+         System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
+      } catch (Exception e) {
+         System.out.println("Error postconstruct controlNReporteNomina" + e);
+         System.out.println("Causa: " + e.getMessage());
+      }
+   }
+
+   public void iniciarPagina() {
+      System.out.println(this.getClass().getName() + ".iniciarPagina()");
+      activoMostrarTodos = true;
+      activoBuscarReporte = false;
+      activarEnvio = true;
+      getListaIR();
+   }
+
+   //TOOLTIP
+   //GUARDAR CAMBIOS
+   public void guardarCambios() {
+      System.out.println(this.getClass().getName() + ".guardarCambios()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      System.out.println("cambiosReporte " + cambiosReporte);
+      try {
+         if (!cambiosReporte) {
+            System.out.println("Entre a if (cambiosReporte == false)");
+            if (parametroDeReporte.getUsuario() != null) {
+
+               if (parametroDeReporte.getCodigoempleadodesde() == null) {
+                  parametroDeReporte.setCodigoempleadodesde(null);
+               }
+               if (parametroDeReporte.getCodigoempleadohasta() == null) {
+                  parametroDeReporte.setCodigoempleadohasta(null);
+               }
+               if (parametroDeReporte.getEmpresa().getSecuencia() == null) {
+                  parametroDeReporte.setEmpresa(null);
+               }
+               administrarNReporteCapacitacion.modificarParametrosReportes(parametroDeReporte);
             }
-        } catch (Exception e) {
-            System.out.println("Error en guardar Cambios Controlador : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error en el guardado, intente nuevamente");
+            if (!listaInfoReportesModificados.isEmpty()) {
+               administrarNReporteCapacitacion.guardarCambiosInfoReportes(listaInfoReportesModificados);
+            }
+            cambiosReporte = true;
+            FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }
-    }
+         } else {
+            parametroDeReporte.setFechadesde(fechaDesde);
+            parametroDeReporte.setFechahasta(fechaHasta);
+            RequestContext.getCurrentInstance().update("formParametros");
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en guardar Cambios Controlador : " + e.toString());
+         FacesMessage msg = new FacesMessage("Información", "ha ocurrido un error en el guardado, intente nuevamente");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      }
+   }
 
-    //EDITAR
-    public void editarCelda() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (casilla >= 1) {
-            if (casilla == 1) {
-                RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
-            }
-            if (casilla == 2) {
-                RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
-                RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
-            }
-            if (casilla == 3) {
-                RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
-                RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
-            }
-            if (casilla == 4) {
-                RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
-                RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
-            }
-            if (casilla == 5) {
-                RequestContext.getCurrentInstance().update("formDialogos:empresa");
-                RequestContext.getCurrentInstance().execute("PF('empresa').show()");
-            }
-            casilla = -1;
-        }
-        if (casillaInforReporte >= 1) {
-            if (casillaInforReporte == 1) {
-                RequestContext.getCurrentInstance().update("formParametros:infoReporteCodigoD");
-                RequestContext.getCurrentInstance().execute("PF('infoReporteCodigoD').show()");
-            }
-            if (casillaInforReporte == 2) {
-                RequestContext.getCurrentInstance().update("formParametros:infoReporteNombreD");
-                RequestContext.getCurrentInstance().execute("PF('infoReporteNombreD').show()");
-            }
-            casillaInforReporte = -1;
-        }
-    }
+   //EDITAR
+   public void editarCelda() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (casilla >= 1) {
+         if (casilla == 1) {
+            RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
+         }
+         if (casilla == 2) {
+            RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
+            RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
+         }
+         if (casilla == 3) {
+            RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
+            RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
+         }
+         if (casilla == 4) {
+            RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
+            RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
+         }
+         if (casilla == 5) {
+            RequestContext.getCurrentInstance().update("formDialogos:empresa");
+            RequestContext.getCurrentInstance().execute("PF('empresa').show()");
+         }
+         casilla = -1;
+      }
+      if (casillaInforReporte >= 1) {
+         if (casillaInforReporte == 1) {
+            RequestContext.getCurrentInstance().update("formParametros:infoReporteCodigoD");
+            RequestContext.getCurrentInstance().execute("PF('infoReporteCodigoD').show()");
+         }
+         if (casillaInforReporte == 2) {
+            RequestContext.getCurrentInstance().update("formParametros:infoReporteNombreD");
+            RequestContext.getCurrentInstance().execute("PF('infoReporteNombreD').show()");
+         }
+         casillaInforReporte = -1;
+      }
+   }
 
-    //BOTON LISTA VALORES
-    public void listaValoresBoton() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (casilla == 3) {
-            if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                listValEmpleados = null;
-            }
-            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
-            contarRegistrosEmpeladoD();
-        }
-        if (casilla == 4) {
-            RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
-            contarRegistrosEmpeladoH();
-        }
-        if (casilla == 5) {
-            RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
-            RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            contarRegistrosEmpresa();
-        }
-    }
-    
-    public void activarCtrlF11() {
-        System.out.println(this.getClass().getName() + ".activarCtrlF11()");
-        FacesContext c = FacesContext.getCurrentInstance();
-        if (bandera == 0) {
-            System.out.println("Ingrese if");
-            altoTabla = "180";
-            codigoIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:codigoIR");
-            codigoIR.setFilterStyle("width: 85% !important");
-            reporteIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:reporteIR");
-            reporteIR.setFilterStyle("width: 85% !important");
-            RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
-            bandera = 1;
-        } else if (bandera == 1) {
-            System.out.println("Ingrese else if");
-            cerrarFiltrado();
-            defaultPropiedadesParametrosReporte();
-        }
-    }
+   //BOTON LISTA VALORES
+   public void listaValoresBoton() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (casilla == 3) {
+         if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
+            listValEmpleados = null;
+         }
+         RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
+         contarRegistrosEmpeladoD();
+      }
+      if (casilla == 4) {
+         RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
+         contarRegistrosEmpeladoH();
+      }
+      if (casilla == 5) {
+         RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
+         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
+         contarRegistrosEmpresa();
+      }
+   }
 
-    public void cerrarFiltrado() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        System.out.println("Desactivar");
-        altoTabla = "200";
-        codigoIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:codigoIR");
-        codigoIR.setFilterStyle("display: none; visibility: hidden;");
-        reporteIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:reporteIR");
-        reporteIR.setFilterStyle("display: none; visibility: hidden;");
-        RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
-        bandera = 0;
-        tipoLista = 0;
-        filtrarListIRU = null;
-    }
+   public void activarCtrlF11() {
+      System.out.println(this.getClass().getName() + ".activarCtrlF11()");
+      FacesContext c = FacesContext.getCurrentInstance();
+      if (bandera == 0) {
+         System.out.println("Ingrese if");
+         altoTabla = "180";
+         codigoIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:codigoIR");
+         codigoIR.setFilterStyle("width: 85% !important");
+         reporteIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:reporteIR");
+         reporteIR.setFilterStyle("width: 85% !important");
+         RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
+         bandera = 1;
+      } else if (bandera == 1) {
+         System.out.println("Ingrese else if");
+         cerrarFiltrado();
+         defaultPropiedadesParametrosReporte();
+      }
+   }
 
-    public void guardarYSalir() {
-        System.out.println(this.getClass().getName() + ".guardarYSalir()");
-        guardarCambios();
-        salir();
-    }
+   public void cerrarFiltrado() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      System.out.println("Desactivar");
+      altoTabla = "200";
+      codigoIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:codigoIR");
+      codigoIR.setFilterStyle("display: none; visibility: hidden;");
+      reporteIR = (Column) c.getViewRoot().findComponent("form:reportesCapacitacion:reporteIR");
+      reporteIR.setFilterStyle("display: none; visibility: hidden;");
+      RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
+      bandera = 0;
+      tipoLista = 0;
+      filtrarListIRU = null;
+   }
 
-    public void salir() {
-        System.out.println(this.getClass().getName() + ".salir()");
-        if (bandera == 1) {
-            cerrarFiltrado();
-        }
-        listaIR = null;
-        parametroDeReporte = null;
-        parametroModificacion = null;
-        listValEmpleados = null;
-        listValEmpresas = null;
-        casilla = -1;
-        listaInfoReportesModificados.clear();
-        cambiosReporte = true;
-        reporteSeleccionado = null;
-        reporteSeleccionadoLOV = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void guardarYSalir() {
+      System.out.println(this.getClass().getName() + ".guardarYSalir()");
+      guardarCambios();
+      salir();
+   }
 
-    public void cancelarModificaciones() {
-        System.out.println(this.getClass().getName() + ".cancelarModificaciones()");
-        if (bandera == 1) {
-            cerrarFiltrado();
-        }
-        defaultPropiedadesParametrosReporte();
-        listaIR = null;
-        parametroDeReporte = null;
-        parametroModificacion = null;
-        casilla = -1;
-        listaInfoReportesModificados.clear();
-        cambiosReporte = true;
-        getParametroDeReporte();
-        getListaIR();
-        activoMostrarTodos = true;
-        activoBuscarReporte = false;
-        reporteSeleccionado = null;
-        RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-        RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
-        RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
-        RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
-        RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-        RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+   public void salir() {
+      System.out.println(this.getClass().getName() + ".salir()");
+      if (bandera == 1) {
+         cerrarFiltrado();
+      }
+      listaIR = null;
+      parametroDeReporte = null;
+      parametroModificacion = null;
+      listValEmpleados = null;
+      listValEmpresas = null;
+      casilla = -1;
+      listaInfoReportesModificados.clear();
+      cambiosReporte = true;
+      reporteSeleccionado = null;
+      reporteSeleccionadoLOV = null;
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
+
+   public void cancelarModificaciones() {
+      System.out.println(this.getClass().getName() + ".cancelarModificaciones()");
+      if (bandera == 1) {
+         cerrarFiltrado();
+      }
+      defaultPropiedadesParametrosReporte();
+      listaIR = null;
+      parametroDeReporte = null;
+      parametroModificacion = null;
+      casilla = -1;
+      listaInfoReportesModificados.clear();
+      cambiosReporte = true;
+      getParametroDeReporte();
+      getListaIR();
+      activoMostrarTodos = true;
+      activoBuscarReporte = false;
+      reporteSeleccionado = null;
+      RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
+      RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+      RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
+      RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
+      RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
+      RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+      RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
 //        RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
 //        RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
-    }
+   }
 
-    public void cancelarYSalir() {
-        System.out.println(this.getClass().getName() + ".cancelarYSalir()");
-        cancelarModificaciones();
-        salir();
-    }
+   public void cancelarYSalir() {
+      System.out.println(this.getClass().getName() + ".cancelarYSalir()");
+      cancelarModificaciones();
+      salir();
+   }
 
-    //EVENTO FILTRAR
-    public void eventoFiltrar() {
-        contarRegistros();
-    }
+   //EVENTO FILTRAR
+   public void eventoFiltrar() {
+      contarRegistros();
+   }
 
-    public void activarEnvioCorreo() {
-        if (reporteSeleccionado != null) {
-            activarEnvio = false;
-        } else {
-            activarEnvio = true;
-        }
-        RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
-    }
-    
-    public void activarAceptar() {
-        System.out.println(this.getClass().getName() + ".activarAceptar()");
-        aceptar = false;
-    }
+   public void activarEnvioCorreo() {
+      if (reporteSeleccionado != null) {
+         activarEnvio = false;
+      } else {
+         activarEnvio = true;
+      }
+      RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
+   }
 
+   public void activarAceptar() {
+      System.out.println(this.getClass().getName() + ".activarAceptar()");
+      aceptar = false;
+   }
 
-    //METODOS GENERACION REPORTES
-    public void defaultPropiedadesParametrosReporte() {
-        System.out.println(this.getClass().getName() + ".defaultPropiedadesParametrosReporte()");
-        color = "black";
-        decoracion = "none";
-        color2 = "black";
-        decoracion2 = "none";
-    }
+   //METODOS GENERACION REPORTES
+   public void defaultPropiedadesParametrosReporte() {
+      System.out.println(this.getClass().getName() + ".defaultPropiedadesParametrosReporte()");
+      color = "black";
+      decoracion = "none";
+      color2 = "black";
+      decoracion2 = "none";
+   }
 
-    public void seleccionRegistro() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        activarEnvioCorreo();
-        defaultPropiedadesParametrosReporte();
-        if (reporteSeleccionado.getFecdesde().equals("SI")) {
-            color = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
-        if (reporteSeleccionado.getFechasta().equals("SI")) {
-            color2 = "red";
-            RequestContext.getCurrentInstance().update("formParametros");
-        }
-        System.out.println("reporteSeleccionado.getEmdesde(): " + reporteSeleccionado.getEmdesde());
-        if (reporteSeleccionado.getEmdesde().equals("SI")) {
-            empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
-            //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-                empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+   public void seleccionRegistro() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      activarEnvioCorreo();
+      defaultPropiedadesParametrosReporte();
+      if (reporteSeleccionado.getFecdesde().equals("SI")) {
+         color = "red";
+         RequestContext.getCurrentInstance().update("formParametros");
+      }
+      System.out.println("reporteSeleccionado.getFechasta(): " + reporteSeleccionado.getFechasta());
+      if (reporteSeleccionado.getFechasta().equals("SI")) {
+         color2 = "red";
+         RequestContext.getCurrentInstance().update("formParametros");
+      }
+      System.out.println("reporteSeleccionado.getEmdesde(): " + reporteSeleccionado.getEmdesde());
+      if (reporteSeleccionado.getEmdesde().equals("SI")) {
+         empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
+         //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
+         if (!empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+            empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle() + " color: red;");
+         }
+      } else {
+         try {
+            System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
+            if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+
+               System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
+               empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
             }
-        } else {
-            try {
-                System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
-                if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
 
-                    System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
-                    empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-
-        System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
-        if (reporteSeleccionado.getEmhasta().equals("SI")) {
-            empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-            //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
-            empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
-            RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-        }
+      System.out.println("reporteSeleccionado.getEmhasta(): " + reporteSeleccionado.getEmhasta());
+      if (reporteSeleccionado.getEmhasta().equals("SI")) {
+         empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
+         //empleadoHastaParametro.setStyle("position: absolute; top: 41px; left: 330px; height: 10px; font-size: 11px; width: 90px; color: red;");
+         empleadoHastaParametro.setStyle(empleadoHastaParametro.getStyle() + "color: red;");
+         RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+      }
 //        System.out.println("reporteSeleccionado.getEstado(): " + reporteSeleccionado.getEstado());
 //        if (reporteSeleccionado.getEstado().equals("SI")) {
 //            estadoParametro = (SelectOneMenu) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:estadoParametro");
 //            estadoParametro.setStyleClass("selectOneMenuNReporteN");
 //            RequestContext.getCurrentInstance().update("formParametros:estadoParametro");
 //        }
-        RequestContext.getCurrentInstance().update("formParametros");
-    }
+      RequestContext.getCurrentInstance().update("formParametros");
+   }
 
-    public void requisitosParaReporte() {
-        System.out.println(this.getClass().getName() + ".requisitosParaReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        requisitosReporte = "";
-        if (reporteSeleccionado.getFecdesde().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Fecha Desde -";
-        }
-        if (reporteSeleccionado.getFechasta().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Fecha Hasta -";
-        }
-        if (reporteSeleccionado.getEmdesde().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Empleado Desde -";
-        }
-        if (reporteSeleccionado.getEmhasta().equals("SI")) {
-            requisitosReporte = requisitosReporte + "- Empleado Hasta -";
-        }
-        if (!requisitosReporte.isEmpty()) {
-            RequestContext.getCurrentInstance().update("formDialogos:requisitosReporte");
-            RequestContext.getCurrentInstance().execute("PF('requisitosReporte').show()");
-        }
-    }
+   public void requisitosParaReporte() {
+      System.out.println(this.getClass().getName() + ".requisitosParaReporte()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      requisitosReporte = "";
+      if (reporteSeleccionado.getFecdesde().equals("SI")) {
+         requisitosReporte = requisitosReporte + "- Fecha Desde -";
+      }
+      if (reporteSeleccionado.getFechasta().equals("SI")) {
+         requisitosReporte = requisitosReporte + "- Fecha Hasta -";
+      }
+      if (reporteSeleccionado.getEmdesde().equals("SI")) {
+         requisitosReporte = requisitosReporte + "- Empleado Desde -";
+      }
+      if (reporteSeleccionado.getEmhasta().equals("SI")) {
+         requisitosReporte = requisitosReporte + "- Empleado Hasta -";
+      }
+      if (!requisitosReporte.isEmpty()) {
+         RequestContext.getCurrentInstance().update("formDialogos:requisitosReporte");
+         RequestContext.getCurrentInstance().execute("PF('requisitosReporte').show()");
+      }
+   }
 
-    public void cancelarRequisitosReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarRequisitosReporte()");
-        requisitosReporte = "";
-    }
+   public void cancelarRequisitosReporte() {
+      System.out.println(this.getClass().getName() + ".cancelarRequisitosReporte()");
+      requisitosReporte = "";
+   }
 
-    public void modificacionTipoReporte(Inforeportes reporte) {
-        System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
-        reporteSeleccionado = reporte;
-        cambiosReporte = false;
-        if (listaInfoReportesModificados.isEmpty()) {
-            listaInfoReportesModificados.add(reporteSeleccionado);
-        } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(reporteSeleccionado))) {
-            listaInfoReportesModificados.add(reporteSeleccionado);
-        } else {
-            int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
-            listaInfoReportesModificados.set(posicion, reporteSeleccionado);
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void modificacionTipoReporte(Inforeportes reporte) {
+      System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
+      reporteSeleccionado = reporte;
+      cambiosReporte = false;
+      if (listaInfoReportesModificados.isEmpty()) {
+         listaInfoReportesModificados.add(reporteSeleccionado);
+      } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(reporteSeleccionado))) {
+         listaInfoReportesModificados.add(reporteSeleccionado);
+      } else {
+         int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
+         listaInfoReportesModificados.set(posicion, reporteSeleccionado);
+      }
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    public void generarReporte(Inforeportes reporte) {
-        System.out.println(this.getClass().getName() + ".generarReporte()");
-        reporteSeleccionado = reporte;
-        seleccionRegistro();
-        generarDocumentoReporte();
-    }
+   public void generarReporte(Inforeportes reporte) {
+      System.out.println(this.getClass().getName() + ".generarReporte()");
+      reporteSeleccionado = reporte;
+      seleccionRegistro();
+      generarDocumentoReporte();
+   }
 
-    public AsynchronousFilllListener listener() {
-        System.out.println(this.getClass().getName() + ".listener()");
-        return new AsynchronousFilllListener() {
-            //RequestContext context = c;
+   public AsynchronousFilllListener listener() {
+      System.out.println(this.getClass().getName() + ".listener()");
+      return new AsynchronousFilllListener() {
+         //RequestContext context = c;
 
-            @Override
-            public void reportFinished(JasperPrint jp) {
-                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
-                try {
-                    estadoReporte = true;
-                    resultadoReporte = "Exito";
-                    /*
+         @Override
+         public void reportFinished(JasperPrint jp) {
+            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            try {
+               estadoReporte = true;
+               resultadoReporte = "Exito";
+               /*
                      * final RequestContext currentInstance =
                      * RequestContext.getCurrentInstance();
                      * Renderer.instance().render(template);
                      * RequestContext.setCurrentInstance(currentInstance)
-                     */
-                    // RequestContext.getCurrentInstance().execute("PF('formDialogos:generandoReporte");
-                    //generarArchivoReporte(jp);
-                } catch (Exception e) {
-                    System.out.println("ControlNReporteCapacitacion reportFinished ERROR: " + e.toString());
-                }
+                */
+               // RequestContext.getCurrentInstance().execute("PF('formDialogos:generandoReporte");
+               //generarArchivoReporte(jp);
+            } catch (Exception e) {
+               System.out.println("ControlNReporteCapacitacion reportFinished ERROR: " + e.toString());
             }
+         }
 
-            @Override
-            public void reportCancelled() {
-                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
-                estadoReporte = true;
-                resultadoReporte = "Cancelación";
-            }
+         @Override
+         public void reportCancelled() {
+            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            estadoReporte = true;
+            resultadoReporte = "Cancelación";
+         }
 
-            @Override
-            public void reportFillError(Throwable e) {
-                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
-                if (e.getCause() != null) {
-                    pathReporteGenerado = "ControlNReporteCapacitacion reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
-                } else {
-                    pathReporteGenerado = "ControlNReporteCapacitacion reportFillError Error: " + e.toString();
-                }
-                estadoReporte = true;
-                resultadoReporte = "Se estallo";
-            }
-        };
-    }
-
-    public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null || pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
-
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
-            }
-        }
-    }
-
-    public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-        if (reporteSeleccionado != null) {
-            System.out.println("generando reporte - ingreso al if");
-            nombreReporte = reporteSeleccionado.getNombrereporte();
-            tipoReporte = reporteSeleccionado.getTipo();
-
-            if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-            }
-            if (pathReporteGenerado != null) {
-                System.out.println("generando reporte - ingreso al 3 if");
-                validarDescargaReporte();
+         @Override
+         public void reportFillError(Throwable e) {
+            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            if (e.getCause() != null) {
+               pathReporteGenerado = "ControlNReporteCapacitacion reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
-                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+               pathReporteGenerado = "ControlNReporteCapacitacion reportFillError Error: " + e.toString();
             }
-        } else {
-            System.out.println("generando reporte - ingreso al if else");
-            System.out.println("Reporte Seleccionado es nulo");
-        }
-    }
+            estadoReporte = true;
+            resultadoReporte = "Se estallo";
+         }
+      };
+   }
 
-    public void validarDescargaReporte() {
-        System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (!tipoReporte.equals("PDF")) {
-                System.out.println("validar descarga reporte - ingreso al if 2");
-                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-            } else {
-                System.out.println("validar descarga reporte - ingreso al if 2 else");
-                FileInputStream fis;
-                try {
-                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                    fis = new FileInputStream(new File(pathReporteGenerado));
-                    System.out.println("fis : " + fis);
-                    reporte = new DefaultStreamedContent(fis, "application/pdf");
-                } catch (FileNotFoundException ex) {
-                    System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex);
-                    reporte = null;
-                }
-                if (reporte != null) {
-                    System.out.println("validar descarga reporte - ingreso al if 3");
-                    if (reporteSeleccionado != null) {
-                        System.out.println("validar descarga reporte - ingreso al if 4");
-                        //cabezeraVisor = "Reporte - " + reporteSeleccionado.getNombre();
-                        cabezeraVisor = "Reporte - " + nombreReporte;
-                    } else {
-                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-                        cabezeraVisor = "Reporte - ";
-                    }
-                    RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                    RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                }
-                pathReporteGenerado = null;
+   public void exportarReporte() throws IOException {
+      System.out.println(this.getClass().getName() + ".exportarReporte()");
+      if (pathReporteGenerado != null || pathReporteGenerado.startsWith("Error:")) {
+         File reporteF = new File(pathReporteGenerado);
+         FacesContext ctx = FacesContext.getCurrentInstance();
+         FileInputStream fis = new FileInputStream(reporteF);
+         byte[] bytes = new byte[1024];
+         int read;
+         if (!ctx.getResponseComplete()) {
+            String fileName = reporteF.getName();
+            HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+            ServletOutputStream out = response.getOutputStream();
+
+            while ((read = fis.read(bytes)) != -1) {
+               out.write(bytes, 0, read);
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            out.flush();
+            out.close();
+            ctx.responseComplete();
+         }
+      }
+   }
+
+   public void generarDocumentoReporte() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+      if (reporteSeleccionado != null) {
+         System.out.println("generando reporte - ingreso al if");
+         nombreReporte = reporteSeleccionado.getNombrereporte();
+         tipoReporte = reporteSeleccionado.getTipo();
+
+         if (nombreReporte != null && tipoReporte != null) {
+            System.out.println("generando reporte - ingreso al 2 if");
+            pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+         }
+         if (pathReporteGenerado != null) {
+            System.out.println("generando reporte - ingreso al 3 if");
+            validarDescargaReporte();
+         } else {
+            System.out.println("generando reporte - ingreso al 3 if else");
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-        }
-    }
+         }
+      } else {
+         System.out.println("generando reporte - ingreso al if else");
+         System.out.println("Reporte Seleccionado es nulo");
+      }
+   }
 
-    public void dispararDialogoGuardarCambios() {
-        System.out.println(this.getClass().getName() + ".dispararDialogoGuardarCambios()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-
-    }
-
-    public void cancelarReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarReporte()");
-        administarReportes.cancelarReporte();
-    }
-
-    public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
-        reporte = null;
-    }
-
-    public void mostrarDialogoBuscarReporte() {
-        System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
-        try {
-            if (cambiosReporte == true) {
-                contarRegistrosLovReportes();
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("formDialogos:ReportesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').show()");
-            } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
+   public void validarDescargaReporte() {
+      System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+      if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+         System.out.println("validar descarga reporte - ingreso al if 1");
+         if (!tipoReporte.equals("PDF")) {
+            System.out.println("validar descarga reporte - ingreso al if 2");
+            RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 2 else");
+            FileInputStream fis;
+            try {
+               System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+               fis = new FileInputStream(new File(pathReporteGenerado));
+               System.out.println("fis : " + fis);
+               reporte = new DefaultStreamedContent(fis, "application/pdf");
+            } catch (FileNotFoundException ex) {
+               System.out.println("validar descarga reporte - ingreso al catch 1");
+               System.out.println(ex);
+               reporte = null;
             }
-        } catch (Exception e) {
-            System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
-        }
-    }
-
-    public void mostrarTodos() {
-        System.out.println(this.getClass().getName() + ".mostrarTodos()");
-        if (cambiosReporte == true) {
-            defaultPropiedadesParametrosReporte();
-            listaIR.clear();
-            for (int i = 0; i < listValInforeportes.size(); i++) {
-                listaIR.add(listValInforeportes.get(i));
+            if (reporte != null) {
+               System.out.println("validar descarga reporte - ingreso al if 3");
+               if (reporteSeleccionado != null) {
+                  System.out.println("validar descarga reporte - ingreso al if 4");
+                  //cabezeraVisor = "Reporte - " + reporteSeleccionado.getNombre();
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+               } else {
+                  System.out.println("validar descarga reporte - ingreso al if 4 else ");
+                  cabezeraVisor = "Reporte - ";
+               }
+               RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+               RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
             }
+            pathReporteGenerado = null;
+         }
+      } else {
+         System.out.println("validar descarga reporte - ingreso al if 1 else");
+         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+      }
+   }
+
+   public void dispararDialogoGuardarCambios() {
+      System.out.println(this.getClass().getName() + ".dispararDialogoGuardarCambios()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+
+   }
+
+   public void cancelarReporte() {
+      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      administarReportes.cancelarReporte();
+   }
+
+   public void reiniciarStreamedContent() {
+      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      reporte = null;
+   }
+
+   public void mostrarDialogoBuscarReporte() {
+      System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
+      try {
+         if (cambiosReporte == true) {
+            contarRegistrosLovReportes();
             RequestContext context = RequestContext.getCurrentInstance();
-            activoBuscarReporte = false;
-            activoMostrarTodos = true;
-            RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-            RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
-            RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
-        } else {
+            RequestContext.getCurrentInstance().update("formDialogos:ReportesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').show()");
+         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
-        }
-    }
+         }
+      } catch (Exception e) {
+         System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
+      }
+   }
 
-    public void actualizarEmplDesde() {
-        System.out.println(this.getClass().getName() + ".actualizarEmplDesde()");
-        permitirIndex = true;
-        parametroDeReporte.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
-        parametroModificacion = parametroDeReporte;
-        cambiosReporte = false;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').hide()");
+   public void mostrarTodos() {
+      System.out.println(this.getClass().getName() + ".mostrarTodos()");
+      if (cambiosReporte == true) {
+         defaultPropiedadesParametrosReporte();
+         listaIR.clear();
+         for (int i = 0; i < listValInforeportes.size(); i++) {
+            listaIR.add(listValInforeportes.get(i));
+         }
+         RequestContext context = RequestContext.getCurrentInstance();
+         activoBuscarReporte = false;
+         activoMostrarTodos = true;
+         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
+         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
+         RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
+      } else {
+         RequestContext context = RequestContext.getCurrentInstance();
+         RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
+      }
+   }
 
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-        empleadoSeleccionado = null;
-        aceptar = true;
-        filtrarListEmpleados = null;
+   public void actualizarEmplDesde() {
+      System.out.println(this.getClass().getName() + ".actualizarEmplDesde()");
+      permitirIndex = true;
+      parametroDeReporte.setCodigoempleadodesde(empleadoSeleccionado.getCodigoempleado());
+      parametroModificacion = parametroDeReporte;
+      cambiosReporte = false;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').hide()");
 
-    }
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
+      empleadoSeleccionado = null;
+      aceptar = true;
+      filtrarListEmpleados = null;
 
-    public void cancelarCambioEmplDesde() {
-        System.out.println(this.getClass().getName() + ".cancelarCambioEmplDesde()");
-        empleadoSeleccionado = null;
-        aceptar = true;
-        filtrarListEmpleados = null;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').hide()");
-    }
+   }
 
-    public void actualizarEmplHasta() {
-        System.out.println(this.getClass().getName() + ".actualizarEmplHasta()");
-        permitirIndex = true;
-        parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
-        parametroModificacion = parametroDeReporte;
-        cambiosReporte = false;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').hide()");
+   public void cancelarCambioEmplDesde() {
+      System.out.println(this.getClass().getName() + ".cancelarCambioEmplDesde()");
+      empleadoSeleccionado = null;
+      aceptar = true;
+      filtrarListEmpleados = null;
+      permitirIndex = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovEmpleadoDesde:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpleadoDesde').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').hide()");
+   }
 
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-        empleadoSeleccionado = null;
-        aceptar = true;
-        filtrarListEmpleados = null;
-    }
+   public void actualizarEmplHasta() {
+      System.out.println(this.getClass().getName() + ".actualizarEmplHasta()");
+      permitirIndex = true;
+      parametroDeReporte.setCodigoempleadohasta(empleadoSeleccionado.getCodigoempleado());
+      parametroModificacion = parametroDeReporte;
+      cambiosReporte = false;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovEmpleadoHasta:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').hide()");
 
-    public void cancelarCambioEmplHasta() {
-        System.out.println(this.getClass().getName() + ".cancelarCambioEmplHasta()");
-        empleadoSeleccionado = null;
-        aceptar = true;
-        filtrarListEmpleados = null;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("form:lovEmpleadoHasta:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').hide()");
-    }
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
+      empleadoSeleccionado = null;
+      aceptar = true;
+      filtrarListEmpleados = null;
+   }
 
-    public void actualizarEmpresa() {
-        System.out.println(this.getClass().getName() + ".actualizarEmpresa()");
-        permitirIndex = true;
-        parametroDeReporte.setEmpresa(empresaSeleccionada);
-        parametroModificacion = parametroDeReporte;
-        cambiosReporte = false;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovEmpresa:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
+   public void cancelarCambioEmplHasta() {
+      System.out.println(this.getClass().getName() + ".cancelarCambioEmplHasta()");
+      empleadoSeleccionado = null;
+      aceptar = true;
+      filtrarListEmpleados = null;
+      permitirIndex = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("form:lovEmpleadoHasta:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpleadoHasta').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').hide()");
+   }
 
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
-        empresaSeleccionada = null;
-        aceptar = true;
-        filtrarListEmpresas = null;
+   public void actualizarEmpresa() {
+      System.out.println(this.getClass().getName() + ".actualizarEmpresa()");
+      permitirIndex = true;
+      parametroDeReporte.setEmpresa(empresaSeleccionada);
+      parametroModificacion = parametroDeReporte;
+      cambiosReporte = false;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovEmpresa:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
 
-    }
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
+      empresaSeleccionada = null;
+      aceptar = true;
+      filtrarListEmpresas = null;
 
-    public void cancelarEmpresa() {
-        System.out.println(this.getClass().getName() + ".cancelarEmpresa()");
-        empresaSeleccionada = null;
-        aceptar = true;
-        filtrarListEmpresas = null;
-        permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovEmpresa:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
-    }
+   }
 
-    public void actualizarSeleccionInforeporte() {
-        System.out.println(this.getClass().getName() + ".actualizarSeleccionInforeporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (bandera == 1) {
-            cerrarFiltrado();
-        }
-        defaultPropiedadesParametrosReporte();
-        listaIR.clear();
-        listaIR.add(reporteSeleccionadoLOV);
-        filtrarListIRU = null;
-        filtrarLovInforeportes = null;
-        aceptar = true;
-        activoBuscarReporte = true;
-        activoMostrarTodos = false;
-        reporteSeleccionado = null;
-        reporteSeleccionadoLOV = null;
-        RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
-        RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
-        context.reset("formDialogos:lovReportesDialogo:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
-        contarRegistros();
-    }
+   public void cancelarEmpresa() {
+      System.out.println(this.getClass().getName() + ".cancelarEmpresa()");
+      empresaSeleccionada = null;
+      aceptar = true;
+      filtrarListEmpresas = null;
+      permitirIndex = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovEmpresa:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
+   }
 
-    public void cancelarSeleccionInforeporte() {
-        System.out.println(this.getClass().getName() + ".cancelarSeleccionInforeporte()");
-        filtrarListIRU = null;
-        reporteSeleccionadoLOV = null;
-        aceptar = true;
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.reset("formDialogos:lovReportesDialogo:globalFilter");
-        RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
-        RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
-    }
+   public void actualizarSeleccionInforeporte() {
+      System.out.println(this.getClass().getName() + ".actualizarSeleccionInforeporte()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (bandera == 1) {
+         cerrarFiltrado();
+      }
+      defaultPropiedadesParametrosReporte();
+      listaIR.clear();
+      listaIR.add(reporteSeleccionadoLOV);
+      filtrarListIRU = null;
+      filtrarLovInforeportes = null;
+      aceptar = true;
+      activoBuscarReporte = true;
+      activoMostrarTodos = false;
+      reporteSeleccionado = null;
+      reporteSeleccionadoLOV = null;
+      RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
+      RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
+      context.reset("formDialogos:lovReportesDialogo:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
+      RequestContext.getCurrentInstance().update("form:reportesCapacitacion");
+      contarRegistros();
+   }
 
-    //AUTOCOMPLETAR
-    public void autocompletarGeneral(String campoConfirmar, String valorConfirmar) {
-        int indiceUnicoElemento = -1;
-        int coincidencias = 0;
-        if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
-            if (!valorConfirmar.isEmpty()) {
-                parametroDeReporte.getEmpresa().setNombre(empresa);
-                for (int i = 0; i < listValEmpresas.size(); i++) {
-                    if (listValEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    parametroDeReporte.setEmpresa(listValEmpresas.get(indiceUnicoElemento));
-                    parametroModificacion = parametroDeReporte;
-                    listValEmpresas.clear();
-                    getListValEmpresas();
-                    cambiosReporte = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                } else {
-                    permitirIndex = false;
-                    RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-                }
+   public void cancelarSeleccionInforeporte() {
+      System.out.println(this.getClass().getName() + ".cancelarSeleccionInforeporte()");
+      filtrarListIRU = null;
+      reporteSeleccionadoLOV = null;
+      aceptar = true;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("formDialogos:lovReportesDialogo:globalFilter");
+      RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
+      RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
+   }
+
+   //AUTOCOMPLETAR
+   public void autocompletarGeneral(String campoConfirmar, String valorConfirmar) {
+      int indiceUnicoElemento = -1;
+      int coincidencias = 0;
+      if (campoConfirmar.equalsIgnoreCase("EMPRESA")) {
+         if (!valorConfirmar.isEmpty()) {
+            parametroDeReporte.getEmpresa().setNombre(empresa);
+            for (int i = 0; i < listValEmpresas.size(); i++) {
+               if (listValEmpresas.get(i).getNombre().startsWith(valorConfirmar)) {
+                  indiceUnicoElemento = i;
+                  coincidencias++;
+               }
+            }
+            if (coincidencias == 1) {
+               parametroDeReporte.setEmpresa(listValEmpresas.get(indiceUnicoElemento));
+               parametroModificacion = parametroDeReporte;
+               listValEmpresas.clear();
+               getListValEmpresas();
+               cambiosReporte = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
             } else {
-                parametroDeReporte.setEmpresa(new Empresas());
-                parametroModificacion = parametroDeReporte;
-                listValEmpresas.clear();
-                getListValEmpresas();
-                cambiosReporte = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               permitirIndex = false;
+               RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
+               RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             }
-        }
-    }
+         } else {
+            parametroDeReporte.setEmpresa(new Empresas());
+            parametroModificacion = parametroDeReporte;
+            listValEmpresas.clear();
+            getListValEmpresas();
+            cambiosReporte = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         }
+      }
+   }
 
-    public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
-        if (empldesde.equals(BigDecimal.valueOf(0))) {
-            parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
-        }
-        cambiosReporte = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void modificarParametroEmpleadoDesde(BigDecimal empldesde) {
+      if (empldesde.equals(BigDecimal.valueOf(0))) {
+         parametroDeReporte.setCodigoempleadodesde(BigDecimal.valueOf(0));
+      }
+      cambiosReporte = false;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
-        String h = "99999999999999999999999999";
-        BigDecimal b = new BigDecimal(h);
-        if (emphasta.equals(b)) {
-            parametroDeReporte.setCodigoempleadodesde(b);
-        }
-        cambiosReporte = false;
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-    }
+   public void modificarParametroEmpleadoHasta(BigDecimal emphasta) {
+      String h = "99999999999999999999999999";
+      BigDecimal b = new BigDecimal(h);
+      if (emphasta.equals(b)) {
+         parametroDeReporte.setCodigoempleadodesde(b);
+      }
+      cambiosReporte = false;
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+   }
 
-    //POSICION CELDA
-    public void posicionCelda(int i) {
-        System.out.println(this.getClass().getName() + ".posicionCelda()");
-        casilla = i;
-        if (permitirIndex == true) {
-            casillaInforReporte = -1;
-            switch (casilla) {
-                case 1:
-                    fechaDesde = parametroDeReporte.getFechadesde();
-                    break;
-                case 2:
-                    fechaHasta = parametroDeReporte.getFechahasta();
-                    break;
-                case 3:
-                    emplDesde = parametroDeReporte.getCodigoempleadodesde();
-                    break;
-                case 4:
-                    emplHasta = parametroDeReporte.getCodigoempleadohasta();
-                    break;
-                case 5:
-                    empresa = parametroDeReporte.getEmpresa().getNombre();
-                    break;
-                case 6:
-                    estado = parametroDeReporte.getEstadosolucionnodo();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+   //POSICION CELDA
+   public void posicionCelda(int i) {
+      System.out.println(this.getClass().getName() + ".posicionCelda()");
+      casilla = i;
+      if (permitirIndex == true) {
+         casillaInforReporte = -1;
+         switch (casilla) {
+            case 1:
+               fechaDesde = parametroDeReporte.getFechadesde();
+               break;
+            case 2:
+               fechaHasta = parametroDeReporte.getFechahasta();
+               break;
+            case 3:
+               emplDesde = parametroDeReporte.getCodigoempleadodesde();
+               break;
+            case 4:
+               emplHasta = parametroDeReporte.getCodigoempleadohasta();
+               break;
+            case 5:
+               empresa = parametroDeReporte.getEmpresa().getNombre();
+               break;
+            case 6:
+               estado = parametroDeReporte.getEstadosolucionnodo();
+               break;
+            default:
+               break;
+         }
+      }
+   }
 
-    //MODIFICAR PARAMETRO REPORTE
-    public void modificarParametroInforme() {
-        if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
-            if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
-                System.out.println("Entre al segundo if");
-                parametroModificacion = parametroDeReporte;
-                cambiosReporte = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            } else {
-                System.out.println("entre a else del segundo if");
-                cambiosReporte = true;
-            }
-        }
-    }
+   //MODIFICAR PARAMETRO REPORTE
+   public void modificarParametroInforme() {
+      if (parametroDeReporte.getFechadesde() != null && parametroDeReporte.getFechahasta() != null) {
+         if (parametroDeReporte.getFechadesde().before(parametroDeReporte.getFechahasta())) {
+            System.out.println("Entre al segundo if");
+            parametroModificacion = parametroDeReporte;
+            cambiosReporte = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         } else {
+            System.out.println("entre a else del segundo if");
+            cambiosReporte = true;
+         }
+      }
+   }
 
-    public void mostrarDialogoGenerarReporte() {
-        System.out.println(this.getClass().getName() + ".mostrarDialogoGenerarReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formDialogos:reporteAGenerar");
-        RequestContext.getCurrentInstance().execute("PF('reporteAGenerar').show()");
-    }
+   public void mostrarDialogoGenerarReporte() {
+      System.out.println(this.getClass().getName() + ".mostrarDialogoGenerarReporte()");
+      RequestContext context = RequestContext.getCurrentInstance();
+      RequestContext.getCurrentInstance().update("formDialogos:reporteAGenerar");
+      RequestContext.getCurrentInstance().execute("PF('reporteAGenerar').show()");
+   }
 
-    public void cancelarGenerarReporte() {
-        System.out.println(this.getClass().getName() + ".cancelarGenerarReporte()");
-        reporteGenerar = "";
-        posicionReporte = -1;
-    }
+   public void cancelarGenerarReporte() {
+      System.out.println(this.getClass().getName() + ".cancelarGenerarReporte()");
+      reporteGenerar = "";
+      posicionReporte = -1;
+   }
 
-    //CONTAR REGISTROS
-    public void contarRegistros() {
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
-    }
+   //CONTAR REGISTROS
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
 
-    public void contarRegistrosLovReportes() {
-        RequestContext.getCurrentInstance().update("formDialogos:infoRegistroReportes");
-    }
+   public void contarRegistrosLovReportes() {
+      RequestContext.getCurrentInstance().update("formDialogos:infoRegistroReportes");
+   }
 
-    public void contarRegistrosEmpeladoD() {
-        RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpleadoDesde");
-    }
+   public void contarRegistrosEmpeladoD() {
+      RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpleadoDesde");
+   }
 
-    public void contarRegistrosEmpeladoH() {
-        RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpleadoHasta");
-    }
+   public void contarRegistrosEmpeladoH() {
+      RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpleadoHasta");
+   }
 
-    public void contarRegistrosEmpresa() {
-        RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpresa");
-    }
+   public void contarRegistrosEmpresa() {
+      RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpresa");
+   }
 //
 //    private static abstract class FacesContextWrapper extends FacesContext {
 //
@@ -967,290 +1009,290 @@ public class ControlNReporteCapacitacion implements Serializable {
 //        }
 //    }
 
-    //GETTER AND SETTER
-    public ParametrosReportes getParametroDeReporte() {
-        try {
-            if (parametroDeReporte == null) {
-                parametroDeReporte = new ParametrosReportes();
-                parametroDeReporte = administrarNReporteCapacitacion.parametrosDeReporte();
-            }
-            if (parametroDeReporte.getEmpresa() == null) {
-                parametroDeReporte.setEmpresa(new Empresas());
-            }
+   //GETTER AND SETTER
+   public ParametrosReportes getParametroDeReporte() {
+      try {
+         if (parametroDeReporte == null) {
+            parametroDeReporte = new ParametrosReportes();
+            parametroDeReporte = administrarNReporteCapacitacion.parametrosDeReporte();
+         }
+         if (parametroDeReporte.getEmpresa() == null) {
+            parametroDeReporte.setEmpresa(new Empresas());
+         }
 
-            return parametroDeReporte;
-        } catch (Exception e) {
-            System.out.println("Error getParametroDeInforme : " + e);
-            return null;
-        }
-    }
+         return parametroDeReporte;
+      } catch (Exception e) {
+         System.out.println("Error getParametroDeInforme : " + e);
+         return null;
+      }
+   }
 
-    public void setParametroDeReporte(ParametrosReportes parametroDeReporte) {
-        this.parametroDeReporte = parametroDeReporte;
-    }
+   public void setParametroDeReporte(ParametrosReportes parametroDeReporte) {
+      this.parametroDeReporte = parametroDeReporte;
+   }
 
-    public ParametrosReportes getParametroModificacion() {
-        return parametroModificacion;
-    }
+   public ParametrosReportes getParametroModificacion() {
+      return parametroModificacion;
+   }
 
-    public void setParametroModificacion(ParametrosReportes parametroModificacion) {
-        this.parametroModificacion = parametroModificacion;
-    }
+   public void setParametroModificacion(ParametrosReportes parametroModificacion) {
+      this.parametroModificacion = parametroModificacion;
+   }
 
-    public List<Inforeportes> getListaIR() {
-        try {
-            if (listaIR == null) {
-                listaIR = administrarNReporteCapacitacion.listInforeportesUsuario();
-            }
-            return listaIR;
-        } catch (Exception e) {
-            System.out.println("Error getListInforeportesUsuario : " + e);
-            return null;
-        }
-    }
+   public List<Inforeportes> getListaIR() {
+      try {
+         if (listaIR == null) {
+            listaIR = administrarNReporteCapacitacion.listInforeportesUsuario();
+         }
+         return listaIR;
+      } catch (Exception e) {
+         System.out.println("Error getListInforeportesUsuario : " + e);
+         return null;
+      }
+   }
 
-    public void setListaIR(List<Inforeportes> listaIR) {
-        this.listaIR = listaIR;
-    }
+   public void setListaIR(List<Inforeportes> listaIR) {
+      this.listaIR = listaIR;
+   }
 
-    public Inforeportes getReporteSeleccionado() {
-        return reporteSeleccionado;
-    }
+   public Inforeportes getReporteSeleccionado() {
+      return reporteSeleccionado;
+   }
 
-    public void setReporteSeleccionado(Inforeportes reporteSeleccionado) {
-        this.reporteSeleccionado = reporteSeleccionado;
-    }
+   public void setReporteSeleccionado(Inforeportes reporteSeleccionado) {
+      this.reporteSeleccionado = reporteSeleccionado;
+   }
 
-    public List<Inforeportes> getFiltrarListIRU() {
-        return filtrarListIRU;
-    }
+   public List<Inforeportes> getFiltrarListIRU() {
+      return filtrarListIRU;
+   }
 
-    public void setFiltrarListIRU(List<Inforeportes> filtrarListIRU) {
-        this.filtrarListIRU = filtrarListIRU;
-    }
+   public void setFiltrarListIRU(List<Inforeportes> filtrarListIRU) {
+      this.filtrarListIRU = filtrarListIRU;
+   }
 
-    public List<Inforeportes> getListaInfoReportesModificados() {
-        return listaInfoReportesModificados;
-    }
+   public List<Inforeportes> getListaInfoReportesModificados() {
+      return listaInfoReportesModificados;
+   }
 
-    public void setListaInfoReportesModificados(List<Inforeportes> listaInfoReportesModificados) {
-        this.listaInfoReportesModificados = listaInfoReportesModificados;
-    }
+   public void setListaInfoReportesModificados(List<Inforeportes> listaInfoReportesModificados) {
+      this.listaInfoReportesModificados = listaInfoReportesModificados;
+   }
 
-    public List<Inforeportes> getListValInforeportes() {
-        return listValInforeportes;
-    }
+   public List<Inforeportes> getListValInforeportes() {
+      return listValInforeportes;
+   }
 
-    public void setListValInforeportes(List<Inforeportes> listValInforeportes) {
-        this.listValInforeportes = listValInforeportes;
-    }
+   public void setListValInforeportes(List<Inforeportes> listValInforeportes) {
+      this.listValInforeportes = listValInforeportes;
+   }
 
-    public Inforeportes getReporteSeleccionadoLOV() {
-        return reporteSeleccionadoLOV;
-    }
+   public Inforeportes getReporteSeleccionadoLOV() {
+      return reporteSeleccionadoLOV;
+   }
 
-    public void setReporteSeleccionadoLOV(Inforeportes reporteSeleccionadoLOV) {
-        this.reporteSeleccionadoLOV = reporteSeleccionadoLOV;
-    }
+   public void setReporteSeleccionadoLOV(Inforeportes reporteSeleccionadoLOV) {
+      this.reporteSeleccionadoLOV = reporteSeleccionadoLOV;
+   }
 
-    public List<Inforeportes> getFiltrarLovInforeportes() {
-        return filtrarLovInforeportes;
-    }
+   public List<Inforeportes> getFiltrarLovInforeportes() {
+      return filtrarLovInforeportes;
+   }
 
-    public void setFiltrarLovInforeportes(List<Inforeportes> filtrarLovInforeportes) {
-        this.filtrarLovInforeportes = filtrarLovInforeportes;
-    }
+   public void setFiltrarLovInforeportes(List<Inforeportes> filtrarLovInforeportes) {
+      this.filtrarLovInforeportes = filtrarLovInforeportes;
+   }
 
-    public List<Inforeportes> getFiltrarReportes() {
-        return filtrarReportes;
-    }
+   public List<Inforeportes> getFiltrarReportes() {
+      return filtrarReportes;
+   }
 
-    public void setFiltrarReportes(List<Inforeportes> filtrarReportes) {
-        this.filtrarReportes = filtrarReportes;
-    }
+   public void setFiltrarReportes(List<Inforeportes> filtrarReportes) {
+      this.filtrarReportes = filtrarReportes;
+   }
 
-    public List<Empleados> getListValEmpleados() {
-        if (listValEmpleados == null) {
-            listValEmpleados = administrarNReporteCapacitacion.listEmpleados();
-        }
-        return listValEmpleados;
-    }
+   public List<Empleados> getListValEmpleados() {
+      if (listValEmpleados == null) {
+         listValEmpleados = administrarNReporteCapacitacion.listEmpleados();
+      }
+      return listValEmpleados;
+   }
 
-    public void setListValEmpleados(List<Empleados> listValEmpleados) {
-        this.listValEmpleados = listValEmpleados;
-    }
+   public void setListValEmpleados(List<Empleados> listValEmpleados) {
+      this.listValEmpleados = listValEmpleados;
+   }
 
-    public Empleados getEmpleadoSeleccionado() {
-        return empleadoSeleccionado;
-    }
+   public Empleados getEmpleadoSeleccionado() {
+      return empleadoSeleccionado;
+   }
 
-    public void setEmpleadoSeleccionado(Empleados empleadoSeleccionado) {
-        this.empleadoSeleccionado = empleadoSeleccionado;
-    }
+   public void setEmpleadoSeleccionado(Empleados empleadoSeleccionado) {
+      this.empleadoSeleccionado = empleadoSeleccionado;
+   }
 
-    public List<Empleados> getFiltrarListEmpleados() {
-        return filtrarListEmpleados;
-    }
+   public List<Empleados> getFiltrarListEmpleados() {
+      return filtrarListEmpleados;
+   }
 
-    public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
-        this.filtrarListEmpleados = filtrarListEmpleados;
-    }
+   public void setFiltrarListEmpleados(List<Empleados> filtrarListEmpleados) {
+      this.filtrarListEmpleados = filtrarListEmpleados;
+   }
 
-    public List<Empresas> getListValEmpresas() {
-        if (listValEmpresas == null || listValEmpresas.isEmpty()) {
-            listValEmpresas = administrarNReporteCapacitacion.listEmpresas();
-        }
-        return listValEmpresas;
-    }
+   public List<Empresas> getListValEmpresas() {
+      if (listValEmpresas == null || listValEmpresas.isEmpty()) {
+         listValEmpresas = administrarNReporteCapacitacion.listEmpresas();
+      }
+      return listValEmpresas;
+   }
 
-    public void setListValEmpresas(List<Empresas> listValEmpresas) {
-        this.listValEmpresas = listValEmpresas;
-    }
+   public void setListValEmpresas(List<Empresas> listValEmpresas) {
+      this.listValEmpresas = listValEmpresas;
+   }
 
-    public Empresas getEmpresaSeleccionada() {
-        return empresaSeleccionada;
-    }
+   public Empresas getEmpresaSeleccionada() {
+      return empresaSeleccionada;
+   }
 
-    public void setEmpresaSeleccionada(Empresas empresaSeleccionada) {
-        this.empresaSeleccionada = empresaSeleccionada;
-    }
+   public void setEmpresaSeleccionada(Empresas empresaSeleccionada) {
+      this.empresaSeleccionada = empresaSeleccionada;
+   }
 
-    public List<Empresas> getFiltrarListEmpresas() {
-        return filtrarListEmpresas;
-    }
+   public List<Empresas> getFiltrarListEmpresas() {
+      return filtrarListEmpresas;
+   }
 
-    public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
-        this.filtrarListEmpresas = filtrarListEmpresas;
-    }
+   public void setFiltrarListEmpresas(List<Empresas> filtrarListEmpresas) {
+      this.filtrarListEmpresas = filtrarListEmpresas;
+   }
 
-    public boolean isAceptar() {
-        return aceptar;
-    }
+   public boolean isAceptar() {
+      return aceptar;
+   }
 
-    public void setAceptar(boolean aceptar) {
-        this.aceptar = aceptar;
-    }
+   public void setAceptar(boolean aceptar) {
+      this.aceptar = aceptar;
+   }
 
-    public String getAltoTabla() {
-        return altoTabla;
-    }
+   public String getAltoTabla() {
+      return altoTabla;
+   }
 
-    public void setAltoTabla(String altoTabla) {
-        this.altoTabla = altoTabla;
-    }
+   public void setAltoTabla(String altoTabla) {
+      this.altoTabla = altoTabla;
+   }
 
-    public String getPathReporteGenerado() {
-        return pathReporteGenerado;
-    }
+   public String getPathReporteGenerado() {
+      return pathReporteGenerado;
+   }
 
-    public void setPathReporteGenerado(String pathReporteGenerado) {
-        this.pathReporteGenerado = pathReporteGenerado;
-    }
+   public void setPathReporteGenerado(String pathReporteGenerado) {
+      this.pathReporteGenerado = pathReporteGenerado;
+   }
 
-    public boolean isActivoMostrarTodos() {
-        return activoMostrarTodos;
-    }
+   public boolean isActivoMostrarTodos() {
+      return activoMostrarTodos;
+   }
 
-    public void setActivoMostrarTodos(boolean activoMostrarTodos) {
-        this.activoMostrarTodos = activoMostrarTodos;
-    }
+   public void setActivoMostrarTodos(boolean activoMostrarTodos) {
+      this.activoMostrarTodos = activoMostrarTodos;
+   }
 
-    public boolean isActivoBuscarReporte() {
-        return activoBuscarReporte;
-    }
+   public boolean isActivoBuscarReporte() {
+      return activoBuscarReporte;
+   }
 
-    public void setActivoBuscarReporte(boolean activoBuscarReporte) {
-        this.activoBuscarReporte = activoBuscarReporte;
-    }
+   public void setActivoBuscarReporte(boolean activoBuscarReporte) {
+      this.activoBuscarReporte = activoBuscarReporte;
+   }
 
-    public boolean isActivarEnvio() {
-        return activarEnvio;
-    }
+   public boolean isActivarEnvio() {
+      return activarEnvio;
+   }
 
-    public void setActivarEnvio(boolean activarEnvio) {
-        this.activarEnvio = activarEnvio;
-    }
+   public void setActivarEnvio(boolean activarEnvio) {
+      this.activarEnvio = activarEnvio;
+   }
 
-    public StreamedContent getReporte() {
-        return reporte;
-    }
+   public StreamedContent getReporte() {
+      return reporte;
+   }
 
-    public void setReporte(StreamedContent reporte) {
-        this.reporte = reporte;
-    }
+   public void setReporte(StreamedContent reporte) {
+      this.reporte = reporte;
+   }
 
-    public String getInfoRegistro() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        tabla = (DataTable) c.getViewRoot().findComponent("form:reportesCapacitacion");
-        infoRegistro = String.valueOf(tabla.getRowCount());
-        return infoRegistro;
-    }
+   public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tabla = (DataTable) c.getViewRoot().findComponent("form:reportesCapacitacion");
+      infoRegistro = String.valueOf(tabla.getRowCount());
+      return infoRegistro;
+   }
 
-    public String getInfoRegistroReportes() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovReportesDialogo");
-        infoRegistroLovReportes = String.valueOf(tabla.getRowCount());
-        return infoRegistroLovReportes;
-    }
+   public String getInfoRegistroReportes() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovReportesDialogo");
+      infoRegistroLovReportes = String.valueOf(tabla.getRowCount());
+      return infoRegistroLovReportes;
+   }
 
-    public String getInfoRegistroEmpleadoDesde() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoDesde");
-        infoRegistroEmpleadoDesde = String.valueOf(tabla.getRowCount());
-        return infoRegistroEmpleadoDesde;
-    }
+   public String getInfoRegistroEmpleadoDesde() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoDesde");
+      infoRegistroEmpleadoDesde = String.valueOf(tabla.getRowCount());
+      return infoRegistroEmpleadoDesde;
+   }
 
-    public String getInfoRegistroEmpleadoHasta() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoHasta");
-        infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
-        return infoRegistroEmpleadoHasta;
-    }
+   public String getInfoRegistroEmpleadoHasta() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpleadoHasta");
+      infoRegistroEmpleadoHasta = String.valueOf(tabla.getRowCount());
+      return infoRegistroEmpleadoHasta;
+   }
 
-    public String getInfoRegistroEmpresa() {
-        FacesContext c = FacesContext.getCurrentInstance();
-        tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpresa");
-        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
-        return infoRegistroEmpresa;
-    }
+   public String getInfoRegistroEmpresa() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpresa");
+      infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
+      return infoRegistroEmpresa;
+   }
 
-    public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
-        this.infoRegistroEmpresa = infoRegistroEmpresa;
-    }
+   public void setInfoRegistroEmpresa(String infoRegistroEmpresa) {
+      this.infoRegistroEmpresa = infoRegistroEmpresa;
+   }
 
-    public String getReporteGenerar() {
-        if (posicionReporte != -1) {
-            reporteGenerar = listaIR.get(posicionReporte).getNombre();
-        }
-        return reporteGenerar;
-    }
+   public String getReporteGenerar() {
+      if (posicionReporte != -1) {
+         reporteGenerar = listaIR.get(posicionReporte).getNombre();
+      }
+      return reporteGenerar;
+   }
 
-    public void setReporteGenerar(String reporteGenerar) {
-        this.reporteGenerar = reporteGenerar;
-    }
+   public void setReporteGenerar(String reporteGenerar) {
+      this.reporteGenerar = reporteGenerar;
+   }
 
-    public String getRequisitosReporte() {
-        return requisitosReporte;
-    }
+   public String getRequisitosReporte() {
+      return requisitosReporte;
+   }
 
-    public void setRequisitosReporte(String requisitosReporte) {
-        this.requisitosReporte = requisitosReporte;
-    }
+   public void setRequisitosReporte(String requisitosReporte) {
+      this.requisitosReporte = requisitosReporte;
+   }
 
-    public boolean isCambiosReporte() {
-        return cambiosReporte;
-    }
+   public boolean isCambiosReporte() {
+      return cambiosReporte;
+   }
 
-    public void setCambiosReporte(boolean cambiosReporte) {
-        this.cambiosReporte = cambiosReporte;
-    }
+   public void setCambiosReporte(boolean cambiosReporte) {
+      this.cambiosReporte = cambiosReporte;
+   }
 
-    public String getCabezeraVisor() {
-        return cabezeraVisor;
-    }
+   public String getCabezeraVisor() {
+      return cabezeraVisor;
+   }
 
-    public void setCabezeraVisor(String cabezeraVisor) {
-        this.cabezeraVisor = cabezeraVisor;
-    }
+   public void setCabezeraVisor(String cabezeraVisor) {
+      this.cabezeraVisor = cabezeraVisor;
+   }
 
 }

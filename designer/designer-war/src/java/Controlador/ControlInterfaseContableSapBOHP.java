@@ -28,7 +28,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -92,8 +94,6 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
     private Procesos procesoSeleccionado;
     private String infoRegistroProceso;
     //
-    private String paginaAnterior;
-    //
     private boolean guardado;
     private Date fechaDeParametro;
     private boolean aceptar;
@@ -136,6 +136,8 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
     private FTPClient ftpClient;
     private DefaultStreamedContent download;
     private UsuariosInterfases usuarioInterfaseContabilizacion;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlInterfaseContableSapBOHP() {
         ftpClient = new FTPClient();
@@ -169,9 +171,57 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
         activarEnviar = true;
         activarDeshacer = true;
         msnFechasActualizar = "";
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      actualUsuarioBD = null;
+        getActualUsuarioBD();
+        listaParametrosContables = null;
+        getListaParametrosContables();
+        parametroContableActual = null;
+        getParametroContableActual();
+   }
+      
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "interfasecontablesapbohp";
+        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -186,16 +236,6 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
 
     public void activarAceptar() {
         aceptar = false;
-    }
-
-    public void recibirPagina(String paginaAnt) {
-        paginaAnterior = paginaAnt;
-        actualUsuarioBD = null;
-        getActualUsuarioBD();
-        listaParametrosContables = null;
-        getListaParametrosContables();
-        parametroContableActual = null;
-        getParametroContableActual();
     }
 
     public String redirigir() {
@@ -1044,7 +1084,7 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
             parametroContableActual = null;
             getParametroContableActual();
             cambiosParametro = false;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:PanelTotal");
@@ -1461,7 +1501,7 @@ public class ControlInterfaseContableSapBOHP implements Serializable {
                     RequestContext.getCurrentInstance().update("form:btnDeshacer");
                     RequestContext.getCurrentInstance().update("form:PLANO");
                     RequestContext.getCurrentInstance().update("form:PanelTotal");
-                    FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+                    FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
                 } else {

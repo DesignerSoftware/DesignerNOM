@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -65,7 +68,8 @@ public class ControlMotivosContratos implements Serializable {
    private Integer backUpCodigo;
    private String backUpDescripcion;
    private String infoRegistro;
-   public String paginaAnterior;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlMotivosContratos() {
 
@@ -79,6 +83,44 @@ public class ControlMotivosContratos implements Serializable {
       duplicarMotivoContrato = new MotivosContratos();
       guardado = true;
       tamano = 320;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "motivocontrato";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    @PostConstruct
@@ -100,14 +142,6 @@ public class ControlMotivosContratos implements Serializable {
       }
       motivoContratoSeleccionado = null;
       contarRegistros();
-   }
-
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
    }
 
    public void cambiarIndice(int indice, int celda) {
@@ -225,6 +259,8 @@ public class ControlMotivosContratos implements Serializable {
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      cancelarModificacion();
+      navegar("atras");
    }
 
    public void activarCtrlF11() {
@@ -531,7 +567,7 @@ public class ControlMotivosContratos implements Serializable {
          System.out.println("Se guardaron los datos con exito");
          listMotivosContratos = null;
          RequestContext.getCurrentInstance().update("form:datosMotivoContrato");
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          k = 0;

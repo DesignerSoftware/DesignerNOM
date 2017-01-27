@@ -13,7 +13,7 @@
                 <h:form id="form"> 
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Tipos de Viajero" styleClass="panelTotal">    
-                        
+
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -64,7 +64,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTiposViajeros.salir()}" action="vigenciaviajero"  process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlTiposViajeros.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -77,7 +77,7 @@
                                          value="#{controlTiposViajeros.listTiposViajeros}" scrollable="true" scrollHeight="#{controlTiposViajeros.tamano}" scrollWidth="830"
                                          filteredValue="#{controlTiposViajeros.filtrarTiposViajeros}" emptyMessage="No se encontrarón resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false" selection="#{controlTiposViajeros.tiposViajerosSeleccionado}" selectionMode="single">
-                                
+
                                 <p:ajax event="filter" listener="#{controlTiposViajeros.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -110,13 +110,19 @@
 
                         <h:outputText id="informacionRegistro" value="Registros: #{controlTiposViajeros.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold;"/>
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" actionListener="#{controlTiposViajeros.revisarDialogoGuardar()}" disabled="#{controlTiposViajeros.guardado}" process="@this"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" action="vigenciaviajero" value="" process="@this"/>
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" actionListener="#{controlTiposViajeros.salir()}" value="" process="@this"/>
 
                         <p:dialog id="confirmarGuardar" header="¡Precaución!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposViajeros.guardarTiposViajeros()}" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTiposViajeros.cancelarModificacion()}" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 170px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlTiposViajeros.guardarTiposViajeros()}" />
+                                <f:actionListener binding="#{controlTiposViajeros.navegar('atras')}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 235px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlTiposViajeros.cancelarModificacion()}" />
+                              <f:actionListener binding="#{controlTiposViajeros.navegar('atras')}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
@@ -158,14 +164,14 @@
                     <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSVIAJEROS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposViajeros.secRegistro, 'TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 63px; left: 185px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposViajeros.secRegistro, 'TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 63px; left: 185px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla TIPOSVIAJEROS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 60px; left: 185px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 60px; left: 185px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
@@ -182,7 +188,7 @@
                     <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposViajeros.secRegistro, 'TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 65px; left: 185px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposViajeros.secRegistro, 'TiposViajeros', 'tipoviajero')}" style="position: absolute; top: 65px; left: 185px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 250px;" process="@this" />
                     </p:dialog>
 

@@ -1,7 +1,7 @@
 package Controlador;
 
-
 import Administrar.AdministrarUsuarios;
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Pantallas;
 import Entidades.Perfiles;
 import Entidades.Personas;
@@ -16,10 +16,14 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -88,7 +92,8 @@ public class ControlUsuarios implements Serializable {
     //////////PRUEBAS UNITARIAS COMPONENTES////////
     ///////////////////////////////////////////////
     public boolean buscador;
-    public String paginaAnterior;
+    private Map<String, Object> mapParametros;
+    private String paginaAnterior;
     public String alisin;
     //otros
     private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
@@ -130,6 +135,9 @@ public class ControlUsuarios implements Serializable {
         buscador = false;
         tablaImprimir = ":formExportar:datosUsuariosExportar";
         nombreArchivo = "UsuariosXML";
+        paginaAnterior = "nominaf";
+        mapParametros = new LinkedHashMap<String, Object>();
+        mapParametros.put("paginaAnterior", paginaAnterior);
 
     }
 
@@ -152,14 +160,43 @@ public class ControlUsuarios implements Serializable {
         }
     }
 
-    public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-    }
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
-    public String redirigir() {
-        return paginaAnterior;
-    }
+     public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
 
+     public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "usuario";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+        // mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+     
+     
     public void activarAceptar() {
         aceptar = false;
     }
@@ -339,7 +376,7 @@ public class ControlUsuarios implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('LOVPersonas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
         infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
-        
+
     }
 
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LND = LISTA - NUEVO - DUPLICADO)
@@ -479,7 +516,8 @@ public class ControlUsuarios implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;RequestContext context = RequestContext.getCurrentInstance();
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVPerfiles:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPerfiles').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').hide()");
@@ -567,7 +605,8 @@ public class ControlUsuarios implements Serializable {
         secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
-        permitirIndex = true;RequestContext context = RequestContext.getCurrentInstance();
+        permitirIndex = true;
+        RequestContext context = RequestContext.getCurrentInstance();
         context.reset("formularioDialogos:LOVPantallas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPantallas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').hide()");
@@ -1318,12 +1357,10 @@ public class ControlUsuarios implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("USUARIOS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("USUARIOS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -1415,6 +1452,7 @@ public class ControlUsuarios implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:aliasNombreClon");
         RequestContext.getCurrentInstance().execute("PF('aliasNombreClon').show()");
+        navegar("atras");
     }
 
     public void crearUsuario() {
@@ -1554,7 +1592,7 @@ public class ControlUsuarios implements Serializable {
         System.out.println("alias: " + eliminarUsuarios.getAlias());
         exeE = administrarUsuario.eliminarUsuariosBD(eliminarUsuarios.getAlias());
         exeE2 = administrarUsuario.eliminarUsuarioTotalBD(eliminarUsuarios.getAlias());
-        System.out.println("si está haciendo algo");        
+        System.out.println("si está haciendo algo");
         if (exeE != null) {
             mensaje = "Borrando el Usuario...";
             FacesMessage msg = new FacesMessage("Información", mensaje);
@@ -1694,50 +1732,50 @@ public class ControlUsuarios implements Serializable {
         String ayuda = "";
         Integer exeR = null;
         Calendar cal = Calendar.getInstance();
-        if (cal.get(cal.MONTH) == 0){
+        if (cal.get(cal.MONTH) == 0) {
             ayuda = "01";
         }
-        if (cal.get(cal.MONTH) == 1){
+        if (cal.get(cal.MONTH) == 1) {
             ayuda = "02";
         }
-        if (cal.get(cal.MONTH) == 2){
+        if (cal.get(cal.MONTH) == 2) {
             ayuda = "03";
         }
-        if (cal.get(cal.MONTH) == 3){
+        if (cal.get(cal.MONTH) == 3) {
             ayuda = "04";
         }
-        if (cal.get(cal.MONTH) == 4){
+        if (cal.get(cal.MONTH) == 4) {
             ayuda = "05";
         }
-        if (cal.get(cal.MONTH) == 5){
+        if (cal.get(cal.MONTH) == 5) {
             ayuda = "06";
         }
-        if (cal.get(cal.MONTH) == 6){
+        if (cal.get(cal.MONTH) == 6) {
             ayuda = "07";
         }
-        if (cal.get(cal.MONTH) == 7){
+        if (cal.get(cal.MONTH) == 7) {
             ayuda = "08";
         }
-        if (cal.get(cal.MONTH) == 8){
+        if (cal.get(cal.MONTH) == 8) {
             ayuda = "09";
         }
-        if (cal.get(cal.MONTH) == 9){
+        if (cal.get(cal.MONTH) == 9) {
             ayuda = "10";
         }
-        if (cal.get(cal.MONTH) == 10){
+        if (cal.get(cal.MONTH) == 10) {
             ayuda = "11";
         }
-        if (cal.get(cal.MONTH) == 11){
+        if (cal.get(cal.MONTH) == 11) {
             ayuda = "12";
         }
         RequestContext context = RequestContext.getCurrentInstance();
         if (cal.get(cal.DATE) < 10) {
             fecha = "0" + cal.get(cal.DATE) + ayuda + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
-            System.out.println("esta es la fecha de hoy1: " + fecha);            
+            System.out.println("esta es la fecha de hoy1: " + fecha);
         } else if (cal.get(cal.DATE) > 10) {
             fecha = cal.get(cal.DATE) + ayuda + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
             System.out.println("esta es la fecha de hoy2: " + fecha);
-        } 
+        }
         if (index >= 0) {
             if (tipoLista == 0) {
                 System.out.println("alias para desbloquear: " + usuariosSeleccionado.getAlias());

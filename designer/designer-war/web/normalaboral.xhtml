@@ -79,7 +79,7 @@
                                 <p:separator style="position: relative; top: -9px"/>
 
                                 <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                                 actionListener="#{controlNormasLaborales.salir()}" action="emplvigencianormalaboral" process="@this"/>  
+                                                 actionListener="#{controlNormasLaborales.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="Salir"/>
 
                             </p:toolbarGroup>  
@@ -94,8 +94,8 @@
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="50"  
                                          selection="#{controlNormasLaborales.normaLaboralSeleccionada}"
                                          selectionMode="single">
-                                
-                               <p:ajax event="filter" listener="#{controlNormasLaborales.eventoFiltrar()}"/>
+
+                                <p:ajax event="filter" listener="#{controlNormasLaborales.eventoFiltrar()}"/>
                                 <f:event type="preRenderView" listener="#{controlNormasLaborales.recordarSeleccion()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"
@@ -138,14 +138,20 @@
 
                         <h:outputText id="informacionRegistro" value="Registros #{controlNormasLaborales.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" disabled="#{controlNormasLaborales.guardado}" update="datosNormaLaboral" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" action="#{controlNormasLaborales.redirigir()}"   />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlNormasLaborales.salir()}"   />
 
 
                         <p:dialog id="confirmarGuardar" header="¡PRECAUCION!" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNormasLaborales.guardarNormasLaborales()}" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNormasLaborales.cancelarModificacion()}" style="position: absolute; top: 50px; left: 230px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlNormasLaborales.guardarNormasLaborales()}" />
+                                <f:actionListener binding="#{controlNormasLaborales.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 230px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlNormasLaborales.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlNormasLaborales.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
@@ -188,14 +194,14 @@
                     <p:dialog id="confirmarRastro" header="¡INFORMACION!" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'NORMASLABORALES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 63px; left: 180px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 63px; left: 180px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="¡INFORMACION!" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla NORMASLABORALES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NormasLaborales', 'normalaboral')}" style="position: absolute; top: 60px; left: 180px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NormasLaborales', 'normalaboral')}" style="position: absolute; top: 60px; left: 180px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
@@ -212,7 +218,7 @@
                     <p:dialog id="errorTablaConRastro" header="¡INFORMACION!" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 70px; left: 180px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNormasLaborales.normaLaboralSeleccionada.secuencia, 'NormasLaborales', 'normalaboral')}" style="position: absolute; top: 70px; left: 180px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 250px;" process="@this" />
                     </p:dialog>
 

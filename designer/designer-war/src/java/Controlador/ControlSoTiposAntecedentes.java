@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -53,7 +56,9 @@ public class ControlSoTiposAntecedentes implements Serializable {
     private boolean aceptar, guardado, activarLov, permitirIndex;
     private int tipoActualizacion, tipoLista, bandera, k, cualCelda;
     private BigInteger l;
-    private String infoRegistro, paginaanterior, altoTabla, mensajeValidacion;
+    private String infoRegistro, altoTabla, mensajeValidacion;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSoTiposAntecedentes() {
         permitirIndex = true;
@@ -65,11 +70,12 @@ public class ControlSoTiposAntecedentes implements Serializable {
         listTiposAntecedentes = null;
         guardado = true;
         activarLov = true;
-        paginaanterior = " ";
+        paginaAnterior = " ";
         nuevoTipoAntecedente = new SoTiposAntecedentes();
         duplicarTipoAntecedente = new SoTiposAntecedentes();
         k = 0;
         altoTabla = "300";
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -85,8 +91,8 @@ public class ControlSoTiposAntecedentes implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
-        paginaanterior = pagina;
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
         listTiposAntecedentes = null;
         getListTiposAntecedentes();
         if (listTiposAntecedentes != null) {
@@ -96,8 +102,46 @@ public class ControlSoTiposAntecedentes implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listTiposAntecedentes = null;
+        getListTiposAntecedentes();
+        if (listTiposAntecedentes != null) {
+            if (!listTiposAntecedentes.isEmpty()) {
+                tipoantecedenteSeleccionado = listTiposAntecedentes.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tiposantecedentes";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public String retornarPaginaAnterior() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cancelarModificacion() {

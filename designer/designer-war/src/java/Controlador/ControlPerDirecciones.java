@@ -21,6 +21,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -79,9 +82,11 @@ public class ControlPerDirecciones implements Serializable {
     //Duplicar
     private Direcciones duplicarDireccion;
     private String altoTabla;
-    private String infoRegistro, infoRegistroCiudades, paginaanterior;
+    private String infoRegistro, infoRegistroCiudades;
     private boolean activarLOV;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlPerDirecciones() {
         permitirIndex = true;
@@ -102,8 +107,9 @@ public class ControlPerDirecciones implements Serializable {
         listaDirecciones = null;
         k = 0;
         altoTabla = "270";
-        paginaanterior = " ";
+        paginaAnterior = " ";
         activarLOV = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -120,8 +126,45 @@ public class ControlPerDirecciones implements Serializable {
         }
     }
 
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "perdireccion";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listaDirecciones = null;
         persona = administrarDirecciones.consultarPersona(secuencia);
         getListaDirecciones();
@@ -134,7 +177,7 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(Direcciones direccion, int celda) {
@@ -277,88 +320,16 @@ public class ControlPerDirecciones implements Serializable {
     }
 
     //AUTOCOMPLETAR
-    public void modificarDirecciones(Direcciones direccion, String confirmarCambio, String valorConfirmar) {
+    public void modificarDirecciones(Direcciones direccion) {
         direccionSeleccionada = direccion;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                    if (listaDireccionesModificar.isEmpty()) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                }
-
-            } else if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
+        if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
+            if (listaDireccionesModificar.isEmpty()) {
+                listaDireccionesModificar.add(direccionSeleccionada);
+            } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
+                listaDireccionesModificar.add(direccionSeleccionada);
             }
-            RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
-        } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
-            if (tipoLista == 0) {
-                direccionSeleccionada.getCiudad().setNombre(Ciudad);
-            } else {
-                direccionSeleccionada.getCiudad().setNombre(Ciudad);
-            }
-
-            for (int i = 0; i < listaCiudades.size(); i++) {
-                if (listaCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    direccionSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                } else {
-                    direccionSeleccionada.setCiudad(listaCiudades.get(indiceUnicoElemento));
-                }
-                listaCiudades = null;
-                getListaCiudades();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-                    if (listaDireccionesModificar.isEmpty()) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                        listaDireccionesModificar.add(direccionSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                }
-            } else if (!listaDireccionesCrear.contains(direccionSeleccionada)) {
-
-                if (listaDireccionesModificar.isEmpty()) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                } else if (!listaDireccionesModificar.contains(direccionSeleccionada)) {
-                    listaDireccionesModificar.add(direccionSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                }
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosDireccionesPersona");
     }

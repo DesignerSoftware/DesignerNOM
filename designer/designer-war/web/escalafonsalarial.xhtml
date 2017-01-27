@@ -1,509 +1,508 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.escalafonsalarial" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-
-                        <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nomina" process="@this" />
-
-
-                        <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 220px; border-radius: 10px; ">
-                            <legend style="color: blue"><strong>#{msg['escalafonSalarial']}</strong></legend>
-
-                            <p:dataTable id="datosEscalafonSalarial" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 820px;"                           
-                                         value="#{controlEscalafonSalarial.listaEscalafonesSalariales}" scrollable="true" scrollHeight="#{controlEscalafonSalarial.altoTablaEscalafon}"  scrollWidth="820"
-                                         filteredValue="#{controlEscalafonSalarial.filtrarListaEscalafonesSalariales}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlEscalafonSalarial.escalafonTablaSeleccionado}">
-
-                                <p:ajax event="filter" listener="#{controlEscalafonSalarial.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                          id="escalafonCodigo" width="35" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarEscalafonCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonCodigo" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 0)}"  process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value="" />
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column  headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
-                                          id="escalafonDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="30" id="editarEscalafonDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonDescripcion" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 1)}" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                </p:column>
-
-                                <p:column  headerText="#{msg['tipoTrabajador']}" sortBy="#{info.tipotrabajador.nombre}" filterBy="#{info.tipotrabajador.nombre}" filterMatchMode="contains" 
-                                          id="escalafonTipoTrabajador" width="80" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipotrabajador.nombre}" >
-                                            </h:outputText></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipotrabajador.nombre}" id="editarEscalafonTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 2)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEscalafonSalarial.modificarEscalafonSalarial(indice, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}" process="@this" update="editarEscalafonTipoTrabajador"/>
-                                                <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,0)}" process="@this" update="editarEscalafonTipoTrabajador"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer">
-                                        <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooEscalafonTipoTrabajador" value=" "/>
-                                    </f:facet>
-                                </p:column>
-
-                            </p:dataTable>  
-                        </fieldset> 
-
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlEscalafonSalarial.guardarGeneral()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlEscalafonSalarial.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlEscalafonSalarial.listaValoresBoton()}"  process="@this"/>
-                                <p:tooltip for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlEscalafonSalarial.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlEscalafonSalarial.validarExportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlEscalafonSalarial.exportXML()}" fileName="#{controlEscalafonSalarial.nombreXML}" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlEscalafonSalarial.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlEscalafonSalarial.dialogoNuevoRegistro()}" process="@this"/> 
-                                <p:tooltip for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlEscalafonSalarial.verificarRegistroBorrar()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlEscalafonSalarial.verificarRegistroDuplicar()}" process="@this"/>  
-                                <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlEscalafonSalarial.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
-                                <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
-
-                        <fieldset style="position: absolute; left: 10px; top: 305px; width: 830px; height: 160px; border-radius: 10px; ">
-                            <legend style=" color: blue"><strong>#{msg['grupoSalarial']}</strong></legend>
-
-                            <p:dataTable id="datosGrupoSalarial" var="infoGS" rowKey="#{infoGS.secuencia}" rowIndexVar="indiceGS" style="border: 1px; text-align: left;width: 820px"
-                                         value="#{controlEscalafonSalarial.listaGruposSalariales}" scrollable="true" scrollHeight="#{controlEscalafonSalarial.altoTablaGrupo}" scrollWidth="820"
-                                         filteredValue="#{controlEscalafonSalarial.filtrarListaGruposSalariales}" emptyMessage="#{msg['vacio']}" selectionMode="single"
-                                         editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlEscalafonSalarial.grupoTablaSeleccionado}">
-
-                                <p:ajax event="filter" listener="#{controlEscalafonSalarial.eventoFiltrar()}"/>
-
-                                <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoGS.descripcion}" filterBy="#{infoGS.descripcion}" filterMatchMode="contains"  width="150" 
-                                          id="grupoDescripcion" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{infoGS.descripcion}" style="text-transform: uppercase">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoGS.descripcion}" id="editarGrupoDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,0)}" process="@this"/> 
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column  headerText="#{msg['salario']}" sortBy="#{infoGS.salario}" filterBy="#{infoGS.descripcion}" filterMatchMode="contains"  width="50" 
-                                          id="grupoSalario" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText id="outputSalario" value="#{infoGS.salario}" style="text-transform: uppercase">
-                                                <f:convertNumber currencySymbol="$" type="currency" for="outputSalario" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoGS.salario}" id="editarGrupoSalario" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,1)}" process="@this"/> 
-                                            </p:inputText>
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                </p:column>
-
-                            </p:dataTable>  
-                        </fieldset> 
-                    </p:panel>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.guardarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
-                        <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroEscalafonSalarial()}" process="@this" />
-                        <p:commandButton value="#{msg['grupoSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroGrupoSalarial()}" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorDatosNullEscalafon" header="#{msg['atencion']}" widgetVar="errorDatosNullEscalafon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDatosNullEscalafon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorDescripcionEscalafon" header="#{msg['atencion']}" widgetVar="errorDescripcionEscalafon"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDescripcionEscalafon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorDatosNullGrupo" header="#{msg['atencion']}" widgetVar="errorDatosNullGrupo"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDatosNullGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog header="#{msg['tipotrabajadorD']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
-                              showEffect="fade" hideEffect="fade" width="501" modal="true" >
-                        <p:dataTable id="lovTipoTrabajador" style=" width: 470px;" var="dias" value="#{controlEscalafonSalarial.lovTiposTrabajadores}" rowKey="#{dias.secuencia}"
-                                     selection="#{controlEscalafonSalarial.tipoTrabajadorSeleccionado}" scrollWidth="486" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250" 
-                                     filteredValue="#{controlEscalafonSalarial.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlEscalafonSalarial.activarAceptar()}" update=":form:aceptarTT"/>
-                            <p:ajax event="rowDblselect" listener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:140px; position: relative; left: 70px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{dias.nombre}"  filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreTT']}" />
-                                </f:facet>
-                                <h:outputText value="#{dias.nombre}" />
-                            </p:column>
-                            <p:column filterBy="#{dias.tipo}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['tipoTT']}" />
-                                </f:facet>
-                                <h:outputText value="#{dias.tipo}" />
-                            </p:column>
-                            <p:column filterBy="#{dias.codigo}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigoTT']}" />
-                                </f:facet>
-                                <h:outputText value="#{dias.codigo}" />
-                            </p:column>
-                        </p:dataTable>
-                        
-                        <h:outputText id="infoRegistroTipoTrabajador" value="#{controlEscalafonSalarial.infoRegistroTipoTrabajador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-                        
-                        <p:commandButton icon="ui-icon-check" id="aceptarTT" style="position: relative; left: 320px;" value="#{msg['aceptar']}" disabled="#{controlEscalafonSalarial.aceptar}" actionListener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this"/>
-                        
-                        <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTT" style="position: relative; left: 320px;" value="#{msg['atras']}" actionListener="#{controlEscalafonSalarial.cancelarCambioTipoTrabajador()}" process="@this"/>
-                        
-                    </p:dialog>
-
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlEscalafonSalarial.activarCtrlF11()}"/> 
-                </h:form>
-                <h:form id="formularioDialogos" >
-
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="95" width="350px;"  >
-                        <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroEscalafonSalarial').show()" update=":formularioDialogos:nuevoEscalafonSalarial"  process="@this" />
-                        <p:commandButton value="#{msg['grupoSalarial']}" disabled="#{controlEscalafonSalarial.disabledNuevoGrupoSalarial}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroGrupoSalarial').show()" update=":formularioDialogos:nuevoGrupoSalarial"  process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="NuevoRegistroEscalafonSalarial" header="#{msg['nuevoregistroES']}" widgetVar="NuevoRegistroEscalafonSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="195" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoES']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoEscalafonSalarial" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="nuevoEscalafonSalarialCodigo"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['codigo']}" for="nuevoEscalafonSalarialCodigo"/>
-
-                            <strong><h:outputText value="*#{msg['descripcionNES']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
-                                <p:ajax event="change" update="nuevoEscalafonSalarialDescripcion"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['descripcion']}" for="nuevoEscalafonSalarialDescripcion"/>
-
-                            <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}"/> 
-                                <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(1, 'TIPOTRABAJADOR')}" /> 
-                                <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre, 1)}" />
-                            </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;  " id="btnNuevaTipoTrabajador" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}" update="nuevoEscalafonSalarialTipoTrabajador"/>   
-                            <p:watermark value="#{msg['tipoTrabajador']}" for="nuevoEscalafonSalarialTipoTrabajador"/>
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarNES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoEscalafonSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" onclick="PF('NuevoRegistroEscalafonSalarial').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroEscalafonSalarial" header="#{msg['duplicarregistroES']}" widgetVar="DuplicarRegistroEscalafonSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="195" width="400" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoES']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarEscalafonSalarial" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="duplicarEscalafonSalarialCodigo"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['codigo']}" for="duplicarEscalafonSalarialCodigo"/>
-
-                            <strong><h:outputText value="*#{msg['descripcionNES']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
-                                <p:ajax event="change" update="duplicarEscalafonSalarialDescripcion"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['descripcion']}" for="duplicarEscalafonSalarialDescripcion"/>
-
-                            <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
-                                <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}"/> 
-                                <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(2, 'TIPOTRABAJADOR')}" /> 
-                                <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre, 2)}" />
-                            </p:inputText>
-                            <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;  " id="btnDuplicarTipoTrabajador" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}" update="duplicarEscalafonSalarialTipoTrabajador"/>   
-                            <p:watermark value="#{msg['tipoTrabajador']}" for="duplicarEscalafonSalarialTipoTrabajador"/>
-
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarDES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarEscalafonSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" onclick="PF('DuplicarRegistroEscalafonSalarial').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="NuevoRegistroGrupoSalarial" header="#{msg['nuevoregistroGS']}" widgetVar="NuevoRegistroGrupoSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="165" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoGS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoGrupoSalarial" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoGrupoDescripcion" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
-                                <p:ajax event="change" update="nuevoGrupoDescripcion"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['descripcion']}" for="nuevoGrupoDescripcion"/>
-
-
-                            <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoGrupoSalario" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
-                                <p:ajax event="change" update="nuevoGrupoSalario" process="@this"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['salario']}" for="nuevoGrupoSalario"/>
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarNGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="aceptarNGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoGrupoSalarial()}" process="@this"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarNGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" onclick="PF('NuevoRegistroGrupoSalarial').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroGrupoSalarial" header="#{msg['duplicarregistroGS']}" widgetVar="DuplicarRegistroGrupoSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="165" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoGS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="duplicarGrupoSalarial" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarGrupoDescripcion" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
-                                <p:ajax event="change" update="duplicarGrupoDescripcion"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['descripcion']}" for="duplicarGrupoDescripcion"/>
-
-
-                            <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarGrupoSalario" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
-                                <p:ajax event="change" update="duplicarGrupoSalario"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['salario']}" for="duplicarGrupoSalario"/>
-
-                            <p:commandButton icon="ui-icon-trash" id="limpiarDGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="aceptarDGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarGrupoSalarial()}" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" onclick="PF('DuplicarRegistroGrupoSalarial').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <!-- editar celdas escalafon salarial -->
-
-                    <p:dialog id="editarEscalafonCodigoD" header="#{msg['editarEscalafonCodigoD']}" widgetVar="editarEscalafonCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.codigo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarEscalafonDescripcionD" header="#{msg['editarEscalafonDescripcionD']}" widgetVar="editarEscalafonDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarEscalafonTipoTrabajadorD" header="#{msg['editarEscalafonTipoTrabajadorD']}" widgetVar="editarEscalafonTipoTrabajadorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <!-- editar celdas grupo salarial -->
-
-                    <p:dialog id="editarGrupoDescripcionD" header="#{msg['editarGrupoDescripcionD']}" widgetVar="editarGrupoDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarGrupoSalarioD" header="#{msg['editarGrupoSalarioD']}" widgetVar="editarGrupoSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.salario}" style="overflow: auto;" readonly="true">
-                            <f:convertNumber currencySymbol="$" type="currency" />
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                </h:form>
-                <h:form id="formExportarEscalafon">
-                    <p:dataTable id="datosEscalafonSalarialExportar" var="expES" style="visibility: hidden; display: none;"                           
-                                 value="#{controlEscalafonSalarial.listaEscalafonesSalariales}"> 
-                        <p:column headerText="#{msg['codigoX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                            <h:outputText value="#{expES.codigo}" />
-                        </p:column>  
-
-                        <p:column headerText="#{msg['descripcionX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                            <h:outputText value="#{expES.descripcion}" />
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <f:loadBundle basename="Recursos.escalafonsalarial" var="msg" />
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
+
+                  <p:commandButton style="position: absolute; left: 683px; top: 482px;" disabled="#{controlEscalafonSalarial.cambiosPagina}" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardar').show();" update=":form:datosEscalafonSalarial" process="@this"/>
+                  <p:commandButton style="position: absolute; left: 775px; top: 482px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlEscalafonSalarial.salir()}" action="nominaf" process="@this"/>
+
+                  <fieldset style="position: absolute; left: 10px; top: 65px; width: 830px; height: 220px; border-radius: 10px;">
+                     <legend style="color: blue"><strong>#{msg['escalafonSalarial']}</strong></legend>
+
+                     <p:dataTable id="datosEscalafonSalarial" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 820px;"
+                                  value="#{controlEscalafonSalarial.listaEscalafonesSalariales}" scrollable="true" scrollHeight="#{controlEscalafonSalarial.altoTablaEscalafon}"  scrollWidth="820"
+                                  filteredValue="#{controlEscalafonSalarial.filtrarListaEscalafonesSalariales}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlEscalafonSalarial.escalafonTablaSeleccionado}">
+
+                        <p:ajax event="filter" listener="#{controlEscalafonSalarial.eventoFiltrar()}"/>
+
+                        <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
+                                  id="escalafonCodigo" width="35" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.codigo}" id="editarEscalafonCodigo" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonCodigo" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 0)}"  process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tipoTrabajadorXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['tipoTrabajadorX']}"/> </f:facet> 
-                            <h:outputText value="#{expES.tipotrabajador.nombre}" >
-                            </h:outputText>
+                        <p:column  headerText="#{msg['descripcion']}" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" 
+                                   id="escalafonDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.descripcion}" style="text-transform: uppercase"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="30" id="editarEscalafonDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionEscalafonSalarial(indice)}" update="editarEscalafonDescripcion" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 1)}" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
-                    </p:dataTable>
-                </h:form>
 
-                <h:form id="formExportarGrupo">
-                    <p:dataTable id="datosGrupoSalarialExportar" var="expGS" style="visibility: hidden; display: none;"                           
-                                 value="#{controlEscalafonSalarial.listaGruposSalariales}"> 
-                        <p:column headerText="#{msg['descripcionX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
-                            <h:outputText value="#{expGS.descripcion}" />
-                        </p:column>  
+                        <p:column  headerText="#{msg['tipoTrabajador']}" sortBy="#{info.tipotrabajador.nombre}" filterBy="#{info.tipotrabajador.nombre}" filterMatchMode="contains" 
+                                   id="escalafonTipoTrabajador" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.tipotrabajador.nombre}" >
+                                 </h:outputText></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.tipotrabajador.nombre}" id="editarEscalafonTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                    <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndice(indice, 2)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlEscalafonSalarial.modificarEscalafonSalarial(indice, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}" process="@this" update="editarEscalafonTipoTrabajador"/>
+                                    <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,0)}" process="@this" update="editarEscalafonTipoTrabajador"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
 
-                        <p:column headerText="#{msg['salarioX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['salarioX']}"/> </f:facet> 
-                            <h:outputText value="#{expGS.salario}" >
-                                <f:convertNumber currencySymbol="$" type="currency" />
-                            </h:outputText>
+                           <f:facet name="footer">
+                              <p:commandButton style="width: 400px; margin: -14px; height: 26px; border: none; color: blue" id="fooEscalafonTipoTrabajador" value=" "/>
+                           </f:facet>
                         </p:column>
-                    </p:dataTable>
-                </h:form>
 
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                     </p:dataTable>  
+                  </fieldset> 
+
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlEscalafonSalarial.guardarGeneral()}" process="@this" />
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlEscalafonSalarial.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " actionListener="#{controlEscalafonSalarial.listaValoresBoton()}"  process="@this"/>
+                        <p:tooltip for="listaValores" value="#{msg['lista']}" />
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlEscalafonSalarial.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlEscalafonSalarial.validarExportXLS()}" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " ajax="false">
+                           <p:dataExporter type="xml"  target="#{controlEscalafonSalarial.exportXML()}" fileName="#{controlEscalafonSalarial.nombreXML}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlEscalafonSalarial.validarExportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " actionListener="#{controlEscalafonSalarial.dialogoNuevoRegistro()}" process="@this"/> 
+                        <p:tooltip for="insertar" value="#{msg['nuevo']}" />
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlEscalafonSalarial.verificarRegistroBorrar()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlEscalafonSalarial.verificarRegistroDuplicar()}" process="@this"/>  
+                        <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlEscalafonSalarial.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; left: 10px; top: 305px; width: 830px; height: 160px; border-radius: 10px; ">
+                     <legend style=" color: blue"><strong>#{msg['grupoSalarial']}</strong></legend>
+
+                     <p:dataTable id="datosGrupoSalarial" var="infoGS" rowKey="#{infoGS.secuencia}" rowIndexVar="indiceGS" style="border: 1px; text-align: left;width: 820px"
+                                  value="#{controlEscalafonSalarial.listaGruposSalariales}" scrollable="true" scrollHeight="#{controlEscalafonSalarial.altoTablaGrupo}" scrollWidth="820"
+                                  filteredValue="#{controlEscalafonSalarial.filtrarListaGruposSalariales}" emptyMessage="#{msg['vacio']}" selectionMode="single"
+                                  editable="true" editMode="cell" liveScroll="true" scrollRows="15" selection="#{controlEscalafonSalarial.grupoTablaSeleccionado}">
+
+                        <p:ajax event="filter" listener="#{controlEscalafonSalarial.eventoFiltrar()}"/>
+
+                        <p:column  headerText="#{msg['descripcion']}" sortBy="#{infoGS.descripcion}" filterBy="#{infoGS.descripcion}" filterMatchMode="contains"  width="150" 
+                                   id="grupoDescripcion" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{infoGS.descripcion}" style="text-transform: uppercase">
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoGS.descripcion}" id="editarGrupoDescripcion" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,0)}" process="@this"/> 
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                        <p:column  headerText="#{msg['salario']}" sortBy="#{infoGS.salario}" filterBy="#{infoGS.descripcion}" filterMatchMode="contains"  width="50" 
+                                   id="grupoSalario" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText id="outputSalario" value="#{infoGS.salario}" style="text-transform: uppercase">
+                                    <f:convertNumber currencySymbol="$" type="currency" for="outputSalario" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{infoGS.salario}" id="editarGrupoSalario" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlEscalafonSalarial.procesoModificacionGrupoSalarial(indiceGS)}" update="editarGrupoDescripcion" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlEscalafonSalarial.cambiarIndiceGrupoSalarial(indiceGS,1)}" process="@this"/> 
+                                 </p:inputText>
+                              </f:facet>   
+                           </p:cellEditor>
+                        </p:column>
+
+                     </p:dataTable>  
+                  </fieldset> 
+               </p:panel>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.guardarGeneral()}"  style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEscalafonSalarial.cancelarModificacionGeneral()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.guardarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlEscalafonSalarial.cancelarYSalir()}" action="procesoretorno" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
+                  <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+                  <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroEscalafonSalarial()}" process="@this" />
+                  <p:commandButton value="#{msg['grupoSalarial']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlEscalafonSalarial.verificarRastroGrupoSalarial()}" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{controlEscalafonSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEscalafonSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEscalafonSalarial.backUp, controlEscalafonSalarial.nombreTablaRastro , 'rastroEscalafonSalarial')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorDatosNullEscalafon" header="#{msg['atencion']}" widgetVar="errorDatosNullEscalafon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorDatosNullEscalafon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorDescripcionEscalafon" header="#{msg['atencion']}" widgetVar="errorDescripcionEscalafon"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorDescripcionEscalafon']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorDatosNullGrupo" header="#{msg['atencion']}" widgetVar="errorDatosNullGrupo"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorDatosNullGrupo']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog header="#{msg['tipotrabajadorD']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
+                         showEffect="fade" hideEffect="fade" width="501" modal="true" >
+                  <p:dataTable id="lovTipoTrabajador" style=" width: 470px;" var="dias" value="#{controlEscalafonSalarial.lovTiposTrabajadores}" rowKey="#{dias.secuencia}"
+                               selection="#{controlEscalafonSalarial.tipoTrabajadorSeleccionado}" scrollWidth="486" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollHeight="250" 
+                               filteredValue="#{controlEscalafonSalarial.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
+                     <p:ajax event="rowSelect" listener="#{controlEscalafonSalarial.activarAceptar()}" update=":form:aceptarTT"/>
+                     <p:ajax event="rowDblselect" listener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this" />
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarTT']}"  style="position: absolute; left: 27px; top: 14px"/>  
+                        <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" style="width:140px; position: relative; left: 70px;" />  
+                     </f:facet>
+                     <p:column filterBy="#{dias.nombre}"  filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombreTT']}" />
+                        </f:facet>
+                        <h:outputText value="#{dias.nombre}" />
+                     </p:column>
+                     <p:column filterBy="#{dias.tipo}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['tipoTT']}" />
+                        </f:facet>
+                        <h:outputText value="#{dias.tipo}" />
+                     </p:column>
+                     <p:column filterBy="#{dias.codigo}" width="80" filterStyle="width : 60px;" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigoTT']}" />
+                        </f:facet>
+                        <h:outputText value="#{dias.codigo}" />
+                     </p:column>
+                  </p:dataTable>
+
+                  <h:outputText id="infoRegistroTipoTrabajador" value="#{controlEscalafonSalarial.infoRegistroTipoTrabajador}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
+
+                  <p:commandButton icon="ui-icon-check" id="aceptarTT" style="position: relative; left: 320px;" value="#{msg['aceptar']}" disabled="#{controlEscalafonSalarial.aceptar}" actionListener="#{controlEscalafonSalarial.actualizarTipoTrabajador()}"  process="@this"/>
+
+                  <p:commandButton icon="ui-icon-arrowreturnthick-1-w" id="atrasTT" style="position: relative; left: 320px;" value="#{msg['atras']}" actionListener="#{controlEscalafonSalarial.cancelarCambioTipoTrabajador()}" process="@this"/>
+
+               </p:dialog>
+
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlEscalafonSalarial.activarCtrlF11()}"/> 
+            </h:form>
+            <h:form id="formularioDialogos" >
+
+               <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="95" width="350px;"  >
+                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
+                  <p:commandButton value="#{msg['escalafonSalarial']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroEscalafonSalarial').show()" update=":formularioDialogos:nuevoEscalafonSalarial"  process="@this" />
+                  <p:commandButton value="#{msg['grupoSalarial']}" disabled="#{controlEscalafonSalarial.disabledNuevoGrupoSalarial}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroGrupoSalarial').show()" update=":formularioDialogos:nuevoGrupoSalarial"  process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroEscalafonSalarial" header="#{msg['nuevoregistroES']}" widgetVar="NuevoRegistroEscalafonSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="195" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoES']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="nuevoEscalafonSalarial" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                        <p:ajax event="change" update="nuevoEscalafonSalarialCodigo"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['codigo']}" for="nuevoEscalafonSalarialCodigo"/>
+
+                     <strong><h:outputText value="*#{msg['descripcionNES']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                        <p:ajax event="change" update="nuevoEscalafonSalarialDescripcion"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['descripcion']}" for="nuevoEscalafonSalarialDescripcion"/>
+
+                     <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                        <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}"/> 
+                        <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(1, 'TIPOTRABAJADOR')}" /> 
+                        <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.nuevoEscalafonSalarial.tipotrabajador.nombre, 1)}" />
+                     </p:inputText>
+                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;  " id="btnNuevaTipoTrabajador" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafonSalarial.asignarIndex(indice,0,1)}" update="nuevoEscalafonSalarialTipoTrabajador"/>   
+                     <p:watermark value="#{msg['tipoTrabajador']}" for="nuevoEscalafonSalarialTipoTrabajador"/>
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarNES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="aceptarNES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoEscalafonSalarial()}" process="@this"  />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaEscalafonSalarial()}" update="nuevoEscalafonSalarial" onclick="PF('NuevoRegistroEscalafonSalarial').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroEscalafonSalarial" header="#{msg['duplicarregistroES']}" widgetVar="DuplicarRegistroEscalafonSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="195" width="400" style="padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoES']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="duplicarEscalafonSalarial" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['codigoNES']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialCodigo" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                        <p:ajax event="change" update="duplicarEscalafonSalarialCodigo"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['codigo']}" for="duplicarEscalafonSalarialCodigo"/>
+
+                     <strong><h:outputText value="*#{msg['descripcionNES']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialDescripcion" maxlength="30" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                        <p:ajax event="change" update="duplicarEscalafonSalarialDescripcion"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['descripcion']}" for="duplicarEscalafonSalarialDescripcion"/>
+
+                     <strong><h:outputText value="*#{msg['tipotrabajadorNES']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarEscalafonSalarialTipoTrabajador" value="#{controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase" onclick="select();">
+                        <p:ajax event="dblclick" listener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}"/> 
+                        <p:ajax event="click" listener="#{controlEscalafonSalarial.valoresBackupAutocompletarGeneral(2, 'TIPOTRABAJADOR')}" /> 
+                        <p:ajax event="change" listener="#{controlEscalafonSalarial.autocompletarNuevoyDuplicadoEscalafonSalarial('TIPOTRABAJADOR', controlEscalafonSalarial.duplicarEscalafonSalarial.tipotrabajador.nombre, 2)}" />
+                     </p:inputText>
+                     <p:commandButton style="width: 23px; height: 25px; position: absolute; left: 332px; top: 130px;  " id="btnDuplicarTipoTrabajador" icon="ui-icon-search" process="@this"  actionListener="#{controlEscalafonSalarial.asignarIndex(indice,0,2)}" update="duplicarEscalafonSalarialTipoTrabajador"/>   
+                     <p:watermark value="#{msg['tipoTrabajador']}" for="duplicarEscalafonSalarialTipoTrabajador"/>
+
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarDES" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarDES" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 170px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarEscalafonSalarial()}" process="@this"  />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDES" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 170px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarEscalafonSalarial()}" update="duplicarEscalafonSalarial" onclick="PF('DuplicarRegistroEscalafonSalarial').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroGrupoSalarial" header="#{msg['nuevoregistroGS']}" widgetVar="NuevoRegistroGrupoSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="165" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoGS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="nuevoGrupoSalarial" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoGrupoDescripcion" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                        <p:ajax event="change" update="nuevoGrupoDescripcion"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['descripcion']}" for="nuevoGrupoDescripcion"/>
+
+
+                     <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoGrupoSalario" value="#{controlEscalafonSalarial.nuevoGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                        <p:ajax event="change" update="nuevoGrupoSalario" process="@this"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['salario']}" for="nuevoGrupoSalario"/>
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarNGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="aceptarNGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.agregarNuevoGrupoSalarial()}" process="@this"  />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarNGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarNuevaGrupoSalarial()}" update="nuevoGrupoSalarial" onclick="PF('NuevoRegistroGrupoSalarial').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroGrupoSalarial" header="#{msg['duplicarregistroGS']}" widgetVar="DuplicarRegistroGrupoSalarial" closable="false" resizable="false"  draggable="true" modal="true" height="165" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoGS']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="duplicarGrupoSalarial" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['descripcionNGS']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarGrupoDescripcion" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 70px;text-transform: uppercase">
+                        <p:ajax event="change" update="duplicarGrupoDescripcion"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['descripcion']}" for="duplicarGrupoDescripcion"/>
+
+
+                     <strong><h:outputText value="*#{msg['salarioNGS']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarGrupoSalario" value="#{controlEscalafonSalarial.duplicarGrupoSalarial.salario}" style="width: 122px; position: absolute; left: 200px; top: 100px;text-transform: uppercase">
+                        <p:ajax event="change" update="duplicarGrupoSalario"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['salario']}" for="duplicarGrupoSalario"/>
+
+                     <p:commandButton icon="ui-icon-trash" id="limpiarDGS" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="aceptarDGS" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlEscalafonSalarial.confirmarDuplicarGrupoSalarial()}" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDGS" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlEscalafonSalarial.limpiarDuplicarGrupoSalarial()}" update="DuplicarRegistroGrupoSalarial" onclick="PF('DuplicarRegistroGrupoSalarial').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <!-- editar celdas escalafon salarial -->
+
+               <p:dialog id="editarEscalafonCodigoD" header="#{msg['editarEscalafonCodigoD']}" widgetVar="editarEscalafonCodigoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.codigo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarEscalafonDescripcionD" header="#{msg['editarEscalafonDescripcionD']}" widgetVar="editarEscalafonDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarEscalafonTipoTrabajadorD" header="#{msg['editarEscalafonTipoTrabajadorD']}" widgetVar="editarEscalafonTipoTrabajadorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEscalafonSalarial.editarEscalafonSalarial.tipotrabajador.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <!-- editar celdas grupo salarial -->
+
+               <p:dialog id="editarGrupoDescripcionD" header="#{msg['editarGrupoDescripcionD']}" widgetVar="editarGrupoDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarGrupoSalarioD" header="#{msg['editarGrupoSalarioD']}" widgetVar="editarGrupoSalarioD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlEscalafonSalarial.editarGrupoSalarial.salario}" style="overflow: auto;" readonly="true">
+                     <f:convertNumber currencySymbol="$" type="currency" />
+                  </p:inputTextarea>
+               </p:dialog>
+
+            </h:form>
+            <h:form id="formExportarEscalafon">
+               <p:dataTable id="datosEscalafonSalarialExportar" var="expES" style="visibility: hidden; display: none;"                           
+                            value="#{controlEscalafonSalarial.listaEscalafonesSalariales}"> 
+                  <p:column headerText="#{msg['codigoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
+                     <h:outputText value="#{expES.codigo}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['descripcionX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                     <h:outputText value="#{expES.descripcion}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['tipoTrabajadorXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['tipoTrabajadorX']}"/> </f:facet> 
+                     <h:outputText value="#{expES.tipotrabajador.nombre}" >
+                     </h:outputText>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+
+            <h:form id="formExportarGrupo">
+               <p:dataTable id="datosGrupoSalarialExportar" var="expGS" style="visibility: hidden; display: none;"                           
+                            value="#{controlEscalafonSalarial.listaGruposSalariales}"> 
+                  <p:column headerText="#{msg['descripcionX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['descripcionX']}"/> </f:facet> 
+                     <h:outputText value="#{expGS.descripcion}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['salarioX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['salarioX']}"/> </f:facet> 
+                     <h:outputText value="#{expGS.salario}" >
+                        <f:convertNumber currencySymbol="$" type="currency" />
+                     </h:outputText>
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

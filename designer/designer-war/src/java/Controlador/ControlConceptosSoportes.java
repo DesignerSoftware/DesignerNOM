@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -83,17 +86,17 @@ public class ControlConceptosSoportes implements Serializable {
    private List<ConceptosSoportes> filterLovConceptosSoportes;
    private ConceptosSoportes conceptoSoporteLovSeleccionado;
 
-   private String paginaAnterior;
-
    private boolean cambioConceptosSoportes;
    private String infoRegistro, infoRegistroLovCS, infoRegistroLovConceptos, infoRegistroLovOperandos;
 
    private boolean mostrarTodos;
    private boolean buscarConceptoSoporte;
    private BigInteger nuevoYduplicarCompletarCodigoConcepto;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlConceptosSoportes() {
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       banderaConceptoEscogido = true;
       lovConceptosSoportes = null;
       listConceptosSoportes = null;
@@ -119,6 +122,44 @@ public class ControlConceptosSoportes implements Serializable {
       aceptar = true;
       buscarConceptoSoporte = false;
       cambioConceptosSoportes = false;
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   public void recibirPaginaEntrante(String paginaAnterior) {
+      conceptoSoportesSeleccionado = null;
+      this.paginaAnterior = paginaAnterior;
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      this.paginaAnterior = paginaAnterior;
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "conceptosoporte";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    @PostConstruct
@@ -1000,7 +1041,7 @@ public class ControlConceptosSoportes implements Serializable {
          listConceptosSoportes = null;
          k = 0;
          guardado = true;
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
@@ -1338,11 +1379,6 @@ public class ControlConceptosSoportes implements Serializable {
       } catch (Exception e) {
          System.out.println("ERROR CONTROLBETACENTROSCOSTOS.cancelarSeleccionVigencia ERROR====" + e.getMessage());
       }
-   }
-
-   public void recibirPagina(String paginaAnterior) {
-      conceptoSoportesSeleccionado = null;
-      this.paginaAnterior = paginaAnterior;
    }
 
    public String volverPaginaAnterior() {

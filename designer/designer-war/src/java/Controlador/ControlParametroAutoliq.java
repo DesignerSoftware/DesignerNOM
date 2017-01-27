@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -130,8 +133,6 @@ public class ControlParametroAutoliq implements Serializable {
     private String altoTabla;
     private String altoTablaAporte;
     //
-    private String paginaAnterior;
-    //
     private Column parametroAno, parametroTipoTrabajador, parametroEmpresa, mesParametro;
     //
     private Column aporteCodigoEmpleado, aporteAno, aporteMes, aporteNombreEmpleado, aporteNIT, aporteTercero, aporteTipoEntidad;
@@ -156,6 +157,8 @@ public class ControlParametroAutoliq implements Serializable {
     //
     private String visibilidadMostrarTodos;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlParametroAutoliq() {
         visibilidadMostrarTodos = "hidden";
@@ -227,6 +230,7 @@ public class ControlParametroAutoliq implements Serializable {
         terceroSeleccionado = new Terceros();
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = new TiposEntidades();
+        mapParametros.put("paginaAnterior", paginaAnterior);
         //
     }
 
@@ -244,7 +248,7 @@ public class ControlParametroAutoliq implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
+    public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaParametrosAutoliq = null;
         listaAportesEntidades = null;
@@ -260,7 +264,51 @@ public class ControlParametroAutoliq implements Serializable {
                 aporteTablaSeleccionado = listaAportesEntidades.get(0);
             }
         }
+    }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaParametrosAutoliq = null;
+        listaAportesEntidades = null;
+        getListaParametrosAutoliq();
+        getListaAportesEntidades();
+        if (listaParametrosAutoliq != null) {
+            if (!listaParametrosAutoliq.isEmpty()) {
+                parametroTablaSeleccionado = listaParametrosAutoliq.get(0);
+            }
+        }
+        if (listaAportesEntidades != null) {
+            if (!listaAportesEntidades.isEmpty()) {
+                aporteTablaSeleccionado = listaAportesEntidades.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "parametroautoliq";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String redirigir() {
@@ -311,7 +359,7 @@ public class ControlParametroAutoliq implements Serializable {
         }
         RequestContext.getCurrentInstance().update("form:datosParametroAuto");
     }
-    
+
     public void modificarAporteEntidad(AportesEntidades aporte) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoListaAporte == 0) {
@@ -1765,7 +1813,7 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void procesoLiquidacionOK() {
         RequestContext context = RequestContext.getCurrentInstance();
-        
+
         try {
             if (guardado == false) {
                 System.out.println("entró a if 1");

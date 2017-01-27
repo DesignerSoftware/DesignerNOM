@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -57,13 +60,15 @@ public class ControlMotivosDemandas implements Serializable {
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion, paginaanterior;
+    private String mensajeValidacion;
     private BigInteger contarDemandasMotivoDemanda;
     private int tamano;
 
     private Integer backUpCodigo;
     private String backUpDescripcion;
     private String infoRegistro;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlMotivosDemandas() {
 
@@ -78,6 +83,56 @@ public class ControlMotivosDemandas implements Serializable {
         guardado = true;
         tamano = 270;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listMotivosDemandas = null;
+        getListMotivosDemandas();
+        if (listMotivosDemandas != null) {
+            if (!listMotivosDemandas.isEmpty()) {
+                motivoDemandaSeleccionado = listMotivosDemandas.get(0);
+            }
+        }
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listMotivosDemandas = null;
+        getListMotivosDemandas();
+        if (listMotivosDemandas != null) {
+            if (!listMotivosDemandas.isEmpty()) {
+                motivoDemandaSeleccionado = listMotivosDemandas.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "motivodemanda";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -93,19 +148,8 @@ public class ControlMotivosDemandas implements Serializable {
         }
     }
 
-    public void recibirPagina(String pagina) {
-        paginaanterior = pagina;
-        listMotivosDemandas = null;
-        getListMotivosDemandas();
-        if (listMotivosDemandas != null) {
-            if (!listMotivosDemandas.isEmpty()) {
-                motivoDemandaSeleccionado = listMotivosDemandas.get(0);
-            }
-        }
-    }
-
     public String retornarPagina() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(MotivosDemandas motivo, int celda) {
@@ -185,6 +229,7 @@ public class ControlMotivosDemandas implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosMotivoDemanda");
         contarRegistros();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -471,7 +516,7 @@ public class ControlMotivosDemandas implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listMotivosDemandas = null;
             RequestContext.getCurrentInstance().update("form:datosMotivoDemanda");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             k = 0;

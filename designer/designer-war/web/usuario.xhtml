@@ -63,7 +63,7 @@
                                 <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png) " actionListener="#{controlUsuarios.cancelarModificacion()}" process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlUsuarios.salir()}" action="#{controlUsuarios.redirigir()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlUsuarios.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -76,7 +76,7 @@
                                          filteredValue="#{controlUsuarios.filtrarUsuarios}"
                                          scrollHeight="#{controlUsuarios.altoTabla}" scrollWidth="830"
                                          style="border: 1px;width: 810px;" liveScroll="true" scrollRows="80"
-                                         emptyMessage="#{msg['vacio']}"
+                                         emptyMessage="#{msg['vacio']}" widgetVar="datosUsuarios"
                                          editable="true" editMode="cell"
                                          selection="#{controlUsuarios.usuariosSeleccionado}" selectionMode="single">
 
@@ -105,7 +105,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{usuario.persona.nombreCompleto}" id="editarPersona" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(indice, 'PERSONAS', usuario.persona.nombreCompleto)}" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 0)}" process="@this" />
+                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndexPersona(indice, 0, 0)}" process="@this"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -125,7 +126,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.perfil.descripcion}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{usuario.perfil.descripcion}" id="editarPerfil" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 1)}"  process="@this" />
+                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 1)}"  process="@this"
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(indice, 'PERFILES', usuario.persona.nombreCompleto)}" process="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndexPerfil(indice, 0, 0)}"  process="@this"/>
                                             </p:inputText>
@@ -147,7 +149,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{usuario.alias}" id="editarAlias" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 2)}" />
+                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 2)}" 
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(indice, 'N', usuario.alias)}" update="@this" />
                                             </p:inputText> 
                                         </f:facet>   
@@ -165,7 +168,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase;" value="#{usuario.pantallainicio.nombre}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{usuario.pantallainicio.nombre}" id="editarPantalla" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase;height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 3)}" />
+                                                <p:ajax event="select" listener="#{controlUsuarios.cambiarIndice(indice, 3)}" 
+                                                        onstart="PF('datosUsuarios').unselectAllRows();PF('datosUsuarios').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlUsuarios.asignarIndexPantalla(indice, 0, 0)}"/>
                                                 <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(indice, 'PANTALLAS', usuario.pantallainicio.nombre)}"/>
                                             </p:inputText>
@@ -222,7 +226,7 @@
                             <p:ajax event="dblclick" listener="#{controlUsuarios.lovUsuarios()}"/>
                         </p:inputText>
 
-                        <p:commandButton style="position: absolute; left: 775px; top: 470px;" icon="ui-icon-closethick" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlUsuarios.salir()}" action="#{controlUsuarios.redirigir()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="#{msg['cancelar']}" actionListener="#{controlUsuarios.salir()}" process="@this" />
 
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlUsuarios.activarCtrlF11()}" process="@this"/> 
@@ -396,7 +400,7 @@
                         <h:outputText id="infoRegistroAlias" value="#{controlUsuarios.infoRegistro}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarAU" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuarios.aceptar}" style="position: absolute; top: 305px; left: 180px;" actionListener="#{controlUsuarios.asignarAliasClon()}"  process="@this"/>
-                        
+
                         <p:commandButton id="cancelarAU" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuarios.cancelarCambioAlias()}"  process="@this"/>
                     </p:dialog>
                     <!-- DIALOGO L.O.V ESTATICO DE PERSONAS -->
@@ -422,7 +426,7 @@
                         <h:outputText id="infoRegistroPersonas" value="#{controlUsuarios.infoRegistroPersonas}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarPS" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuarios.aceptar}" style="position: absolute; top: 305px; left: 180px;" actionListener="#{controlUsuarios.actualizarPersonas()}"  process="@this"/>
-                        
+
                         <p:commandButton id="cancelarPS" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuarios.cancelarCambioPersona()}" process="@this"/>
                     </p:dialog>
 
@@ -449,7 +453,7 @@
                         <h:outputText id="infoRegistroPerfiles" value="#{controlUsuarios.infoRegistroPerfiles}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarPF" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuarios.aceptar}" style="position: absolute; top: 305px; left: 180px;" actionListener="#{controlUsuarios.actualizarPerfiles()}" process="@this"/>
-                        
+
                         <p:commandButton id="cancelarPF" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuarios.cancelarCambioPerfil()}" process="@this"/>
                     </p:dialog>
 
@@ -482,7 +486,7 @@
                         <h:outputText id="infoRegistroPantallas" value="#{controlUsuarios.infoRegistroPantallas}" style="position: absolute; left: 15px; top: 315px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarPT" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlUsuarios.aceptar}" style="position: absolute; top: 305px; left: 180px;" actionListener="#{controlUsuarios.actualizarPantallas()}" process="@this"/>
-                        
+
                         <p:commandButton id="cancelarPT" style="position: absolute; top: 305px; left: 275px; " icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlUsuarios.cancelarCambioPantalla()}" process="@this"/>
                     </p:dialog>  
 
@@ -490,8 +494,14 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuarios.guardarCambiosUsuario()}" action="#{controlUsuarios.redirigir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlUsuarios.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                            <f:actionListener binding="#{controlUsuarios.guardarCambiosUsuario()}" />
+                            <f:actionListener binding="#{controlUsuarios.navegar('atras')}" />
+                        </p:commandButton>
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                            <f:actionListener binding="#{controlUsuarios.cancelarModificacion()}" />
+                            <f:actionListener binding="#{controlUsuarios.navegar('atras')}" />
+                        </p:commandButton>
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
@@ -500,14 +510,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.secRegistro, 'Usuarios', 'usuario')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.secRegistro, 'Usuarios', 'usuario')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -524,7 +534,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.secRegistro, 'Usuarios', 'usuario')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.secRegistro, 'Usuarios', 'usuario')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 

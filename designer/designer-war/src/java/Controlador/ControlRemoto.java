@@ -2,9 +2,13 @@ package Controlador;
 
 import Administrar.AdministrarCarpetaPersonal;
 import Banner.BannerInicioRed;
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.*;
 import InterfaceAdministrar.*;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -133,6 +137,8 @@ public class ControlRemoto implements Serializable {
    private boolean resultadoBusquedaAv = false;
    private List<VWActualesTiposTrabajadores> listaBusquedaAvanzada;
 
+   ControlListaNavegacion controlListaNavegacion;
+
    public ControlRemoto() {
       lovEmpresas = null;
       extension = ".png";
@@ -228,6 +234,7 @@ public class ControlRemoto implements Serializable {
 
    public void datosIniciales(int pestaña) {
       numPestanha = pestaña;
+
    }
 
    public void valorInputText() throws ParseException {
@@ -1068,13 +1075,25 @@ public class ControlRemoto implements Serializable {
    public void redireccion(Tablas tabla) {
       tablaSeleccionada = tabla;
       if (tablaSeleccionada != null) {
-         if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOS")) {
-            RequestContext.getCurrentInstance().execute("dirigirusuario()");
-         } else if (tablaSeleccionada.getNombre().equalsIgnoreCase("USUARIOSVISTAS")) {
-            RequestContext.getCurrentInstance().execute("dirigirusuariovista()");
+         String pag = administrarCarpetaDesigner.consultarNombrePantalla(tablaSeleccionada.getSecuencia());
+         System.out.println("ControlRemoto.redireccion() pag : " + pag);
+         if (pag != null) {
+            pag = pag.toLowerCase();
+            FacesContext fc = FacesContext.getCurrentInstance();
+            controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+            controlListaNavegacion.adicionarPagina("nominaf");
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
       }
       infoTablas(tablaSeleccionada);
+   }
+
+   public void adicionarPagina(String pag) {
+      controlListaNavegacion.adicionarPagina(pag);
+   }
+
+   public void quitarPagina() {
+      controlListaNavegacion.quitarPagina();
    }
 
    public void infoTablas(Tablas tab) {
@@ -2009,6 +2028,14 @@ public class ControlRemoto implements Serializable {
 
    public void setInfoRegistroMod(String infoRegistroMod) {
       this.infoRegistroMod = infoRegistroMod;
+   }
+
+   public ControlListaNavegacion getControlListaNavegacion() {
+      return controlListaNavegacion;
+   }
+
+   public void setControlListaNavegacion(ControlListaNavegacion controlListaNavegacion) {
+      this.controlListaNavegacion = controlListaNavegacion;
    }
 
 }

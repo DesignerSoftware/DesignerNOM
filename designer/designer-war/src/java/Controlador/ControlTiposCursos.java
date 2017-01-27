@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -58,7 +61,7 @@ public class ControlTiposCursos implements Serializable {
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion, paginaanterior;
+    private String mensajeValidacion;
     //filtrado table
     private int tamano;
     private Integer backUpCodigo;
@@ -66,6 +69,8 @@ public class ControlTiposCursos implements Serializable {
     private boolean activarLov;
     private String infoRegistro;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposCursos() {
         listTiposCursos = null;
@@ -81,6 +86,7 @@ public class ControlTiposCursos implements Serializable {
         cualCelda = -1;
         tipoCursoSeleccionado = null;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -97,7 +103,7 @@ public class ControlTiposCursos implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listTiposCursos = null;
         getListTiposCursos();
         deshabilitarBotonLov();
@@ -106,8 +112,45 @@ public class ControlTiposCursos implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listTiposCursos = null;
+        getListTiposCursos();
+        deshabilitarBotonLov();
+        if (listTiposCursos != null) {
+            tipoCursoSeleccionado = listTiposCursos.get(0);
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipocurso";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(TiposCursos tipo, int celda) {
@@ -184,6 +227,7 @@ public class ControlTiposCursos implements Serializable {
         k = 0;
         listTiposCursos = null;
         guardado = true;
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -210,41 +254,18 @@ public class ControlTiposCursos implements Serializable {
         }
     }
 
-    public void modificarTiposCursos(TiposCursos tipo, String confirmarCambio, String valorConfirmar) {
+    public void modificarTiposCursos(TiposCursos tipo) {
         tipoCursoSeleccionado = tipo;
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
-                    if (modificarTiposCursos.isEmpty()) {
-                        modificarTiposCursos.add(tipoCursoSeleccionado);
-                    } else if (!modificarTiposCursos.contains(tipoCursoSeleccionado)) {
-                        modificarTiposCursos.add(tipoCursoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
-                if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
-                    if (modificarTiposCursos.isEmpty()) {
-                        modificarTiposCursos.add(tipoCursoSeleccionado);
-                    } else if (!modificarTiposCursos.contains(tipoCursoSeleccionado)) {
-                        modificarTiposCursos.add(tipoCursoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                RequestContext.getCurrentInstance().update("form:datosTiposCursos");
+        if (!crearTiposCursos.contains(tipoCursoSeleccionado)) {
+            if (modificarTiposCursos.isEmpty()) {
+                modificarTiposCursos.add(tipoCursoSeleccionado);
+            } else if (!modificarTiposCursos.contains(tipoCursoSeleccionado)) {
+                modificarTiposCursos.add(tipoCursoSeleccionado);
             }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
+        RequestContext.getCurrentInstance().update("form:datosTiposCursos");
     }
 
     public void borrandoTiposCursos() {
@@ -283,7 +304,6 @@ public class ControlTiposCursos implements Serializable {
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
-
     }
 
     public void guardarTiposCursos() {
@@ -356,11 +376,11 @@ public class ControlTiposCursos implements Serializable {
         mensajeValidacion = " ";
 
         if (nuevoTiposCursos.getDescripcion().equals(" ") || nuevoTiposCursos.getDescripcion().equals("")) {
-            mensajeValidacion = mensajeValidacion + " * Descripción \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
         if (nuevoTiposCursos.getCodigo() == 0) {
-            mensajeValidacion = mensajeValidacion + " * Codigo \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             contador++;
         }
 
@@ -370,11 +390,11 @@ public class ControlTiposCursos implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 duplicados++;
             }
-            if (contador != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoCurso");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCurso').show()");
+        }
 
-            }
+        if (contador != 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoSector");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoSector').show()");
         }
 
         if (contador == 0 && duplicados == 0) {
@@ -406,9 +426,6 @@ public class ControlTiposCursos implements Serializable {
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroTiposCursos').hide()");
-        } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevoTipoCurso");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoCurso').show()");
         }
     }
 

@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-
 import Entidades.EstadosCiviles;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -17,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -65,9 +67,10 @@ public class ControlEstadosCiviles implements Serializable {
     private int tamano;
     private Integer backUpCodigo;
     private String backUpDescripcion;
-    private String paginaanterior;
     private DataTable tablaC;
     private boolean activarLov;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlEstadosCiviles() {
         listEstadosCiviles = null;
@@ -82,6 +85,44 @@ public class ControlEstadosCiviles implements Serializable {
         guardado = true;
         tamano = 270;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "estadocivil";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -98,7 +139,7 @@ public class ControlEstadosCiviles implements Serializable {
     }
 
     public void recibirPag(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listEstadosCiviles = null;
         getListEstadosCiviles();
         deshabilitarBotonLov();
@@ -108,7 +149,7 @@ public class ControlEstadosCiviles implements Serializable {
     }
 
     public String retornarPagina() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(EstadosCiviles estadoCivil, int celda) {
@@ -217,9 +258,10 @@ public class ControlEstadosCiviles implements Serializable {
         getListEstadosCiviles();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        RequestContext.getCurrentInstance().update("form:infoRegistro");
-        RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        context.update("form:infoRegistro");
+        context.update("form:datosEstadosCiviles");
+        context.update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -247,31 +289,18 @@ public class ControlEstadosCiviles implements Serializable {
         }
     }
 
-    public void modificarEstadoCivil(EstadosCiviles estadoCivil, String confirmarCambio, String valorConfirmar) {
+    public void modificarEstadoCivil(EstadosCiviles estadoCivil) {
         estadoCivilSeleccionado = estadoCivil;
-        int contador = 0;
-        boolean banderita = false;
-
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!crearEstadosCiviles.contains(estadoCivilSeleccionado)) {
-                    
-                        if (modificarEstadosCiviles.isEmpty()) {
-                            modificarEstadosCiviles.add(estadoCivilSeleccionado);
-                        } else if (!modificarEstadosCiviles.contains(estadoCivilSeleccionado)) {
-                            modificarEstadosCiviles.add(estadoCivilSeleccionado);
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-                } 
-            } 
-            RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
+        if (!crearEstadosCiviles.contains(estadoCivilSeleccionado)) {
+            if (modificarEstadosCiviles.isEmpty()) {
+                modificarEstadosCiviles.add(estadoCivilSeleccionado);
+            } else if (!modificarEstadosCiviles.contains(estadoCivilSeleccionado)) {
+                modificarEstadosCiviles.add(estadoCivilSeleccionado);
+            }
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
     }
 
     public void borrandoEstadoCivil() {
@@ -291,14 +320,14 @@ public class ControlEstadosCiviles implements Serializable {
             }
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:datosEstadosCiviles");
-           contarRegistros();
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:infoRegistro");
             if (guardado == true) {
                 guardado = false;
             }
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        }else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF(seleccionarRegistro').show()");
         }
 
     }
@@ -394,8 +423,8 @@ public class ControlEstadosCiviles implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-        } else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF(seleccionarRegistro').show()");
         }
     }
 
@@ -408,7 +437,7 @@ public class ControlEstadosCiviles implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoEstadoCivil.getCodigo() == a) {
             mensajeValidacion = " Campo código vacío \n";
-            System.out.println( mensajeValidacion);
+            System.out.println(mensajeValidacion);
         } else {
             System.out.println("codigo en Motivo Cambio Cargo: " + nuevoEstadoCivil.getCodigo());
 
@@ -428,7 +457,7 @@ public class ControlEstadosCiviles implements Serializable {
         }
         if (nuevoEstadoCivil.getDescripcion() == (null)) {
             mensajeValidacion = mensajeValidacion + " Campo Descripción vacío \n";
-            System.out.println( mensajeValidacion);
+            System.out.println(mensajeValidacion);
 
         } else {
             System.out.println("bandera");
@@ -508,9 +537,9 @@ public class ControlEstadosCiviles implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEC");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroEstadoCivil').show()");
-            
-        } else{
-            RequestContext.getCurrentInstance().execute("PF('formularioDialogos:seleccionarRegistro').show()");
+
+        } else {
+            RequestContext.getCurrentInstance().execute("PF(seleccionarRegistro').show()");
         }
     }
 
@@ -526,7 +555,7 @@ public class ControlEstadosCiviles implements Serializable {
 
         if (duplicarEstadoCivil.getCodigo() == a) {
             mensajeValidacion = "Campo Código vacío \n";
-            System.out.println( mensajeValidacion);
+            System.out.println(mensajeValidacion);
         } else {
             for (int x = 0; x < listEstadosCiviles.size(); x++) {
                 if (listEstadosCiviles.get(x).getCodigo().equals(duplicarEstadoCivil.getCodigo())) {
@@ -535,7 +564,7 @@ public class ControlEstadosCiviles implements Serializable {
             }
             if (duplicados > 0) {
                 mensajeValidacion = " El Código ingresado está relacionado con un registro anterior \n";
-                System.out.println( mensajeValidacion);
+                System.out.println(mensajeValidacion);
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -613,28 +642,25 @@ public class ControlEstadosCiviles implements Serializable {
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
         System.out.println("lol");
-            if (estadoCivilSeleccionado != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(estadoCivilSeleccionado.getSecuencia(), "ESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } 
-         else {
-            if (administrarRastros.verificarHistoricosTabla("ESTADOSCIVILES")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
+        if (estadoCivilSeleccionado != null) {
+            System.out.println("lol 2");
+            int resultado = administrarRastros.obtenerTabla(estadoCivilSeleccionado.getSecuencia(), "ESTADOSCIVILES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            System.out.println("resultado: " + resultado);
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("ESTADOSCIVILES")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
 
@@ -770,11 +796,11 @@ public class ControlEstadosCiviles implements Serializable {
     }
 
     public String getPaginaanterior() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
-    public void setPaginaanterior(String paginaanterior) {
-        this.paginaanterior = paginaanterior;
+    public void setPaginaanterior(String paginaAnterior) {
+        this.paginaAnterior = paginaAnterior;
     }
 
     public boolean isActivarLov() {

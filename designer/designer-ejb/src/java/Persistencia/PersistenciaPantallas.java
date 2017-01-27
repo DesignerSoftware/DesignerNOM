@@ -37,10 +37,9 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             Pantallas pantalla = (Pantallas) query.getSingleResult();
             return pantalla;
-
         } catch (Exception e) {
-            Pantallas pantalla = null;
-            return pantalla;
+           System.out.println("ERROR Persistencia.PersistenciaPantallas.buscarPantalla() return null;");
+            return null;
         }
     }
 

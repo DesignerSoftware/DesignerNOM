@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.TiposAuxilios;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -13,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -61,6 +63,8 @@ public class ControlTiposAuxilios implements Serializable {
     private BigInteger verificarTablasAuxilios;
     //
     private String altoTabla;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposAuxilios() {
         altoTabla = "330";
@@ -73,6 +77,44 @@ public class ControlTiposAuxilios implements Serializable {
         nuevoTipoAuxilios = new TiposAuxilios();
         duplicarTipoAuxilio = new TiposAuxilios();
         guardado = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoauxilio";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -123,11 +165,11 @@ public class ControlTiposAuxilios implements Serializable {
             //CERRAR FILTRADO
             altoTabla = "330";
             FacesContext c = FacesContext.getCurrentInstance();
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -150,7 +192,7 @@ public class ControlTiposAuxilios implements Serializable {
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+        RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -158,19 +200,19 @@ public class ControlTiposAuxilios implements Serializable {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             altoTabla = "310";
-            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("width: 85% !important;");
-            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 1;
         } else if (bandera == 1) {
             altoTabla = "330";
-            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+            codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
-            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+            descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
             descripcion.setFilterStyle("display: none; visibility: hidden;");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             bandera = 0;
             filtrarTiposAuxilios = null;
             tipoLista = 0;
@@ -236,68 +278,64 @@ public class ControlTiposAuxilios implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
+            } else if (!crearTiposAuxilios.contains(filtrarTiposAuxilios.get(indice))) {
+                if (filtrarTiposAuxilios.get(indice).getCodigo() == a) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                } else {
+                    for (int j = 0; j < listTiposAuxilios.size(); j++) {
+                        if (filtrarTiposAuxilios.get(indice).getCodigo().equals(listTiposAuxilios.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
 
-                if (!crearTiposAuxilios.contains(filtrarTiposAuxilios.get(indice))) {
-                    if (filtrarTiposAuxilios.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    } else {
-                        for (int j = 0; j < listTiposAuxilios.size(); j++) {
-                            if (filtrarTiposAuxilios.get(indice).getCodigo().equals(listTiposAuxilios.get(j).getCodigo())) {
+                    for (int j = 0; j < filtrarTiposAuxilios.size(); j++) {
+                        if (j == indice) {
+                            if (filtrarTiposAuxilios.get(indice).getCodigo().equals(filtrarTiposAuxilios.get(j).getCodigo())) {
                                 contador++;
                             }
                         }
-
-                        for (int j = 0; j < filtrarTiposAuxilios.size(); j++) {
-                            if (j == indice) {
-                                if (filtrarTiposAuxilios.get(indice).getCodigo().equals(filtrarTiposAuxilios.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                        } else {
-                            contadorGuardar++;
-                        }
-
                     }
-
-                    if (filtrarTiposAuxilios.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    } else if (filtrarTiposAuxilios.get(indice).getDescripcion().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    if (contador > 0) {
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                     } else {
                         contadorGuardar++;
                     }
-                    if (filtrarTiposAuxilios.get(indice).getDescripcion() == null) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    } else if (filtrarTiposAuxilios.get(indice).getDescripcion().equals("")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    } else {
-                        contadorGuardar++;
-                    }
-                    if (contadorGuardar == 3) {
-                        if (modificarTiposAuxilios.isEmpty()) {
-                            modificarTiposAuxilios.add(filtrarTiposAuxilios.get(indice));
-                        } else if (!modificarTiposAuxilios.contains(filtrarTiposAuxilios.get(indice))) {
-                            modificarTiposAuxilios.add(filtrarTiposAuxilios.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
 
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                        cancelarModificacion();
-                    }
-                    index = -1;
-                    secRegistro = null;
                 }
 
+                if (filtrarTiposAuxilios.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                } else if (filtrarTiposAuxilios.get(indice).getDescripcion().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                } else {
+                    contadorGuardar++;
+                }
+                if (filtrarTiposAuxilios.get(indice).getDescripcion() == null) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                } else if (filtrarTiposAuxilios.get(indice).getDescripcion().equals("")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                } else {
+                    contadorGuardar++;
+                }
+                if (contadorGuardar == 3) {
+                    if (modificarTiposAuxilios.isEmpty()) {
+                        modificarTiposAuxilios.add(filtrarTiposAuxilios.get(indice));
+                    } else if (!modificarTiposAuxilios.contains(filtrarTiposAuxilios.get(indice))) {
+                        modificarTiposAuxilios.add(filtrarTiposAuxilios.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                    cancelarModificacion();
+                }
+                index = -1;
+                secRegistro = null;
             }
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
 
@@ -359,7 +397,7 @@ public class ControlTiposAuxilios implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             infoRegistro = "Cantidad de registros : " + listTiposAuxilios.size();
             RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             index = -1;
             secRegistro = null;
@@ -402,17 +440,17 @@ public class ControlTiposAuxilios implements Serializable {
                 }
                 listTiposAuxilios = null;
                 guardado = true;
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 k = 0;
                 index = -1;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
             }
         } catch (Exception e) {
             System.out.println("Error guardarTiposAuxilio : " + e.toString());
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
@@ -475,11 +513,11 @@ public class ControlTiposAuxilios implements Serializable {
             if (bandera == 1) {
                 altoTabla = "330";
                 FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
@@ -492,7 +530,7 @@ public class ControlTiposAuxilios implements Serializable {
 
             listTiposAuxilios.add(nuevoTipoAuxilios);
             nuevoTipoAuxilios = new TiposAuxilios();
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             if (guardado == true) {
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -576,7 +614,7 @@ public class ControlTiposAuxilios implements Serializable {
             duplicarTipoAuxilio.setSecuencia(l);
             listTiposAuxilios.add(duplicarTipoAuxilio);
             crearTiposAuxilios.add(duplicarTipoAuxilio);
-            RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+            RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
             index = -1;
             secRegistro = null;
             if (guardado == true) {
@@ -586,11 +624,11 @@ public class ControlTiposAuxilios implements Serializable {
             if (bandera == 1) {
                 altoTabla = "330";
                 FacesContext c = FacesContext.getCurrentInstance();
-                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:codigo");
+                codigo = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
-                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoReemplazo:descripcion");
+                descripcion = (Column) c.getViewRoot().findComponent("form:datosTipoAuxilio:descripcion");
                 descripcion.setFilterStyle("display: none; visibility: hidden;");
-                RequestContext.getCurrentInstance().update("form:datosTipoReemplazo");
+                RequestContext.getCurrentInstance().update("form:datosTipoAuxilio");
                 bandera = 0;
                 filtrarTiposAuxilios = null;
                 tipoLista = 0;
@@ -612,7 +650,7 @@ public class ControlTiposAuxilios implements Serializable {
     }
 
     public void exportPDF() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoAuxilioExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSAUXILIOS", false, false, "UTF-8", null, null);
@@ -622,7 +660,7 @@ public class ControlTiposAuxilios implements Serializable {
     }
 
     public void exportXLS() throws IOException {
-        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoReemplazoExportar");
+        DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosTipoAuxilioExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSAUXILIOS", false, false, "UTF-8", null, null);
@@ -650,13 +688,10 @@ public class ControlTiposAuxilios implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("TIPOSAUXILIOS")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("TIPOSAUXILIOS")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

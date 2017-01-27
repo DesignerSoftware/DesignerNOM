@@ -1,7 +1,7 @@
 package Controlador;
 
-
 import Administrar.AdministrarUsuariosVistas;
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.ObjetosDB;
 import Entidades.UsuariosVistas;
 import Exportar.ExportarPDF;
@@ -14,10 +14,14 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -72,12 +76,13 @@ public class ControlUsuariosVistas implements Serializable {
     //////////PRUEBAS UNITARIAS COMPONENTES////////
     ///////////////////////////////////////////////
     public boolean buscador;
-    public String paginaAnterior;
     public String alisin;
     //otros
     private int cualCelda, tipoLista, index, indiceAux, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
+    public String paginaAnterior;
+    private Map<String, Object> mapParametros;
 
     public ControlUsuariosVistas() {
 
@@ -105,6 +110,11 @@ public class ControlUsuariosVistas implements Serializable {
         buscador = false;
         tablaImprimir = ":formExportar:datosUsuariosVistasExportar";
         nombreArchivo = "UsuariosVistasXML";
+
+        paginaAnterior = "nominaf";
+        mapParametros = new LinkedHashMap<String, Object>();
+        mapParametros.put("paginaAnterior", paginaAnterior);
+
     }
 
     @PostConstruct
@@ -127,11 +137,39 @@ public class ControlUsuariosVistas implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaAnterior = pagina;
-    }
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+    
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   } 
 
-    public String redirigir() {
-        return paginaAnterior;
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "usuariovista";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+        // mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -1029,6 +1067,7 @@ public class ControlUsuariosVistas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        navegar("atras");
     }
 
     //VERIFICAR RASTRO
@@ -1054,12 +1093,10 @@ public class ControlUsuariosVistas implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("USUARIOSVISTAS")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("USUARIOSVISTAS")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -1153,7 +1190,7 @@ public class ControlUsuariosVistas implements Serializable {
             }
             index = -1;
             secRegistro = null;
-        }        
+        }
     }
 
     //GETTER AND SETTER

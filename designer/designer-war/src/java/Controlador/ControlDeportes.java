@@ -15,7 +15,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -63,12 +65,14 @@ public class ControlDeportes implements Serializable {
     private Integer a;
     private Integer backUpCodigo;
     private String backUpDescripcion;
-    private String infoRegistro, paginaanterior;
+    private String infoRegistro;
     private DataTable tablaC;
     private boolean activarLOV;
     private BigInteger verificarBorradoVigenciasDeportes;
     private BigInteger contadorDeportesPersonas;
     private BigInteger contadorParametrosInformes;
+       private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDeportes() {
         listDeportes = null;
@@ -82,11 +86,49 @@ public class ControlDeportes implements Serializable {
         a = null;
         guardado = true;
         tamano = 270;
-        paginaanterior = "";
+        paginaAnterior = "nominaf";
         activarLOV = true;
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+      
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "deporte";
+        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -100,7 +142,7 @@ public class ControlDeportes implements Serializable {
     }
 
     public void recibirPag(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listDeportes = null;
         getListDeportes();
         if (listDeportes != null) {
@@ -111,7 +153,7 @@ public class ControlDeportes implements Serializable {
     }
 
     public String retornarPagina() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(Deportes deporte, int celda) {
@@ -170,7 +212,6 @@ public class ControlDeportes implements Serializable {
         permitirIndex = true;
         getListDeportes();
         contarRegistros();
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:infoRegistro");
         RequestContext.getCurrentInstance().update("form:datosDeporte");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -200,9 +241,9 @@ public class ControlDeportes implements Serializable {
         guardado = true;
         permitirIndex = true;
         contarRegistros();
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosDeporte");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void activarCtrlF11() {
@@ -397,7 +438,7 @@ public class ControlDeportes implements Serializable {
                 modificarDeportes.clear();
             }
             listDeportes = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:growl");
@@ -747,11 +788,11 @@ public class ControlDeportes implements Serializable {
     }
 
     public String getPaginaanterior() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
-    public void setPaginaanterior(String paginaanterior) {
-        this.paginaanterior = paginaanterior;
+    public void setPaginaanterior(String paginaAnterior) {
+        this.paginaAnterior = paginaAnterior;
     }
 
     public boolean isGuardado() {

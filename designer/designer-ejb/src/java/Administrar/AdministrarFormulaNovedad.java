@@ -41,6 +41,7 @@ public class AdministrarFormulaNovedad implements AdministrarFormulaNovedadInter
 
     @Override
     public List<FormulasNovedades> listFormulasNovedadesParaFormula(BigInteger secuencia) {
+       System.out.println("Administrar.AdministrarFormulaNovedad.listFormulasNovedadesParaFormula() secuencia : " + secuencia);
         try {
             List<FormulasNovedades> lista = persistenciaFormulasNovedades.formulasNovedadesParaFormulaSecuencia(em,secuencia);
             return lista;

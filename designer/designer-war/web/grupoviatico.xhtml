@@ -63,7 +63,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  actionListener="#{controlGruposViaticos.salir()}" action="atrasgrupoviatico" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  actionListener="#{controlGruposViaticos.salir()}" action="cargo" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -75,9 +75,7 @@
                                          value="#{controlGruposViaticos.listGruposViaticos}" scrollHeight="#{controlGruposViaticos.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlGruposViaticos.filtrarGruposViaticos}" emptyMessage="No se encontraron resultados para la búsqueda"
                                          editable="true" editMode="cell" paginator="false"  scrollable="true"
-                                         selection="#{controlGruposViaticos.grupoViaticoSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         selection="#{controlGruposViaticos.grupoViaticoSeleccionado}" widgetVar="datosGruposViaticos"    selectionMode="single" >
                                 <p:ajax event="filter" listener="#{controlGruposViaticos.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -85,7 +83,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 0)}" process="@this" 
+                                                       onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -99,7 +98,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="40" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 1)}" process="@this" 
+                                                        onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.descripcion)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -113,7 +113,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.porcentajelastday}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputNumber autocomplete="off"  value="#{info.porcentajelastday}" id="editarEestado" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlGruposViaticos.cambiarIndice(info, 2)}" process="@this"
+                                                       onstart="PF('datosGruposViaticos').unselectAllRows();PF('datosGruposViaticos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlGruposViaticos.modificarGruposViaticos(info, 'N', info.porcentajelastday)}" update="estado"/>
                                             </p:inputNumber>
                                         </f:facet>  
@@ -128,13 +129,13 @@
                     </p:panel>
 
                     <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlGruposViaticos.revisarDialogoGuardar()}" disabled="#{controlGruposViaticos.guardado}"  process="@this"/>
-                    <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  action="atrasgrupoviatico"   />
+                    <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=""  action="cargo"   />
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="atrasgrupoviatico" actionListener="#{controlGruposViaticos.guardarGruposViaticos()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="atrasgrupoviatico" actionListener="#{controlGruposViaticos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" action="cargo" actionListener="#{controlGruposViaticos.guardarGruposViaticos()}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" action="cargo" actionListener="#{controlGruposViaticos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
@@ -176,14 +177,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposViaticos.grupoViaticoSeleccionado.secuencia, 'GruposViaticos','grupoviatico')}" style="position: absolute; top: 63px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposViaticos.grupoViaticoSeleccionado.secuencia, 'GruposViaticos','grupoviatico')}" style="position: absolute; top: 63px; left: 170px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('GruposViaticos','grupoviatico')}" style="position: absolute; top: 60px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('GruposViaticos','grupoviatico')}" style="position: absolute; top: 60px; left: 170px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -200,7 +201,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlGruposViaticos.grupoViaticoSeleccionado.secuencia, 'GruposViaticos','grupoviatico')}" style="position: absolute; top: 70px; left: 170px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlGruposViaticos.grupoViaticoSeleccionado.secuencia, 'GruposViaticos','grupoviatico')}" style="position: absolute; top: 70px; left: 170px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 70px; left: 240px;" process="@this" />
                     </p:dialog>
 

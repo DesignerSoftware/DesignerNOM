@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Conceptos;
 import Entidades.GruposConceptos;
 import Entidades.VigenciasGruposConceptos;
@@ -18,9 +19,13 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -115,10 +120,10 @@ public class ControlGrupoConcepto implements Serializable {
    private Integer cualTabla;
 
    private String paginaAnterior;
+   private Map<String, Object> mapParametros;
    private boolean activarLov;
 
    public ControlGrupoConcepto() {
-      paginaAnterior = "";
       permitirIndex = true;
       cualTabla = 0;
       bandera = 0;
@@ -142,6 +147,9 @@ public class ControlGrupoConcepto implements Serializable {
       m = 0;
       cambiosPagina = true;
       activarLov = true;
+      paginaAnterior = "nominaf";
+      mapParametros = new LinkedHashMap<String, Object>();
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    @PostConstruct
@@ -681,6 +689,7 @@ public class ControlGrupoConcepto implements Serializable {
       contarRegistros();
       contarRegistros();
       deshabilitarBotonLov();
+      navegar("atras");
    }
 
    //CANCELAR MODIFICACIONES
@@ -1425,18 +1434,63 @@ public class ControlGrupoConcepto implements Serializable {
       }
    }
 
-   public void recibirPagina(String paginaAnterior) {
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
       getListaGruposConceptos();
       if (listaGruposConceptos != null) {
          if (!listaGruposConceptos.isEmpty()) {
             grupoConceptoSeleccionado = listaGruposConceptos.get(0);
          }
       }
-      this.paginaAnterior = paginaAnterior;
    }
 
-   public String volverPaginaAnterior() {
-      return paginaAnterior;
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior);
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "grupoconcepto";
+//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+//         mapParametros.put("paginaAnterior", pagActual);
+//         mas Parametros
+         if (pag.equals("rastrotablaGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.recibirDatosTabla(grupoConceptoSeleccionado.getSecuencia(), "GruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaHGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.historicosTabla("GruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaVGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.recibirDatosTabla(vigenciaGrupoCSeleccionado.getSecuencia(), "VigenciasGruposConceptos", pagActual);
+            pag = "rastrotabla";
+         } else if (pag.equals("rastrotablaHVGC")) {
+            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
+            pag = "rastrotabla";
+         }
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+      getListaGruposConceptos();
+      if (listaGruposConceptos != null) {
+         if (!listaGruposConceptos.isEmpty()) {
+            grupoConceptoSeleccionado = listaGruposConceptos.get(0);
+         }
+      }
    }
 
    public void contarRegistros() {

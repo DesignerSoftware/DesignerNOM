@@ -63,14 +63,14 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlMotivosRetiros.salir()}" action="#{controlMotivosRetiros.retornarPagina()}" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlMotivosRetiros.salir()}" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton style=" position: absolute; left: 688px; top: 470px; " class="cssBotonAceptar" id="ACEPTAR" value=" "  actionListener="#{controlMotivosRetiros.revisarDialogoGuardar()}" disabled="#{controlMotivosRetiros.guardado}"    process="@this"   />
-                        <p:commandButton style=" position: absolute; left: 785px; top: 470px; " class="cssBotonCancelar" id="ATRAS" value=" " action="#{controlMotivosRetiros.retornarPagina()}"   />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" "  actionListener="#{controlMotivosRetiros.revisarDialogoGuardar()}" disabled="#{controlMotivosRetiros.guardado}"  process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlMotivosRetiros.salir()}"   />
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Motivo de Retiro</strong></legend>
 
@@ -78,7 +78,7 @@
                                          value="#{controlMotivosRetiros.listMotivosRetiros}" scrollable="true" scrollHeight="#{controlMotivosRetiros.tamano}"  scrollWidth="830"
                                          filteredValue="#{controlMotivosRetiros.filtrarMotivosRetiros}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell"   liveScroll="true" scrollRows="15"   selection="#{controlMotivosRetiros.motivoRetiroSelecciodo}" selectionMode="single"
-                                         >
+                                         widgetVar="datosMotivosRetiros" >
                                 <p:ajax event="filter" listener="#{controlMotivosRetiros.eventoFiltrar()}"/>
 
                                 <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="30" filterStyle="display: none; visibility: hidden;" >                                  
@@ -86,7 +86,8 @@
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosMotivosRetiros').unselectAllRows();PF('datosMotivosRetiros').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlMotivosRetiros.modificarMotivosRetiros(info, 'N', info.codigo)}"  update="codigo"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -102,7 +103,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlMotivosRetiros.cambiarIndice(info, 1)}" process="@this"
+                                                        onstart="PF('datosMotivosRetiros').unselectAllRows();PF('datosMotivosRetiros').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlMotivosRetiros.modificarMotivosRetiros(info, 'N', info.nombre)}" update="descripcion"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -113,22 +115,22 @@
                                 </p:column>
                             </p:dataTable>
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlMotivosRetiros.infoRegistro}" style="position: absolute; left: 15px; top: 330px; font-weight: bold"/>
-
-<!--id="informacionRegistro" value="#{msg['infoRegistros']} #{controlMotivosRetiros.infoRegistro}" style="position: absolute; left: 15px; top: 330px; font-weight: bold"-->
-
                         </fieldset>
-
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlMotivosRetiros.guardarMotivosRetiros()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlMotivosRetiros.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                            <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
+                                <f:actionListener binding="#{controlMotivosRetiros.guardarMotivosRetiros()}" />
+                                <f:actionListener binding="#{controlMotivosRetiros.salir()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
+                                <f:actionListener binding="#{controlMotivosRetiros.cancelarModificacion()}" />
+                                <f:actionListener binding="#{controlMotivosRetiros.salir()}" />
+                            </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
-
                     </p:panel>
-
 
                     <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
@@ -167,14 +169,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosRetiros.secRegistro, 'MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosRetiros.secRegistro, 'MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -191,7 +193,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosRetiros.secRegistro, 'MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMotivosRetiros.secRegistro, 'MotivosRetiros', 'motivosretiros')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 

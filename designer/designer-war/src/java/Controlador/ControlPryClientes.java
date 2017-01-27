@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -66,6 +69,8 @@ public class ControlPryClientes implements Serializable {
     private String backUpTelefono;
     private String backUpNombreContacto;
     private boolean activarLOV;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlPryClientes() {
         listPryClientes = null;
@@ -79,6 +84,56 @@ public class ControlPryClientes implements Serializable {
         guardado = true;
         tamano = 270;
         activarLOV = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listPryClientes = null;
+        getListPryClientes();
+        if (listPryClientes != null) {
+            if (!listPryClientes.isEmpty()) {
+                pryClienteSeleccionado = listPryClientes.get(0);
+            }
+        }
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listPryClientes = null;
+        getListPryClientes();
+        if (listPryClientes != null) {
+            if (!listPryClientes.isEmpty()) {
+                pryClienteSeleccionado = listPryClientes.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "pry_cliente";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -91,18 +146,6 @@ public class ControlPryClientes implements Serializable {
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
-        }
-    }
-    private String paginaAnterior;
-
-    public void recibirPagina(String pagina) {
-        paginaAnterior = pagina;
-        listPryClientes = null;
-        getListPryClientes();
-        if (listPryClientes != null) {
-            if (!listPryClientes.isEmpty()) {
-                pryClienteSeleccionado = listPryClientes.get(0);
-            }
         }
     }
 
@@ -340,7 +383,7 @@ public class ControlPryClientes implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listPryClientes = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:growl");
@@ -400,9 +443,7 @@ public class ControlPryClientes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
 
         if (nuevoPryCliente.getNombre() == null || nuevoPryCliente.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "El campo nombre es obligatorio";
         } else {
             System.out.println("bandera");
             contador++;
@@ -496,13 +537,8 @@ public class ControlPryClientes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Short a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar nombre " + duplicarPryCliente.getNombre());
-        System.err.println("ConfirmarDuplicar direccion " + duplicarPryCliente.getDireccion());
-
         if (duplicarPryCliente.getNombre() == null || duplicarPryCliente.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " No pueden haber cambios vacios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+             mensajeValidacion = "El campo nombre es obligatorio";
         } else {
             System.out.println("Bandera : ");
             contador++;

@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -110,9 +112,10 @@ public class ControlDetalleEmpresa implements Serializable {
     private Date auxFechaCamaraComercio;
     private String auxTipo, auxDireccion, auxTelefono, auxFax, auxNameRepre, auxDocRepre;
     private String altoTabla;
-    private String paginaAnterior;
     //
     private String infoRegistro, infoRegistroEmpresa, infoRegistroCiudad, infoRegistroCiudadDocumento, infoRegistroGerente, infoRegistroPersona, infoRegistroCargo, infoRegistroSubGerente, infoRegistroRepresentante;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDetalleEmpresa() {
         altoTabla = "300";
@@ -158,9 +161,10 @@ public class ControlDetalleEmpresa implements Serializable {
         nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
         //Duplicar
         duplicarDetalleEmpresa = new DetallesEmpresas();
+   mapParametros.put ("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -173,8 +177,18 @@ public class ControlDetalleEmpresa implements Serializable {
         }
     }
 
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
     public String regresarAPaginaAnterior() {
-        System.out.println("paginaAnterior : "+paginaAnterior);
         return paginaAnterior;
     }
 
@@ -188,6 +202,32 @@ public class ControlDetalleEmpresa implements Serializable {
         } else {
             infoRegistro = "Cantidad de registros : 0";
         }
+    }
+      
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "detalleempresa";
+        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public boolean validarFechaCamaraComercio(int i) {
@@ -3250,14 +3290,6 @@ public class ControlDetalleEmpresa implements Serializable {
 
     public void setAltoTabla(String altoTabla) {
         this.altoTabla = altoTabla;
-    }
-
-    public String getPaginaAnterior() {
-        return paginaAnterior;
-    }
-
-    public void setPaginaAnterior(String paginaAnterior) {
-        this.paginaAnterior = paginaAnterior;
     }
 
     public DetallesEmpresas getDetalleTablaSeleccionado() {

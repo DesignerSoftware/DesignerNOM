@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -104,7 +107,6 @@ public class ControlTercero implements Serializable {
     private TercerosSucursales nuevoTerceroSucursal, duplicarTerceroSucursal;
     private String terceroConsolidador, ciudad, ciudadTS;
     private long nitConsolidado;
-    private String paginaAnterior;
     //
     private String infoRegistro, infoRegistroEmpresa, infoRegistroCiudad2, infoRegistroCiudad1, infoRegistroLovTercero, infoRegistroTerceroConsolidador, infoRegistroTerceroSucursal;
     //
@@ -119,6 +121,8 @@ public class ControlTercero implements Serializable {
     //
     private boolean activarLOV;
     private int cualTabla;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     /**
      * Creates a new instance of ControlTercero
@@ -181,6 +185,7 @@ public class ControlTercero implements Serializable {
         duplicarTercero = new Terceros();
         cambiosTercero = false;
         activarLOV = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -196,13 +201,6 @@ public class ControlTercero implements Serializable {
         }
     }
 
-    public String valorPaginaAnterior() {
-        return paginaAnterior;
-    }
-
-    /*
-     * public void recibirPagina(String pagina) { paginaAnterior = pagina; }
-     */
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listEmpresas = administrarTercero.listEmpresas();
@@ -221,6 +219,58 @@ public class ControlTercero implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listEmpresas = administrarTercero.listEmpresas();
+        int tam = listEmpresas.size();
+        if (tam > 0) {
+            empresaActual = listEmpresas.get(0);
+            empresaSeleccionada = empresaActual;
+            listTerceros = null;
+            getListTerceros();
+            if (listTerceros != null) {
+                if (!listTerceros.isEmpty()) {
+                    terceroTablaSeleccionado = listTerceros.get(0);
+                }
+            }
+            getListTercerosSucursales();
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tercero";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+    public String valorPaginaAnterior() {
+        return paginaAnterior;
+    }
+
+    /*
+     * public void recibirPaginaEntrante(String pagina) { paginaAnterior = pagina; }
+     */
     /**
      * Modifica los elementos de la tabla VigenciaLocalizacion que no usan
      * autocomplete
@@ -1298,6 +1348,7 @@ public class ControlTercero implements Serializable {
         cambiosTercero = true;
         cambiosTerceroSucursal = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 

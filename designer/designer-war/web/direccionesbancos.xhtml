@@ -80,7 +80,7 @@
                         <fieldset style="position: absolute;top: 75px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 12px; color: #14388B"><strong>Direcciones</strong></legend>
 
-                            <p:dataTable id="datosDireccionesBanco" var="direccion" value="#{controlDireccionesBancos.listaDirecciones}"
+                            <p:dataTable id="datosDireccionesBanco" widgetVar="datosDireccionesBanco" var="direccion" value="#{controlDireccionesBancos.listaDirecciones}"
                                          rowKey="#{direccion.secuencia}" rowIndexVar="indice"                        
                                          scrollable="true" scrollWidth="830" filteredValue="#{controlDireccionesBancos.listaDireccionesFiltrar}" 
                                          emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" scrollHeight="#{controlDireccionesBancos.altoTabla}" style=" border: 1px;width: 830px"
@@ -98,7 +98,8 @@
                                             <p:calendar  autocomplete="off" mask="true"  pattern="dd/MM/yyyy" id="editFecha" value="#{direccion.fechavigencia}">
                                                 <p:ajax event="dateSelect"  update="editFecha"/>
                                                 <!--<p:ajax event="change"  update="editFecha" />-->
-                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 0)}" />
+                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 0)}" 
+                                                       onstart="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});" />
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
@@ -112,7 +113,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="OutUbicacionPrincipal" value="#{direccion.estadoTipoPpal}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarUbicacionPrincipal" value="#{direccion.estadoTipoPpal}" style="width: 82%; height: 20px">  
+                                            <p:selectOneMenu id="editarUbicacionPrincipal" value="#{direccion.estadoTipoPpal}" style="width: 82%; height: 20px"
+                                                             onblur="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});"
+                                                             onfocus="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="Calle" itemValue="CALLE" />  
                                                 <f:selectItem itemLabel="Carrera" itemValue="CARRERA" />  
                                                 <f:selectItem itemLabel="Avenida Calle" itemValue="AVENIDA CALLE" />  
@@ -138,7 +141,8 @@
                                         <f:facet name="output"><h:outputText value="#{direccion.ppal}" style="text-transform: uppercase " /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{direccion.ppal}" id="editarDescripcionUbicacionPrincipal" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 2)}" />
+                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 2)}" 
+                                                        onstart="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlDireccionesBancos.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -153,7 +157,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText id="OutUbicacionSecundaria" value="#{direccion.estadoTipoSecundario}" style="text-transform: uppercase"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="editarUbicacionSecundaria" value="#{direccion.estadoTipoSecundario}" style="width: 82%; height: 20px">  
+                                            <p:selectOneMenu id="editarUbicacionSecundaria" value="#{direccion.estadoTipoSecundario}" style="width: 82%; height: 20px"
+                                                             onblur="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});"
+                                                             onfocus="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="Calle" itemValue="CALLE" />  
                                                 <f:selectItem itemLabel="Carrera" itemValue="CARRERA" />  
                                                 <f:selectItem itemLabel="Diagonal" itemValue="DIAGONAL" />  
@@ -177,7 +183,7 @@
                                         <f:facet name="output"><h:outputText value="#{direccion.secundario}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{direccion.secundario}" id="editarDescripcionUbicacionSecundaria" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 4)}" />
+                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 4)}" onstart="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlDireccionesBancos.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -197,7 +203,7 @@
                                         <f:facet name="output"><h:outputText value="#{direccion.interior}" style="text-transform: uppercase "/></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{direccion.interior}" id="editarInterior" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 5)}" />
+                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 5)}" onstart="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlDireccionesBancos.modificarDirecciones(direccion)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -215,7 +221,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{direccion.ciudad.nombre}" id="editarCiudad" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlDireccionesBancos.modificarDirecciones(direccion)}"/>
-                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 6)}" />
+                                                <p:ajax event="select" listener="#{controlDireccionesBancos.cambiarIndice(direccion, 6)}" onstart="PF('datosDireccionesBanco').unselectAllRows();PF('datosDireccionesBanco').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlDireccionesBancos.asignarIndex(direccion,1,0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -421,14 +427,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDireccionesBancos.direccionSeleccionada.getSecuencia(), 'Direcciones', 'direcciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDireccionesBancos.direccionSeleccionada.getSecuencia(), 'Direcciones', 'direcciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Direcciones', 'direcciones')}" style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Direcciones', 'direcciones')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
@@ -445,7 +451,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDireccionesBancos.direccionSeleccionada.getSecuencia(), 'Direcciones', 'direcciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlDireccionesBancos.direccionSeleccionada.getSecuencia(), 'Direcciones', 'direcciones')}" style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 

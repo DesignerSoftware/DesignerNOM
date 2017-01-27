@@ -46,17 +46,15 @@ public class PryPlataformas implements Serializable {
         this.secuencia = secuencia;
     }
 
-
     public String getDescripcion() {
+        if (descripcion == null) {
+            descripcion = "";
+        }
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        if (descripcion != null) {
-            this.descripcion = descripcion.toUpperCase();
-        } else {
-            this.descripcion = descripcion;
-        }
+        this.descripcion = descripcion;
     }
 
     public String getObservacion() {

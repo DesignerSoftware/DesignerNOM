@@ -14,63 +14,6 @@
                     <p:growl id="growl" showDetail="true"/> 
                     <f:loadBundle basename="Recursos.attipodia" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>#{msg['tipodia']}</strong></legend>
-
-                            <p:dataTable id="datosTipoReemplazo" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlTiposDias.listTiposDias}" scrollHeight="#{controlTiposDias.tamano}"  
-                                         filteredValue="#{controlTiposDias.filtrarTiposDias}" emptyMessage="#{msg['vacio']}"
-                                         selection="#{controlTiposDias.tipoDiaSeleccionado}" selectionMode="single"
-                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
-                                         >
-                                <p:ajax event="filter" listener="#{controlTiposDias.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change" listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.codigo)}"  update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="#{msg['descripcion']}"  sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="260" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.descripcion)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-
-                                </p:column>
-                                <p:column headerText="#{msg['tipo']}" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains" id="tipo" width="60" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{info.tipo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:selectOneMenu effect="fold" value="#{info.tipo}" style="height: 20px;width:99%">  
-                                                <f:selectItem itemLabel="#{msg['ord']}" itemValue="ORD" />                
-                                                <f:selectItem itemLabel="#{msg['fes']}" itemValue="FES"/>  
-                                                <f:selectItem itemLabel="#{msg['dom']}" itemValue="DOM" />  
-
-                                                <p:ajax event="change" listener="#{controlTiposDias.mostrarInfo(indice, 2)}" update="tipo"/>
-                                            </p:selectOneMenu>                                          
-                                        </f:facet>
-                                    </p:cellEditor>
-
-                                </p:column>
-
-
-                            </p:dataTable>
-
-                        </fieldset>
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -94,7 +37,7 @@
                                 <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
 
                                 <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png) " actionListener="#{controlTiposDias.limpiarNuevoTiposDias()}"  ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoReemplazoExportar" fileName="TIPOSDIAS" encoding="UTF-8"/> 
+                                    <p:dataExporter type="xml"  target=":formExportar:datosTipoDiaExportar" fileName="TIPOSDIAS" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
 
@@ -123,6 +66,62 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar>
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>#{msg['tipodia']}</strong></legend>
+
+                            <p:dataTable id="datosTipoDia" widgetVar="datosTipoDia" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlTiposDias.listTiposDias}" scrollHeight="#{controlTiposDias.tamano}"  
+                                         filteredValue="#{controlTiposDias.filtrarTiposDias}" emptyMessage="#{msg['vacio']}"
+                                         selection="#{controlTiposDias.tipoDiaSeleccionado}" selectionMode="single"
+                                         editable="true" editMode="cell" scrollable="true" liveScroll="true" scrollRows="50"  scrollWidth="830"
+                                         >
+                                <p:ajax event="filter" listener="#{controlTiposDias.eventoFiltrar()}"/>
+
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.codigo}" maxlength="4" id="editarCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosTipoDia').unselectAllRows();PF('datosTipoDia').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.codigo)}"  update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="#{msg['descripcion']}"  sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="260" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="30" id="editarNombre" style="height: 12px;  border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlTiposDias.cambiarIndice(indice, 1)}" process="@this"
+                                                        onstart="PF('datosTipoDia').unselectAllRows();PF('datosTipoDia').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlTiposDias.modificandoTipoDia(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+
+                                </p:column>
+                                <p:column headerText="#{msg['tipo']}" sortBy="#{info.tipo}" filterBy="#{info.tipo}" filterMatchMode="contains" id="tipo" width="60" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{info.tipo}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:selectOneMenu effect="fold" value="#{info.tipo}" style="height: 20px;width:99%"
+                                                             onblur="PF('datosTipoDia').unselectAllRows();PF('datosTipoDia').selectRow(#{indice});"
+                                                             onfocus="PF('datosTipoDia').unselectAllRows();PF('datosTipoDia').selectRow(#{indice});">  
+                                                <f:selectItem itemLabel="#{msg['ord']}" itemValue="ORD" />                
+                                                <f:selectItem itemLabel="#{msg['fes']}" itemValue="FES"/>  
+                                                <f:selectItem itemLabel="#{msg['dom']}" itemValue="DOM" />  
+
+                                                <p:ajax event="change" listener="#{controlTiposDias.mostrarInfo(indice, 2)}" update="tipo"/>
+                                            </p:selectOneMenu>                                          
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                            </p:dataTable>
+                        </fieldset>
 
                         <h:outputText id="informacionRegistro" value="#{controlTiposDias.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
                         <p:commandButton style=" position: absolute; left: 688px; top: 470px;"  icon="ui-icon-check" id="ACEPTAR" value="#{msg['aceptar']}"  disabled="#{controlTiposDias.guardado}" actionListener="#{controlTiposDias.revisarDialogoGuardar()}"     process="@this"   />
@@ -177,14 +176,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDias.secRegistro,'TiposDias', 'attipodia')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDias.secRegistro,'TiposDias', 'attipodia')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposDias', 'attipodia')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposDias', 'attipodia')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -201,7 +200,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDias.secRegistro,'TiposDias', 'attipodia')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposDias.secRegistro,'TiposDias', 'attipodia')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -297,7 +296,7 @@
 
 
                 <h:form id="formExportar">
-                    <p:dataTable id="datosTipoReemplazoExportar" var="info" style="visibility: hidden; display: none;"                           
+                    <p:dataTable id="datosTipoDiaExportar" var="info" style="visibility: hidden; display: none;"                           
                                  value="#{controlTiposDias.listTiposDias}">
                         <p:column>                                  
                             <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet> 

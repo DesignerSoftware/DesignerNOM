@@ -67,7 +67,7 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nomina" process="@this">
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nominaf" process="@this">
                            <f:actionListener binding="#{controlParametro.salir()}" />
                            <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
                         </p:commandButton>
@@ -323,7 +323,7 @@
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="cambiosMasivos" value="Masivos" process="@this"
-                                      actionListener="#{controlCambiosMasivos.recibirPagina('parametro')}" action="cambiosmasivos"/>
+                                      actionListener="#{controlCambiosMasivos.recibirPaginaEntrante('parametro')}" action="cambiosmasivos"/>
                      <p:tooltip  for="cambiosMasivos" value="#{msg['cambiosmasivos']}" />
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -339,7 +339,7 @@
                   <p:commandButton style="position: absolute; left: 683px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png);
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" process="@this" disabled="#{controlParametro.guardado}"/>
                   <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nomina" process="@this">
+                                   background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nominaf" process="@this">
 
                      <f:actionListener binding="#{controlParametro.salir()}" />
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
@@ -349,7 +349,7 @@
                <p:remoteCommand name="llamarLov" actionListener="#{controlParametro.llamarLov()}" process="@this"/>
                <p:remoteCommand name="ubicacionC" actionListener="#{controlParametro.ubicacionCampo()}" process="@this"/>
                <p:remoteCommand name="ubicacionTabla" actionListener="#{controlParametro.ubicacionCampoTabla()}" process="@this"/>
-               <p:remoteCommand name="salirGuardado" action="nomina" process="@this"/>
+               <p:remoteCommand name="salirGuardado" action="nominaf" process="@this"/>
 
             </h:form>
 
@@ -661,12 +661,12 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="85" width="400" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" action="nomina" style="position: absolute; top: 50px; left: 137px;" 
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" action="nominaf" style="position: absolute; top: 50px; left: 137px;" 
                                    process="@this" icon="ui-icon-check" >
                      <f:actionListener binding="#{controlParametro.guardarCambios()}" />
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}" />
                   </p:commandButton>
-                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametro.salir()}" action="nomina" 
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlParametro.salir()}" action="nominaf" 
                                    style="position: absolute; top: 50px; left: 198px;" process="@this" icon="ui-icon-close" />
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 264px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>

@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.VigenciasRetenciones;
 import Entidades.Retenciones;
 import Exportar.ExportarPDFTablasAnchas;
@@ -21,6 +20,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -104,6 +106,8 @@ public class ControlRetencion implements Serializable {
     private BigInteger secuenciaVigenciaRetencion;
     private Date fechaParametro;
     private Date fechaVigencia;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     private Integer cualTabla;
 
@@ -129,6 +133,7 @@ public class ControlRetencion implements Serializable {
         nuevoRetencion = new Retenciones();
         m = 0;
         cambiosPagina = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -139,21 +144,56 @@ public class ControlRetencion implements Serializable {
             administrarRetenciones.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct "+ this.getClass().getName() +": " + e);
+            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
-    
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "retencion";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+            //  if (pag.equals("rastrotabla")) {
+            //  ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     //CREAR Vigencia Retencion
     public void agregarNuevoVigencia() {
         int pasa = 0;
         int pasar = 0;
-        
+
         mensajeValidacion = new String();
 
         RequestContext context = RequestContext.getCurrentInstance();
-        
-        
 
         if (nuevoVigenciasRetenciones.getCodigo() == null) {
             mensajeValidacion = mensajeValidacion + " * Codigo\n";
@@ -168,7 +208,7 @@ public class ControlRetencion implements Serializable {
             mensajeValidacion = mensajeValidacion + " * UVT\n";
             pasa++;
         }
-        
+
         for (int i = 0; i < listaVigenciasRetenciones.size(); i++) {
             if (nuevoVigenciasRetenciones.getCodigo() == listaVigenciasRetenciones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:codigos");
@@ -874,7 +914,7 @@ public class ControlRetencion implements Serializable {
     public void confirmarDuplicar() {
         int pasa = 0;
         RequestContext context = RequestContext.getCurrentInstance();
-        
+
         for (int i = 0; i < listaVigenciasRetenciones.size(); i++) {
             if (duplicarVigenciasRetenciones.getCodigo() == listaVigenciasRetenciones.get(i).getCodigo()) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:valores");
@@ -1392,13 +1432,10 @@ public class ControlRetencion implements Serializable {
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("VIGENCIASRETENCIONES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("VIGENCIASRETENCIONES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
             }
             index = -1;
         } else {
@@ -1423,13 +1460,10 @@ public class ControlRetencion implements Serializable {
                 } else {
                     RequestContext.getCurrentInstance().execute("PF('seleccionarRegistroNF').show()");
                 }
+            } else if (administrarRastros.verificarHistoricosTabla("RETENCIONES")) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
             } else {
-                if (administrarRastros.verificarHistoricosTabla("RETENCIONES")) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistoricoNF').show()");
-                } else {
-                    RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
-                }
-
+                RequestContext.getCurrentInstance().execute("PF('errorRastroHistoricoNF').show()");
             }
             indexD = -1;
         }

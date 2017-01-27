@@ -1,7 +1,6 @@
 package Controlador;
 
 import Entidades.Conceptos;
-import Entidades.Personas;
 import Entidades.ConceptosRedondeos;
 import Entidades.TiposRedondeos;
 import Exportar.ExportarPDF;
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -85,7 +87,8 @@ public class ControlConceptoRedondeo implements Serializable {
    //Conteo de registros
    private String infoRegistro, infoRegistroLov, infoRegistroLovConceptos, infoRegistroLovTipos;
 
-   private String paginaAnterior;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    /**
     * Constructor de ControlConceptoRedondeo
@@ -116,12 +119,49 @@ public class ControlConceptoRedondeo implements Serializable {
       duplicarConceptoRedondeo = new ConceptosRedondeos();
       conceptoRedondeoSeleccionado = null;
       cambiosPagina = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
       //Conteo de registros
       infoRegistro = "";
       infoRegistroLov = "";
       infoRegistroLovConceptos = "";
       infoRegistroLovTipos = "";
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+   
+   public void recibirPaginaEntrante(String paginaAnterior) {
+      this.paginaAnterior = paginaAnterior;
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "conceptoredondeo";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    @PostConstruct
@@ -861,10 +901,6 @@ public class ControlConceptoRedondeo implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          //  k = 0;
       }
-   }
-
-   public void recibirPagina(String paginaAnterior) {
-      this.paginaAnterior = paginaAnterior;
    }
 
    public String volverPaginaAnterior() {

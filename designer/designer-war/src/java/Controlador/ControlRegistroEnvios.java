@@ -27,6 +27,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -72,7 +75,6 @@ public class ControlRegistroEnvios implements Serializable {
     private String infoRegistro;
     private String altoTabla;
     private int bandera;
-    String paginaAnterior;
     //Columnas Tabla VC
     private Column ecFecha, ecEmpleado, ecNombre, ecCorreo, ecEstado;
 //
@@ -86,6 +88,8 @@ public class ControlRegistroEnvios implements Serializable {
     private String pathReporteGenerado;
     private BigInteger secEmpresa;
     private String asunto;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     //private List<Empleados> empl;
     public ControlRegistroEnvios() {
@@ -109,6 +113,7 @@ public class ControlRegistroEnvios implements Serializable {
         correo = " ";
         asunto = "";
         pathReporteGenerado = "";
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -126,16 +131,53 @@ public class ControlRegistroEnvios implements Serializable {
         }
     }
 
-//    public void recibirPagina(String pagina, Inforeportes secReporte) {
-//        System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "registroEnvios";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
+//    public void recibirPaginaEntrante(String pagina, Inforeportes secReporte) {
+//        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
 //        System.out.println("Pagina: " + paginaAnterior);
 //        System.out.println("secReporte: " + secReporte);
 //
 //        paginaAnterior = pagina;
 //        recibirReporte(secReporte);
 //    }
-    public void recibirPagina(String pagina, BigInteger secReporte) {
-        System.out.println("Controlador.ControlRegistroEnvios.recibirPagina()");
+    public void recibirPaginaEntrante(String pagina, BigInteger secReporte) {
+        System.out.println("Controlador.ControlRegistroEnvios.recibirPaginaEntrante()");
         System.out.println("pagina: " + pagina);
         paginaAnterior = pagina;
         Inforeportes reporte = administrarRegistroEnvio.consultarPorSecuencia(secReporte);
@@ -175,7 +217,7 @@ public class ControlRegistroEnvios implements Serializable {
             RequestContext.getCurrentInstance().update("form:datosEC");
             guardado = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
@@ -461,13 +503,13 @@ public class ControlRegistroEnvios implements Serializable {
                             }
                         }
                     }
-                }else{
+                } else {
                     System.out.println("listReenvioCorreos: Lista Vacia");
                 }
-            }else{
+            } else {
                 System.out.println("listReenvioCorreos: Lista null");
             }
-        mostrarMensajes(tipoRespCorreo, mensaje);
+            mostrarMensajes(tipoRespCorreo, mensaje);
         }
     }
 

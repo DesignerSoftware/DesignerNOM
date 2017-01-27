@@ -81,23 +81,23 @@
                     <p:commandButton id="btnPersonal" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
                                      style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_personal.png); background-repeat: no-repeat; background-size: 100% 100%;
                                      border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(0)}" action="nomina"/>
+                                     actionListener="#{controlRemoto.datosIniciales(0)}" action="nominaf"/>
                     <p:commandButton id="btnNomina" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
                                      style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_nomina.png); background-repeat: no-repeat; background-size: 100% 100%;
                                      border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(1)}" action="nomina"/>
+                                     actionListener="#{controlRemoto.datosIniciales(1)}" action="nominaf"/>
                     <p:commandButton id="btnIntegracion" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
                                      style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_contabi.png); background-repeat: no-repeat; background-size: 100% 100%;
                                      border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(2)}" action="nomina"/>
+                                     actionListener="#{controlRemoto.datosIniciales(2)}" action="nominaf"/>
                     <p:commandButton id="btnGerencial" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
                                      style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_gerencial.png); background-repeat: no-repeat; background-size: 100% 100%;
                                      border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(3)}" action="nomina"/>
+                                     actionListener="#{controlRemoto.datosIniciales(3)}" action="nominaf"/>
                     <p:commandButton id="btnDesigner" value=" " disabled="#{controlInicioRed.modulosDesigner}" 
                                      style="width: 185px; height: 185px; background-image: url(Imagenes/Iconos/b_designer1.png); background-repeat: no-repeat; background-size: 100% 100%;
                                      border: none;" 
-                                     actionListener="#{controlRemoto.datosIniciales(4)}" action="nomina"/>
+                                     actionListener="#{controlRemoto.datosIniciales(4)}" action="nominaf"/>
                     <h:outputText/>
                     <h:outputText/>
                     <h:outputText value="PERSONAL" styleClass="botones_carpeta"/>
@@ -125,7 +125,7 @@
             </fieldset>
             <fieldset id="recordatorio" style="font-size: 12px; border-radius: 10px; background-color: #2D7AD7; box-shadow: 5px 5px 12px #000000; 
                       position: absolute; top: 543px; width: 1082.68px; height: 120px; text-align: center;">
-                <p:commandButton id="btnProverbio" value="" action="proverbio" actionListener="#{controlProverbio.recibirPagina('nomina')}" process="@this" disabled="#{controlInicioRed.modulosDesigner}" 
+                <p:commandButton id="btnProverbio" value="" action="proverbio" actionListener="#{controlProverbio.recibirPaginaEntrante('nominaf')}" process="@this" disabled="#{controlInicioRed.modulosDesigner}" 
                                  style="background-image: url(Imagenes/Iconos/bombillo1.png); background-size: 100% 100%; background-repeat: no-repeat;
                                  width: 60px; height: 70px; position: relative; top: -20px; display: inline-flex; border: none;"/>
                 <p class="triangulo_top_left"></p>

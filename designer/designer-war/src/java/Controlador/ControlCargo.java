@@ -1,5 +1,6 @@
 package Controlador;
 
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Cargos;
 import Entidades.Competenciascargos;
 import Entidades.DetallesCargos;
@@ -20,10 +21,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -136,6 +141,7 @@ public class ControlCargo implements Serializable {
    private String altoTablaCargo, altoTablaSueldoMercado, altoTablaCompetencia, altoTablaTipoDetalle;
    //
    private String paginaAnterior;
+   private Map<String, Object> mapParametros;
    //
    private boolean activoSueldoMercado, activoCompetencia, activoTipoDetalle;
    //
@@ -182,7 +188,9 @@ public class ControlCargo implements Serializable {
       activoSueldoMercado = true;
       activoCompetencia = true;
       activoTipoDetalle = true;
-      paginaAnterior = "";
+      paginaAnterior = "nominaf";
+      mapParametros = new LinkedHashMap<String, Object>();
+      mapParametros.put("paginaAnterior", paginaAnterior);
       //altos tablas
       altoTablaCargo = "95";
       altoTablaSueldoMercado = "68";
@@ -286,18 +294,47 @@ public class ControlCargo implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCargos.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
+         inicializarCosas();
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
    }
 
-   public String valorPaginaAnterior() {
-      return paginaAnterior;
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "cargo";
+//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+//         mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("grupoviatico")) {
+//            ControlGruposViaticos controlGruposViaticos = (ControlGruposViaticos) fc.getApplication().evaluateExpressionGet(fc, "#{controlGruposViaticos}", ControlGruposViaticos.class);
+//            controlGruposViaticos.recibirParametros(mapParaEnviar);
+//            controlGruposViaticos.recibirPaginaEntrante(pagActual);
+//         } else if(){}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      inicializarCosas();
    }
 
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
+      inicializarCosas();
+   }
+
+   public void inicializarCosas() {
       lovEmpresas = administrarCargos.listaEmpresas();
 
       if (lovEmpresas.size() > 0) {
@@ -306,7 +343,6 @@ public class ControlCargo implements Serializable {
          empresaSeleccionada = empresaActual;
          listaCargos = null;
          getListaCargos();
-         System.out.println("listaCargos : " + listaCargos);
          if (listaCargos.size() > 0) {
             cargoTablaSeleccionado = listaCargos.get(0);
             listaSueldosMercados = null;
@@ -328,16 +364,7 @@ public class ControlCargo implements Serializable {
          listaTiposDetalles = null;
          getListaTiposDetalles();
          System.out.println("listaTiposDetalles : " + listaTiposDetalles);
-         /*
-             * if (listaTiposDetalles != null) { if (listaTiposDetalles.size() >
-             * 0) { tipoDetalleSeleccionado = listaTiposDetalles.get(0);
-             * System.out.println("tipoDetalleSeleccionado : " +
-             * tipoDetalleSeleccionado); legendDetalleCargo = "[" +
-             * listaTiposDetalles.get(0).getDescripcion() + "]";
-             * cambiarIndiceTipoDetalle(tipoDetalleSeleccionado, 0); } }
-          */
          activoDetalleCargo = true;
-
       }
    }
 
@@ -2281,7 +2308,6 @@ public class ControlCargo implements Serializable {
       }
       if (banderaTipoDetalle == 1) {
          restaurarTablaTipoD();
-
       }
       listCargosBorrar.clear();
       listCargosCrear.clear();
@@ -2314,8 +2340,8 @@ public class ControlCargo implements Serializable {
       lovGruposSalariales = null;
       lovProcesosProductivos = null;
       lovTiposEmpresas = null;
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      navegar("atras");
    }
 
    public void restaurarTablaCargos() {

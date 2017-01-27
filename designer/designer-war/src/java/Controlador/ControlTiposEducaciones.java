@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -55,8 +58,10 @@ public class ControlTiposEducaciones implements Serializable {
     private int k, bandera, tipoLista, cualCelda;
     private Column codigo, nombre, nivelEducativo;
     private boolean aceptar, permitirIndex, guardado, activarLov;
-    private String altoTabla, inforegistro, paginaanterior, mensajeValidacion;
+    private String altoTabla, inforegistro, mensajeValidacion;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlTiposEducaciones() {
         listaTiposEducacionesCrear = new ArrayList<TiposEducaciones>();
@@ -74,6 +79,7 @@ public class ControlTiposEducaciones implements Serializable {
         guardado = true;
         activarLov = true;
         listaTiposEducaciones = null;
+        mapParametros.put("paginaAnterior", paginaAnterior);
 
     }
 
@@ -90,8 +96,40 @@ public class ControlTiposEducaciones implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "tipoeducacion";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
+        paginaAnterior = pagina;
         listaTiposEducaciones = null;
         getListaTiposEducaciones();
         deshabilitarBotonLov();
@@ -101,7 +139,7 @@ public class ControlTiposEducaciones implements Serializable {
     }
 
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void editarCelda() {
@@ -191,7 +229,7 @@ public class ControlTiposEducaciones implements Serializable {
         listaTiposEducaciones = null;
         guardado = true;
         permitirIndex = true;
-
+        navegar("atras");
     }
 
     public void agregarNuevoTipoEducacion() {
@@ -200,11 +238,11 @@ public class ControlTiposEducaciones implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         mensajeValidacion = " ";
         if (nuevoTipoEducacion.getNombre().equals(" ") || nuevoTipoEducacion.getNombre().equals("")) {
-            mensajeValidacion = mensajeValidacion + " * Nombre de Tipo de Telefono \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevoTipoEducacion.getCodigo() == 0) {
-            mensajeValidacion = mensajeValidacion + " * Codigo \n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
@@ -217,25 +255,11 @@ public class ControlTiposEducaciones implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('existeNombre').show()");
                 pasaA++;
             }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
-
-            }
-        }
-
-        for (int i = 0; i < listaTiposEducaciones.size(); i++) {
-            System.out.println("Codigos: " + listaTiposEducaciones.get(i).getCodigo());
             if (listaTiposEducaciones.get(i).getCodigo() == nuevoTipoEducacion.getCodigo()) {
                 System.out.println("Entro al IF Tipo Telefono");
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeCodigo");
                 RequestContext.getCurrentInstance().execute("PF('existeCodigo').show()");
                 pasaA++;
-            }
-            if (pasa != 0) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoTelefono");
-                RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoTelefono').show()");
-
             }
         }
 
@@ -243,6 +267,12 @@ public class ControlTiposEducaciones implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:sobrepasaCaracteres");
             RequestContext.getCurrentInstance().execute("PF('sobrepasaCaracteres').show()");
             pasa++;
+        }
+
+        if (pasa != 0) {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoEducacion");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoEducacion').show()");
+
         }
 
         if (pasa == 0 && pasaA == 0) {
@@ -555,7 +585,6 @@ public class ControlTiposEducaciones implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
     }
-
 
     public void eventoFiltrar() {
         if (tipoLista == 0) {

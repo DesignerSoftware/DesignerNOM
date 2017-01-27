@@ -151,12 +151,12 @@
                                          actionListener="#{controlNReporteCapacitacion.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteCapacitacion.cambiosReporte}" process="@this" />
 
                         <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nomina" 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nominaf" 
                                          actionListener="#{controlNReporteCapacitacion.cancelarYSalir()}" process="@this" />
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteCapacitacion.activarEnvio}"
-                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPagina('nreportecapacitacion', controlNReporteCapacitacion.reporteSeleccionado.secuencia)}" process="@this" />
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportecapacitacion', controlNReporteCapacitacion.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlNReporteCapacitacion.activarCtrlF11()}" process="@this"/> 

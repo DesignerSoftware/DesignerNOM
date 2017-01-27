@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-
+import ControlNavegacion.ControlListaNavegacion;
 import Entidades.TiposUnidades;
 import Entidades.Unidades;
 import Exportar.ExportarPDF;
@@ -16,9 +16,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -73,7 +77,7 @@ public class ControlUnidad implements Serializable {
     private String tipoUnidad;
     //editar celda
     private Unidades editarUnidad;
-    private boolean cambioEditor, aceptarEditar,activarLov;
+    private boolean cambioEditor, aceptarEditar, activarLov;
     //DUPLICAR
     private Unidades duplicarUnidad;
     //RASTRO
@@ -90,10 +94,11 @@ public class ControlUnidad implements Serializable {
     ///////////////////////////////////////////////
     public String buscarNombre;
     public boolean buscador;
-    public String paginaAnterior;
     private BigInteger secuenciaPruebaConceptoEmpresa;
     private BigInteger secuenciaEmpleado;
     public String codiguin, descrecuperado;
+    public String paginaAnterior;
+    private Map<String, Object> mapParametros;
 
     public ControlUnidad() {
         permitirIndex = true;
@@ -123,6 +128,9 @@ public class ControlUnidad implements Serializable {
         secuenciaEmpleado = null;
         secuenciaPruebaConceptoEmpresa = null;
         activarLov = true;
+        paginaAnterior = "nominaf";
+        mapParametros = new LinkedHashMap<String, Object>();
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -139,15 +147,45 @@ public class ControlUnidad implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
         listaUnidades = null;
         getListaUnidades();
         contarRegistros();
         deshabbilitarBotonLov();
-        paginaAnterior = pagina;
     }
 
-    public String redirigir() {
-        return paginaAnterior;
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        listaUnidades = null;
+        getListaUnidades();
+        contarRegistros();
+        deshabbilitarBotonLov();
+    }
+
+    public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "cargo";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+        // mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+ //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+   //      } else if (pag.equals("rastrotablaH")) {
+     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+   //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -639,13 +677,10 @@ public class ControlUnidad implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("UNIDADES")) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("UNIDADES")) {
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -723,6 +758,7 @@ public class ControlUnidad implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         RequestContext.getCurrentInstance().update("form:datosUnidades");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        navegar("atras");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo) {
@@ -1049,17 +1085,16 @@ public class ControlUnidad implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
         }
     }
-    
-    public void habilitarBotonLov(){
-    activarLov = false;
-    RequestContext.getCurrentInstance().update("form:listaValores");
+
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
-    
-    public void deshabbilitarBotonLov(){
-    activarLov = true;    
-    RequestContext.getCurrentInstance().update("form:listaValores");
+
+    public void deshabbilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
-    
 
     //EVENTO FILTRAR
     public void eventofiltrar() {
@@ -1086,8 +1121,8 @@ public class ControlUnidad implements Serializable {
     public void modificarInfoRegistroTUnidades(int valor) {
         infoRegistroTiposUnidades = String.valueOf(valor);
     }
-    
-    public void eventoFiltrarTUnidades(){
+
+    public void eventoFiltrarTUnidades() {
         modificarInfoRegistroTUnidades(lovFiltradoTiposUnidades.size());
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTiposUnidades");
     }

@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -65,6 +68,8 @@ public class ControlPryPlataformas implements Serializable {
     private String infoRegistro;
     private DataTable tablaC;
     private boolean activarLOV;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlPryPlataformas() {
         listPryPlataformas = null;
@@ -78,6 +83,57 @@ public class ControlPryPlataformas implements Serializable {
         guardado = true;
         tamano = 270;
         activarLOV = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listPryPlataformas = null;
+        getListPryPlataformas();
+        if (listPryPlataformas != null) {
+            if (!listPryPlataformas.isEmpty()) {
+                pryPlataformaSeleccionada = listPryPlataformas.get(0);
+            }
+        }
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+       listPryPlataformas = null;
+        getListPryPlataformas();
+        if (listPryPlataformas != null) {
+            if (!listPryPlataformas.isEmpty()) {
+                pryPlataformaSeleccionada = listPryPlataformas.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "pry_plataforma";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -90,19 +146,6 @@ public class ControlPryPlataformas implements Serializable {
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
-        }
-    }
-
-    private String paginaAnterior;
-
-    public void recibirPagina(String pagina) {
-        paginaAnterior = pagina;
-        listPryPlataformas = null;
-        getListPryPlataformas();
-        if (listPryPlataformas != null) {
-            if (!listPryPlataformas.isEmpty()) {
-                pryPlataformaSeleccionada = listPryPlataformas.get(0);
-            }
         }
     }
 
@@ -332,7 +375,7 @@ public class ControlPryPlataformas implements Serializable {
             System.out.println("Se guardaron los datos con exito");
             listPryPlataformas = null;
             RequestContext.getCurrentInstance().update("form:datosPrtPlataforma");
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             contarRegistros();
             RequestContext.getCurrentInstance().update("form:growl");
@@ -381,27 +424,22 @@ public class ControlPryPlataformas implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoPryPlataforma.getCodigo() == a) {
-            mensajeValidacion = " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-
             for (int x = 0; x < listPryPlataformas.size(); x++) {
                 if (listPryPlataformas.get(x).getCodigo() == nuevoPryPlataforma.getCodigo()) {
                     duplicados++;
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *No pueden haber códigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
                 System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoPryPlataforma.getDescripcion() == (null)) {
-            mensajeValidacion = mensajeValidacion + " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
@@ -492,12 +530,8 @@ public class ControlPryPlataformas implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarPryPlataforma.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarPryPlataforma.getDescripcion());
-
         if (duplicarPryPlataforma.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "Existen campos vacíos\n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listPryPlataformas.size(); x++) {
                 if (listPryPlataformas.get(x).getCodigo() == duplicarPryPlataforma.getCodigo()) {
@@ -505,8 +539,7 @@ public class ControlPryPlataformas implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " Código repetido \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+               mensajeValidacion = "El código ingresado ya está en uso. Por favor ingrese un código válido";
             } else {
                 System.out.println("bandera");
                 contador++;
@@ -514,8 +547,7 @@ public class ControlPryPlataformas implements Serializable {
             }
         }
         if (duplicarPryPlataforma.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
             System.out.println("Bandera : ");

@@ -82,8 +82,7 @@
                                          filteredValue="#{controlHvEntrevistas.filtrarHvEntrevistas}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" paginator="false" 
                                          selection="#{controlHvEntrevistas.hvEntrevistaSeleccionada}"
-                                         selectionMode="single"
-                                         >
+                                         selectionMode="single" widgetVar="datosHvEntrevista"  >
                                 <p:ajax event="filter" listener="#{controlHvEntrevistas.eventoFiltrar()}"/>
 
 
@@ -98,7 +97,8 @@
                                         </f:facet>  
                                         <f:facet name="input">
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fecha}" > 
-                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 0)}" process="@this"/>  
+                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 0)}" process="@this"
+                                                        onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});" />  
                                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarInfo(info,0)}" process="@this"/> 
                                                 <p:ajax event="dateSelect" listener="#{controlHvEntrevistas.mostrarInfo(info,0)}" process="@this" update="dateFechaInicial"/>
                                             </p:calendar>
@@ -114,7 +114,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style="  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 1)}" process="@this"
+                                                       onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info, 'N', info.nombre)}" update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -128,7 +129,9 @@
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu style="width: 210px;" value="#{info.tipo}" id="menuTipoEntrevista" >  
+                                            <p:selectOneMenu style="width: 210px;" value="#{info.tipo}" id="menuTipoEntrevista" 
+                                                             onblur="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});"
+                                                             onfocus="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="INDIVIDUAL" itemValue="INDIVIDUAL" />  
                                                 <f:selectItem itemLabel="GRUPAL" itemValue="GRUPAL" />  
                                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarInfo(info,2)}" update="@this" process="@this"/>
@@ -145,7 +148,8 @@
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.puntaje}"  /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.puntaje}" id="editarPuntaje" style=" border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 3)}" process="@this"
+                                                        onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});" /> 
                                                 <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info, 'N', info.puntaje)}" update="puntaje"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -204,7 +208,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}"
-                                         style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
@@ -212,7 +216,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvEntrevistas', 'hventrevista')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
@@ -230,7 +234,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"  icon="ui-icon-close"/>
                     </p:dialog>
 

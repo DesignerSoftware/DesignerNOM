@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -64,12 +67,14 @@ public class ControlSectoresEconomicos implements Serializable {
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
-    private String mensajeValidacion, paginaanterior;
+    private String mensajeValidacion;
     //filtrado table
     private int tamano;
     private boolean activarLov;
     private String infoRegistro, infoRegistroEmpresa;
     private DataTable tablaC;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSectoresEconomicos() {
         listSectores = null;
@@ -87,7 +92,7 @@ public class ControlSectoresEconomicos implements Serializable {
         activarLov = true;
         lovEmpresas = null;
         empresaActual = null;
-
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -104,10 +109,9 @@ public class ControlSectoresEconomicos implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-        paginaanterior = pagina;
-        deshabilitarBotonLov();
-        if(lovEmpresas == null){
-        getLovEmpresas();
+        paginaAnterior = pagina;
+        if (lovEmpresas == null) {
+            getLovEmpresas();
         }
         if (empresaActual == null) {
             empresaActual = lovEmpresas.get(0);
@@ -121,8 +125,52 @@ public class ControlSectoresEconomicos implements Serializable {
         }
     }
 
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        if (lovEmpresas == null) {
+            getLovEmpresas();
+        }
+        if (empresaActual == null) {
+            empresaActual = lovEmpresas.get(0);
+        }
+        listSectores = null;
+        getListSectores();
+        if (listSectores != null) {
+            if (!listSectores.isEmpty()) {
+                sectorEconomicoSeleccionado = listSectores.get(0);
+            }
+        }
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "sectoreseconomicos";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+    }
+
     public String redirigir() {
-        return paginaanterior;
+        return paginaAnterior;
     }
 
     public void cambiarIndice(SectoresEconomicos sectores, int celda) {
@@ -593,7 +641,7 @@ public class ControlSectoresEconomicos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:lovEmpresa");
             RequestContext.getCurrentInstance().update("formularioDialogos:empresaDialogo");
             RequestContext.getCurrentInstance().update("formularioDialogos:aceptarE");
-        } 
+        }
     }
 
     public void cancelarCambioEmpresa() {
@@ -723,7 +771,7 @@ public class ControlSectoresEconomicos implements Serializable {
         if (empresaActual == null) {
             empresaActual = lovEmpresas.get(0);
         }
-        
+
         return lovEmpresas;
     }
 

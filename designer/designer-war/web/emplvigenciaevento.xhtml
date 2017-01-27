@@ -115,7 +115,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                             </p:calendar> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -137,7 +138,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" >  
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                             </p:calendar> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -154,14 +156,15 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" />
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" 
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " action="evento" onclick="#{controlEventos.recibirPag('evento')}" />
+                                        <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " action="evento" onclick="#{controlEventos.recibirPag('emplvigenciaevento')}" />
                                     </f:facet>
                                 </p:column>  
 
@@ -176,7 +179,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -197,7 +201,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCIndividual" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"
+                                                      onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"  /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -218,7 +223,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -239,7 +245,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCGrupal" mask="num"/>
-                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"
+                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -295,14 +302,14 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
@@ -319,7 +326,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 68px; left: 175px;" action="rastro" icon="ui-icon-check" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 68px; left: 175px;" action="rastrotabla" icon="ui-icon-check" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 

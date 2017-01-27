@@ -86,7 +86,7 @@
                             <p:dataTable id="datosVigenciasProyectosPersona" var="vigenciasProyectos" value="#{controlVigenciasProyectos.listaVigenciasProyectos}"
                                          rowKey="#{vigenciasProyectos.secuencia}" rowIndexVar="indice" style=" border: 1px; width: 820px;"                           
                                          scrollable="true" scrollHeight="#{controlVigenciasProyectos.altoTabla}" scrollWidth="830" filteredValue="#{controlVigenciasProyectos.filtradosListaVigenciasProyectos}" 
-                                         emptyMessage="#{msg['vacio']}" editable="true" editMode="cell"
+                                         emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" widgetVar="datosVigenciasProyectosPersona"
                                          selection="#{controlVigenciasProyectos.vigenciaProyectoSeleccionado}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlVigenciasProyectos.eventoFiltrar()}"/>
@@ -102,7 +102,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{vigenciasProyectos.fechainicial}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,0)}"   update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,0)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 0)}" process="@this" />
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 0)}" process="@this"
+                                                        onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                             </p:calendar>
 
                                         </f:facet>   
@@ -124,7 +125,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{vigenciasProyectos.fechafinal}"> 
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,1)}"  update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarFechas(vigenciasProyectos,1)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 1)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 1)}" process="@this"
+                                                        onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                             </p:calendar>
                                         </f:facet>
                                     </p:cellEditor>
@@ -140,7 +142,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.proyecto.nombreproyecto}" id="editarProyecto" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'PROYECTO', vigenciasProyectos.proyecto.nombreproyecto)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 2)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 2)}" process="@this"
+                                                        onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -153,11 +156,12 @@
 
                                 <p:column headerText="#{msg['rol']}" sortBy="#{vigenciasProyectos.pryRol.descripcion}" filterBy="#{vigenciasProyectos.pryRol.descripcion}" filterMatchMode="contains" id="vPPryRoles" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{vigenciasProyectos.pryRol.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{vigenciasProyectos.pryRol.descripcion}" style="text-transform: uppercase" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.pryRol.descripcion}" id="editarPryRol" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px"> 
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'PRYROL', vigenciasProyectos.pryRol.descripcion)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 3)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 3)}" process="@this"
+                                                       onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -174,7 +178,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.pryCargoproyecto.nombre}" id="editarCargo" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'CARGO' , vigenciasProyectos.pryCargoproyecto.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 4)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 4)}" process="@this"
+                                                       onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -195,7 +200,8 @@
                                         <f:facet name="output"><h:outputText value="#{vigenciasProyectos.cantidadpersonaacargo}" /></f:facet>  
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{vigenciasProyectos.cantidadpersonaacargo}" id="editarCantidadPersonas" style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px;" > 
-                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 5)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlVigenciasProyectos.cambiarIndice(vigenciasProyectos, 5)}" process="@this"
+                                                       onstart="PF('datosVigenciasProyectosPersona').unselectAllRows();PF('datosVigenciasProyectosPersona').selectRow(#{indice});" />
                                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.modificarVigenciasProyectos(vigenciasProyectos, 'N', vigenciasProyectos.cantidadpersonaacargo)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -221,32 +227,32 @@
                     <fieldset style="position: absolute;top: 305px;left: 10px;height: 180px;width: 830px; border-radius: 10px; text-align: left">
                         <legend style="font-size: 14px; color: #14388B"><strong>#{msg['detalle']}</strong></legend>
 
-                        <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px; top: 25px; text-transform: uppercase;"/>
-                        <h:inputText id="nomProyecto" value="#{controlVigenciasProyectos.proyectoParametro.nombreproyecto}" style="left: 150px; width: 360px; position: absolute; text-transform: uppercase;" readonly="true"/>
-                        <h:outputText value="#{msg['cod']}" style=" position: absolute; left:540px; top: 25px"/>
-                        <h:inputText id="codigoProyecto" value="#{controlVigenciasProyectos.proyectoParametro.codigo}" style="left:580px;width:50px;position:absolute" readonly="true"/>
-                        <h:outputText value="#{msg['monto']}" style="position:absolute;left:645px; top: 25px"/>
-                        <h:inputText id="monto" value="#{controlVigenciasProyectos.proyectoParametro.monto}" style="left: 690px; width:150px; position: absolute;" readonly="true" >
+                        <h:outputText value="#{msg['nombredelproyecto']}" style=" position: absolute; left:15px ; top: 25px; font-size: 11px;"/>
+                        <h:inputText id="nomProyecto" value="#{controlVigenciasProyectos.proyectoParametro.nombreproyecto}" style="left: 150px; width: 360px; position: absolute; text-transform: uppercase; font-size: 11px;" readonly="true"/>
+                        <h:outputText value="#{msg['cod']}" style=" position: absolute; left: 540px; top: 25px; font-size: 11px;"/>
+                        <h:inputText id="codigoProyecto" value="#{controlVigenciasProyectos.proyectoParametro.codigo}" style="left: 580px; width: 50px; position: absolute; font-size: 11px;" readonly="true"/>
+                        <h:outputText value="#{msg['monto']}" style="position: absolute; left: 645px; top: 25px; font-size: 11px;"/>
+                        <h:inputText id="monto" value="#{controlVigenciasProyectos.proyectoParametro.monto}" style="left: 690px; width: 150px; position: absolute; font-size: 11px;" readonly="true" >
                             <f:convertNumber type="number"/>
                         </h:inputText>    
-                        <h:outputText value="#{msg['plataforma']}" style="position: absolute;top:55px;left: 70px"/>
-                        <h:inputText id="plataforma" value="#{controlVigenciasProyectos.plataformaParametroProyecto}" style="left:150px;width:480px;top:50px;position:absolute" readonly="true"/>
-                        <h:outputText value="#{msg['fechainicial']}" style=" position: absolute; top:55px; left:645px"/>
-                        <h:inputText id="fechaInicial" value="#{controlVigenciasProyectos.proyectoParametro.fechainicial}" style="left:730px;position: absolute;width:110px;top:50px;" readonly="true" >
+                        <h:outputText value="#{msg['plataforma']}" style="position: absolute; top:55px; left: 70px; font-size: 11px;"/>
+                        <h:inputText id="plataforma" value="#{controlVigenciasProyectos.plataformaParametroProyecto}" style="left: 150px; width:480px ;top: 50px; position: absolute; font-size: 11px;" readonly="true"/>
+                        <h:outputText value="#{msg['fechainicial']}" style=" position: absolute; top: 55px; left: 645px; font-size: 11px;"/>
+                        <h:inputText id="fechaInicial" value="#{controlVigenciasProyectos.proyectoParametro.fechainicial}" style="left: 730px; position: absolute; width: 110px; top:50px; font-size: 11px;" readonly="true" >
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:inputText>
-                        <h:outputText value="#{msg['cliente']}" style=" position: absolute; top:85px; left:95px"/>
-                        <h:inputText id="cliente" value="#{controlVigenciasProyectos.clienteParametroProyecto}" style="left:150px; width:480px; top: 80px; position: absolute;text-transform: uppercase; " readonly="true" />
-                        <h:outputText value="#{msg['fechafinal']}" style=" position: absolute; top:85px; left:645px"/>
-                        <h:inputText id="fechaFinal" value="#{controlVigenciasProyectos.proyectoParametro.fechafinal}" style="left:730px;position: absolute;width:110px;top:80px;" readonly="true" >
+                        <h:outputText value="#{msg['cliente']}" style=" position: absolute; top: 85px; left: 95px; font-size: 11px;"/>
+                        <h:inputText id="cliente" value="#{controlVigenciasProyectos.clienteParametroProyecto}" style="left: 150px; width: 480px; top: 80px; position: absolute; text-transform: uppercase; font-size: 11px; " readonly="true" />
+                        <h:outputText value="#{msg['fechafinal']}" style=" position: absolute; top :85px; left: 645px; font-size: 11px;"/>
+                        <h:inputText id="fechaFinal" value="#{controlVigenciasProyectos.proyectoParametro.fechafinal}" style="left: 730px; position: absolute; width: 110px; top: 80px; font-size: 11px;" readonly="true" >
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:inputText>
-                        <h:outputText value="#{msg['tipomoneda']}" style="position: absolute;top:115px;left: 60px"/>
-                        <h:inputText id="tipoMoneda" value="#{controlVigenciasProyectos.proyectoParametro.tipomoneda.nombre}" style="left:150px;width:480px;top:110px;position:absolute" readonly="true"/>
-                        <h:outputText value="#{msg['totaldepersonas']}" style=" position: absolute; top:115px; left:645px"/>
-                        <h:inputText id="totalPersonas" value="#{controlVigenciasProyectos.proyectoParametro.cantidadpersonas}" style="left:760px;position: absolute;width:80px;top:110px;" readonly="true" />
-                        <h:outputText value="#{msg['detalledeproyecto']}" style="position: absolute;top:145px;left: 15px"/>
-                        <h:inputText id="detalleProyecto" value="#{controlVigenciasProyectos.proyectoParametro.descripcionproyecto}" style="left:150px;width: 690px;height:40px ;position: absolute; top: 140px;" readonly="true" />
+                        <h:outputText value="#{msg['tipomoneda']}" style="position: absolute; top: 115px; left: 60px"/>
+                        <h:inputText id="tipoMoneda" value="#{controlVigenciasProyectos.proyectoParametro.tipomoneda.nombre}" style="left: 150px; width: 480px; top: 110px; position: absolute; font-size: 11px;" readonly="true"/>
+                        <h:outputText value="#{msg['totaldepersonas']}" style=" position: absolute; top: 115px; left: 645px; font-size: 11px;"/>
+                        <h:inputText id="totalPersonas" value="#{controlVigenciasProyectos.proyectoParametro.cantidadpersonas}" style="left:760px;position: absolute; width: 80px; top: 110px; font-size: 11px;" readonly="true" />
+                        <h:outputText value="#{msg['detalledeproyecto']}" style="position: absolute; top: 145px; left: 15px; font-size: 11px;"/>
+                        <h:inputText id="detalleProyecto" value="#{controlVigenciasProyectos.proyectoParametro.descripcionproyecto}" style="left: 150px; width: 690px ;height: 40px ; position: absolute; top: 140px; font-size: 11px;" readonly="true" />
 
                     </fieldset>
                 </h:form>
@@ -259,7 +265,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" 
-                                         style="position: absolute; top: 63px; left: 175px;" action="rastro" process="@this" />
+                                         style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -267,25 +273,25 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('VigenciasProyectos', 'vigenciasproyectos')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="rastro" process="@this" />
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasProyectos.secRegistro, 'VigenciasProyectos', 'vigenciasproyectos')}" 
-                                         style="position: absolute; top: 65px; left: 175px;" action="rastro" process="@this" icon="ui-icon-check" />
+                                         style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
 
@@ -299,7 +305,7 @@
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="65" width="290"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="290"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -310,10 +316,10 @@
 
                     <!-- L.O.V PROYECTOS -->
                     <p:dialog header="#{msg['proyectosP']}" widgetVar="proyectosDialogo" draggable="true" resizable="false" id="proyectosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347"  >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347"  height="270" >
 
                         <p:dataTable  id="LOVProyectos"  var="proyectos" value="#{controlVigenciasProyectos.listaProyectos}"
-                                      scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVProyectos" 
+                                      scrollable="true" scrollHeight="145" scrollWidth="315" widgetVar="LOVProyectos" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaProyectos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{proyectos.secuencia}" selection="#{controlVigenciasProyectos.seleccionProyectos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarPr"/>
@@ -324,7 +330,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVProyectos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{proyectos.nombreproyecto}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{proyectos.nombreproyecto}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreP']}" />
                                 </f:facet>
@@ -346,7 +352,7 @@
                               showEffect="fade" hideEffect="fade" modal="true" width="347"  >
 
                         <p:dataTable  id="LOVPryRoles"  var="pryroles" value="#{controlVigenciasProyectos.listaPryRoles}"
-                                      scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVPryRoles" 
+                                      scrollable="true" scrollHeight="138" scrollWidth="318" widgetVar="LOVPryRoles" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaPryRoles}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{pryroles.secuencia}" selection="#{controlVigenciasProyectos.seleccionPryRoles}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarR"/>
@@ -357,7 +363,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVPryRoles').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{pryroles.descripcion}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{pryroles.descripcion}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>
@@ -376,10 +382,10 @@
                     <!-- L.O.V CARGOS -->
 
                     <p:dialog header="#{msg['cargosC']}" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
-                              showEffect="fade" hideEffect="fade" modal="true" width="347"  >
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" height="370" >
 
                         <p:dataTable  id="LOVCargos"  var="cargos" value="#{controlVigenciasProyectos.listaCargos}"
-                                      scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVCargos" 
+                                      scrollable="true" scrollHeight="235" scrollWidth="318" widgetVar="LOVCargos" 
                                       filteredValue="#{controlVigenciasProyectos.filtradoslistaCargos}" emptyMessage="#{msg['lovvacio']}"
                                       rowKey="#{cargos.secuencia}" selection="#{controlVigenciasProyectos.seleccionCargos}" selectionMode="single">
                             <p:ajax event="rowSelect" listener="#{controlVigenciasProyectos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
@@ -390,7 +396,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{cargos.nombre}" width="150" filterMatchMode="contains" > 
+                            <p:column filterBy="#{cargos.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreC']}" />
                                 </f:facet>
@@ -439,7 +445,7 @@
                     <p:dialog id="NuevoRegistroVigenciaProyecto" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigenciaProyecto" closable="false" resizable="false"  draggable="true" modal="true" height="340" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                         <p:panel id="nuevaVigenciaProyecto" style="border: none;">
-                            <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top:70px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top:70px; left: 18px;" /></strong>
                             <div style=" position: absolute; top: 65px; left: 160px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
@@ -455,40 +461,40 @@
                                 </p:calendar>
                             </div>
    
-                            <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['proyectoN']}" style=" position: absolute; top: 150px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoProyecto" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 1)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style=" position: absolute; left: 290px; top: 145px;  " id="btnNuevoProyecto" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 1)}" value="" process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style=" position: absolute; left: 292px; top: 147px;  " id="btnNuevoProyecto" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 1)}" value="" process="@this" />
 
 
-                            <strong><h:outputText value="#{msg['rolN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['rolN']}" style=" position: absolute; top: 190px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoPryRol" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'PRYROL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 1)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 290px; top: 185px;  " id="btnNuevoPryRol" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 1)}" value=""  process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 292px; top: 187px;  " id="btnNuevoPryRol" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 1)}" value=""  process="@this" />
 
 
-                            <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 230px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 230px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(1, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 1)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 1)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style=" position: absolute; left: 290px; top: 225px;  " id="btnNuevoCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 1)}" value="" process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style=" position: absolute; left: 292px; top: 227px;  " id="btnNuevoCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 1)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="nuevaCantidadPersonas" value="#{controlVigenciasProyectos.nuevaVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
 
                             <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlVigenciasProyectos.limpiarNuevaVigenciaProyecto()}" update="nuevaVigenciaProyecto" process="@this"/>
-                            <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 300px;"  icon="ui-icon-circle-check" actionListener="#{controlVigenciasProyectos.agregarNuevaVigenciaProyecto()}" process="@this"/>
+                            <p:commandButton id="agregarVP" value="#{msg['agregar']}" style=" position: absolute; left: 130px; top: 300px;"  icon="ui-icon-circle-check" actionListener="#{controlVigenciasProyectos.agregarNuevaVigenciaProyecto()}" process="@this"/>
                             <p:commandButton id="cancelarVP" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarNuevaVigenciaProyecto()}" update="nuevaVigenciaProyecto" onclick="PF('NuevoRegistroVigenciaProyecto').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
@@ -501,7 +507,7 @@
 
                         <p:panel id="duplicarVigenciaProyecto" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['fechainicialN']}" style=" position: absolute; top:70px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fechainicialN']}" style=" position: absolute; top:70px; left: 18px;" /></strong>
                             <div style=" position: absolute; top: 65px; left: 160px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.fechainicial}">
                                     <p:ajax event="dateSelect" update="@this"/>
@@ -517,47 +523,47 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="#{msg['proyectoN']}" style=" position: absolute; top: 150px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['proyectoN']}" style=" position: absolute; top: 150px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarProyecto" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.proyecto.nombreproyecto}" style=" width: 122px; position: absolute; left: 160px; top: 145px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PROYECTO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PROYECTO', controlVigenciasProyectos.nuevaVigenciaProyectos.proyecto.nombreproyecto, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 2)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 290px; top: 145px;  " id="btnDuplicarProyecto" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 2)}" value="" process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 292px; top: 147px;  " id="btnDuplicarProyecto" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 0, 2)}" value="" process="@this" />
 
 
-                            <strong><h:outputText value="#{msg['rolN']}" style=" position: absolute; top: 190px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['rolN']}" style=" position: absolute; top: 190px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarPryRol" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryRol.descripcion}" style=" width: 122px; position: absolute; left: 160px; top: 185px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'PRYROL')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('PRYROL', controlVigenciasProyectos.nuevaVigenciaProyectos.pryRol.descripcion, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 2)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 290px; top: 185px;  " id="btnDuplicarPryRol" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 2)}" value="" process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 292px; top: 187px;  " id="btnDuplicarPryRol" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 1, 2)}" value="" process="@this" />
 
 
-                            <strong><h:outputText value="#{msg['cargoN']}" style=" position: absolute; top: 230px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" onclick="select();">
+                            <strong><h:outputText value="*#{msg['cargoN']}" style=" position: absolute; top: 230px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.pryCargoproyecto.nombre}" style=" width: 122px; position: absolute; left: 160px; top: 225px; text-transform: uppercase" >
                                 <p:ajax event="click" listener="#{controlVigenciasProyectos.valoresBackupAutocompletar(2, 'CARGO')}" />
                                 <p:ajax event="change" listener="#{controlVigenciasProyectos.autocompletarNuevoyDuplicado('CARGO', controlVigenciasProyectos.nuevaVigenciaProyectos.pryCargoproyecto.nombre, 2)}" />
                                 <p:ajax event="dblclick" listener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 2)}" />
                             </p:inputText>
-                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 290px; top: 225px;  " id="btnDuplicarCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 2)}" value="" process="@this" />
+                            <p:commandButton class="cssBotonLovDialogos" style="position: absolute; left: 292px; top: 227px;  " id="btnDuplicarCargo" actionListener="#{controlVigenciasProyectos.asignarIndex(vigenciasProyectos, 2, 2)}" value="" process="@this" />
 
                             <strong><h:outputText value="#{msg['personasN']}" style=" position: absolute; top: 270px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" onclick="select();">
+                            <p:inputText  autocomplete="off"  id="duplicarCantidadPersonas" value="#{controlVigenciasProyectos.duplicarVigenciaProyectos.cantidadpersonaacargo}" style="width: 122px; position: absolute; left: 160px; top: 265px; text-transform: uppercase" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
 
                             <p:commandButton id="limpiarDuplicadoVigenciaProyecto" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 300px;" icon="ui-icon-trash" actionListener="#{controlVigenciasProyectos.limpiarduplicarVigenciaProyectos()}" update="duplicarVigenciaProyecto" process="@this"/>
-                            <p:commandButton id="agregarDuplicadoVigenciaProyecto" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 300px;"  icon="ui-icon-circle-check"  process="@this" actionListener="#{controlVigenciasProyectos.confirmarDuplicar()}" />
+                            <p:commandButton id="agregarDuplicadoVigenciaProyecto" value="#{msg['agregar']}" style=" position: absolute; left: 130px; top: 300px;"  icon="ui-icon-circle-check"  process="@this" actionListener="#{controlVigenciasProyectos.confirmarDuplicar()}" />
                             <p:commandButton id="cancelarDuplicadoVigenciaProyecto" value="#{msg['cancelar']}" style=" position: absolute; left: 230px; top: 300px;" icon="ui-icon-circle-close" actionListener="#{controlVigenciasProyectos.limpiarduplicarVigenciaProyectos()}" update="duplicarVigenciaProyecto" onclick="PF('DuplicarRegistroVigenciaProyecto').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="validacionNuevaVigenciaProyecto" header="#{msg['atencion']}" widgetVar="validacionNuevaVigenciaProyecto"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']} #{controlVigenciasProyectos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaVigenciaProyecto').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                        <h:outputText value="#{controlVigenciasProyectos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                        <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('validacionNuevaVigenciaProyecto').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  

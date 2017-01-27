@@ -83,7 +83,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px;"/> 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nomina" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this">
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nominaf" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this">
                                     <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                                     <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                                 </p:commandButton>
@@ -759,7 +759,7 @@
                         <p:commandButton style="position: absolute; left: 595px; top: 500px; width: 175px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;  color: white; " 
                                          id="ACEPTAR" value="#{msg['ingresarPersonal']}" icon="ui-icon-disk" actionListener="#{controlPersonaIndividual.crearNuevoEmpleado()}"  process="@this"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 500px; height: 30px; width: 90px; background-image:  url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nomina" process="@this">
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" action="nominaf" process="@this">
                             <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                             <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                         </p:commandButton>
@@ -1951,7 +1951,7 @@
                             <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 250px;" process="@this"
-                                         action="nomina">
+                                         action="nominaf">
                             <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                             <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                         </p:commandButton>
@@ -2027,7 +2027,7 @@
                     <p:dialog id="errorIngresoTotalRegistro" header="#{msg['error']}" widgetVar="errorIngresoTotalRegistro"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                         <h:outputText value="#{msg['errorIngresoTotalRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight:bold;"/>
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" action="nomina" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" 
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" 
                                          onclick="PF('errorIngresoTotalRegistro').hide();" style="position: absolute; top: 67px; left: 320" process="@this"/>
                     </p:dialog>
 
@@ -2082,7 +2082,7 @@
                     <p:dialog id="procesoGuardadoOK" header="#{msg['informacion']}" widgetVar="procesoGuardadoOK"   resizable="false" draggable="true" modal="true" height="98" width="388" style="font-size: 12px;" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/bien.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['procesoGuardadoOK']}" style="position: absolute; left: 70px; top: 10px; width: 235px; font-weight:bold;"/>
-                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" action="nomina" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" style="position: absolute; top: 57px; left: 275px;" process="@this" >
+                        <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" style="position: absolute; top: 57px; left: 275px;" process="@this" >
                             <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                             <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                         </p:commandButton>

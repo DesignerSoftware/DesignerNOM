@@ -77,7 +77,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlCiudades.salir()}" action="#{controlCiudades.redirigir()}" process="@this"/>  
+                                         actionListener="#{controlCiudades.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
@@ -148,7 +148,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" value=" " action="departamento" id="fooDepartamentos" />
+                              <p:commandButton style="width: 120%;" value=" " action="departamento" actionListener="#{controlDepartamentos.recibirPaginaEntrante('ciudades')}" id="fooDepartamentos" />
                            </f:facet>
                         </p:column>
 
@@ -178,7 +178,7 @@
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();"
                                    disabled="#{controlCiudades.guardado}" update=":form:datosCiudades" process="@this" />
-                  <p:commandButton class="cssBotonCancelar" value="" actionListener="#{controlCiudades.salir()}" action="#{controlCiudades.redirigir()}" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" value="" actionListener="#{controlCiudades.salir()}" process="@this" />
                </p:panel>
             </h:form>
 
@@ -274,10 +274,16 @@
                <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar" resizable="false" draggable="true" modal="true" height="95" width="380" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 100px; top: 20px; width: 280px;" />
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCiudades.guardarCambiosCiudad()}" action="#{controlCiudades.redirigir()}" 
-                                   style="position: absolute; top: 60px; left: 125px;" process="@this" />
-                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlCiudades.cancelarModificacion()}" action="#{controlCiudades.redirigir()}"
-                                   style="position: absolute; top: 60px; left: 185px;" process="@this" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" 
+                                   style="position: absolute; top: 60px; left: 125px;" process="@this">
+                     <f:actionListener binding="#{controlCiudades.guardarCambiosCiudad()}" />
+                     <f:actionListener binding="#{controlCiudades.navegar('atras')}" />
+                  </p:commandButton>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"
+                                   style="position: absolute; top: 60px; left: 185px;" process="@this">
+                     <f:actionListener binding="#{controlCiudades.cancelarModificacion()}" />
+                     <f:actionListener binding="#{controlCiudades.navegar('atras')}" />
+                  </p:commandButton>
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" 
                                    style="position: absolute; top: 60px; left: 250px;" process="@this" />
                </p:dialog>
@@ -337,7 +343,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.ciudadSeleccionada.secuencia , 'Ciudades', 'ciudades')}" 
-                                   style="position: absolute; top: 63px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 63px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -345,7 +351,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Ciudades', 'ciudades')}"
-                                   style="position: absolute; top: 60px; left: 210px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 60px; left: 210px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                </p:dialog>
 
@@ -363,7 +369,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="55" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCiudades.secRegistro, 'Ciudades', 'ciudades')}"
-                                   style="position: absolute; top: 65px; left: 205px;" action="rastro" process="@this" />
+                                   style="position: absolute; top: 65px; left: 205px;" action="rastrotabla" process="@this" />
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 265px;" process="@this" />
                </p:dialog>
 

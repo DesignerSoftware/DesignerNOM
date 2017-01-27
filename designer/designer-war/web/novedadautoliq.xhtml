@@ -96,7 +96,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.empresa.nombre}" style="border-radius: 0px; width: 98.5%;" >  
                                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.modificarNovedadAuto(novedades, 'EMPRESAS', novedades.empresa.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 0)}" />
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 0)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades, 0,0)}"/>
 
                                             </p:inputText>
@@ -107,16 +108,17 @@
                                     </p:cellEditor>
 
                                 </p:column>
-                                 <p:tooltip  for="empresa" value="Nombre Empresa" />
+                                <p:tooltip  for="empresa" value="Nombre Empresa" />
 
-                                 <p:column id="sucursal" headerText="Sucursal" style="width: 100px; text-align: center" sortBy="#{novedades.sucursalpila.descripcion}" filterBy="#{novedades.sucursalpila.descripcion}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="sucursal" headerText="Sucursal" style="width: 100px; text-align: center" sortBy="#{novedades.sucursalpila.descripcion}" filterBy="#{novedades.sucursalpila.descripcion}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.sucursalpila.descripcion}"/> </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.sucursalpila.descripcion}"  style="border-radius: 0px; width: 98.5%;" >
                                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.modificarNovedadAuto(novedades, 'SUCURSAL', novedades.empresa.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 1)}" />
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 1)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades, 1,0)}"/>  
                                             </p:inputText>    
 
@@ -126,7 +128,7 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="sucursal" value="Nombre Sucursal" />
+                                <p:tooltip  for="sucursal" value="Nombre Sucursal" />
 
                                 <p:column id="anio" headerText="Año" style="width: 100px; text-align: center" sortBy="#{novedades.anio}" filterBy="#{novedades.anio}"
                                           filterStyle="display: none; visibility: hidden;">
@@ -135,8 +137,9 @@
                                         <f:facet name="output"> <h:outputText value="#{novedades.anio}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.anio}"  style="border-radius: 0px; width: 98.5%;"  readonly="true"
-                                                         onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 2)}" />    
+                                                            onselect="posicionOtro([{name: 'celda', value: '2'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 2)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>    
                                         </f:facet>
                                         <f:facet name="footer">
@@ -145,16 +148,17 @@
                                     </p:cellEditor> 
 
                                 </p:column>
-                                 <p:tooltip  for="anio" value="Año" />
+                                <p:tooltip  for="anio" value="Año" />
 
-                                 <p:column id="mes" headerText="Mes" style="width: 100px; text-align: center" sortBy="#{novedades.mes}" filterBy="#{novedades.mes}" 
-                                           filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="mes" headerText="Mes" style="width: 100px; text-align: center" sortBy="#{novedades.mes}" filterBy="#{novedades.mes}" 
+                                          filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.mes}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.mes}" readonly="true" style="border-radius: 0px; width: 98.5%;"
-                                                         onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);">
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 3)}" />    
+                                                            onselect="posicionOtro([{name: 'celda', value: '3'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 3)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>       
                                         </f:facet>
                                         <f:facet name="footer">
@@ -162,16 +166,17 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="mes" value="Mes" />
+                                <p:tooltip  for="mes" value="Mes" />
 
-                                 <p:column id="tipoentidad" headerText="Tipo Entidad" style="width: 100px; text-align: center" sortBy="#{novedades.tipoentidad.nombre}" filterBy="#{novedades.tipoentidad.nombre}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="tipoentidad" headerText="Tipo Entidad" style="width: 100px; text-align: center" sortBy="#{novedades.tipoentidad.nombre}" filterBy="#{novedades.tipoentidad.nombre}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.tipoentidad.nombre}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.tipoentidad.nombre}"  style="border-radius: 0px; width: 98.5%;" > 
                                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.modificarNovedadAuto(novedades, 'TIPOENTIDAD', novedades.empresa.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 4)}" />
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 4)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades, 4,0)}"/>  
                                             </p:inputText>    
                                         </f:facet>
@@ -180,15 +185,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="tipoentidad" value="Tipo de Entidad" />
+                                <p:tooltip  for="tipoentidad" value="Tipo de Entidad" />
 
-                                 <p:column id="formunico" headerText="Formulario Único" style="width: 100px; text-align: center" sortBy="#{novedades.formulariounico}" filterBy="#{novedades.formulariounico}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="formunico" headerText="Formulario Único" style="width: 100px; text-align: center" sortBy="#{novedades.formulariounico}" filterBy="#{novedades.formulariounico}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.formulariounico}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.formulariounico}"  style="border-radius: 0px; width: 98.5%;" >   
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 5)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 5)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>       
                                         </f:facet>
                                         <f:facet name="footer">
@@ -196,15 +202,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="formunico" value="Formulario Único" />
+                                <p:tooltip  for="formunico" value="Formulario Único" />
 
-                                 <p:column id="numradicado" headerText="No. Radicado" style="width: 100px; text-align: center" sortBy="#{novedades.numeroradicacion}" filterBy="#{novedades.numeroradicacion}" 
-                                           filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="numradicado" headerText="No. Radicado" style="width: 100px; text-align: center" sortBy="#{novedades.numeroradicacion}" filterBy="#{novedades.numeroradicacion}" 
+                                          filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.numeroradicacion}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.numeroradicacion}" maxlength="50"  style="border-radius: 0px; width: 98.5%;">
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 6)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 6)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputText>    
                                         </f:facet>
                                         <f:facet name="footer">
@@ -212,14 +219,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="numradicado" value="Número de radicación" />
+                                <p:tooltip  for="numradicado" value="Número de radicación" />
 
                                 <p:column id="correccion"  headerText="Corrección" style="width: 100px; text-align: center" sortBy="#{novedades.correccion}"
                                           filterMatchMode="contains" filterBy="#{novedades.correccion}" filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name ="output"><h:outputText id="outcorreccion" value="#{novedades.correccion}" style="text-transform: uppercase"/> </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{novedades.correccion}" id="editarcorreccion" maxlength="1"  style="width: 100px;font-weight: bold;text-transform: uppercase;"  >  
+                                            <p:selectOneMenu value="#{novedades.correccion}" id="editarcorreccion" maxlength="1"  style="width: 100px;font-weight: bold;text-transform: uppercase;" 
+                                                             onblur="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});"
+                                                             onfocus="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="NO" itemValue="N" />  
                                                 <f:selectItem itemLabel="SI" itemValue="S" />  
                                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.modificarNovedadAuto(novedades)}" process="@this" update="correccion"/>
@@ -234,15 +243,16 @@
                                         <h:outputText value="" />
                                     </f:facet>
                                 </p:column>
-                                 <p:tooltip  for="correccion" value="Corrección" />
+                                <p:tooltip  for="correccion" value="Corrección" />
 
-                                 <p:column id="aniomes" headerText="Año y Mes" style="width: 100px; text-align: center" sortBy="#{novedades.aniomes}" filterBy="#{novedades.aniomes}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="aniomes" headerText="Año y Mes" style="width: 100px; text-align: center" sortBy="#{novedades.aniomes}" filterBy="#{novedades.aniomes}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.aniomes}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.aniomes}"  style="border-radius: 0px; width: 98.5%;" maxlength="6" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 8)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 8)}" 
+                                                         onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -250,15 +260,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="aniomes" value="Año y Mes Corrección" />
+                                <p:tooltip  for="aniomes" value="Año y Mes Corrección" />
 
-                                 <p:column id="planillacorregir" headerText="Planilla a corregir" style="width: 100px; text-align: center" sortBy="#{novedades.planillacorregir}" filterBy="#{novedades.planillacorregir}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="planillacorregir" headerText="Planilla a corregir" style="width: 100px; text-align: center" sortBy="#{novedades.planillacorregir}" filterBy="#{novedades.planillacorregir}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.planillacorregir}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.planillacorregir}" maxlength="50" style="border-radius: 0px; width: 98.5%;" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 9)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 9)}"
+                                                         onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputText>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -266,15 +277,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="planillacorregir" value="Planilla a Corregir" />
+                                <p:tooltip  for="planillacorregir" value="Planilla a Corregir" />
 
-                                 <p:column id="diasmora" headerText="Días Mora" style="width: 100px; text-align: center" sortBy="#{novedades.diasmora}" filterBy="#{novedades.diasmora}" 
-                                           filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="diasmora" headerText="Días Mora" style="width: 100px; text-align: center" sortBy="#{novedades.diasmora}" filterBy="#{novedades.diasmora}" 
+                                          filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.diasmora}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.diasmora}" maxlength="5"  style="border-radius: 0px; width: 98.5%;" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 10)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 10)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -282,15 +294,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="diasmora" value="Días de Mora" />
+                                <p:tooltip  for="diasmora" value="Días de Mora" />
 
-                                 <p:column id="intmora" headerText="Intereses de Mora" style="width: 100px; text-align: center" sortBy="#{novedades.valorinteresesmora}" filterBy="#{novedades.valorinteresesmora}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="intmora" headerText="Intereses de Mora" style="width: 100px; text-align: center" sortBy="#{novedades.valorinteresesmora}" filterBy="#{novedades.valorinteresesmora}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.valorinteresesmora}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.valorinteresesmora}"  style="border-radius: 0px; width: 98.5%;">   
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 11)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 11)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -298,15 +311,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="intmora" value="Valor del interés de mora" />
+                                <p:tooltip  for="intmora" value="Valor del interés de mora" />
 
-                                 <p:column id="radicaciondcto" headerText="Radicación del Descuento" style="width: 100px; text-align: center" sortBy="#{novedades.radicaciondescuento}" filterBy="#{novedades.radicaciondescuento}" 
-                                           filterStyle="display: none; visibility: hidden;" >
+                                <p:column id="radicaciondcto" headerText="Radicación del Descuento" style="width: 100px; text-align: center" sortBy="#{novedades.radicaciondescuento}" filterBy="#{novedades.radicaciondescuento}" 
+                                          filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.radicaciondescuento}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.radicaciondescuento}"  maxlength="50" style="border-radius: 0px; width: 98.5%;" >   
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 12)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 12)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -314,16 +328,17 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="radicaciondcto" value="Radicación del descuento" />
+                                <p:tooltip  for="radicaciondcto" value="Radicación del descuento" />
 
                                 <p:column id="nit" headerText="NIT" style="width: 100px; text-align: center" sortBy="#{novedades.tercero.nit}" filterBy="#{novedades.tercero.nit}" 
-                                           filterStyle="display: none; visibility: hidden;" >
+                                          filterStyle="display: none; visibility: hidden;" >
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.tercero.nit}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.tercero.nit}"  style="border-radius: 0px; width: 98.5%;" > 
                                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.modificarNovedadAuto(novedades, 'TERCERO', novedades.empresa.nombre)}"/>
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 13)}" />
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 13)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades, 13,0)}"/>  
                                             </p:inputText>  
                                         </f:facet>
@@ -332,16 +347,17 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="nit" value="NIT del Tercero" />
+                                <p:tooltip  for="nit" value="NIT del Tercero" />
 
                                 <p:column id="nombretercero" headerText="Nombre del Tercero" style="width: 100px; text-align: center" sortBy="#{novedades.tercero.nombre}" filterBy="#{novedades.tercero.nombre}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.tercero.nombre}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.tercero.nombre}" readonly="true"  style="border-radius: 0px; width: 98.5%;" 
-                                                         onselect="posicionOtro([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indice}'}]);">
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 14)}" />    
+                                                          onselect="posicionOtro([{name: 'celda', value: '14'}, {name: 'registro', value: '#{indice}'}]);">
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 14)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputText>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -349,15 +365,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="nombretercero" value="Nombre del Tercero" />
+                                <p:tooltip  for="nombretercero" value="Nombre del Tercero" />
 
-                                 <p:column id="saldofavor" headerText="Saldo a Favor" style="width: 100px; text-align: center" sortBy="#{novedades.saldoafavor}" filterBy="#{novedades.saldoafavor}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="saldofavor" headerText="Saldo a Favor" style="width: 100px; text-align: center" sortBy="#{novedades.saldoafavor}" filterBy="#{novedades.saldoafavor}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.saldoafavor}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.saldoafavor}"  style="border-radius: 0px; width: 98.5%;" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 15)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 15)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -365,16 +382,17 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="saldofavor" value="Saldo a Favor" />
+                                <p:tooltip  for="saldofavor" value="Saldo a Favor" />
 
-                                 <p:column id="vlrmora" headerText="Valor Mora UPC" style="width: 100px; text-align: center;background-color: #00ffff" sortBy="#{novedades.valormoraupc}" filterBy="#{novedades.valormoraupc}" 
-                                           filterStyle="display: none; visibility: hidden;"> 
-                                   
+                                <p:column id="vlrmora" headerText="Valor Mora UPC" style="width: 100px; text-align: center;background-color: #00ffff" sortBy="#{novedades.valormoraupc}" filterBy="#{novedades.valormoraupc}" 
+                                          filterStyle="display: none; visibility: hidden;"> 
+
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.valormoraupc}"/> </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.valormoraupc}"  style="border-radius: 0px; width: 98.5%;background-color: #00ffff" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 16)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 16)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -382,15 +400,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="vlrmora" value="Valor de Mora por UPC" />
+                                <p:tooltip  for="vlrmora" value="Valor de Mora por UPC" />
 
-                                 <p:column id="saldofavorupc" headerText="Saldo a favor UPC" style="width: 100px; text-align: center;background-color: #00ffff " sortBy="#{novedades.saldoafavorupc}" filterBy="#{novedades.saldoafavorupc}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="saldofavorupc" headerText="Saldo a favor UPC" style="width: 100px; text-align: center;background-color: #00ffff " sortBy="#{novedades.saldoafavorupc}" filterBy="#{novedades.saldoafavorupc}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.saldoafavorupc}"  />    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.saldoafavorupc}"  style="border-radius: 0px; width: 98.5%;background-color: #00ffff" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 17)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 17)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -398,15 +417,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="saldofavorupc" value="Saldo a Favor UPC" />
+                                <p:tooltip  for="saldofavorupc" value="Saldo a Favor UPC" />
 
-                                 <p:column id="vlomorasoli" headerText="Vlr Mora Solidaridad" style="width: 100px; text-align: center;background-color: #99ff99" sortBy="#{novedades.valormorasolidaridad}" filterBy="#{novedades.valormorasolidaridad}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="vlomorasoli" headerText="Vlr Mora Solidaridad" style="width: 100px; text-align: center;background-color: #99ff99" sortBy="#{novedades.valormorasolidaridad}" filterBy="#{novedades.valormorasolidaridad}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.valormorasolidaridad}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.valormorasolidaridad}"  style="border-radius: 0px; width: 98.5%;background-color: #99ff99" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 18)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 18)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer" >
@@ -414,15 +434,16 @@
                                         </f:facet>
                                     </p:cellEditor> 
                                 </p:column>
-                                 <p:tooltip  for="vlrmorasoli" value="Valor de Mora por Solidaridad" />
+                                <p:tooltip  for="vlrmorasoli" value="Valor de Mora por Solidaridad" />
 
-                                 <p:column id="vlrmorasubs" headerText="Vlr Mora Subsistencia" style="width: 100px; text-align: center; background-color: #99ff99" sortBy="#{novedades.valormorasubsistencia}" filterBy="#{novedades.valormorasubsistencia}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                <p:column id="vlrmorasubs" headerText="Vlr Mora Subsistencia" style="width: 100px; text-align: center; background-color: #99ff99" sortBy="#{novedades.valormorasubsistencia}" filterBy="#{novedades.valormorasubsistencia}" 
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.valormorasubsistencia}" />    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.valormorasubsistencia}"  style="border-radius: 0px; width: 98.5%;background-color: #99ff99" > 
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 19)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 19)}"
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -433,12 +454,13 @@
                                 <p:tooltip  for="vlrmorasubs" value="Valor de Mora por Subsistencia" />
 
                                 <p:column id="vlrotros" headerText="Valor Otros" style="width: 100px; text-align: center; background-color: #f8f8a9" sortBy="#{novedades.valorotros}" filterBy="#{novedades.valorotros}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.valorotros}" /> </f:facet>   
                                         <f:facet name="input">
                                             <p:inputNumber  autocomplete="off"  value="#{novedades.valorotros}"  style="border-radius: 0px; width: 98.5%;background-color: #f8f8a9" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 20)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 20)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputNumber>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -449,12 +471,13 @@
                                 <p:tooltip  for="vlrotros" value="Valor Otros" />
 
                                 <p:column id="destino" headerText="Destino" style="width: 100px; text-align: center" sortBy="#{novedades.destino}" filterBy="#{novedades.destino}" 
-                                           filterStyle="display: none; visibility: hidden;">
+                                          filterStyle="display: none; visibility: hidden;">
                                     <p:cellEditor>
                                         <f:facet name="output"> <h:outputText value="#{novedades.destino}"/>    </f:facet>   
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  value="#{novedades.destino}" maxlength="20" style="border-radius: 0px; width: 98.5%;" >
-                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 21)}" />    
+                                                <p:ajax event="select" listener="#{controlNovedadAutoLiquidacion.cambiarIndice(novedades, 21)}" 
+                                                        onstart="PF('novedadesAuto').unselectAllRows();PF('novedadesAuto').selectRow(#{indice});" />    
                                             </p:inputText>   
                                         </f:facet>
                                         <f:facet name="footer">
@@ -464,24 +487,24 @@
                                 </p:column>
                                 <p:tooltip  for="destino" value="Destino" />
                             </p:dataTable>
-                            
+
                             <h:outputText id="infoRegistroNovedad" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroNovedades}" style="position: relative; left: 10px; top: 1px; font-weight: bold"/>
                         </fieldset>
                         <p:remoteCommand name="posicionOtro" actionListener="#{controlNovedadAutoLiquidacion.posicionOtro()}"/>
-                        
+
                         <fieldset style="position: absolute; left: 10px; top: 435px;width: 450px; height: 70px; border-radius: 10px;">
-                         <legend style=" color: blue;text-align:left"><strong>Convenciones</strong></legend>  
-                         <div>
-                         <h:outputText value="Valores Salud >>" style="position: absolute;top: 20px;left: 10px;display: block"  />
-                         <fieldset style="position: absolute;left: 105px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #00ffff;border-color: #00ffff; display: block" />
-                         <h:outputText value="Valores Pensión >>" style="position: absolute;top: 20px;left: 150px; display: inline-block"  />
-                         <fieldset style="position: absolute;left: 260px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #99ff99;border-color: #99ff99; display: inline-block" />
-                         <h:outputText value="Valores A.R.L >>" style="position: absolute;top: 20px;left: 310px; display: inline-block"  />
-                         <fieldset style="position: absolute;left: 405px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #f8f8a9;border-color: #f8f8a9; display: inline-block" />
-                         </div>
-                         
+                            <legend style=" color: blue;text-align:left"><strong>Convenciones</strong></legend>  
+                            <div>
+                                <h:outputText value="Valores Salud >>" style="position: absolute;top: 20px;left: 10px;display: block"  />
+                                <fieldset style="position: absolute;left: 105px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #00ffff;border-color: #00ffff; display: block" />
+                                <h:outputText value="Valores Pensión >>" style="position: absolute;top: 20px;left: 150px; display: inline-block"  />
+                                <fieldset style="position: absolute;left: 260px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #99ff99;border-color: #99ff99; display: inline-block" />
+                                <h:outputText value="Valores A.R.L >>" style="position: absolute;top: 20px;left: 310px; display: inline-block"  />
+                                <fieldset style="position: absolute;left: 405px; top: 20px; width: 5px; height: 5px; border-radius: 25px; background-color: #f8f8a9;border-color: #f8f8a9; display: inline-block" />
+                            </div>
+
                         </fieldset>
-                        
+
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
@@ -499,7 +522,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadAutoLiquidacion.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastro" process="@this" />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
 
@@ -507,7 +530,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NovedadesAutoLiquidaciones', 'novedadesAutoLiqRastro')}"
-                                         style="position: absolute; top: 60px; left: 160px;" action="rastro" icon="ui-icon-check"  process="@this"  />
+                                         style="position: absolute; top: 60px; left: 160px;" action="rastrotabla" icon="ui-icon-check"  process="@this"  />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this" />
                     </p:dialog>
 
@@ -525,7 +548,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadAutoLiquidacion.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastro" process="@this" />
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
                     </p:dialog>
 
@@ -550,7 +573,7 @@
                         <p:commandButton value="#{msg['aceptar']}" onclick="PF('validarNuevo').hide();"  
                                          style="position: absolute; top: 50px; left: 157px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
-                    
+
                 </h:form>
 
                 <h:form id="formularioDialogos" >
@@ -564,7 +587,7 @@
 
                             <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaEmpresa" value="#{controlNovedadAutoLiquidacion.nuevanovedad.empresa.nombre}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,0,1)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('EMPRESA', controlNovedadAutoLiquidacion.nuevanovedad.empresa.nombre, 1)}" />
@@ -576,7 +599,7 @@
 
                             <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaSucursal" value="#{controlNovedadAutoLiquidacion.nuevanovedad.sucursalpila.descripcion}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 105px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,1,1)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('SUCURSAL', controlNovedadAutoLiquidacion.nuevanovedad.sucursalpila.descripcion, 1)}" />
@@ -600,7 +623,7 @@
 
                             <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevoTipoEntidad" value="#{controlNovedadAutoLiquidacion.nuevanovedad.tipoentidad.nombre}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,4,1)}" process="@this"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(1, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('TIPOENTIDAD', controlNovedadAutoLiquidacion.nuevanovedad.tipoentidad.nombre, 1)}" />
@@ -664,7 +687,7 @@
 
                             <strong><h:outputText value="* NIT Tercero" style="position: absolute; top: 140px; left: 420px;" /></strong>
                             <p:inputNumber  autocomplete="off"  id="nuevoTercero" value="#{controlNovedadAutoLiquidacion.nuevanovedad.tercero.nit}"
-                                         style="width: 122px; position: absolute; left: 590px; top: 135px;">
+                                            style="width: 122px; position: absolute; left: 590px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,13,1)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(1, 'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('TERCERO', controlNovedadAutoLiquidacion.nuevanovedad.tercero.nombre, 1)}" />
@@ -739,7 +762,7 @@
 
                             <strong><h:outputText value="Empresa" style="position: absolute; top: 80px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarEmpresa" value="#{controlNovedadAutoLiquidacion.duplicarnovedad.empresa.nombre}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 75px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 75px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,0,2)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('EMPRESA', controlNovedadAutoLiquidacion.duplicarnovedad.empresa.nombre, 2)}" />
@@ -751,7 +774,7 @@
 
                             <strong><h:outputText value="Sucursal" style="position: absolute; top: 110px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarSucursal" value="#{controlNovedadAutoLiquidacion.duplicarnovedad.sucursalpila.descripcion}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 105px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 105px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,1,2)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('SUCURSAL', controlNovedadAutoLiquidacion.duplicarnovedad.sucursalpila.descripcion, 2)}" />
@@ -775,7 +798,7 @@
 
                             <strong><h:outputText value="* Tipo Entidad" style="position: absolute; top: 200px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTipoEntidad" value="#{controlNovedadAutoLiquidacion.duplicarnovedad.tipoentidad.nombre}"
-                                         style="width: 122px; position: absolute; left: 220px; top: 195px;">
+                                          style="width: 122px; position: absolute; left: 220px; top: 195px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,4,2)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(2, 'TIPOENTIDAD')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('TIPOENTIDAD', controlNovedadAutoLiquidacion.duplicarnovedad.tipoentidad.nombre, 2)}" />
@@ -839,7 +862,7 @@
 
                             <strong><h:outputText value="* NIT Tercero" style="position: absolute; top: 140px; left: 420px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTercero" value="#{controlNovedadAutoLiquidacion.duplicarnovedad.tercero.nit}"
-                                         style="width: 122px; position: absolute; left: 590px; top: 135px;">
+                                          style="width: 122px; position: absolute; left: 590px; top: 135px;">
                                 <p:ajax event="dblclick" listener="#{controlNovedadAutoLiquidacion.asignarIndex(novedades,13,2)}"/>
                                 <p:ajax event="click" listener="#{controlNovedadAutoLiquidacion.valoresBackupAutocompletar(2, 'TERCERO')}" />
                                 <p:ajax event="change" listener="#{controlNovedadAutoLiquidacion.autocompletarNuevoyDuplicado('TERCERO', controlNovedadAutoLiquidacion.duplicarnovedad.tercero.nombre, 2)}" />
@@ -1040,11 +1063,11 @@
                                 <h:outputText  value="#{empresa.codigo}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroEmpresas}" class="cssinfoRegistroLOV" />
-                        <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarEmpresa()}"  process="@this"/>
-                        <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioEmpresa()}"   process="@this"/>
+                            <h:outputText id="infoRegistroEmpresa" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroEmpresas}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarD" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarEmpresa()}"  process="@this"/>
+                            <p:commandButton id="atrasD" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioEmpresa()}"   process="@this"/>
                         </div>
                     </p:dialog> 
 
@@ -1075,11 +1098,11 @@
                                 <h:outputText  value="#{terceros.nombre}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroTerceros}" class="cssinfoRegistroLOV" />
-                        <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarTercero()}"  process="@this"/>
-                        <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioTercero()}"   process="@this"/>
+                            <h:outputText id="infoRegistroTercero" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroTerceros}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarT" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarTercero()}"  process="@this"/>
+                            <p:commandButton id="atrasT" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioTercero()}"   process="@this"/>
                         </div>
                     </p:dialog> 
 
@@ -1111,11 +1134,11 @@
                                 <h:outputText  value="#{sucursal.codigo}" />
                             </p:column>
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroSucursal" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroSucursales}" class="cssinfoRegistroLOV" />
-                        <p:commandButton id="aceptarS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarSucursal()}"  process="@this"/>
-                        <p:commandButton id="atrasS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioSucursal()}"   process="@this"/>
+                            <h:outputText id="infoRegistroSucursal" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroSucursales}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarS" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarSucursal()}"  process="@this"/>
+                            <p:commandButton id="atrasS" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioSucursal()}"   process="@this"/>
                         </div>
                     </p:dialog> 
 
@@ -1140,11 +1163,11 @@
                             </p:column>
 
                         </p:dataTable>
-                        
+
                         <div class="cssBotonesLOV"> 
-                        <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV" />
-                        <p:commandButton id="aceptarTE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarTipoEntidad()}"  process="@this"/>
-                        <p:commandButton id="atrasTE" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioTipoEntidad()}"   process="@this"/>
+                            <h:outputText id="infoRegistroTipoEntidad" value="#{msg['infoRegistros']} #{controlNovedadAutoLiquidacion.infoRegistroTipoEntidad}" class="cssinfoRegistroLOV" />
+                            <p:commandButton id="aceptarTE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlNovedadAutoLiquidacion.aceptar}"  actionListener="#{controlNovedadAutoLiquidacion.actualizarTipoEntidad()}"  process="@this"/>
+                            <p:commandButton id="atrasTE" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlNovedadAutoLiquidacion.cancelarCambioTipoEntidad()}"   process="@this"/>
                         </div>
                     </p:dialog>                    
                 </h:form>

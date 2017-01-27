@@ -14,162 +14,6 @@
                 <h:form id="form">                    
                     <p:growl id="growl" showDetail="true"/> 
                     <p:panel  id="PanelTotal" header="Conceptos" styleClass="panelTotal">  
-                        <h:outputText id="outEmpresaNombre" value="Empresa:" style="position: absolute; left: 20px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
-                        <h:outputText id="nombreEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nombre}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A;font-weight: bold " />
-                        <h:outputText id="outEmpresaNit" value="Nit:" style="position: absolute; left: 400px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
-                        <h:outputText id="nitEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right; "/>
-
-                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 330px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: blue"><strong>Conceptos</strong></legend>
-
-                            <p:dataTable id="datosActualizarConceptos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlActualizarConceptos.listConceptos}" 
-                                         scrollable="true"
-                                         scrollHeight="#{controlActualizarConceptos.tamano}"
-                                         scrollWidth="830"
-                                         filteredValue="#{controlActualizarConceptos.filtrarConceptos}"
-                                         emptyMessage="No se encontrarón resultados para la búsqueda"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlActualizarConceptos.conceptoSeleccionada}"
-                                         selectionMode="single"
-                                         liveScroll="true"
-                                         scrollRows="14">
-
-                                <p:ajax event="filter" listener="#{controlActualizarConceptos.eventoFiltrar()}"/>
-
-
-                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigo}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 0)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.codigo)}" update="codigo"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-
-                                </p:column>
-
-
-                                <p:column headerText="Descripción del Concepto" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="300" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 1)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.descripcion)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                                <p:column headerText="C.D." sortBy="#{info.clavecontabledebito.clave}" filterBy="#{info.clavecontabledebito.clave}" filterMatchMode="contains" id="claveDebito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
-                                        <h:outputText id="idcd" value="C.D."/>  
-                                        <p:tooltip  for="idcd" value="Clave Contable Debito" />
-
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.clavecontabledebito.clave}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
-                                                <p:ajax event="click" listener="#{controlActualizarConceptos.cambiarIndice(indice, 2)}" process="@this"/> 
-                                                <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,2)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPDEBITO', info.clavecontabledebito.clave)}"/>
-
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer" >
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveDebito" value=""/>
-                                    </f:facet>
-                                </p:column>     
-
-                                <p:column headerText="C.C." sortBy="#{info.clavecontablecredito.clave}" filterBy="#{info.clavecontablecredito.clave}" filterMatchMode="contains" id="claveCredito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
-                                        <h:outputText id="idcc" value="C.C."/>  
-                                        <p:tooltip  for="idcc" value="Clave Contable Credito" />
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.clavecontablecredito.clave}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
-                                                <p:ajax event="click" listener="#{controlActualizarConceptos.cambiarIndice(indice, 3)}" process="@this"/> 
-                                                <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,3)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPCREDITO', info.clavecontablecredito.clave)}"/>
-
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                    <f:facet name="footer" >
-                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveCredito" value=""/>
-                                    </f:facet>
-                                </p:column>                                
-
-                                <p:column headerText="I.D." sortBy="#{info.indicedeudor}" filterBy="#{info.indicedeudor}" filterMatchMode="contains" id="indiceDeudor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <f:facet name="header" >
-                                        <h:outputText id="idid" value="I.D."/>  
-                                        <p:tooltip  for="idid" value="Indice del Deudor" />
-                                    </f:facet>
-
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indicedeudor}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 4)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indicedeudor)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-                                <p:column headerText="I.A." sortBy="#{info.indiceacreedor}" filterBy="#{info.indiceacreedor}" filterMatchMode="contains" id="indiceAcredor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
-
-                                    <f:facet name="header" >
-                                        <h:outputText id="idia" value="I.A."/>  
-                                        <p:tooltip  for="idia" value="Indice del Acredor" />
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indiceacreedor}"  /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 5)}" process="@this"/> 
-                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indiceacreedor)}" update="descripcion"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                                <p:column headerText="Fecha" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" filterMatchMode="contains" 
-                                          id="fechaCreacion" width="70"
-                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
-                                    <p:cellEditor> 
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechacreacion}" style="width: 80px; text-transform: uppercase">
-                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
-                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 6)}" process="@this"/>  
-                                                <p:ajax event="change" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this" update="editFecha"/>
-                                            </p:calendar>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-
-                            </p:dataTable>
-
-                        </fieldset>
 
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
@@ -224,6 +68,170 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar>
+                        <h:outputText id="outEmpresaNombre" value="Empresa:" style="position: absolute; left: 20px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
+                        <h:outputText id="nombreEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nombre}" style="position: absolute; left: 90px; top: 85px; width:300px ;height:50px; color: #BF1A1A;font-weight: bold " />
+                        <h:outputText id="outEmpresaNit" value="Nit:" style="position: absolute; left: 400px; top: 85px; width:50px ;height:50px; color: darkblue;font-weight: bold "/> 
+                        <h:outputText id="nitEmpresa" value="#{controlActualizarConceptos.empresaSeleccionada.nit}" style="position: absolute; left: 228px; top: 85px; position: absolute; color: #BF1A1A; font-weight: bold; width: 285px; text-align: right; "/>
+
+                        <fieldset style="position: absolute;top: 110px;left: 10px;height: 330px;width: 830px; border-radius: 10px; text-align: left">
+                            <legend style="font-size: 14px; color: blue"><strong>Conceptos</strong></legend>
+
+                            <p:dataTable id="datosActualizarConceptos" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
+                                         value="#{controlActualizarConceptos.listConceptos}" 
+                                         scrollable="true" widgetVar="datosActualizarConceptos"
+                                         scrollHeight="#{controlActualizarConceptos.tamano}"
+                                         scrollWidth="830"
+                                         filteredValue="#{controlActualizarConceptos.filtrarConceptos}"
+                                         emptyMessage="No se encontrarón resultados para la búsqueda"
+                                         editable="true" editMode="cell" paginator="false" 
+                                         selection="#{controlActualizarConceptos.conceptoSeleccionada}"
+                                         selectionMode="single"
+                                         liveScroll="true"
+                                         scrollRows="14">
+
+                                <p:ajax event="filter" listener="#{controlActualizarConceptos.eventoFiltrar()}"/>
+
+
+                                <p:column headerText="Código" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="50" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.codigo}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   disabled="true" value="#{info.codigo}" maxlength="100" id="editarCodigo" style="height: 12px;  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 0)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.codigo)}" update="codigo"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+
+                                </p:column>
+
+
+                                <p:column headerText="Descripción del Concepto" sortBy="#{info.descripcion}" filterBy="#{info.descripcion}" filterMatchMode="contains" id="descripcion" width="300" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.descripcion}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="50" id="editarDescripcion" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 1)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConceptoCamposSinGuardar(indice, 'N', info.descripcion)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="C.D." sortBy="#{info.clavecontabledebito.clave}" filterBy="#{info.clavecontabledebito.clave}" filterMatchMode="contains" id="claveDebito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="idcd" value="C.D."/>  
+                                        <p:tooltip  for="idcd" value="Clave Contable Debito" />
+
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.clavecontabledebito.clave}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.clavecontabledebito.clave}" maxlength="50" id="editarClaveDebito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 2)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,2)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPDEBITO', info.clavecontabledebito.clave)}"/>
+
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer" >
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveDebito" value=""/>
+                                    </f:facet>
+                                </p:column>     
+
+                                <p:column headerText="C.C." sortBy="#{info.clavecontablecredito.clave}" filterBy="#{info.clavecontablecredito.clave}" filterMatchMode="contains" id="claveCredito" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="idcc" value="C.C."/>  
+                                        <p:tooltip  for="idcc" value="Clave Contable Credito" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.clavecontablecredito.clave}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.clavecontablecredito.clave}" maxlength="50" id="editarClaveCredito" style="height: 12px;  border-radius: 0px; width: 210px;"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 3)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="dblclick" listener="#{controlActualizarConceptos.asignarIndex(indice, 0,3)}" process="@this"/>
+                                                <p:ajax event="change" listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'CLAVESAPCREDITO', info.clavecontablecredito.clave)}"/>
+
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer" >
+                                        <p:commandButton style="width: 170px; margin: -14px; height: 20px; border: none; color: blue" id="fooClaveCredito" value=""/>
+                                    </f:facet>
+                                </p:column>                                
+
+                                <p:column headerText="I.D." sortBy="#{info.indicedeudor}" filterBy="#{info.indicedeudor}" filterMatchMode="contains" id="indiceDeudor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <f:facet name="header" >
+                                        <h:outputText id="idid" value="I.D."/>  
+                                        <p:tooltip  for="idid" value="Indice del Deudor" />
+                                    </f:facet>
+
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indicedeudor}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.indicedeudor}" maxlength="50" id="editarIndiceDeudor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 4)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indicedeudor)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+                                <p:column headerText="I.A." sortBy="#{info.indiceacreedor}" filterBy="#{info.indiceacreedor}" filterMatchMode="contains" id="indiceAcredor" width="15" filterStyle="display: none; visibility: hidden;" >                                  
+
+                                    <f:facet name="header" >
+                                        <h:outputText id="idia" value="I.A."/>  
+                                        <p:tooltip  for="idia" value="Indice del Acredor" />
+                                    </f:facet>
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.indiceacreedor}"  /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.indiceacreedor}" maxlength="50" id="editarIndiceAcredor" style="height: 12px; border-radius: 0px; width: 420px; text-transform: uppercase"  > 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 5)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" /> 
+                                                <p:ajax event="change"  listener="#{controlActualizarConceptos.modificarActualConcepto(indice, 'N', info.indiceacreedor)}" update="descripcion"/>
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+                                <p:column headerText="Fecha" sortBy="#{info.fechacreacion}" filterBy="#{info.fechacreacion}" filterMatchMode="contains" 
+                                          id="fechaCreacion" width="70"
+                                          filterStyle="display: none; visibility: hidden;"  style="width: 80px; ">                                  
+                                    <p:cellEditor> 
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechacreacion}" style="width: 80px; text-transform: uppercase">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaCreacion" value="#{info.fechacreacion}"> 
+                                                <p:ajax event="select" listener="#{controlActualizarConceptos.cambiarIndice(indice, 6)}" process="@this"
+                                                        onstart="PF('datosActualizarConceptos').unselectAllRows();PF('datosActualizarConceptos').selectRow(#{indice});" />  
+                                                <p:ajax event="change" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this"/> 
+                                                <p:ajax event="dateSelect" listener="#{controlActualizarConceptos.mostrarInfo(indice,6)}" process="@this" update="editFecha"/>
+                                            </p:calendar>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </fieldset>
+
 
                         <h:outputText id="informacionRegistro" value="#{controlActualizarConceptos.infoRegistro}" style="position: absolute; left: 15px; top: 460px; font-weight: bold"/>
                         <p:commandButton style="position: absolute; left: 10px; top: 475px;  "  icon="ui-icon-search" id="BUSCARCONCEPTOS" disabled="#{controlActualizarConceptos.buscarConceptos}" value="Buscar Concepto" actionListener="#{controlActualizarConceptos.llamadoDialogoBuscarConceptos()}" process="@this" />
@@ -258,9 +266,9 @@
 
                             </p:dataTable>
                             <h:outputText id="infoRegistroClaveSapDebito" value="#{controlActualizarConceptos.infoRegistroClaveSapDebito}" style="position: absolute;  top: 355px; font-weight: bold"/>
-                            
+
                             <p:commandButton id="aceptarS" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}"   actionListener="#{controlActualizarConceptos.actualizarClaveDebito()}" process="@this"/>
-                            
+
                             <p:commandButton id="atrasS" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 275px;" value="Atras"  actionListener="#{controlActualizarConceptos.cancelarCambioClavesSapDebito()}"  process="@this"/>
                         </p:dialog>
 
@@ -291,9 +299,9 @@
 
                             </p:dataTable>
                             <h:outputText id="infoRegistroClaveSapCredito" value="#{controlActualizarConceptos.infoRegistroClaveSapCredito}" style="position: absolute;  top: 355px; font-weight: bold"/>
-                            
+
                             <p:commandButton id="aceptarC" icon="ui-icon-check" style="position: relative; left: 275px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}"  actionListener="#{controlActualizarConceptos.actualizarClaveCredito()}" process="@this"/>
-                            
+
                             <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 275px;" value="Atras"  actionListener="#{controlActualizarConceptos.cancelarCambioClavesSapCredito()}" process="@this"/>
                         </p:dialog>
 
@@ -360,14 +368,14 @@
                     <p:dialog id="confirmarRastro" header="ATENCIÓN" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'CONCEPTOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="ATENCIÓN" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla CONCEPTOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -384,7 +392,7 @@
                     <p:dialog id="errorTablaConRastro" header="ATENCIÓN" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlActualizarConceptos.secRegistro,'Conceptos', 'actualizarconcepto')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -452,7 +460,7 @@
                         <h:outputText id="infoRegistroEmpresas" value="#{controlActualizarConceptos.infoRegistroEmpresas}" style="position: absolute; left: 5px; top: 350px; font-weight: bold"/>
 
                         <p:commandButton id="aceptarE" icon="u-iicon-check" style="position: relative; left: 165px;" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}" actionListener="#{controlActualizarConceptos.cambiarEmpresa()}" process="@this"/>
-                        
+
                         <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" id="atrasE" style="position: relative; left: 165px;" value="Cancelar" actionListener="#{controlActualizarConceptos.cancelarCambioEmpresa()}" process="@this"/>
                     </p:dialog>
 
@@ -482,7 +490,7 @@
                         </p:dataTable>
 
                         <p:commandButton id="aceptarNCC" style="position: relative; left: 190px;" icon="ui-icon-check" value="Aceptar" disabled="#{controlActualizarConceptos.aceptar}" actionListener="#{controlActualizarConceptos.seleccionConceptosPorEmpresa()}" process="@this"/>
-                        
+
                         <p:commandButton id="atrasTCC" style="position: relative; left: 190px;" icon="ui-icon-arrowreturnthick-1-w" value="Atras" actionListener="#{controlActualizarConceptos.cancelarSeleccionConceptosPorEmpresa()}" process="@this"/>
                     </p:dialog> 
 

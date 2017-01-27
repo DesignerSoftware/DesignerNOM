@@ -34,6 +34,8 @@ public interface AdministrarCarpetaDesignerInterface {
      * @return Retorna una Pantalla.
      */
     public Pantallas consultarPantalla(BigInteger secuenciaTab);
+    
+    public String consultarNombrePantalla(BigInteger secuenciaTab);
     /**
      * Método encargado de recuperar todas las Aficiones.
      * @return Retorna una lista de Modulos.

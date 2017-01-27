@@ -27,6 +27,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -129,6 +132,8 @@ public class ControlReportesBancos implements Serializable {
     private String tipoReporte;
     private boolean estadoReporte;
     private String resultadoReporte;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlReportesBancos() {
         activoMostrarTodos = true;
@@ -168,6 +173,7 @@ public class ControlReportesBancos implements Serializable {
         ciudadSeleccionada = new Ciudades();
         permitirIndex = true;
         reporteSeleccionadoLOV = null;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -181,6 +187,43 @@ public class ControlReportesBancos implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "reportesbancos";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void iniciarPagina() {
@@ -215,15 +258,15 @@ public class ControlReportesBancos implements Serializable {
         }
     }
 
-    private void activarEnvioCorreo(){
+    private void activarEnvioCorreo() {
         if (inforreporteSeleccionado != null) {
             activarEnvio = false;
-        }else{
+        } else {
             activarEnvio = true;
         }
         RequestContext.getCurrentInstance().update("form:ENVIOCORREO");
     }
-    
+
     public void seleccionRegistro() {
         activarEnvioCorreo();
         defaultPropiedadesParametrosReporte();
@@ -962,6 +1005,7 @@ public class ControlReportesBancos implements Serializable {
         reporteSeleccionadoLOV = null;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        navegar("atras");
     }
 
     public void cancelarYSalir() {
@@ -1113,8 +1157,10 @@ public class ControlReportesBancos implements Serializable {
             System.out.println("fis: " + fis);
             byte[] bytes = new byte[1024];
             int read;
-            if (!ctx.getResponseComplete()) 
-                System.out.println("Ingrese al if");{
+            if (!ctx.getResponseComplete()) {
+                System.out.println("Ingrese al if");
+            }
+            {
                 String fileName = reporteF.getName();
                 HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
                 response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
@@ -1127,7 +1173,7 @@ public class ControlReportesBancos implements Serializable {
                 out.close();
                 ctx.responseComplete();
             }
-        }else {
+        } else {
             System.out.println("validar descarga reporte - ingreso al else");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");

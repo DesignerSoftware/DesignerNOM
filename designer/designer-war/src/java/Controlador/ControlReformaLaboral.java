@@ -1,6 +1,5 @@
 package Controlador;
 
-
 import Entidades.DetallesReformasLaborales;
 import Entidades.ReformasLaborales;
 import Exportar.ExportarPDF;
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -105,6 +107,8 @@ public class ControlReformaLaboral implements Serializable {
     private DetallesReformasLaborales detalleActualTabla;
     //
     private String infoRegistroReforma;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlReformaLaboral() {
         reformaActualTabla = new ReformasLaborales();
@@ -145,6 +149,7 @@ public class ControlReformaLaboral implements Serializable {
         backUpSecRegistroDetalles = null;
         bandera = 0;
         banderaDetalle = 0;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -158,6 +163,43 @@ public class ControlReformaLaboral implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "reformalaboral";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void inicializarPagina() {
@@ -1259,6 +1301,7 @@ public class ControlReformaLaboral implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
         reformaActualTabla = new ReformasLaborales();
         detalleActualTabla = new DetallesReformasLaborales();
+        navegar("atras");
     }
 
     /**
@@ -1408,15 +1451,13 @@ public class ControlReformaLaboral implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("REFORMASLABORALES")) {
+            nombreTablaRastro = "ReformasLaborales";
+            msnConfirmarRastroHistorico = "La tabla REFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("REFORMASLABORALES")) {
-                nombreTablaRastro = "ReformasLaborales";
-                msnConfirmarRastroHistorico = "La tabla REFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -1446,15 +1487,13 @@ public class ControlReformaLaboral implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("DETALLESREFORMASLABORALES")) {
+            nombreTablaRastro = "DetallesReformasLaborales";
+            msnConfirmarRastroHistorico = "La tabla DETALLESREFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
+            RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("DETALLESREFORMASLABORALES")) {
-                nombreTablaRastro = "DetallesReformasLaborales";
-                msnConfirmarRastroHistorico = "La tabla DETALLESREFORMASLABORALES tiene rastros historicos, ¿Desea continuar?";
-                RequestContext.getCurrentInstance().update("form:confirmarRastroHistorico");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }
@@ -1478,16 +1517,14 @@ public class ControlReformaLaboral implements Serializable {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:errorClonadoReforma");
             RequestContext.getCurrentInstance().execute("PF('errorClonadoReforma').show()");
+        } else if (validarCodigoNuevoClonado() == true) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:continuarOperacionClonado");
+            RequestContext.getCurrentInstance().execute("PF('continuarOperacionClonado').show()");
         } else {
-            if (validarCodigoNuevoClonado() == true) {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:continuarOperacionClonado");
-                RequestContext.getCurrentInstance().execute("PF('continuarOperacionClonado').show()");
-            } else {
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:errorCodigoClonado");
-                RequestContext.getCurrentInstance().execute("PF('errorCodigoClonado').show()");
-            }
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:errorCodigoClonado");
+            RequestContext.getCurrentInstance().execute("PF('errorCodigoClonado').show()");
         }
     }
 

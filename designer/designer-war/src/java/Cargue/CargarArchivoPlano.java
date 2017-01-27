@@ -168,7 +168,7 @@ public class CargarArchivoPlano implements Serializable {
       }
    }
 
-   public void recibirPagina(String pagina) {
+   public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
    }
 
@@ -1092,7 +1092,7 @@ public class CargarArchivoPlano implements Serializable {
             administrarCargueArchivos.crearTempNovedades(crearTempNovedades);
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+         FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       } else {

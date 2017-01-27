@@ -78,7 +78,7 @@
                         <fieldset style="position: absolute;top: 80px;left: 10px;height: 105px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['cuadrilla']}</strong></legend>
 
-                            <p:dataTable id="datosCuadrilla" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left"                           
+                            <p:dataTable id="datosCuadrilla"  widgetVar="datosCuadrilla" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style=" border: 1px; text-align: left"                           
                                          value="#{controlATCuadrilla.listaCuadrillas}" scrollable="true" scrollHeight="#{controlATCuadrilla.altoTablaCuadrilla}" 
                                          filteredValue="#{controlATCuadrilla.filtrarListaCuadrillas}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATCuadrilla.cuadrillaSeleccionada}" selectionMode="single">
@@ -95,7 +95,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.codigo}" id="editarCodigoCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarParametrosObligatoriosCuadrilla(indice)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 0)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 0)}"
+                                                        onstart="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -108,7 +109,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.descripcion}" maxlength="40" id="editarDescripcionCuadrilla" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarParametrosObligatoriosCuadrilla(indice)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 1)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 1)}" 
+                                                        onstart="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -116,7 +118,9 @@
 
                                 <p:column  headerText="#{msg['estado']}" style="padding: 0px;"  filterMatchMode="contains" 
                                            id="cuadrillaEstado" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:selectOneMenu id="editarEstadoCuadrilla" value="#{info.estado}" style="width: 100px; font-weight: bold;text-transform: uppercase">  
+                                    <p:selectOneMenu id="editarEstadoCuadrilla" value="#{info.estado}" style="width: 100px; font-weight: bold;text-transform: uppercase"
+                                                     onblur="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});"
+                                                     onfocus="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});">  
                                         <f:selectItem itemLabel="#{msg['activo']}" itemValue="ACTIVO" />  
                                         <f:selectItem itemLabel="#{msg['inactivo']}" itemValue="INACTIVO" />  
                                         <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}"/>
@@ -130,7 +134,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.modulo}"  id="editarModuloCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 3)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 3)}"
+                                                        onstart="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -138,7 +143,9 @@
 
                                 <p:column  headerText="#{msg['metodo']}" style="padding: 0px;"  filterMatchMode="contains" 
                                            id="cuadrillaMetodo" width="100" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:selectOneMenu id="editarMetodoCuadrilla" value="#{info.metodorotacion}" style="width: 100px; font-weight: bold;text-transform: uppercase">   
+                                    <p:selectOneMenu id="editarMetodoCuadrilla" value="#{info.metodorotacion}" style="width: 100px; font-weight: bold;text-transform: uppercase"
+                                                     onblur="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});"
+                                                     onfocus="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});">   
                                         <f:selectItem itemLabel="#{msg['turno']}" itemValue="TURNO" />  
                                         <f:selectItem itemLabel="#{msg['empleado']}" itemValue="EMPLEADO" />  
                                         <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}"/>
@@ -152,7 +159,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.diasciclo}"  id="editarDiasCuadrilla" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarCuadrilla(indice)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 5)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceCuadrilla(indice, 5)}"
+                                                        onstart="PF('datosCuadrilla').unselectAllRows();PF('datosCuadrilla').selectRow(#{indice});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -164,14 +172,12 @@
                         <fieldset style="position: absolute;top: 200px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['turnoRotativo']}</strong></legend>
 
-                            <p:dataTable id="datosTurno" var="infoTR" rowKey="#{infoTR.secuencia}" rowIndexVar="indiceTR" style="width: 815px; border: 1px; text-align: left"                           
+                            <p:dataTable id="datosTurno" widgetVar="datosTurno" var="infoTR" rowKey="#{infoTR.secuencia}" rowIndexVar="indiceTR" style="width: 815px; border: 1px; text-align: left"                           
                                          value="#{controlATCuadrilla.listaTurnosRotativos}" scrollable="true" scrollWidth="830" scrollHeight="#{controlATCuadrilla.altoTablaTurno}" 
                                          filteredValue="#{controlATCuadrilla.filtrarListaTurnosRotativos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATCuadrilla.turnoSeleccionado}" selectionMode="single">
 
                                 <p:ajax event="filter" listener="#{controlATCuadrilla.eventoFiltrar()}"/>
-
-
                                 <p:column width="17" style="padding: 0px"> 
                                     <p:commandButton value=" " style="width: 15px; heigth: 25px"/>
                                 </p:column>
@@ -186,7 +192,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.codigo}" id="editarCodigoTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 0)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 0)}"
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -199,7 +206,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.descripcion}" maxlength="40" id="editarDescripcionTurno" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 1)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 1)}" 
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -217,7 +225,8 @@
                                             <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editarFechaSemillaTurno" value="#{infoTR.fechasemilla}" > 
                                                 <p:ajax event="dateSelect" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarFechaTurno(indiceTR,2)}" update="editarFechaSemillaTurno" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR,2)}" process="@this"/> 
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR,2)}" process="@this"
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" /> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -230,7 +239,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.horainicial}"  id="editarHoraInicialTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 3)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 3)}"
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -243,7 +253,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.horafinal}"  id="editarHoraFinalTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 4)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 4)}" 
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -256,7 +267,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.minutoinicial}"  id="editarMinInicialTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 5)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 5)}"
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -269,7 +281,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoTR.minutofinal}"  id="editarMinFinalTurno" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarTurno(indiceTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 6)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceTurno(indiceTR, 6)}" 
+                                                        onstart="PF('datosTurno').unselectAllRows();PF('datosTurno').selectRow(#{indiceTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -282,7 +295,7 @@
                         <fieldset style="position: absolute;top: 335px;left: 10px;height: 120px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['detalleTurno']}</strong></legend>
 
-                            <p:dataTable id="datosDetalle" var="infoDTR" rowKey="#{infoDTR.secuencia}" rowIndexVar="indiceDTR" style="width: 815px; border: 1px; text-align: left"                           
+                            <p:dataTable id="datosDetalle" widgetVar="datosDetalle" var="infoDTR" rowKey="#{infoDTR.secuencia}" rowIndexVar="indiceDTR" style="width: 815px; border: 1px; text-align: left"                           
                                          value="#{controlATCuadrilla.listaDetallesTurnosRotativos}" scrollable="true" scrollWidth="830" scrollHeight="#{controlATCuadrilla.altoTablaTurno}" 
                                          filteredValue="#{controlATCuadrilla.filtrarListaDetallesTurnosRotativos}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlATCuadrilla.detalleSeleccionado}" selectionMode="single">
@@ -303,7 +316,8 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{infoDTR.orden}" id="editarOrdenDetalle" style=" border-radius: 0px; width: 99%;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR)}" process="@this" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 0)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 0)}" 
+                                                        onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceDTR});" />
                                             </p:inputText>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -317,7 +331,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoDTR.empleado.codigoempleado}" id="editarCodigoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'CODIGO', infoDTR.codigoempleado)}" process="@this" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR, 0)}"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 1)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 1)}" 
+                                                        onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceDTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -332,7 +347,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoDTR.empleado.persona.nombreCompleto}" id="editarEmpleadoDetalle" style=" border-radius: 0px; width: 99%;text-transform: uppercase;"> 
                                                 <p:ajax event="change" listener="#{controlATCuadrilla.modificarDetalle(indiceDTR, 'NOMBRE', infoDTR.empleado.persona.nombreCompleto)}" process="@this" update="@this"/>
                                                 <p:ajax event="dblclick" listener="#{controlATCuadrilla.asignarIndex(indiceDTR, 0)}"/>
-                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 2)}" />
+                                                <p:ajax event="select" listener="#{controlATCuadrilla.cambiarIndiceDetalle(indiceDTR, 2)}" 
+                                                        onstart="PF('datosDetalle').unselectAllRows();PF('datosDetalle').selectRow(#{indiceDTR});" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -346,7 +362,6 @@
                         <p:commandButton style="position: absolute; left: 15px; top: 480px;  " id="BUSCAR" value="#{msg['buscarEmpl']}"  actionListener="#{controlATCuadrilla.actionBtnBuscarEmpleados()}" disabled="#{controlATCuadrilla.activarBtnBuscar}" process="@this" />
                         <p:commandButton style="position: absolute; left: 150px; top: 480px;  " id="TODOS" value="#{msg['mostrarTodos']}" actionListener="#{controlATCuadrilla.mostrarTodos()}" disabled="#{controlATCuadrilla.activarBtnMostrar}" process="@this" />
                         <p:commandButton style="position: absolute; left: 270px; top: 480px;  " id="BORRAR" value="#{msg['borrarProgramacion']}" onclick="PF('mensajeBorrarProgramacion').show()" process="@this"/>
-
 
                         <p:commandButton style="position: absolute; left: 683px; top: 480px;  " id="ACEPTAR" icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('confirmarGuardarSalida').show();" update=":form:datosCuadrilla" process="@this" disabled="#{controlATCuadrilla.guardado}"/>
                         <p:commandButton style="position: absolute; left: 775px; top: 480px;  " id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlATCuadrilla.salir()}" action="#{controlATCuadrilla.redirigir()}" process="@this" />
@@ -370,22 +385,17 @@
                     </p:dialog>
 
 
-
-                    <!-- -->
-
-
-
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -397,28 +407,21 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'Cuadrilla', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
-
-
-
-                    <!-- -->
-
-
-
 
                     <p:dialog id="confirmarRastro_T" header="#{msg['atencion']}" widgetVar="confirmarRastro_T"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro_T']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_T').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_T" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_T"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_T').hide();" actionListener="#{controlRastro.historicosTabla('TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_T').hide();" actionListener="#{controlRastro.historicosTabla('TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_T').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -430,7 +433,7 @@
                     <p:dialog id="errorTablaConRastro_T" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_T"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_T').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'TurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_T').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -445,14 +448,14 @@
                     <p:dialog id="confirmarRastro_D" header="#{msg['atencion']}" widgetVar="confirmarRastro_D"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro_D']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro_D').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico_D" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico_D"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico_D']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_D').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico_D').hide();" actionListener="#{controlRastro.historicosTabla('DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico_D').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 
@@ -464,7 +467,7 @@
                     <p:dialog id="errorTablaConRastro_D" header="#{msg['atencion']}" widgetVar="errorTablaConRastro_D"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastro" process="@this" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro_D').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlATCuadrilla.backUpSecRegistro, 'DetallesTurnosRotativos', 'rastroATCuadrilla')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro_D').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
                     </p:dialog>
 

@@ -5,7 +5,6 @@
  */
 package Controlador;
 
-
 import Entidades.SoCondicionesAmbientalesP;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
@@ -18,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -66,6 +68,8 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
 
     private String backUpCodigo;
     private String backUpDescripcion;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlSoCondicionesAmbientalesP() {
         listSoCondicionesAmbientalesP = null;
@@ -78,6 +82,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
         duplicarSoCondicionAmbientalP = new SoCondicionesAmbientalesP();
         guardado = true;
         tamano = 270;
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
     @PostConstruct
@@ -91,6 +96,43 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "condicionambientalpeligrosa";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -371,131 +413,127 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
                     index = -1;
                     secRegistro = null;
                 }
-            } else {
-
-                if (!crearSoCondicionesAmbientalesP.contains(filtrarSoCondicionesAmbientalesP.get(indice))) {
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
-                    }
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
-                            System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
-                            if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-
-                        for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
-                            System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
-                            if (j == indice) {
-                                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
-                        banderita = false;
-                    }
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().equals(" ")) {
-                        filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-                        if (modificarSoCondicionesAmbientalesP.isEmpty()) {
-                            modificarSoCondicionesAmbientalesP.add(filtrarSoCondicionesAmbientalesP.get(indice));
-                        } else if (!modificarSoCondicionesAmbientalesP.contains(filtrarSoCondicionesAmbientalesP.get(indice))) {
-                            modificarSoCondicionesAmbientalesP.add(filtrarSoCondicionesAmbientalesP.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
+            } else if (!crearSoCondicionesAmbientalesP.contains(filtrarSoCondicionesAmbientalesP.get(indice))) {
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                }
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                    banderita = false;
                 } else {
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                    for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
+                        System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
+                        if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
+                            contador++;
+                        }
                     }
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
-                            System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
-                            if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
+
+                    for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
+                        System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
+                        if (j == indice) {
+                            if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
                                 contador++;
                             }
                         }
-
-                        for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
-                            System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
-                            if (j == indice) {
-                                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
                     }
-
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
+                    if (contador > 0) {
+                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                        mensajeValidacion = "CODIGOS REPETIDOS";
                         banderita = false;
-                    }
-                    if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().equals(" ")) {
-                        filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                    }
-
-                    if (banderita == true) {
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
                     } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                        banderita = true;
                     }
-                    index = -1;
-                    secRegistro = null;
+
                 }
 
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
+                    banderita = false;
+                }
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().equals(" ")) {
+                    filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                }
+
+                if (banderita == true) {
+                    if (modificarSoCondicionesAmbientalesP.isEmpty()) {
+                        modificarSoCondicionesAmbientalesP.add(filtrarSoCondicionesAmbientalesP.get(indice));
+                    } else if (!modificarSoCondicionesAmbientalesP.contains(filtrarSoCondicionesAmbientalesP.get(indice))) {
+                        modificarSoCondicionesAmbientalesP.add(filtrarSoCondicionesAmbientalesP.get(indice));
+                    }
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
+            } else {
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                    filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                }
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(" ")) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                    banderita = false;
+                } else {
+                    for (int j = 0; j < listSoCondicionesAmbientalesP.size(); j++) {
+                        System.err.println("indice lista  indice : " + listSoCondicionesAmbientalesP.get(j).getCodigo());
+                        if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(listSoCondicionesAmbientalesP.get(j).getCodigo())) {
+                            contador++;
+                        }
+                    }
+
+                    for (int j = 0; j < filtrarSoCondicionesAmbientalesP.size(); j++) {
+                        System.err.println("indice filtrar indice : " + filtrarSoCondicionesAmbientalesP.get(j).getCodigo());
+                        if (j == indice) {
+                            if (filtrarSoCondicionesAmbientalesP.get(indice).getCodigo().equals(filtrarSoCondicionesAmbientalesP.get(j).getCodigo())) {
+                                contador++;
+                            }
+                        }
+                    }
+                    if (contador > 0) {
+                        filtrarSoCondicionesAmbientalesP.get(indice).setCodigo(backUpCodigo);
+                        mensajeValidacion = "CODIGOS REPETIDOS";
+                        banderita = false;
+                    } else {
+                        banderita = true;
+                    }
+
+                }
+
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().isEmpty()) {
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
+                    banderita = false;
+                }
+                if (filtrarSoCondicionesAmbientalesP.get(indice).getDescripcion().equals(" ")) {
+                    filtrarSoCondicionesAmbientalesP.get(indice).setDescripcion(backUpDescripcion);
+                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+                    banderita = false;
+                }
+
+                if (banderita == true) {
+                    if (guardado == true) {
+                        guardado = false;
+                    }
+
+                } else {
+                    RequestContext.getCurrentInstance().update("form:validacionModificar");
+                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
+                }
+                index = -1;
+                secRegistro = null;
             }
             RequestContext.getCurrentInstance().update("form:datosSoCondicionesAmbientalesP");
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -612,7 +650,7 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             }
             System.out.println("Se guardaron los datos con exito");
             listSoCondicionesAmbientalesP = null;
-            FacesMessage msg = new FacesMessage("Información", "Se guardarón los datos con éxito");
+            FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
             RequestContext.getCurrentInstance().update("form:datosClasesAusentismos");
@@ -897,13 +935,10 @@ public class ControlSoCondicionesAmbientalesP implements Serializable {
             } else {
                 RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
             }
+        } else if (administrarRastros.verificarHistoricosTabla("SOCONDICIONESAMBIENTALESP")) { // igual acá
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
-            if (administrarRastros.verificarHistoricosTabla("SOCONDICIONESAMBIENTALESP")) { // igual acá
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
-            }
-
+            RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
         index = -1;
     }

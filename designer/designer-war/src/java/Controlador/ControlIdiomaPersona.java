@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -80,6 +83,8 @@ public class ControlIdiomaPersona implements Serializable {
     private String infoRegistroIdioma;
     private DataTable tablaC;
     private IdiomasPersonas secuencia;
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlIdiomaPersona() {
         altoTabla = "304";
@@ -102,6 +107,44 @@ public class ControlIdiomaPersona implements Serializable {
         permitirIndex = true;
         backUpSecRegistro = null;
         activarLov = true;
+        mapParametros.put("paginaAnterior", paginaAnterior);
+    }
+
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "idiomapersona";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     @PostConstruct
@@ -130,104 +173,17 @@ public class ControlIdiomaPersona implements Serializable {
 
     public void modificarIdiomaPersona(IdiomasPersonas idiomaPersona) {
         idiomaTablaSeleccionado = idiomaPersona;
-        if (tipoLista == 0) {
-            if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
-
-                if (listIdiomaPersonaModificar.isEmpty()) {
-                    listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                } else if (!listIdiomaPersonaModificar.contains(idiomaTablaSeleccionado)) {
-                    listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
+        if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
+            if (listIdiomaPersonaModificar.isEmpty()) {
+                listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
+            } else if (!listIdiomaPersonaModificar.contains(idiomaTablaSeleccionado)) {
+                listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
             }
-        } else {
-            if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
-
-                if (listIdiomaPersonaModificar.isEmpty()) {
-                    listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                } else if (!listIdiomaPersonaModificar.contains(idiomaTablaSeleccionado)) {
-                    listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-            idiomaTablaSeleccionado = null;
-            idiomaTablaSeleccionado = null;
-        }
-    }
-
-    public void modificarIdiomaPersona(IdiomasPersonas idiomaPersona, String confirmarCambio, String valorConfirmar) {
-        idiomaTablaSeleccionado = idiomaPersona;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("IDIOMAS")) {
-            if (tipoLista == 0) {
-                idiomaTablaSeleccionado.getIdioma().setNombre(idioma);
-            } else {
-                idiomaTablaSeleccionado.getIdioma().setNombre(idioma);
-            }
-            for (int i = 0; i < listIdiomas.size(); i++) {
-                if (listIdiomas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    idiomaTablaSeleccionado.setIdioma(listIdiomas.get(indiceUnicoElemento));
-                } else {
-                    idiomaTablaSeleccionado.setIdioma(listIdiomas.get(indiceUnicoElemento));
-                }
-                listIdiomas.clear();
-                getListIdiomas();
-            } else {
-                permitirIndex = false;
-                //eliminarRegistrosIdiomaLov();
-                RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
-                tipoActualizacion = 0;
+            if (guardado == true) {
+                guardado = false;
+                RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
-
-                    if (listIdiomaPersonaModificar.isEmpty()) {
-                        listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                    } else if (!listIdiomaPersonaModificar.contains(idiomaTablaSeleccionado)) {
-                        listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                idiomaTablaSeleccionado = null;
-                idiomaTablaSeleccionado = null;
-            } else {
-                if (!listIdiomaPersonaCrear.contains(idiomaTablaSeleccionado)) {
-
-                    if (listIdiomaPersonaModificar.isEmpty()) {
-                        listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                    } else if (!listIdiomaPersonaModificar.contains(idiomaTablaSeleccionado)) {
-                        listIdiomaPersonaModificar.add(idiomaTablaSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                idiomaTablaSeleccionado = null;
-                idiomaTablaSeleccionado = null;
-            }
-        }
-        RequestContext.getCurrentInstance().update("form:datosIdiomas");
     }
 
     public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
@@ -524,27 +480,27 @@ public class ControlIdiomaPersona implements Serializable {
 
             boolean continuar = validarIdioma();
             if (continuar) {
-            k++;
-            l = BigInteger.valueOf(k);
-            duplicarIdiomaPersona.setSecuencia(l);
-            duplicarIdiomaPersona.setPersona(empleadoActual.getPersona());
-            listIdiomasPersonas.add(duplicarIdiomaPersona);
-            listIdiomaPersonaCrear.add(duplicarIdiomaPersona);
-            if (listIdiomasPersonas == null) {
-                listIdiomasPersonas = new ArrayList<IdiomasPersonas>();
-            }
-            idiomaTablaSeleccionado = duplicarIdiomaPersona;
-            RequestContext context = RequestContext.getCurrentInstance();
-            getListIdiomasPersonas();
-            contarRegistros();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            RequestContext.getCurrentInstance().update("form:datosIdiomas");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            duplicarIdiomaPersona = new IdiomasPersonas();
+                k++;
+                l = BigInteger.valueOf(k);
+                duplicarIdiomaPersona.setSecuencia(l);
+                duplicarIdiomaPersona.setPersona(empleadoActual.getPersona());
+                listIdiomasPersonas.add(duplicarIdiomaPersona);
+                listIdiomaPersonaCrear.add(duplicarIdiomaPersona);
+                if (listIdiomasPersonas == null) {
+                    listIdiomasPersonas = new ArrayList<IdiomasPersonas>();
+                }
+                idiomaTablaSeleccionado = duplicarIdiomaPersona;
+                RequestContext context = RequestContext.getCurrentInstance();
+                getListIdiomasPersonas();
+                contarRegistros();
+                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                RequestContext.getCurrentInstance().update("form:datosIdiomas");
+                RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroIdiomas').hide()");
+                if (guardado == true) {
+                    guardado = false;
+                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
+                }
+                duplicarIdiomaPersona = new IdiomasPersonas();
             } else {
                 RequestContext.getCurrentInstance().update("form:existeIdioma");
                 RequestContext.getCurrentInstance().execute("PF('existeIdioma').show()");

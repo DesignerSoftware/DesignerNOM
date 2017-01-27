@@ -28,6 +28,9 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -228,12 +231,13 @@ public class ControlDetalleConcepto implements Serializable {
    private String paginaRetorno;
    private String conceptoEliminar;
    private int num;
-   private String pagina;
    ////////////////////////////////
    private String infoRegistroLovTipoCentroCosto, infoRegistroLovCuentaDebito, infoRegistroLovCuentaCredito, infoRegistroLovCentroCostoDebito, infoRegistroLovCentroCostoCredito, infoRegistroLovProcesos,
            infoRegistroLovGrupoConcepto, infoRegistroLovTipoTrabajador, infoRegistroLovTipoContrato, infoRegistroLovReformaLaboral, infoRegistroLovFormula, infoRegistroLovFormulasConceptos;
    ////
    public boolean activarLOV;
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlDetalleConcepto() {
       System.err.println("ControlDetalleConcepto() : 1");
@@ -347,8 +351,7 @@ public class ControlDetalleConcepto implements Serializable {
       nuevaVigenciaCuenta.setTipocc(new TiposCentrosCostos());
       nuevaVigenciaCuenta.setProceso(null);
       nuevaVigenciaCuenta.setNombreProceso("");
-      
-      
+
       nuevaVigenciaGrupoConcepto = new VigenciasGruposConceptos();
       nuevaVigenciaGrupoConcepto.setGrupoconcepto(new GruposConceptos());
       nuevaVigenciaConceptoTT = new VigenciasConceptosTT();
@@ -416,7 +419,45 @@ public class ControlDetalleConcepto implements Serializable {
       activarLOV = true;
       System.err.println("ControlDetalleConcepto() : 2");
       num = 1;
-      pagina = "";
+      paginaAnterior = "nominaf";
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   public void recibirPaginaEntrante(String pagina) {
+      paginaAnterior = pagina;
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   public void recibirParametros(Map<String, Object> map) {
+      mapParametros = map;
+      paginaAnterior = (String) mapParametros.get("paginaAnterior");
+      //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+   public void navegar(String pag) {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      if (pag.equals("atras")) {
+         pag = paginaAnterior;
+         paginaAnterior = "nominaf";
+         controlListaNavegacion.quitarPagina();
+      } else {
+         String pagActual = "detalleconcepto";
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //mapParametros.put("paginaAnterior", pagActual);
+         //mas Parametros
+//         if (pag.equals("rastrotabla")) {
+//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //   pag = "rastrotabla";
+         //}
+         controlListaNavegacion.adicionarPagina(pagActual);
+      }
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    @PostConstruct
@@ -437,7 +478,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void obtenerConcepto(BigInteger secuencia, String paginaEntr) {
       if (num == 1) {
-         pagina = paginaEntr;
+         paginaAnterior = paginaEntr;
          conceptoActual = administrarDetalleConcepto.consultarConceptoActual(secuencia);
          if (conceptoActual != null) {
             Long auto = administrarDetalleConcepto.contarFormulasConceptosConcepto(conceptoActual.getSecuencia());
@@ -511,7 +552,7 @@ public class ControlDetalleConcepto implements Serializable {
 
    public String retornarPagina() {
       num = 1;
-      return pagina;
+      return paginaAnterior;
    }
 
    public void modificarVigenciaCuenta() {
@@ -3033,15 +3074,15 @@ public class ControlDetalleConcepto implements Serializable {
          }
       }
       if (i == 1) {
-         System.out.println("(nuevaVigenciaCuenta.getFechafinal() != null) : " + (nuevaVigenciaCuenta.getFechafinal() != null) );
+         System.out.println("(nuevaVigenciaCuenta.getFechafinal() != null) : " + (nuevaVigenciaCuenta.getFechafinal() != null));
          System.out.println("(nuevaVigenciaCuenta.getFechainicial() != null) : " + (nuevaVigenciaCuenta.getFechainicial() != null));
          System.out.println("(nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null));
          System.out.println("(nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)" + (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null));
          System.out.println("(nuevaVigenciaCuenta.getCuentac().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentac().getSecuencia() != null));
          System.out.println("(nuevaVigenciaCuenta.getCuentad().getSecuencia() != null)" + (nuevaVigenciaCuenta.getCuentad().getSecuencia() != null));
          System.out.println("(nuevaVigenciaCuenta.getTipocc().getSecuencia() != null)" + (nuevaVigenciaCuenta.getTipocc().getSecuencia() != null));
-                
-         if ((nuevaVigenciaCuenta.getFechafinal() != null) 
+
+         if ((nuevaVigenciaCuenta.getFechafinal() != null)
                  && (nuevaVigenciaCuenta.getFechainicial() != null)
                  && (nuevaVigenciaCuenta.getConsolidadorc().getSecuencia() != null)
                  && (nuevaVigenciaCuenta.getConsolidadord().getSecuencia() != null)
@@ -4975,6 +5016,7 @@ public class ControlDetalleConcepto implements Serializable {
       }
       return nombreTabla;
    }
+
    /**
     * Valida la tabla a exportar en PDF con respecto al index activo
     *
@@ -6637,6 +6679,7 @@ public class ControlDetalleConcepto implements Serializable {
    public void setInfoRegistroGrupoC(String infoRegistroGrupoC) {
       this.infoRegistroGrupoC = infoRegistroGrupoC;
    }
+
    public void setInfoRegistroConceptoTT(String infoRegistroConceptoTT) {
       this.infoRegistroConceptoTT = infoRegistroConceptoTT;
    }
@@ -6656,7 +6699,7 @@ public class ControlDetalleConcepto implements Serializable {
    public void setInfoRegistroLovProcesos(String infoRegistroLovProcesos) {
       this.infoRegistroLovProcesos = infoRegistroLovProcesos;
    }
-   
+
    public String getInfoRegistroLovTipoCentroCosto() {
       FacesContext c = FacesContext.getCurrentInstance();
       DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovTiposCC");
