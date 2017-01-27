@@ -201,6 +201,13 @@ public class ControlCuenta implements Serializable {
          HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
          administrarCuentas.obtenerConexion(ses.getId());
          administrarRastros.obtenerConexion(ses.getId());
+         getListEmpresas();
+         if (listaEmpresas != null) {
+            if (listaEmpresas.size() > 0) {
+               empresaActual = listaEmpresas.get(0);
+               backUpEmpresaActual = empresaActual;
+            }
+         }
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -1357,8 +1364,6 @@ public class ControlCuenta implements Serializable {
    }
 
    public void dialogoSeleccionarCuenta() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("Empresa Actual : " + empresaActual.getNombre());
       getListCuentasTesoreria();
       RequestContext.getCurrentInstance().update("form:BuscarCuentasDialogo");
       RequestContext.getCurrentInstance().execute("PF('BuscarCuentasDialogo').show()");

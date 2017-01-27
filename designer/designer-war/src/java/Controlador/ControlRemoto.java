@@ -1719,6 +1719,7 @@ public class ControlRemoto implements Serializable {
       if (moduloSeleccionado != null) {
          filtradoListTablasLOV = null;
          listTablasLOV = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
+         RequestContext.getCurrentInstance().update("form:buscartablasdialogo");
          RequestContext.getCurrentInstance().update("form:lovtablas");
          RequestContext.getCurrentInstance().execute("PF('buscartablasdialogo').show()");
       }

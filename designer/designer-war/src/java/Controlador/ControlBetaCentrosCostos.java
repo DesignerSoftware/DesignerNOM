@@ -1559,23 +1559,21 @@ public class ControlBetaCentrosCostos implements Serializable {
 
    public void cambiarEmpresa() {
       RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("Cambiar empresa  GUARDADO = " + guardado);
-      System.err.println("Cambiar empresa  GUARDADO = " + empresaSeleccionada.getNombre());
       if (guardado == true) {
-         RequestContext.getCurrentInstance().update("form:nombreEmpresa");
-         RequestContext.getCurrentInstance().update("form:nitEmpresa");
+         context.update("form:nombreEmpresa");
+         context.update("form:nitEmpresa");
          getListCentrosCostosPorEmpresa();
          getLovCentrosCostosPorEmpresa();
          filtradoListaEmpresas = null;
          listCentrosCostosPorEmpresa = null;
          aceptar = true;
          context.reset("form:lovEmpresas:globalFilter");
-         RequestContext.getCurrentInstance().execute("PF('lovEmpresas').clearFilters()");
-         RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
-         RequestContext.getCurrentInstance().update("form:lovEmpresas");
-         RequestContext.getCurrentInstance().update("form:aceptarE");
-         RequestContext.getCurrentInstance().execute("PF('EmpresasDialogo').hide()");
-
+         context.execute("PF('lovEmpresas').clearFilters()");
+         context.update("form:EmpresasDialogo");
+         context.update("form:lovEmpresas");
+         context.update("form:aceptarE");
+         context.execute("PF('EmpresasDialogo').hide()");
+         contarRegistros();
          RequestContext.getCurrentInstance().update("form:lovEmpresas");
          banderaModificacionEmpresa = 0;
          RequestContext.getCurrentInstance().update("form:datosCentrosCostos");

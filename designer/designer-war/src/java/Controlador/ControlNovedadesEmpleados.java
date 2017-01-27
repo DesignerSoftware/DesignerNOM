@@ -1609,18 +1609,16 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    public void todasNovedades() {
       System.out.println("Ingrese a todasNovedades()");
-      listaNovedades.clear();
       listaNovedades = administrarNovedadesEmpleados.todasNovedades(empleadoSeleccionado.getId());
       activoBtnAcumulado = true;
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       todas = true;
       actuales = false;
+      RequestContext.getCurrentInstance().update("form:ACUMULADOS");
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
       RequestContext.getCurrentInstance().update("form:TODAS");
       RequestContext.getCurrentInstance().update("form:ACTUALES");
-      System.out.println("Sali de todasNovedades()");
-
+      System.out.println("Sali de todasNovedades() listaNovedades : " + listaNovedades);
    }
 
    public void actualesNovedades() {
@@ -1870,6 +1868,7 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    //LISTA NOVEDADES
    public List<Novedades> getListaNovedades() {
+      System.out.println("Controlador.ControlNovedadesEmpleados.getListaNovedades()");
       if (listaNovedades == null && empleadoSeleccionado != null) {
          listaNovedades = administrarNovedadesEmpleados.novedadesEmpleado(empleadoSeleccionado.getId());
       }
@@ -2073,6 +2072,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public Novedades getNovedadSeleccionada() {
+      System.out.println("Controlador.ControlNovedadesEmpleados.getNovedadSeleccionada()");
       return novedadSeleccionada;
    }
 
@@ -2081,6 +2081,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getAltoTabla() {
+      System.out.println("Controlador.ControlNovedadesEmpleados.getAltoTabla()");
       return altoTabla;
    }
 
@@ -2089,6 +2090,7 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getAltoTablaReg() {
+      System.out.println("Controlador.ControlNovedadesEmpleados.getAltoTablaReg()");
       if (altoTabla.equals("125")) {
          altoTablaReg = "5";
       } else {

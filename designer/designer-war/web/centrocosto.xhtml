@@ -390,10 +390,12 @@
                         <p:ajax event="filter" listener="#{controlBetaCentrosCostos.contarRegistrosEmp()}"/>
                         <p:ajax event="rowSelect" listener="#{controlBetaCentrosCostos.activarAceptar()}" update=":form:aceptarE"/>
                         <p:ajax event="rowDblselect" listener="#{controlBetaCentrosCostos.cambiarEmpresa()}" process="@this" />
+                        
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}" />  
-                           <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV" />  
+                           <p:inputText  autocomplete="off"   id="globalFilter" onkeyup="PF('lovEmpresas').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
+                        
                         <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['nitE']}" />

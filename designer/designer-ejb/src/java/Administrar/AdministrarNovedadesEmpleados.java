@@ -152,6 +152,7 @@ public class AdministrarNovedadesEmpleados implements AdministrarNovedadesEmplea
 
    @Override
    public List<Novedades> todasNovedades(BigInteger secuenciaEmpleado) {
+      System.out.println("Administrar.AdministrarNovedadesEmpleados.todasNovedades() secuenciaEmpleado:" + secuenciaEmpleado);
       try {
          return persistenciaNovedades.todasNovedadesEmpleado(em, secuenciaEmpleado);
       } catch (Exception e) {

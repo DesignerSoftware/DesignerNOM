@@ -5,9 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
    <h:head>
       <title></title>
    </h:head>
@@ -29,7 +27,6 @@
                   <p:toolbar styleClass="cssToolbar">  
 
                      <p:toolbarGroup align="left"> 
-
                         <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
                                          actionListener="#{controlNovedadesEmpleados.guardarCambiosNovedades()}" process="@this" />
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
@@ -94,7 +91,7 @@
                   </p:toolbar> 
 
                   <fieldset style="position: absolute; top: 70px; left: 10px; height: 155px; width: 625px; border-radius: 10px; text-align: left; padding-top: 0px;">
-                     <legend style="font-size: 13px; color: #14388B"><strong>#{msg['empleados']}</strong></legend>
+                     <legend style="font-size: 13px; color: #14388B;"><strong>#{msg['empleados']}</strong></legend>
 
                      <p:dataTable id="datosEmpleados" var="empleados" value="#{controlNovedadesEmpleados.listaEmpleadosNovedad}"
                                   rowKey="#{empleados.codigo}" rowIndexVar="indiceT" style=" border: 1px; width: 620px;" widgetVar="datosEmpleados"                           
@@ -124,8 +121,8 @@
                         <p:column sortBy="#{empleados.valor}" filterBy="#{empleados.valor}" class="cssColumnasNumericas"
                                   filterMatchMode="contains" id="nEEmpleadosValor" width="110" filterStyle="display: none; visibility: hidden;" >                                  
                            <p:inputNumber value="#{empleados.valor}" decimalPlaces="2" readonly="true" symbol="$" style="padding-bottom: 0px; padding-top: 0px; margin: 0px;"
-                                          onblur="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indiceT});"
-                                          onfocus="PF('datosEmpleados').unselectAllRows();PF('datosEmpleados').selectRow(#{indiceT});"/>
+                                          onblur="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"
+                                          onfocus="PF('datosEmpleados').unselectAllRows(); PF('datosEmpleados').selectRow(#{indiceT});"/>
                            <f:facet name="header">
                               <h:outputText value="#{msg['valor']}"/>
                            </f:facet>
@@ -166,7 +163,7 @@
                                     <p:keyFilter for="editarConceptoCodigo" mask="num"/>
                                     <p:ajax event="change" listener="#{controlNovedadesEmpleados.modificarNovedades(novedades, 'CONCEPTO', novedades.concepto.codigoSTR)}"/>
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 0)}" process="@this"
-                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows(); PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 1, 0)}"/>
                                  </p:inputText>
                               </f:facet>
@@ -183,7 +180,7 @@
                               <f:facet name="input">
                                  <p:inputText  autocomplete="off" value="#{novedades.concepto.descripcion}" id="editarDescripcionConcepto" style=" border-radius: 0px; text-transform: uppercase;"> 
                                     <p:ajax event="select" listener="#{controlNovedadesEmpleados.cambiarIndice(novedades, 1)}" process="@this"
-                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows();PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
+                                            onstart="PF('datosNovedadesEmpleado').unselectAllRows(); PF('datosNovedadesEmpleado').selectRow(#{indice});"/>
                                     <p:ajax event="dblclick" listener="#{controlNovedadesEmpleados.asignarIndex(novedades, 1, 0)}"/>
                                  </p:inputText>
                               </f:facet>  
@@ -238,7 +235,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['vaalor']}" style="text-align: right;" sortBy="#{novedades.valortotal}" filterBy="#{novedades.valortotal}" filterMatchMode="contains" 
+                        <p:column headerText="#{msg['vaalor']}" sortBy="#{novedades.valortotal}" filterBy="#{novedades.valortotal}" filterMatchMode="contains" 
                                   id="nEValor" width="90" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                  
                            <!--<p:cellEditor>-->  
                               <!--<f:facet name="output"><h:outputText value="#{novedades.valortotal}"/></f:facet>-->  
@@ -257,7 +254,7 @@
                            </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['saldo']}" style="text-align: right;" sortBy= "#{novedades.saldo}" filterBy="#{novedades.saldo}" filterMatchMode="contains"
+                        <p:column headerText="#{msg['saldo']}" sortBy= "#{novedades.saldo}" filterBy="#{novedades.saldo}" filterMatchMode="contains"
                                   id="nESaldo" width="90" filterStyle="display: none; visibility: hidden;" class="cssColumnasNumericas">                                  
                            <!--<p:cellEditor>-->  
                               <!--<f:facet name="output"><h:outputText value="#{novedades.saldo}"/></f:facet>-->  
@@ -439,11 +436,11 @@
                   </fieldset>
 
                   <p:commandButton style="position: absolute; left: 10px; top: 475px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
-                                   icon="ui-icon-extlink" id="TODAS" value="Todas" actionListener="#{controlNovedadesEmpleados.todasNovedades()}" disabled="#{controlNovedadesEmpleados.todas}" process="@this" />
+                                   icon="ui-icon-extlink" id="TODAS" widgetVar="TODAS" value="Todas" actionListener="#{controlNovedadesEmpleados.todasNovedades()}" process="@this" />
                   <p:tooltip  for="TODAS" value="#{msg['todas']}" />
 
                   <p:commandButton style="position: absolute; left: 140px; top: 475px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
-                                   icon="ui-icon-extlink" id="ACTUALES" value="Actuales" actionListener="#{controlNovedadesEmpleados.actualesNovedades()}" disabled="#{controlNovedadesEmpleados.actuales}" process="@this" />
+                                   icon="ui-icon-extlink" id="ACTUALES" widgetVar="ACTUALES" value="Actuales" actionListener="#{controlNovedadesEmpleados.actualesNovedades()}" disabled="#{controlNovedadesEmpleados.actuales}" process="@this" />
                   <p:tooltip  for="ACTUALES" value="#{msg['actuales']}" />
 
                   <p:commandButton style="position: absolute; left: 270px; top: 475px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
