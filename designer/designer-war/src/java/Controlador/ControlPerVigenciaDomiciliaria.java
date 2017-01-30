@@ -532,13 +532,13 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         getListVigenciasDomiciliarias();
         listAntecedentesM = null;
         getListAntecedentesM();
-        if (listAntecedentesM != null) {
-            if (!listAntecedentesM.isEmpty()) {
-                antecedentemSeleccionado = listAntecedentesM.get(0);
-                System.out.println("antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getSecuencia());
-                System.out.println("tipo antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
-            }
-        }
+//        if (listAntecedentesM != null) {
+//            if (!listAntecedentesM.isEmpty()) {
+//                antecedentemSeleccionado = listAntecedentesM.get(0);
+//                System.out.println("antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getSecuencia());
+//                System.out.println("tipo antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
+//            }
+//        }
 
         getLovAntecedentes();
         if (lovAntecedentes != null) {
@@ -7625,18 +7625,14 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void mostrarDialogoBuscarVisita() {
-        System.out.println("entró a la funcion mostrarDialogoBuscarVisita");
         lovVisitas = null;
         getLovVisitas();
         System.out.println("lov visitas : " + lovVisitas);
-        if (lovVisitas == null) {
-
-            if (lovVisitas.isEmpty()) {
-                RequestContext.getCurrentInstance().execute("PF('sinVisitas').show()");
-            } else {
-                RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
-                RequestContext.getCurrentInstance().execute("PF('buscarVisita').show()");
-            }
+        if (lovVisitas == null || lovVisitas.isEmpty()) {
+//            if (lovVisitas.isEmpty()) {
+            RequestContext.getCurrentInstance().execute("PF('sinVisitas').show()");
+//            }
+//            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
             RequestContext.getCurrentInstance().execute("PF('buscarVisita').show()");

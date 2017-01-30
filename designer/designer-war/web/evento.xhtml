@@ -84,7 +84,7 @@
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " actionListener="#{controlEventos.revisarDialogoGuardar()}"  disabled="#{controlEventos.guardado}"   process="@this"   />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlEventos.salir()}" value=" "/>
 
-                  <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                  <fieldset style="position: absolute;top: 80px;left: 10px;height: 335px;width: 830px; border-radius: 10px; text-align: left">
                      <legend style="font-size: 14px; color: blue"><strong>Eventos</strong></legend>
 
                      <p:dataTable id="datosEvento" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ;border: 1px;"                           
@@ -159,7 +159,7 @@
                            </f:facet>
                         </p:column>
                      </p:dataTable>
-                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEventos.infoRegistro}" style="position: relative; left: 15px; top: 5px; font-weight: bold"/>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlEventos.infoRegistro}" style="position: relative; top: 5px; font-weight: bold"/>
 
                   </fieldset>
 
@@ -178,30 +178,21 @@
                      </p:commandButton>
                      <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                   </p:dialog>
-
                </p:panel>
-
-
 
                <p:dialog id="validacionDuplicarEvento" header="#{msg['atencion']}" widgetVar="validacionDuplicarEvento"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value=" #{controlEventos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarEvento').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
-               </p:dialog>
-
-               <p:dialog id="validacionModificar" header="#{msg['error']}" widgetVar="validacionModificar"  resizable="false" draggable="true" modal="true" height="77" width="330" style="" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value=" #{controlEventos.mensajeValidacion}" style="position: absolute; left: 80px; top: 15px; width: 250px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionModificar').hide();" style="position: absolute; top: 40px; left: 200px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarEvento').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="60" height="60" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['validacionBorrar']}" style="position: absolute; left: 80px; top: 15px; width: 300px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 270px;" icon="ui-icon-check" process="@this" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 50px; left: 270px;" icon="ui-icon-check" process="@this" />
                </p:dialog>
 
-               <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+               <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="Se han borrado #{controlEventos.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
                   <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 160px;" process="@this" icon="ui-icon-check" />
@@ -210,7 +201,7 @@
                <p:dialog id="validacionNuevoEvento" header="#{msg['atencion']}" widgetVar="validacionNuevoEvento"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="#{controlEventos.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevoEvento').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevoEvento').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-check" />
                </p:dialog>
 
                <p:hotkey bind="ctrl+f11" actionListener="#{controlEventos.activarCtrlF11()}"/> 
@@ -234,17 +225,17 @@
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEventos.eventoSeleccionado.getSecuencia(),'Eventos', 'evento')}" style="position: absolute; top: 68px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" icon="ui-icon-close" process="@this" />
                </p:dialog>
@@ -266,22 +257,22 @@
 
 
 
-               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEventos.editarEvento.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEventos.editarEvento.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editOrganizador" header="Organizador" widgetVar="editOrganizador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editOrganizador" header="Organizador" widgetVar="editOrganizador" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEventos.editarEvento.organizador}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
-               <p:dialog id="editObjetivo" header="Objetivo" widgetVar="editObjetivo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editObjetivo" header="Objetivo" widgetVar="editObjetivo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlEventos.editarEvento.objetivo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
 
 
-               <p:dialog id="nuevoRegistroEvento" header="Nuevo Registro" widgetVar="nuevoRegistroEvento" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="320" style=" padding: 0px">  
+               <p:dialog id="nuevoRegistroEvento" header="Nuevo Registro" widgetVar="nuevoRegistroEvento" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="320" style=" padding: 0px">  
                   <center><strong><h:outputText id="informacion" value="Ingresar Nuevo Evento" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="nuevoE" style="border: none;">
@@ -307,15 +298,13 @@
                         <p:ajax event="change" update="@this"/>
                      </p:inputText>
                      <p:watermark for="nuevoObjetivo" value="Objetivo" />
-                     <p:commandButton icon="ui-icon-trash" id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 180px;"  actionListener="#{controlEventos.limpiarNuevoEventos()}" update="nuevoE" process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="Agregar" style="position: absolute; left: 110px; top: 180px;" actionListener="#{controlEventos.agregarNuevoEventos()}" process="@this" />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style="position: absolute; left: 210px; top: 180px;"  update="nuevoE" onclick="PF('nuevoRegistroEvento').hide();"  actionListener="#{controlEventos.limpiarNuevoEventos()}"  process="@this"/>
+                     <p:commandButton icon="ui-icon-trash" id="limpiar" value="Limpiar" style=" position: absolute; left: 10px; top: 200px;"  actionListener="#{controlEventos.limpiarNuevoEventos()}" update="nuevoE" process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="agregarTE" value="Agregar" style="position: absolute; left: 110px; top: 200px;" actionListener="#{controlEventos.agregarNuevoEventos()}" process="@this" />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarTE" value="Cancelar" style="position: absolute; left: 210px; top: 200px;"  update="nuevoE" onclick="PF('nuevoRegistroEvento').hide();"  actionListener="#{controlEventos.limpiarNuevoEventos()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-
-
-               <p:dialog id="duplicarRegistroEvento" header="duplicar Registro" widgetVar="duplicarRegistroEvento" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="320" style=" padding: 0px">  
+               <p:dialog id="duplicarRegistroEvento" header="duplicar Registro" widgetVar="duplicarRegistroEvento" closable="false" resizable="false"  draggable="true" modal="true" height="240" width="320" style=" padding: 0px">  
                   <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Evento" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="duplicarE" style="border: none;">
@@ -343,9 +332,9 @@
                      </p:inputText>
                      <p:watermark for="duplicarObjetivo" value="Objetivo" />
 
-                     <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 180px;"  actionListener="#{controlEventos.limpiarDuplicarEventos()}" update="duplicarE"  process="@this"/>
-                     <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="Agregar" style="position: absolute; left: 110px; top: 180px;" actionListener="#{controlEventos.confirmarDuplicar()}"  process="@this" />
-                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style="position: absolute; left: 210px; top: 180px;"  update="duplicarE" onclick="PF('duplicarRegistroEvento').hide();" actionListener="#{controlEventos.limpiarDuplicarEventos()}"  process="@this"/>
+                     <p:commandButton icon="ui-icon-trash" id="limpiarD" value="Limpiar" style=" position: absolute; left: 10px; top: 200px;"  actionListener="#{controlEventos.limpiarDuplicarEventos()}" update="duplicarE"  process="@this"/>
+                     <p:commandButton icon="ui-icon-circle-check" id="duplicarVFP" value="Agregar" style="position: absolute; left: 110px; top: 200px;" actionListener="#{controlEventos.confirmarDuplicar()}"  process="@this" />
+                     <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicarVFP" value="Cancelar" style="position: absolute; left: 210px; top: 200px;"  update="duplicarE" onclick="PF('duplicarRegistroEvento').hide();" actionListener="#{controlEventos.limpiarDuplicarEventos()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
             </h:form>

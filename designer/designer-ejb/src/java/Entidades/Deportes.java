@@ -21,8 +21,7 @@ public class Deportes implements Serializable {
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
     @Column(name = "CODIGO")
-    @Size(max = 4)
-    private Integer codigo;
+    private BigInteger codigo;
     @Column(name = "NOMBRE")
     private String nombre;
 
@@ -33,7 +32,7 @@ public class Deportes implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public Deportes(BigInteger secuencia, Integer codigo, String nombre) {
+    public Deportes(BigInteger secuencia, BigInteger codigo, String nombre) {
         this.secuencia = secuencia;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -47,11 +46,11 @@ public class Deportes implements Serializable {
         this.secuencia = secuencia;
     }
 
-    public Integer getCodigo() {
+    public BigInteger getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(BigInteger codigo) {
         this.codigo = codigo;
     }
 

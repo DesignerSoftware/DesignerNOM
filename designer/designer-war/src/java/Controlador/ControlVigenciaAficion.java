@@ -75,9 +75,8 @@ public class ControlVigenciaAficion implements Serializable {
     //duplicar
     private VigenciasAficiones duplicarVigenciaAficion;
     private String aficion;
-    private boolean permitirIndex;
+    private boolean permitirIndex, activarLov;
 
-    private BigInteger backUpSecRegistro;
     private Empleados empleado;
     private Date fechaParametro;
     private Date fechaIni, fechaFin;
@@ -112,7 +111,7 @@ public class ControlVigenciaAficion implements Serializable {
         nuevaVigenciaAficion.setAficion(new Aficiones());
         vigenciaTablaSeleccionada = null;
         permitirIndex = true;
-        backUpSecRegistro = null;
+        activarLov = true;
         empleado = new Empleados();
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
@@ -425,25 +424,44 @@ public class ControlVigenciaAficion implements Serializable {
         }
     }
 
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
     public void cambiarIndice(VigenciasAficiones vigenciaaficion, int celda) {
         if (permitirIndex == true) {
             vigenciaTablaSeleccionada = vigenciaaficion;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                fechaFin = vigenciaTablaSeleccionada.getFechafinal();
+            vigenciaTablaSeleccionada.getSecuencia();
+
+            if (cualCelda == 0) {
+                deshabilitarBotonLov();
                 fechaIni = vigenciaTablaSeleccionada.getFechainicial();
-                vigenciaTablaSeleccionada.getSecuencia();
-                if (cualCelda == 2) {
-                    aficion = vigenciaTablaSeleccionada.getAficion().getDescripcion();
-                }
-            }
-            if (tipoLista == 1) {
+            } else if (cualCelda == 1) {
+                deshabilitarBotonLov();
                 fechaFin = vigenciaTablaSeleccionada.getFechafinal();
-                fechaIni = vigenciaTablaSeleccionada.getFechainicial();
-                vigenciaTablaSeleccionada.getSecuencia();
-                if (cualCelda == 2) {
-                    aficion = vigenciaTablaSeleccionada.getAficion().getDescripcion();
-                }
+            } else if (cualCelda == 2) {
+                habilitarBotonLov();
+                aficion = vigenciaTablaSeleccionada.getAficion().getDescripcion();
+            } else if (cualCelda == 3) {
+                deshabilitarBotonLov();
+                vigenciaTablaSeleccionada.getValorcuantitativo();
+            } else if (cualCelda == 4) {
+                deshabilitarBotonLov();
+                vigenciaTablaSeleccionada.getValorcualitativo();
+            } else if (cualCelda == 5) {
+                deshabilitarBotonLov();
+                vigenciaTablaSeleccionada.getValorcuantitativogrupo();
+            } else if (cualCelda == 6) {
+                deshabilitarBotonLov();
+                vigenciaTablaSeleccionada.getValorcualitativogrupo();
+
             }
         }
     }
@@ -544,12 +562,7 @@ public class ControlVigenciaAficion implements Serializable {
      */
     public void editarCelda() {
         if (vigenciaTablaSeleccionada != null) {
-            if (tipoLista == 0) {
-                editarVigenciaAficion = vigenciaTablaSeleccionada;
-            }
-            if (tipoLista == 1) {
-                editarVigenciaAficion = vigenciaTablaSeleccionada;
-            }
+            editarVigenciaAficion = vigenciaTablaSeleccionada;
 
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
@@ -1028,8 +1041,6 @@ public class ControlVigenciaAficion implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (vigenciaTablaSeleccionada != null) {
             int resultado = administrarRastros.obtenerTabla(vigenciaTablaSeleccionada.getSecuencia(), "VIGENCIASAFICIONES");
-            backUpSecRegistro = vigenciaTablaSeleccionada.getSecuencia();
-            vigenciaTablaSeleccionada = null;
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -1046,7 +1057,6 @@ public class ControlVigenciaAficion implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        vigenciaTablaSeleccionada = null;
     }
 
     public void eventoFiltrar() {
@@ -1145,14 +1155,6 @@ public class ControlVigenciaAficion implements Serializable {
         this.aficionSeleccionada = setAficionSeleccionada;
     }
 
-    public BigInteger getBackUpSecRegistro() {
-        return backUpSecRegistro;
-    }
-
-    public void setBackUpSecRegistro(BigInteger backUpSecRegistro) {
-        this.backUpSecRegistro = backUpSecRegistro;
-    }
-
     public Empleados getEmpleado() {
         return empleado;
     }
@@ -1201,6 +1203,14 @@ public class ControlVigenciaAficion implements Serializable {
 
     public void setAltoTabla(String altoTabla) {
         this.altoTabla = altoTabla;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
     }
 
 }

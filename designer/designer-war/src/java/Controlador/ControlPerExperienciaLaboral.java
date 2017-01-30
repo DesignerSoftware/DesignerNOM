@@ -648,6 +648,16 @@ public class ControlPerExperienciaLaboral implements Serializable {
         }
     }
 
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
     public void adicionCambiarIndiceModificar(HvExperienciasLaborales experienciaLaboral, int celda) {
         cambiarIndice(experienciaLaboral, celda);
         modificarExperiencia(experienciaLaboral);
@@ -658,53 +668,36 @@ public class ControlPerExperienciaLaboral implements Serializable {
         if (permitirIndex == true) {
             experienciaTablaSeleccionada = experienciaLaboral;
             cualCelda = celda;
-            if (tipoLista == 0) {
-//                    fechaFin = experienciaTablaSeleccionada.getFechahasta();
-                if (cualCelda == 0) {
-                    experienciaTablaSeleccionada.getEmpresa();
-                } else if (cualCelda == 1) {
-                    experienciaTablaSeleccionada.getFechadesde();
-                } else if (cualCelda == 2) {
-                    fechaIni = experienciaTablaSeleccionada.getFechahasta();
-                } else if (cualCelda == 3) {
-                    experienciaTablaSeleccionada.getCargo();
-                } else if (cualCelda == 4) {
-                    experienciaTablaSeleccionada.getJefeinmediato();
-                } else if (cualCelda == 5) {
-                    experienciaTablaSeleccionada.getTelefono();
-                } else if (cualCelda == 6) {
-                    sector = experienciaTablaSeleccionada.getSectoreconomico().getDescripcion();
-                } else if (cualCelda == 7) {
-                    motivo = experienciaTablaSeleccionada.getMotivoretiro().getNombre();
-                } else if (cualCelda == 8) {
-                    if (experienciaTablaSeleccionada != null) {
-                        logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
-                    }
-                }
-                RequestContext.getCurrentInstance().update("form:editarLogrosEP");
-//
-            }
-            if (tipoLista == 1) {
-                if (cualCelda == 0) {
-                    experienciaTablaSeleccionada.getEmpresa();
-                } else if (cualCelda == 1) {
-                    experienciaTablaSeleccionada.getFechadesde();
-                } else if (cualCelda == 2) {
-                    fechaIni = experienciaTablaSeleccionada.getFechahasta();
-                } else if (cualCelda == 3) {
-                    experienciaTablaSeleccionada.getCargo();
-                } else if (cualCelda == 4) {
-                    experienciaTablaSeleccionada.getJefeinmediato();
-                } else if (cualCelda == 5) {
-                    experienciaTablaSeleccionada.getTelefono();
-                } else if (cualCelda == 6) {
-                    sector = experienciaTablaSeleccionada.getSectoreconomico().getDescripcion();
-                } else if (cualCelda == 7) {
-                    motivo = experienciaTablaSeleccionada.getMotivoretiro().getNombre();
-                } else if (cualCelda == 8) {
+            if (cualCelda == 0) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getEmpresa();
+            } else if (cualCelda == 1) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getFechadesde();
+            } else if (cualCelda == 2) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getFechahasta();
+            } else if (cualCelda == 3) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getCargo();
+            } else if (cualCelda == 4) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getJefeinmediato();
+            } else if (cualCelda == 5) {
+                deshabilitarBotonLov();
+                experienciaTablaSeleccionada.getTelefono();
+            } else if (cualCelda == 6) {
+                habilitarBotonLov();
+                sector = experienciaTablaSeleccionada.getSectoreconomico().getDescripcion();
+            } else if (cualCelda == 7) {
+                motivo = experienciaTablaSeleccionada.getMotivoretiro().getNombre();
+            } else if (cualCelda == 8) {
+                habilitarBotonLov();
+                if (experienciaTablaSeleccionada != null) {
                     logrosAlcanzados = experienciaTablaSeleccionada.getAlcance();
                 }
             }
+            RequestContext.getCurrentInstance().update("form:editarLogrosEP");
         }
     }
 

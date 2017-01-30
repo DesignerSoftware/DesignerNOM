@@ -15,7 +15,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -63,7 +64,7 @@ public class ControlDeportes implements Serializable {
     private int registrosBorrados;
     private String mensajeValidacion;
     private Integer a;
-    private Integer backUpCodigo;
+    private BigInteger backUpCodigo;
     private String backUpDescripcion;
     private String infoRegistro;
     private DataTable tablaC;
@@ -71,8 +72,8 @@ public class ControlDeportes implements Serializable {
     private BigInteger verificarBorradoVigenciasDeportes;
     private BigInteger contadorDeportesPersonas;
     private BigInteger contadorParametrosInformes;
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlDeportes() {
         listDeportes = null;
@@ -88,47 +89,47 @@ public class ControlDeportes implements Serializable {
         tamano = 270;
         paginaAnterior = "nominaf";
         activarLOV = true;
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
     public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "deporte";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "deporte";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -136,8 +137,6 @@ public class ControlDeportes implements Serializable {
             administrarDeportes.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
         } catch (Exception e) {
-            System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-            System.out.println("Causa: " + e.getCause());
         }
     }
 
@@ -157,29 +156,16 @@ public class ControlDeportes implements Serializable {
     }
 
     public void cambiarIndice(Deportes deporte, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
-
         if (permitirIndex == true) {
             deporteSeleccionado = deporte;
             cualCelda = celda;
-            if (tipoLista == 0) {
-                if (cualCelda == 0) {
-                    backUpCodigo = deporteSeleccionado.getCodigo();
-                }
-                if (cualCelda == 1) {
-                    backUpDescripcion = deporteSeleccionado.getNombre();
-                }
-            } else {
-                if (cualCelda == 0) {
-                    backUpCodigo = deporteSeleccionado.getCodigo();
-                }
-                if (cualCelda == 1) {
-                    backUpDescripcion = deporteSeleccionado.getNombre();
-                }
-                deporteSeleccionado.getSecuencia();
+            if (cualCelda == 0) {
+                backUpCodigo = deporteSeleccionado.getCodigo();
+            }
+            if (cualCelda == 1) {
+                backUpDescripcion = deporteSeleccionado.getNombre();
             }
         }
-        System.out.println("Indice: " + deporteSeleccionado + " Celda: " + cualCelda);
     }
 
     public void activarAceptar() {
@@ -255,10 +241,8 @@ public class ControlDeportes implements Serializable {
             descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
             descripcion.setFilterStyle("width: 85% !important");
             RequestContext.getCurrentInstance().update("form:datosDeporte");
-            System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
             tamano = 270;
             codigo = (Column) c.getViewRoot().findComponent("form:datosDeporte:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -271,78 +255,16 @@ public class ControlDeportes implements Serializable {
         }
     }
 
-    public void modificarDeporte(Deportes deporte, String confirmarCambio, String valorConfirmar) {
+    public void modificarDeporte(Deportes deporte) {
         deporteSeleccionado = deporte;
-        int contador = 0;
-        int codigoVacio = 0;
-        boolean coincidencias = false;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-
-            if (deporteSeleccionado.getCodigo() == null || deporteSeleccionado.getCodigo().equals(codigoVacio)) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                coincidencias = false;
-                deporteSeleccionado.setCodigo(backUpCodigo);
-            } else {
-
-                for (int j = 0; j < listDeportes.size(); j++) {
-                    if (deporteSeleccionado.getSecuencia() != listDeportes.get(j).getSecuencia()) {
-                        if (deporteSeleccionado.getCodigo().equals(listDeportes.get(j).getCodigo())) {
-                            contador++;
-                        }
-                    }
-                }
-                if (contador > 0) {
-                    mensajeValidacion = "CODIGOS REPETIDOS";
-                    coincidencias = false;
-                    deporteSeleccionado.setCodigo(backUpCodigo);
-                } else {
-                    coincidencias = true;
-                }
+        if (!crearDeportes.contains(deporteSeleccionado)) {
+            if (!modificarDeportes.contains(deporteSeleccionado)) {
+                modificarDeportes.add(deporteSeleccionado);
             }
         }
-
-        if (confirmarCambio.equalsIgnoreCase("M")) {
-
-            if (deporteSeleccionado.getNombre() == null || deporteSeleccionado.getNombre().isEmpty()) {
-                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                deporteSeleccionado.setNombre(backUpDescripcion);
-                coincidencias = false;
-            }
-            for (int j = 0; j < listDeportes.size(); j++) {
-                if (deporteSeleccionado.getSecuencia() != listDeportes.get(j).getSecuencia()) {
-                    if (deporteSeleccionado.getNombre().equals(listDeportes.get(j).getNombre())) {
-                        contador++;
-                    }
-                }
-            }
-            if (contador > 0) {
-                mensajeValidacion = "MOTIVO REPETIDOS";
-                coincidencias = false;
-                deporteSeleccionado.setCodigo(backUpCodigo);
-            } else {
-                coincidencias = true;
-            }
-        }
-
-        if (coincidencias == true) {
-            if (!crearDeportes.contains(deporteSeleccionado)) {
-                if (!modificarDeportes.contains(deporteSeleccionado)) {
-                    modificarDeportes.add(deporteSeleccionado);
-                }
-            }
-
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-        } else {
-            RequestContext.getCurrentInstance().update("form:validacionModificar");
-            RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-        }
-
-        RequestContext.getCurrentInstance().update("form:datosDeporte");
+        guardado = false;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosDeporte");
     }
 
     public void borrarDeporte() {
@@ -351,7 +273,6 @@ public class ControlDeportes implements Serializable {
         if (deporteSeleccionado != null) {
 
             if (tipoLista == 0) {
-                System.out.println("Entro a BorrarDeporte");
                 if (!modificarDeportes.isEmpty() && modificarDeportes.contains(deporteSeleccionado)) {
                     modificarDeportes.remove(modificarDeportes.indexOf(deporteSeleccionado));
                     borrarDeportes.add(deporteSeleccionado);
@@ -382,38 +303,22 @@ public class ControlDeportes implements Serializable {
     }
 
     public void verificarBorrado() {
-        try {
-            System.out.println("ESTOY EN VERIFICAR BORRADO tipoLista " + tipoLista);
-            System.out.println("secuencia borrado : " + deporteSeleccionado.getSecuencia());
-            if (tipoLista == 0) {
-                System.out.println("secuencia borrado : " + deporteSeleccionado.getSecuencia());
-                verificarBorradoVigenciasDeportes = administrarDeportes.contarVigenciasDeportesDeporte(deporteSeleccionado.getSecuencia());
-                contadorDeportesPersonas = administrarDeportes.contarPersonasDeporte(deporteSeleccionado.getSecuencia());
-                contadorParametrosInformes = administrarDeportes.contarParametrosInformesDeportes(deporteSeleccionado.getSecuencia());
-            } else {
-                System.out.println("secuencia borrado : " + deporteSeleccionado.getSecuencia());
-                verificarBorradoVigenciasDeportes = administrarDeportes.contarVigenciasDeportesDeporte(deporteSeleccionado.getSecuencia());
-                contadorDeportesPersonas = administrarDeportes.contarPersonasDeporte(deporteSeleccionado.getSecuencia());
-                contadorParametrosInformes = administrarDeportes.contarParametrosInformesDeportes(deporteSeleccionado.getSecuencia());
-            }
-            if (!verificarBorradoVigenciasDeportes.equals(new BigInteger("0")) && !contadorDeportesPersonas.equals(new BigInteger("0")) && !contadorParametrosInformes.equals(new BigInteger("0"))) {
-                System.out.println("Borrado>0");
+        verificarBorradoVigenciasDeportes = administrarDeportes.contarVigenciasDeportesDeporte(deporteSeleccionado.getSecuencia());
+        contadorDeportesPersonas = administrarDeportes.contarPersonasDeporte(deporteSeleccionado.getSecuencia());
+        contadorParametrosInformes = administrarDeportes.contarParametrosInformesDeportes(deporteSeleccionado.getSecuencia());
+        if (!verificarBorradoVigenciasDeportes.equals(new BigInteger("0")) && !contadorDeportesPersonas.equals(new BigInteger("0")) && !contadorParametrosInformes.equals(new BigInteger("0"))) {
 
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:validacionBorrar");
-                RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                deporteSeleccionado = null;
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().update("form:validacionBorrar");
+            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+            deporteSeleccionado = null;
 
-                verificarBorradoVigenciasDeportes = new BigInteger("-1");
-                contadorDeportesPersonas = new BigInteger("-1");
-                contadorParametrosInformes = new BigInteger("-1");
+            verificarBorradoVigenciasDeportes = new BigInteger("-1");
+            contadorDeportesPersonas = new BigInteger("-1");
+            contadorParametrosInformes = new BigInteger("-1");
 
-            } else {
-                System.out.println("Borrado==0");
-                borrarDeporte();
-            }
-        } catch (Exception e) {
-            System.err.println("ERROR ControlDepotes verificarBorrado ERROR " + e);
+        } else {
+            borrarDeporte();
         }
     }
 
@@ -453,15 +358,8 @@ public class ControlDeportes implements Serializable {
 
     public void editarCelda() {
         if (deporteSeleccionado != null) {
-            if (tipoLista == 0) {
-                editarDeportes = deporteSeleccionado;
-            }
-            if (tipoLista == 1) {
-                editarDeportes = deporteSeleccionado;
-            }
-
+            editarDeportes = deporteSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -471,9 +369,8 @@ public class ControlDeportes implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -482,45 +379,30 @@ public class ControlDeportes implements Serializable {
         int duplicados = 0;
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
-        if (nuevoDeporte.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        if (nuevoDeporte.getCodigo() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoDeporte.getCodigo());
-
             for (int x = 0; x < listDeportes.size(); x++) {
                 if (listDeportes.get(x).getCodigo() == nuevoDeporte.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoDeporte.getNombre() == (null)) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("bandera");
             contador++;
-
         }
-
-        System.out.println("contador " + contador);
-
         if (contador == 2) {
             FacesContext c = FacesContext.getCurrentInstance();
             if (bandera == 1) {
                 //CERRAR FILTRADO
                 tamano = 270;
-                System.out.println("Desactivar");
                 codigo = (Column) c.getViewRoot().findComponent("form:datosDeporte:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosDeporte:descripcion");
@@ -530,8 +412,6 @@ public class ControlDeportes implements Serializable {
                 filtrarDeportes = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoDeporte.setSecuencia(l);
@@ -548,8 +428,8 @@ public class ControlDeportes implements Serializable {
             }
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroDeporte').hide()");
         } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
+            RequestContext.getCurrentInstance().update("form:validacionNuevoDeporte");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoDeporte').show()");
             contador = 0;
         }
     }
@@ -586,18 +466,13 @@ public class ControlDeportes implements Serializable {
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR CONTROLDEPORTES");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
 
-        System.err.println("ConfirmarDuplicar codigo " + duplicarDeporte.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarDeporte.getNombre());
-
-        if (duplicarDeporte.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "Existen campos vacios \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+        if (duplicarDeporte.getCodigo() == null) {
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listDeportes.size(); x++) {
                 if (listDeportes.get(x).getCodigo() == duplicarDeporte.getCodigo()) {
@@ -605,29 +480,19 @@ public class ControlDeportes implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " No pueden existir códigos repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarDeporte.getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + "Existen campos vacíos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("Bandera : ");
             contador++;
         }
 
         if (contador == 2) {
-
-            System.out.println("Datos Duplicando: " + duplicarDeporte.getSecuencia() + "  " + duplicarDeporte.getCodigo());
-            if (crearDeportes.contains(duplicarDeporte)) {
-                System.out.println("Ya lo contengo.");
-            }
             listDeportes.add(duplicarDeporte);
             crearDeportes.add(duplicarDeporte);
             RequestContext.getCurrentInstance().update("form:datosDeporte");
@@ -652,7 +517,7 @@ public class ControlDeportes implements Serializable {
             }
             duplicarDeporte = new Deportes();
             contarRegistros();
-            RequestContext.getCurrentInstance().execute("duplicarRegistroDeporte').hide()");
+            RequestContext.getCurrentInstance().execute("PF('duplicarRegistroDeporte').hide()");
 
         } else {
             contador = 0;
@@ -685,7 +550,6 @@ public class ControlDeportes implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (deporteSeleccionado != null) {
             int resultado = administrarRastros.obtenerTabla(deporteSeleccionado.getSecuencia(), "DEPORTES");
-            System.out.println("resultado: " + resultado);
             if (resultado == 1) {
                 RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
             } else if (resultado == 2) {
@@ -705,14 +569,10 @@ public class ControlDeportes implements Serializable {
     }
 
     public void eventoFiltrar() {
-        try {
-            if (tipoLista == 0) {
-                tipoLista = 1;
-            }
-            contarRegistros();
-        } catch (Exception e) {
-            System.out.println("ERROR CONTROLDEPORTES eventoFiltrar ERROR===" + e.getMessage());
+        if (tipoLista == 0) {
+            tipoLista = 1;
         }
+        contarRegistros();
     }
 
     public void recordarSeleccionDeporte() {

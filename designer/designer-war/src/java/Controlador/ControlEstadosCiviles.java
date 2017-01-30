@@ -143,8 +143,10 @@ public class ControlEstadosCiviles implements Serializable {
         listEstadosCiviles = null;
         getListEstadosCiviles();
         deshabilitarBotonLov();
-        if (!listEstadosCiviles.isEmpty()) {
-            estadoCivilSeleccionado = listEstadosCiviles.get(0);
+        if (listEstadosCiviles != null) {
+            if (!listEstadosCiviles.isEmpty()) {
+                estadoCivilSeleccionado = listEstadosCiviles.get(0);
+            }
         }
     }
 

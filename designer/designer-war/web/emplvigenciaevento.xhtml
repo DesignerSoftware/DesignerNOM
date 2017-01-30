@@ -77,8 +77,8 @@
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR" disabled="#{controlEmplVigenciaEvento.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciaEventos" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 468px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlEmplVigenciaEvento.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciaEventos" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" process="@this" />
 
                         <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                             <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
@@ -139,7 +139,7 @@
                                                 <p:ajax event="dateSelect" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,1)}" process="@this"
-                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                             </p:calendar> 
                                         </f:facet>   
                                     </p:cellEditor>
@@ -149,7 +149,7 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['descripcion']}" sortBy="#{info.evento.descripcion}" filterBy="#{info.evento.descripcion}" 
+                                <p:column headerText="Descripción" sortBy="#{info.evento.descripcion}" filterBy="#{info.evento.descripcion}" 
                                           filterMatchMode="contains" id="veDescripcion" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.evento.descripcion}" /></f:facet>  
@@ -157,7 +157,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.evento.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info, 'EVENTOS', info.evento.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info, 2)}" 
-                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" />
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
@@ -180,7 +180,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,3)}" process="@this"
-                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -202,7 +202,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.valorcualitativo}" id="editarCIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCIndividual" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,4)}" process="@this"
-                                                      onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"  /> 
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});"  /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -224,7 +224,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,5)}" process="@this"
-                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -246,7 +246,7 @@
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:keyFilter for="editarCGrupal" mask="num"/>
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaEvento.cambiarIndice(info,6)}" process="@this"
-                                                       onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciaEventos').unselectAllRows();PF('datosVigenciaEventos').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.modificarVigenciaEvento(info)}" process="@this" update="editarCGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -261,7 +261,7 @@
                         </fieldset> 
 
                         <p:dialog header="#{msg['eventoEV']}" widgetVar="EventosDialogo" draggable="true" resizable="false" closable="false" id="EventosDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="445" modal="true" >
                             <p:dataTable id="lovEventos" var="eventos" value="#{controlEmplVigenciaEvento.listEventos}" rowKey="#{eventos.secuencia}"
                                          selection="#{controlEmplVigenciaEvento.eventoSeleccionado}" selectionMode="single" widgetVar="lovEventos" scrollable="true" scrollWidth="416" scrollHeight="250"
                                          filteredValue="#{controlEmplVigenciaEvento.filtrarListEventos}" emptyMessage="#{msg['lovvacio']}">              
@@ -273,7 +273,7 @@
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEventos').filter();" class="cssFiltroLOV"/>  
                                 </f:facet>
 
-                                <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" >
+                                <p:column filterBy="#{eventos.descripcion}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['descripcionEV']}" />
                                     </f:facet>
@@ -282,11 +282,11 @@
                             </p:dataTable>
 
                             <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}"
-                                             actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
-                            <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
-                                             actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
+                                <h:outputText id="infoRegistroEvento" value="#{msg['infoRegistros']} #{controlEmplVigenciaEvento.infoRegistroEvento}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarE" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlEmplVigenciaEvento.aceptar}"
+                                                 actionListener="#{controlEmplVigenciaEvento.actualizarEvento()}"  process="@this"/>
+                                <p:commandButton id="atrasE" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
+                                                 actionListener="#{controlEmplVigenciaEvento.cancelarCambioEvento()}"  process="@this"/>
                             </div>
                         </p:dialog> 
                     </p:panel>
@@ -294,16 +294,17 @@
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" action="emplIndv" style="position: absolute; top: 50px; left: 125px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" style="position: absolute; top: 50px; left: 190px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" action="emplIndv" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.salir()}" action="emplIndv" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 240px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>    
 
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this" />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" 
+                                         style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" icon="ui-icon-close" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
@@ -325,7 +326,7 @@
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" style="position: absolute; top: 68px; left: 175px;" action="rastrotabla" icon="ui-icon-check" process="@this" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
@@ -340,14 +341,14 @@
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="errorRegNew" header="#{msg['atencion']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText   value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                        <h:outputText   value="#{msg['errorRegNew']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
                     <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
@@ -357,152 +358,140 @@
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}"/> 
                 </h:form>
+
                 <h:form id="formularioDialogos" >
-
                     <p:dialog id="NuevoRegistroVigencias" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigencias" closable="false" resizable="false"  draggable="true" modal="true" height="315" width="400" style="padding: 0px">  
-
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaVigencias" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
-                                </p:calendar>
-                            </div>
+                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 55px; left: 18px;" /></strong>
+                            <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechainicial}" >
+                                <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
+                            </p:calendar>
 
-                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
-                                </p:calendar>
-                            </div>
+                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 85px; " /></strong>
+                            <p:calendar  autocomplete="off" style="position: absolute; top: 80px; left: 220px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.fechafinal}" >
+                                <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
+                            </p:calendar>
 
-                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 115px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaDescripcion" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(1, 'EVENTOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.nuevaVigenciaEvento.evento.descripcion, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnNuevaDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
+                            <p:commandButton style="position: absolute; left: 351px; top: 110px;" class="cssBotonLovDialogos" id="btnNuevaDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
                             <p:watermark for="nuevaDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeindividual']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <strong><h:outputText value="#{msg['puntajeindividual']}" style="position: absolute; top: 145px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:keyFilter for="nuevaIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaIndividual" value="#{msg['puntajeind']}" />
 
-                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 175px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaGIndividual" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 170px;">
                                 <p:keyFilter for="nuevaGIndividual" mask="num"/>
                                 <p:ajax event="change" update="nuevaGIndividual"/>
                             </p:inputText>
                             <p:watermark for="nuevaGIndividual" value="#{msg['pciNN']}" />
 
-                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 205px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcuantitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 200px;">
                                 <p:keyFilter for="nuevaGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaGrupal" value="#{msg['puntajegrupalNN']}" />
 
-                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 235px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaCGrupal" value="#{controlEmplVigenciaEvento.nuevaVigenciaEvento.valorcualitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 230px;">
                                 <p:keyFilter for="nuevaCGrupal" mask="num"/>
                                 <p:ajax event="change" update="nuevaCGrupal"/>
                             </p:inputText>
                             <p:watermark for="nuevaCGrupal" value="#{msg['pcgNN']}" />
 
-                            <p:commandButton icon="ui-icon-trash" id="limpiarV" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarV" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-trash" id="limpiarV" value="#{msg['limpiar']}" style="position: absolute; left: 23px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarV" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.agregarNuevaVigenciaEvento()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarV" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" update="nuevaVigencias" onclick="PF('NuevoRegistroVigencias').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
                     <p:dialog id="DuplicarRegistroVigencias" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroVigencias" closable="false" resizable="false"  draggable="true" modal="true" height="315" width="400" style="padding: 0px">  
-
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
                         <p:panel id="duplicarVigencias" style="border: none;">
 
-
-                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaIniNuevoReg" style="position: absolute; top: 70px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
+                            <strong><h:outputText value="*#{msg['inicialN']}" style="position: absolute; top: 55px; left: 18px;" /></strong>
+                                <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechainicial}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
                                 </p:calendar>
-                            </div>
 
-                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <div id="posicionFormulaFechaFinNuevoReg" style="position: absolute; top: 100px; left: 220px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
+                            <strong><h:outputText value="#{msg['finalN']}" style="position: absolute; top: 85px;" /></strong>
+                                <p:calendar  autocomplete="off"  style="position: absolute; top: 80px; left: 220px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.fechafinal}" >
                                     <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
                                     <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
                                 </p:calendar>
-                            </div>
 
-                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 130px;">
+                            <strong><h:outputText value="*#{msg['descripcionN']}" style="position: absolute; top: 115px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarDescripcion" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion}" style="width: 122px; position: absolute; left: 220px; top: 110px;">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaEvento.asignarIndex(info,2)}"/>
                                 <p:ajax event="click" listener="#{controlEmplVigenciaEvento.valoresBackupAutocompletar(2, 'EVENTOS')}" />
                                 <p:ajax event="change" listener="#{controlEmplVigenciaEvento.autocompletarNuevoyDuplicado('EVENTOS', controlEmplVigenciaEvento.duplicarVigenciaEvento.evento.descripcion, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 351px; top: 130px;  " id="btnDuplicarDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
+                            <p:commandButton style="position: absolute; left: 351px; top: 110px;" class="cssBotonLovDialogos" id="btnDuplicarDescripcion" value="" process="@this"  actionListener="#{controlEmplVigenciaEvento.asignarIndex(info,1)}"/>   
                             <p:watermark for="duplicarDescripcion" value="#{msg['descripcion']}" />
 
-                            <strong><h:outputText value="#{msg['puntajeindividualN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 160px;">
+                            <strong><h:outputText value="#{msg['puntajeindividualN']}" style="position: absolute; top: 145px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativo}" style="width: 122px; position: absolute; left: 220px; top: 140px;">
                                 <p:keyFilter for="duplicarIndividual" mask="num"/>
                                 <p:ajax event="change" update="duplicarIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarIndividual" value="#{msg['puntajeind']}" />
 
-                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 195px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 190px;">
+                            <strong><h:outputText value="#{msg['pciN']}" style="position: absolute; top: 175px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarGIndividual" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativo}" style="width: 122px; position: absolute; left: 220px; top: 170px;">
                                 <p:keyFilter for="duplicarGIndividual" mask="num"/>
                                 <p:ajax event="change" update="duplicarGIndividual"/>
                             </p:inputText>
                             <p:watermark for="duplicarGIndividual" value="#{msg['pciNN']}" />
 
-                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 225px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 220px;">
+                            <strong><h:outputText value="#{msg['puntajegrupalN']}" style="position: absolute; top: 205px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcuantitativogrupo}" style="width: 122px; position: absolute; left: 220px; top: 200px;">
                                 <p:keyFilter for="duplicarGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarGrupal" value="#{msg['puntajegrupalNN']}" />
 
-                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 255px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 250px;">
+                            <strong><h:outputText value="#{msg['pcgN']}" style="position: absolute; top: 235px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCGrupal" value="#{controlEmplVigenciaEvento.duplicarVigenciaEvento.valorcualitativogrupo}" style=" width: 122px; position: absolute; left: 220px; top: 230px;">
                                 <p:keyFilter for="duplicarCGrupal" mask="num"/>
                                 <p:ajax event="change" update="duplicarCGrupal"/>
                             </p:inputText>
                             <p:watermark for="duplicarCGrupal" value="#{msg['pcgNN']}" />
 
-                            <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoE" value="#{msg['limpiar']}" style="position: absolute; left: 40px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
-                            <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 145px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"  />
-                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoE" value="#{msg['cancelar']}" style="position: absolute; left: 250px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
+                            <p:commandButton icon="ui-icon-trash" id="limpiarDuplicadoE" value="#{msg['limpiar']}" style="position: absolute; left: 23px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" process="@this"/>
+                            <p:commandButton icon="ui-icon-circle-check" id="agregarDuplicadoE" value="#{msg['agregar']}" style="position: absolute; left: 170px; top: 285px;"  process="@this" actionListener="#{controlEmplVigenciaEvento.confirmarDuplicar()}"  />
+                            <p:commandButton icon="ui-icon-circle-close" id="cancelarDuplicadoE" value="#{msg['cancelar']}" style="position: absolute; left: 270px; top: 285px;" actionListener="#{controlEmplVigenciaEvento.limpiarDuplicar()}" update="duplicarVigencias" onclick="PF('DuplicarRegistroVigencias').hide();"  process="@this"/>
                         </p:panel>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaInicialD" header="#{msg['inicialE']}" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                    <p:dialog id="editarFechaInicialD" header="Fecha Inicial" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechainicial}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarFechaFinalD" header="#{msg['finalE']}" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                    <p:dialog id="editarFechaFinalD" header="Fecha Final" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.fechafinal}" style="overflow: auto;" readonly="true">                        
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
 
-                    <p:dialog id="editarDescripcionD" header="#{msg['descripcionE']}" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                    <p:dialog id="editarDescripcionD" header="Descripción" widgetVar="editarDescripcionD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlEmplVigenciaEvento.editarVigenciaEvento.evento.descripcion}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
