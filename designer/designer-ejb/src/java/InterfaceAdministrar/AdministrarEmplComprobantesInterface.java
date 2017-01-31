@@ -97,5 +97,5 @@ public interface AdministrarEmplComprobantesInterface {
 
     public List<CentrosCostos> lovCentrosCostos();
     
-    public void eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte);
+    public boolean eliminarCPconUndoCierre(BigInteger secProceso, BigInteger secEmpleado, Date fechaCorte);
 }

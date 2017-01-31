@@ -10,7 +10,13 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">  
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+               });
+            </script>
+            <div class="loader"></div>
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.emplvigencialocalizacion" var="msg" />
                <p:growl id="growl" showDetail="true"/>
@@ -235,7 +241,7 @@
 
                      <p:dataTable id="datosVPVigencia" widgetVar="datosVPVigencia" var="info" rowKey="#{info.secuencia}" rowIndexVar="indiceVP" 
                                   value="#{controlVigenciaLocalizacion.vigenciasProrrateosCentroC}" style=" border: 1px; width: 630px; position: inherit;"
-                                  filteredValue="#{controlVigenciaLocalizacion.filtradoVP}" emptyMessage="#{msg['vacio']}" 
+                                  filteredValue="#{controlVigenciaLocalizacion.filtradoVP}" emptyMessage="#{msg['vacio']}" liveScroll="true" scrollRows="10"
                                   scrollable="true" editable="true" editMode="cell" scrollHeight="#{controlVigenciaLocalizacion.altoTabla2}" scrollWidth="450" 
                                   selection="#{controlVigenciaLocalizacion.vigenciaProrrateoSeleccionada}" selectionMode="single">
 
@@ -949,10 +955,10 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-<!--                     <p:inputText  autocomplete="off"  id="nuevaPorcentajeVP" binding="#/{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();"> 
-                        <p:keyFilter for="nuevaPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3.value, 0)}" update="nuevaPorcentajeVP" process="@this"/>
-                     </p:inputText>-->
+                     <!--                     <p:inputText  autocomplete="off"  id="nuevaPorcentajeVP" binding="#/{vPPorcentajeAux3}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();"> 
+                                             <p:keyFilter for="nuevaPorcentajeVP" mask="num"/>
+                                             <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3.value, 0)}" update="nuevaPorcentajeVP" process="@this"/>
+                                          </p:inputText>-->
                      <div style="width: 70px; position: absolute; top: 160px; left: 170px;">
                         <p:inputNumber id="nuevaPorcentajeVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.porcentaje}"
                                        symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
@@ -974,10 +980,10 @@
                      <p:watermark for="nuevaProyectoVP" value="#{msg['proyecto']}" />
 
                      <strong><h:outputText value="#{msg['subporcentajeVP']}" style=" position: absolute; top: 225px; left: 50px;" /></strong>
-<!--                     <p:inputText  autocomplete="off"  id="nuevaSubPorcentajeVP" binding="#/{vPPorcentajeAux3sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
-                        <p:keyFilter for="nuevaSubPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3sub.value, 1)}" update="nuevaSubPorcentajeVP" />
-                     </p:inputText>-->
+                     <!--                     <p:inputText  autocomplete="off"  id="nuevaSubPorcentajeVP" binding="#/{vPPorcentajeAux3sub}" style=" width: 110px; position: absolute; left: 170px; top: 220px;">
+                                             <p:keyFilter for="nuevaSubPorcentajeVP" mask="num"/>
+                                             <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 1, vPPorcentajeAux3sub.value, 1)}" update="nuevaSubPorcentajeVP" />
+                                          </p:inputText>-->
                      <div style="width: 70px; position: absolute; left: 170px; top: 220px;">
                         <p:inputNumber id="nuevaSubPorcentajeVP" value="#{controlVigenciaLocalizacion.nuevaVigenciaP.subporcentaje}"
                                        symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
@@ -1027,10 +1033,10 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVP']}" style=" position: absolute; top: 165px; left: 50px;"/></strong>
-<!--                     <p:inputText  autocomplete="off"  id="duplicadoPorcentajeVP" maxlength="4" binding="#/{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();" >
-                        <p:keyFilter for="duplicadoPorcentajeVP" mask="num"/>
-                        <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4.value, 0)}" update="duplicadoPorcentajeVP" process="@this"/>
-                     </p:inputText>-->
+                     <!--                     <p:inputText  autocomplete="off"  id="duplicadoPorcentajeVP" maxlength="4" binding="#/{vPPorcentajeAux4}" style=" width: 110px; position: absolute; top: 160px; left: 170px;" onclick="select();" >
+                                             <p:keyFilter for="duplicadoPorcentajeVP" mask="num"/>
+                                             <p:ajax event="change" listener="#{controlVigenciaLocalizacion.modificarVPPorcentajes(2, 1, vPPorcentajeAux4.value, 0)}" update="duplicadoPorcentajeVP" process="@this"/>
+                                          </p:inputText>-->
                      <div style="width: 70px; position: absolute; top: 160px; left: 170px;">
                         <p:inputNumber id="duplicadoPorcentajeVP" value="#{controlVigenciaLocalizacion.duplicarVP.porcentaje}"
                                        symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"
@@ -1105,10 +1111,10 @@
                      </div>
 
                      <strong><h:outputText value="*#{msg['porcentajeVPP']}" style=" position: absolute; top: 165px; left: 50px;" /></strong>
-<!--                    <p:inputText  autocomplete="off"  id="nuevaPorcentajeVPP" binding="#/{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
-                        <p:keyFilter for="nuevaPorcentajeVPP" mask="num"/>
-                        <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 2, vPPorcentajeAux5.value, 0)}" process="@this"/>
-                     </p:inputText>-->
+                     <!--                    <p:inputText  autocomplete="off"  id="nuevaPorcentajeVPP" binding="#/{vPPorcentajeAux5}" maxlength="4" style=" width: 110px; position: absolute; top: 160px; left: 160px;" onclick="select();"> 
+                                             <p:keyFilter for="nuevaPorcentajeVPP" mask="num"/>
+                                             <p:ajax event="change" listener="#/{controlVigenciaLocalizacion.modificarVPPorcentajes(1, 2, vPPorcentajeAux5.value, 0)}" process="@this"/>
+                                          </p:inputText>-->
                      <div style="width: 70px !important; position: absolute; top: 160px; left: 160px;">
                         <p:inputNumber id="nuevaPorcentajeVPP" value="#{controlVigenciaLocalizacion.nuevaVigenciaPP.porcentaje}"
                                        symbol="%" maxlength="3" maxValue="100" minValue="0" style="position: relative;"

@@ -1868,7 +1868,6 @@ public class ControlNovedadesEmpleados implements Serializable {
 
    //LISTA NOVEDADES
    public List<Novedades> getListaNovedades() {
-      System.out.println("Controlador.ControlNovedadesEmpleados.getListaNovedades()");
       if (listaNovedades == null && empleadoSeleccionado != null) {
          listaNovedades = administrarNovedadesEmpleados.novedadesEmpleado(empleadoSeleccionado.getId());
       }
@@ -2072,7 +2071,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public Novedades getNovedadSeleccionada() {
-      System.out.println("Controlador.ControlNovedadesEmpleados.getNovedadSeleccionada()");
       return novedadSeleccionada;
    }
 
@@ -2081,7 +2079,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getAltoTabla() {
-      System.out.println("Controlador.ControlNovedadesEmpleados.getAltoTabla()");
       return altoTabla;
    }
 
@@ -2090,7 +2087,6 @@ public class ControlNovedadesEmpleados implements Serializable {
    }
 
    public String getAltoTablaReg() {
-      System.out.println("Controlador.ControlNovedadesEmpleados.getAltoTablaReg()");
       if (altoTabla.equals("125")) {
          altoTablaReg = "5";
       } else {

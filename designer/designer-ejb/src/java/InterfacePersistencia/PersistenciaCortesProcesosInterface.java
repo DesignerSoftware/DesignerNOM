@@ -83,5 +83,5 @@ public interface PersistenciaCortesProcesosInterface {
             
     public CortesProcesos buscarComprobante (EntityManager em, BigInteger secuenciaEmpleado);
     
-    public void eliminarCPconUndoCierre(EntityManager em, BigInteger proceso, BigInteger rfEmpleado, Date fechaCorte);
+    public boolean eliminarCPconUndoCierre(EntityManager em, BigInteger proceso, BigInteger rfEmpleado, Date fechaCorte);
 }

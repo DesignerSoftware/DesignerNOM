@@ -7,6 +7,7 @@ package InterfaceAdministrar;
 
 import Entidades.Empleados;
 import Entidades.LiquidacionesLogs;
+import Entidades.Operandos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
@@ -18,17 +19,21 @@ import javax.ejb.Local;
 @Local
 public interface AdministrarLiquidacionesLogsInterface {
 
-    public void obtenerConexion(String idSesion);
+   public void obtenerConexion(String idSesion);
 
-    public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+   public void modificarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-    public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+   public void borrarLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-    public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
+   public void crearLiquidacionesLogs(List<LiquidacionesLogs> listaLiquidacionesLogs);
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogs();
+   public List<LiquidacionesLogs> consultarLiquidacionesLogs();
 
-    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
 
-public List<Empleados> consultarLOVEmpleados();
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando);
+
+   public List<Empleados> consultarLOVEmpleados();
+   
+   public List<Operandos> consultarLOVOperandos();
 }

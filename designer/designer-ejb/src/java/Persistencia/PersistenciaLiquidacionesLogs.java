@@ -98,4 +98,18 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
         }
     }
 
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(EntityManager em, BigInteger secOperando) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT cce FROM LiquidacionesLogs cce WHERE cce.operando.secuencia = :secuenciaOperando ORDER BY cce.empleado.persona.nombre ASC");
+            query.setParameter("secuenciaOperando", secOperando);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
+            return listaLiquidacionesLogsPorCiudad;
+        } catch (Exception e) {
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e);
+            return null;
+        }
+    }
+
 }

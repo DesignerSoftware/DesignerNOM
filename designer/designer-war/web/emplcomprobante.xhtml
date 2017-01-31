@@ -83,10 +83,13 @@
 
                   <fieldset style="position: absolute; left: 5px; top: 70px; width: 215px; height: 119px; border-radius: 10px; padding-top: 0px;">
                      <legend style=" font-weight: bold; color: #00F;">#{msg['empleado']}</legend>
-                     <p:commandButton id="btnComprobante" value="" actionListener="#{controlEmplComprobantes.eliminarComprobantegeneral}" process="@this"
+                     <p:commandButton id="btnComprobante" value="" onclick="PF('confirmarReversar').show();" process="@this"
                                       style="background-size: 100% 100%; position: relative; background-image: url(Imagenes/Iconos/salir.png);  top: 5px; width: 50px; height: 50px; background-repeat: no-repeat; border: none;"/>
-                     <h:outputText value="#{msg['boton']}" style="font-size:11px; font-weight: bold; width: 155px; text-align: justify; position: absolute; left: 65px; margin-top: 7px;"/>
-                     <p:inputText  autocomplete="off"  value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true" />
+
+                     <p:tooltip for="btnComprobante" value="#{msg['eliminarComprobante']}"/>
+
+                     <h:outputText value="#{msg['boton']}" style="font-size: 11px; font-weight: bold; width: 160px; text-align: justify; position: absolute; left: 60px; margin-top: 4px;"/>
+                     <p:inputText autocomplete="off" value="#{controlEmplComprobantes.empleado.persona.nombreCompleto}" style="position: relative; top: 30px; width: 206px; color: #BF1A1A; font-weight: bold; text-align: center; height: 10px; font-size: smaller;" readonly="true"/>
                   </fieldset>
 
                   <p:remoteCommand name="posicionComprobante" actionListener="#{controlEmplComprobantes.posicionComprobante()}"/>
@@ -936,6 +939,19 @@
                <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['objetosDB']}" style="position: absolute; left: 70px; top: 5px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="confirmarReversar" header="#{msg['informacion']}" widgetVar="confirmarReversar" resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['confirmarReversar']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarReversar').hide();" style="position: absolute; top: 60px; left: 210px;" process="@this"
+                                   actionListener="#{controlEmplComprobantes.eliminarComprobantegeneral}"/>
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarReversar').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="errorEliminando" header="#{msg['error']}" widgetVar="errorEliminando" resizable="false" draggable="true" modal="true" height="70" width="280" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorEliComprobante']}" style="position: absolute; left: 70px; top: 5px; width: 190px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechaEntregaNull" header="#{msg['error']}" widgetVar="errorFechaEntregaNull"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  

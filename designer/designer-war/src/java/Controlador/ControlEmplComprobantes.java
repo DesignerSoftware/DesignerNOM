@@ -23,7 +23,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -151,7 +152,7 @@ public class ControlEmplComprobantes implements Serializable {
    private Date auxFechaEntregadoComprobante;
 
    private DataTable tabla1, tabla2;
-      private String paginaAnterior = "nominaf";
+   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlEmplComprobantes() {
@@ -216,7 +217,7 @@ public class ControlEmplComprobantes implements Serializable {
       infoRegistroCuentaD = "0";
       infoRegistroCentroCostoD = "0";
       infoRegistroCentroCostoC = "0";
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -229,9 +230,9 @@ public class ControlEmplComprobantes implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -240,21 +241,21 @@ public class ControlEmplComprobantes implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "emplcomprobante";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
+   }
 
    @PostConstruct
    public void inicializarAdministrador() {
@@ -2036,10 +2037,10 @@ public class ControlEmplComprobantes implements Serializable {
 
    public void eliminarComprobantegeneral() {
       System.out.println("Entro en eliminarComprobantegeneral()");
-      try {
-         System.out.println("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
-         if (cortesProcesosSeleccionado != null) {
-            administrarComprobantes.eliminarCPconUndoCierre(cortesProcesosSeleccionado.getProceso().getSecuencia(), secuenciaEmpleado, cortesProcesosSeleccionado.getCorte());
+      System.out.println("cortesProcesosSeleccionado : " + cortesProcesosSeleccionado);
+      if (cortesProcesosSeleccionado != null) {
+         boolean pasa = administrarComprobantes.eliminarCPconUndoCierre(cortesProcesosSeleccionado.getProceso().getSecuencia(), secuenciaEmpleado, cortesProcesosSeleccionado.getCorte());
+         if (pasa) {
             listaComprobantes.clear();
             listaComprobantes = administrarComprobantes.consultarComprobantesEmpleado(empleado.getSecuencia());
             if (listaComprobantes != null) {
@@ -2058,13 +2059,13 @@ public class ControlEmplComprobantes implements Serializable {
             RequestContext.getCurrentInstance().update("form:growl");
             contarRegistrosComp();
          } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+//            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error al eliminar el Comprobante.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            RequestContext.getCurrentInstance().update("form:growl");
+            RequestContext.getCurrentInstance().execute("PF('errorEliminando').show()");
          }
-      } catch (Exception e) {
-         System.out.println("Error eliminarComprobantegeneral Controlador: " + e.toString());
-         FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error al eliminar el Comprobante.");
-         FacesContext.getCurrentInstance().addMessage(null, msg);
-         RequestContext.getCurrentInstance().update("form:growl");
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -2536,9 +2537,9 @@ public class ControlEmplComprobantes implements Serializable {
 
    public List<Terceros> getLovTerceros() {
       if (empleado.getEmpresa() != null && lovTerceros.isEmpty()) {
-      if (empleado.getEmpresa().getSecuencia() != null) {
-         lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
-      }
+         if (empleado.getEmpresa().getSecuencia() != null) {
+            lovTerceros = administrarComprobantes.consultarLOVTerceros(empleado.getEmpresa().getSecuencia());
+         }
       }
       return lovTerceros;
    }

@@ -631,17 +631,22 @@
 
                      <p:tab id="designer" title="#{msg['designer']}" >
 
-                        <h:commandLink  style="position: absolute; left: 805px; top: 65px;">  
+                        <!--                        <p:commandButton style="position: absolute; left: 805px; top: 65px; background-image: url(Imagenes/Iconos/excel.png);
+                                                                 height: 30px; width: 30px; background-repeat: no-repeat; background-size: 100% 100%; border: none; z-index: 9;" value="">
+                                                   <p:dataExporter type="xls" target="#/{controlRemoto.tablaExportar}" fileName="#/{controlRemoto.nombreArchivo}"/>
+                                                </p:commandButton>-->
+
+                        <h:commandLink style="position: absolute; left: 805px; top: 65px; z-index: 9;">  
                            <p:graphicImage value="Imagenes/Iconos/excel.png"  width="30" height="30"/>  
                            <p:dataExporter type="xls" target="#{controlRemoto.tablaExportar}" fileName="#{controlRemoto.nombreArchivo}"/> 
                         </h:commandLink>
 
-                        <h:commandLink  style="position: absolute; left: 805px; top: 100px;">  
+                        <h:commandLink  style="position: absolute; left: 805px; top: 100px; z-index: 9;">  
                            <p:graphicImage value="Imagenes/Iconos/xml.png"  width="30" height="30"/>  
                            <p:dataExporter type="xml" target="#{controlRemoto.tablaExportar}" fileName="#{controlRemoto.nombreArchivo}"/> 
                         </h:commandLink>
 
-                        <h:commandLink  style="position: absolute; left: 805px; top: 135px;">  
+                        <h:commandLink  style="position: absolute; left: 805px; top: 135px; z-index: 9;">  
                            <p:graphicImage value="Imagenes/Iconos/pdf.png"  width="30" height="30"/>  
                            <p:dataExporter type="pdf" target="#{controlRemoto.tablaExportar}" fileName="#{controlRemoto.nombreArchivo}"/> 
                         </h:commandLink>
@@ -823,16 +828,16 @@
                </p:dialog>
 
                <!-- LOV TABLAS-->
-               <p:dialog id="buscartablasdialogo" widgetVar="buscartablasdialogo" header="Tablas"  draggable="true" resizable="false" closable="false"   
+               <p:dialog id="buscartablasdialogo" widgetVar="buscartablasdialogo" header="Tablas" draggable="true" resizable="false" closable="false"   
                          showEffect="fade" hideEffect="fade" width="548" modal="true">
                   <p:dataTable id="lovtablas" widgetVar="lovtablas" var="tabla" value="#{controlRemoto.listTablasLOV}" rowKey="#{tabla.secuencia}"
                                selection="#{controlRemoto.tablaSeleccionadaLOV}" selectionMode="single" scrollable="true" scrollWidth="527" scrollHeight="250"
                                filteredValue="#{controlRemoto.filtradoListTablasLOV}" emptyMessage="#{msg['lovvacio']}">              
-                  
+
                      <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:aceptart"/>
                      <p:ajax event="rowDblselect" listener="#{controlRemoto.seleccionTabla()}" process="@this" />
                      <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBT()}"/>
-                  
+
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarT']}" />  
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovtablas').filter();" class="cssFiltroLOV" />  
@@ -949,17 +954,18 @@
                </p:dialog>
 
             </h:form>
+
             <h:form id="formexportar">
                <p:dataTable id="empleadosexportar" var="empleadoVW" style="visibility: hidden; display: none;"                           
                             value="#{controlRemoto.buscarEmplTipo}">
-                  <p:column>  
+                  <p:column>
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}" /></f:facet>
                      <h:outputText value="#{empleadoVW.codigoEmpleado}"/>
                   </p:column>
                   <p:column headerText="#{msg['primerApellidoXX']}">                                  
                      <f:facet name="header"><h:outputText value="#{msg['primerApellidoX']}"/></f:facet> 
                      <h:outputText value="#{empleadoVW.primerApellido}" />
-                  </p:column>  
+                  </p:column>
                   <p:column headerText="#{msg['segundoApellidoXX']}">      
                      <f:facet name="header"><h:outputText value="#{msg['segundoApellidoX']}"/></f:facet>
                      <h:outputText value="#{empleadoVW.segundoApellido}" />
@@ -970,8 +976,10 @@
                      </f:facet>
                      <h:outputText value="#{empleadoVW.nombre}" />
                   </p:column>
+
                </p:dataTable>
             </h:form>
+
          </ui:define>
       </ui:composition>
    </h:body>

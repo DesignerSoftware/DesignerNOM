@@ -27,4 +27,6 @@ public interface PersistenciaLiquidacionesLogsInterface {
     public List<LiquidacionesLogs> consultarLiquidacionesLogs(EntityManager em);
 
     public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(EntityManager em, BigInteger secEmpleado);
+    
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(EntityManager em, BigInteger secOperando);
 }
