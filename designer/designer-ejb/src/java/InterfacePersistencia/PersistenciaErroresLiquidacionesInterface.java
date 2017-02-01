@@ -20,6 +20,9 @@ public interface PersistenciaErroresLiquidacionesInterface {
 
    public List<ErroresLiquidacion> consultarErroresLiquidacionPorEmpleado(EntityManager em, BigInteger semEmpleado);
 
-    public void borrar(EntityManager em, ErroresLiquidacion erroresLiquidacion);
-    public void BorrarTotosErroresLiquidaciones(EntityManager em);
+   public List<ErroresLiquidacion> consultarErroresLiquidacion(EntityManager em);
+
+   public void borrar(EntityManager em, ErroresLiquidacion erroresLiquidacion);
+
+   public void BorrarTotosErroresLiquidaciones(EntityManager em);
 }

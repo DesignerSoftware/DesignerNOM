@@ -165,6 +165,4 @@ public class ErroresLiquidacion implements Serializable {
         this.formula = formula;
     }
     
-    
-
 }

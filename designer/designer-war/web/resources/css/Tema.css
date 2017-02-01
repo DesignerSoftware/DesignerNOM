@@ -614,15 +614,25 @@ button .ui-widget-header{
 
 .cssColumnasNumericas .ui-cell-editor-output,
 .cssColumnasNumericas .ui-cell-editor-input input,
-.cssColumnasNumericas input {
+.cssColumnasNumericas input
+{
    width: 100% !important;
+   text-align: right !important;
+}
+.cssColumnasNumericas
+{
    text-align: right !important;
 }
 
 .cssColumnasCentradas .ui-cell-editor-output,
 .cssColumnasCentradas .ui-cell-editor-input input,
-.cssColumnasCentradas input {
+.cssColumnasCentradas input
+{
    width: 100% !important;
+   text-align: center !important;
+}
+
+.cssColumnasCentradas{
    text-align: center !important;
 }
 

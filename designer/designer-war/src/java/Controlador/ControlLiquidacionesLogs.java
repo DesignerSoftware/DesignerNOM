@@ -96,6 +96,21 @@ public class ControlLiquidacionesLogs implements Serializable {
       lovOperandos = null;
    }
 
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         System.out.println("ControlLiquidacionesLogs PostConstruct ");
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarLiquidacionesLogs.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+         getLovEmpleados();
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -131,20 +146,6 @@ public class ControlLiquidacionesLogs implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-   }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         System.out.println("ControlLiquidacionesLogs PostConstruct ");
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarLiquidacionesLogs.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
    }
 
    public void eventoFiltrar() {
@@ -245,14 +246,12 @@ public class ControlLiquidacionesLogs implements Serializable {
       }
       liquidacionLogSeleccionada = null;
       k = 0;
-      listLiquidacionesLogs = null;
       guardado = true;
       permitirIndex = true;
+      listLiquidacionesLogs = null;
       getListLiquidacionesLogs();
       contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
       RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    public void restaurarTabla() {
@@ -287,7 +286,6 @@ public class ControlLiquidacionesLogs implements Serializable {
       guardado = true;
       permitirIndex = true;
       RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
       navegar("atras");
    }
 
@@ -363,13 +361,17 @@ public class ControlLiquidacionesLogs implements Serializable {
       listLiquidacionesLogs = null;
       getListLiquidacionesLogs();
       aceptar = true;
+      nombreVariable = "Empleado : ";
+      nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
       operandoSeleccionado = null;
+      context.execute("PF('lovOperandos').unselectAllRows();");
       context.update("form:datosLiquidacionesLogs");
       context.update("form:nombredato");
       context.update("form:nombrevariable");
       context.reset("form:lovEmpleados:globalFilter");
       context.execute("PF('lovEmpleados').clearFilters()");
       context.execute("PF('EMPLEADOS').hide()");
+      contarRegistros();
    }
 
    public void seleccionarOperando() {
@@ -379,15 +381,19 @@ public class ControlLiquidacionesLogs implements Serializable {
          restaurarTabla();
       }
       listLiquidacionesLogs = null;
-      listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(operandoSeleccionado.getSecuencia());
+      listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(operandoSeleccionado.getSecuencia());
       aceptar = true;
+      nombreVariable = "Operando : ";
+      nombreDato = operandoSeleccionado.getNombre();
       empleadoSeleccionado = null;
+      context.execute("PF('lovEmpleados').unselectAllRows();");
       context.update("form:datosLiquidacionesLogs");
       context.update("form:nombredato");
       context.update("form:nombrevariable");
       context.reset("form:lovOperandos:globalFilter");
       context.execute("PF('lovOperandos').clearFilters()");
       context.execute("PF('OPERANDOS').hide()");
+      contarRegistros();
    }
 
    public void cancelarCambioEmpleado() {
@@ -480,6 +486,8 @@ public class ControlLiquidacionesLogs implements Serializable {
       }
       if (listLiquidacionesLogs == null) {
          listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorEmpleado(empleadoSeleccionado.getSecuencia());
+         nombreVariable = "Empleado : ";
+         nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
       }
       return listLiquidacionesLogs;
    }
@@ -542,10 +550,11 @@ public class ControlLiquidacionesLogs implements Serializable {
    public List<Empleados> getLovEmpleados() {
       if (lovEmpleados == null) {
          lovEmpleados = administrarLiquidacionesLogs.consultarLOVEmpleados();
-      }
-      if (empleadoSeleccionado == null && lovEmpleados != null) {
-         if (!lovEmpleados.isEmpty()) {
-            empleadoSeleccionado = lovEmpleados.get(0);
+         if (empleadoSeleccionado == null && lovEmpleados != null) {
+            if (!lovEmpleados.isEmpty()) {
+               empleadoSeleccionado = lovEmpleados.get(0);
+               nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
+            }
          }
       }
       return lovEmpleados;
@@ -632,13 +641,6 @@ public class ControlLiquidacionesLogs implements Serializable {
    }
 
    public String getNombreVariable() {
-      if (empleadoSeleccionado != null) {
-         nombreVariable = "Empleado: ";
-      } else if (operandoSeleccionado != null) {
-         nombreVariable = "Operando: ";
-      } else {
-         nombreVariable = "Empleado: ";
-      }
       return nombreVariable;
    }
 
@@ -647,13 +649,6 @@ public class ControlLiquidacionesLogs implements Serializable {
    }
 
    public String getNombreDato() {
-      if (empleadoSeleccionado != null) {
-         nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
-      } else if (operandoSeleccionado != null) {
-         nombreDato = operandoSeleccionado.getNombre();
-      } else {
-         nombreDato = " ";
-      }
       return nombreDato;
    }
 

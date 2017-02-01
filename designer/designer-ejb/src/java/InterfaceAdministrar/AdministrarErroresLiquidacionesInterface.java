@@ -18,6 +18,8 @@ import javax.ejb.Local;
 public interface AdministrarErroresLiquidacionesInterface {
 
     public void obtenerConexion(String idSesion);
+    
+    public List<ErroresLiquidacion> consultarErroresLiquidacion();
 
     public List<ErroresLiquidacion> consultarErroresLiquidacionEmpleado(BigInteger secEmpleado);
 

@@ -4,11 +4,7 @@
  */
 package Controlador;
 
-import Entidades.Conceptos;
-import Entidades.Empleados;
 import Entidades.ErroresLiquidacion;
-import Entidades.Formulas;
-import Entidades.VigenciasLocalizaciones;
 import Exportar.ExportarPDF;
 import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarErroresLiquidacionesInterface;
@@ -49,42 +45,43 @@ public class ControlErroresLiquidacion implements Serializable {
 
    private List<ErroresLiquidacion> listErroresLiquidacion;
    private List<ErroresLiquidacion> filtrarErroresLiquidacion;
-   private List<ErroresLiquidacion> crearErroresLiquidacion;
-   private List<ErroresLiquidacion> modificarErroresLiquidacion;
    private List<ErroresLiquidacion> borrarErroresLiquidacion;
-   private ErroresLiquidacion nuevoErroresLiquidacion;
    private ErroresLiquidacion editarErroresLiquidacion;
-   private ErroresLiquidacion erroresLiquidacionesSeleccionado;
+   private ErroresLiquidacion errorLiquSeleccionado;
    //otros
-   private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+   private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
    private BigInteger l;
    private boolean aceptar, guardado;
-   //AutoCompletar
-   private boolean permitirIndex;
    //RASTRO
-   private BigInteger secRegistro;
    private Column fechaInicial, fechaFinal, empleado, tipoCentroCosto, concepto, nombreLargo, fecha, error, paquete;
    //borrado
    private int registrosBorrados;
-   private String mensajeValidacion;
    //filtrado table
-   private int tamano;
+   private int tamano, tamanoReg;
    private boolean borrarTodo;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+   private Date backUpFechaDesde;
+   private Date backUpFechaHasta;
+   private Date backUpFecha;
+   private String backUpEmpleado;
+   private String backUpTipoCentroCosto;
+   private String backUpConcepto;
+   private String backUpFormula;
+   private String backUpError;
+   private String backUpPaquete;
+
+   private String infoRegistro;
+
    public ControlErroresLiquidacion() {
       listErroresLiquidacion = null;
-      crearErroresLiquidacion = new ArrayList<ErroresLiquidacion>();
-      modificarErroresLiquidacion = new ArrayList<ErroresLiquidacion>();
       borrarErroresLiquidacion = new ArrayList<ErroresLiquidacion>();
-      permitirIndex = true;
       editarErroresLiquidacion = new ErroresLiquidacion();
-      nuevoErroresLiquidacion = new ErroresLiquidacion();
       guardado = true;
       aceptar = true;
-      tamano = 270;
-      secuenciaEmpleado = new BigInteger("0");
+      tamano = 290;
+      tamanoReg = 13;
       System.out.println("controlErroresLiquidacion Constructor");
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -98,6 +95,20 @@ public class ControlErroresLiquidacion implements Serializable {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         System.out.println("ControlErroresLiquidacion PostConstruct ");
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarErroresLiquidacion.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -126,341 +137,165 @@ public class ControlErroresLiquidacion implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         System.out.println("ControlErroresLiquidacion PostConstruct ");
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarErroresLiquidacion.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
-   }
-
    public void eventoFiltrar() {
-      try {
-         System.out.println("\n ENTRE A ControlErroresLiquidacion.eventoFiltrar \n");
-         if (tipoLista == 0) {
-            tipoLista = 1;
-         }
-         RequestContext context = RequestContext.getCurrentInstance();
-         infoRegistro = "Cantidad de registros: " + filtrarErroresLiquidacion.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      } catch (Exception e) {
-         System.out.println("ERROR ControlErroresLiquidacion eventoFiltrar ERROR===" + e.getMessage());
+      if (tipoLista == 0) {
+         tipoLista = 1;
       }
-   }
-   private BigInteger secuenciaEmpleado;
-
-   public void recibirEmpleado(BigInteger secEmpleado) {
-      if (secEmpleado.equals(new BigInteger("0"))) {
-//         secuenciaEmpleado = null;
-      } else {
-         secuenciaEmpleado = secEmpleado;
-      }
-      getListErroresLiquidacion();
+      contarRegistros();
    }
 
-   public void mostrarInfo(int indice, int celda) {
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
+//
+//   public void recibirEmpleado(BigInteger secEmpleado) {
+//      if (secEmpleado.equals(new BigInteger("0"))) {
+////         secuenciaEmpleado = null;
+////      } else {
+////         secuenciaEmpleado = secEmpleado;
+////      }
+//      getListErroresLiquidacion();
+//   }
 
-      mensajeValidacion = " ";
-      index = indice;
+//   public void mostrarInfo(ErroresLiquidacion erroresLiq, int celda) {
+//      errorLiquSeleccionado = erroresLiq;
+//      cualCelda = celda;
+//      if (cualCelda == 0) {
+//         if (errorLiquSeleccionado.getFechadesde() == null) {
+//            errorLiquSeleccionado.setFechadesde(backUpFechaDesde);
+//         } else if (!errorLiquSeleccionado.getFechadesde().equals(backUpFechaDesde) && backUpFechaDesde != null) {
+//            errorLiquSeleccionado.setFechadesde(backUpFechaDesde);
+//         }
+//         errorLiquSeleccionado = null;
+//      }
+//      if (cualCelda == 1) {
+//         if (errorLiquSeleccionado.getFechahasta() == null) {
+//            errorLiquSeleccionado.setFechahasta(backUpFechaHasta);
+//         } else if (!errorLiquSeleccionado.getFechahasta().equals(backUpFechaHasta) && backUpFechaHasta != null) {
+//            errorLiquSeleccionado.setFechahasta(backUpFechaHasta);
+//         }
+//         errorLiquSeleccionado = null;
+//      }
+//      if (cualCelda == 6) {
+//         if (errorLiquSeleccionado.getFecha() == null) {
+//            errorLiquSeleccionado.setFecha(backUpFecha);
+//         } else if (!errorLiquSeleccionado.getFecha().equals(backUpFecha) && backUpFecha != null) {
+//            errorLiquSeleccionado.setFecha(backUpFecha);
+//         }
+//         errorLiquSeleccionado = null;
+//      }
+//      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+//   }
+
+   public void cambiarIndice(ErroresLiquidacion erroresLiq, int celda) {
+      errorLiquSeleccionado = erroresLiq;
       cualCelda = celda;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (permitirIndex == true) {
-         if (cualCelda == 0) {
-            if (tipoLista == 0) {
-               secRegistro = listErroresLiquidacion.get(index).getSecuencia();
-
-               if (listErroresLiquidacion.get(indice).getFechadesde() == null) {
-                  listErroresLiquidacion.get(indice).setFechadesde(backUpFechaDesde);
-               } else if (!listErroresLiquidacion.get(indice).getFechadesde().equals(backUpFechaDesde) && backUpFechaDesde != null) {
-                  listErroresLiquidacion.get(indice).setFechadesde(backUpFechaDesde);
-               }
-               index = -1;
-               secRegistro = null;
-
-            } else {
-               if (filtrarErroresLiquidacion.get(indice).getFechadesde() == null) {
-                  filtrarErroresLiquidacion.get(indice).setFechadesde(backUpFechaDesde);
-               } else if (!filtrarErroresLiquidacion.get(indice).getFechadesde().equals(backUpFechaDesde) && backUpFechaDesde != null) {
-                  filtrarErroresLiquidacion.get(indice).setFechadesde(backUpFechaDesde);
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-         if (cualCelda == 1) {
-            if (tipoLista == 0) {
-               secRegistro = listErroresLiquidacion.get(index).getSecuencia();
-
-               if (listErroresLiquidacion.get(indice).getFechahasta() == null) {
-                  listErroresLiquidacion.get(indice).setFechahasta(backUpFechaHasta);
-               } else if (!listErroresLiquidacion.get(indice).getFechahasta().equals(backUpFechaHasta) && backUpFechaHasta != null) {
-                  listErroresLiquidacion.get(indice).setFechahasta(backUpFechaHasta);
-               }
-               index = -1;
-               secRegistro = null;
-
-            } else {
-               if (filtrarErroresLiquidacion.get(indice).getFechahasta() == null) {
-                  filtrarErroresLiquidacion.get(indice).setFechahasta(backUpFechaHasta);
-               } else if (!filtrarErroresLiquidacion.get(indice).getFechahasta().equals(backUpFechaHasta) && backUpFechaHasta != null) {
-                  filtrarErroresLiquidacion.get(indice).setFechahasta(backUpFechaHasta);
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-         if (cualCelda == 6) {
-            if (tipoLista == 0) {
-               secRegistro = listErroresLiquidacion.get(index).getSecuencia();
-
-               if (listErroresLiquidacion.get(indice).getFecha() == null) {
-                  listErroresLiquidacion.get(indice).setFecha(backUpFecha);
-               } else if (!listErroresLiquidacion.get(indice).getFecha().equals(backUpFecha) && backUpFecha != null) {
-                  listErroresLiquidacion.get(indice).setFecha(backUpFecha);
-               }
-               index = -1;
-               secRegistro = null;
-
-            } else {
-               if (filtrarErroresLiquidacion.get(indice).getFecha() == null) {
-                  filtrarErroresLiquidacion.get(indice).setFecha(backUpFecha);
-               } else if (!filtrarErroresLiquidacion.get(indice).getFecha().equals(backUpFecha) && backUpFecha != null) {
-                  filtrarErroresLiquidacion.get(indice).setFecha(backUpFecha);
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         }
-
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-
+      if (cualCelda == 0) {
+         backUpFechaDesde = errorLiquSeleccionado.getFechadesde();
+         System.out.println("backUpFechaDesde : " + backUpFechaDesde);
       }
-
-   }
-   private Date backUpFechaDesde;
-   private Date backUpFechaHasta;
-   private Date backUpFecha;
-   private String backUpEmpleado;
-   private String backUpTipoCentroCosto;
-   private String backUpConcepto;
-   private String backUpFormula;
-   private String backUpError;
-   private String backUpPaquete;
-
-   public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
-
-      if (permitirIndex == true) {
-         index = indice;
-         cualCelda = celda;
-         secRegistro = listErroresLiquidacion.get(index).getSecuencia();
-         if (cualCelda == 0) {
-            if (tipoLista == 0) {
-               backUpFechaDesde = listErroresLiquidacion.get(index).getFechadesde();
-            } else {
-               backUpFechaDesde = filtrarErroresLiquidacion.get(index).getFechadesde();
-            }
-            System.out.println("backUpFechaDesde : " + backUpFechaDesde);
-         }
-         if (cualCelda == 1) {
-            if (tipoLista == 0) {
-               backUpFechaHasta = listErroresLiquidacion.get(index).getFechahasta();
-            } else {
-               backUpFechaHasta = filtrarErroresLiquidacion.get(index).getFechahasta();
-            }
-            System.out.println("backUpFechaHasta : " + backUpFechaHasta);
-         }
-         if (cualCelda == 2) {
-            if (tipoLista == 0) {
-               backUpEmpleado = listErroresLiquidacion.get(index).getEmpleado().getPersona().getNombreCompleto();
-            } else {
-               backUpEmpleado = filtrarErroresLiquidacion.get(index).getEmpleado().getPersona().getNombreCompleto();
-            }
-            System.out.println("backUpEmpleado : " + backUpEmpleado);
-         }
-         if (cualCelda == 3) {
-            if (tipoLista == 0) {
-               backUpTipoCentroCosto = listErroresLiquidacion.get(index).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre();
-            } else {
-               backUpTipoCentroCosto = filtrarErroresLiquidacion.get(index).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre();
-            }
-            System.out.println("backUpTipoCentroCosto : " + backUpTipoCentroCosto);
-         }
-         if (cualCelda == 4) {
-            if (tipoLista == 0) {
-               backUpConcepto = listErroresLiquidacion.get(index).getConcepto().getDescripcion();
-            } else {
-               backUpConcepto = filtrarErroresLiquidacion.get(index).getConcepto().getDescripcion();
-            }
-            System.out.println("backUpConcepto : " + backUpConcepto);
-         }
-         if (cualCelda == 5) {
-            if (tipoLista == 0) {
-               backUpFormula = listErroresLiquidacion.get(index).getFormula().getNombrelargo();
-            } else {
-               backUpFormula = filtrarErroresLiquidacion.get(index).getFormula().getNombrelargo();
-            }
-            System.out.println("backUpFormula : " + backUpFormula);
-         }
-         System.out.println("Indice: " + index + " Celda: " + cualCelda);
-
-         if (cualCelda == 6) {
-            if (tipoLista == 0) {
-               backUpFecha = listErroresLiquidacion.get(index).getFecha();
-            } else {
-               backUpFecha = filtrarErroresLiquidacion.get(index).getFecha();
-            }
-            System.out.println("backUpFecha : " + backUpFecha);
-         }
-         if (cualCelda == 7) {
-            if (tipoLista == 0) {
-               backUpError = listErroresLiquidacion.get(index).getError();
-            } else {
-               backUpError = filtrarErroresLiquidacion.get(index).getError();
-            }
-            System.out.println("backUpError : " + backUpError);
-         }
-         if (cualCelda == 8) {
-            if (tipoLista == 0) {
-               backUpPaquete = listErroresLiquidacion.get(index).getPaquete();
-            } else {
-               backUpPaquete = filtrarErroresLiquidacion.get(index).getPaquete();
-            }
-            System.out.println("backUpPaquete : " + backUpPaquete);
-         }
+      if (cualCelda == 1) {
+         backUpFechaHasta = errorLiquSeleccionado.getFechahasta();
+         System.out.println("backUpFechaHasta : " + backUpFechaHasta);
+      }
+      if (cualCelda == 2) {
+         backUpEmpleado = errorLiquSeleccionado.getEmpleado().getPersona().getNombreCompleto();
+         System.out.println("backUpEmpleado : " + backUpEmpleado);
+      }
+      if (cualCelda == 3) {
+         backUpTipoCentroCosto = errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre();
+         System.out.println("backUpTipoCentroCosto : " + backUpTipoCentroCosto);
+      }
+      if (cualCelda == 4) {
+         backUpConcepto = errorLiquSeleccionado.getConcepto().getDescripcion();
+         System.out.println("backUpConcepto : " + backUpConcepto);
+      }
+      if (cualCelda == 5) {
+         backUpFormula = errorLiquSeleccionado.getFormula().getNombrelargo();
+         System.out.println("backUpFormula : " + backUpFormula);
+      }
+      if (cualCelda == 6) {
+         backUpFecha = errorLiquSeleccionado.getFecha();
+         System.out.println("backUpFecha : " + backUpFecha);
+      }
+      if (cualCelda == 7) {
+         backUpError = errorLiquSeleccionado.getError();
+         System.out.println("backUpError : " + backUpError);
+      }
+      if (cualCelda == 8) {
+         backUpPaquete = errorLiquSeleccionado.getPaquete();
+         System.out.println("backUpPaquete : " + backUpPaquete);
       }
    }
+//
+//   public void modificarLiquidacionesLogSinGuardar(int indice, String confirmarCambio, String valorConfirmar) {
+//      index = indice;
+//      int coincidencias = 0;
+//      int indiceUnicoElemento = 0, pass = 0;
+//      RequestContext context = RequestContext.getCurrentInstance();
+//      if (confirmarCambio.equalsIgnoreCase("N")) {
+//         System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar");
+//         if (!crearErroresLiquidacion.contains(errorLiquSeleccionado)) {
+//
+//            if (errorLiquSeleccionado.getEmpleado().getPersona().getNombreCompleto() == null) {
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
+//               errorLiquSeleccionado.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
+//            } else if (!errorLiquSeleccionado.getEmpleado().getPersona().getNombreCompleto().equals(backUpEmpleado) && backUpEmpleado != null) {
+//               errorLiquSeleccionado.getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
+//            }
+//            if (errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre() == null) {
+//               errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
+//            } else if (!errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre().equals(backUpTipoCentroCosto) && backUpTipoCentroCosto != null) {
+//               errorLiquSeleccionado.getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
+//            }
+//            if (errorLiquSeleccionado.getConcepto().getDescripcion() == null) {
+//               errorLiquSeleccionado.getConcepto().setDescripcion(backUpConcepto);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
+//            } else if (!errorLiquSeleccionado.getConcepto().getDescripcion().equals(backUpConcepto) && backUpConcepto != null) {
+//               errorLiquSeleccionado.getConcepto().setDescripcion(backUpConcepto);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
+//            }
+//            if (errorLiquSeleccionado.getFormula().getNombrelargo() == null) {
+//               errorLiquSeleccionado.getFormula().setNombrelargo(backUpFormula);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpValor : " + backUpFormula);
+//            } else if (!errorLiquSeleccionado.getFormula().getNombrelargo().equals(backUpFormula) && backUpFormula != null) {
+//               errorLiquSeleccionado.getFormula().setNombrelargo(backUpFormula);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpFormula : " + backUpFormula);
+//            }
+//            if (errorLiquSeleccionado.getError() == null) {
+//               errorLiquSeleccionado.setError(backUpError);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
+//            } else if (!errorLiquSeleccionado.getError().equals(backUpError) && backUpError != null) {
+//               errorLiquSeleccionado.setError(backUpError);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
+//            }
+//            if (errorLiquSeleccionado.getPaquete() == null) {
+//               errorLiquSeleccionado.setPaquete(backUpPaquete);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
+//            } else if (!errorLiquSeleccionado.getPaquete().equals(backUpPaquete) && backUpPaquete != null) {
+//               errorLiquSeleccionado.setPaquete(backUpPaquete);
+//               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
+//            }
+//            
+//            errorLiquSeleccionado = null;
+//         }
+//      }
+//      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+//   }
 
-   public void modificarLiquidacionesLogSinGuardar(int indice, String confirmarCambio, String valorConfirmar) {
-      index = indice;
-      int coincidencias = 0;
-      int indiceUnicoElemento = 0, pass = 0;
-      mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("N")) {
-         System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar");
-         if (tipoLista == 0) {
-            if (!crearErroresLiquidacion.contains(listErroresLiquidacion.get(indice))) {
-
-               if (listErroresLiquidacion.get(indice).getEmpleado().getPersona().getNombreCompleto() == null) {
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-                  listErroresLiquidacion.get(indice).getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-               } else if (!listErroresLiquidacion.get(indice).getEmpleado().getPersona().getNombreCompleto().equals(backUpEmpleado) && backUpEmpleado != null) {
-                  listErroresLiquidacion.get(indice).getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-               }
-               if (listErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre() == null) {
-                  listErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
-               } else if (!listErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre().equals(backUpTipoCentroCosto) && backUpTipoCentroCosto != null) {
-                  listErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
-               }
-               if (listErroresLiquidacion.get(indice).getConcepto().getDescripcion() == null) {
-                  listErroresLiquidacion.get(indice).getConcepto().setDescripcion(backUpConcepto);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
-               } else if (!listErroresLiquidacion.get(indice).getConcepto().getDescripcion().equals(backUpConcepto) && backUpConcepto != null) {
-                  listErroresLiquidacion.get(indice).getConcepto().setDescripcion(backUpConcepto);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
-               }
-               if (listErroresLiquidacion.get(indice).getFormula().getNombrelargo() == null) {
-                  listErroresLiquidacion.get(indice).getFormula().setNombrelargo(backUpFormula);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpValor : " + backUpFormula);
-               } else if (!listErroresLiquidacion.get(indice).getFormula().getNombrelargo().equals(backUpFormula) && backUpFormula != null) {
-                  listErroresLiquidacion.get(indice).getFormula().setNombrelargo(backUpFormula);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpFormula : " + backUpFormula);
-               }
-               if (listErroresLiquidacion.get(indice).getError() == null) {
-                  listErroresLiquidacion.get(indice).setError(backUpError);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
-               } else if (!listErroresLiquidacion.get(indice).getError().equals(backUpError) && backUpError != null) {
-                  listErroresLiquidacion.get(indice).setError(backUpError);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
-               }
-               if (listErroresLiquidacion.get(indice).getPaquete() == null) {
-                  listErroresLiquidacion.get(indice).setPaquete(backUpPaquete);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
-               } else if (!listErroresLiquidacion.get(indice).getPaquete().equals(backUpPaquete) && backUpPaquete != null) {
-                  listErroresLiquidacion.get(indice).setPaquete(backUpPaquete);
-                  System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
-               }
-
-               index = -1;
-               secRegistro = null;
-            }
-         } else if (!crearErroresLiquidacion.contains(filtrarErroresLiquidacion.get(indice))) {
-
-            if (filtrarErroresLiquidacion.get(indice).getEmpleado().getPersona().getNombreCompleto() == null) {
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-               filtrarErroresLiquidacion.get(indice).getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-            } else if (!filtrarErroresLiquidacion.get(indice).getEmpleado().getPersona().getNombreCompleto().equals(backUpEmpleado) && backUpEmpleado != null) {
-               filtrarErroresLiquidacion.get(indice).getEmpleado().getPersona().setNombreCompleto(backUpEmpleado);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpEmpleado : " + backUpEmpleado);
-            }
-            if (filtrarErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre() == null) {
-               filtrarErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
-            } else if (!filtrarErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().getNombre().equals(backUpTipoCentroCosto) && backUpTipoCentroCosto != null) {
-               filtrarErroresLiquidacion.get(indice).getVigenciaLocalizacion().getLocalizacion().getCentrocosto().getTipocentrocosto().setNombre(backUpTipoCentroCosto);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpTipoCentroCosto : " + backUpTipoCentroCosto);
-            }
-            if (filtrarErroresLiquidacion.get(indice).getConcepto().getDescripcion() == null) {
-               filtrarErroresLiquidacion.get(indice).getConcepto().setDescripcion(backUpConcepto);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
-            } else if (!filtrarErroresLiquidacion.get(indice).getConcepto().getDescripcion().equals(backUpConcepto) && backUpConcepto != null) {
-               filtrarErroresLiquidacion.get(indice).getConcepto().setDescripcion(backUpConcepto);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpConcepto : " + backUpConcepto);
-            }
-            if (filtrarErroresLiquidacion.get(indice).getFormula().getNombrelargo() == null) {
-               filtrarErroresLiquidacion.get(indice).getFormula().setNombrelargo(backUpFormula);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpValor : " + backUpFormula);
-            } else if (!filtrarErroresLiquidacion.get(indice).getFormula().getNombrelargo().equals(backUpFormula) && backUpFormula != null) {
-               filtrarErroresLiquidacion.get(indice).getFormula().setNombrelargo(backUpFormula);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpFormula : " + backUpFormula);
-            }
-            if (filtrarErroresLiquidacion.get(indice).getError() == null) {
-               filtrarErroresLiquidacion.get(indice).setError(backUpError);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
-            } else if (!filtrarErroresLiquidacion.get(indice).getError().equals(backUpError) && backUpError != null) {
-               filtrarErroresLiquidacion.get(indice).setError(backUpError);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar backUpError : " + backUpError);
-            }
-            if (filtrarErroresLiquidacion.get(indice).getPaquete() == null) {
-               filtrarErroresLiquidacion.get(indice).setPaquete(backUpPaquete);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
-            } else if (!filtrarErroresLiquidacion.get(indice).getPaquete().equals(backUpPaquete) && backUpPaquete != null) {
-               filtrarErroresLiquidacion.get(indice).setPaquete(backUpPaquete);
-               System.err.println("CONTROLERRORESLIQUIDACION modificarLiquidacionesLogSinGuardar getPaquete : " + backUpPaquete);
-            }
-            index = -1;
-            secRegistro = null;
-
-         }
-      }
-      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-   }
-
-   public void asignarIndex(Integer indice, int LND, int dig) {
-      try {
-         System.out.println("\n ENTRE A ControlErroresLiquidacion.asignarIndex \n");
-         index = indice;
-         if (LND == 0) {
-            tipoActualizacion = 0;
-         } else if (LND == 1) {
-            tipoActualizacion = 1;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-         } else if (LND == 2) {
-            tipoActualizacion = 2;
-         }
-
-      } catch (Exception e) {
-         System.out.println("ERROR ControlErroresLiquidacion.asignarIndex ERROR======" + e.getMessage());
+   public void asignarIndex(ErroresLiquidacion erroresLiq, int LND, int dig) {
+      System.out.println("\n ENTRE A ControlErroresLiquidacion.asignarIndex \n");
+      errorLiquSeleccionado = erroresLiq;
+      if (LND == 0) {
+         tipoActualizacion = 0;
+      } else if (LND == 1) {
+         tipoActualizacion = 1;
+         System.out.println("Tipo Actualizacion: " + tipoActualizacion);
+      } else if (LND == 2) {
+         tipoActualizacion = 2;
       }
    }
 
@@ -468,46 +303,16 @@ public class ControlErroresLiquidacion implements Serializable {
       aceptar = false;
    }
 
-   private String infoRegistro;
-
    public void cancelarModificacion() {
       if (bandera == 1) {
-         //CERRAR FILTRADO
-         FacesContext c = FacesContext.getCurrentInstance();
-         fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
-         fechaInicial.setFilterStyle("display: none; visibility: hidden;");
-         fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
-         fechaFinal.setFilterStyle("display: none; visibility: hidden;");
-         empleado = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:empleado");
-         empleado.setFilterStyle("display: none; visibility: hidden;");
-         tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:tipoCentroCosto");
-         tipoCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-         concepto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:concepto");
-         concepto.setFilterStyle("display: none; visibility: hidden;");
-         nombreLargo = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:nombreLargo");
-         nombreLargo.setFilterStyle("display: none; visibility: hidden;");
-         fecha = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fecha");
-         fecha.setFilterStyle("display: none; visibility: hidden;");
-         error = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:error");
-         error.setFilterStyle("display: none; visibility: hidden;");
-         paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
-         paquete.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-         bandera = 0;
-         filtrarErroresLiquidacion = null;
-         tipoLista = 0;
-         tamano = 270;
+         restaurarTabla();
       }
-
       borrarErroresLiquidacion.clear();
-      crearErroresLiquidacion.clear();
-      modificarErroresLiquidacion.clear();
-      index = -1;
-      secRegistro = null;
+
+      errorLiquSeleccionado = null;
       k = 0;
       listErroresLiquidacion = null;
       guardado = true;
-      permitirIndex = true;
       getListErroresLiquidacion();
       RequestContext context = RequestContext.getCurrentInstance();
       if (listErroresLiquidacion == null || listErroresLiquidacion.isEmpty()) {
@@ -515,98 +320,39 @@ public class ControlErroresLiquidacion implements Serializable {
       } else {
          infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
       }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:informacionRegistro");
+      context.update("form:datosErroresLiquidacion");
+      context.update("form:ACEPTAR");
    }
 
    public void salir() {
       if (bandera == 1) {
-         //CERRAR FILTRADO
-         FacesContext c = FacesContext.getCurrentInstance();
-         fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
-         fechaInicial.setFilterStyle("display: none; visibility: hidden;");
-         fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
-         fechaFinal.setFilterStyle("display: none; visibility: hidden;");
-         empleado = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:empleado");
-         empleado.setFilterStyle("display: none; visibility: hidden;");
-         tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:tipoCentroCosto");
-         tipoCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-         concepto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:concepto");
-         concepto.setFilterStyle("display: none; visibility: hidden;");
-         nombreLargo = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:nombreLargo");
-         nombreLargo.setFilterStyle("display: none; visibility: hidden;");
-         fecha = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fecha");
-         fecha.setFilterStyle("display: none; visibility: hidden;");
-         error = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:error");
-         error.setFilterStyle("display: none; visibility: hidden;");
-         paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
-         paquete.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-         bandera = 0;
-         filtrarErroresLiquidacion = null;
-         tipoLista = 0;
-         tamano = 270;
+         restaurarTabla();
       }
-
       borrarErroresLiquidacion.clear();
-      crearErroresLiquidacion.clear();
-      modificarErroresLiquidacion.clear();
-      index = -1;
-      secRegistro = null;
+      errorLiquSeleccionado = null;
       k = 0;
       listErroresLiquidacion = null;
       guardado = true;
-      permitirIndex = true;
       RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       navegar("atras");
    }
 
    public void borrandoErroresLiquidaciones() {
-
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            System.out.println("Entro a borrandoErroresLiquidaciones");
-            if (!modificarErroresLiquidacion.isEmpty() && modificarErroresLiquidacion.contains(listErroresLiquidacion.get(index))) {
-               int modIndex = modificarErroresLiquidacion.indexOf(listErroresLiquidacion.get(index));
-               modificarErroresLiquidacion.remove(modIndex);
-               borrarErroresLiquidacion.add(listErroresLiquidacion.get(index));
-            } else if (!crearErroresLiquidacion.isEmpty() && crearErroresLiquidacion.contains(listErroresLiquidacion.get(index))) {
-               int crearIndex = crearErroresLiquidacion.indexOf(listErroresLiquidacion.get(index));
-               crearErroresLiquidacion.remove(crearIndex);
-            } else {
-               borrarErroresLiquidacion.add(listErroresLiquidacion.get(index));
-            }
-            listErroresLiquidacion.remove(index);
+      if (errorLiquSeleccionado != null) {
+         System.out.println("Entro a borrandoErroresLiquidaciones");
+         if (!borrarErroresLiquidacion.contains(errorLiquSeleccionado)) {
+            borrarErroresLiquidacion.add(errorLiquSeleccionado);
          }
+         listErroresLiquidacion.remove(errorLiquSeleccionado);
          if (tipoLista == 1) {
-            System.out.println("borrandoErroresLiquidaciones ");
-            if (!modificarErroresLiquidacion.isEmpty() && modificarErroresLiquidacion.contains(filtrarErroresLiquidacion.get(index))) {
-               int modIndex = modificarErroresLiquidacion.indexOf(filtrarErroresLiquidacion.get(index));
-               modificarErroresLiquidacion.remove(modIndex);
-               borrarErroresLiquidacion.add(filtrarErroresLiquidacion.get(index));
-            } else if (!crearErroresLiquidacion.isEmpty() && crearErroresLiquidacion.contains(filtrarErroresLiquidacion.get(index))) {
-               int crearIndex = crearErroresLiquidacion.indexOf(filtrarErroresLiquidacion.get(index));
-               crearErroresLiquidacion.remove(crearIndex);
-            } else {
-               borrarErroresLiquidacion.add(filtrarErroresLiquidacion.get(index));
-            }
-            int VCIndex = listErroresLiquidacion.indexOf(filtrarErroresLiquidacion.get(index));
-            listErroresLiquidacion.remove(VCIndex);
-            filtrarErroresLiquidacion.remove(index);
-
+            filtrarErroresLiquidacion.remove(errorLiquSeleccionado);
          }
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
          infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
          RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
-         index = -1;
-         secRegistro = null;
-
+         errorLiquSeleccionado = null;
          if (guardado == true) {
             guardado = false;
          }
@@ -616,9 +362,10 @@ public class ControlErroresLiquidacion implements Serializable {
    }
 
    public void activarCtrlF11() {
-      FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         tamano = 250;
+         FacesContext c = FacesContext.getCurrentInstance();
+         tamano = 270;
+         tamanoReg = 12;
          fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
          fechaInicial.setFilterStyle("width: 85% !important;");
          fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
@@ -642,43 +389,43 @@ public class ControlErroresLiquidacion implements Serializable {
          System.out.println("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         System.out.println("Desactivar");
-         tamano = 270;
-         fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
-         fechaInicial.setFilterStyle("display: none; visibility: hidden;");
-         fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
-         fechaFinal.setFilterStyle("display: none; visibility: hidden;");
-         empleado = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:empleado");
-         empleado.setFilterStyle("display: none; visibility: hidden;");
-         tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:tipoCentroCosto");
-         tipoCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-         concepto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:concepto");
-         concepto.setFilterStyle("display: none; visibility: hidden;");
-         nombreLargo = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:nombreLargo");
-         nombreLargo.setFilterStyle("display: none; visibility: hidden;");
-         fecha = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fecha");
-         fecha.setFilterStyle("display: none; visibility: hidden;");
-         error = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:error");
-         error.setFilterStyle("display: none; visibility: hidden;");
-         paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
-         paquete.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-
-         RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-         bandera = 0;
-         filtrarErroresLiquidacion = null;
-         tipoLista = 0;
+         restaurarTabla();
       }
    }
 
+   public void restaurarTabla() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      tamano = 290;
+      tamanoReg = 13;
+      fechaInicial = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaInicial");
+      fechaInicial.setFilterStyle("display: none; visibility: hidden;");
+      fechaFinal = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fechaFinal");
+      fechaFinal.setFilterStyle("display: none; visibility: hidden;");
+      empleado = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:empleado");
+      empleado.setFilterStyle("display: none; visibility: hidden;");
+      tipoCentroCosto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:tipoCentroCosto");
+      tipoCentroCosto.setFilterStyle("display: none; visibility: hidden;");
+      concepto = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:concepto");
+      concepto.setFilterStyle("display: none; visibility: hidden;");
+      nombreLargo = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:nombreLargo");
+      nombreLargo.setFilterStyle("display: none; visibility: hidden;");
+      fecha = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:fecha");
+      fecha.setFilterStyle("display: none; visibility: hidden;");
+      error = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:error");
+      error.setFilterStyle("display: none; visibility: hidden;");
+      paquete = (Column) c.getViewRoot().findComponent("form:datosErroresLiquidacion:paquete");
+      paquete.setFilterStyle("display: none; visibility: hidden;");
+      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+
+      RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
+      bandera = 0;
+      filtrarErroresLiquidacion = null;
+      tipoLista = 0;
+   }
+
    public void editarCelda() {
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            editarErroresLiquidacion = listErroresLiquidacion.get(index);
-         }
-         if (tipoLista == 1) {
-            editarErroresLiquidacion = filtrarErroresLiquidacion.get(index);
-         }
+      if (errorLiquSeleccionado != null) {
+         editarErroresLiquidacion = errorLiquSeleccionado;
 
          RequestContext context = RequestContext.getCurrentInstance();
          System.out.println("Entro a editar... valor celda: " + cualCelda);
@@ -721,17 +468,17 @@ public class ControlErroresLiquidacion implements Serializable {
          }
 
       }
-      index = -1;
-      secRegistro = null;
-   }
 
-   public void limpiarNuevoErroresLiquidacion() {
-      nuevoErroresLiquidacion = new ErroresLiquidacion();
-      nuevoErroresLiquidacion.setEmpleado(new Empleados());
-      nuevoErroresLiquidacion.setConcepto(new Conceptos());
-      nuevoErroresLiquidacion.setFormula(new Formulas());
-      nuevoErroresLiquidacion.setVigenciaLocalizacion(new VigenciasLocalizaciones());
+      errorLiquSeleccionado = null;
    }
+//
+//   public void limpiarNuevoErroresLiquidacion() {
+//      nuevoErroresLiquidacion = new ErroresLiquidacion();
+//      nuevoErroresLiquidacion.setEmpleado(new Empleados());
+//      nuevoErroresLiquidacion.setConcepto(new Conceptos());
+//      nuevoErroresLiquidacion.setFormula(new Formulas());
+//      nuevoErroresLiquidacion.setVigenciaLocalizacion(new VigenciasLocalizaciones());
+//   }
 
    public void revisarDialogoGuardar() {
 
@@ -752,8 +499,8 @@ public class ControlErroresLiquidacion implements Serializable {
 
       RequestContext context = RequestContext.getCurrentInstance();
       administrarErroresLiquidacion.borrarTodosErroresLiquidacion();
-      index = -1;
-      secRegistro = null;
+
+      errorLiquSeleccionado = null;
       guardado = true;
       borrarTodo = true;
       listErroresLiquidacion = null;
@@ -786,7 +533,8 @@ public class ControlErroresLiquidacion implements Serializable {
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
       }
-      index = -1;
+
+      errorLiquSeleccionado = null;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
    }
@@ -797,8 +545,8 @@ public class ControlErroresLiquidacion implements Serializable {
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tabla, "ERRORESLIQUIDACION", false, false, "UTF-8", null, null);
       context.responseComplete();
-      index = -1;
-      secRegistro = null;
+
+      errorLiquSeleccionado = null;
    }
 
    public void exportXLS() throws IOException {
@@ -807,17 +555,16 @@ public class ControlErroresLiquidacion implements Serializable {
       Exporter exporter = new ExportarXLS();
       exporter.export(context, tabla, "ERRORESLIQUIDACION", false, false, "UTF-8", null, null);
       context.responseComplete();
-      index = -1;
-      secRegistro = null;
+
+      errorLiquSeleccionado = null;
    }
 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       System.out.println("lol");
       if (!listErroresLiquidacion.isEmpty()) {
-         if (secRegistro != null) {
+         if (errorLiquSeleccionado != null) {
             System.out.println("lol 2");
-            int resultado = administrarRastros.obtenerTabla(secRegistro, "ERRORESLIQUIDACION"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            int resultado = administrarRastros.obtenerTabla(errorLiquSeleccionado.getSecuencia(), "ERRORESLIQUIDACION"); //En ENCARGATURAS lo cambia por el nombre de su tabla
             System.out.println("resultado: " + resultado);
             if (resultado == 1) {
                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
@@ -838,27 +585,15 @@ public class ControlErroresLiquidacion implements Serializable {
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
-      index = -1;
+      errorLiquSeleccionado = null;
    }
 
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<ErroresLiquidacion> getListErroresLiquidacion() {
       if (listErroresLiquidacion == null) {
          System.out.println("ControlErroresLiquidacion getListErroresLiquidacion");
-         listErroresLiquidacion = administrarErroresLiquidacion.consultarErroresLiquidacionEmpleado(secuenciaEmpleado);
+         listErroresLiquidacion = administrarErroresLiquidacion.consultarErroresLiquidacion();
       }
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (listErroresLiquidacion == null || listErroresLiquidacion.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-         borrarTodo = true;
-      } else {
-         infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-         borrarTodo = false;
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:BORRARTODO");
-
       return listErroresLiquidacion;
    }
 
@@ -874,28 +609,12 @@ public class ControlErroresLiquidacion implements Serializable {
       this.filtrarErroresLiquidacion = filtrarErroresLiquidacion;
    }
 
-   public ErroresLiquidacion getNuevoErroresLiquidacion() {
-      return nuevoErroresLiquidacion;
-   }
-
-   public void setNuevoErroresLiquidacion(ErroresLiquidacion nuevoErroresLiquidacion) {
-      this.nuevoErroresLiquidacion = nuevoErroresLiquidacion;
-   }
-
    public ErroresLiquidacion getEditarErroresLiquidacion() {
       return editarErroresLiquidacion;
    }
 
    public void setEditarErroresLiquidacion(ErroresLiquidacion editarErroresLiquidacion) {
       this.editarErroresLiquidacion = editarErroresLiquidacion;
-   }
-
-   public BigInteger getSecRegistro() {
-      return secRegistro;
-   }
-
-   public void setSecRegistro(BigInteger secRegistro) {
-      this.secRegistro = secRegistro;
    }
 
    public boolean isGuardado() {
@@ -914,22 +633,32 @@ public class ControlErroresLiquidacion implements Serializable {
       this.tamano = tamano;
    }
 
+   public int getTamanoReg() {
+      return tamanoReg;
+   }
+
+   public void setTamanoReg(int tamanoReg) {
+      this.tamanoReg = tamanoReg;
+   }
+
    public ErroresLiquidacion getErroresLiquidacionSeleccionado() {
-      return erroresLiquidacionesSeleccionado;
+      return errorLiquSeleccionado;
    }
 
    public void setErroresLiquidacionSeleccionado(ErroresLiquidacion clasesPensionesSeleccionado) {
-      this.erroresLiquidacionesSeleccionado = clasesPensionesSeleccionado;
+      this.errorLiquSeleccionado = clasesPensionesSeleccionado;
    }
 
    public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosErroresLiquidacion");
+      infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
 
    public void setInfoRegistro(String infoRegistro) {
       this.infoRegistro = infoRegistro;
    }
-   private String infoRegistroEmpleados;
 
    public boolean isAceptar() {
       return aceptar;
