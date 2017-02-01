@@ -68,6 +68,7 @@ public class ControlTiposIndicadores implements Serializable {
     private String backUpDescripcion;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private boolean activarLov;
 
     public ControlTiposIndicadores() {
         listTiposIndicadores = null;
@@ -81,6 +82,7 @@ public class ControlTiposIndicadores implements Serializable {
         guardado = true;
         tamano = 270;
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     @PostConstruct
@@ -291,75 +293,18 @@ public class ControlTiposIndicadores implements Serializable {
         }
     }
 
-    public void modificarTiposIndicadores(TiposIndicadores tipo, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
+    public void modificarTiposIndicadores(TiposIndicadores tipo) {
         tiposindicadoresSeleccionado = tipo;
-
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
-                    if (modificarTiposIndicadores.isEmpty()) {
-                        modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
-                    } else if (!modificarTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
-                        modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    if (tiposindicadoresSeleccionado.getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        tiposindicadoresSeleccionado.setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listTiposIndicadores.size(); j++) {
-                            if (tiposindicadoresSeleccionado.getCodigo() == listTiposIndicadores.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        tiposindicadoresSeleccionado.setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                }
-                if (tiposindicadoresSeleccionado.getDescripcion().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposindicadoresSeleccionado.setDescripcion(backUpDescripcion);
-                }
-                if (tiposindicadoresSeleccionado.getDescripcion().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposindicadoresSeleccionado.setDescripcion(backUpDescripcion);
-                }
-
-                if (banderita == true) {
-
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
+        if (!crearTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
+            if (modificarTiposIndicadores.isEmpty()) {
+                modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
+            } else if (!modificarTiposIndicadores.contains(tiposindicadoresSeleccionado)) {
+                modificarTiposIndicadores.add(tiposindicadoresSeleccionado);
             }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosTiposIndicadores");
-        RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void borrandoTiposIndicadores() {
@@ -499,43 +444,30 @@ public class ControlTiposIndicadores implements Serializable {
     }
 
     public void agregarNuevoTiposIndicadores() {
-        System.out.println("agregarNuevoTiposIndicadores");
         int contador = 0;
         int duplicados = 0;
 
         Integer a = 0;
         a = null;
         mensajeValidacion = " ";
-        RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoTiposIndicadores.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposIndicadores.getCodigo());
-
             for (int x = 0; x < listTiposIndicadores.size(); x++) {
                 if (listTiposIndicadores.get(x).getCodigo() == nuevoTiposIndicadores.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                 mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoTiposIndicadores.getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else if (nuevoTiposIndicadores.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
@@ -555,8 +487,6 @@ public class ControlTiposIndicadores implements Serializable {
                 filtrarTiposIndicadores = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoTiposIndicadores.setSecuencia(l);
@@ -580,14 +510,11 @@ public class ControlTiposIndicadores implements Serializable {
     }
 
     public void limpiarNuevoTiposIndicadores() {
-        System.out.println("limpiarNuevoTiposIndicadores");
         nuevoTiposIndicadores = new TiposIndicadores();
 
     }
 
-    //------------------------------------------------------------------------------
     public void duplicandoTiposIndicadores() {
-        System.out.println("duplicandoTiposIndicadores");
         if (tiposindicadoresSeleccionado != null) {
             duplicarTiposIndicadores = new TiposIndicadores();
             k++;
@@ -620,8 +547,7 @@ public class ControlTiposIndicadores implements Serializable {
         a = null;
 
         if (duplicarTiposIndicadores.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposIndicadores.size(); x++) {
                 if (listTiposIndicadores.get(x).getCodigo() == duplicarTiposIndicadores.getCodigo()) {
@@ -629,32 +555,22 @@ public class ControlTiposIndicadores implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "Existe un registro con el código ingresado. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarTiposIndicadores.getDescripcion() == null) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else if (duplicarTiposIndicadores.getDescripcion().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Descripcion \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = " Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("bandera");
             contador++;
 
         }
 
         if (contador == 2) {
-            if (crearTiposIndicadores.contains(duplicarTiposIndicadores)) {
-                System.out.println("Ya lo contengo.");
-            }
             listTiposIndicadores.add(duplicarTiposIndicadores);
             crearTiposIndicadores.add(duplicarTiposIndicadores);
             tiposindicadoresSeleccionado = duplicarTiposIndicadores;
@@ -697,8 +613,6 @@ public class ControlTiposIndicadores implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSINDICADORES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tiposindicadoresSeleccionado = null;
-        tiposindicadoresSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -707,8 +621,6 @@ public class ControlTiposIndicadores implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSINDICADORES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tiposindicadoresSeleccionado = null;
-        tiposindicadoresSeleccionado = null;
     }
 
     public void verificarRastro() {
@@ -737,19 +649,14 @@ public class ControlTiposIndicadores implements Serializable {
     }
 
     public void eventoFiltrar() {
-        try {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
             contarRegistros();
-        } catch (Exception e) {
-            System.out.println("ERROR ControlTiposIndicadores eventoFiltrar ERROR===" + e.getMessage());
-        }
     }
 
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
     }
 
     //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
@@ -848,4 +755,11 @@ public class ControlTiposIndicadores implements Serializable {
         this.infoRegistro = infoRegistro;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
 }

@@ -81,8 +81,7 @@
                                          rowKey="#{info.secuencia}" rowIndexVar="indice"                           
                                          scrollable="true"  scrollWidth="830" filteredValue="#{controlSoAntecedentes.listAntecedentesFiltrar}"
                                          scrollHeight="#{controlSoAntecedentes.altoTabla}" style="border: 1px;width: 830px"
-                                         emptyMessage="#{msg['vacio']}" widgetVar="datosAntecedentes"
-                                         editable="true" editMode="cell"
+                                         emptyMessage="#{msg['vacio']}" editable="true" editMode="cell"
                                          selection="#{controlSoAntecedentes.antecedenteSeleccionado}" selectionMode="single">
                                 <p:ajax event="filter" listener="#{controlSoAntecedentes.eventoFiltrar()}"/>
                                 

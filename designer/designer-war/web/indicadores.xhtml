@@ -102,7 +102,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.codigo}" maxlength="4" id="eCodigo" style="height: 12px;  border-radius: 0px; width: 400px; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 0)}" process="@this"
                                             onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
-                                    <p:ajax event="change" listener="#{controlIndicadores.modificarIndicador(info, 'N', info.codigo)}"  update="eCodigo"/>
+                                    <p:ajax event="change" listener="#{controlIndicadores.modificarIndicador(info)}"  update="eCodigo"/>
                                  </p:inputText>
                               </f:facet> 
                            </p:cellEditor>
@@ -118,7 +118,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.descripcion}" maxlength="50" id="eNombre" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 1)}" process="@this"
                                             onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
-                                    <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info, 'N', info.descripcion)}" update="eNombre"/>
+                                    <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info)}" update="eNombre"/>
                                  </p:inputText>
                               </f:facet> 
                            </p:cellEditor>
@@ -133,7 +133,7 @@
                                  <p:inputText  autocomplete="off"  value="#{info.tipoindicador.descripcion}" maxlength="50" id="eTipo" style="height: 12px;  border-radius: 0px; width: 99%; text-transform: uppercase"  > 
                                     <p:ajax event="select" listener="#{controlIndicadores.cambiarIndice(info, 2)}" process="@this"
                                             onstart="PF('datosIndicadores').unselectAllRows();PF('datosIndicadores').selectRow(#{indice});" /> 
-                                    <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info, 'N', info.tipoindicador.descripcion)}" update="eTipo"/>
+                                    <p:ajax event="change"  listener="#{controlIndicadores.modificarIndicador(info)}" update="eTipo"/>
                                     <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 0)}"/>
                                  </p:inputText>
                               </f:facet> 
@@ -159,59 +159,61 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                   <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();"
-                                   style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check">
+                                   style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check">
                      <f:actionListener binding="#{controlIndicadores.navegar('atras')}" />
                      <f:actionListener binding="#{controlIndicadores.guardarIndicador()}" />
                   </p:commandButton>
                   <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();"
-                                   style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close">
+                                   style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close">
                      <f:actionListener binding="#{controlIndicadores.navegar('atras')}" />
                      <f:actionListener binding="#{controlIndicadores.cancelarModificacion()}" />
                   </p:commandButton>
-                  <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
 
-               <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+               <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="Se han borrado #{controlIndicadores.registroBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="validacionNuevoIndicador" header="#{msg['atencion']}" widgetVar="validacionNuevoIndicador"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                  <h:outputText value="Para agregar es necesario adicionar: #{controlIndicadores.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                  <p:commandButton value="Aceptar" onclick="PF('validacionNuevoIndicador').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+                  <h:outputText value="#{controlIndicadores.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                  <p:commandButton value="Aceptar" icon="ui-icon-check" onclick="PF('validacionNuevoIndicador').hide();" style="position: absolute; top: 60px; left: 260px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'TiposCursos', 'tipocurso')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+                  <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'TiposCursos', 'tipocurso')}" 
+                                   style="position: absolute; top: 65px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Indicadores', 'indicadores')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Indicadores', 'indicadores')}" style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close" />
                </p:dialog>
 
                <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
                <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'Indicadores', 'indicadores')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlIndicadores.indicadorSeleccionado.secuencia, 'Indicadores', 'indicadores')}" 
+                                   style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
                </p:dialog>
 
                <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285" style="" closable="true">  
@@ -221,33 +223,33 @@
 
                <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275" style="" closable="true">  
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275" style="" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="100" width="400px;"  closable ="false">  
+               <p:dialog id="existeCodigo" header="#{msg['error']}" widgetVar="existeCodigo"  resizable="false" draggable="true" modal="true" height="70" width="400"  closable ="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 20px; width: 300px; font-weight:bold;" />
-                  <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                  <h:outputText value="El código digitado ya está en uso. Por favor, ingrese otro código." style="position: absolute; left: 70px; top: 10px; width: 300px; font-weight:bold;" />
+                  <p:commandButton value="Aceptar" onclick="PF('existeCodigo').hide();" icon="ui-icon-check" style="position: absolute; top: 40px; left: 260px;" process="@this" />
                </p:dialog>
 
-               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editCodigo" header="Código" widgetVar="editCodigo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlIndicadores.editarIndicador.codigo}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editDescripcion" header="Descripcion" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editDescripcion" header="Descripción" widgetVar="editDescripcion" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlIndicadores.editarIndicador.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="editTipo" header="Descripcion" widgetVar="editTipo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
+               <p:dialog id="editTipo" header="Tipo" widgetVar="editTipo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                   <p:inputTextarea value="#{controlIndicadores.editarIndicador.tipoindicador.descripcion}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
 
-               <p:dialog id="nuevoRegistroIndicadores" header="Nuevo Registro" widgetVar="nuevoRegistroIndicadores" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="320" style=" padding: 0px">  
+               <p:dialog id="nuevoRegistroIndicadores" header="Nuevo Registro" widgetVar="nuevoRegistroIndicadores" closable="false" resizable="false"  draggable="true" modal="true" height="220" width="350" style=" padding: 0px">  
                   <center><strong><h:outputText value="Nuevo Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
                   <p:panel id="nuevoTipoIndicador" style="border: none;">
                      <strong><h:outputText value="*#{msg['codigo']}:"  style="position: absolute; top: 60px;" /></strong>
@@ -268,15 +270,15 @@
                         <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 1)}" />
                      </p:inputText>
                      <p:watermark for="nuevoTipo" value="#{msg['tipo']}" />
-                     <p:commandButton style="position: absolute; left: 331px; top: 115px;" class="cssBotonLovDialogos"  id="btnAgregarTipoIndicador" value="" process="@this"  actionListener="#{controlIndicadores.asignarIndex(info, 1, 1)}"/>
+                     <p:commandButton style="position: absolute; left: 300px; top: 118px;" class="cssBotonLovDialogos"  id="btnAgregarTipoIndicador" value="" process="@this"  actionListener="#{controlIndicadores.asignarIndex(info, 1, 1)}"/>
 
-                     <p:commandButton id="limpiarDI" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlIndicadores.limpiarNuevoIndicador()}" update="nuevoTipoIndicador" process="@this"/>
-                     <p:commandButton id="agregarDI" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlIndicadores.agregarNuevoIndicador()}" process="@this" />
-                     <p:commandButton id="cancelarDI" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="nuevoTipoIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarNuevoIndicador()}"  process="@this"/>
+                     <p:commandButton id="limpiarDI" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 170px;"  actionListener="#{controlIndicadores.limpiarNuevoIndicador()}" update="nuevoTipoIndicador" process="@this"/>
+                     <p:commandButton id="agregarDI" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 135px; top: 170px;" actionListener="#{controlIndicadores.agregarNuevoIndicador()}" process="@this" />
+                     <p:commandButton id="cancelarDI" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 235px; top: 170px;"  update="nuevoTipoIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarNuevoIndicador()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
-               <p:dialog id="duplicarRegistroIndicadores" header="Nuevo Registro" widgetVar="duplicarRegistroIndicadores" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="320" style=" padding: 0px">  
+               <p:dialog id="duplicarRegistroIndicadores" header="Duplicar Registro" widgetVar="duplicarRegistroIndicadores" closable="false" resizable="false"  draggable="true" modal="true" height="220" width="350" style=" padding: 0px">  
                   <center><strong><h:outputText value="Nuevo Tipo Curso" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                   <p:panel id="duplicarIndicador" style="border: none;">
@@ -299,16 +301,16 @@
                         <p:ajax event="dblclick" listener="#{controlIndicadores.asignarIndex(info, 1, 2)}" />
                      </p:inputText>
                      <p:watermark for="duplicarTipo" value="#{msg['tipo']}" />
-                     <p:commandButton style="position: absolute; left: 331px; top: 115px;" class="cssBotonLovDialogos"  id="btnDuplicarAdiestramientoF" value="" process="@this"  actionListener="#{controlIndicadores.asignarIndex(info, 1, 2)}"/>
+                     <p:commandButton style="position: absolute; left: 300px; top: 118px;" class="cssBotonLovDialogos"  id="btnDuplicarAdiestramientoF" value="" process="@this"  actionListener="#{controlIndicadores.asignarIndex(info, 1, 2)}"/>
 
-                     <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 150px;"  actionListener="#{controlIndicadores.limpiarDuplicar()}" update="duplicarIndicador" process="@this"/>
-                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 110px; top: 150px;" actionListener="#{controlIndicadores.confirmarDuplicar()}" process="@this" />
-                     <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 210px; top: 150px;"  update="duplicarIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarDuplicar()}"  process="@this"/>
+                     <p:commandButton id="limpiar" icon="ui-icon-trash" value="Limpiar" style=" position: absolute; left: 10px; top: 170px;"  actionListener="#{controlIndicadores.limpiarDuplicar()}" update="duplicarIndicador" process="@this"/>
+                     <p:commandButton id="agregarTE" icon="ui-icon-circle-check" value="Agregar" style=" position: absolute; left: 135px; top: 170px;" actionListener="#{controlIndicadores.confirmarDuplicar()}" process="@this" />
+                     <p:commandButton id="cancelarTE" icon="ui-icon-circle-close" value="Cancelar" style=" position: absolute; left: 235px; top: 170px;"  update="duplicarIndicador" onclick="PF('nuevoRegistroIndicadores').hide();"  actionListener="#{controlIndicadores.limpiarDuplicar()}"  process="@this"/>
                   </p:panel>
                </p:dialog>
 
                <p:dialog header="#{msg['tipo']}" widgetVar="tiposIndicadoresDialogo" draggable="true" resizable="false" closable="false" id="tiposIndicadoresDialogo"  
-                         showEffect="fade" hideEffect="fade" width="431" modal="true">
+                         showEffect="fade" hideEffect="fade" width="445" modal="true">
                   <p:dataTable id="lovTipoIndicador"  var="indicador" value="#{controlIndicadores.lovTiposIndicadores}" rowKey="#{indicador.secuencia}"
                                selection="#{controlIndicadores.tipoIndicadorSeleccionado}" selectionMode="single" widgetVar="lovTipoIndicador" scrollable="true" scrollWidth="415" scrollHeight="250"
                                filteredValue="#{controlIndicadores.filtrarLovTiposIndicadores}" emptyMessage="#{msg['lovvacio']}">   
@@ -320,7 +322,7 @@
                         <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoIndicador').filter();" class="cssFiltroLOV" />  
                      </f:facet>
 
-                     <p:column filterBy="#{indicador.codigo}" filterMatchMode="contains" filterStyle="width:80%">
+                     <p:column filterBy="#{indicador.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                         <f:facet name="header">
                            <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                         </f:facet>
@@ -343,8 +345,6 @@
                                       actionListener="#{controlIndicadores.cancelarCambioTipoIndicador()}"   process="@this"/>
                   </div>
                </p:dialog>   
-
-
             </h:form>  
 
             <h:form id="formExportar">

@@ -122,7 +122,6 @@ public class ControlTiposTelefonos implements Serializable {
         if (listaTiposTelefonos != null) {
             tipoTelefonoSeleccionado = listaTiposTelefonos.get(0);
         }
-        contarRegistros();
     }
 
     public void recibirParametros(Map<String, Object> map) {

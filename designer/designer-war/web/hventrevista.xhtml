@@ -63,7 +63,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value=""   style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlHvEntrevistas.salir()}" action="hvEntrevistaAtras"  process="@this"/>  
+                                <p:commandButton id="salir" value=""   style="background-image: url(Imagenes/Iconos/salir.png) " actionListener="#{controlHvEntrevistas.salir()}" action="empleadoindividual"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -116,7 +116,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.nombre}" id="editarNombre" style="  border-radius: 0px;width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 1)}" process="@this"
                                                        onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info, 'N', info.nombre)}" update="nombre"/>
+                                                <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info)}" update="nombre"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -129,7 +129,7 @@
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.tipo}"  /></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu style="width: 210px;" value="#{info.tipo}" id="menuTipoEntrevista" 
+                                            <p:selectOneMenu style="width: 198px;" value="#{info.tipo}" id="menuTipoEntrevista" 
                                                              onblur="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});"
                                                              onfocus="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="INDIVIDUAL" itemValue="INDIVIDUAL" />  
@@ -150,7 +150,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.puntaje}" id="editarPuntaje" style=" border-radius: 0px; width: 420px; text-transform: uppercase"  > 
                                                 <p:ajax event="select" listener="#{controlHvEntrevistas.cambiarIndice(info, 3)}" process="@this"
                                                         onstart="PF('datosHvEntrevista').unselectAllRows();PF('datosHvEntrevista').selectRow(#{indice});" /> 
-                                                <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info, 'N', info.puntaje)}" update="puntaje"/>
+                                                <p:ajax event="change"  listener="#{controlHvEntrevistas.modificarHvEntrevista(info)}" update="puntaje"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -163,23 +163,23 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" "  actionListener="#{controlHvEntrevistas.revisarDialogoGuardar()}" disabled="#{controlHvEntrevistas.guardado}" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  action="hvEntrevistaAtras"  actionListener="#{controlHvEntrevistas.salir()}" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  action="empleadoindividual"  actionListener="#{controlHvEntrevistas.salir()}" process="@this" />
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
                             <p:commandButton value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHvEntrevistas.guardarSalir()}" style="position: absolute; top: 50px; left: 125px;" process="@this"
-                                             icon="ui-icon-check" action="hvEntrevistaAtras" />
+                                             icon="ui-icon-check" action="empleadoindividual" />
                             <p:commandButton value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHvEntrevistas.cancelarSalir()}" style="position: absolute; top: 50px; left: 190px;" process="@this"
-                                             icon="ui-icon-close" action="hvEntrevistaAtras" />
+                                             icon="ui-icon-close" action="empleadoindividual" />
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
                     </p:panel>
 
                     <p:dialog id="validacionDuplicarVigencia" header="#{msg['atencion']}" widgetVar="validacionDuplicarVigencia"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Necesita : #{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 50px; left: 270px;" process="@this" icon="ui-icon-check" />
+                        <h:outputText value="#{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionDuplicarVigencia').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
                     <p:dialog id="validacionBorrar" header="#{msg['error']}" widgetVar="validacionBorrar"  resizable="false" draggable="true" modal="true" height="77" width="400" style="" closable="false">  
@@ -188,7 +188,7 @@
                         <p:commandButton value="Aceptar" onclick="PF('validacionBorrar').hide();" style="position: absolute; top: 40px; left: 270px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
 
-                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="280" style="" closable="false">  
+                    <p:dialog id="mostrarBorrados" header="#{msg['atencion']}" widgetVar="mostrarBorrados"  resizable="false" draggable="true" modal="true" height="87" width="300" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="Se han borrado #{controlHvEntrevistas.registrosBorrados}  Registros" style="position: absolute; left: 90px; top: 15px; width: 180px; font-weight:bold" />
                         <p:commandButton value="Aceptar" onclick="PF('mostrarBorrados').hide();" style="position: absolute; top: 50px; left: 180px;" process="@this" icon="ui-icon-check" />
@@ -196,8 +196,8 @@
 
                     <p:dialog id="validacionNuevaEntrevista" header="#{msg['atencion']}" widgetVar="validacionNuevaEntrevista"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="70" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="Para agregar es necesario adicionar: #{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
-                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaEntrevista').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" icon="ui-icon-check" />
+                        <h:outputText value="#{controlHvEntrevistas.mensajeValidacion}" style="position: absolute; left: 90px; top: 20px; width: 280px; font-weight:bold" />
+                        <p:commandButton value="Aceptar" onclick="PF('validacionNuevaEntrevista').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-check" />
                     </p:dialog>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlHvEntrevistas.activarCtrlF11()}"/> 
                 </h:form>
@@ -207,7 +207,7 @@
                     <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}"
+                        <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.hvEntrevistaSeleccionada.secuencia,'HvEntrevistas', 'hventrevista')}"
                                          style="position: absolute; top: 63px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close" />
                     </p:dialog>
@@ -232,8 +232,8 @@
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.secRegistro,'HvEntrevistas', 'hventrevista')}"
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.hvEntrevistaSeleccionada.secuencia,'HvEntrevistas', 'hventrevista')}"
                                          style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"  icon="ui-icon-close"/>
                     </p:dialog>
@@ -253,12 +253,10 @@
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-
-
-                    <p:dialog id="editarFecha" header="#{msg['fecha']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="position: absolute; top: 10px;  padding: 0px">  
-                        <p:inputText  autocomplete="off"  value="#{controlHvEntrevistas.editarHvEntrevista.fecha}" style="overflow: auto;" readonly="true">  
+                    <p:dialog id="editarFecha" header="#{msg['fecha']}" widgetVar="editarFecha" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar">  
+                        <p:inputTextarea  value="#{controlHvEntrevistas.editarHvEntrevista.fecha}" style="overflow: auto;" readonly="true">  
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputText>
+                        </p:inputTextarea>
                     </p:dialog>
 
                     <p:dialog id="editNombre" header="#{msg['nombre']}" widgetVar="editNombre" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="text-transform: uppercase">  
@@ -271,14 +269,12 @@
                         <p:inputTextarea value="#{controlHvEntrevistas.editarHvEntrevista.puntaje}" style="overflow: auto; width: 225px; height: 40px;" readonly="true"/>
                     </p:dialog>
 
-
-
                     <p:dialog id="nuevoRegistroEvalEmpresas" header="Nuevo Registro" widgetVar="nuevoRegistroEvalEmpresas" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacion" value="Ingresar Nueva Entrevista" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="nuevaaEvalEmpresa" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['fecha']}: "  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fecha']}: "  style=" position: absolute; top: 60px; left: 18px;" /></strong>
                             <div  id="nuevaFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFecha" value="#{controlHvEntrevistas.nuevoHvEntrevista.fecha}" >
                                     <p:ajax event="dateSelect" update="nuevaFecha"/>
@@ -287,14 +283,14 @@
                             </div>
                             <p:watermark for="nuevaFecha" value="#{msg['fecha']}" />
                             
-                            <strong><h:outputText value="*#{msg['nombre']}: "  style=" position: absolute; top: 90px;" /></strong>
+                            <strong><h:outputText value="*#{msg['nombre']}: "  style=" position: absolute; top: 90px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"   id="nuevoNombre" maxlength="200" value="#{controlHvEntrevistas.nuevoHvEntrevista.nombre}" style=" width: 140px; position: absolute; left: 160px; top: 85px;text-transform: uppercase">
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="nuevoNombre" value="#{msg['nombre']}" />
 
                             <strong><h:outputText value="#{msg['tipo']}: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:selectOneMenu style="width: 150px; position: absolute; top: 115px;left: 160px;" value="#{controlHvEntrevistas.nuevoHvEntrevista.tipo}" id="nuevoTipoEntrevista" >  
+                            <p:selectOneMenu style="width: 65px; position: absolute; top: 115px;left: 160px;" value="#{controlHvEntrevistas.nuevoHvEntrevista.tipo}" id="nuevoTipoEntrevista" >  
                                 <f:selectItem itemLabel="INDIVIDUAL" itemValue="INDIVIDUAL" />  
                                 <f:selectItem itemLabel="GRUPAL" itemValue="GRUPAL" />  
                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarNuevo()}" process="@this"/>
@@ -312,13 +308,11 @@
                         </p:panel>
                     </p:dialog>
 
-
-
                     <p:dialog id="duplicarRegistroEvalCompetencias" header="duplicar Registro" widgetVar="duplicarRegistroEvalCompetencias" closable="false" resizable="false"  draggable="true" modal="true" height="210" width="340" style=" padding: 0px">  
                         <center><strong><h:outputText id="informacionDuplicar" value="Duplicar Competencia" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
                         <p:panel id="duplicarEvC" style="border: none;">
-                            <strong><h:outputText value="*#{msg['fecha']}:"  style=" position: absolute; top: 60px;" /></strong>
+                            <strong><h:outputText value="*#{msg['fecha']}:"  style=" position: absolute; top: 60px; left: 18px;" /></strong>
                             <div  id="duplicarFechaa" style="width: 150px; position: absolute; top: 55px; left: 160px;">
                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFecha" value="#{controlHvEntrevistas.duplicarHvEntrevista.fecha}" >
                                     <p:ajax event="dateSelect" update="duplicarFecha"/>
@@ -326,14 +320,14 @@
                                 </p:calendar>
                             </div>
 
-                            <strong><h:outputText value="*#{msg['nombre']}:"  style=" position: absolute; top: 90px;" /></strong>
+                            <strong><h:outputText value="*#{msg['nombre']}:"  style=" position: absolute; top: 90px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarNombre" maxlength="200" value="#{controlHvEntrevistas.duplicarHvEntrevista.nombre}"  style=" width: 140px; position: absolute; left: 160px; top: 85px;" >
                                 <p:ajax event="change" update="@this"/>
                             </p:inputText>
                             <p:watermark for="duplicarNombre" value="#{msg['nombre']}" />
 
                             <strong><h:outputText value="#{msg['tipo']}: "  style=" position: absolute; top: 120px;" /></strong>
-                            <p:selectOneMenu style="width: 150px; position: absolute; top: 115px;left: 160px;" value="#{controlHvEntrevistas.duplicarHvEntrevista.tipo}" id="duplicarTipoEntrevista" >  
+                            <p:selectOneMenu style="width: 65px; position: absolute; top: 115px;left: 160px;" value="#{controlHvEntrevistas.duplicarHvEntrevista.tipo}" id="duplicarTipoEntrevista" >  
                                 <f:selectItem itemLabel="INDIVIDUAL" itemValue="INDIVIDUAL" />  
                                 <f:selectItem itemLabel="GRUPAL" itemValue="GRUPAL" />  
                                 <p:ajax event="change" listener="#{controlHvEntrevistas.mostrarNuevo()}" process="@this"/>

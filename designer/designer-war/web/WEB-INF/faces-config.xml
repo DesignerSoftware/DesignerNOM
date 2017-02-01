@@ -3742,7 +3742,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>vigenciasIndicadores</from-outcome>
+         <from-outcome>emplvigenciaindicador</from-outcome>
          <to-view-id>/emplvigenciaindicador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4618,7 +4618,7 @@
    <navigation-rule>
       <from-view-id>/empleadoindividual.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>hvEntrevista</from-outcome>
+         <from-outcome>hventrevista</from-outcome>
          <to-view-id>/hventrevista.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4626,7 +4626,7 @@
    <navigation-rule>
       <from-view-id>/hventrevista.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>hvEntrevistaAtras</from-outcome>
+         <from-outcome>empleadoindividual</from-outcome>
          <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5379,7 +5379,7 @@
    <navigation-rule>
       <from-view-id>/tipoindicador.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrastipoindicador</from-outcome>
+         <from-outcome>emplvigenciaindicador</from-outcome>
          <to-view-id>/emplvigenciaindicador.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6963,6 +6963,14 @@
       <navigation-case>
          <from-outcome>tiposfamiliares</from-outcome>
          <to-view-id>/tipofamiliar.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/tipofamiliar.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplfamiliares</from-outcome>
+         <to-view-id>/emplfamiliares.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>

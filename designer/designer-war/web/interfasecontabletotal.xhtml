@@ -297,6 +297,7 @@
                                              color: white; background-size: 100% 100%; background-repeat: no-repeat; text-align: center; border: none;" icon="ui-icon-arrowreturnthick-1-s"  onclick="PF('procesoDeshacer').show()"/>
 
                             <p:commandButton id="reporteControl"   value="R. Control" actionListener="#{controlInterfaseContableTotal.validarDescargaReporte()}"  icon="ui-icon-arrowreturnthick-1-s"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
                                              style="position: relative; top: 5px; left: 14px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}" />
@@ -487,8 +488,9 @@
                         </p:selectOneMenu>
 
                         <p:commandButton style="position: relative; left: 295px; top: 425px;text-align: center; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="PLANO" value="#{msg['generarPlano']}" disabled="#{controlInterfaseContableTotal.activarDeshacer}"
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="PLANO" value="#{msg['generarPlano']}" 
                                          actionListener="#{controlInterfaseContableTotal.actionBtnGenerarPlano()}" process="@this" icon="ui-icon-arrowreturnthick-1-s" />
+                        <!--disabled="#{controlInterfaseContableTotal.activarDeshacer}"-->
                         <p:commandButton style="position: relative; left: 315px; top: 425px; color: red;text-align: center; height: 30px; width: 140px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="CERRAR" value="Cerrar P.C." icon="ui-icon-arrowreturnthick-1-s"
                                          actionListener="#{controlInterfaseContableTotal.inicioCerrarPeriodoContable()}" process="@this" />
@@ -503,7 +505,7 @@
 
 
                         <p:dialog header="#{msg['procesoM']}" widgetVar="ProcesoDialogo" draggable="true" resizable="false" closable="false" id="ProcesoDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="475" modal="true" >
                             <p:dataTable id="lovProceso" style=" width: 430px" var="proceso" value="#{controlInterfaseContableTotal.lovProcesos}" rowKey="#{proceso.secuencia}"
                                          selection="#{controlInterfaseContableTotal.procesoSeleccionado}" selectionMode="single" widgetVar="lovProceso" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovProcesos}" emptyMessage="#{msg['lovvacio']}">              
@@ -514,13 +516,13 @@
                                     <h:outputText value="#{msg['buscarP']}" />  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovProceso').filter();" class="cssFiltroLOV" />  
                                 </f:facet>
-                                <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                                <p:column filterBy="#{proceso.descripcion}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['descripcion']}" />
                                     </f:facet>
                                     <h:outputText value="#{proceso.descripcion}" />
                                 </p:column>
-                                <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
+                                <p:column filterBy="#{proceso.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                     </f:facet>
@@ -537,7 +539,7 @@
                         </p:dialog> 
 
                         <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="465" modal="true" >
+                                  showEffect="fade" hideEffect="fade" width="475" modal="true" >
                             <p:dataTable id="lovEmpresa" style=" width: 430px" var="empresa" value="#{controlInterfaseContableTotal.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                          selection="#{controlInterfaseContableTotal.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
                                          filteredValue="#{controlInterfaseContableTotal.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
@@ -548,13 +550,13 @@
                                     <h:outputText value="#{msg['buscarE']}" />  
                                     <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV"  />  
                                 </f:facet>
-                                <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                                <p:column filterBy="#{empresa.nombre}" width="200"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['nombre']}" />
                                     </f:facet>
                                     <h:outputText value="#{empresa.nombre}" />
                                 </p:column>
-                                <p:column filterBy="#{empresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 85% !important">
+                                <p:column filterBy="#{empresa.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                     <f:facet name="header">
                                         <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                     </f:facet>
@@ -616,9 +618,9 @@
 
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 70px; left: 175px" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px" process="@this" />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlInterfaseContableTotal.interconTablaSeleccionada.getSecuencia(), 'InterconTotal', 'interfaseRastro')}" style="position: absolute; top: 65px; left: 175px" action="rastrotabla" process="@this" />
+                        <p:commandButton value="#{msg['no']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px" process="@this" />
                     </p:dialog>
 
                     <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
@@ -933,7 +935,7 @@
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="PF('planoGeneradoOK').hide();" style="position: absolute; top: 130px; left: 232px" process="@this" />
+                        <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="PF('planoGeneradoOK').hide();" style="position: absolute; top: 118px; left: 232px" process="@this" />
                     </p:dialog>
 
                     <p:remoteCommand name="cerrarPaginaDescarga" actionListener="#{controlInterfaseContableTotal.cerrarPaginaDescarga()}"/>

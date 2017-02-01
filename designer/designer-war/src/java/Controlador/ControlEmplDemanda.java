@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -76,8 +77,8 @@ public class ControlEmplDemanda implements Serializable {
     private String altoTabla;
     private DataTable tablaC;
     private boolean activarLov;
-       private String paginaAnterior = "nominaf";
-   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>(); 
+    private String paginaAnterior = "nominaf";
+    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlEmplDemanda() {
         altoTabla = "280";
@@ -102,47 +103,47 @@ public class ControlEmplDemanda implements Serializable {
         nuevaDemandaEmpleado.setFecha(new Date());
         listDemandaEmpleadoCrear = new ArrayList<Demandas>();
         activarLov = true;
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+        mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-      
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
+
+    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
     public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "empldemanda";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "empldemanda";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            //mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -246,92 +247,16 @@ public class ControlEmplDemanda implements Serializable {
 
     public void modificarDemanda(Demandas demanda) {
         demandaTablaSeleccionada = demanda;
-        if (tipoLista == 0) {
-            if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
-                if (listDemandaEmpleadoModificar.isEmpty()) {
-                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
-                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        } else if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
+        if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
             if (listDemandaEmpleadoModificar.isEmpty()) {
                 listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
             } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
                 listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosDemanda");
         }
-        RequestContext.getCurrentInstance().update("form:datosDemanda");
-    }
-
-    public void modificarDemanda(Demandas demanda, String confirmarCambio, String valorConfirmar) {
-        demandaTablaSeleccionada = demanda;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("MOTIVOS")) {
-            if (tipoLista == 0) {
-                demandaTablaSeleccionada.getMotivo().setDescripcion(motivo);
-            } else {
-                demandaTablaSeleccionada.getMotivo().setDescripcion(motivo);
-            }
-            for (int i = 0; i < listMotivosDemandas.size(); i++) {
-                if (listMotivosDemandas.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    demandaTablaSeleccionada.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
-                } else {
-                    demandaTablaSeleccionada.setMotivo(listMotivosDemandas.get(indiceUnicoElemento));
-                }
-                listMotivosDemandas = null;
-                getListMotivosDemandas();
-            } else {
-                permitirIndexD = false;
-                RequestContext.getCurrentInstance().update("form:DemandaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('DemandaDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
-
-                    if (listDemandaEmpleadoModificar.isEmpty()) {
-                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                    } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
-                        listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!listDemandaEmpleadoCrear.contains(demandaTablaSeleccionada)) {
-
-                if (listDemandaEmpleadoModificar.isEmpty()) {
-                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                } else if (!listDemandaEmpleadoModificar.contains(demandaTablaSeleccionada)) {
-                    listDemandaEmpleadoModificar.add(demandaTablaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        }
-        RequestContext.getCurrentInstance().update("form:datosDemanda");
     }
 
     public void valoresBackupAutocompletarDemanda(int tipoNuevo, String Campo) {
@@ -572,7 +497,7 @@ public class ControlEmplDemanda implements Serializable {
 //                    listDemandasEmpleado = new ArrayList<Demandas>();
 //                }
                 listDemandaEmpleadoCrear.add(nuevaDemandaEmpleado);
-                if(listDemandasEmpleado == null){
+                if (listDemandasEmpleado == null) {
                     listDemandasEmpleado = new ArrayList<Demandas>();
                 }
                 listDemandasEmpleado.add(nuevaDemandaEmpleado);
@@ -897,9 +822,10 @@ public class ControlEmplDemanda implements Serializable {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    public void contarRegistrosMotivos(){
+    public void contarRegistrosMotivos() {
         RequestContext.getCurrentInstance().update("form:infoRegistroMotivo");
     }
+
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
@@ -930,8 +856,7 @@ public class ControlEmplDemanda implements Serializable {
             tablaC.setSelection(demandaTablaSeleccionada);
         }
     }
-    
-    
+
     public void habilitarBotonLov() {
         activarLov = false;
         RequestContext.getCurrentInstance().update("form:listaValores");
@@ -941,7 +866,7 @@ public class ControlEmplDemanda implements Serializable {
         activarLov = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
-    
+
     //GET - SET 
     public List<Demandas> getListDemandasEmpleado() {
         try {
@@ -1129,5 +1054,4 @@ public class ControlEmplDemanda implements Serializable {
         this.activarLov = activarLov;
     }
 
-    
 }

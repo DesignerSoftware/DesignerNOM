@@ -645,14 +645,11 @@ public class ControlFamiliares implements Serializable {
       l = BigDecimal.valueOf(k);
       nuevoFamiliar.setSecuencia(l);
       listaFamiliaresCrear.add(nuevoFamiliar);
-      System.out.println("el familiar nuevo es : " + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
       if (listaFamiliares == null) {
          listaFamiliares = new ArrayList<Familiares>();
       }
       listaFamiliares.add(nuevoFamiliar);
       familiarSeleccionado = nuevoFamiliar;
-      System.out.println("Persona  :" + nuevoFamiliar.getPersona().getNombreCompleto());
-      System.out.println("nuevo FAMILIAR :" + nuevoFamiliar.getPersonafamiliar().getNombreCompleto());
       getListaFamiliares();
       contarRegistros();
       deshabilitarBotonLov();
@@ -1348,7 +1345,6 @@ public class ControlFamiliares implements Serializable {
          k++;
          l = BigDecimal.valueOf(k);
          nuevaPersona.setSecuencia(l.toBigInteger());
-         System.out.println("nueva persona : " + nuevaPersona);
          administrarFamiliares.crearPersona(nuevaPersona);
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
          RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");

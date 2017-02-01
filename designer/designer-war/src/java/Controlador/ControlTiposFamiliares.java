@@ -647,41 +647,27 @@ public class ControlTiposFamiliares implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoTiposFamiliares.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoTiposFamiliares.getCodigo());
-
             for (int x = 0; x < listTiposFamiliares.size(); x++) {
                 if (listTiposFamiliares.get(x).getCodigo().equals(nuevoTiposFamiliares.getCodigo())) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = " *Existe un registro con el código ingresado, Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoTiposFamiliares.getTipo() == null) {
-            mensajeValidacion = mensajeValidacion + " *Parentesco \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else if (nuevoTiposFamiliares.getTipo().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Parentesco \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
-
         }
-
-        System.out.println("contador " + contador);
 
         if (contador == 2) {
             if (bandera == 1) {
@@ -697,7 +683,6 @@ public class ControlTiposFamiliares implements Serializable {
                 filtrarTiposFamiliares = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
 
             k++;
             l = BigInteger.valueOf(k);
@@ -764,12 +749,9 @@ public class ControlTiposFamiliares implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarTiposFamiliares.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarTiposFamiliares.getTipo());
 
         if (duplicarTiposFamiliares.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listTiposFamiliares.size(); x++) {
                 if (listTiposFamiliares.get(x).getCodigo().equals(duplicarTiposFamiliares.getCodigo())) {
@@ -777,34 +759,21 @@ public class ControlTiposFamiliares implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = " *Existe un registro con el código ingresado, Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarTiposFamiliares.getTipo() == null) {
-            mensajeValidacion = mensajeValidacion + " *Parentesco \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else if (duplicarTiposFamiliares.getTipo().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Parentesco \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
-
         }
-
         if (contador == 2) {
-
-            System.out.println("Datos Duplicando: " + duplicarTiposFamiliares.getSecuencia() + "  " + duplicarTiposFamiliares.getCodigo());
-            if (crearTiposFamiliares.contains(duplicarTiposFamiliares)) {
-                System.out.println("Ya lo contengo.");
-            }
             listTiposFamiliares.add(duplicarTiposFamiliares);
             crearTiposFamiliares.add(duplicarTiposFamiliares);
             tiposFamiliaresSeleccionado = duplicarTiposFamiliares;
@@ -846,8 +815,6 @@ public class ControlTiposFamiliares implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "TIPOSFAMILIARES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tiposFamiliaresSeleccionado = null;
-        tiposFamiliaresSeleccionado = null;
     }
 
     public void exportXLS() throws IOException {
@@ -856,18 +823,13 @@ public class ControlTiposFamiliares implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "TIPOSFAMILIARES", false, false, "UTF-8", null, null);
         context.responseComplete();
-        tiposFamiliaresSeleccionado = null;
-        tiposFamiliaresSeleccionado = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
         if (!listTiposFamiliares.isEmpty()) {
             if (tiposFamiliaresSeleccionado != null) {
-                System.out.println("lol 2");
                 int resultado = administrarRastros.obtenerTabla(tiposFamiliaresSeleccionado.getSecuencia(), "TIPOSFAMILIARES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
                 if (resultado == 1) {
                     RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
                 } else if (resultado == 2) {
@@ -887,7 +849,6 @@ public class ControlTiposFamiliares implements Serializable {
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        tiposFamiliaresSeleccionado = null;
     }
 
     public void eventoFiltrar() {
@@ -895,7 +856,6 @@ public class ControlTiposFamiliares implements Serializable {
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
             contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlTiposFamiliares eventoFiltrar ERROR===" + e.getMessage());
@@ -917,7 +877,6 @@ public class ControlTiposFamiliares implements Serializable {
     }
 
     public void recordarSeleccion() {
-
         if (tiposFamiliaresSeleccionado != null) {
             FacesContext c = FacesContext.getCurrentInstance();
             tablaC = (DataTable) c.getViewRoot().findComponent("form:datosTiposFamiliares");

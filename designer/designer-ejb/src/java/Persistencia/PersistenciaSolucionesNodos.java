@@ -711,7 +711,7 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
             String sql = "SELECT * FROM SolucionesNodos s WHERE EXISTS (SELECT 'X' FROM CONTABILIZACIONES C \n"
                     + "WHERE C.flag='GENERADO' AND C.fechageneracion \n"
-                    + "BETWEEN ? AND ?\n"
+                    + "BETWEEN ? AND ? \n"
                     + "AND c.solucionnodo = s.secuencia)\n"
                     + "AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso\n"
                     + "AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
@@ -724,28 +724,49 @@ public class PersistenciaSolucionesNodos implements PersistenciaSolucionesNodosI
 
             if (listSNodos != null) {
                 if (!listSNodos.isEmpty()) {
-                    System.out.println("resultado.size() : " + listSNodos.size());
-                    for (int i = 0; i < listSNodos.size(); i++) {
-                        em.clear();
-                        String stringSQLQuery = "SELECT sn.secuencia,\n"
-                                + "c.CODIGO CODIGOCONCEPTO,\n"
-                                + "c.DESCRIPCION NOMBRECONCEPTO,\n"
-                                + "(select NIT from TERCEROS WHERE SECUENCIA = " + listSNodos.get(i).getNittercero() + ") NITTERCERO,\n"
-                                + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentad() + ") CODIGOCUENTAD,\n"
-                                + "(select CODIGO from CUENTAS WHERE SECUENCIA = " + listSNodos.get(i).getCuentac() + ") CODIGOCUENTAC,\n"
-                                + "(select p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO from personas p, empleados e where e.persona = p.secuencia and e.secuencia = " + listSNodos.get(i).getEmpleado() + ") NOMBREEMPLEADO,\n"
-                                + "(select DESCRIPCION from PROCESOS WHERE SECUENCIA = " + listSNodos.get(i).getProceso() + ") NOMBREPROCESO \n"
-                                + "FROM SOLUCIONESNODOS sn, (select CODIGO,DESCRIPCION from conceptos where secuencia = " + listSNodos.get(i).getConcepto() + ") c \n"
-                                + "where sn.SECUENCIA = " + listSNodos.get(i).getSecuencia();
-                        Query query2 = em.createNativeQuery(stringSQLQuery, SolucionesNodosAux.class);
-                        SolucionesNodosAux sNAux = (SolucionesNodosAux) query2.getSingleResult();
-                        listSNodos.get(i).setCodigoconcepto(sNAux.getCodigoconcepto());
-                        listSNodos.get(i).setNombreconcepto(sNAux.getNombreconcepto());
-                        listSNodos.get(i).setNittercero(sNAux.getNittercero());
-                        listSNodos.get(i).setCodigocuentad(sNAux.getCodigocuentad());
-                        listSNodos.get(i).setCodigocuentac(sNAux.getCodigocuentac());
-                        listSNodos.get(i).setNombreempleado(sNAux.getNombreempleado());
-                        listSNodos.get(i).setNombreproceso(sNAux.getNombreproceso());
+                    System.out.println("listSNodos.size() : " + listSNodos.size());
+
+                    String sql2 = "SELECT S.SECUENCIA, C.CODIGO CODIGOCONCEPTO, C.DESCRIPCION NOMBRECONCEPTO, T.NIT NITTERCERO, CUD.CODIGO CODIGOCUENTAD, CUC.CODIGO CODIGOCUENTAC,\n"
+                            + "              p.PRIMERAPELLIDO||' '|| p.SEGUNDOAPELLIDO ||' '||p.NOMBRE NOMBREEMPLEADO, PRO.DESCRIPCION NOMBREPROCESO\n"
+                            + "              FROM SOLUCIONESNODOS S, CONCEPTOS C, TERCEROS T, CUENTAS CUD,  CUENTAS CUC, EMPLEADOS EM, PERSONAS P, PROCESOS PRO\n"
+                            + "              WHERE EXISTS (SELECT 'X' FROM contabilizaciones C\n"
+                            + "              where C.flag='GENERADO' and C.fechageneracion between ? and ? and c.solucionnodo = s.secuencia)\n"
+                            + "              AND  EXISTS (SELECT 'X' FROM  cortesprocesos cp , procesos p WHERE  cp.secuencia = s.corteproceso AND p.secuencia = cp.proceso AND CONTABILIZACION = 'S')\n"
+                            + "              and exists (select 'x' from empleados e where e.secuencia=s.empleado)\n"
+                            + "              and s.valor <> 0\n"
+                            + "              AND S.CONCEPTO = C.SECUENCIA\n"
+                            + "              AND S.NIT = T.SECUENCIA(+)\n"
+                            + "              AND S.CUENTAD = CUD.SECUENCIA\n"
+                            + "              AND S.CUENTAC = CUC.SECUENCIA\n"
+                            + "              AND S.EMPLEADO = EM.SECUENCIA\n"
+                            + "              AND EM.PERSONA = P.SECUENCIA\n"
+                            + "              AND S.PROCESO = PRO.SECUENCIA";
+                    em.clear();
+                    Query query2 = em.createNativeQuery(sql2, SolucionesNodosAux.class);
+                    query2.setParameter(1, fechaInicial);
+                    query2.setParameter(2, fechaFinal);
+                    List<SolucionesNodosAux> listSNodosAux = query2.getResultList();
+
+                    if (listSNodosAux != null) {
+                        if (!listSNodosAux.isEmpty()) {
+                            System.out.println("listSNodosAux.size() : " + listSNodosAux.size());
+
+                            for (int i = 0; i < listSNodos.size(); i++) {
+                                for (int j = 0; j < listSNodosAux.size(); j++) {
+                                    if (listSNodos.get(i).getSecuencia().equals(listSNodosAux.get(j).getSecuencia())) {
+                                        listSNodos.get(i).setCodigoconcepto(listSNodosAux.get(j).getCodigoconcepto());
+                                        listSNodos.get(i).setNombreconcepto(listSNodosAux.get(j).getNombreconcepto());
+                                        listSNodos.get(i).setNittercero(listSNodosAux.get(j).getNittercero());
+                                        listSNodos.get(i).setCodigocuentad(listSNodosAux.get(j).getCodigocuentad());
+                                        listSNodos.get(i).setCodigocuentac(listSNodosAux.get(j).getCodigocuentac());
+                                        listSNodos.get(i).setNombreempleado(listSNodosAux.get(j).getNombreempleado());
+                                        listSNodos.get(i).setNombreproceso(listSNodosAux.get(j).getNombreproceso());
+                                        listSNodosAux.remove(listSNodosAux.get(j));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

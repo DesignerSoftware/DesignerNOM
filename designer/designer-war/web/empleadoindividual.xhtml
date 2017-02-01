@@ -37,7 +37,7 @@
                                                  actionListener="#{controlEmpleadoIndividual.listaValoresBoton()}" process="@this"/> 
                                 <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" disabled="true" style="background-image: url(Imagenes/Iconos/embudo.png); border:none; "/>
+                                <p:commandButton id="filtrar" value="" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" style="background-image: url(Imagenes/Iconos/embudo.png); border:none; "/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px;" />
@@ -55,13 +55,13 @@
                                 <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
+                                <p:commandButton id="insertar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/delete.png); border:none; "/>  
+                                <p:commandButton id="eliminar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/delete.png); border:none; "/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border:none; "/>  
+                                <p:commandButton id="duplicar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border:none; "/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -99,7 +99,6 @@
 
                             <div id="secb" style="position: absolute; top: 0px; left: 0px; width: 711px; height: 23px; margin-top: 10px;">
 
-                                <!--  /////  Izquierda  //////  -->
                                 <h:outputText id="apellidosNombres" value="#{msg['primerapellido']}" 
                                               style="position: absolute; left: 10px; top: 5px; font-weight: bold; color: #14388B; width: 135px; text-align: right;" />
                                 <!-- <p:tooltip for="apellidosNombres" value="#{msg['primerapellidoTT']}"/> -->
@@ -498,15 +497,15 @@
                                 <p:inputText  autocomplete="off"  id="pruebasAplicadas" value="#{controlEmpleadoIndividual.pruebasAplicadasP}" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none;"/>
 
                                 <p:commandButton id="btnEntrevistas" value="" style="background-image: url(Imagenes/Iconos/entrevistas.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
-                                                 process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" oncomplete="#{controlHvEntrevistas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                                 process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" oncomplete="#{controlHvEntrevistas.recibirEmpleado('hventrevista',controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <h:commandLink value="#{msg['entrevistas']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 41px"
-                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" immediate="#{controlHvEntrevistas.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" />
+                                               actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('hventrevista')}" immediate="#{controlHvEntrevistas.recibirEmpleado('hventrevista',controlEmpleadoIndividual.empleado.secuencia)}" />
                                 <p:inputText  autocomplete="off"  id="entrevistas" value="#{controlEmpleadoIndividual.entrevistasP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnCensos" value="" style="background-image: url(Imagenes/Iconos/indicadorgestion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none;"
-                                                 process="@this" action="vigenciasIndicadores" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                                 process="@this" action="emplvigenciaindicador" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <h:commandLink value="#{msg['censos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 82px"
-                                               action="vigenciasIndicadores" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                                               action="emplvigenciaindicador" actionListener="#{controlEmplVigenciaIndicador.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                                 <p:inputText  autocomplete="off"  id="censos" value="#{controlEmpleadoIndividual.indicadoresP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                                 <p:commandButton id="btnDemandas" value="" style="background-image: url(Imagenes/Iconos/demanda.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;" 
