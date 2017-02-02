@@ -135,12 +135,7 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
     @Override
     public List<AportesEntidades> consultarAportesEntidadesPorParametroAutoliq(BigInteger empresa, short mes, short ano) {
         try {
-            System.out.println("Administrar.AdministrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq()");
-            System.out.println("consultarAportesEntidadesPorParametroAutoliq  empresa:" + empresa);
-            System.out.println("consultarAportesEntidadesPorParametroAutoliq mes "+ mes);
-            System.out.println("consultarAportesEntidadesPorParametroAutoliq ano " + ano);
             List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpresaMesYAnio(em, empresa, mes, ano);
-            System.out.println("ya tiene lista : " + lista.size());
             return lista;
         } catch (Exception e) {
             System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
@@ -359,6 +354,17 @@ public class AdministrarParametroAutoliq implements AdministrarParametroAutoliqI
             persistenciaAportesEntidades.ejecutarPKGActualizarNovedades(em, secuencia, mes, ano);
         } catch (Exception e) {
             System.out.println("Error ejecutarPKGActualizarNovedades Admi : " + e.toString());
+        }
+    }
+
+    @Override
+    public List<AportesEntidades> consultarAportesEntidadesPorEmpleado(BigInteger secEmpleado, short mes, short ano) {
+       try {
+            List<AportesEntidades> lista = persistenciaAportesEntidades.consultarAportesEntidadesPorEmpleado(em, secEmpleado, mes, ano);
+            return lista;
+        } catch (Exception e) {
+            System.out.println("Error consultarAportesEntidadesPorParametroAutoliq Admi : " + e.toString());
+            return null;
         }
     }
 

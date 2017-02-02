@@ -72,5 +72,7 @@ public interface AdministrarParametroAutoliqInterface {
     public String ejecutarPKGInsertar(Date fechaIni, Date fechaFin, BigInteger secTipoTrabajador, BigInteger secuenciaEmpresa);
 
     public void ejecutarPKGAcumularDiferencia(short ano, short mes, BigInteger secuencia);
+    
+    public List<AportesEntidades> consultarAportesEntidadesPorEmpleado(BigInteger secEmpleado, short mes, short ano);
 
 }

@@ -223,10 +223,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         getListaParametrosContables();
         parametroContableActual = null;
         getParametroContableActual();
-//      getLovEmpresas();
-//      getLovProcesos();
-//      getListaGenerados();
-//      getListaInterconTotal();
     }
 
     public void recibirParametros(Map<String, Object> map) {
@@ -238,13 +234,8 @@ public class ControlInterfaseContableTotal implements Serializable {
         getListaParametrosContables();
         parametroContableActual = null;
         getParametroContableActual();
-        getLovEmpresas();
-        getLovProcesos();
-//      getListaGenerados();
-//      getListaInterconTotal();
     }
 
-    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
     public void navegar(String pag) {
         FacesContext fc = FacesContext.getCurrentInstance();
         ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
@@ -435,28 +426,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         cualCeldaGenerado = columna;
         parametroContableActual = null;
         interconTablaSeleccionada = null;
-//        if (banderaIntercon == 1) {
-//            FacesContext c = FacesContext.getCurrentInstance();
-//           altoTablaIntercon = "50";
-//            interEmpleado = (Column) c.getViewRoot().findComponent("form:datosIntercon:interEmpleado");
-//            interEmpleado.setFilterStyle("display: none; visibility: hidden;");
-//            interTercero = (Column) c.getViewRoot().findComponent("form:datosIntercon:interTercero");
-//            interTercero.setFilterStyle("display: none; visibility: hidden;");
-//            interCuenta = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCuenta");
-//            interCuenta.setFilterStyle("display: none; visibility: hidden;");
-//            interDebito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interDebito");
-//            interDebito.setFilterStyle("display: none; visibility: hidden;");
-//            interCredito = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCredito");
-//            interCredito.setFilterStyle("display: none; visibility: hidden;");
-//            interConcepto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interConcepto");
-//            interConcepto.setFilterStyle("display: none; visibility: hidden;");
-//            interCentroCosto = (Column) c.getViewRoot().findComponent("form:datosIntercon:interCentroCosto");
-//            interCentroCosto.setFilterStyle("display: none; visibility: hidden;");
-//            RequestContext.getCurrentInstance().update("form:datosIntercon");
-//            banderaIntercon = 0;
-//            filtrarListaInterconTotal = null;
-//            tipoListaIntercon = 0;
-//        }
     }
 
     public void posicionIntercon() {
@@ -476,28 +445,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         } else {
             interconTablaSeleccionada.getSecuencia();
         }
-//        if (banderaGenerado == 1) {
-//            FacesContext c = FacesContext.getCurrentInstance();
-//            altoTablaGenerada = "50";
-//            genProceso = (Column) c.getViewRoot().findComponent("form:datosGenerados:genProceso");
-//            genProceso.setFilterStyle("display: none; visibility: hidden;");
-//            genEmpleado = (Column) c.getViewRoot().findComponent("form:datosGenerados:genEmpleado");
-//            genEmpleado.setFilterStyle("display: none; visibility: hidden;");
-//            genCntCredito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntCredito");
-//            genCntCredito.setFilterStyle("display: none; visibility: hidden;");
-//            genCntDebito = (Column) c.getViewRoot().findComponent("form:datosGenerados:genCntDebito");
-//            genCntDebito.setFilterStyle("display: none; visibility: hidden;");
-//            genTercero = (Column) c.getViewRoot().findComponent("form:datosGenerados:genTercero");
-//            genTercero.setFilterStyle("display: none; visibility: hidden;");
-//            genValor = (Column) c.getViewRoot().findComponent("form:datosGenerados:genValor");
-//            genValor.setFilterStyle("display: none; visibility: hidden;");
-//            genConcepto = (Column) c.getViewRoot().findComponent("form:datosGenerados:genConcepto");
-//            genConcepto.setFilterStyle("display: none; visibility: hidden;");
-//            RequestContext.getCurrentInstance().update("form:datosGenerados");
-//            banderaGenerado = 0;
-//            filtrarListaGenerados = null;
-//            tipoListaGenerada = 0;
-//        }
     }
 
     public void cambiarIndiceParametro(ParametrosContables parametroC, int celda) {
@@ -821,11 +768,6 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void actionBtnEnviar() {
         Date fechaDesde = administrarInterfaseContableTotal.buscarFechaDesdeVWActualesFechas();
         Date fechaHasta = administrarInterfaseContableTotal.buscarFechaHastaVWActualesFechas();
-        System.out.println("fecha desde btn enviar" + fechaDesde);
-        System.out.println("fecha hasta btn enviar" + fechaHasta);
-        System.out.println("fecha inicial contabilizacion btn enviar" + parametroContableActual.getFechainicialcontabilizacion());
-        System.out.println("fecha fin contabilizacion btn enviar" + parametroContableActual.getFechafinalcontabilizacion());
-
         if (fechaDesde != null && fechaHasta != null) {
             if ((fechaDesde.after(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.after(parametroContableActual.getFechafinalcontabilizacion()))
                     || (fechaDesde.before(parametroContableActual.getFechainicialcontabilizacion()) && fechaHasta.before(parametroContableActual.getFechafinalcontabilizacion()))) {
@@ -901,7 +843,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
         RequestContext context = RequestContext.getCurrentInstance();
         if (fechaContabilizacion != null && fechaInterconTotal != null) {
-            if (fechaContabilizacion.compareTo(fechaInterconTotal) == 0) {
+            System.out.println("fecha contabilizacion en proceso actualizar" + fechaContabilizacion);
+            System.out.println("fecha InterconTotal en proceso actualizar" + fechaInterconTotal);
+            if (fechaContabilizacion.equals(fechaInterconTotal) == true) {
                 String fecha = df.format(fechaContabilizacion);
                 msnFechasActualizar = fecha;
                 RequestContext.getCurrentInstance().update("form:anteriorContabilizacion");
@@ -940,10 +884,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             } else {
                 activarEnviar = true;
             }
-
-            activarDeshacer = false;
             RequestContext.getCurrentInstance().update("form:btnEnviar");
-            RequestContext.getCurrentInstance().update("form:btnDeshacer");
             getTotalCGenerado();
             getTotalDGenerado();
             RequestContext.getCurrentInstance().update("form:totalDGenerado");
@@ -956,7 +897,6 @@ public class ControlInterfaseContableTotal implements Serializable {
             listaInterconTotal = administrarInterfaseContableTotal.obtenerInterconTotalParametroContable(parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion());
             if (listaInterconTotal != null) {
                 if (listaInterconTotal.size() > 0) {
-                    activarDeshacer = false;
                 } else {
                     activarDeshacer = true;
                 }
@@ -965,11 +905,14 @@ public class ControlInterfaseContableTotal implements Serializable {
             }
             getTotalCInter();
             getTotalDInter();
+            activarDeshacer = false;
+            RequestContext.getCurrentInstance().update("form:btnDeshacer");
             RequestContext.getCurrentInstance().update("form:totalDInter");
             RequestContext.getCurrentInstance().update("form:totalCInter");
             contarRegistroContabilizados();
         }
 
+        validarFechasProcesoActualizar();
         RequestContext.getCurrentInstance().update("form:datosGenerados");
         RequestContext.getCurrentInstance().update("form:datosIntercon");
         int tam1 = 0;
@@ -982,8 +925,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (tam1 == 0 && tam2 == 0) {
             RequestContext.getCurrentInstance().execute("PF('procesoSinDatos').show()");
-        }
-
+        } 
         System.out.println("I finish");
         System.out.println("terminó proceso actualizar");
     }

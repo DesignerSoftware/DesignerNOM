@@ -156,6 +156,7 @@ public class ControlParametroAutoliq implements Serializable {
     private int numero, cualTabla;
     //
     private String visibilidadMostrarTodos;
+    private boolean activarLov;
     private DataTable tablaC;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -231,6 +232,7 @@ public class ControlParametroAutoliq implements Serializable {
         lovTiposEntidades = null;
         tipoEntidadSeleccionado = new TiposEntidades();
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
         //
     }
 
@@ -757,10 +759,13 @@ public class ControlParametroAutoliq implements Serializable {
             auxTipoTipoTrabajador = parametroTablaSeleccionado.getTipotrabajador().getNombre();
 
             if (cualCelda == 0) {
+                deshabilitarBotonLov();
                 parametroTablaSeleccionado.getAno();
             } else if (cualCelda == 2) {
+                habilitarBotonLov();
                 parametroTablaSeleccionado.getTipotrabajador().getNombre();
             } else if (cualCelda == 3) {
+                deshabilitarBotonLov();
                 parametroTablaSeleccionado.getEmpresa().getNombre();
             }
             cargarDatosNuevos();
@@ -787,128 +792,196 @@ public class ControlParametroAutoliq implements Serializable {
             cualCeldaAporte = celda;
             cualTabla = 2;
             if (cualCeldaAporte == 0) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getEmpleado().getCodigoempleado();
             } else if (cualCeldaAporte == 1) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getAno();
             } else if (cualCeldaAporte == 2) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getMes();
             } else if (cualCeldaAporte == 3) {
+                habilitarBotonLov();
                 aporteTablaSeleccionado.getEmpleado().getPersona().getNombreCompleto();
             } else if (cualCeldaAporte == 4) {
+                habilitarBotonLov();
                 aporteTablaSeleccionado.getNittercero();
             } else if (cualCeldaAporte == 5) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getNombretercero();
             } else if (cualCeldaAporte == 6) {
+                habilitarBotonLov();
                 aporteTablaSeleccionado.getTipoentidad().getNombre();
             } else if (cualCeldaAporte == 7) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCotizacion1();
             } else if (cualCeldaAporte == 8) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCotizacion2();
             } else if (cualCeldaAporte == 9) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCotizacion5();
             } else if (cualCeldaAporte == 10) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getNovedad3();
             } else if (cualCeldaAporte == 11) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getNovedad4();
             } else if (cualCeldaAporte == 12) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getNovedad5();
             } else if (cualCeldaAporte == 13) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getSalariobasico();
             } else if (cualCeldaAporte == 14) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIbc();
             } else if (cualCeldaAporte == 15) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIbcreferencia();
             } else if (cualCeldaAporte == 16) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getDiascotizados();
             } else if (cualCeldaAporte == 17) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTipoaportante();
             } else if (cualCeldaAporte == 18) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIng();
             } else if (cualCeldaAporte == 19) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getRet();
             } else if (cualCeldaAporte == 20) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTda();
             } else if (cualCeldaAporte == 21) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTaa();
             } else if (cualCeldaAporte == 22) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getVsp();
             } else if (cualCeldaAporte == 23) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getVte();
             } else if (cualCeldaAporte == 24) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getVst();
             } else if (cualCeldaAporte == 25) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getSln();
             } else if (cualCeldaAporte == 26) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIge();
             } else if (cualCeldaAporte == 27) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getLma();
             } else if (cualCeldaAporte == 28) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getVac();
             } else if (cualCeldaAporte == 29) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getAvp();
             } else if (cualCeldaAporte == 30) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getVct();
             } else if (cualCeldaAporte == 31) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIrp();
             } else if (cualCeldaAporte == 32) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getSus();
             } else if (cualCeldaAporte == 33) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getIntegral();
             } else if (cualCeldaAporte == 34) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifaeps();
             } else if (cualCeldaAporte == 35) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifaafp();
             } else if (cualCeldaAporte == 36) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifactt();
             } else if (cualCeldaAporte == 37) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCodigoctt();
             } else if (cualCeldaAporte == 38) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getAvpevalor();
             } else if (cualCeldaAporte == 39) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getAvppvalor();
             } else if (cualCeldaAporte == 40) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getRetcontavpvalor();
             } else if (cualCeldaAporte == 41) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCodigoneps();
             } else if (cualCeldaAporte == 42) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getCodigonafp();
             } else if (cualCeldaAporte == 43) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getEgvalor();
             } else if (cualCeldaAporte == 44) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getEgautorizacion();
             } else if (cualCeldaAporte == 45) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getMaternidadvalor();
             } else if (cualCeldaAporte == 46) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getMaternidadautorizacion();
             } else if (cualCeldaAporte == 47) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getUpcvalor();
             } else if (cualCeldaAporte == 48) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTipo();
             } else if (cualCeldaAporte == 49) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTipopensionado();
             } else if (cualCeldaAporte == 50) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getPensioncompartida();
             } else if (cualCeldaAporte == 51) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getExtranjero();
             } else if (cualCeldaAporte == 52) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getFechaorigen();
             } else if (cualCeldaAporte == 53) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getSubtipocotizanteSTR();
             } else if (cualCeldaAporte == 54) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifacaja();
             } else if (cualCeldaAporte == 55) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifasena();
             } else if (cualCeldaAporte == 56) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifaicbf();
             } else if (cualCeldaAporte == 57) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifaesap();
             } else if (cualCeldaAporte == 58) {
+                deshabilitarBotonLov();
                 aporteTablaSeleccionado.getTarifamen();
-
             }
         }
     }
 
+    public void habilitarBotonLov(){
+     activarLov = false;   
+     RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void deshabilitarBotonLov(){
+     activarLov = true;
+     RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
     public void guardarYSalir() {
         guardadoGeneral();
         salir();
@@ -2441,11 +2514,15 @@ public class ControlParametroAutoliq implements Serializable {
         tipoActualizacion = LND;
         System.out.println("tipo actualizacion aignar index : " + tipoActualizacion);
         if (dialogo == 1) {
+            lovTiposTrabajadores = null;
+            cargarLovTipoTrabjador();
             RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistroTiposTrabajadores();
         }
         if (dialogo == 2) {
+            lovEmpresas = null;
+            cargarLovEmpresa();
             RequestContext.getCurrentInstance().update("formularioLovEmpresa:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistroEmpresa();
@@ -2456,18 +2533,23 @@ public class ControlParametroAutoliq implements Serializable {
         aporteTablaSeleccionado = aporte;
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
-        System.out.println("tipo actualizacion aignar index aporte : " + tipoActualizacion);
         if (dialogo == 1) {
+            lovEmpleados = null;
+            cargarLovEmpleado();
             contarRegistroEmpleados();
             RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
         }
         if (dialogo == 2) {
+            lovTerceros = null;
+            cargarLovTercero();
             contarRegistroTercero();
             RequestContext.getCurrentInstance().update("formularioLovTercero:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
         }
         if (dialogo == 3) {
+            lovTiposEntidades = null;
+            cargarLovTipoEntidad();
             contarRegistroTiposEntidades();
             RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
@@ -2757,11 +2839,11 @@ public class ControlParametroAutoliq implements Serializable {
         filtrarLovTiposEntidades = null;
         tipoEntidadSeleccionado = new TiposEntidades();
         aceptar = true;
-        tipoActualizacion = -1;/*
-         RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
-         RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:lovTipoEntidad");
-         RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:aceptarTE");*/
+        tipoActualizacion = -1;
 
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:lovTipoEntidad");
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:aceptarTE");
         context.reset("formularioLovTipoEntidad:lovTipoEntidad:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoEntidad').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').hide()");
@@ -2774,6 +2856,9 @@ public class ControlParametroAutoliq implements Serializable {
         tipoActualizacion = -1;
         permitirIndexAporte = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:lovTipoEntidad");
+        RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:aceptarTE");
         context.reset("formularioLovTipoEntidad:lovTipoEntidad:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoEntidad').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').hide()");
@@ -2783,7 +2868,7 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (guardado == true) {
             lovAportesEntidades = null;
-            getLovAportesEntidades();
+            cargarLovAporteEntidad();
             RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
             RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').show()");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
@@ -2801,11 +2886,18 @@ public class ControlParametroAutoliq implements Serializable {
             filtrarListaAportesEntidades = null;
             tipoListaAporte = 0;
         }
+//        listaAportesEntidades = null;
         listaAportesEntidades.clear();
-        listaAportesEntidades.add(aporteEntidadSeleccionado);
-        aporteTablaSeleccionado = listaAportesEntidades.get(0);
+//        listaAportesEntidades.add(aporteEntidadSeleccionado);
+        listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorEmpleado(aporteEntidadSeleccionado.getEmpleado().getSecuencia(), aporteEntidadSeleccionado.getMes(), aporteEntidadSeleccionado.getAno());
+//        getListaAportesEntidades();
+        if(listaAportesEntidades != null){
+            if(!listaAportesEntidades.isEmpty()){
+            aporteTablaSeleccionado = listaAportesEntidades.get(0);
+            }
+        }
         filtrarLovAportesEntidades = null;
-        aporteEntidadSeleccionado = new AportesEntidades();
+        aporteEntidadSeleccionado = null;
         aceptar = true;
         activoBtnsPaginas = true;
         RequestContext.getCurrentInstance().update("form:novedadauto");
@@ -2818,10 +2910,10 @@ public class ControlParametroAutoliq implements Serializable {
         contarRegistrosParametros();
         contarRegistrosAporte();
         RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
-        /*
-         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
-         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:lovBuscarAporte");
-         RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:aceptarBA");*/
+
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:lovBuscarAporte");
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:aceptarBA");
         context.reset("formularioLovAporteEntidad:lovBuscarAporte:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovBuscarAporte').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').hide()");
@@ -2829,7 +2921,7 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void cancelarCambioAporteEntidad() {
         filtrarLovEmpresas = null;
-        empresaSeleccionada = new Empresas();
+        aporteEntidadSeleccionado = null;
         aceptar = true;
         RequestContext context = RequestContext.getCurrentInstance();
         activoBtnsPaginas = true;
@@ -2839,6 +2931,9 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext.getCurrentInstance().update("form:acumDif");
         tipoActualizacion = -1;
         permitirIndex = true;
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:BuscarAporteDialogo");
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:lovBuscarAporte");
+        RequestContext.getCurrentInstance().update("formularioLovAporteEntidad:aceptarBA");
         context.reset("formularioLovAporteEntidad:lovBuscarAporte:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovBuscarAporte').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('BuscarAporteDialogo').hide()");
@@ -2863,25 +2958,32 @@ public class ControlParametroAutoliq implements Serializable {
         if (cualTabla == 1) {
             if (parametroTablaSeleccionado != null) {
                 if (cualCelda == 2) {
+                    lovTiposTrabajadores = null;
+                    cargarLovTipoTrabjador();
                     RequestContext.getCurrentInstance().update("formularioLovTipoTrabajador:TipoTrabajadorDialogo");
                     RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
                     tipoActualizacion = 0;
                 }
             }
         } else if (cualTabla == 2) {
-
             if (aporteTablaSeleccionado != null) {
                 if (cualCeldaAporte == 3) {
+                    lovEmpleados = null;
+                    cargarLovEmpleado();
                     RequestContext.getCurrentInstance().update("formularioLovEmpleado:EmpleadoDialogo");
                     RequestContext.getCurrentInstance().execute("PF('EmpleadoDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCeldaAporte == 4) {
+                    lovTerceros = null;
+                    cargarLovTercero();
                     RequestContext.getCurrentInstance().update("formularioLovTercero:TerceroDialogo");
                     RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
                     tipoActualizacion = 0;
                 }
                 if (cualCeldaAporte == 6) {
+                    lovAportesEntidades = null;
+                    cargarLovTipoEntidad();
                     RequestContext.getCurrentInstance().update("formularioLovTipoEntidad:TipoEntidadDialogo");
                     RequestContext.getCurrentInstance().execute("PF('TipoEntidadDialogo').show()");
                     tipoActualizacion = 0;
@@ -3110,6 +3212,44 @@ public class ControlParametroAutoliq implements Serializable {
         RequestContext.getCurrentInstance().update("form:infoRegistroParametro");
     }
 
+    public void cargarLovTipoEntidad() {
+        if (lovTiposEntidades == null) {
+            lovTiposEntidades = administrarParametroAutoliq.lovTiposEntidades();
+        }
+    }
+
+    public void cargarLovTipoTrabjador() {
+        if (lovTiposTrabajadores == null) {
+            lovTiposTrabajadores = administrarParametroAutoliq.lovTiposTrabajadores();
+        }
+    }
+
+    public void cargarLovEmpresa() {
+        if (lovEmpresas == null) {
+            lovEmpresas = administrarParametroAutoliq.lovEmpresas();
+        }
+    }
+
+    public void cargarLovEmpleado() {
+        if (lovEmpleados == null) {
+            lovEmpleados = administrarParametroAutoliq.lovEmpleados();
+        }
+    }
+
+    public void cargarLovTercero() {
+        if (lovTerceros == null) {
+            lovTerceros = administrarParametroAutoliq.lovTerceros();
+        }
+    }
+
+    public void cargarLovAporteEntidad() {
+        if (lovAportesEntidades == null) {
+            if (parametroTablaSeleccionado != null) {
+                lovAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
+            }
+        }
+    }
+
     //GET - SET//
     public List<ParametrosAutoliq> getListaParametrosAutoliq() {
         try {
@@ -3192,9 +3332,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<TiposTrabajadores> getLovTiposTrabajadores() {
-        if (lovTiposTrabajadores == null) {
-            lovTiposTrabajadores = administrarParametroAutoliq.lovTiposTrabajadores();
-        }
         return lovTiposTrabajadores;
     }
 
@@ -3238,7 +3375,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<Empresas> getLovEmpresas() {
-        lovEmpresas = administrarParametroAutoliq.lovEmpresas();
         return lovEmpresas;
     }
 
@@ -3333,9 +3469,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<Empleados> getLovEmpleados() {
-        if (lovEmpleados == null) {
-            lovEmpleados = administrarParametroAutoliq.lovEmpleados();
-        }
         return lovEmpleados;
     }
 
@@ -3371,9 +3504,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<Terceros> getLovTerceros() {
-        if (lovTerceros == null) {
-            lovTerceros = administrarParametroAutoliq.lovTerceros();
-        }
         return lovTerceros;
     }
 
@@ -3409,9 +3539,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<TiposEntidades> getLovTiposEntidades() {
-        if (lovTiposEntidades == null) {
-            lovTiposEntidades = administrarParametroAutoliq.lovTiposEntidades();
-        }
         return lovTiposEntidades;
     }
 
@@ -3455,11 +3582,6 @@ public class ControlParametroAutoliq implements Serializable {
     }
 
     public List<AportesEntidades> getLovAportesEntidades() {
-        if (lovAportesEntidades == null) {
-            if (parametroTablaSeleccionado != null) {
-                lovAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-            }
-        }
         return lovAportesEntidades;
     }
 
@@ -3597,4 +3719,12 @@ public class ControlParametroAutoliq implements Serializable {
         this.duplicarAporteEntidad = duplicarAporteEntidad;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+    
 }

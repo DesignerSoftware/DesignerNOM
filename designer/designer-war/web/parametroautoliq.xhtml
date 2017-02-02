@@ -38,7 +38,8 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlParametroAutoliq.listaValoresBoton()}" process="@this"/>
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlParametroAutoliq.listaValoresBoton()}" 
+                                                 disabled="#{controlParametroAutoliq.activarLov}" process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlParametroAutoliq.activarCtrlF11()}" process="@this"
@@ -152,11 +153,12 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.tipotrabajador.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  onselect="PF('operacionEnProceso').show()" value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarParametroAutoliq(infoPA, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"
                                                          onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" />
-                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA, 0, 1)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA, 0, 1)}"
+                                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -270,7 +272,8 @@
                                             <p:inputText  autocomplete="off"   value="#{infoAE.empleado.persona.nombreCompleto}" id="editarNombreEmpleadoAporte" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
-                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 1)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 1)}"
+                                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -293,7 +296,8 @@
                                                 <!--<p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}" update="@this"/>-->
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 4)}" 
                                                         onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"/>
-                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 2)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 2)}"
+                                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -335,7 +339,8 @@
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}" update="@this"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndiceAporteEntidad(infoAE, 6)}"
                                                         onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
-                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 3)}"/>
+                                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 0, 3)}"
+                                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -1823,21 +1828,25 @@
 
                             <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 1)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnNuevaTipoTrabajador" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,1)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnNuevaTipoTrabajador" value="" process="@this" 
+                                             actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,1)}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>   
                             <p:watermark for="nuevaTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 2)}"
+                                      onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.nuevoParametro.empresa.nombre, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnNuevaEmpresa" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,2)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnNuevaEmpresa" value="" process="@this"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,2)}"/>   
                             <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}"/>
 
                             <p:commandButton id="limpiarPA" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlParametroAutoliq.limpiarNuevaParametroAutoliq()}" update="nuevaParametro" process="@this"/>
@@ -1878,20 +1887,24 @@
 
                             <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarTipoTrabajador" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarTipoTrabajador"
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>   
                             <p:watermark for="duplicarTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
                             <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.duplicarParametro.empresa.nombre, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnDuplicarEmpresa" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,2)}"/>   
+                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnDuplicarEmpresa" value="" 
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"  process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,2)}"/>   
                             <p:watermark for="duplicarEmpresaParametro" value="#{msg['empresa']}"/>
 
                             <p:commandButton id="limpiarDuplicadoPA" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 195px;" icon="ui-icon-trash"  actionListener="#{controlParametroAutoliq.limpiarDuplicarParametroAutoliq()}" update="duplicarParametro" process="@this"/>
@@ -1923,11 +1936,13 @@
                             <p:inputText  autocomplete="off"  id="nuevoCodempl" widgetVar="nuevoCodempl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.codigoempleado}"
                                           style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <!--<p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPLEADO')}" />-->
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnNuevoemp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 1)}" value="" process="@this"
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText  autocomplete="off" readonly="true"  id="nuevoNomEmpl" value="#{controlParametroAutoliq.nuevoAporteEntidad.empleado.persona.nombreCompleto}" 
@@ -1943,11 +1958,13 @@
                             <p:inputText  autocomplete="off"  id="nuevoNitTercero" value="#{controlParametroAutoliq.nuevoAporteEntidad.nittercero}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TERCERO')}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnNuevonit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnNuevonit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 2)}" value="" process="@this" 
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevonombretercero" readonly="true" value="#{controlParametroAutoliq.nuevoAporteEntidad.nombretercero}" 
@@ -1958,11 +1975,13 @@
                             <p:inputText  autocomplete="off"  id="nuevotipoentidad" value="#{controlParametroAutoliq.nuevoAporteEntidad.tipoentidad.nombre}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'APORTE')}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnNuevotipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnNuevotipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 1, 3)}" value="" process="@this" 
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
                             <p:inputText  autocomplete="off"  id="nuevoaporteemp" value="#{controlParametroAutoliq.nuevoAporteEntidad.cotizacion1}" 
@@ -2301,11 +2320,13 @@
                             <p:inputText  autocomplete="off"  id="duplicarCodempl" widgetVar="duplicarCodempl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.codigoempleado}"
                                           style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'EMPLEADO', infoAE.empleado.persona.nombreCompleto)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPLEADO')}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnDuplicaremp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 80px;  " id="btnDuplicaremp" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 1)}" value="" process="@this" 
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Nombre Empleado" style=" position: absolute; top: 115px; left: 40px"/></strong>
                             <p:inputText  autocomplete="off" readonly="true" id="duplicarNomEmpl" value="#{controlParametroAutoliq.duplicarAporteEntidad.empleado.persona.nombreCompleto}" 
@@ -2316,11 +2337,13 @@
                             <p:inputText  autocomplete="off"  id="duplicarNitTercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.nittercero}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'TERCERO')}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnDuplicarnit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 140px;  " id="btnDuplicarnit" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 2)}" value="" process="@this" 
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Nombre Tercero" style=" position: absolute; top: 175px; left: 40px;"/></strong>
                             <p:inputText  autocomplete="off" readonly="true" id="duplicarnombretercero" value="#{controlParametroAutoliq.duplicarAporteEntidad.nombretercero}" 
@@ -2331,11 +2354,13 @@
                             <p:inputText  autocomplete="off"  id="duplicartipoentidad" value="#{controlParametroAutoliq.duplicarAporteEntidad.tipoentidad.nombre}" 
                                           style=" width: 122px; position: absolute; left: 200px; top: 200px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarAporteEntidad(infoAE, 'TIPOENTIDAD', infoAE.tipoentidad.nombre)}"/>
-                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}"/>
+                                <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}"
+                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'APORTE')}" />
                             </p:inputText>
                             <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px;
-                                             height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnDuplicartipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}" value="" process="@this" />
+                                             height: 23px; position: absolute; left: 331px; top: 200px;  " id="btnDuplicartipoentidad" actionListener="#{controlParametroAutoliq.asignarIndexAporte(infoAE, 2, 3)}" value="" process="@this"
+                                            onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
 
                             <strong><h:outputText value="Aporte Empleado" style=" position: absolute; top: 235px; left: 40px;"/></strong>
                             <p:inputText  autocomplete="off"  id="duplicaraporteemp" value="#{controlParametroAutoliq.duplicarAporteEntidad.cotizacion1}" 

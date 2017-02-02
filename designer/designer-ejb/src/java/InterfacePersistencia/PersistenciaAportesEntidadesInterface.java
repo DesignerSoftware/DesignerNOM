@@ -35,4 +35,6 @@ public interface PersistenciaAportesEntidadesInterface {
     
     public void ejecutarAcumularDiferencia(EntityManager em, BigInteger secEmpresa, short mes, short ano);
 
+    public List<AportesEntidades> consultarAportesEntidadesPorEmpleado (EntityManager em, BigInteger secEmpleado, short mes, short ano);
+    
 }
