@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Operandos;
+import Entidades.Procesos;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -57,9 +58,8 @@ public class ControlLiquidacionesLogs implements Serializable {
    private Column fechaInicial, fechaFinal, empleado, operando, proceso, valor;
    //borrado
    //filtrado table
-   private int tamano;
-   private String infoRegistroEmpleados;
-   private String infoRegistroOperandos;
+   private int tamanoReg, tamano;
+   private String infoRegistroEmpleados, infoRegistroOperandos, infoRegistroProcesos;
 
    private List<Empleados> lovEmpleados;
    private List<Empleados> filtrarEmpleados;
@@ -68,6 +68,10 @@ public class ControlLiquidacionesLogs implements Serializable {
    private List<Operandos> lovOperandos;
    private List<Operandos> filtrarOperandos;
    private Operandos operandoSeleccionado;
+
+   private List<Procesos> lovProcesos;
+   private List<Procesos> filtrarProcesos;
+   private Procesos procesoSeleccionado;
 
    private String nombreVariable, nombreDato;
    private String paginaAnterior = "nominaf";
@@ -80,13 +84,16 @@ public class ControlLiquidacionesLogs implements Serializable {
    private String backUpProceso;
    private String backUpValor;
 
+   private String infoRegistro;
+
    public ControlLiquidacionesLogs() {
       listLiquidacionesLogs = null;
       permitirIndex = true;
       editarLiquidacionesLogs = new LiquidacionesLogs();
       guardado = true;
       aceptar = true;
-      tamano = 15;
+      tamanoReg = 15;
+      tamano = 290;
       operandoSeleccionado = null;
       empleadoSeleccionado = null;
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -94,6 +101,7 @@ public class ControlLiquidacionesLogs implements Serializable {
       nombreDato = "";
       lovEmpleados = null;
       lovOperandos = null;
+      lovProcesos = null;
    }
 
    @PostConstruct
@@ -156,32 +164,36 @@ public class ControlLiquidacionesLogs implements Serializable {
       liquidacionLogSeleccionada = null;
    }
 
-   public void cambiarIndice(LiquidacionesLogs liqLog, int celda) {
-      liquidacionLogSeleccionada = liqLog;
-
-      if (permitirIndex == true) {
-         cualCelda = celda;
-         if (cualCelda == 0) {
-            backUpFechaDesde = liquidacionLogSeleccionada.getFechadesde();
-         }
-         if (cualCelda == 1) {
-            backUpFechaHasta = liquidacionLogSeleccionada.getFechahasta();
-         }
-         if (cualCelda == 2) {
-            backUpEmpleado = liquidacionLogSeleccionada.getEmpleado().getPersona().getNombreCompleto();
-         }
-         if (cualCelda == 3) {
-            backUpOperando = liquidacionLogSeleccionada.getOperando().getDescripcion();
-         }
-         if (cualCelda == 4) {
-            backUpProceso = liquidacionLogSeleccionada.getProceso().getDescripcion();
-         }
-         if (cualCelda == 5) {
-            backUpValor = liquidacionLogSeleccionada.getValor();
-         }
-      }
+   public void cambiarIndiceDefault() {
+      this.liquidacionLogSeleccionada = liquidacionLogSeleccionada;
+      System.out.println("cambiarIndiceDefault() liquidacionLogSeleccionada : " + liquidacionLogSeleccionada);
    }
 
+//   public void cambiarIndice(LiquidacionesLogs liqLog, int celda) {
+//      liquidacionLogSeleccionada = liqLog;
+//
+//      if (permitirIndex == true) {
+//         cualCelda = celda;
+//         if (cualCelda == 0) {
+//            backUpFechaDesde = liquidacionLogSeleccionada.getFechadesde();
+//         }
+//         if (cualCelda == 1) {
+//            backUpFechaHasta = liquidacionLogSeleccionada.getFechahasta();
+//         }
+//         if (cualCelda == 2) {
+//            backUpEmpleado = liquidacionLogSeleccionada.getEmpleado().getPersona().getNombreCompleto();
+//         }
+//         if (cualCelda == 3) {
+//            backUpOperando = liquidacionLogSeleccionada.getOperando().getDescripcion();
+//         }
+//         if (cualCelda == 4) {
+//            backUpProceso = liquidacionLogSeleccionada.getProceso().getDescripcion();
+//         }
+//         if (cualCelda == 5) {
+//            backUpValor = liquidacionLogSeleccionada.getValor();
+//         }
+//      }
+//   }
 //   public void asignarIndex(LiquidacionesLogs liqLog, int LND, int dig) {
 //      liquidacionLogSeleccionada = liqLog;
 //      try {
@@ -238,8 +250,6 @@ public class ControlLiquidacionesLogs implements Serializable {
       aceptar = false;
    }
 
-   private String infoRegistro;
-
    public void cancelarModificacion() {
       if (bandera == 1) {
          restaurarTabla();
@@ -249,9 +259,20 @@ public class ControlLiquidacionesLogs implements Serializable {
       guardado = true;
       permitirIndex = true;
       listLiquidacionesLogs = null;
+      if (empleadoSeleccionado == null && lovEmpleados != null) {
+         if (!lovEmpleados.isEmpty()) {
+            empleadoSeleccionado = lovEmpleados.get(0);
+            nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
+         }
+      }
       getListLiquidacionesLogs();
       contarRegistros();
       RequestContext.getCurrentInstance().update("form:datosLiquidacionesLogs");
+   }
+
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
    }
 
    public void restaurarTabla() {
@@ -273,7 +294,8 @@ public class ControlLiquidacionesLogs implements Serializable {
       bandera = 0;
       filtrarLiquidacionesLogs = null;
       tipoLista = 0;
-      tamano = 15;
+      tamanoReg = 15;
+      tamano = 290;
    }
 
    public void salir() {
@@ -281,6 +303,7 @@ public class ControlLiquidacionesLogs implements Serializable {
          restaurarTabla();
       }
       liquidacionLogSeleccionada = null;
+      lovEmpleados = null;
       k = 0;
       listLiquidacionesLogs = null;
       guardado = true;
@@ -292,7 +315,8 @@ public class ControlLiquidacionesLogs implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         tamano = 14;
+         tamanoReg = 14;
+         tamano = 270;
          fechaInicial = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaInicial");
          fechaInicial.setFilterStyle("width: 85% !important;");
          fechaFinal = (Column) c.getViewRoot().findComponent("form:datosLiquidacionesLogs:fechaFinal");
@@ -346,53 +370,115 @@ public class ControlLiquidacionesLogs implements Serializable {
          }
       }
    }
-
-   public void revisarDialogoGuardar() {
-      RequestContext.getCurrentInstance().update("form:confirmarGuardar");
-      RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-   }
+//
+//   public void revisarDialogoGuardar() {
+//      RequestContext.getCurrentInstance().update("form:confirmarGuardar");
+//      RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+//   }
 
    public void seleccionarEmpleado() {
       RequestContext context = RequestContext.getCurrentInstance();
-      FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          restaurarTabla();
       }
+      liquidacionLogSeleccionada = null;
       listLiquidacionesLogs = null;
       getListLiquidacionesLogs();
       aceptar = true;
       nombreVariable = "Empleado : ";
       nombreDato = empleadoSeleccionado.getPersona().getNombreCompleto();
       operandoSeleccionado = null;
+      procesoSeleccionado = null;
       context.execute("PF('lovOperandos').unselectAllRows();");
+      context.execute("PF('lovProcesos').unselectAllRows();");
       context.update("form:datosLiquidacionesLogs");
       context.update("form:nombredato");
       context.update("form:nombrevariable");
       context.reset("form:lovEmpleados:globalFilter");
       context.execute("PF('lovEmpleados').clearFilters()");
       context.execute("PF('EMPLEADOS').hide()");
+      context.update("form:EMPLEADOS");
+      context.update("form:lovEmpleados");
+      context.update("form:aceptarEmp");
       contarRegistros();
    }
 
    public void seleccionarOperando() {
       RequestContext context = RequestContext.getCurrentInstance();
-      FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          restaurarTabla();
       }
+      liquidacionLogSeleccionada = null;
       listLiquidacionesLogs = null;
       listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(operandoSeleccionado.getSecuencia());
       aceptar = true;
       nombreVariable = "Operando : ";
       nombreDato = operandoSeleccionado.getNombre();
       empleadoSeleccionado = null;
+      procesoSeleccionado = null;
       context.execute("PF('lovEmpleados').unselectAllRows();");
+      context.execute("PF('lovProcesos').unselectAllRows();");
       context.update("form:datosLiquidacionesLogs");
       context.update("form:nombredato");
       context.update("form:nombrevariable");
       context.reset("form:lovOperandos:globalFilter");
       context.execute("PF('lovOperandos').clearFilters()");
       context.execute("PF('OPERANDOS').hide()");
+      context.update("form:OPERANDOS");
+      context.update("form:lovOperandos");
+      context.update("form:aceptarOP");
+      contarRegistros();
+   }
+
+   public void seleccionarProceso() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (bandera == 1) {
+         restaurarTabla();
+      }
+      liquidacionLogSeleccionada = null;
+      if (!procesoSeleccionado.getDescripcion().equals("NOMINA")) {
+         listLiquidacionesLogs = null;
+         listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(procesoSeleccionado.getSecuencia());
+         aceptar = true;
+         nombreVariable = "Proceso : ";
+         nombreDato = procesoSeleccionado.getDescripcion();
+         empleadoSeleccionado = null;
+         operandoSeleccionado = null;
+         context.execute("PF('lovEmpleados').unselectAllRows();");
+         context.execute("PF('lovOperandos').unselectAllRows();");
+         context.update("form:datosLiquidacionesLogs");
+         context.update("form:nombredato");
+         context.update("form:nombrevariable");
+      }
+      context.reset("form:lovProcesos:globalFilter");
+      context.execute("PF('lovProcesos').clearFilters()");
+      context.execute("PF('PROCESOS').hide()");
+      context.update("form:PROCESOS");
+      context.update("form:lovProcesos");
+      context.update("form:aceptarPro");
+      contarRegistros();
+   }
+
+   public void mostrarTodos() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      if (bandera == 1) {
+         restaurarTabla();
+      }
+      liquidacionLogSeleccionada = null;
+      listLiquidacionesLogs = null;
+      listLiquidacionesLogs = administrarLiquidacionesLogs.consultarLiquidacionesLogs();
+      aceptar = true;
+      nombreVariable = "TODOS : ";
+      nombreDato = "TODOS";
+      empleadoSeleccionado = null;
+      operandoSeleccionado = null;
+      procesoSeleccionado = null;
+      context.execute("PF('lovEmpleados').unselectAllRows();");
+      context.execute("PF('lovOperandos').unselectAllRows();");
+      context.execute("PF('lovProcesos').unselectAllRows();");
+      context.update("form:datosLiquidacionesLogs");
+      context.update("form:nombredato");
+      context.update("form:nombrevariable");
       contarRegistros();
    }
 
@@ -403,8 +489,11 @@ public class ControlLiquidacionesLogs implements Serializable {
 //      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:lovEmpleados:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovEmpleados').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('EMPLEADOS').hide()");
+      context.execute("PF('lovEmpleados').clearFilters()");
+      context.execute("PF('EMPLEADOS').hide()");
+      context.update("form:EMPLEADOS");
+      context.update("form:lovEmpleados");
+      context.update("form:aceptarEmp");
    }
 
    public void cancelarCambioOperando() {
@@ -414,13 +503,25 @@ public class ControlLiquidacionesLogs implements Serializable {
 //      tipoActualizacion = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("form:lovOperandos:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('lovOperandos').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('OPERANDOS').hide()");
+      context.execute("PF('lovOperandos').clearFilters()");
+      context.execute("PF('OPERANDOS').hide()");
+      context.update("form:OPERANDOS");
+      context.update("form:lovOperandos");
+      context.update("form:aceptarOP");
    }
 
-   public void llamarDialogoEmpleado() {
-      RequestContext.getCurrentInstance().update("form:EMPLEADOS");
-      RequestContext.getCurrentInstance().execute("PF('EMPLEADOS').show()");
+   public void cancelarCambioProceso() {
+      filtrarProcesos = null;
+      procesoSeleccionado = null;
+      aceptar = true;
+//      tipoActualizacion = -1;
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.reset("form:lovProcesos:globalFilter");
+      context.execute("PF('lovProcesos').clearFilters()");
+      context.execute("PF('PROCESOS').hide()");
+      context.update("form:PROCESOS");
+      context.update("form:lovProcesos");
+      context.update("form:aceptarPro");
    }
 
    public void exportPDF() throws IOException {
@@ -440,26 +541,23 @@ public class ControlLiquidacionesLogs implements Serializable {
    }
 
    public void verificarRastro() {
-      System.out.println("lol");
-      if (!listLiquidacionesLogs.isEmpty()) {
-         if (liquidacionLogSeleccionada != null) {
-            System.out.println("lol 2");
-            int resultado = administrarRastros.obtenerTabla(liquidacionLogSeleccionada.getSecuencia(), "LIQUIDACIONESLOGS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      if (liquidacionLogSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(liquidacionLogSeleccionada.getSecuencia(), "LIQUIDACIONESLOGS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         System.out.println("resultado: " + resultado);
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
+//         } else {
+//            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+//         }
       } else if (administrarRastros.verificarHistoricosTabla("LIQUIDACIONESLOGS")) { // igual acá
          RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
@@ -477,6 +575,10 @@ public class ControlLiquidacionesLogs implements Serializable {
 
    public void contarRegistrosOper() {
       RequestContext.getCurrentInstance().update("form:infoRegistroOperandos");
+   }
+
+   public void contarRegistrosPro() {
+      RequestContext.getCurrentInstance().update("form:infoRegistroProcesos");
    }
 
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
@@ -518,6 +620,14 @@ public class ControlLiquidacionesLogs implements Serializable {
 
    public void setGuardado(boolean guardado) {
       this.guardado = guardado;
+   }
+
+   public int getTamanoReg() {
+      return tamanoReg;
+   }
+
+   public void setTamanoReg(int tamanoReg) {
+      this.tamanoReg = tamanoReg;
    }
 
    public int getTamano() {
@@ -575,6 +685,33 @@ public class ControlLiquidacionesLogs implements Serializable {
       this.lovOperandos = lovOperandos;
    }
 
+   public List<Procesos> getLovProcesos() {
+      if (lovProcesos == null) {
+         lovProcesos = administrarLiquidacionesLogs.consultarLOVProcesos();
+      }
+      return lovProcesos;
+   }
+
+   public void setLovProcesos(List<Procesos> lovProcesos) {
+      this.lovProcesos = lovProcesos;
+   }
+
+   public List<Procesos> getFiltrarProcesos() {
+      return filtrarProcesos;
+   }
+
+   public void setFiltrarProcesos(List<Procesos> filtrarProcesos) {
+      this.filtrarProcesos = filtrarProcesos;
+   }
+
+   public Procesos getProcesoSeleccionado() {
+      return procesoSeleccionado;
+   }
+
+   public void setProcesoSeleccionado(Procesos procesoSeleccionado) {
+      this.procesoSeleccionado = procesoSeleccionado;
+   }
+
    public List<Operandos> getFiltrarOperandos() {
       return filtrarOperandos;
    }
@@ -630,6 +767,17 @@ public class ControlLiquidacionesLogs implements Serializable {
 
    public void setInfoRegistroOperandos(String infoRegistroOperandos) {
       this.infoRegistroOperandos = infoRegistroOperandos;
+   }
+
+   public String getInfoRegistroProcesos() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovProcesos");
+      infoRegistroProcesos = String.valueOf(tabla.getRowCount());
+      return infoRegistroProcesos;
+   }
+
+   public void setInfoRegistroProcesos(String infoRegistroProcesos) {
+      this.infoRegistroProcesos = infoRegistroProcesos;
    }
 
    public boolean isAceptar() {

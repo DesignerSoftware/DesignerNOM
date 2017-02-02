@@ -8,6 +8,7 @@ package InterfaceAdministrar;
 import Entidades.Empleados;
 import Entidades.LiquidacionesLogs;
 import Entidades.Operandos;
+import Entidades.Procesos;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
@@ -32,8 +33,12 @@ public interface AdministrarLiquidacionesLogsInterface {
    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado);
 
    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando);
+   
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso);
 
    public List<Empleados> consultarLOVEmpleados();
    
    public List<Operandos> consultarLOVOperandos();
+   
+   public List<Procesos> consultarLOVProcesos();
 }

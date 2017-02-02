@@ -17,7 +17,7 @@
             </script>
             <div class="loader"/>
             <h:form id="form"> 
-               <f:loadBundle basename="Recursos.nominaf" var="msg" />
+               <f:loadBundle basename="Recursos.nominaf" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
                <p:panel id="paneltotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
 
@@ -532,11 +532,11 @@
                         </fieldset>
 
                         <p:dialog id="confirmarliquidacion" widgetVar="confirmarliquidacion" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="120" width="420"  closable="false">  
-                           <h:graphicImage value="Imagenes/Iconos/alerta.png" width="100" height="80" style="position: absolute; left: 10px; top: 10px;"  />
-                           <h:outputText value="#{msg['antesdeliquidar']}" style="position: absolute; left: 120px; top: 10px; width: 280px; font-weight:bold; text-align: center" />
-                           <h:outputText value="#{msg['confirmarLiquidacion']}" style="position: absolute; left: 120px; top: 60px; width: 300px; font-weight:bold" />
-                           <p:commandButton value="#{msg['si']}" onclick="PF('confirmarliquidacion').hide();" action="liquidacion" style="position: absolute; top: 80px; left: 285px; " process="@this" icon="ui-icon-check" />
-                           <p:commandButton value="#{msg['no']}" onclick="PF('confirmarliquidacion').hide();" style="position: absolute; top: 80px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                           <h:graphicImage value="Imagenes/Iconos/alerta.png" width="90" height="70" style="position: absolute; left: 10px; top: 24px;"  />
+                           <h:outputText value="#{msg['antesdeliquidar']}" style="position: absolute; left: 120px; top: 20px; width: 280px; font-weight:bold; text-align: center" />
+                           <h:outputText value="#{msg['confirmarLiquidacion']}" style="position: absolute; left: 120px; top: 65px; width: 300px; font-weight:bold" />
+                           <p:commandButton value="#{msg['si']}" onclick="PF('confirmarliquidacion').hide();" action="liquidacion" style="position: absolute; top: 90px; left: 285px; " process="@this" icon="ui-icon-check" />
+                           <p:commandButton value="#{msg['no']}" onclick="PF('confirmarliquidacion').hide();" style="position: absolute; top: 90px; left: 345px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
 
                         <p:dialog id="confirmarborrarliquidacion" widgetVar="confirmarborrarliquidacion" header="#{msg['atencion']}" resizable="false" draggable="true" modal="true" height="100" width="420" closable="false">  

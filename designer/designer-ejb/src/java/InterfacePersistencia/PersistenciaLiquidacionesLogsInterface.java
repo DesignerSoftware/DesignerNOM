@@ -29,4 +29,6 @@ public interface PersistenciaLiquidacionesLogsInterface {
     public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(EntityManager em, BigInteger secEmpleado);
     
     public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(EntityManager em, BigInteger secOperando);
+    
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(EntityManager em, BigInteger secProceso);
 }

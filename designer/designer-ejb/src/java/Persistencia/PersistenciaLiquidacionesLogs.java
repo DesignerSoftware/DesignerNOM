@@ -73,8 +73,8 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
     public List<LiquidacionesLogs> consultarLiquidacionesLogs(EntityManager em) {
         try {
             em.clear();
-            //Query query = em.createQuery("SELECT l FROM LiquidacionesLogs l WHERE EXISTS (SELECT 0 FROM Empleados e WHERE e.secuencia = l.empleado.secuencia)");
-            Query query = em.createQuery("SELECT l FROM LiquidacionesLogs l");
+            Query query = em.createQuery("SELECT l FROM LiquidacionesLogs l WHERE EXISTS (SELECT 'x' FROM Empleados e WHERE e.secuencia = l.empleado.secuencia)");
+//            Query query = em.createQuery("SELECT l FROM LiquidacionesLogs l");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<LiquidacionesLogs> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
@@ -107,7 +107,21 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e);
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e);
+            return null;
+        }
+    }
+
+    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(EntityManager em, BigInteger secProceso) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT cce FROM LiquidacionesLogs cce WHERE cce.proceso.secuencia = :secuenciaProceso ORDER BY cce.empleado.persona.nombre ASC");
+            query.setParameter("secuenciaProceso", secProceso);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
+            return listaLiquidacionesLogsPorCiudad;
+        } catch (Exception e) {
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e);
             return null;
         }
     }

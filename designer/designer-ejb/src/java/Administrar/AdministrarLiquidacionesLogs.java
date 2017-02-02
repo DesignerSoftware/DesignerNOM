@@ -8,11 +8,13 @@ package Administrar;
 import Entidades.Empleados;
 import Entidades.LiquidacionesLogs;
 import Entidades.Operandos;
+import Entidades.Procesos;
 import InterfaceAdministrar.AdministrarLiquidacionesLogsInterface;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfacePersistencia.PersistenciaEmpleadoInterface;
 import InterfacePersistencia.PersistenciaLiquidacionesLogsInterface;
 import InterfacePersistencia.PersistenciaOperandosInterface;
+import InterfacePersistencia.PersistenciaProcesosInterface;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,6 +34,8 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    PersistenciaEmpleadoInterface persistenciaEmpleado;
    @EJB
    PersistenciaOperandosInterface persistenciaOperandos;
+   @EJB
+   PersistenciaProcesosInterface persistenciaProcesos;
 
    @EJB
    PersistenciaEmpleadoInterface persistenciaEmpleados;
@@ -71,9 +75,7 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    }
 
    public List<LiquidacionesLogs> consultarLiquidacionesLogs() {
-      List<LiquidacionesLogs> listLiquidacionesLogs;
-      listLiquidacionesLogs = persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(em);
-      return listLiquidacionesLogs;
+      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogs(em);
    }
 
    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorEmpleado(BigInteger secEmpleado) {
@@ -83,9 +85,11 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    }
 
    public List<LiquidacionesLogs> consultarLiquidacionesLogsPorOperando(BigInteger secOperando) {
-      List<LiquidacionesLogs> lesiones;
-      lesiones = persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(em, secOperando);
-      return lesiones;
+      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorOperando(em, secOperando);
+   }
+
+   public List<LiquidacionesLogs> consultarLiquidacionesLogsPorProceso(BigInteger secProceso) {
+      return persistenciaLiquidacionesLogs.consultarLiquidacionesLogsPorProceso(em, secProceso);
    }
 
    @Override
@@ -98,5 +102,10 @@ public class AdministrarLiquidacionesLogs implements AdministrarLiquidacionesLog
    @Override
    public List<Operandos> consultarLOVOperandos() {
       return persistenciaOperandos.buscarOperandos(em);
+   }
+
+   @Override
+   public List<Procesos> consultarLOVProcesos() {
+      return persistenciaProcesos.lovProcesos(em);
    }
 }
