@@ -101,9 +101,6 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
                         if (aportesEntidades.get(i).getTercero() != null) {
                             em.clear();
                             String sqlAux = "select t.secuencia SECUENCIA,t.nit NITTERCERO, t.nombre NOMBRETERCERO from TERCEROS t where t.secuencia = " + aportesEntidades.get(i).getTercero();
-                            if (i == 0) {
-                                System.out.println("SqlAux : " + sqlAux);
-                            }
                             Query query2 = em.createNativeQuery(sqlAux, TercerosAux.class);
                             TercerosAux tAux = (TercerosAux) query2.getSingleResult();
                             aportesEntidades.get(i).setNombretercero(tAux.getNombretercero());

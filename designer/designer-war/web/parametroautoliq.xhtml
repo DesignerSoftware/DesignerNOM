@@ -1434,7 +1434,7 @@
                 <h:form id="formularioLovTipoTrabajador">
 
                     <p:dialog header="#{msg['tipoTrabajadorM']}" widgetVar="TipoTrabajadorDialogo" draggable="true" resizable="false" closable="false" id="TipoTrabajadorDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
                         <p:dataTable id="lovTipoTrabajador" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoT" value="#{controlParametroAutoliq.lovTiposTrabajadores}" rowKey="#{tipoT.secuencia}"
                                      selection="#{controlParametroAutoliq.tipoTrabajadorSeleccionado}" selectionMode="single" widgetVar="lovTipoTrabajador" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposTrabajadores}" emptyMessage="#{msg['lovvacio']}">              
@@ -1446,7 +1446,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoTrabajador').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{tipoT.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center;" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1466,7 +1466,7 @@
                 <h:form id="formularioLovEmpresa">
 
                     <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="531" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="545" modal="true" >
                         <p:dataTable id="lovEmpresa" liveScroll="true" scrollRows="20" style="width: 500px;" var="empresa" value="#{controlParametroAutoliq.lovEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlParametroAutoliq.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpresas}" emptyMessage="#{msg['lovvacio']}">              
@@ -1478,19 +1478,19 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                            <p:column filterBy="#{empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nombre}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{empresa.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nit']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nit}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.codigo}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{empresa.codigo}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                 </f:facet>
@@ -1510,7 +1510,7 @@
                 <h:form id="formularioLovTipoEntidad">
 
                     <p:dialog header="#{msg['tipoEntidadM']}" widgetVar="TipoEntidadDialogo" draggable="true" resizable="false" closable="false" id="TipoEntidadDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
                         <p:dataTable id="lovTipoEntidad" liveScroll="true" scrollRows="20" style="width: 400px;" var="tipoE" value="#{controlParametroAutoliq.lovTiposEntidades}" rowKey="#{tipoE.secuencia}"
                                      selection="#{controlParametroAutoliq.tipoEntidadSeleccionado}" selectionMode="single" widgetVar="lovTipoEntidad" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTiposEntidades}" emptyMessage="#{msg['lovvacio']}">              
@@ -1522,7 +1522,7 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTipoEntidad').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{tipoE.nombre}"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1542,7 +1542,7 @@
                 <h:form id="formularioLovEmpleado">
 
                     <p:dialog header="#{msg['empleadoM']}" widgetVar="EmpleadoDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="445" modal="true" >
                         <p:dataTable id="lovEmpleado" liveScroll="true" scrollRows="20" style="width: 400px;" var="empleado" value="#{controlParametroAutoliq.lovEmpleados}" rowKey="#{empleado.secuencia}"
                                      selection="#{controlParametroAutoliq.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleado" scrollable="true" scrollWidth="415" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}">              
@@ -1554,14 +1554,14 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleado').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 85% !important" width="80" filterMatchMode="contains">
+                            <p:column filterBy="#{empleado.codigoempleado}" filterStyle="width: 80% !important" width="80" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigo']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empleado.codigoempleado}" />
                             </p:column>
 
-                            <p:column filterBy="#{empleado.persona.nombreCompleto}"  filterStyle="width: 85% !important" filterMatchMode="contains">
+                            <p:column filterBy="#{empleado.persona.nombreCompleto}"  filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
@@ -1581,7 +1581,7 @@
                 <h:form id="formularioLovTercero">
 
                     <p:dialog header="#{msg['terceroM']}" widgetVar="TerceroDialogo" draggable="true" resizable="false" closable="false" id="TerceroDialogo"  
-                              showEffect="fade" hideEffect="fade" width="531" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="545" modal="true" >
                         <p:dataTable id="lovTercero" liveScroll="true" scrollRows="20" style="width: 500px;" var="tercero" value="#{controlParametroAutoliq.lovTerceros}" rowKey="#{tercero.secuencia}"
                                      selection="#{controlParametroAutoliq.terceroSeleccionado}" selectionMode="single" widgetVar="lovTercero" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovTerceros}" emptyMessage="#{msg['lovvacio']}">              
@@ -1593,19 +1593,19 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovTercero').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                            <p:column filterBy="#{tercero.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombre']}" />
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nombre}" />
                             </p:column>
-                            <p:column filterBy="#{tercero.nit}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{tercero.nit}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nit']}" />
                                 </f:facet>
                                 <h:outputText  value="#{tercero.nit}" />
                             </p:column>
-                            <p:column filterBy="#{tercero.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                            <p:column filterBy="#{tercero.empresa.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['empresa']}" />
                                 </f:facet>
@@ -1625,7 +1625,7 @@
                 <h:form id="formularioLovAporteEntidad">
 
                     <p:dialog header="#{msg['aporteEntidadM']}" widgetVar="BuscarAporteDialogo" draggable="true" resizable="false" closable="false" id="BuscarAporteDialogo"  
-                              showEffect="fade" hideEffect="fade" width="531" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="545" modal="true" >
                         <p:dataTable id="lovBuscarAporte" liveScroll="true" scrollRows="20" style="width: 500px;" var="buscarA" value="#{controlParametroAutoliq.lovAportesEntidades}" rowKey="#{buscarA.secuencia}"
                                      selection="#{controlParametroAutoliq.aporteEntidadSeleccionado}" selectionMode="single" widgetVar="lovBuscarAporte" scrollable="true" scrollWidth="515" scrollHeight="250"
                                      filteredValue="#{controlParametroAutoliq.filtrarLovAportesEntidades}" emptyMessage="#{msg['lovvacio']}">              
@@ -1637,19 +1637,19 @@
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovBuscarAporte').filter();" class="cssFiltroLOV" />  
                             </f:facet>
 
-                            <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{buscarA.ano}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['ano']}" />
                                 </f:facet>
                                 <h:outputText  value="#{buscarA.ano}" />
                             </p:column>
-                            <p:column filterBy="#{buscarA.mes}" width="90" filterMatchMode="contains" filterStyle="width: 85% !important">
+                            <p:column filterBy="#{buscarA.mes}" width="90" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['mes']}" />
                                 </f:facet>
                                 <h:outputText  value="#{buscarA.mes}" />
                             </p:column>
-                            <p:column filterBy="#{buscarA.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                            <p:column filterBy="#{buscarA.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important" >
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['empleado']}" />
                                 </f:facet>
@@ -1740,12 +1740,12 @@
                         <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
 
-                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                    <p:dialog id="errorObjetosDBAporte" header="#{msg['error']}" widgetVar="errorObjetosDBAporte"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="60" style="position: absolute; left: 5px; top: 10px;"  />
                         <h:outputText value="#{msg['errorObjetosDBAporte']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight:bold;" />
                     </p:dialog>
@@ -1757,7 +1757,7 @@
 
                     <p:dialog id="errorBorrarParametro" header="#{msg['error']}" widgetVar="errorBorrarParametro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorBorrarParametro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: justify" />
                     </p:dialog>
 
                     <p:dialog id="confirmarBorrarTodoAuto" header="#{msg['informacion']}" widgetVar="confirmarBorrarTodoAuto"  resizable="false" draggable="true" modal="true" height="85" width="290"  closable="false">  
@@ -1784,13 +1784,13 @@
                     <p:dialog id="acumularDiferenciaOK" header="#{msg['atencion']}" widgetVar="acumularDiferenciaOK"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['acumularDiferenciaOK']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('acumularDiferenciaOK').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 50px; left: 307px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('acumularDiferenciaOK').hide(); PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.acumularDiferenciaOK()}" style="position: absolute; top: 50px; left: 150px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('acumularDiferenciaOK').hide();" style="position: absolute; top: 50px; left: 250px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
 
                     <p:dialog id="errorAcumularDiferencia" header="#{msg['atencion']}" widgetVar="errorAcumularDiferencia"  resizable="false" draggable="true" modal="true" height="85" width="355"  closable="true">  
                         <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 20px;"  />
-                        <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight:bold;text-align: center" />
+                        <h:outputText value="#{msg['errorAcumularDiferencia']}" style="position: absolute; left: 70px; top: 10px; width: 270px; font-weight:bold;text-align: justify" />
                     </p:dialog>
 
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlParametroAutoliq.activarCtrlF11()}"/> 
@@ -1802,14 +1802,14 @@
 
                         <p:panel id="nuevaParametro" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaAnoParametro" value="#{controlParametroAutoliq.nuevoParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 55px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaAnoParametro" value="#{controlParametroAutoliq.nuevoParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 50px;">
                                 <p:ajax event="change" update="nuevaAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="nuevaAnoParametro" value="#{msg['ano']}" />
 
-                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:selectOneMenu value="#{controlParametroAutoliq.nuevoParametro.mes}" id="nuevaMesParametro"  style="position: absolute; top: 103px; left: 200px; width: 104px ; font-weight: bold;text-transform: uppercase;" >  
+                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
+                            <p:selectOneMenu value="#{controlParametroAutoliq.nuevoParametro.mes}" id="nuevaMesParametro"  style="position: absolute; top: 83px; left: 200px; width: 104px ; font-weight: bold;text-transform: uppercase;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
@@ -1826,26 +1826,26 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaTipoTrabajadorParametro" value="#{controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 110px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 1)}"
                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.nuevoParametro.tipotrabajador.nombre, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnNuevaTipoTrabajador" value="" process="@this" 
+                            <p:commandButton style="position: absolute; left: 333px; top: 112px;" class="cssBotonLovDialogos" id="btnNuevaTipoTrabajador" value="" process="@this" 
                                              actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,1)}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>   
                             <p:watermark for="nuevaTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
 
-                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaEmpresaParametro" value="#{controlParametroAutoliq.nuevoParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 140px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,1, 2)}"
                                       onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.nuevoParametro.empresa.nombre, 1)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnNuevaEmpresa" value="" process="@this"
+                            <p:commandButton style="position: absolute; left: 333px; top: 142px; " class="cssBotonLovDialogos" id="btnNuevaEmpresa" value="" process="@this"
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,1,2)}"/>   
                             <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}"/>
 
@@ -1861,14 +1861,14 @@
 
                         <p:panel id="duplicarParametro" style="border: none;">
 
-                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarAnoParametro" value="#{controlParametroAutoliq.duplicarParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 70px;">
+                            <strong><h:outputText value="*#{msg['anoN']}" style="position: absolute; top: 55px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarAnoParametro" value="#{controlParametroAutoliq.duplicarParametro.ano}" maxlength="4" style="width: 122px; position: absolute; left: 200px; top: 50px;">
                                 <p:ajax event="change" update="duplicarAnoParametro"/>
                             </p:inputText>
                             <p:watermark for="duplicarAnoParametro" value="#{msg['ano']}" />
 
-                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:selectOneMenu value="#{controlParametroAutoliq.duplicarParametro.mes}" id="duplicarMesParametro"  style="position: absolute; top: 103px; left: 200px; font-weight: bold;text-transform: uppercase; width: 104px;" >  
+                            <strong><h:outputText value="*#{msg['mesN']}" style="position: absolute; top: 85px; left: 50px;" /></strong>
+                            <p:selectOneMenu value="#{controlParametroAutoliq.duplicarParametro.mes}" id="duplicarMesParametro"  style="position: absolute; top: 83px; left: 200px; font-weight: bold;text-transform: uppercase; width: 104px;" >  
                                 <f:selectItem itemLabel="" itemValue="0" />  
                                 <f:selectItem itemLabel="#{msg['enero']}" itemValue="1" />  
                                 <f:selectItem itemLabel="#{msg['febrero']}" itemValue="2" />  
@@ -1885,25 +1885,25 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 130px;text-transform: uppercase">
+                            <strong><h:outputText value="#{msg['tipoTrabajadorN']}" style="position: absolute; top: 115px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarTipoTrabajadorParametro" value="#{controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre}" style="width: 122px; position: absolute; left: 200px; top: 110px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"
                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(1, 'TIPOTRABAJADOR')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('TIPOTRABAJADOR', controlParametroAutoliq.duplicarParametro.tipotrabajador.nombre, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 130px;  " id="btnDuplicarTipoTrabajador"
+                            <p:commandButton style="position: absolute; left: 333px; top: 112px;  " id="btnDuplicarTipoTrabajador" class="cssBotonLovDialogos"
                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" value="" process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"/>   
                             <p:watermark for="duplicarTipoTrabajadorParametro" value="#{msg['tipoTrabajador']}" />
 
-                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 165px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 160px;text-transform: uppercase">
+                            <strong><h:outputText value="*#{msg['empresaN']}" style="position: absolute; top: 145px; left: 50px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarEmpresaParametro" value="#{controlParametroAutoliq.duplicarParametro.empresa.nombre}" style="width: 122px; position: absolute; left: 200px; top: 140px;text-transform: uppercase">
                                 <p:ajax event="dblclick" listener="#{controlParametroAutoliq.asignarIndex(infoPA,2,1)}"
                                        onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" />
                                 <p:ajax event="click" listener="#{controlParametroAutoliq.valoresBackupAutocompletar(2, 'EMPRESA')}" />
                                 <p:ajax event="change" listener="#{controlParametroAutoliq.autocompletarNuevoyDuplicadoParametroAutoliq('EMPRESA', controlParametroAutoliq.duplicarParametro.empresa.nombre, 2)}" />
                             </p:inputText>
-                            <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 23px; height: 23px; border: none; position: absolute; left: 331px; top: 160px;  " id="btnDuplicarEmpresa" value="" 
+                            <p:commandButton style="position: absolute; left: 333px; top: 142px; " class="cssBotonLovDialogos" id="btnDuplicarEmpresa" value="" 
                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"  process="@this"  actionListener="#{controlParametroAutoliq.asignarIndex(infoPA,2,2)}"/>   
                             <p:watermark for="duplicarEmpresaParametro" value="#{msg['empresa']}"/>
 
@@ -1914,7 +1914,6 @@
                     </p:dialog>
 
                     <!-- -->
-
                     <p:dialog id="nuevoAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="nuevoAporteEntidad" closable="false" resizable="false"  draggable="true" modal="true"  height="450" width="800" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px"/></strong></center> 
@@ -2299,7 +2298,7 @@
 
 
 
-                    <p:dialog id="duplicarAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="duplicarAporteEntidad" closable="false" resizable="false"  draggable="true" modal="true"  height="450" width="800" style=" padding: 0px">  
+                    <p:dialog id="duplicarAporteEntidad" header="#{msg['nuevoregistro']}" widgetVar="duplicarAporteEntidad" closable="false" resizable="false"  draggable="true" modal="true"  height="450" width="315" style=" padding: 0px">  
 
                         <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px"/></strong></center> 
 
@@ -2678,11 +2677,10 @@
                     </p:dialog>
 
 
-                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="180" width="365"  closable="false">  
+                    <p:dialog id="seleccionarTablaNewReg" header="Nuevo Registro" widgetVar="seleccionarTablaNewReg"  resizable="false" draggable="true" modal="true" height="90" width="365"  closable="true">  
                         <h:outputText value="Seleccione la tabla en la cual quiere insertar el nuevo Registro" style="color: blue; position: absolute; left: 15px; top: 10px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="Parámetros" style="position: absolute; left: 90px; top: 55px; font-weight:bold; width: 180px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                        <p:commandButton value="Aportes Entidades" style="position: absolute; left: 90px; top: 85px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="PF('seleccionarTablaNewReg').hide()" />
-                        <p:commandButton value="#{msg['salir']}" icon="ui-icon-closethick" style="position: absolute; top: 150px; left: 250px;" onclick="PF('seleccionarTablaNewReg').hide()"  />
+                        <p:commandButton value="Parámetros" style="position: absolute; left: 28px; top: 55px; height: 25px; font-weight:bold; width: 125px; text-align: center" process="@this"  actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoParametro()}" onclick="PF('seleccionarTablaNewReg').hide()" />
+                        <p:commandButton value="Aportes Entidades" style="position: absolute; left: 170px; top: 55px; height: 25px; font-weight:bold; width: 180px; text-align: center" process="@this" actionListener="#{controlParametroAutoliq.mostrarDialogoNuevoAporte()}" onclick="PF('seleccionarTablaNewReg').hide()" />
                     </p:dialog>
 
                     <p:dialog id="editarAnoD" header="#{msg['editarAnoD']}" widgetVar="editarAnoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  

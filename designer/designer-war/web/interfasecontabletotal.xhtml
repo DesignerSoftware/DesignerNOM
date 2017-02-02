@@ -86,14 +86,14 @@
                         </p:toolbar> 
 
                         <p:panel style="position: absolute;top: 70px; left: 5px; width: 864px; height: 75px; border: none" id="panelParametro">
-                            <fieldset style="position: absolute; top: -1px; left: 5px;height: 65px;width: 830px; border-radius: 10px; text-align: left">
+                            <fieldset style="position: absolute; top: -1px; left: 5px;height: 55px;width: 830px; border-radius: 10px; text-align: left">
                                 <legend style=" color: blue;text-align:left"><strong>#{msg['parametrosContables']}</strong></legend>
 
                                 <p:commandButton id="btnrecontabilizar" value=" " style="position: relative; top: 2px; left: 5px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableTotal.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <div id="pempresa" style="position: relative; top: -35px; left: 10px" > 
                                     <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 49px"/></strong>
-                                    <p:inputText  autocomplete="off"  id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 85px;width: 308px;text-transform: uppercase">
+                                    <p:inputText  autocomplete="off"  id="parametroEmpresa" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre}" style="position: relative; top: -10px; left: 85px;width: 308px;text-transform: uppercase; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.empresaRegistro.nombre, 'EMPRESA')}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,0)}" />
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.parametroContableActual, 0, 0)}"/>
@@ -101,14 +101,14 @@
                                 </div>
 
                                 <div id="pdoccontable" style="position: relative; top: -60px; left: 410px" >
-                                    <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px"/></strong>
-                                    <p:inputText  autocomplete="off"  maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px;">
+                                    <strong><h:outputText value="#{msg['docContable']}" style="position: relative; top: 20px; left: -352px; "/></strong>
+                                    <p:inputText  autocomplete="off"  maxlength="4" id="parametroDocContable" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.documentoContable}" style="position: relative; top: 20px; left: -347px;text-transform: uppercase;width: 100px; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable()}" update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,1)}" />
                                     </p:inputText> 
 
-                                    <strong><h:outputText value="#{msg['proceso']}" style="position: relative; top: 20px; left: -340px; display: inline-block"/></strong>
-                                    <p:inputText  autocomplete="off"  id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px;text-transform: uppercase">
+                                    <strong><h:outputText value="#{msg['proceso']}" style="position: relative; top: 20px; left: -340px; display: inline-block; height: 10px;"/></strong>
+                                    <p:inputText  autocomplete="off"  id="parametroProceso" onclick="select();" value="#{controlInterfaseContableTotal.parametroContableActual.proceso.descripcion}" style="position: relative; top: 20px; left: -335px;text-transform: uppercase; height: 10px;">
                                         <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarParametroContable(controlInterfaseContableTotal.parametroContableActual.proceso.descripcion, 'PROCESO')}"  update="@this"/>
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,2)}" />
                                         <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.parametroContableActual, 1, 0)}"/>
@@ -142,7 +142,7 @@
                                 <p:remoteCommand name="generarDocumentoReporte" actionListener="#{controlInterfaseContableTotal.generarDocumentoReporte()}"/>
                             </fieldset> 
                         </p:panel>
-                        <fieldset style="position: absolute;top: 150px;left: 10px;height: 155px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute;top: 140px;left: 10px;height: 155px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['generados']}</strong></legend>
 
                             <p:dataTable id="datosGenerados" var="infoG" rowKey="#{infoG.secuencia}" rowIndexVar="indiceG" style="width: 814px; border: 1px;"                           
@@ -287,28 +287,28 @@
                                 </p:column>
 
                             </p:dataTable> 
-                            <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroGenerados}" style="position: relative; left: 0px; top: 5px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroGenerados}" style="position: relative; left: 0px; top: 10px; font-weight: bold"/>
 
                             <p:commandButton id="btnEnviar" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlInterfaseContableTotal.activarEnviar}" value="#{msg['enviar']}" 
-                                             icon="ui-icon-arrowreturnthick-1-s" style="position: relative; top: 5px; left: 10px;text-align: center; height: 30px; width: 85px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                             icon="ui-icon-arrowreturnthick-1-s" style="position: relative; top: 0px; left: 10px;text-align: center; height: 30px; width: 85px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                              actionListener="#{controlInterfaseContableTotal.actionBtnEnviar()}"/>
-                            <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableTotal.activarDeshacer}" value="#{msg['deshacer']}"  style="position: relative; top: 5px; left: 12px; height: 30px; width: 101px; background-image: url(Imagenes/Iconos/boton.png); 
+                            <p:commandButton id="btnDeshacer"  disabled="#{controlInterfaseContableTotal.activarDeshacer}" value="#{msg['deshacer']}"  style="position: relative; top: 0px; left: 12px; height: 30px; width: 101px; background-image: url(Imagenes/Iconos/boton.png); 
                                              color: white; background-size: 100% 100%; background-repeat: no-repeat; text-align: center; border: none;" icon="ui-icon-arrowreturnthick-1-s"  onclick="PF('procesoDeshacer').show()"/>
 
                             <p:commandButton id="reporteControl"   value="R. Control" actionListener="#{controlInterfaseContableTotal.validarDescargaReporte()}"  icon="ui-icon-arrowreturnthick-1-s"
                                              onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
-                                             style="position: relative; top: 5px; left: 14px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
+                                             style="position: relative; top: 0px; left: 14px; height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}" />
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 5px; left: 18px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 5px; left: 20px;width: 100px">
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 10px; left: 18px"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px;width: 100px; height: 10px;">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 5px; left: 22px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 5px; left: 22px;width: 100px">
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 10px; left: 22px"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px;width: 100px; height: 10px;">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
                         </fieldset>
@@ -316,7 +316,7 @@
                         <p:remoteCommand name="posicionGenerado" actionListener="#{controlInterfaseContableTotal.posicionGenerado()}"/>
                         <p:remoteCommand name="posicionIntercon" actionListener="#{controlInterfaseContableTotal.posicionIntercon()}"/>
 
-                        <fieldset style="position: absolute;top: 325px;left: 10px;height: 145px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute;top: 318px;left: 10px;height: 155px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style=" color: blue;text-align:left"><strong>#{msg['intercontotal']}</strong></legend>
 
                             <p:dataTable id="datosIntercon" var="infoI" rowKey="#{infoI.secuencia}" rowIndexVar="indiceI" style="width: 814px; border: 1px;"                           
@@ -464,15 +464,15 @@
                                 </p:column>
 
                             </p:dataTable> 
-                            <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 1px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 12px; font-weight: bold"/>
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 2px; left: 290px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 2px; left: 295px;width: 90px;height: 10px">
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 12px; left: 290px"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 295px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 2px; left: 315px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 2px; left: 320px;width: 90px;height: 10px">
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 12px; left: 315px"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 320px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
@@ -922,13 +922,14 @@
                         <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight:bold;width: 250px;"  />
                         <p:inputText  autocomplete="off"  value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight:bold;width: 230px;"  />
-                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px" onclick="PF('cerrarPaginaDescarga()" icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); #{controlInterfaseContableTotal.cerrarPaginaDescarga()}" 
+                                         icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 
                         <p:commandButton icon="ui-icon-close" value="#{msg['salir']}" onclick="PF('planoGeneradoOK').hide();" style="position: absolute; top: 118px; left: 232px" process="@this" />
                     </p:dialog>
-                    <p:remoteCommand name="cerrarPaginaDescarga" actionListener="#{controlInterfaseContableTotal.cerrarPaginaDescarga()}"/>
+                    <!--<p:remoteCommand name="cerrarPaginaDescarga" "/>-->
                 </h:form>
                 
                 <h:form id="formExportar">
