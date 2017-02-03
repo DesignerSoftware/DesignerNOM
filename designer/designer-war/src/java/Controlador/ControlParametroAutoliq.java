@@ -769,7 +769,6 @@ public class ControlParametroAutoliq implements Serializable {
                 parametroTablaSeleccionado.getEmpresa().getNombre();
             }
             cargarDatosNuevos();
-            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         }
     }
 
@@ -777,7 +776,7 @@ public class ControlParametroAutoliq implements Serializable {
         try {
             listaAportesEntidades = null;
             getListaAportesEntidades();
-            Thread.sleep(2000L);
+//            Thread.sleep(2000L);
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         } catch (Exception e) {
@@ -3422,7 +3421,6 @@ public class ControlParametroAutoliq implements Serializable {
             if (listaAportesEntidades == null) {
                 if (parametroTablaSeleccionado != null) {
                     listaAportesEntidades = administrarParametroAutoliq.consultarAportesEntidadesPorParametroAutoliq(parametroTablaSeleccionado.getEmpresa().getSecuencia(), parametroTablaSeleccionado.getMes(), parametroTablaSeleccionado.getAno());
-                    System.out.println("tabla aportes entidades en el controlador : " + listaAportesEntidades.size());
                 }
             }
             return listaAportesEntidades;

@@ -25,7 +25,7 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(aportesEntidades);
+            em.merge(aportesEntidades);
             tx.commit();
         } catch (Exception e) {
             System.out.println("Error PersistenciaAportesEntidades.crear : " + e.toString());
@@ -94,7 +94,6 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
             query.setParameter(3, mes);
 
             List<AportesEntidades> aportesEntidades = query.getResultList();
-            System.out.println("lista aportes entidades : " + aportesEntidades.size());
             if (aportesEntidades != null) {
                 if (!aportesEntidades.isEmpty()) {
                     for (int i = 0; i < aportesEntidades.size(); i++) {
@@ -143,10 +142,6 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaIncicial = formatoFecha.format(fechaIni);
         String fechaFinal = formatoFecha.format(fechaFin);
-        System.out.println("ejecutarPKGInsertar fechaInicial: " + fechaIncicial);
-        System.out.println("ejecutarPKGInsertar fechaFinal: " + fechaFinal);
-        System.out.println("ejecutarPKGInsertar tipoTrabajador: " + tipoTrabajador);
-        System.out.println("ejecutarPKGInsertar secEmpresa: " + secEmpresa);
 
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -172,10 +167,6 @@ public class PersistenciaAportesEntidades implements PersistenciaAportesEntidade
 
     @Override
     public String ejecutarPKGActualizarNovedades(EntityManager em, BigInteger secEmpresa, short mes, short ano) {
-        System.out.println("Persistencia.PersistenciaAportesEntidades.ejecutarPKGActualizarNovedades()");
-        System.out.println("ejecutarPKGActualizarNovedades secEmpresa: " + secEmpresa);
-        System.out.println("ejecutarPKGActualizarNovedades mes: " + mes);
-        System.out.println("ejecutarPKGActualizarNovedades año: " + ano);
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {

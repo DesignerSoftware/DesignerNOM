@@ -262,110 +262,18 @@ public class ControlMotivosMvrs implements Serializable {
         }
     }
 
-    public void modificarMotivosMvrs(Motivosmvrs mmvr, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR Motivos Mvrs");
+    public void modificarMotivosMvrs(Motivosmvrs mmvr) {
         motivoMvrSeleccionada = mmvr;
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR Motivos Mvrs, CONFIRMAR CAMBIO ES N");
-            if (!crearMotivoMvrs.contains(motivoMvrSeleccionada)) {
-                if (motivoMvrSeleccionada.getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    motivoMvrSeleccionada.setCodigo(backUpCodigo);
-                } else {
-                    for (int j = 0; j < listMotivosMvrs.size(); j++) {
-                        if (listMotivosMvrs.get(j).getSecuencia() != motivoMvrSeleccionada.getSecuencia()) {
-                            if (motivoMvrSeleccionada.getCodigo().equals(listMotivosMvrs.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        motivoMvrSeleccionada.setCodigo(backUpCodigo);
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                }
-                if (motivoMvrSeleccionada.getNombre() == null) {
-                    motivoMvrSeleccionada.setNombre(backUpDescripcion);
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                }
-                if (motivoMvrSeleccionada.getNombre().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    motivoMvrSeleccionada.setNombre(backUpDescripcion);
-                    banderita = false;
-                }
-
-                if (banderita == true) {
-                    if (modificarMotivoMvrs.isEmpty()) {
-                        modificarMotivoMvrs.add(motivoMvrSeleccionada);
-                    } else if (!modificarMotivoMvrs.contains(motivoMvrSeleccionada)) {
-                        modificarMotivoMvrs.add(motivoMvrSeleccionada);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-            } else {
-                if (motivoMvrSeleccionada.getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    motivoMvrSeleccionada.setCodigo(backUpCodigo);
-                } else {
-                    for (int j = 0; j < listMotivosMvrs.size(); j++) {
-                        if (listMotivosMvrs.get(j).getSecuencia() != motivoMvrSeleccionada.getSecuencia()) {
-                            if (motivoMvrSeleccionada.getCodigo().equals(listMotivosMvrs.get(j).getCodigo())) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        motivoMvrSeleccionada.setCodigo(backUpCodigo);
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                }
-                if (motivoMvrSeleccionada.getNombre() == null) {
-                    motivoMvrSeleccionada.setNombre(backUpDescripcion);
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                }
-                if (motivoMvrSeleccionada.getNombre().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    motivoMvrSeleccionada.setNombre(backUpDescripcion);
-                    banderita = false;
-                }
-
-                if (banderita == true) {
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
+        if (!crearMotivoMvrs.contains(motivoMvrSeleccionada)) {
+            if (modificarMotivoMvrs.isEmpty()) {
+                modificarMotivoMvrs.add(motivoMvrSeleccionada);
+            } else if (!modificarMotivoMvrs.contains(motivoMvrSeleccionada)) {
+                modificarMotivoMvrs.add(motivoMvrSeleccionada);
             }
-            RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
+        RequestContext.getCurrentInstance().update("form:datosMotivoMvr");
     }
 
     public void borrarMotivosMvrs() {

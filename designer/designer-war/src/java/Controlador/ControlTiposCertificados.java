@@ -155,10 +155,8 @@ public class ControlTiposCertificados implements Serializable {
             if (tipoLista == 0) {
                 if (cualCelda == 0) {
                     backUpCodigo = tiposCertificadoSeleccionado.getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
                 } else if (cualCelda == 1) {
                     backUpDescripcion = tiposCertificadoSeleccionado.getDescripcion();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
                 }
             }
         }
@@ -252,101 +250,18 @@ public class ControlTiposCertificados implements Serializable {
         }
     }
 
-    public void modificarTiposCertificados(TiposCertificados tc, String confirmarCambio, String valorConfirmar) {
+    public void modificarTiposCertificados(TiposCertificados tc) {
         tiposCertificadoSeleccionado = tc;
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (!crearTiposCertificados.contains(tiposCertificadoSeleccionado)) {
-                if (tiposCertificadoSeleccionado.getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setCodigo(backUpCodigo);
-                } else {
-                    for (int j = 0; j < listTiposCertificados.size(); j++) {
-                        if (!listTiposCertificados.get(j).getSecuencia().equals(tiposCertificadoSeleccionado.getSecuencia())) {
-                            if (tiposCertificadoSeleccionado.getCodigo() == listTiposCertificados.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        tiposCertificadoSeleccionado.setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-                }
-                if (tiposCertificadoSeleccionado.getDescripcion().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setDescripcion(backUpDescripcion);
-                }
-                if (tiposCertificadoSeleccionado.getDescripcion().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setDescripcion(backUpDescripcion);
-                }
-                if (banderita == true) {
-                    if (modificarTiposCertificados.isEmpty()) {
-                        modificarTiposCertificados.add(tiposCertificadoSeleccionado);
-                    } else if (!modificarTiposCertificados.contains(tiposCertificadoSeleccionado)) {
-                        modificarTiposCertificados.add(tiposCertificadoSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-            } else {
-                if (tiposCertificadoSeleccionado.getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setCodigo(backUpCodigo);
-                } else {
-                    for (int j = 0; j < listTiposCertificados.size(); j++) {
-                        if (!listTiposCertificados.get(j).getSecuencia().equals(tiposCertificadoSeleccionado.getSecuencia())) {
-                            if (tiposCertificadoSeleccionado.getCodigo() == listTiposCertificados.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        tiposCertificadoSeleccionado.setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-                }
-                if (tiposCertificadoSeleccionado.getDescripcion().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setDescripcion(backUpDescripcion);
-                }
-                if (tiposCertificadoSeleccionado.getDescripcion().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    tiposCertificadoSeleccionado.setDescripcion(backUpDescripcion);
-                }
-                if (banderita == true) {
-
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
+        if (!crearTiposCertificados.contains(tiposCertificadoSeleccionado)) {
+            if (modificarTiposCertificados.isEmpty()) {
+                modificarTiposCertificados.add(tiposCertificadoSeleccionado);
+            } else if (!modificarTiposCertificados.contains(tiposCertificadoSeleccionado)) {
+                modificarTiposCertificados.add(tiposCertificadoSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosTiposCertificados");
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            guardado = false;
         }
+        RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        RequestContext.getCurrentInstance().update("form:datosTiposCertificados");
     }
 
     public void borrandoTiposCertificados() {

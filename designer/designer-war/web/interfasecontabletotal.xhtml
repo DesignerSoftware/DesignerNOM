@@ -89,7 +89,8 @@
                             <fieldset style="position: absolute; top: -1px; left: 5px;height: 55px;width: 830px; border-radius: 10px; text-align: left">
                                 <legend style=" color: blue;text-align:left"><strong>#{msg['parametrosContables']}</strong></legend>
 
-                                <p:commandButton id="btnrecontabilizar" value=" " style="position: relative; top: 2px; left: 5px;text-align: left; width: 45px; height: 45px;"  actionListener="#{controlInterfaseContableTotal.actionBtnRecontabilizar()}" process="@this"/>
+                                <p:commandButton id="btnrecontabilizar" value=" " style="position: relative; top: 2px; left: 5px;text-align: left; width: 45px; height: 45px; background-image: url(Imagenes/Iconos/innovina_icono_180x180.png); background-size: 100% 100%; background-repeat: no-repeat;" 
+                                                 actionListener="#{controlInterfaseContableTotal.actionBtnRecontabilizar()}" process="@this"/>
 
                                 <div id="pempresa" style="position: relative; top: -35px; left: 10px" > 
                                     <strong><h:outputText value="#{msg['empresa']}" style="position: relative; top: -10px; left: 49px"/></strong>
@@ -287,7 +288,7 @@
                                 </p:column>
 
                             </p:dataTable> 
-                            <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroGenerados}" style="position: relative; left: 0px; top: 10px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroGenerados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroGenerados}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
 
                             <p:commandButton id="btnEnviar" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" disabled="#{controlInterfaseContableTotal.activarEnviar}" value="#{msg['enviar']}" 
                                              icon="ui-icon-arrowreturnthick-1-s" style="position: relative; top: 0px; left: 10px;text-align: center; height: 30px; width: 85px; background-image: url(Imagenes/Iconos/boton.png); color: white;
@@ -302,12 +303,12 @@
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}" />
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 10px; left: 18px"/></strong>
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px"/></strong>
                             <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px;width: 100px; height: 10px;">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 10px; left: 22px"/></strong>
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px"/></strong>
                             <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px;width: 100px; height: 10px;">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
@@ -464,14 +465,14 @@
                                 </p:column>
 
                             </p:dataTable> 
-                            <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 12px; font-weight: bold"/>
+                            <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 8px; font-weight: bold"/>
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 12px; left: 290px"/></strong>
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 290px"/></strong>
                             <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 295px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 12px; left: 315px"/></strong>
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 8px; left: 315px"/></strong>
                             <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 320px;width: 90px;height: 10px">
                                 <f:convertNumber currencySymbol="$" type="currency" />
                             </p:inputText>
