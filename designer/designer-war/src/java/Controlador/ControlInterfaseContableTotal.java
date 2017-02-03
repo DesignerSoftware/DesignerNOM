@@ -569,53 +569,84 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
     }
 
-    public void conectarAlFTP() {
-        try {
-            System.out.println("server remoto : " + usuarioInterfaseContabilizacion.getServernameremoto());
-            System.out.println("usuario remoto : " + usuarioInterfaseContabilizacion.getUsuarioremoto());
-            System.out.println("password remoto : " + usuarioInterfaseContabilizacion.getPasswordremoto());
+//    public void conectarAlFTP() {
+//        try {
+//            System.out.println("server remoto : " + usuarioInterfaseContabilizacion.getServernameremoto());
+//            System.out.println("usuario remoto : " + usuarioInterfaseContabilizacion.getUsuarioremoto());
+//            System.out.println("password remoto : " + usuarioInterfaseContabilizacion.getPasswordremoto());
+//
+//            ftpClient.connect(usuarioInterfaseContabilizacion.getServernameremoto());
+//            ftpClient.login(usuarioInterfaseContabilizacion.getUsuarioremoto(), usuarioInterfaseContabilizacion.getPasswordremoto());
+//            ftpClient.enterLocalPassiveMode();
+//            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+//        } catch (Exception e) {
+//            System.out.println("Error en conexion : " + e.toString());
+//        }
+//    }
+//
+//    public void descargarArchivoFTP() throws IOException {
+//        try {
+//            usuarioInterfaseContabilizacion = administrarInterfaseContableTotal.obtenerUsuarioInterfaseContabilizacion();
+//            System.out.println("usuario interfase contabilzación: " + usuarioInterfaseContabilizacion);
+//            conectarAlFTP();
+//            int tamPath = pathProceso.length();
+//            String rutaX = "";
+//            for (int i = 2; i < tamPath; i++) {
+//                rutaX = rutaX + pathProceso.charAt(i) + "";
+//            }
+//            System.out.println("rutaX : " + rutaX);
+//            String remoteFile1 = rutaX + nombreArchivo + ".txt";
+//            File downloadFile1 = new File(pathProceso + nombreArchivo + ".txt");
+//            OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
+//            boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
+//            outputStream1.close();
+//            if (success) {
+//                System.out.println("Archivo #1 ha sido descargado exitosamente.");
+//            } else {
+//                System.out.println("Ni mierda !");
+//            }
+//            ftpClient.logout();
+//            File file = new File(pathProceso + nombreArchivo + ".txt");
+//            InputStream input = new FileInputStream(file);
+//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//            setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
+////            RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
+//        } catch (Exception e) {
+//            System.out.println("Error descarga : " + e.toString());
+//        }
+//    }
 
-            ftpClient.connect(usuarioInterfaseContabilizacion.getServernameremoto());
-            ftpClient.login(usuarioInterfaseContabilizacion.getUsuarioremoto(), usuarioInterfaseContabilizacion.getPasswordremoto());
-            ftpClient.enterLocalPassiveMode();
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-        } catch (Exception e) {
-            System.out.println("Error en conexion : " + e.toString());
-        }
-    }
+     public void exportarPlano() throws IOException {
+      System.out.println(this.getClass().getName() + ".exportarPlano()");
+//      if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+      if (pathProceso != null || !pathProceso.startsWith("Error:")) {
+         File planof = new File(pathProceso);
+//         File reporteF = new File(pathReporteGenerado);
+         FacesContext ctx = FacesContext.getCurrentInstance();
+         FileInputStream fis = new FileInputStream(planof);
+         byte[] bytes = new byte[1024];
+         int read;
+         if (!ctx.getResponseComplete()) {
+            String fileName = planof.getName();
+            HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+            ServletOutputStream out = response.getOutputStream();
 
-    public void descargarArchivoFTP() throws IOException {
-        try {
-            usuarioInterfaseContabilizacion = administrarInterfaseContableTotal.obtenerUsuarioInterfaseContabilizacion();
-            System.out.println("usuario interfase contabilzación: " + usuarioInterfaseContabilizacion);
-            conectarAlFTP();
-            int tamPath = pathProceso.length();
-            String rutaX = "";
-            for (int i = 2; i < tamPath; i++) {
-                rutaX = rutaX + pathProceso.charAt(i) + "";
+            while ((read = fis.read(bytes)) != -1) {
+               out.write(bytes, 0, read);
             }
-            System.out.println("rutaX : " + rutaX);
-            String remoteFile1 = rutaX + nombreArchivo + ".txt";
-            File downloadFile1 = new File(pathProceso + nombreArchivo + ".txt");
-            OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
-            boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
-            outputStream1.close();
-            if (success) {
-                System.out.println("Archivo #1 ha sido descargado exitosamente.");
-            } else {
-                System.out.println("Ni mierda !");
-            }
-            ftpClient.logout();
-            File file = new File(pathProceso + nombreArchivo + ".txt");
-            InputStream input = new FileInputStream(file);
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
-//            RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
-        } catch (Exception e) {
-            System.out.println("Error descarga : " + e.toString());
-        }
-    }
-
+            out.flush();
+            out.close();
+            ctx.responseComplete();
+         }
+      } else {
+         System.out.println("validar descarga reporte - ingreso al if 1 else");
+         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+      }
+   }
+    
+    
     public void cerrarPaginaDescarga() {
         RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
     }

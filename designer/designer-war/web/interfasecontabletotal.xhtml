@@ -924,7 +924,7 @@
                         <p:inputText  autocomplete="off"  value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight:bold;width: 230px;"  />
                         <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); #{controlInterfaseContableTotal.cerrarPaginaDescarga()}" 
-                                         icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.descargarArchivoFTP()}">
+                                         icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarPlano()}">
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 
