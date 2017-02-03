@@ -8,12 +8,15 @@ package Persistencia;
 import InterfacePersistencia.PersistenciaErroresLiquidacionesInterface;
 import Entidades.ErroresLiquidacion;
 import Entidades.VigenciasLocalizaciones;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  *
@@ -82,22 +85,35 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
       }
    }
 
-   public void BorrarTotosErroresLiquidaciones(EntityManager em) {
+   public int BorrarTotosErroresLiquidaciones(EntityManager em) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
-      int i = -100;
+      int n = 0;
+      BigInteger n1 = null;
       try {
          tx.begin();
-         String sqlQuery = "call ERRORESLIQUIDACION_pkg.BorrarErroresLiquidacion()";
-         Query query = em.createNativeQuery(sqlQuery);
-         i = query.executeUpdate();
+         StoredProcedureQuery query = em.createStoredProcedureQuery("ERRORESLIQUIDACION_PKG.BORRARERRORESLIQUIDACION");
+         System.out.println("BorrarTotosErroresLiquidaciones 1");
+         query.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.OUT);
+         System.out.println("BorrarTotosErroresLiquidaciones 2");
+         query.setParameter(1, n1);
+         System.out.println("BorrarTotosErroresLiquidaciones 3");
+         query.execute();
+         System.out.println("BorrarTotosErroresLiquidaciones 4");
+         query.hasMoreResults();
+         System.out.println("BorrarTotosErroresLiquidaciones 5");
+         n1 = (BigInteger) query.getOutputParameterValue(1);
+         System.out.println("BorrarTotosErroresLiquidaciones 6");
          tx.commit();
+         n = n1.intValue();
+         System.out.println("PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones() n: _" + n + "_");
       } catch (Exception e) {
-         System.out.println("Error PersistenciaCandados.liquidar. " + e);
+         System.out.println("Error PersistenciaErroresLiquidaciones.BorrarTotosErroresLiquidaciones. " + e);
          if (tx.isActive()) {
             tx.rollback();
          }
       }
+      return n;
    }
 
    public void borrar(EntityManager em, ErroresLiquidacion erroresLiquidacion) {
@@ -107,7 +123,6 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
          tx.begin();
          em.remove(em.merge(erroresLiquidacion));
          tx.commit();
-
       } catch (Exception e) {
          try {
             if (tx.isActive()) {

@@ -1021,7 +1021,6 @@ public class ControlEmpleadoIndividual implements Serializable {
             param.put("secEmpleado", secPersona);
 
             pathReporteGenerado = administarReportes.generarReporteHojaVida(nombreReporte, tipoReporte, param);
-            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
             if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
                 System.out.println("validar descarga reporte - ingreso al if 1");
                 if (tipoReporte.equals("PDF")) {
@@ -1058,7 +1057,6 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void reiniciarStreamedContent() {
-        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
         reporte = null;
     }
 

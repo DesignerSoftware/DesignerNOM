@@ -11,7 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import InterfaceAdministrar.AdministarReportesInterface;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -23,6 +30,8 @@ import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean
 @SessionScoped
@@ -30,6 +39,9 @@ public class ControlBarra implements Serializable {
 
    @EJB
    AdministrarBarraInterface administrarBarra;
+   @EJB
+   AdministarReportesInterface administarReportes;
+
    private Integer totalEmpleadosParaLiquidar;
    private Integer totalEmpleadosLiquidados;
    private boolean permisoParaLiquidar;
@@ -48,8 +60,11 @@ public class ControlBarra implements Serializable {
    private int banderaFiltros;
    private boolean liquifinalizada;
    private String infoRegistroCerradas, infoRegistroEnProceso;
-      private String paginaAnterior = "nominaf";
+   private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private String pathReporteGenerado = null;
+   private StreamedContent reporte;
+   private String cabezeraVisor;
 
    public ControlBarra() {
       totalEmpleadosParaLiquidar = 0;
@@ -75,7 +90,20 @@ public class ControlBarra implements Serializable {
       liquifinalizada = false;
       infoRegistroCerradas = "0";
       infoRegistroEnProceso = "0";
-   mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarBarra.obtenerConexion(ses.getId());
+         administarReportes.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -88,9 +116,9 @@ public class ControlBarra implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -99,32 +127,20 @@ public class ControlBarra implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "barra";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarBarra.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
    }
 
    public void contarLiquidados() {
@@ -494,6 +510,47 @@ public class ControlBarra implements Serializable {
 //      context.execute("PF('barra').stop()");
    }
 
+   public void reiniciarStreamedContent() {
+      reporte = null;
+   }
+
+   public void validarDescargaReporte() {
+      try {
+         String nombreReporte = "PreValidacionLiquidacion";
+         String tipoReporte = "PDF";
+         Map param = new HashMap();
+
+         pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+            System.out.println("validar descarga reporte - ingreso al if 1");
+            if (tipoReporte.equals("PDF")) {
+               FileInputStream fis;
+               try {
+                  fis = new FileInputStream(new File(pathReporteGenerado));
+                  reporte = new DefaultStreamedContent(fis, "application/pdf");
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+                  RequestContext.getCurrentInstance().update("form:verReportePDF");
+                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                  pathReporteGenerado = null;
+               } catch (FileNotFoundException ex) {
+                  System.out.println("validar descarga reporte - ingreso al catch 1 ex: " + ex);
+                  RequestContext.getCurrentInstance().execute("form:errorGenerandoReporte");
+                  RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                  reporte = null;
+               }
+            }
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().execute("form:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en validar descargar Reporte" + e.toString());
+         RequestContext.getCurrentInstance().execute("form:errorGenerandoReporte");
+         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+      }
+   }
+
    public void setBarra(Integer barra) {
       this.barra = barra;
    }
@@ -594,4 +651,29 @@ public class ControlBarra implements Serializable {
    public void setInfoRegistroEnProceso(String infoRegistroEnProceso) {
       this.infoRegistroEnProceso = infoRegistroEnProceso;
    }
+
+   public String getPathReporteGenerado() {
+      return pathReporteGenerado;
+   }
+
+   public void setPathReporteGenerado(String pathReporteGenerado) {
+      this.pathReporteGenerado = pathReporteGenerado;
+   }
+
+   public StreamedContent getReporte() {
+      return reporte;
+   }
+
+   public void setReporte(StreamedContent reporte) {
+      this.reporte = reporte;
+   }
+
+   public String getCabezeraVisor() {
+      return cabezeraVisor;
+   }
+
+   public void setCabezeraVisor(String cabezeraVisor) {
+      this.cabezeraVisor = cabezeraVisor;
+   }
+
 }

@@ -17,12 +17,13 @@ import javax.ejb.Local;
 @Local
 public interface AdministrarErroresLiquidacionesInterface {
 
-    public void obtenerConexion(String idSesion);
-    
-    public List<ErroresLiquidacion> consultarErroresLiquidacion();
+   public void obtenerConexion(String idSesion);
 
-    public List<ErroresLiquidacion> consultarErroresLiquidacionEmpleado(BigInteger secEmpleado);
+   public List<ErroresLiquidacion> consultarErroresLiquidacion();
 
-    public void borrarErroresLiquidaciones(List<ErroresLiquidacion> listaErroresLiquidacion);
-    public void borrarTodosErroresLiquidacion();
+   public List<ErroresLiquidacion> consultarErroresLiquidacionEmpleado(BigInteger secEmpleado);
+
+   public void borrarErroresLiquidaciones(List<ErroresLiquidacion> listaErroresLiquidacion);
+
+   public int borrarTodosErroresLiquidacion();
 }

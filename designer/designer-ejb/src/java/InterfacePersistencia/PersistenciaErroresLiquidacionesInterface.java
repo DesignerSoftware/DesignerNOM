@@ -24,5 +24,5 @@ public interface PersistenciaErroresLiquidacionesInterface {
 
    public void borrar(EntityManager em, ErroresLiquidacion erroresLiquidacion);
 
-   public void BorrarTotosErroresLiquidaciones(EntityManager em);
+   public int BorrarTotosErroresLiquidaciones(EntityManager em);
 }

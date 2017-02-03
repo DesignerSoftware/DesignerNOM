@@ -32,6 +32,12 @@
       </navigation-case>
       
       <navigation-case>
+         <from-outcome>emplvigenciareformalaboral</from-outcome>
+         <to-view-id>/emplvigenciareformalaboral.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+      
+      <navigation-case>
          <from-outcome>estadisticas</from-outcome>
          <to-view-id>/estadisticas.xhtml</to-view-id>
          <redirect />
@@ -1586,8 +1592,6 @@
       </navigation-case>
    </navigation-rule>
    
-   
-   
    <navigation-rule>
       <from-view-id>/historiaformula.xhtml</from-view-id>
       <navigation-case>
@@ -2603,7 +2607,7 @@
    <navigation-rule>
       <from-view-id>/reformalaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplRefLab</from-outcome>
+         <from-outcome>emplvigenciareformalaboral</from-outcome>
          <to-view-id>/emplvigenciareformalaboral.xhtml</to-view-id>
          <redirect />
       </navigation-case>

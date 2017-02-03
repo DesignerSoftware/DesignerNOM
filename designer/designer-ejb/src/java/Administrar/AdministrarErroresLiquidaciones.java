@@ -63,7 +63,7 @@ public class AdministrarErroresLiquidaciones implements AdministrarErroresLiquid
    }
 
    @Override
-   public void borrarTodosErroresLiquidacion() {
-      persistenciaErroresLiquidacionesInterface.BorrarTotosErroresLiquidaciones(em);
+   public int borrarTodosErroresLiquidacion() {
+      return persistenciaErroresLiquidacionesInterface.BorrarTotosErroresLiquidaciones(em);
    }
 }

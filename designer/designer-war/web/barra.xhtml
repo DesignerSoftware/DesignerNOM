@@ -129,7 +129,8 @@
                      <fieldset style="position: relative; top: -125px; left: -5px; width: 479px; padding: 0px; border-width: 2px; height: 83px; text-align: center; background-color: #cccccc; border-radius: 0px 0px 6px 6px;">
                         <p:commandButton id="liquidar" value="#{msg['liquidar']}" actionListener="#{controlBarra.liquidar()}" disabled="#{controlBarra.botonLiquidar}" process="@this"
                                          style="position: relative; top: 10px; left: 0px ; width: 315px; height: 35px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
-                        <p:commandButton value="#{msg['repcontrol']}" style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"/>
+                        <p:commandButton style="position: relative; top: 10px; width: 151px; height: 35px; left: 2px; border-color: #203A8E; border-width: 2px; background-color: white;"
+                                         value="#{msg['repcontrol']}" actionListener="#{controlBarra.validarDescargaReporte()}"/>
                         <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
                                          style="position: relative; top: 13px; left: 0px; width: 120px; border-color: #B61B26; border-width: 2px; background-color: white;"/>
                         <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="liquidacionlog" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
@@ -379,7 +380,21 @@
     <h:outputText value="bla bla bla bla bla bla bla bla bla :" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
     <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="window.location.reload()" style="position: absolute; top: 60px; left: 270px;" process="@this" />
 </p:dialog>-->
+               <p:dialog id="verReportePDF" header="#{controlBarra.cabezeraVisor}" widgetVar="verReportePDF"
+                          width="820" height="500" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+                  <p:media value="#{controlBarra.reporte}" width="800" height="480" player="pdf" rendered="#{controlBarra.reporte != null}"/>
+               </p:dialog>
+
+               <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte" 
+                         resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlBarra.pathReporteGenerado}"
+                                   style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlBarra.reiniciarStreamedContent()}"/>
             </h:form>
+
+
             <h:form>
                <p:dialog id="permisoLiquidacion" header="#{msg['atencion']}" widgetVar="permisoLiquidacion"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />

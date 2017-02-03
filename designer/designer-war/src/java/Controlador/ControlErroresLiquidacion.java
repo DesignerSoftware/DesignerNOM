@@ -57,7 +57,6 @@ public class ControlErroresLiquidacion implements Serializable {
    //borrado
    //filtrado table
    private int tamano, tamanoReg;
-   private boolean borrarTodo;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
@@ -280,12 +279,7 @@ public class ControlErroresLiquidacion implements Serializable {
       guardado = true;
       getListErroresLiquidacion();
       RequestContext context = RequestContext.getCurrentInstance();
-      if (listErroresLiquidacion == null || listErroresLiquidacion.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-      }
-      context.update("form:informacionRegistro");
+      contarRegistros();
       context.update("form:datosErroresLiquidacion");
       context.update("form:ACEPTAR");
    }
@@ -315,8 +309,7 @@ public class ControlErroresLiquidacion implements Serializable {
             filtrarErroresLiquidacion.remove(errorLiquSeleccionado);
          }
          RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-         infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         contarRegistros();
          errorLiquSeleccionado = null;
          if (guardado == true) {
             guardado = false;
@@ -391,8 +384,6 @@ public class ControlErroresLiquidacion implements Serializable {
    public void editarCelda() {
       if (errorLiquSeleccionado != null) {
          editarErroresLiquidacion = errorLiquSeleccionado;
-
-         RequestContext context = RequestContext.getCurrentInstance();
          System.out.println("Entro a editar... valor celda: " + cualCelda);
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaInicial");
@@ -431,9 +422,7 @@ public class ControlErroresLiquidacion implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editarPaqueteE').show()");
             cualCelda = -1;
          }
-
       }
-
       errorLiquSeleccionado = null;
    }
 //
@@ -446,36 +435,36 @@ public class ControlErroresLiquidacion implements Serializable {
 //   }
 
    public void revisarDialogoGuardar() {
-
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("form:confirmarGuardar");
       RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
    }
 
    public void revisarDialogoBorrarTodo() {
       if (listErroresLiquidacion != null) {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:confirmarBorrarTodo");
          RequestContext.getCurrentInstance().execute("PF('confirmarBorrarTodo').show()");
       }
    }
 
    public void borrarTodosErroresLiquidacion() {
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      administrarErroresLiquidacion.borrarTodosErroresLiquidacion();
-
+      int n = administrarErroresLiquidacion.borrarTodosErroresLiquidacion();
       errorLiquSeleccionado = null;
       guardado = true;
-      borrarTodo = true;
       listErroresLiquidacion = null;
       getListErroresLiquidacion();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:BORRARTODO");
       RequestContext.getCurrentInstance().update("form:datosErroresLiquidacion");
-      infoRegistro = "Cantidad de registros: " + listErroresLiquidacion.size();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
+      contarRegistros();
+      if (n > 0) {
+         FacesMessage msg = new FacesMessage("Información", "Se borraron " + n + " registros con éxito");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      } else {
+         FacesMessage msg = new FacesMessage("ERROR", "No se pudo borrar ningun registro.");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      }
    }
 
    public void guardarErroresLiquidacion() {
@@ -497,13 +486,13 @@ public class ControlErroresLiquidacion implements Serializable {
       errorLiquSeleccionado = null;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
-   
-   public void guardarYSalir(){
+
+   public void guardarYSalir() {
       guardarErroresLiquidacion();
       salir();
    }
-   
-   public void cancelarYSalir(){
+
+   public void cancelarYSalir() {
       cancelarModificacion();
       salir();
    }
@@ -632,14 +621,6 @@ public class ControlErroresLiquidacion implements Serializable {
 
    public void setAceptar(boolean aceptar) {
       this.aceptar = aceptar;
-   }
-
-   public boolean isBorrarTodo() {
-      return borrarTodo;
-   }
-
-   public void setBorrarTodo(boolean borrarTodo) {
-      this.borrarTodo = borrarTodo;
    }
 
 }

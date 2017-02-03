@@ -243,7 +243,7 @@
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="Registros: #{controlErroresLiquidacion.infoRegistro}" style="position: absolute; left: 15px; top: 356px; font-weight: bold;"/>
                   </fieldset>
-                  <p:commandButton style=" position: absolute; left: 15px; top: 472px;" class="cssBoton" icon="ui-icon-trash" actionListener="#{controlErroresLiquidacion.revisarDialogoBorrarTodo()}" disabled="#{controlErroresLiquidacion.borrarTodo}" id="BORRARTODO" value="Borrar Todo" />
+                  <p:commandButton style=" position: absolute; left: 15px; top: 472px;" class="cssBoton" icon="ui-icon-trash" actionListener="#{controlErroresLiquidacion.revisarDialogoBorrarTodo()}" id="BORRARTODO" value="Borrar Todo" />
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlErroresLiquidacion.guardado}"
                                    actionListener="#{controlErroresLiquidacion.revisarDialogoGuardar()}" process="@this"/>
