@@ -174,6 +174,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT t FROM Terceros t WHERE t.empresa.secuencia = :secEmpresa ORDER BY t.nombre");
+            //Query query = em.createQuery("SELECT t.* FROM Terceros t, Empresas e WHERE t.EMPRESA = e.secuencia and e.secuencia = :secEmpresa ORDER BY t.nombre");
             query.setParameter("secEmpresa", secEmpresa);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Terceros> listaTerceros = query.getResultList();

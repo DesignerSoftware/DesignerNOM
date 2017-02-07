@@ -35,7 +35,7 @@
                                 <strong><h:outputText id="para" value="#{msg['para']}" style="position: absolute; left: 10px; top: 60px; font-family: inherit; font-size: 14px;"/></strong>
                                 <p:inputText id="destinatario" autocomplete="off" style="position: absolute; left: 80px; top: 55px; width: 300px; font-family: inherit; font-size: 13px;" disabled="#{controlEnvioCorreos.reporteActual.estadoEnvioMasivo}"
                                              value="#{controlEnvioCorreos.email}">
-                                    <p:ajax event="dblclick" listener="#{controlEnvioCorreos.dialogos}" process="@this"/>
+                                    <p:ajax event="dblclick" listener="#{controlEnvioCorreos.dialogos}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                 </p:inputText>
 
                                 <strong><h:outputText value="#{msg['cc']}" style="position: absolute; left: 10px; top: 95px;font-size: 14px; font-family: inherit;"/></strong>
@@ -75,7 +75,7 @@
 
                             <p:ajax event="filter" listener="#{controlEnvioCorreos.contarRegistros()}"/>    
 
-                            <p:ajax event="rowSelect" listener="#{controlEnvioCorreos.activarAceptar()}" update=":formDialogos:aceptar"/>
+                            <p:ajax event="rowSelect" listener="#{controlEnvioCorreos.activarAceptar()}" update=":formDialogos:ACEPTAR"/>
                             <p:ajax event="rowDblselect" listener="#{controlEnvioCorreos.actualizarCorreoEmpl()}" update=":formDialogos:correoEmpleadosDialogo" process="@this"/>
                             <f:facet name="header">  
                                 <h:outputText value="#{msg['buscar']}"/>  
@@ -105,6 +105,11 @@
                                              update=":formDialogos:correoEmpleadosDialogo" icon="ui-icon-arrowreturnthick-1-w" process="@this"/>
                         </div>
                     </p:dialog>
+                    <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
+                    </p:dialog>
+
                 </h:form>
             </ui:define>
         </ui:composition>

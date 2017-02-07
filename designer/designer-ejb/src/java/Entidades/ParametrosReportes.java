@@ -184,7 +184,6 @@ public class ParametrosReportes implements Serializable {
     private String estadoPersonal;
     @Transient
     private String estadoSN;
-
     public ParametrosReportes() {
     }
 
@@ -636,7 +635,7 @@ public class ParametrosReportes implements Serializable {
     }
 
     public String getEstadoPersonal() {
-        if(tipoparatrabajador == null){
+        if (tipoparatrabajador == null) {
             this.estadoPersonal = " ";
         } else {
             estadoPersonal = tipoparatrabajador;
@@ -646,7 +645,7 @@ public class ParametrosReportes implements Serializable {
 
     public void setEstadoPersonal(String estadoPersonal) {
         this.estadoPersonal = estadoPersonal;
-        if(estadoPersonal.trim().isEmpty()){
+        if (estadoPersonal.trim().isEmpty()) {
             this.tipoparatrabajador = null;
         } else {
             this.tipoparatrabajador = estadoPersonal;
@@ -654,7 +653,7 @@ public class ParametrosReportes implements Serializable {
     }
 
     public String getEstadoSN() {
-        if(estadosolucionnodo == null){
+        if (estadosolucionnodo == null) {
             this.estadoSN = " ";
         } else {
             estadoSN = estadosolucionnodo;
@@ -664,7 +663,7 @@ public class ParametrosReportes implements Serializable {
 
     public void setEstadoSN(String estadoSN) {
         this.estadoSN = estadoSN;
-        if(estadoSN.trim().isEmpty()){
+        if (estadoSN.trim().isEmpty()) {
             this.estadosolucionnodo = null;
         } else {
             this.estadosolucionnodo = estadoSN;
@@ -697,9 +696,6 @@ public class ParametrosReportes implements Serializable {
     }
 
     public Empleados getNombregerente() {
-        if (nombregerente == null) {
-            nombregerente = new Empleados();
-        }
         return nombregerente;
     }
 

@@ -217,10 +217,22 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
     }
 
     @Override
-    public List<Terceros> listTerceros(BigInteger secEmpresa) {
+    public List<Terceros> listTercerosSecEmpresa(BigInteger secEmpresa) {
         try {
             //listTerceros = persistenciaTerceros.buscarTerceros(em);
             listTerceros = persistenciaTerceros.lovTerceros(em, secEmpresa);
+            return listTerceros;
+        } catch (Exception e) {
+            System.out.println("Error listTerceros : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Terceros> listTerceros() {
+        try {
+            listTerceros = persistenciaTerceros.todosTerceros(em);
+//            listTerceros = persistenciaTerceros.lovTerceros(em, secEmpresa);
             return listTerceros;
         } catch (Exception e) {
             System.out.println("Error listTerceros : " + e.toString());
@@ -260,4 +272,5 @@ public class AdministrarNReportesNomina implements AdministrarNReportesNominaInt
             System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }
     }
+
 }

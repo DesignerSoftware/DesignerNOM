@@ -25,12 +25,15 @@ import java.util.List;
  * @author user
  */
 public interface AdministrarNReportesNominaInterface {
-	/**
-     * Método encargado de obtener el Entity Manager el cual tiene
-     * asociado la sesion del usuario que utiliza el aplicativo.
+
+    /**
+     * Método encargado de obtener el Entity Manager el cual tiene asociado la
+     * sesion del usuario que utiliza el aplicativo.
+     *
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+
     /**
      *
      * @return
@@ -71,9 +74,16 @@ public interface AdministrarNReportesNominaInterface {
 
     /**
      *
+     * @param secEmpresa
      * @return
      */
-    public List<Terceros> listTerceros(BigInteger secEmpresa);
+    public List<Terceros> listTercerosSecEmpresa(BigInteger secEmpresa);
+
+    /**
+     *
+     * @return
+     */
+    public List<Terceros> listTerceros();
 
     /**
      *
