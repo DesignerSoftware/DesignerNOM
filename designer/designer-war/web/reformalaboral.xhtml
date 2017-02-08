@@ -1,552 +1,613 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <f:loadBundle basename="Recursos.reformalaboral" var="msg" />
-                    <p:growl id="growl" showDetail="true"/>
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-
-                        <p:commandButton style="position: absolute; left: 683px; top: 482px;" id="ACEPTAR" value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlReformaLaboral.cambiosPagina}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 482px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlReformaLaboral.salir()}" process="@this" />
-
-
-                        <fieldset style="position: absolute; left: 10px; top: 65px;width: 830px; height: 205px; border-radius: 10px; ">
-                            <legend style="color: blue"><strong>#{msg['reformaLaboral']}</strong></legend>
-
-                            <p:dataTable id="datosReformaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left;width: 810px;"                           
-                                         value="#{controlReformaLaboral.listaReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaReforma}"  scrollWidth="825"
-                                         filteredValue="#{controlReformaLaboral.filtrarListaReformasLaborales}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" selection="#{controlReformaLaboral.reformaActualTabla}" selectionMode="single"
-                                         liveScroll="true" scrollRows="10">
-                                <p:ajax event="rowSelect" listener="#{controlReformaLaboral.posicionRegistroTablaReforma()}" />
-                                <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrar()}"/>
-
-                                <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
-                                           id="reformaCodigo" width="20" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.codigo}" onclick="select();" id="editarCodigoReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionReformaLaboral(indice)}" update="editarCodigoReforma" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 0)}"  process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                                <p:column  headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
-                                           id="reformaNombre" width="130" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionReformaLaboral(indice)}" update="editarNombreReforma" process="@this"/>
-                                                <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 1)}" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                                <p:column  style="padding: 0px;width: 40px;alignment-adjust: central" headerText="Int ?" sortBy="#{info.strIntegral}" filterBy="#{info.strIntegral}" filterMatchMode="contains" 
-                                           id="reformaIntegral" filterStyle="display: none; visibility: hidden;" >     
-                                    <f:facet name="header">
-                                        <h:outputText id="headerInt" value="Int ?" />
-                                        <p:tooltip for="headerInt" value="#{msg['headerInt']}" />
-                                    </f:facet>
-                                    <p:selectOneMenu value="#{info.integral}"  style="width: 80px; font-weight: bold;">  
-                                        <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
-                                        <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
-                                        <p:ajax event="change" listener="#{controlReformaLaboral.modificarReformaLaboral(indice)}" process="@this"/>
-                                        <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(indice, 2)}"  process="@this"/>
-                                    </p:selectOneMenu>
-
-                                </p:column>
-
-                            </p:dataTable>  
-                        </fieldset> 
-
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
-
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlReformaLaboral.guardarGeneral()}" process="@this" />
-                                <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
-
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlReformaLaboral.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
-
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlReformaLaboral.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false" actionListener="#{controlReformaLaboral.validarExportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
-
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false">
-                                    <p:dataExporter type="xml"  target="#{controlReformaLaboral.exportXML()}" fileName="#{controlReformaLaboral.nombreXML}" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
-
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlReformaLaboral.validarExportPDF()}" ajax="false"/>
-                                <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlReformaLaboral.dialogoNuevoRegistro()}" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
-
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlReformaLaboral.verificarRegistroBorrar()}" process="@this"/>  
-                                <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
-
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlReformaLaboral.verificarRegistroDuplicar()}" process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
-
-                                <p:separator style="position: relative; top: -9px"/> 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/> 
-
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}"   process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-
-                                <p:separator style="position: relative; top: -9px"/>
-
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlReformaLaboral.cancelarYSalir()}"  process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-
-
-                            </p:toolbarGroup>  
-                        </p:toolbar> 
-
-
-                        <fieldset style="position: absolute; left: 10px; top: 285px; width: 415px; height: 180px; border-radius: 10px; ">
-                            <legend style="color: blue"><strong>#{msg['detalleReforma']}</strong></legend>
-
-                            <p:dataTable id="datosDetalleReformaLaboral" var="infoD" rowKey="#{infoD.secuencia}" rowIndexVar="indiceD" style="border: 1px; text-align: left;width: 400px"
-                                         value="#{controlReformaLaboral.listaDetallesReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaDetalles}" scrollWidth="415"
-                                         filteredValue="#{controlReformaLaboral.filtrarListaDetallesReformasLaborales}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" selection="#{controlReformaLaboral.detalleActualTabla}" selectionMode="single" liveScroll="true" scrollRows="10">
-                                <p:ajax event="rowSelect" listener="#{controlReformaLaboral.posicionRegistroTablaDetalle()}" />
-                                <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrar()}"/>
-
-                                <p:column headerText="#{msg['tipoPago']}" sortBy="#{infoD.tipopago}" filterBy="#{infoD.tipopago}" filterMatchMode="contains" 
-                                          id="detalleTipoPago" width="83" filterStyle="display: none; visibility: hidden;" >   
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{infoD.tipopago}" >
-                                            </h:outputText></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoD.tipopago}" maxlength="10" id="editarTipoPagoDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionDetalleReformaLaboral(indiceD)}" process="@this" update="editarTipoPagoDetalle"/>
-                                                <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(indiceD, 0)}" />
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                                <p:column headerText="#{msg['factor']}" sortBy="#{infoD.factor}" filterBy="#{infoD.factor}" filterMatchMode="contains" 
-                                          id="detalleFactor" width="83" filterStyle="display: none; visibility: hidden;" >   
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{infoD.factor}" >
-                                            </h:outputText></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{infoD.factor}" id="editarFactorDetalle" style=" border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
-                                                <p:ajax event="change" listener="#{controlReformaLaboral.procesoModificacionDetalleReformaLaboral(indiceD)}" process="@this" update="editarFactorDetalle"/>
-                                                <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(indiceD, 1)}" />
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-
-                                </p:column>
-
-                            </p:dataTable>  
-                        </fieldset> 
-
-
-                        <fieldset style="position: absolute; left: 450px; top: 285px; width: 390px; height: 180px; border-radius: 10px; ">
-                            <legend style="color: blue"><strong>#{msg['clonarRL']}</strong></legend>
-
-                            <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 35px; left: 30px"/> 
-                            <p:inputText  autocomplete="off"  onclick="select();" id="codigoReformaLaboralClonar" value="#{controlReformaLaboral.codigoReformaClonar}" style="position: absolute; top : 50px; left: 10px;width: 75px;text-transform: uppercase">
-                                <p:ajax event="change" update="codigoReformaLaboralClonar" process="@this"/>
-                            </p:inputText>
-                            <h:outputText value="#{msg['nombreNClonarRL']}"  style="position: absolute; top : 35px; left: 170px"/> 
-                            <p:inputText  autocomplete="off"  onclick="select();" id="nombreReformaLaboralClonar"  maxlength="30"  value="#{controlReformaLaboral.nombreReformaClonar}" style="position: absolute; top : 50px; left: 150px;width: 200px;text-transform: uppercase">
-                                <p:ajax event="change" update="nombreReformaLaboralClonar" process="@this"/>
-                            </p:inputText>
-
-
-
-                            <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 100px; left: 30px"/> 
-                            <p:inputText  autocomplete="off"  onclick="select();" id="codigoReformaLaboralClonarBase" value="#{controlReformaLaboral.reformaLaboralAClonar.codigo}" style="position: absolute; top : 115px; left: 10px;width: 75px">
-                                <p:ajax event="change" update="codigoReformaLaboralClonarBase" process="@this" listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.codigo,0)}"/>
-                                <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
-                                <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
-                            </p:inputText>
-                            <h:outputText value="#{msg['nombreBClonarRL']}" style="position: absolute; top : 100px; left: 170px"/> 
-                            <p:inputText  autocomplete="off"  onclick="select();" id="nombreReformaLaboralClonarBase" maxlength="30" value="#{controlReformaLaboral.reformaLaboralAClonar.nombre}" style="position: absolute; top : 115px; left: 150px;width: 200px;text-transform: uppercase">
-                                <p:ajax event="change" update="nombreReformaLaboralClonarBase" process="@this" listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.nombre,1)}"/>
-                                <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
-                                <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
-                            </p:inputText>
-
-                            <p:commandButton value="#{msg['clonar']}" actionListener="#{controlReformaLaboral.clonarReformaLaboral()}" style="position: absolute; top : 160px; left: 260px;"/>
-                        </fieldset> 
-
-
-
-                    </p:panel>
-
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" >
-                            <f:actionListener binding="#{controlReformaLaboral.guardarGeneral()}" />
-                            <f:actionListener binding="#{controlReformaLaboral.salir()}" />
-                        </p:commandButton>
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" >
-                            <f:actionListener binding="#{controlReformaLaboral.cancelarModificacionGeneral()}" />
-                            <f:actionListener binding="#{controlReformaLaboral.salir()}" />
-                        </p:commandButton>
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 50px; left: 315px;" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="95" width="430px">
-                        <h:outputText value="#{msg['seleccione']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 30px; top: 50px;" actionListener="#{controlReformaLaboral.verificarRastroReformaLaboral()}" process="@this" />
-                        <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarRastrosTablas').hide();" style="position: absolute; left: 200px; top: 50px;" actionListener="#{controlReformaLaboral.verificarRastroDetalleReformaLaboral()}" process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlReformaLaboral.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{controlReformaLaboral.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 28px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDatosNullReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorNombreReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorDatosNullDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTipoPagoDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorCodigoClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="true" modal="true" height="60" width="300" closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorClonadoReforma']}" style="position: absolute; left: 70px; top: 10px; width: 210px; font-weight:bold;" />
-                    </p:dialog>
-
-
-                    <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('continuarOperacionClonado').hide();" style="position: absolute; top: 60px; left: 215px;" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('continuarOperacionClonado').hide();" style="position: absolute; top: 60px; left: 255px;" process="@this" />
-                    </p:dialog>
-
-
-                    <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralDialogo"  
-                              showEffect="fade" hideEffect="fade" width="431" modal="true" >
-                        <p:dataTable id="lovReformaLaboral" style="width: 400px;" var="reforma" value="#{controlReformaLaboral.lovReformasLaborales}" rowKey="#{reforma.secuencia}"
-                                     selection="#{controlReformaLaboral.reformaLaboralSeleccionado}" scrollWidth="415" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="250" 
-                                     filteredValue="#{controlReformaLaboral.filtrarLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
-                            <p:ajax event="rowSelect" listener="#{controlReformaLaboral.activarAceptar()}" update=":form:aceptarRL"/>
-                            <p:ajax event="rowDblselect" listener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this" />
-                            <f:facet name="header">  
-                                <h:outputText value="#{msg['buscarRL']}"  style="position: absolute; left: 27px; top: 14px"/>  
-                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovReformaLaboral').filter();" style="width:140px; position: relative; left: 70px;" />  
-                            </f:facet>
-                            <p:column filterBy="#{reforma.codigo}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['codigo']}" />
-                                </f:facet>
-                                <h:outputText value="#{reforma.codigo}" />
-                            </p:column>
-                            <p:column filterBy="#{reforma.nombre}" filterMatchMode="contains">
-                                <f:facet name="header">
-                                    <h:outputText value="#{msg['nombre']}" />
-                                </f:facet>
-                                <h:outputText value="#{reforma.nombre}" />
-                            </p:column>
-                        </p:dataTable>
-
-                        <h:outputText id="infoRegistroReforma" value="#{controlReformaLaboral.infoRegistroReforma}" style="position: absolute; left: 20px; top: 355px; font-weight: bold"/>
-
-                        <p:commandButton id="aceptarRL" icon="ui-icon-check" style="position: relative; left: 230px;" value="#{msg['aceptar']}" disabled="#{controlReformaLaboral.aceptar}"   actionListener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this"/>
-
-                        <p:commandButton id="atrasRL" icon="ui-icon-arrowreturnthick-1-w" style="position: relative; left: 230px;" value="#{msg['atras']}" actionListener="#{controlReformaLaboral.cancelarReformaLaboralClonar()}" process="@this"/>
-                    </p:dialog>
-
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlReformaLaboral.activarCtrlF11()}"/> 
-                </h:form>
-                <h:form id="formularioDialogos" >
-
-                    <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="95" width="430px;"  >
-                        <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold"/>
-                        <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 30px; top: 50px;" oncomplete="PF('NuevoRegistroReformaLaboral').show()" update=":formularioDialogos:nuevoReformaLaboral"  process="@this" />
-                        <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarNuevoRegistro').hide();" style="position: absolute; left: 200px; top: 50px;" oncomplete="PF('NuevoRegistroDetalleReformaLaboral').show()" update=":formularioDialogos:nuevoDetalleReformaLaboral"  process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="NuevoRegistroReformaLaboral" header="#{msg['nuevoregistroRL']}" widgetVar="NuevoRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style=" padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoReformaLaboral" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.nuevoReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="nuevoReformaLaboralCodigo"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['codigo']}" for="nuevoReformaLaboralCodigo"/>
-
-                            <strong><h:outputText value="*#{msg['nombreNRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.nuevoReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
-                                <p:ajax event="change" update="nuevoReformaLaboralNombre"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['nombre']}" for="nuevoReformaLaboralNombre"/>
-
-                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="nuevoReformaLaboralInt" value="#{controlReformaLaboral.nuevoReformaLaboral.integral}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 130px;">  
-                                <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
-                                <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
-                                <p:ajax event="change" update="nuevoReformaLaboralInt"/>
-                            </p:selectOneMenu>
-
-                            <p:commandButton id="limpiarNRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarNuevaReformaLaboral()}" update="nuevoReformaLaboral" process="@this"/>
-                            <p:commandButton id="aceptarNRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 190px; top: 175px;"  actionListener="#{controlReformaLaboral.agregarNuevoReformaLaboral()}" process="@this"  />
-                            <p:commandButton id="cancelarNRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarNuevaReformaLaboral()}" update="nuevoReformaLaboral" onclick="PF('NuevoRegistroReformaLaboral').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroReformaLaboral" header="#{msg['duplicarregistroRL']}" widgetVar="DuplicarRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style="padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarReformaLaboral" style="border: none;">
-
-
-                            <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.duplicarReformaLaboral.codigo}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="duplicarReformaLaboralCodigo"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['codigo']}" for="duplicarReformaLaboralCodigo"/>
-
-                            <strong><h:outputText value="*#{msg['nombreNRL']}" style=" position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.duplicarReformaLaboral.nombre}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
-                                <p:ajax event="change" update="duplicarReformaLaboralNombre"/>
-                            </p:inputText>
-                            <p:watermark value="#{msg['nombre']}" for="duplicarReformaLaboralNombre"/>
-
-                            <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 135px; left: 50px;" /></strong>
-                            <p:selectOneMenu id="duplicarReformaLaboralInt" value="#{controlReformaLaboral.duplicarReformaLaboral.integral}"  style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 130px;">  
-                                <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
-                                <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
-                                <p:ajax event="change" update="duplicarReformaLaboralInt"/>
-                            </p:selectOneMenu>
-
-
-                            <p:commandButton id="limpiarDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarDuplicarReformaLaboral()}" update="duplicarReformaLaboral" process="@this"/>
-                            <p:commandButton id="agregarDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 190px; top: 175px;"  actionListener="#{controlReformaLaboral.confirmarDuplicarReformaLaboral()}" process="@this"  />
-                            <p:commandButton id="cancelarDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarDuplicarReformaLaboral()}" update="duplicarReformaLaboral" onclick="PF('DuplicarRegistroReformaLaboral').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="NuevoRegistroDetalleReformaLaboral" header="#{msg['nuevoregistroDRL']}" widgetVar="NuevoRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="nuevoDetalleReformaLaboral" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTipoPagoDetalle" onclick="select();" maxlength="10"  value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="nuevoTipoPagoDetalle" />
-                            </p:inputText>
-                            <p:watermark value="#{msg['tipoPago']}" for="nuevoTipoPagoDetalle"/>
-
-                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoFactorDetalle" onclick="select();" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
-                                <p:ajax event="change" update="nuevoFactorDetalle" />
-                            </p:inputText>
-                            <p:watermark value="#{msg['factor']}" for="nuevoFactorDetalle"/>
-
-
-                            <p:commandButton id="limpiarNDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarNuevaDetalleReformaLaboral()}" update="nuevoDetalleReformaLaboral" process="@this"/>
-                            <p:commandButton id="aceptarNDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlReformaLaboral.agregarNuevoDetalleReformaLaboral()}" process="@this"  />
-                            <p:commandButton id="cancelarNDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarNuevaDetalleReformaLaboral()}" update="nuevoDetalleReformaLaboral" onclick="PF('NuevoRegistroDetalleReformaLaboral').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="DuplicarRegistroDetalleReformaLaboral" header="#{msg['duplicarregistroDRL']}" widgetVar="DuplicarRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
-                        <p:panel id="duplicarDetalleReformaLaboral" style="border: none;">
-
-                            <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 75px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTipoPagoDetalle" maxlength="10" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}" style="width: 122px; position: absolute; left: 200px; top: 70px;">
-                                <p:ajax event="change" update="duplicarTipoPagoDetalle" />
-                            </p:inputText>
-                            <p:watermark value="#{msg['tipoPago']}" for="duplicarTipoPagoDetalle"/>
-
-                            <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 105px; left: 50px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarFactorDetalle" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.factor}" style="width: 122px; position: absolute; left: 200px; top: 100px;">
-                                <p:ajax event="change" update="duplicarFactorDetalle" />
-                            </p:inputText>
-                            <p:watermark value="#{msg['factor']}" for="duplicarFactorDetalle"/>
-
-                            <p:commandButton id="limpiarDDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarDuplicarDetalleReformaLaboral()}" update="duplicarDetalleReformaLaboral" process="@this"/>
-                            <p:commandButton id="aceptarDDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 190px; top: 140px;"  actionListener="#{controlReformaLaboral.confirmarDuplicarDetalleReformaLaboral()}" process="@this"/>
-                            <p:commandButton id="cancelarDDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarDuplicarDetalleReformaLaboral()}" update="duplicarDetalleReformaLaboral" onclick="PF('DuplicarRegistroDetalleReformaLaboral').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-
-                    <!-- editar celdas reforma laboral -->
-
-                    <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.codigo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <!-- editar celdas detalles reforma laboral -->
-
-                    <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.tipopago}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.factor}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-
-
-                </h:form>
-                <h:form id="formExportarRL">
-                    <p:dataTable id="datosReformaLaboralExportar" var="expRL" style="visibility: hidden; display: none;"                           
-                                 value="#{controlReformaLaboral.listaReformasLaborales}"> 
-
-                        <p:column headerText="#{msg['codigoX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
-                            <h:outputText value="#{expRL.codigo}" />
-                        </p:column>  
-
-                        <p:column headerText="#{msg['nombreX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['nombreX']}"/> </f:facet> 
-                            <h:outputText value="#{expRL.nombre}" />
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <f:loadBundle basename="Recursos.reformalaboral" var="msg"/>
+               <p:growl id="growl" showDetail="true"/>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
+
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlReformaLaboral.guardarGeneral()}" process="@this" />
+                        <p:tooltip for="guardarRapido" value="#{msg['guardar']}" />
+
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlReformaLaboral.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/> 
+
+                        <p:commandButton id="listaValores" value="" disabled="true" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlReformaLaboral.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/> 
+
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlReformaLaboral.validarExportXLS()}" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         ajax="false">
+                           <p:dataExporter type="xml"  target="#{controlReformaLaboral.exportXML()}" fileName="#{controlReformaLaboral.nombreXML}" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlReformaLaboral.validarExportPDF()}" ajax="false"/>
+                        <p:tooltip for="exportarPDF" value="#{msg['pdf']}" />
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         onclick="PF('verificarNuevoRegistro').show();" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlReformaLaboral.verificarRegistroBorrar()}" process="@this"/>  
+                        <p:tooltip for="eliminar" value="#{msg['eliminar']}" />
+
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlReformaLaboral.verificarRegistroDuplicar()}" process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+
+                        <p:separator style="position: relative; top: -9px"/> 
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlReformaLaboral.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/> 
+
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" oncomplete="window.location.reload()"
+                                         actionListener="#{controlReformaLaboral.cancelarModificacionGeneral()}" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                        <p:separator style="position: relative; top: -9px"/>
+
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlReformaLaboral.cancelarYSalir()}"  process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+
+                     </p:toolbarGroup>  
+                  </p:toolbar> 
+
+                  <fieldset style="position: absolute; left: 10px; top: 70px; width: 830px; height: 210px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: blue"><strong>#{msg['reformaLaboral']}</strong></legend>
+
+                     <p:dataTable id="datosReformaLaboral" widgetVar="datosReformaLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; text-align: left; width: 750px;"                           
+                                  value="#{controlReformaLaboral.listaReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaReforma}"
+                                  filteredValue="#{controlReformaLaboral.filtrarListaReformasLaborales}" emptyMessage="#{msg['vacio']}" scrollWidth="825" editMode="cell"
+                                  editable="true" selection="#{controlReformaLaboral.reformaLaboralSeleccionada}" selectionMode="single" liveScroll="true" scrollRows="10">
+
+                        <!--<p:ajax event="rowSelect" listener="#/{controlReformaLaboral.posicionRegistroTablaReforma()}" />-->
+                        <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlReformaLaboral.recordarSeleccion()}"/>
+
+                        <p:column  headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" 
+                                   id="reformaCodigo" width="80" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off" value="#{info.codigo}" onclick="select();" id="editarCodigoReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlReformaLaboral.modificaReformaLaboral(info)}" update="editarCodigoReforma" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosReformaLaboral').unselectAllRows();PF('datosReformaLaboral').selectRow(#{indice});"
+                                            oncomplete="PF('datosDetalleReformaLaboral').unselectAllRows();"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['integralX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['integralX']}"/> </f:facet> 
-                            <h:outputText value="#{expRL.strIntegral}" >
-                            </h:outputText>
+                        <p:column  headerText="#{msg['nombre']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"
+                                   id="reformaNombre" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.nombre}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off" value="#{info.nombre}" maxlength="30" onclick="select();" id="editarNombreReforma" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
+                                    <p:ajax event="change" listener="#{controlReformaLaboral.modificaReformaLaboral(info)}" update="editarNombreReforma" process="@this"/>
+                                    <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosReformaLaboral').unselectAllRows();PF('datosReformaLaboral').selectRow(#{indice});"
+                                            oncomplete="PF('datosDetalleReformaLaboral').unselectAllRows();"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                    </p:dataTable>
-                </h:form>
+                        <p:column width="100" sortBy="#{info.strIntegral}" filterBy="#{info.strIntegral}" filterMatchMode="contains" 
+                                  id="reformaIntegral" filterStyle="display: none; visibility: hidden;" >     
+                           <f:facet name="header">
+                              <h:outputText id="headerInt" value="#{msg['integ']}" />
+                              <p:tooltip for="headerInt" value="#{msg['headerInt']}" />
+                           </f:facet>
+                           <p:selectOneMenu value="#{info.integral}" style="width: 80px; font-weight: bold;">  
+                              <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
+                              <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
+                              <p:ajax event="change" listener="#{controlReformaLaboral.modificarReformaLaboral(info)}" process="@this"/>
+                              <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndice(info, 2)}" process="@this"
+                                      onstart="PF('datosReformaLaboral').unselectAllRows();PF('datosReformaLaboral').selectRow(#{indice});"
+                                      oncomplete="PF('datosDetalleReformaLaboral').unselectAllRows();"/>
+                           </p:selectOneMenu>
+                        </p:column>
+                     </p:dataTable>  
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlReformaLaboral.infoRegistro}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
+                  </fieldset> 
 
-                <h:form id="formExportarDRL">
-                    <p:dataTable id="datosDetalleReformaLaboralExportar" var="expDRL" style="visibility: hidden; display: none;"                           
-                                 value="#{controlReformaLaboral.listaDetallesReformasLaborales}"> 
+                  <fieldset style="position: absolute; left: 10px; top: 295px; width: 440px; height: 190px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: blue"><strong>#{msg['detalleReforma']}</strong></legend>
 
-                        <p:column headerText="#{msg['tipoPagoXX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['tipoPagoX']}"/> </f:facet> 
-                            <h:outputText value="#{expDRL.tipopago}" >
-                            </h:outputText>
-                        </p:column>  
+                     <p:dataTable id="datosDetalleReformaLaboral" widgetVar="datosDetalleReformaLaboral" var="infoD" rowKey="#{infoD.secuencia}"
+                                  rowIndexVar="indiceD" style="border: 1px; text-align: left; width: 420px;" scrollWidth="430" liveScroll="true" scrollRows="10"
+                                  value="#{controlReformaLaboral.listaDetallesReformasLaborales}" scrollable="true" scrollHeight="#{controlReformaLaboral.altoTablaDetalles}"
+                                  filteredValue="#{controlReformaLaboral.filtrarListaDetallesReformasLaborales}" emptyMessage="#{msg['vacio']}" editable="true" editMode="cell"
+                                  selection="#{controlReformaLaboral.detalleReformaLSeleccionado}" selectionMode="single">
 
-                        <p:column headerText="#{msg['factorX']}">                                  
-                            <f:facet name="header"><h:outputText value="#{msg['factorX']}"/> </f:facet> 
-                            <h:outputText value="#{expDRL.factor}" >
-                            </h:outputText>
+                        <p:ajax event="filter" listener="#{controlReformaLaboral.eventoFiltrarDet()}"/>
+                        <f:event type="preRenderView" listener="#{controlReformaLaboral.recordarSeleccionDetalles()}"/>
+
+                        <p:column headerText="#{msg['tipoPago']}" sortBy="#{infoD.tipopago}" filterBy="#{infoD.tipopago}" filterMatchMode="contains" 
+                                  id="detalleTipoPago" filterStyle="display: none; visibility: hidden;" >   
+                           <p:cellEditor>
+                              <f:facet name="output"><h:outputText value="#{infoD.tipopago}">
+                                 </h:outputText></f:facet>
+                              <f:facet name="input">
+                                 <p:selectOneMenu id="editarTipoPagoDetalle" value="#{infoD.tipopago}"
+                                                  onblur="PF('datosDetalleReformaLaboral').unselectAllRows(); PF('datosDetalleReformaLaboral').selectRow(#{indiceD});"
+                                                  onfocus="PF('datosDetalleReformaLaboral').unselectAllRows(); PF('datosDetalleReformaLaboral').selectRow(#{indiceD});">
+                                    <f:selectItem itemLabel=" " itemValue=""/>
+                                    <f:selectItem itemLabel="#{msg['MENSUAL']}" itemValue="MENSUAL"/>
+                                    <f:selectItem itemLabel="#{msg['PRIMAJUNIO']}" itemValue="PRIMAJUNIO"/>
+                                    <f:selectItem itemLabel="#{msg['PRIMADICIEMBRE']}" itemValue="PRIMADICIEMBRE"/>
+                                    <f:selectItem itemLabel="#{msg['CESANTIAANUAL']}" itemValue="CESANTIAANUAL"/>
+                                    <p:ajax event="change" listener="#{controlReformaLaboral.modificaDetalleReformaLaboral(infoD)}" process="@this" update="editarTipoPagoDetalle"/>
+                                    <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(infoD, 0)}" process="@this"/>
+                                 </p:selectOneMenu>
+            <!--                                 <p:inputText  autocomplete="off" value="#{infoD.tipopago}" maxlength="10" id="editarTipoPagoDetalle"> 
+                                             </p:inputText>-->
+                              </f:facet>  
+                           </p:cellEditor>
                         </p:column>
 
-                    </p:dataTable>
-                </h:form>
+                        <p:column headerText="#{msg['factor']}" sortBy="#{infoD.factor}" filterBy="#{infoD.factor}" filterMatchMode="contains" 
+                                  id="detalleFactor" width="84" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">   
+                           <p:cellEditor>
+                              <f:facet name="output"><h:outputText value="#{infoD.factor}" >
+                                 </h:outputText></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off" value="#{infoD.factor}" id="editarFactorDetalle"> 
+                                    <p:ajax event="change" listener="#{controlReformaLaboral.modificaDetalleReformaLaboral(infoD)}" process="@this" update="editarFactorDetalle"/>
+                                    <p:ajax event="select" listener="#{controlReformaLaboral.cambiarIndiceDetalle(infoD, 1)}"
+                                            onstart="PF('datosDetalleReformaLaboral').unselectAllRows();PF('datosDetalleReformaLaboral').selectRow(#{indiceD});"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>
 
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                     </p:dataTable>  
+                     <h:outputText id="informacionRegistroDetalle" value="#{msg['infoRegistro']} #{controlReformaLaboral.infoRegistroDetalle}" style="position: relative; left: 10px; top: 0px; font-weight: bold;"/>
+                  </fieldset> 
+
+                  <fieldset style="position: absolute; left: 476px; top: 295px; width: 364px; height: 190px; border-radius: 10px; padding-top: 0px;">
+                     <legend style="color: blue"><strong>#{msg['clonarRL']}</strong></legend>
+
+                     <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 10px; left: 40px;"/> 
+                     <p:inputText  autocomplete="off"  onclick="select();" id="codigoReformaLaboralClonar" value="#{controlReformaLaboral.codigoReformaClonar}"
+                                   style="position: absolute; top : 25px; left: 20px; width: 75px; text-transform: uppercase;">
+                        <p:ajax event="change" update="codigoReformaLaboralClonar" process="@this"/>
+                     </p:inputText>
+                     <h:outputText value="#{msg['nombreNClonarRL']}" style="position: absolute; top : 10px; left: 150px;"/> 
+                     <p:inputText  autocomplete="off"  onclick="select();" id="nombreReformaLaboralClonar"  maxlength="30"  value="#{controlReformaLaboral.nombreReformaClonar}"
+                                   style="position: absolute; top : 25px; left: 125px; width: 230px; text-transform: uppercase;">
+                        <p:ajax event="change" update="nombreReformaLaboralClonar" process="@this"/>
+                     </p:inputText>
+
+                     <h:outputText value="#{msg['codigo']}" style="position: absolute; top : 65px; left: 40px;"/> 
+                     <p:inputText  autocomplete="off"  onclick="select();" id="codigoReformaLaboralClonarBase" value="#{controlReformaLaboral.reformaLaboralAClonar.codigo}"
+                                   style="position: absolute; top : 80px; left: 20px; width: 75px">
+                        <p:ajax event="change" update="codigoReformaLaboralClonarBase" process="@this"
+                                listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.codigo,0)}"/>
+                        <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
+                        <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
+                     </p:inputText>
+
+                     <h:outputText value="#{msg['nombreBClonarRL']}" style="position: absolute; top : 65px; left: 150px"/> 
+                     <p:inputText  autocomplete="off"  onclick="select();" id="nombreReformaLaboralClonarBase" maxlength="30" value="#{controlReformaLaboral.reformaLaboralAClonar.nombre}"
+                                   style="position: absolute; top : 80px; left: 125px; width: 230px; text-transform: uppercase;">
+                        <p:ajax event="change" update="nombreReformaLaboralClonarBase" process="@this" listener="#{controlReformaLaboral.autoCompletarSeleccionarReformaLaboralClonar(controlReformaLaboral.reformaLaboralAClonar.nombre,1)}"/>
+                        <p:ajax event="select" process="@this" listener="#{controlReformaLaboral.posicionReformaLaboralClonar()}"/>
+                        <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
+                     </p:inputText>
+
+                     <p:commandButton value="#{msg['clonar']}" actionListener="#{controlReformaLaboral.clonarReformaLaboral()}" class="boton" style="position: absolute; top : 120px; left: 310px; width: 50px; height: 50px;"/>
+                  </fieldset> 
+
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlReformaLaboral.cambiosPagina}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlReformaLaboral.salir()}" process="@this"/>
+               </p:panel>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 56px; left: 167px;" process="@this" icon="ui-icon-check" >
+                     <f:actionListener binding="#{controlReformaLaboral.guardarGeneral()}" />
+                     <f:actionListener binding="#{controlReformaLaboral.salir()}" />
+                  </p:commandButton>
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();"  style="position: absolute; top: 56px; left: 228px;" process="@this" icon="ui-icon-close" >
+                     <f:actionListener binding="#{controlReformaLaboral.cancelarModificacionGeneral()}" />
+                     <f:actionListener binding="#{controlReformaLaboral.salir()}" />
+                  </p:commandButton>
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 56px; left: 295px;" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.guardarYSalir()}"
+                                   style="position: absolute; top: 56px; left: 167px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlReformaLaboral.cancelarYSalir()}"
+                                   style="position: absolute; top: 56px; left: 228px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardarSalida').hide();" style="position: absolute; top: 56px; left: 295px;" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <p:dialog id="verificarRastrosTablas" widgetVar="verificarRastrosTablas" header="#{msg['rpter']}" resizable="false" draggable="true" modal="true" height="120" width="430" style="text-align: center;">
+                  <h:outputText value="#{msg['seleccione']}" style="position: relative; top: 14px; color: blue; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarRastrosTablas').hide();" style="display: block; margin: auto; top: 28px; width: 180px; height: 28px;"
+                                   actionListener="#{controlReformaLaboral.verificarRastroReformaLaboral()}" process="@this" />
+                  <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarRastrosTablas').hide();" style="display: block; margin: auto; top: 40px; width: 180px; height: 28px;"
+                                   actionListener="#{controlReformaLaboral.verificarRastroDetalleReformaLaboral()}" process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{controlReformaLaboral.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" action="rastrotabla"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;"
+                                   actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlReformaLaboral.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico"
+                                style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 210px;"
+                                   actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro, 'rastroReformaLab')}" action="rastrotabla" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;"
+                                   actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center;" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 210px;" action="rastrotabla"
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'rastroReformaLab')}" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="74" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 18px; width: 190px; font-weight: bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorDatosNullReformaLaboral" header="#{msg['error']}" widgetVar="errorDatosNullReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorDatosNullReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorNombreReformaLaboral" header="#{msg['error']}" widgetVar="errorNombreReformaLaboral"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorNombreReformaLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorDatosNullDetalleReforma" header="#{msg['error']}" widgetVar="errorDatosNullDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorDatosNullDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorTipoPagoDetalleReforma" header="#{msg['error']}" widgetVar="errorTipoPagoDetalleReforma"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTipoPagoDetalleReforma']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorCodigoClonado" header="#{msg['error']}" widgetVar="errorCodigoClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorCodigoClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorClonadoReforma" header="#{msg['error']}" widgetVar="errorClonadoReforma"  resizable="false" draggable="true" modal="true" height="70" width="300" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorClonadoReforma']}" style="position: absolute; left: 70px; top: 10px; width: 210px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="continuarOperacionClonado" header="#{msg['atencion']}" widgetVar="continuarOperacionClonado"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['continuarOperacionClonado']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('continuarOperacionClonado').hide();"
+                                   actionListener="#{controlReformaLaboral.clonarReformaLaboral()}"
+                                   style="position: absolute; top: 60px; left: 215px;" process="@this" />
+                  <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('continuarOperacionClonado').hide();"
+                                   style="position: absolute; top: 60px; left: 275px;" process="@this" />
+               </p:dialog>
+
+
+               <p:dialog header="#{msg['reformaLaboralD']}" widgetVar="ReformaLaboralDialogo" draggable="true" resizable="false" closable="false" id="ReformaLaboralDialogo"  
+                         showEffect="fade" hideEffect="fade" width="431" modal="true" >
+                  <p:dataTable id="lovReformaLaboral" var="reforma" value="#{controlReformaLaboral.lovReformasLaborales}" rowKey="#{reforma.secuencia}"
+                               selection="#{controlReformaLaboral.reformaLaboralLOVSeleccionada}" scrollWidth="415" selectionMode="single" widgetVar="lovReformaLaboral" scrollable="true" scrollHeight="250" 
+                               filteredValue="#{controlReformaLaboral.filtrarLovReformasLaborales}" emptyMessage="#{msg['lovvacio']}">              
+
+                     <p:ajax event="rowSelect" listener="#{controlReformaLaboral.activarAceptar()}" update=":form:aceptarRL"/>
+                     <p:ajax event="rowDblselect" listener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this" />
+                     <p:ajax event="filter" listener="#{controlReformaLaboral.contarRegistrosLovRef()}"/>
+
+                     <f:facet name="header">  
+                        <h:outputText value="#{msg['buscarRL']}"/>  
+                        <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lovReformaLaboral').filter();" class="cssFiltroLOV"/>  
+                     </f:facet>
+                     <p:column filterBy="#{reforma.codigo}" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['codigo']}" />
+                        </f:facet>
+                        <h:outputText value="#{reforma.codigo}" />
+                     </p:column>
+                     <p:column filterBy="#{reforma.nombre}" filterMatchMode="contains">
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['nombre']}" />
+                        </f:facet>
+                        <h:outputText value="#{reforma.nombre}" />
+                     </p:column>
+                  </p:dataTable>
+
+                  <div class="cssBotonesLOV">
+                     <h:outputText id="infoRegistroLovReforma" value="#{msg['infoRegistro']} #{controlReformaLaboral.infoRegistroLovReforma}" class="cssinfoRegistroLOV"/>
+                     <p:commandButton id="aceptarRL" icon="ui-icon-check" class="cssAceptarLOV" value="#{msg['aceptar']}" disabled="#{controlReformaLaboral.aceptar}"   actionListener="#{controlReformaLaboral.seleccionarReformaLaboralClonar()}"  process="@this"/>
+                     <p:commandButton id="atrasRL" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlReformaLaboral.cancelarReformaLaboralClonar()}" process="@this"/>
+                  </div>
+               </p:dialog>
+
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlReformaLaboral.activarCtrlF11()}"/> 
+            </h:form>
+            <h:form id="formularioDialogos" >
+
+               <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="120" width="430" style="text-align: center">
+                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: relative; top: 16px; color: blue; font-weight: bold;"/>
+                  <p:commandButton value="#{msg['reformaLaboral']}" onclick="PF('verificarNuevoRegistro').hide();" style="display: block; margin: auto; top: 28px; width: 180px; height: 28px;"
+                                   oncomplete="PF('NuevoRegistroReformaLaboral').show()" update=":formularioDialogos:nuevoReformaLaboral"  process="@this" />
+                  <p:commandButton value="#{msg['detalleReforma']}" onclick="PF('verificarNuevoRegistro').hide();" style="display: block; margin: auto; top: 40px; width: 180px; height: 28px;"
+                                   oncomplete="PF('NuevoRegistroDetalleReformaLaboral').show()" update=":formularioDialogos:nuevoDetalleReformaLaboral"  process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroReformaLaboral" header="#{msg['nuevoregistroRL']}" widgetVar="NuevoRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style=" padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="nuevoReformaLaboral" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.nuevoReformaLaboral.codigo}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 60px;">
+                        <p:ajax event="change" update="nuevoReformaLaboralCodigo"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['codigo']}" for="nuevoReformaLaboralCodigo"/>
+
+                     <strong><h:outputText value="*#{msg['nombreNRL']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.nuevoReformaLaboral.nombre}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 90px;">
+                        <p:ajax event="change" update="nuevoReformaLaboralNombre"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['nombre']}" for="nuevoReformaLaboralNombre"/>
+
+                     <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
+                     <p:selectOneMenu id="nuevoReformaLaboralInt" value="#{controlReformaLaboral.nuevoReformaLaboral.integral}" 
+                                      style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 120px;">  
+                        <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
+                        <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
+                        <p:ajax event="change" update="nuevoReformaLaboralInt"/>
+                     </p:selectOneMenu>
+
+                     <p:commandButton id="limpiarNRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarNuevaReformaLaboral()}" update="nuevoReformaLaboral" process="@this"/>
+                     <p:commandButton id="aceptarNRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 175px;" actionListener="#{controlReformaLaboral.agregarNuevoReformaLaboral()}" process="@this"  />
+                     <p:commandButton id="cancelarNRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarNuevaReformaLaboral()}" update="nuevoReformaLaboral" onclick="PF('NuevoRegistroReformaLaboral').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroReformaLaboral" header="#{msg['duplicarregistroRL']}" widgetVar="DuplicarRegistroReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="200" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="duplicarReformaLaboral" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['codigoNRL']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarReformaLaboralCodigo" onclick="select();" maxlength="30" value="#{controlReformaLaboral.duplicarReformaLaboral.codigo}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 60px;">
+                        <p:ajax event="change" update="duplicarReformaLaboralCodigo"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['codigo']}" for="duplicarReformaLaboralCodigo"/>
+
+                     <strong><h:outputText value="*#{msg['nombreNRL']}" style=" position: absolute; top: 95px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarReformaLaboralNombre" maxlength="30" onclick="select();" value="#{controlReformaLaboral.duplicarReformaLaboral.nombre}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 90px;">
+                        <p:ajax event="change" update="duplicarReformaLaboralNombre"/>
+                     </p:inputText>
+                     <p:watermark value="#{msg['nombre']}" for="duplicarReformaLaboralNombre"/>
+
+                     <strong><h:outputText value="#{msg['intNRL']}" style="position: absolute; top: 125px; left: 50px;" /></strong>
+                     <p:selectOneMenu id="duplicarReformaLaboralInt" value="#{controlReformaLaboral.duplicarReformaLaboral.integral}"
+                                      style="width: 100px; font-weight: bold;position: absolute; left: 200px; top: 120px;">  
+                        <f:selectItem itemLabel="#{msg['si']}" itemValue="S" />  
+                        <f:selectItem itemLabel="#{msg['no']}" itemValue="N" />  
+                        <p:ajax event="change" update="duplicarReformaLaboralInt"/>
+                     </p:selectOneMenu>
+
+                     <p:commandButton id="limpiarDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarDuplicarReformaLaboral()}" update="duplicarReformaLaboral" process="@this"/>
+                     <p:commandButton id="agregarDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 175px;" actionListener="#{controlReformaLaboral.confirmarDuplicarReformaLaboral()}" process="@this"  />
+                     <p:commandButton id="cancelarDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 175px;" actionListener="#{controlReformaLaboral.limpiarDuplicarReformaLaboral()}" update="duplicarReformaLaboral" onclick="PF('DuplicarRegistroReformaLaboral').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="NuevoRegistroDetalleReformaLaboral" header="#{msg['nuevoregistroDRL']}" widgetVar="NuevoRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="nuevoDetalleReformaLaboral" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
+                     <p:selectOneMenu id="nuevoTipoPagoDetalle" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.tipopago}"
+                                      style="width: 122px; position: absolute; left: 200px; top: 60px;">
+                        <f:selectItem itemLabel=" " itemValue=""/>  
+                        <f:selectItem itemLabel="#{msg['MENSUAL']}" itemValue="MENSUAL"/>  
+                        <f:selectItem itemLabel="#{msg['PRIMAJUNIO']}" itemValue="PRIMAJUNIO"/>
+                        <f:selectItem itemLabel="#{msg['PRIMADICIEMBRE']}" itemValue="PRIMADICIEMBRE"/>  
+                        <f:selectItem itemLabel="#{msg['CESANTIAANUAL']}" itemValue="CESANTIAANUAL"/>
+                        <p:ajax event="change" update="nuevoTipoPagoDetalle" />
+                     </p:selectOneMenu>
+                     <!--<p:watermark value="#/{msg['tipoPago']}" for="nuevoTipoPagoDetalle"/>-->
+
+                     <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoFactorDetalle" onclick="select();" value="#{controlReformaLaboral.nuevoDetalleReformaLaboral.factor}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 90px;">
+                        <p:ajax event="change" update="nuevoFactorDetalle" />
+                     </p:inputText>
+                     <p:watermark value="#{msg['factor']}" for="nuevoFactorDetalle"/>
+
+
+                     <p:commandButton id="limpiarNDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarNuevaDetalleReformaLaboral()}" update="nuevoDetalleReformaLaboral" process="@this"/>
+                     <p:commandButton id="aceptarNDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 140px;"  actionListener="#{controlReformaLaboral.agregarNuevoDetalleReformaLaboral()}" process="@this"  />
+                     <p:commandButton id="cancelarNDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarNuevaDetalleReformaLaboral()}" update="nuevoDetalleReformaLaboral" onclick="PF('NuevoRegistroDetalleReformaLaboral').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="DuplicarRegistroDetalleReformaLaboral" header="#{msg['duplicarregistroDRL']}" widgetVar="DuplicarRegistroDetalleReformaLaboral" closable="false" resizable="false"  draggable="true" modal="true" height="170" width="400" style="padding: 0px">  
+                  <center><strong><h:outputText value="#{msg['ingresarnuevoDRL']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                  <p:panel id="duplicarDetalleReformaLaboral" style="border: none;">
+
+                     <strong><h:outputText value="*#{msg['tipoPagoNDRL']}" style="position: absolute; top: 65px; left: 50px;" /></strong>
+                     <p:selectOneMenu id="duplicarTipoPagoDetalle" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}"
+                                      style="width: 122px; position: absolute; left: 200px; top: 60px;">
+                        <f:selectItem itemLabel=" " itemValue=""/>  
+                        <f:selectItem itemLabel="#{msg['MENSUAL']}" itemValue="MENSUAL"/>  
+                        <f:selectItem itemLabel="#{msg['PRIMAJUNIO']}" itemValue="PRIMAJUNIO"/>
+                        <f:selectItem itemLabel="#{msg['PRIMADICIEMBRE']}" itemValue="PRIMADICIEMBRE"/>  
+                        <f:selectItem itemLabel="#{msg['CESANTIAANUAL']}" itemValue="CESANTIAANUAL"/>
+                        <p:ajax event="change" update="duplicarTipoPagoDetalle" />
+                     </p:selectOneMenu>
+                     <!--                     <p:inputText  autocomplete="off"  id="duplicarTipoPagoDetalle" maxlength="10" onclick="select();" value="#/{controlReformaLaboral.duplicarDetalleReformaLaboral.tipopago}"
+                                                        style="width: 122px; position: absolute; left: 200px; top: 60px;">
+                                             <p:ajax event="change" update="duplicarTipoPagoDetalle" />
+                                          </p:inputText>
+                                          <p:watermark value="#{msg['tipoPago']}" for="duplicarTipoPagoDetalle"/>-->
+
+                     <strong><h:outputText value="*#{msg['factorNDRL']}" style="position: absolute; top: 95px; left: 50px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarFactorDetalle" onclick="select();" value="#{controlReformaLaboral.duplicarDetalleReformaLaboral.factor}"
+                                   style="width: 122px; position: absolute; left: 200px; top: 90px;">
+                        <p:ajax event="change" update="duplicarFactorDetalle" />
+                     </p:inputText>
+                     <p:watermark value="#{msg['factor']}" for="duplicarFactorDetalle"/>
+
+                     <p:commandButton id="limpiarDDRL" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarDuplicarDetalleReformaLaboral()}" update="duplicarDetalleReformaLaboral" process="@this"/>
+                     <p:commandButton id="aceptarDDRL" value="#{msg['agregar']}" icon="ui-icon-circle-check" style="position: absolute; left: 180px; top: 140px;"  actionListener="#{controlReformaLaboral.confirmarDuplicarDetalleReformaLaboral()}" process="@this"/>
+                     <p:commandButton id="cancelarDDRL" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style="position: absolute; left: 280px; top: 140px;" actionListener="#{controlReformaLaboral.limpiarDuplicarDetalleReformaLaboral()}" update="duplicarDetalleReformaLaboral" onclick="PF('DuplicarRegistroDetalleReformaLaboral').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+
+               <!-- editar celdas reforma laboral -->
+
+               <p:dialog id="editarCodigoReformaLaboralD" header="#{msg['editarCodigoReformaLaboralD']}" widgetVar="editarCodigoReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.codigo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarNombreReformaLaboralD" header="#{msg['editarNombreReformaLaboralD']}" widgetVar="editarNombreReformaLaboralD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlReformaLaboral.editarReformaLaboral.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <!-- editar celdas detalles reforma laboral -->
+
+               <p:dialog id="editarTipoPagoDetalleD" header="#{msg['editarTipoPagoDetalleD']}" widgetVar="editarTipoPagoDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.tipopago}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarFactorDetalleD" header="#{msg['editarFactorDetalleD']}" widgetVar="editarFactorDetalleD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlReformaLaboral.editarDetalleReformaLaboral.factor}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+            </h:form>
+
+            <h:form id="formExportarRL">
+               <p:dataTable id="datosReformaLaboralExportar" var="expRL" style="visibility: hidden; display: none;"                           
+                            value="#{controlReformaLaboral.listaReformasLaborales}"> 
+
+                  <p:column headerText="#{msg['codigoX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/> </f:facet> 
+                     <h:outputText value="#{expRL.codigo}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['nombreX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['nombreX']}"/> </f:facet> 
+                     <h:outputText value="#{expRL.nombre}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['integralX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['integralX']}"/> </f:facet> 
+                     <h:outputText value="#{expRL.strIntegral}" >
+                     </h:outputText>
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+
+            <h:form id="formExportarDRL">
+               <p:dataTable id="datosDetalleReformaLaboralExportar" var="expDRL" style="visibility: hidden; display: none;"                           
+                            value="#{controlReformaLaboral.listaDetallesReformasLaborales}"> 
+
+                  <p:column headerText="#{msg['tipoPagoXX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['tipoPagoX']}"/> </f:facet> 
+                     <h:outputText value="#{expDRL.tipopago}" >
+                     </h:outputText>
+                  </p:column>  
+
+                  <p:column headerText="#{msg['factorX']}">                                  
+                     <f:facet name="header"><h:outputText value="#{msg['factorX']}"/> </f:facet> 
+                     <h:outputText value="#{expDRL.factor}" >
+                     </h:outputText>
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>
