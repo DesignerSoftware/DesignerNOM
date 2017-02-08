@@ -77,5 +77,7 @@ public interface AdministrarReformasLaboralesInterface {
      * @param listaDRL Lista de los DetallesReformasLaborales que se van a crear.
      */
     public void borrarDetalleReformaLaboral(List<DetallesReformasLaborales> listaDRL);
+    
+    public String clonarReformaLaboral(String nuevoNombre, short codigoNuevo, short codOrigen);
 
 }

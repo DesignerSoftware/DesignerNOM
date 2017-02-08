@@ -388,6 +388,11 @@
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 200px; font-weight:bold;" />
                </p:dialog>
 
+               <p:dialog id="errorBorrando" header="#{msg['error']}" widgetVar="errorBorrando"  resizable="false" draggable="true" modal="true" height="70" width="290"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorBorrando']}" style="position: absolute; left: 70px; top: 10px; width: 200px; font-weight:bold;" />
+               </p:dialog>
+
                <!--HotKey-->
                <p:hotkey bind="ctrl+f11" actionListener="#{controlCiudades.activarCtrlF11()}" process="@this"/> 
 

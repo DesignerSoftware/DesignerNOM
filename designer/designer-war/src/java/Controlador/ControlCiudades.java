@@ -20,7 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -545,11 +546,11 @@ public class ControlCiudades implements Serializable {
 
 //GUARDAR
    public void guardarCambiosCiudad() {
-
+      boolean borrados = true;
       if (guardado == false) {
+         RequestContext context = RequestContext.getCurrentInstance();
          if (!listaCiudadesBorrar.isEmpty()) {
-            administrarCiudades.borrarCiudades(listaCiudadesBorrar);
-            System.out.println("Entra");
+            borrados = administrarCiudades.borrarCiudades(listaCiudadesBorrar);
             listaCiudadesBorrar.clear();
          }
          if (!listaCiudadesCrear.isEmpty()) {
@@ -560,19 +561,20 @@ public class ControlCiudades implements Serializable {
             administrarCiudades.modificarCiudades(listaCiudadesModificar);
             listaCiudadesModificar.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         if (!borrados) {
+            context.execute("PF('errorBorrando').show()");
+         }
          listaCiudades = null;
          getListaCiudades();
          contarRegistrosCiudad();
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
-         RequestContext.getCurrentInstance().update("form:datosCiudades");
+         context.update("form:informacionRegistro");
+         context.update("form:datosCiudades");
          guardado = true;
          permitirIndex = true;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
-         RequestContext.getCurrentInstance().update("form:growl");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
+         context.update("form:growl");
+         context.update("form:ACEPTAR");
          k = 0;
          anularBotonLOV();
       }

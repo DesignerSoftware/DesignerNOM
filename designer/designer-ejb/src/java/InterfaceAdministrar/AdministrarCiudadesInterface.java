@@ -26,7 +26,7 @@ public interface AdministrarCiudadesInterface {
      * Método encargado de borrar Ciudades.
      * @param listaCiudades Lista de los Ciudades que se van a eliminar.
      */
-    public void borrarCiudades(List<Ciudades> listaCiudades);
+    public boolean borrarCiudades(List<Ciudades> listaCiudades);
     /**
      * Método encargado de recuperar todas las Ciudades.
      * @return Retorna una lista de Ciudades.

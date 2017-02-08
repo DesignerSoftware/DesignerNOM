@@ -62,5 +62,7 @@ public interface PersistenciaDetallesReformasLaboralesInterface {
      * @return Retorna los DetallesReformasLaborales para la ReformaLaboral
      */
     public List<DetallesReformasLaborales> buscarDetalleReformasParaReformaSecuencia(EntityManager em,BigInteger secuencia);
+    
+    public String clonarReformaLaboral(EntityManager em, String nuevoNombre, short codigoNuevo, short codOrigen);
 
 }

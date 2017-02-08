@@ -73,7 +73,8 @@ public class PersistenciaEmpleados implements PersistenciaEmpleadoInterface {
             if (tx.isActive()) {
                 tx.rollback();
             }
-        } finally {
+        }
+        finally {
             tx.commit();
         }
         return null;

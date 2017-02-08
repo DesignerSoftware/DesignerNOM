@@ -25,96 +25,96 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarCiudades implements AdministrarCiudadesInterface {
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaCiudades'.
-     */
-    @EJB
-    PersistenciaCiudadesInterface persistenciaCiudades;
-    /**
-     * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
-     * persistencia 'persistenciaDepartamentos'.
-     */
-    @EJB
-    PersistenciaDepartamentosInterface persistenciaDepartamentos;
-    @EJB
-    PersistenciaUbicacionesGeograficasInterface persistenciaUbicacionesGeograficas;
-    /**
-     * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
-     * conexión del usuario que está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
-    private EntityManager em;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaCiudades'.
+    */
+   @EJB
+   PersistenciaCiudadesInterface persistenciaCiudades;
+   /**
+    * Enterprise JavaBeans.<br> Atributo que representa la comunicación con la
+    * persistencia 'persistenciaDepartamentos'.
+    */
+   @EJB
+   PersistenciaDepartamentosInterface persistenciaDepartamentos;
+   @EJB
+   PersistenciaUbicacionesGeograficasInterface persistenciaUbicacionesGeograficas;
+   /**
+    * Enterprise JavaBean.<br> Atributo que representa todo lo referente a la
+    * conexión del usuario que está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------    
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------    
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
 
-    @Override
-    public List<Ciudades> consultarCiudades() {
-        List<Ciudades> listaCiudades;
-        listaCiudades = persistenciaCiudades.consultarCiudades(em);
-        return listaCiudades;
-    }
+   @Override
+   public List<Ciudades> consultarCiudades() {
+      List<Ciudades> listaCiudades;
+      listaCiudades = persistenciaCiudades.consultarCiudades(em);
+      return listaCiudades;
+   }
 
-    @Override
-    public void modificarCiudades(List<Ciudades> listaCiudades) {
-        Ciudades c;
-        for (int i = 0; i < listaCiudades.size(); i++) {
-            System.out.println("Modificando...");
-            if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
-                listaCiudades.get(i).setDepartamento(null);
-                c = listaCiudades.get(i);
-            } else {
-                c = listaCiudades.get(i);
-            }
-            persistenciaCiudades.editar(em, c);
-        }
-    }
+   @Override
+   public void modificarCiudades(List<Ciudades> listaCiudades) {
+      Ciudades c;
+      for (int i = 0; i < listaCiudades.size(); i++) {
+         System.out.println("Modificando...");
+         if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
+            listaCiudades.get(i).setDepartamento(null);
+            c = listaCiudades.get(i);
+         } else {
+            c = listaCiudades.get(i);
+         }
+         persistenciaCiudades.editar(em, c);
+      }
+   }
 
-    @Override
-    public void borrarCiudades(List<Ciudades> listaCiudades) {
-        for (int i = 0; i < listaCiudades.size(); i++) {
-            System.out.println("Borrando...");
-            if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
+   @Override
+   public boolean borrarCiudades(List<Ciudades> listaCiudades) {
+      boolean borradosTodos = true;
+      for (int i = 0; i < listaCiudades.size(); i++) {
+         if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
+            listaCiudades.get(i).setDepartamento(null);
+         }
+         if (!persistenciaCiudades.borrar(em, listaCiudades.get(i))) {
+            borradosTodos = false;
+         }
+      }
+      return borradosTodos;
+   }
 
-                listaCiudades.get(i).setDepartamento(null);
-                persistenciaCiudades.borrar(em, listaCiudades.get(i));
-            } else {
-                persistenciaCiudades.borrar(em, listaCiudades.get(i));
-            }
-        }
-    }
+   @Override
+   public void crearCiudades(List<Ciudades> listaCiudades) {
+      for (int i = 0; i < listaCiudades.size(); i++) {
+         System.out.println("Creando...");
+         if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
 
-    @Override
-    public void crearCiudades(List<Ciudades> listaCiudades) {
-        for (int i = 0; i < listaCiudades.size(); i++) {
-            System.out.println("Creando...");
-            if (listaCiudades.get(i).getDepartamento().getSecuencia() == null) {
+            listaCiudades.get(i).setDepartamento(null);
+            persistenciaCiudades.crear(em, listaCiudades.get(i));
+         } else {
+            persistenciaCiudades.crear(em, listaCiudades.get(i));
+         }
+      }
+   }
 
-                listaCiudades.get(i).setDepartamento(null);
-                persistenciaCiudades.crear(em, listaCiudades.get(i));
-            } else {
-                persistenciaCiudades.crear(em, listaCiudades.get(i));
-            }
-        }
-    }
-
-    @Override
-    public int existeenUbicacionesGeograficas(BigInteger secCiudad) {
-        try {
-            return persistenciaUbicacionesGeograficas.existeCiudadporSecuencia(em, secCiudad);
-        } catch (Exception e) {
-            System.err.println("ERROR: AdministrarCiudades. existeenUbicacionesGeograficas() : " + e);
-            return 0;
-        }
-    }
+   @Override
+   public int existeenUbicacionesGeograficas(BigInteger secCiudad) {
+      try {
+         return persistenciaUbicacionesGeograficas.existeCiudadporSecuencia(em, secCiudad);
+      } catch (Exception e) {
+         System.err.println("ERROR: AdministrarCiudades. existeenUbicacionesGeograficas() : " + e);
+         return 0;
+      }
+   }
 }

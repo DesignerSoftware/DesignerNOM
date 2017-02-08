@@ -10,8 +10,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless. <br>
@@ -23,102 +25,136 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaDetallesReformasLaborales implements PersistenciaDetallesReformasLaboralesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos.
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
+   @Override
+   public void crear(EntityManager em, DetallesReformasLaborales detallesReformasLaborales) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.persist(detallesReformasLaborales);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void crear(EntityManager em,DetallesReformasLaborales detallesReformasLaborales) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.persist(detallesReformasLaborales);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+   @Override
+   public void editar(EntityManager em, DetallesReformasLaborales detallesReformasLaborales) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(detallesReformasLaborales);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void borrar(EntityManager em, DetallesReformasLaborales detallesReformasLaborales) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(detallesReformasLaborales));
+         tx.commit();
+
+      } catch (Exception e) {
+         try {
             if (tx.isActive()) {
-                tx.rollback();
+               tx.rollback();
             }
-        }
-    }
+         } catch (Exception ex) {
+            System.out.println("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
+         }
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em,DetallesReformasLaborales detallesReformasLaborales) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(detallesReformasLaborales);
+   @Override
+   public List<DetallesReformasLaborales> buscarDetallesReformasLaborales(EntityManager em) {
+      em.clear();
+      Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d");
+      query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+      List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
+      return detallesReformasLaborales;
+   }
+
+   @Override
+   public DetallesReformasLaborales buscarDetalleReformaSecuencia(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.secuencia = :secuencia");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         DetallesReformasLaborales detallesReformasLaborales = (DetallesReformasLaborales) query.getSingleResult();
+         return detallesReformasLaborales;
+      } catch (Exception e) {
+         System.out.println("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         DetallesReformasLaborales detallesReformasLaborales = null;
+         return detallesReformasLaborales;
+      }
+   }
+
+   @Override
+   public List<DetallesReformasLaborales> buscarDetalleReformasParaReformaSecuencia(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.reformalaboral.secuencia=:secuencia ORDER BY d.factor ASC");
+         query.setParameter("secuencia", secuencia);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
+         return detallesReformasLaborales;
+      } catch (Exception e) {
+         System.out.println("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
+         List<DetallesReformasLaborales> detallesReformasLaborales = null;
+         return detallesReformasLaborales;
+      }
+   }
+
+   public String clonarReformaLaboral(EntityManager em, String nuevoNombre, short codigoNuevo, short codOrigen) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         System.out.println("nuevoNombre : " + nuevoNombre);
+         System.out.println("codigoNuevo : " + codigoNuevo);
+         System.out.println("codOrigen : " + codOrigen);
+         StoredProcedureQuery query = em.createStoredProcedureQuery("REFORMASLABORALES_PKG.CLONARREFORMALABORAL");
+         query.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
+         query.registerStoredProcedureParameter(2, short.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, BigInteger.class, ParameterMode.IN);
+
+         query.setParameter(1, nuevoNombre);
+         query.setParameter(2, codigoNuevo);
+         query.setParameter(3, codOrigen);
+
+         query.execute();
+         query.hasMoreResults();
+         String strRetorno = (String) query.getOutputParameterValue(1);
+         System.out.println("PersistenciaDetallesReformasLaborales.clonarReformaLaboral() Ya clono strRetorno:_" + strRetorno + "_");
+         return strRetorno;
+      } catch (Exception e) {
+         System.err.println("ERROR: " + this.getClass().getName() + ".clonarReformaLaboral()");
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
+      }
+      finally {
             tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaDetallesReformasLaborales.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
         }
-    }
-
-    @Override
-    public void borrar(EntityManager em,DetallesReformasLaborales detallesReformasLaborales) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(detallesReformasLaborales));
-            tx.commit();
-
-        } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
-            }
-        }
-    }
-
-    @Override
-    public List<DetallesReformasLaborales> buscarDetallesReformasLaborales(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
-        return detallesReformasLaborales;
-    }
-
-    @Override
-    public DetallesReformasLaborales buscarDetalleReformaSecuencia(EntityManager em,BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.secuencia = :secuencia");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            DetallesReformasLaborales detallesReformasLaborales = (DetallesReformasLaborales) query.getSingleResult();
-            return detallesReformasLaborales;
-        } catch (Exception e) {
-            System.out.println("Error buscarDetalleReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
-            DetallesReformasLaborales detallesReformasLaborales = null;
-            return detallesReformasLaborales;
-        }
-    }
-
-    @Override 
-    public List<DetallesReformasLaborales> buscarDetalleReformasParaReformaSecuencia(EntityManager em,BigInteger secuencia) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.reformalaboral.secuencia=:secuencia ORDER BY d.factor ASC");
-            query.setParameter("secuencia", secuencia);
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<DetallesReformasLaborales> detallesReformasLaborales = (List<DetallesReformasLaborales>) query.getResultList();
-            return detallesReformasLaborales;
-        } catch (Exception e) {
-            System.out.println("Error buscarDetalleReformasParaReformaSecuencia PersistenciaDetallesReformasLaborales : " + e.toString());
-            List<DetallesReformasLaborales> detallesReformasLaborales = null;
-            return detallesReformasLaborales;
-        }
-    }
+   }
 }

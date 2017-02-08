@@ -25,87 +25,88 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-    @Override
-    public void crear(EntityManager em, Ciudades ciudades) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(ciudades);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaCiudades.crear: " + e);
+   @Override
+   public void crear(EntityManager em, Ciudades ciudades) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(ciudades);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCiudades.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public void editar(EntityManager em, Ciudades ciudades) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(ciudades);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCiudades.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
+
+   @Override
+   public boolean borrar(EntityManager em, Ciudades ciudades) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(ciudades));
+         tx.commit();
+         return true;
+      } catch (Exception e) {
+         try {
             if (tx.isActive()) {
-                tx.rollback();
+               tx.rollback();
             }
-        }
-    }
+         } catch (Exception ex) {
+            System.out.println("Error PersistenciaCiudades.borrar: " + e);
+         }
+         return false;
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, Ciudades ciudades) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(ciudades);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaCiudades.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public List<Ciudades> consultarCiudades(EntityManager em) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT c FROM Ciudades c ORDER BY c.nombre");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<Ciudades> ciudades = query.getResultList();
+         return ciudades;
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, Ciudades ciudades) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(ciudades));
-            tx.commit();
-
-        } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaCiudades.borrar: " + e);
-            }
-        }
-    }
-
-    @Override
-    public List<Ciudades> consultarCiudades(EntityManager em) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT c FROM Ciudades c ORDER BY c.nombre");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<Ciudades> ciudades = query.getResultList();
-            return ciudades;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Ciudades> lovCiudades(EntityManager em) {
-        try {
-            em.clear();
-            String sql = "SELECT  SECUENCIA,  NOMBRE FROM  CIUDADES ORDER BY NOMBRE";
-            Query query = em.createNativeQuery(sql, Ciudades.class);
-            List<Ciudades> ciudades = query.getResultList();
-            return ciudades;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   @Override
+   public List<Ciudades> lovCiudades(EntityManager em) {
+      try {
+         em.clear();
+         String sql = "SELECT  SECUENCIA,  NOMBRE FROM  CIUDADES ORDER BY NOMBRE";
+         Query query = em.createNativeQuery(sql, Ciudades.class);
+         List<Ciudades> ciudades = query.getResultList();
+         return ciudades;
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
 }

@@ -83,7 +83,7 @@ public class ControlReformaLaboral implements Serializable {
    private boolean cambiosPagina;
    private String altoTablaReforma, altoTablaDetalles;
    //
-   private String nombreReformaClonar;
+   private String nombreReformaClonar, resultadoClonacion;
    private short codigoReformaClonar;
    //
    private List<ReformasLaborales> lovReformasLaborales;
@@ -474,7 +474,7 @@ public class ControlReformaLaboral implements Serializable {
 
    public void cancelarProcesoClonado() {
       codigoReformaClonar = 0;
-      nombreReformaClonar = " ";
+      nombreReformaClonar = "";
       reformaLaboralAClonar = new ReformasLaborales();
       RequestContext context = RequestContext.getCurrentInstance();
       context.update("form:codigoReformaLaboralClonar");
@@ -1110,7 +1110,7 @@ public class ControlReformaLaboral implements Serializable {
    }
 
    public void clonarReformaLaboral() {
-      if ((nombreReformaClonar.isEmpty()) || (codigoReformaClonar <= 0) || (reformaLaboralAClonar.getSecuencia() == null)) {
+      if ((nombreReformaClonar.isEmpty()) || (codigoReformaClonar <= 0) || (reformaLaboralAClonar.getCodigo() <=0)) {
          RequestContext.getCurrentInstance().update("form:errorClonadoReforma");
          RequestContext.getCurrentInstance().execute("PF('errorClonadoReforma').show()");
       } else if (validarCodigoNuevoClonado() == true) {
@@ -1119,6 +1119,19 @@ public class ControlReformaLaboral implements Serializable {
       } else {
          RequestContext.getCurrentInstance().update("form:errorCodigoClonado");
          RequestContext.getCurrentInstance().execute("PF('errorCodigoClonado').show()");
+      }
+   }
+   
+   public void clonar(){
+      resultadoClonacion = administrarReformaLaboral.clonarReformaLaboral(nombreReformaClonar, codigoReformaClonar, reformaLaboralAClonar.getCodigo());
+      if(resultadoClonacion.equals("BIEN")){
+         cancelarModificacionGeneral();
+         FacesMessage msg = new FacesMessage("Información", "Los datos se clonaron con Éxito.");
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         RequestContext.getCurrentInstance().update("form:growl");
+      } else {
+         RequestContext.getCurrentInstance().update("form:errorClonadoReforma2");
+         RequestContext.getCurrentInstance().execute("PF('errorClonadoReforma2').show()");
       }
    }
 
@@ -1550,6 +1563,14 @@ public class ControlReformaLaboral implements Serializable {
 
    public void setInfoRegistroLovReforma(String infoRegistroLovReforma) {
       this.infoRegistroLovReforma = infoRegistroLovReforma;
+   }
+
+   public String getResultadoClonacion() {
+      return resultadoClonacion;
+   }
+
+   public void setResultadoClonacion(String resultadoClonacion) {
+      this.resultadoClonacion = resultadoClonacion;
    }
 
 }

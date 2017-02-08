@@ -29,7 +29,7 @@ public interface PersistenciaCiudadesInterface {
      * Método encargado de eliminar de la base de datos la ciudad que entra por parámetro.
      * @param ciudades Ciudad que se quiere eliminar.
      */
-    public void borrar(EntityManager em,Ciudades ciudades);
+    public boolean borrar(EntityManager em,Ciudades ciudades);
     /**
      * Método encargado de buscar todas las ciudades existentes en la base de datos.
      * @return Retorna una lista de Ciudades.
