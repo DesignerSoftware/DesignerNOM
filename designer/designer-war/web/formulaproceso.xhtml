@@ -14,7 +14,11 @@
             <script type="text/javascript">
                $(window).load(function () {
                   $(".loader").fadeOut("slow");
+                  foco('form:guardarRapido');
                });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               };
             </script>
             <h:form id="form">
                <f:loadBundle basename="Recursos.formulaproceso" var="msg"/>

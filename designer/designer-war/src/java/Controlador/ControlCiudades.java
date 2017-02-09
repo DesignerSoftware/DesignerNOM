@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Ciudades;
 import Entidades.Departamentos;
 import Exportar.ExportarPDF;
@@ -16,9 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;

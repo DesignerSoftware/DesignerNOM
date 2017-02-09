@@ -13,16 +13,25 @@
             <script type="text/javascript">
                $(window).load(function () {
                   $(".loader").fadeOut("slow");
+                  foco('form:guardarRapido');
                });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+                  foco('form:guardarRapido');
+               };
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               };
             </script>
+            <div class="loader"/>
             <h:form id="form">
                <f:loadBundle basename="Recursos.formula" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
-                  <p:toolbar styleClass="cssToolbar" >  
+                  <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                        <p:commandButton id="guardarRapido" widgetVar="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          actionListener="#{controlFormula.guardarCambios()}" process="@this" />
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
@@ -78,8 +87,8 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlFormula.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png)"
+                                         actionListener="#{controlFormula.navegar('atras')}"/>
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -155,7 +164,8 @@
                               <f:facet name="output"><h:outputText value="#{formula.estado}" style="text-transform: uppercase; text-align: center;"/></f:facet> 
                               <f:facet name="input">
                                  <p:selectOneMenu value="#{formula.estado}" style="width: 65px; font-weight: bold; text-align: left;"
-                                                  onblur="PF('datosFormulas').unselectAllRows();PF('datosFormulas').selectRow(#{indice});"
+                                                  onblur="PF('datosFormulas').unselectAllRows();
+                                                        PF('datosFormulas').selectRow(#{indice});"
                                                   onfocus="PF('datosFormulas').unselectAllRows();PF('datosFormulas').selectRow(#{indice});">
                                     <f:selectItem itemLabel="#{msg['activo']}" itemValue="ACTIVO" />  
                                     <f:selectItem itemLabel="#{msg['inactivo']}" itemValue="INACTIVO" />
@@ -537,7 +547,7 @@
                   <p:inputTextarea value="#{controlFormula.editarFormula.observaciones}" style="overflow: auto;" readonly="true"/>
                </p:dialog>
             </h:form>
-            
+
             <h:form id="formExportar">
                <p:dataTable id="datosFormulasExportar" var="infoExp" style="visibility: hidden; display: none;" value="#{controlFormula.listaFormulas}">
                   <p:column headerText="#{msg['nombrelargoXX']}">  

@@ -7,13 +7,13 @@ import Exportar.ExportarXLS;
 import InterfaceAdministrar.AdministrarFormulaInterface;
 import InterfaceAdministrar.AdministrarRastrosInterface;
 import java.io.IOException;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -79,8 +79,7 @@ public class ControlFormula implements Serializable {
    //0 - Detalle Concepto / 1 - Nomina
    private int llamadoPrevioPagina;
    //
-   private String infoRegistro;
-   private String infoRegistroFormula;
+   private String infoRegistro, infoRegistroFormula;
    //
    private DataTable tabla;
    private boolean unaVez;
@@ -149,8 +148,8 @@ public class ControlFormula implements Serializable {
          //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //if (pag.equals("rastrotabla")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -159,6 +158,7 @@ public class ControlFormula implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
+      System.out.println("ControlFormula.navegar() pag:_" + pag + "_");
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
@@ -173,10 +173,6 @@ public class ControlFormula implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
    }
 
    public boolean activarSelec() {
@@ -734,8 +730,6 @@ public class ControlFormula implements Serializable {
       k = 0;
       listaFormulas = null;
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//      permitirIndex = true;
       mostrarTodos = true;
       formulaClon = new Formulas();
       formulaOriginal = new Formulas();
@@ -747,15 +741,6 @@ public class ControlFormula implements Serializable {
          mostrarTodasFormulas();
       }
       activoBuscarTodos = false;
-
-      context.update("form:mostrarTodos");
-      context.execute("PF('datosFormulas').clearFilters()");
-      context.update("form:datosFormulas");
-      context.update("form:nombreLargoFormulaClon");
-      context.update("form:nombreCortoFormulaClon");
-      context.update("form:observacionFormulaClon");
-      context.update("form:descripcionClon");
-
       formulaSeleccionada = null;
       navegar("atras");
    }

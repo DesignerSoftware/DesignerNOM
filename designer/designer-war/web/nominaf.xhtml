@@ -436,8 +436,8 @@
 
                            <hr style="float: left; height: 120px; position: absolute; left: 405px; top: -3px;"/>
 
-                           <p:commandButton id="formulasliquidacion" value="" style="position: absolute; left: 465px; top: 7px; width: 95px; height: 95px;  background-image: url(Imagenes/Iconos/nom_formulas.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlFormula.recibirPaginaEntrante('nominaf')}" action="formula"
-                                            styleClass="bticon"/>
+                           <p:commandButton style="position: absolute; left: 465px; top: 7px; width: 95px; height: 95px; background-image: url(Imagenes/Iconos/nom_formulas.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                            id="formulasliquidacion" value="" actionListener="#{controlFormula.recibirPaginaEntrante('nominaf')}" action="formula" styleClass="bticon"/>
                            <p:tooltip  for="formulasliquidacion">
                               #{msg['toolTipFormulas']}
                            </p:tooltip>
@@ -461,21 +461,16 @@
                                  <f:selectItem  itemLabel="#{msg['pagosnoautomaticos']}" itemValue="NO AUTOMATICO" />
                                  <p:ajax update="@this" listener="#{controlRemoto.cambiarFormaPago()}"/>
                               </p:selectOneRadio> 
-
                               <hr style="position: absolute; top: 35px; width: 254px; left: 5px;"/>
-
                               <center><strong><h:outputText id="tipopago" style=" color: #14388B; position: relative; top: 55px;" value="#{controlRemoto.tituloPago}"/></strong></center>
-
-                              <h:outputText id="mensajepago" style="  overflow: auto; position: absolute; left: 9px; top: 80px; width: 250px; height: 53px; text-align: justify" value="#{controlRemoto.mensajePagos}" />
+                              <h:outputText id="mensajepago" style="overflow: auto; position: absolute; left: 9px; top: 80px; width: 250px; height: 53px; text-align: justify;" value="#{controlRemoto.mensajePagos}" />
 
                            </fieldset>
 
                            <fieldset style="position: absolute; border-radius: 10px; width: 250px; height: 100px; top: 157px;">
 
                               <strong><h:outputText  value="#{msg['estadisticas']}" style=" color: #14388B; position: absolute; left: 100px; top: 9px;"/></strong>
-
                               <h:outputText style=" position: absolute; left: 100px; top: 25px; width: 160px; text-align: justify" value="#{msg['textoestadisticas']}"/>
-
                               <p:commandButton id="btnestadisticas" value=" " style="position: absolute; left: 5px; top: 8px; width: 90px; height: 90px; background-image: url(Imagenes/Iconos/interrogante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
                                                actionListener="#{controlParametrosConjuntos.recibirPaginaAnterior('atrasNomina')}" action="estadisticas" styleClass="bticon"/>
                            </fieldset>
@@ -483,27 +478,16 @@
                            <fieldset style="position: absolute; border-radius: 10px; width: 500px; height: 250px; top: 7px; left: 284px;">
 
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 100px; top: 5px;" value="#{msg['parametrosdeliquidacion']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 100px; top: 25px; width: 150px; text-align: justify" value="#{msg['textoparametrosdeliquidacion']}"/>
-
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 100px; top: 90px;" value="#{msg['generarliquidacion']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 100px; top: 110px; width: 150px; text-align: justify" value="#{msg['textogenerarliquidacion']}"/>
-
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 100px; top: 175px;" value="#{msg['comprobantesdepago']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 100px; top: 195px; width: 150px; text-align: justify" value="#{msg['textocomprobantesdepago']}"/>
-
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 360px; top: 5px;" value="#{msg['borrarliquidacion']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 360px; top: 25px; width: 130px; text-align: justify" value="#{msg['textoborrarliquidacion']}"/>
-
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 360px; top: 90px;" value="#{msg['cerrarliquidacion']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 360px; top: 110px; width: 130px; text-align: justify" value="#{msg['textocerrarliquidacion']}"/>
-
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 360px; top: 175px;" value="#{msg['reportesdenomina']}"/></strong>
-
                               <h:outputText style=" position: absolute; left: 360px; top: 195px; width: 150px;" value="#{msg['textoreportesdenomina']}"/>
 
 

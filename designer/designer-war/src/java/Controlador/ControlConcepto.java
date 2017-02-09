@@ -217,7 +217,6 @@ public class ControlConcepto implements Serializable {
 
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
-
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
 //      HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 //      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) session.getAttribute("controlListaNavegacion");

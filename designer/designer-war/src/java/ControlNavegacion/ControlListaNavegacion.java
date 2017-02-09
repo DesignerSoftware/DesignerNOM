@@ -19,43 +19,42 @@ import javax.faces.bean.SessionScoped;
 //@Dependent
 @ManagedBean
 @SessionScoped
-public class ControlListaNavegacion implements Serializable{
+public class ControlListaNavegacion implements Serializable {
 
-    private List<String> listaPaginasAnteriores;
+   private static List<String> listaPaginasAnteriores = new ArrayList<String>();
 
-    /**
-     * Creates a new instance of ControlListaNavegacion
-     */
-    public ControlListaNavegacion() {
-        listaPaginasAnteriores = new ArrayList<String>();
-        listaPaginasAnteriores.add("iniciored");
-    }
+   /**
+    * Creates a new instance of ControlListaNavegacion
+    */
+   public ControlListaNavegacion() {
+      listaPaginasAnteriores.add("iniciored");
+   }
 
-    public void adicionarPagina(String pag) {
-        listaPaginasAnteriores.add(pag);
-        System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
-    }
+   public void adicionarPagina(String pag) {
+      listaPaginasAnteriores.add(pag);
+      System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+   }
 
-    public void quitarPagina() {
-        if (listaPaginasAnteriores.size() > 0) {
-            listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-        }
-        System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
-    }
+   public void quitarPagina() {
+      if (listaPaginasAnteriores.size() > 0) {
+         listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
+      }
+      System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+   }
 
-    public String retornarPaginaAnterior() {
-        String s = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
-        listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-        System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores);
-        return s;
-    }
+   public String retornarPaginaAnterior() {
+      String s = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
+      listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
+      System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      return s;
+   }
 
-    public List<String> getListaPaginasAnteriores() {
-        return listaPaginasAnteriores;
-    }
+   public List<String> getListaPaginasAnteriores() {
+      return listaPaginasAnteriores;
+   }
 
-    public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
-        this.listaPaginasAnteriores = listaPaginasAnteriores;
-    }
+   public void setListaPaginasAnteriores(List<String> listaPaginasAnteriores) {
+      this.listaPaginasAnteriores = listaPaginasAnteriores;
+   }
 
 }

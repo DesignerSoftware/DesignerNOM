@@ -11,7 +11,17 @@
    </h:head>
    <h:body>
       <ui:composition template="/template.xhtml">
-         <ui:define name="body">                  
+         <ui:define name="body">  
+            <script type="text/javascript">
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+                  foco('form:guardarRapido');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               };
+            </script>
+            <div class="loader"/>
             <h:form id="form">
                <f:loadBundle basename="Recursos.legislacion" var="msg" />
                <p:growl id="growl" showDetail="true"/>

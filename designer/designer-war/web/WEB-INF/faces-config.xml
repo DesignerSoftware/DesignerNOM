@@ -444,11 +444,13 @@
          <to-view-id>/escalafonsalarial.xhtml</to-view-id>
          <redirect />
       </navigation-case>
+      
       <navigation-case>
          <from-outcome>estadocivil</from-outcome>
          <to-view-id>/estadocivil.xhtml</to-view-id>
          <redirect />
       </navigation-case>
+      
       <navigation-case>
          <from-outcome>estructura</from-outcome>
          <to-view-id>/estructura.xhtml</to-view-id>
