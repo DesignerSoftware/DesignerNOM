@@ -241,10 +241,13 @@ public class AdministrarNReportePersonal implements AdministrarNReportePersonalI
 
     @Override
     public void guardarCambiosInfoReportes(List<Inforeportes> listaIR) {
+        System.out.println("Administrar.AdministrarNReportePersonal.guardarCambiosInfoReportes().listaIR: " + listaIR);
         try {
             for (int i = 0; i < listaIR.size(); i++) {
+                System.out.println("AdministrarNReportePersonal.Tipo Reporte: " + listaIR.get(i).getTipo());
                 persistenciaInforeportes.editar(em, listaIR.get(i));
             }
+            System.out.println("Sali try AdministrarNReportePersonal.guardarCambiosInfoReportes()");
         } catch (Exception e) {
             System.out.println("Error guardarCambiosInfoReportes Admi : " + e.toString());
         }

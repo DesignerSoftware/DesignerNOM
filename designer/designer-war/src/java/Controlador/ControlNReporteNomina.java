@@ -322,6 +322,7 @@ public class ControlNReporteNomina implements Serializable {
                 if (!listaInfoReportesModificados.isEmpty()) {
                     System.out.println("Controlador.ControlNReporteNomina.guardarCambios().if (!listaInfoReportesModificados.isEmpty())");
                     administrarNReportesNomina.guardarCambiosInfoReportes(listaInfoReportesModificados);
+                    listaInfoReportesModificados.clear();
                 }
                 cambiosReporte = true;
                 FacesMessage msg = new FacesMessage("Información", "Los datos se guardarón con Éxito.");
@@ -719,7 +720,7 @@ public class ControlNReporteNomina implements Serializable {
         cambiosReporte = false;
         if (listaInfoReportesModificados.isEmpty()) {
             listaInfoReportesModificados.add(reporteSeleccionado);
-        } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(reporteSeleccionado))) {
+        } else if (!listaInfoReportesModificados.contains(reporteSeleccionado)) {
             listaInfoReportesModificados.add(reporteSeleccionado);
         } else {
             int posicion = listaInfoReportesModificados.indexOf(reporteSeleccionado);
@@ -1979,8 +1980,8 @@ public class ControlNReporteNomina implements Serializable {
         System.out.println("Controlador.ControlNReporteNomina.cargarListaTerceros()");
         if (listValTerceros == null || listValTerceros.isEmpty()) {
             if (empresa != null) {
-            listValTerceros = administrarNReportesNomina.listTercerosSecEmpresa(this.getParametroDeInforme().getEmpresa().getSecuencia());
-            }else{
+                listValTerceros = administrarNReportesNomina.listTercerosSecEmpresa(this.getParametroDeInforme().getEmpresa().getSecuencia());
+            } else {
                 listValTerceros = administrarNReportesNomina.listTerceros();
             }
         }

@@ -51,11 +51,11 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
         System.out.println("Persistencia.PersistenciaInforeportes.editar()");
         
         System.out.println("inforeportes : " + inforeportes);
-        System.out.println("inforeportes.getModulo() : " + inforeportes.getModulo());
+        System.out.println("inforeportes.getTipo() : " + inforeportes.getTipo());
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            System.out.println("Ingrese al try");
+            System.out.println("Ingrese al try PersistenciaInforeportes.editar()");
             tx.begin();
             em.merge(inforeportes);
             tx.commit();
