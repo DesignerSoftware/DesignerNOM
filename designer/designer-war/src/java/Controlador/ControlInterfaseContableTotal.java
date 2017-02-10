@@ -617,11 +617,10 @@ public class ControlInterfaseContableTotal implements Serializable {
 //    }
 
      public void exportarPlano() throws IOException {
-      System.out.println(this.getClass().getName() + ".exportarPlano()");
-//      if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+       try{
+        System.out.println(this.getClass().getName() + ".exportarPlano()");
       if (pathProceso != null || !pathProceso.startsWith("Error:")) {
          File planof = new File(pathProceso);
-//         File reporteF = new File(pathReporteGenerado);
          FacesContext ctx = FacesContext.getCurrentInstance();
          FileInputStream fis = new FileInputStream(planof);
          byte[] bytes = new byte[1024];
@@ -631,7 +630,6 @@ public class ControlInterfaseContableTotal implements Serializable {
             HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
             response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
             ServletOutputStream out = response.getOutputStream();
-
             while ((read = fis.read(bytes)) != -1) {
                out.write(bytes, 0, read);
             }
@@ -639,11 +637,13 @@ public class ControlInterfaseContableTotal implements Serializable {
             out.close();
             ctx.responseComplete();
          }
-      } else {
-         System.out.println("validar descarga reporte - ingreso al if 1 else");
-         RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-         RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-      }
+      } 
+       }  catch(Exception e){
+           System.out.println("error exportando plano : " + e.getMessage());
+       }
+         
+         
+      
    }
     
     
