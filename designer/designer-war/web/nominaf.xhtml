@@ -88,6 +88,29 @@
                                                styleClass="cssBotonesEmpleado" process="@this" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
                               <p:tooltip  for="busquedarapida" value="#{msg['br']}"/>
 
+                              <p:commandButton id="listavalores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat;
+                                               width: 30px; height: 30px; position: absolute; left: 72px; top: 60px; z-index: 1; border: none;" 
+                                               process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" styleClass="bticon"/>
+                              <p:tooltip  for="listavalores" value="#{msg['lista']}"/>
+                              <p:commandButton id="exportarxls" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat;
+                                               width: 30px; height: 30px; position: absolute; left: 102px; top: 60px; z-index: 1; border: none;" 
+                                               actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                                 <p:dataExporter type="xls" target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
+                              </p:commandButton>
+                              <p:tooltip  for="exportarxls" value="#{msg['xls']}"/>
+                              <p:commandButton id="exportarxml" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat;
+                                               width: 30px; height: 30px; position: absolute; left: 132px; top: 60px; z-index: 1; border: none;" 
+                                               actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                                 <p:dataExporter type="xml" target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
+                              </p:commandButton> 
+                              <p:tooltip  for="exportarxml" value="#{msg['xml']}"/>
+                              <p:commandButton id="exportarpdf" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat;
+                                               width: 30px; height: 30px; position: absolute; left: 162px; top: 60px; z-index: 1; border: none;" 
+                                               actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
+                                 <p:dataExporter type="pdf" target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
+                              </p:commandButton>
+                              <p:tooltip for="exportarpdf" value="#{msg['pdf']}"/>
+
                               <!-- Botones Buscar Empleado y Mostrar Todos --> 
                               <p:commandButton id="buscarempleado" style="left: 370px; top: 60px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
                                                value="#{msg['Buscar']}" disabled="#{controlRemoto.buscarEmp}" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" update=":form:lvbuscarempleado"
@@ -95,6 +118,7 @@
                               <p:tooltip  for="buscarempleado">
                                  #{msg['buscarunempleadoporcedula']}<br/>#{msg['nombreoapellidos']}
                               </p:tooltip>
+
                               <p:commandButton id="mostrartodos" widgetVar="mostrartodos" value="#{msg['mostrar']}" actionListener="#{controlRemoto.mostrarTodos()}" update=":form:tabmenu:contenedor, :form:tabmenu:informaciontt" disabled="#{controlRemoto.mostrarT2}"
                                                style="left: 460px; top: 60px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
                                                styleClass="cssBotonesEmpleado"/>
@@ -303,25 +327,6 @@
                                            readonly="true" value="#{controlRemoto.actualComprobante}"/>
                            </fieldset>
                         </p:panel>
-
-                        <p:commandButton id="listavalores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 270px; top: 103px; z-index: 1; border: none;" 
-                                         process="@this" actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" styleClass="bticon"/>
-                        <p:tooltip  for="listavalores" value="#{msg['lista']}"/>
-                        <p:commandButton id="exportarxls" value="" style="background-image: url(Imagenes/Iconos/excel.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 300px; top: 103px; z-index: 1; border: none;" 
-                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
-                           <p:dataExporter type="xls" target=":formexportar:empleadosexportar" fileName="PersonalXLS" encoding="UTF-8"/>
-                        </p:commandButton>
-                        <p:tooltip  for="exportarxls" value="#{msg['xls']}"/>
-                        <p:commandButton id="exportarxml" value="" style="background-image: url(Imagenes/Iconos/xml.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 330px; top: 103px; z-index: 1; border: none;" 
-                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
-                           <p:dataExporter type="xml" target=":formexportar:empleadosexportar" fileName="PersonalXML" encoding="UTF-8"/> 
-                        </p:commandButton> 
-                        <p:tooltip  for="exportarxml" value="#{msg['xml']}"/>
-                        <p:commandButton id="exportarpdf" value="" style="background-image: url(Imagenes/Iconos/pdf.png); background-size: 100% 100%; background-repeat: no-repeat; width: 30px; height: 30px; position: absolute; left: 360px; top: 103px; z-index: 1; border: none;" 
-                                         actionListener="#{controlRemoto.requerirBuscarEmpleadoTipo()}" ajax="false" styleClass="bticon">
-                           <p:dataExporter type="pdf" target=":formexportar:empleadosexportar" fileName="PersonalPDF" encoding="UTF-8"/>
-                        </p:commandButton>
-                        <p:tooltip for="exportarpdf" value="#{msg['pdf']}"/>
 
                         <p:panel id="panelinf" style="position: absolute; top:423px; left:0px; padding: 0px; width: 849px; border: none; background: transparent;">
 

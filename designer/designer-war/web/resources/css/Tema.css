@@ -808,3 +808,13 @@ button .ui-widget-header{
    border-top: solid 2px #5498D8 !important;
    border-bottom: solid 2px #5498D8 !important;
 }
+
+a:link:focus {
+   border-radius: 4px;
+   padding: 0px 3px;
+   border-left: solid 1px #1A5FA0 !important;
+   border-right: solid 1px #1A5FA0 !important;
+   border-top: solid 1px #5498D8 !important;
+   border-bottom: solid 1px #5498D8 !important;
+   z-index: 99;
+}
