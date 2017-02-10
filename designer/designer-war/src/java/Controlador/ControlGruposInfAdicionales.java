@@ -258,10 +258,8 @@ public class ControlGruposInfAdicionales implements Serializable {
         getListGruposInfAdicionales();
         RequestContext context = RequestContext.getCurrentInstance();
         contarRegistros();
-        context.update("form:informacionRegistro");
         context.update("form:datosGruposInfAdicionales");
         context.update("form:ACEPTAR");
-        navegar("atras");
     }
 
     public void activarCtrlF11() {

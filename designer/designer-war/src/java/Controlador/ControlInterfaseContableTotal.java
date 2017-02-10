@@ -465,7 +465,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public String msnPaso1() {
         if (parametroContableActual.getProceso() == null) {
-            parametroContableActual.setProceso(new Procesos());
+            parametroContableActual.setProceso(null);
         }
         System.out.println("proceso en msnpaso 1 : " + parametroContableActual.getProceso());
         if (parametroContableActual.getProceso().getSecuencia() != null) {

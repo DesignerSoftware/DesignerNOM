@@ -75,12 +75,12 @@
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
                         <p:separator style="position: relative; top: -9px"/> 
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
-                                         actionListener="#{controlGruposInfAdicionales.salir()}" process="@this"/>  
+                                         actionListener="#{controlGruposInfAdicionales.salir()}" action="emplinformacionadicional" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>  
                   </p:toolbar>
                   <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value="" actionListener="#{controlGruposInfAdicionales.revisarDialogoGuardar()}" disabled="#{controlGruposInfAdicionales.guardado}" process="@this"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlGruposInfAdicionales.salir()}"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlGruposInfAdicionales.salir()}" action="emplinformacionadicional"/>
 
                   <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                      <legend style="font-size: 14px; color: blue"><strong>Grupos de Información Adicionales</strong></legend>
