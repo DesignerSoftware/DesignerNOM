@@ -440,26 +440,22 @@ public class ControlHvEntrevistas implements Serializable {
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoHvEntrevista.getFecha() == null) {
-           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
         }
         if (nuevoHvEntrevista.getNombre() == null) {
-           mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
         }
 
-        System.out.println("secuencia persona" + empleadoSeleccionado.getPersona().getSecuencia());
         listHVHojasDeVida = administrarHvEntrevistas.buscarHVHojasDeVida(empleadoSeleccionado.getPersona().getSecuencia());
-        if (listHVHojasDeVida == null) {
-        } else {
-            hvHojasDeVida = listHVHojasDeVida.get(0);
-            nuevoHvEntrevista.setHojadevida(hvHojasDeVida);
-            nuevoHvEntrevista.setHojadevida(new HVHojasDeVida());
-        }
+        hvHojasDeVida = listHVHojasDeVida.get(0);
+        nuevoHvEntrevista.setHojadevida(hvHojasDeVida);
+        
         if (nuevoHvEntrevista.getTipo() == null) {
             nuevoHvEntrevista.setTipo("INDIVIDUAL");
         } else {
@@ -487,7 +483,7 @@ public class ControlHvEntrevistas implements Serializable {
             k++;
             l = BigInteger.valueOf(k);
             nuevoHvEntrevista.setSecuencia(l);
-            nuevoHvEntrevista.setHojadevida(hojavida);
+//            nuevoHvEntrevista.setHojadevida(hojavida);
             crearHvEntrevistas.add(nuevoHvEntrevista);
             if (listHvEntrevistas == null) {
                 listHvEntrevistas = new ArrayList<HvEntrevistas>();

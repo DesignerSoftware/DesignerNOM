@@ -1769,15 +1769,12 @@ public class ControlPersonaEducacion implements Serializable {
             if (guardado == false) {
                 if (!listaVigenciasNoFormalesBorrar.isEmpty()) {
                     administrarVigenciasNoFormales.borrarVigenciaNoFormal(listaVigenciasNoFormalesBorrar);
-                    System.out.println("Entra");
                     listaVigenciasNoFormalesBorrar.clear();
                 }
                 if (!listaVigenciasNoFormalesCrear.isEmpty()) {
                     administrarVigenciasNoFormales.crearVigenciaNoFormal(listaVigenciasNoFormalesCrear);
+                    listaVigenciasNoFormalesCrear.clear();
                 }
-
-                System.out.println("LimpiaLista");
-                listaVigenciasNoFormalesCrear.clear();
 
                 if (!listaVigenciasNoFormalesModificar.isEmpty()) {
                     administrarVigenciasNoFormales.modificarVigenciaNoFormal(listaVigenciasNoFormalesModificar);

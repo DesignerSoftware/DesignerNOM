@@ -320,103 +320,6 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
    }
 
-   public void modificarVigencia(VigenciasIndicadores vigenciaIndicador, String confirmarCambio, String valorConfirmar) {
-      vigenciaTablaSeleccionada = vigenciaIndicador;
-      int coincidencias = 0;
-      int indiceUnicoElemento = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (confirmarCambio.equalsIgnoreCase("TIPOS")) {
-         if (!valorConfirmar.isEmpty()) {
-            if (tipoLista == 0) {
-               vigenciaTablaSeleccionada.getTipoindicador().setDescripcion(tipos);
-            } else {
-               vigenciaTablaSeleccionada.getTipoindicador().setDescripcion(tipos);
-            }
-            for (int i = 0; i < listTiposIndicadores.size(); i++) {
-               if (listTiposIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                  indiceUnicoElemento = i;
-                  coincidencias++;
-               }
-            }
-            if (coincidencias == 1) {
-               if (tipoLista == 0) {
-                  vigenciaTablaSeleccionada.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
-               } else {
-                  vigenciaTablaSeleccionada.setTipoindicador(listTiposIndicadores.get(indiceUnicoElemento));
-               }
-               listTiposIndicadores = null;
-               getListTiposIndicadores();
-            } else {
-               permitirIndexV = false;
-               RequestContext.getCurrentInstance().update("form:TiposDialogo");
-               RequestContext.getCurrentInstance().execute("PF('TiposDialogo').show()");
-               tipoActualizacion = 0;
-            }
-         } else {
-            coincidencias = 1;
-            listTiposIndicadores = null;
-            getListTiposIndicadores();
-            if (tipoLista == 0) {
-               vigenciaTablaSeleccionada.setTipoindicador(new TiposIndicadores());
-            } else {
-               vigenciaTablaSeleccionada.setTipoindicador(new TiposIndicadores());
-            }
-         }
-      } else if (confirmarCambio.equalsIgnoreCase("INDICADORES")) {
-         if (tipoLista == 0) {
-            vigenciaTablaSeleccionada.getIndicador().setDescripcion(indicador);
-         } else {
-            vigenciaTablaSeleccionada.getIndicador().setDescripcion(indicador);
-         }
-         for (int i = 0; i < listIndicadores.size(); i++) {
-            if (listIndicadores.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-               indiceUnicoElemento = i;
-               coincidencias++;
-            }
-         }
-         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-               vigenciaTablaSeleccionada.setIndicador(listIndicadores.get(indiceUnicoElemento));
-            } else {
-               vigenciaTablaSeleccionada.setIndicador(listIndicadores.get(indiceUnicoElemento));
-            }
-            listIndicadores = null;
-            getListIndicadores();
-         } else {
-            permitirIndexV = false;
-            RequestContext.getCurrentInstance().update("form:IndicadorDialogo");
-            RequestContext.getCurrentInstance().execute("PF('IndicadorDialogo').show()");
-            tipoActualizacion = 0;
-         }
-      }
-      if (coincidencias == 1) {
-         if (tipoLista == 0) {
-            if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
-               if (listVigenciaIndicadorModificar.isEmpty()) {
-                  listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-               } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
-                  listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-               }
-               if (guardado == true) {
-                  guardado = false;
-                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
-               }
-            }
-         } else if (!listVigenciaIndicadorCrear.contains(vigenciaTablaSeleccionada)) {
-            if (listVigenciaIndicadorModificar.isEmpty()) {
-               listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-            } else if (!listVigenciaIndicadorModificar.contains(vigenciaTablaSeleccionada)) {
-               listVigenciaIndicadorModificar.add(vigenciaTablaSeleccionada);
-            }
-            if (guardado == true) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-         }
-      }
-      RequestContext.getCurrentInstance().update("form:datosVigencia");
-   }
-
    public void valoresBackupAutocompletarVigencia(int tipoNuevo, String Campo) {
 
       if (Campo.equals("TIPOS")) {
@@ -934,27 +837,17 @@ public class ControlEmplVigenciaIndicador implements Serializable {
 
    public void asignarIndex(VigenciasIndicadores vigenciaIndicador, int dlg, int LND) {
       RequestContext context = RequestContext.getCurrentInstance();
-      deshabilitarBotonLov();
-      if (LND == 0) {
-         vigenciaTablaSeleccionada = vigenciaIndicador;
-         tipoActualizacion = 0;
-      } else if (LND == 1) {
-         tipoActualizacion = 1;
-      } else if (LND == 2) {
-         tipoActualizacion = 2;
-      }
+     vigenciaTablaSeleccionada = vigenciaIndicador;
+      tipoActualizacion = LND;
       if (dlg == 0) {
          contarRegistroTipo();
-         habilitarBotonLov();
          RequestContext.getCurrentInstance().update("form:TiposDialogo");
          RequestContext.getCurrentInstance().execute("PF('TiposDialogo').show()");
       } else if (dlg == 1) {
          contarRegistros();
-         habilitarBotonLov();
          RequestContext.getCurrentInstance().update("form:IndicadorDialogo");
          RequestContext.getCurrentInstance().execute("PF('IndicadorDialogo').show()");
       }
-
    }
 
    public void actualizarTipoIndicador() {

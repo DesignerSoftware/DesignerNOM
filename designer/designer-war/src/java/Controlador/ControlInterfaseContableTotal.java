@@ -983,6 +983,10 @@ public class ControlInterfaseContableTotal implements Serializable {
                 if (parametroContableActual.getArchivo() == null) {
                     parametroContableActual.setArchivo("NOMINA");
                 }
+                 if(parametroContableActual.getProceso() == null){
+                     parametroContableActual.setProceso(new Procesos());
+                 }
+                
                 administrarInterfaseContableTotal.modificarParametroContable(parametroContableActual);
                 modificacionParametro = false;
             }

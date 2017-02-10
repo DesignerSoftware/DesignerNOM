@@ -143,7 +143,7 @@
                                             <p:inputText  autocomplete="off"  value="#{info.tipoindicador.descripcion}" id="editarTipoIndicadorVI" style="border-radius: 0px; width: 99.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlEmplVigenciaIndicador.cambiarIndiceV(info,2)}" process="@this"/> 
                                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,0)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarVigencia(info, 'TIPOS', info.tipoindicador.descripcion)}" process="@this" update="editarTipoIndicadorVI"/>
+                                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.modificarVigencia(info)}" process="@this" update="editarTipoIndicadorVI"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -320,17 +320,13 @@
                             <strong><h:outputText value="#{msg['tipoIndicadorN']}" style="position: absolute; top: 115px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaTipoIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.tipoindicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(1, 'TIPOS')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('TIPOS', controlEmplVigenciaIndicador.nuevaVigencia.tipoindicador.descripcion,1)}" process="@this" update="nuevaTipoIndicadorV"/>
                             </p:inputText>
-                            <p:commandButton style="position: absolute; left: 332px; top: 112px;" class="cssBotonLovDialogos" id="btnNuevaTipos" value=" " actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,1)}" update="nuevaTipoIndicadorV"/>   
+                            <p:commandButton style="position: absolute; left: 332px; top: 112px;" class="cssBotonLovDialogos" id="btnNuevaTipos" value=" " process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,1)}"  update="nuevaTipoIndicadorV"/>   
                             <p:watermark for="nuevaTipoIndicadorV" value="#{msg['tipoIndicador']}" />
 
                             <strong><h:outputText value="*#{msg['indicadorN']}" style="position: absolute; top: 145px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaIndicadorV" value="#{controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,1)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(1, 'INDICADORES')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('INDICADORES', controlEmplVigenciaIndicador.nuevaVigencia.indicador.descripcion,1)}" process="@this" update="nuevaIndicadorV"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 332px; top: 142px;" class="cssBotonLovDialogos" id="btnNuevaIndicador" value=" " process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,1)}" update="nuevaIndicadorV"/>   
                             <p:watermark for="nuevaIndicadorV" value="#{msg['descripcion']}" />
@@ -361,9 +357,6 @@
                             <p:inputText  autocomplete="off"  id="duplicarTipoV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.tipoindicador.descripcion}" 
                                           style="width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,2)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(2, 'TIPOS')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('TIPOS', controlEmplVigenciaIndicador.duplicarVigenciaIndicador.tipoindicador.descripcion,2)}" 
-                                        process="@this" update="duplicarTipoV"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 332px; top: 112px;" class="cssBotonLovDialogos" id="btnDuplicaTipo" value="" process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,0,2)}" update="duplicarTipoV"/>   
                             <p:watermark for="duplicarTipoV" value="#{msg['tipoIndicador']}" />
@@ -371,8 +364,6 @@
                             <strong><h:outputText value="*#{msg['indicadorN']}" style="position: absolute; top: 145px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarIndicadorV" value="#{controlEmplVigenciaIndicador.duplicarVigenciaIndicador.indicador.descripcion}" style="width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase" onclick="select();">
                                 <p:ajax event="dblclick" listener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,2)}"/>
-                                <p:ajax event="click" listener="#{controlEmplVigenciaIndicador.valoresBackupAutocompletarVigencia(2, 'INDICADORES')}" />
-                                <p:ajax event="change" listener="#{controlEmplVigenciaIndicador.autocompletarNuevoyDuplicadoVigencia('INDICADORES', controlEmplVigenciaIndicador.duplicarVigenciaIndicador.indicador.descripcion,2)}" process="@this" update="duplicarIndicadorV"/>
                             </p:inputText>
                             <p:commandButton style="position: absolute; left: 332px; top: 142px;" class="cssBotonLovDialogos" id="btnDuplicaIndicador" value=" " process="@this"  actionListener="#{controlEmplVigenciaIndicador.asignarIndex(info,1,2)}" update="duplicarIndicadorV"/>   
                             <p:watermark for="duplicarIndicadorV" value="#{msg['descripcion']}" />
