@@ -465,7 +465,7 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public String msnPaso1() {
         if (parametroContableActual.getProceso() == null) {
-            parametroContableActual.setProceso(null);
+            parametroContableActual.setProceso(new Procesos());
         }
         System.out.println("proceso en msnpaso 1 : " + parametroContableActual.getProceso());
         if (parametroContableActual.getProceso().getSecuencia() != null) {
@@ -615,38 +615,33 @@ public class ControlInterfaseContableTotal implements Serializable {
 //            System.out.println("Error descarga : " + e.toString());
 //        }
 //    }
-
-     public void exportarPlano() throws IOException {
-       try{
-        System.out.println(this.getClass().getName() + ".exportarPlano()");
-      if (pathProceso != null || !pathProceso.startsWith("Error:")) {
-         File planof = new File(pathProceso);
-         FacesContext ctx = FacesContext.getCurrentInstance();
-         FileInputStream fis = new FileInputStream(planof);
-         byte[] bytes = new byte[1024];
-         int read;
-         if (!ctx.getResponseComplete()) {
-            String fileName = planof.getName();
-            HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-            ServletOutputStream out = response.getOutputStream();
-            while ((read = fis.read(bytes)) != -1) {
-               out.write(bytes, 0, read);
+    public void exportarPlano() throws IOException {
+        try {
+            System.out.println(this.getClass().getName() + ".exportarPlano()");
+            if (pathProceso != null || !pathProceso.startsWith("Error:")) {
+                File planof = new File(pathProceso);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(planof);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = planof.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
+                }
             }
-            out.flush();
-            out.close();
-            ctx.responseComplete();
-         }
-      } 
-       }  catch(Exception e){
-           System.out.println("error exportando plano : " + e.getMessage());
-       }
-         
-         
-      
-   }
-    
-    
+        } catch (Exception e) {
+            System.out.println("error exportando plano : " + e.getMessage());
+        }
+    }
+
     public void cerrarPaginaDescarga() {
         RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').hide()");
     }
@@ -956,7 +951,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (tam1 == 0 && tam2 == 0) {
             RequestContext.getCurrentInstance().execute("PF('procesoSinDatos').show()");
-        } 
+        }
         System.out.println("I finish");
         System.out.println("terminó proceso actualizar");
     }
@@ -985,6 +980,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (modificacionParametro == true) {
+                if (parametroContableActual.getArchivo() == null) {
+                    parametroContableActual.setArchivo("NOMINA");
+                }
                 administrarInterfaseContableTotal.modificarParametroContable(parametroContableActual);
                 modificacionParametro = false;
             }
@@ -1302,14 +1300,15 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         empresaSeleccionada = new Empresas();
         filtrarLovEmpresas = null;
-        aceptar = true;/*
-         RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-         RequestContext.getCurrentInstance().update("form:lovEmpresa");
-         RequestContext.getCurrentInstance().update("form:aceptarE");*/
+        aceptar = true;
 
+        RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresa");
+        RequestContext.getCurrentInstance().update("form:aceptarE");
         context.reset("form:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
+
     }
 
     public void cancelarEmpresa() {
@@ -1320,6 +1319,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         aceptar = true;
         tipoActualizacion = -1;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
+        RequestContext.getCurrentInstance().update("form:lovEmpresa");
+        RequestContext.getCurrentInstance().update("form:aceptarE");
         context.reset("form:lovEmpresa:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovEmpresa').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').hide()");
@@ -1329,7 +1331,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             parametroContableActual.setProceso(procesoSeleccionado);
-            parametroContableActual = null;
+            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
             if (guardado == true) {
                 guardado = false;
             }
@@ -1340,15 +1342,15 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         if (tipoActualizacion == 1) {
             nuevoParametroContable.setProceso(procesoSeleccionado);
+            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
         }
-        procesoSeleccionado = new Procesos();
+        procesoSeleccionado = null;
         filtrarLovProcesos = null;
-        aceptar = true;/*
-         RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-         RequestContext.getCurrentInstance().update("form:lovProceso");
-         RequestContext.getCurrentInstance().update("form:aceptarP");*/
-
+        aceptar = true;
+        RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovProceso");
+        RequestContext.getCurrentInstance().update("form:aceptarP");
         context.reset("form:lovProceso:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').hide()");
@@ -1361,10 +1363,12 @@ public class ControlInterfaseContableTotal implements Serializable {
         parametroContableActual = null;
         permitirIndexParametro = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
+        RequestContext.getCurrentInstance().update("form:lovProceso");
+        RequestContext.getCurrentInstance().update("form:aceptarP");
         context.reset("form:lovProceso:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovProceso').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
     }
 
     public void listaValoresBoton() {
@@ -2164,16 +2168,12 @@ public class ControlInterfaseContableTotal implements Serializable {
                 listaParametrosContables = administrarInterfaseContableTotal.obtenerParametrosContablesUsuarioBD(actualUsuarioBD.getAlias());
             }
             if (listaParametrosContables != null) {
-                int tam = listaParametrosContables.size();
-                if (tam > 0) {
+                if (listaParametrosContables.size() > 0) {
                     registroActual = 0;
                 }
-                if (tam == 0) {
+                if (listaParametrosContables.size() == 0) {
                     activarAgregar = false;
                     activarOtros = true;
-                } else {
-                    activarAgregar = true;
-                    activarOtros = false;
                 }
             }
         }

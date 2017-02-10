@@ -78,19 +78,44 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     @Override
     public List<ParametrosContables> obtenerParametrosContablesUsuarioBD(String usuarioBD) {
         try {
-            List<ParametrosContables> parametro = persistenciaParametrosContables.buscarParametrosContablesUsuarioBD(em, usuarioBD);
-            if (parametro != null) {
-                for (int i = 0; i < parametro.size(); i++) {
-                    Empresas empresa = persistenciaEmpresas.consultarEmpresaPorCodigo(em, parametro.get(i).getEmpresaCodigo());
-                    if (empresa != null) {
-                        parametro.get(i).setEmpresaRegistro(empresa);
-                    }
-                    if (parametro.get(i).getProceso() == null) {
-                        parametro.get(i).setProceso(new Procesos());
+            List<ParametrosContables> listaParametros = persistenciaParametrosContables.buscarParametrosContablesUsuarioBD(em, usuarioBD);
+            int n = 0;
+            if (listaParametros == null) {
+                n++;
+            } else if (listaParametros.isEmpty()) {
+                n++;
+            }
+
+            if (n > 0) {
+                Empresas empresaAux = persistenciaEmpresas.consultarPrimeraEmpresaSinPaquete(em);
+                ParametrosContables parametro = new ParametrosContables();
+                parametro.setSecuencia(BigInteger.ONE);
+                parametro.setEmpresaCodigo(empresaAux.getCodigo());
+                parametro.setEmpresaRegistro(empresaAux);
+                parametro.setUsuario(usuarioBD);
+                parametro.setFechafinalcontabilizacion(new Date());
+                parametro.setFechainicialcontabilizacion(new Date());
+                parametro.setArchivo("NOMINA");
+                listaParametros.add(parametro);
+            }
+
+            if (listaParametros != null) {
+                if (!listaParametros.isEmpty()) {
+                    for (int i = 0; i < listaParametros.size(); i++) {
+                        Empresas empresa = null;
+                        if (listaParametros.get(i).getEmpresaRegistro() == null) {
+                            empresa = persistenciaEmpresas.consultarEmpresaPorCodigo(em, listaParametros.get(i).getEmpresaCodigo());
+                        }
+                        if (empresa != null) {
+                            listaParametros.get(i).setEmpresaRegistro(empresa);
+                        }
+                        if (listaParametros.get(i).getProceso() == null) {
+                            listaParametros.get(i).setProceso(new Procesos());
+                        }
                     }
                 }
             }
-            return parametro;
+            return listaParametros;
         } catch (Exception e) {
             System.out.println("Error obtenerParametroContableUsuarioBD Admi : " + e.toString());
             return null;
@@ -101,7 +126,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     public void modificarParametroContable(ParametrosContables parametro) {
         try {
             if (parametro.getProceso().getSecuencia() == null) {
-                parametro.setProceso(null);
+                parametro.setProceso(new Procesos());
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
@@ -115,7 +140,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
         try {
             for (int i = 0; i < listPC.size(); i++) {
                 if (listPC.get(i).getProceso().getSecuencia() == null) {
-                    listPC.get(i).setProceso(null);
+                    listPC.get(i).setProceso(new Procesos());
                 }
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }
@@ -128,7 +153,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     public void crearParametroContable(ParametrosContables parametro) {
         try {
             if (parametro.getProceso().getSecuencia() == null) {
-                parametro.setProceso(null);
+                parametro.setProceso(new Procesos());
             }
             persistenciaParametrosContables.crear(em, parametro);
         } catch (Exception e) {
@@ -313,7 +338,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     public void ejecutarPKGRecontabilizacion(Date fechaIni, Date fechaFin) throws ExcepcionBD {
         try {
             persistenciaInterconTotal.ejecutarPKGRecontabilizacion(em, fechaIni, fechaFin);
-        } catch (ExcepcionBD ebd){
+        } catch (ExcepcionBD ebd) {
             throw ebd;
         } catch (Exception e) {
             System.out.println("Error ejecutarPKGRecontabilizacion Admi : " + e.toString());
@@ -375,14 +400,14 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
 
     @Override
     public void borrarRegistroGenerado(List<SolucionesNodos> listBorrar) {
-        for(int i=0;i<listBorrar.size();i++){
+        for (int i = 0; i < listBorrar.size(); i++) {
             persistenciaSolucionesNodos.borrar(em, listBorrar.get(i));
         }
     }
 
     @Override
     public void borrarRegistroIntercon(List<InterconTotal> listBorrar) {
-        for(int i=0;i<listBorrar.size();i++){
+        for (int i = 0; i < listBorrar.size(); i++) {
             persistenciaInterconTotal.borrar(em, listBorrar.get(i));
         }
     }
