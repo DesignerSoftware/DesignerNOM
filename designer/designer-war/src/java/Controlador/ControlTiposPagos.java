@@ -87,6 +87,10 @@ public class ControlTiposPagos implements Serializable {
       System.out.println("controlTiposPagos Constructor");
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

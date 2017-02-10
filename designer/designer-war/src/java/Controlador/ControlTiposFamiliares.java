@@ -86,7 +86,11 @@ public class ControlTiposFamiliares implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposFamiliares PostConstruct ");

@@ -87,6 +87,10 @@ public class ControlClasesPensiones implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

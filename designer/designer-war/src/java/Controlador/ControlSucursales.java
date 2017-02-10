@@ -100,7 +100,11 @@ public class ControlSucursales implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();

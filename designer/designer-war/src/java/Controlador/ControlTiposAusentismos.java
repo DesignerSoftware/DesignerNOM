@@ -85,7 +85,11 @@ public class ControlTiposAusentismos implements Serializable {
         System.out.println("controlTiposAusentismos Constructor");
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposAusentismos PostConstruct ");

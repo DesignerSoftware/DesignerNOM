@@ -187,7 +187,11 @@ public class controlNReporteEvalCompetencia implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void iniciarAdministradores() {
         System.out.println(this.getClass().getName() + ".iniciarAdministradores()");
         try {

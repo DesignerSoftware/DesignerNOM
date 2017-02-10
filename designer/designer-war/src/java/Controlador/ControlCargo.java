@@ -287,6 +287,10 @@ public class ControlCargo implements Serializable {
       activarLOV = true;
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

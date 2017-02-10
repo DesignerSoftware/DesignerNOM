@@ -104,6 +104,10 @@ public class ControlLiquidacionesLogs implements Serializable {
       lovProcesos = null;
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

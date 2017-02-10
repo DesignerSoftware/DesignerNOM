@@ -84,7 +84,11 @@ public class ControlTiposViajeros implements Serializable {
         System.out.println("controlTiposViajeros Constructor");
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposViajeros PostConstruct ");

@@ -85,7 +85,11 @@ public class ControlPartesCuerpo implements Serializable {
         System.out.println("controlPartesCuerpo Constructor");
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlPartesCuerpo PostConstruct ");

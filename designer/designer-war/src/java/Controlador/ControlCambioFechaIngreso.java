@@ -89,6 +89,10 @@ public class ControlCambioFechaIngreso implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

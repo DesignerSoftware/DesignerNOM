@@ -167,6 +167,10 @@ public class ControlConcepto implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

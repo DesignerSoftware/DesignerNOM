@@ -53,6 +53,10 @@ public class ControlPruebaEnvioCorreo implements Serializable {
     public ControlPruebaEnvioCorreo() {
    mapParametros.put ("paginaAnterior", paginaAnterior);
     }
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
     public void inicializarAdministrador() {
         try {

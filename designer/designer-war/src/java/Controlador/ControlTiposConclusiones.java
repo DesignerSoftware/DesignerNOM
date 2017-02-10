@@ -85,6 +85,10 @@ public class ControlTiposConclusiones implements Serializable {
         System.out.println("controlTiposConclusiones Constructor");
     }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
     public void inicializarAdministrador() {
         try {

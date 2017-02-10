@@ -201,6 +201,10 @@ public class ControlRemoto implements Serializable {
       listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

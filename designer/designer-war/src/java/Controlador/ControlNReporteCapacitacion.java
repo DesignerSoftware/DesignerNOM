@@ -194,6 +194,10 @@ public class ControlNReporteCapacitacion implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void iniciarAdministradores() {
       System.out.println(this.getClass().getName() + ".iniciarAdministradores()");

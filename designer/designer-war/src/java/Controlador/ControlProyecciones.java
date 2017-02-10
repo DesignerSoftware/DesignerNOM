@@ -137,6 +137,10 @@ private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
     public void inicializarAdministrador() {
         try {

@@ -129,7 +129,11 @@ public class ControlDeportes implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();

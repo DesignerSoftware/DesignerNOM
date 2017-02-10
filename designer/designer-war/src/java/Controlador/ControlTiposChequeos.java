@@ -85,7 +85,11 @@ public class ControlTiposChequeos implements Serializable {
         System.out.println("controlTiposChequeos Constructor");
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposChequeos PostConstruct ");

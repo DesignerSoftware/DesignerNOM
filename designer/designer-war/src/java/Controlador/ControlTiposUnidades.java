@@ -85,7 +85,11 @@ public class ControlTiposUnidades implements Serializable {
         System.out.println("controlTiposUnidades Constructor");
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposUnidades PostConstruct ");

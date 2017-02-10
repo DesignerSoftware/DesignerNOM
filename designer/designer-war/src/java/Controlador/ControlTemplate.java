@@ -93,7 +93,11 @@ public class ControlTemplate implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         System.out.println("Inicializando Template.");
         try {

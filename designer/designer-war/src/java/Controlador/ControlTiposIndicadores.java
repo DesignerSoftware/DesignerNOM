@@ -85,7 +85,11 @@ public class ControlTiposIndicadores implements Serializable {
         activarLov = true;
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposIndicadores PostConstruct ");

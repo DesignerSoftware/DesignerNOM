@@ -89,6 +89,10 @@ public class ControlErroresLiquidacion implements Serializable {
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

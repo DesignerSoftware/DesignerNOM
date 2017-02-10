@@ -85,7 +85,11 @@ public class ControlTiposAccidentes implements Serializable {
         System.out.println("controlTiposAccidentes Constructor");
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             System.out.println("ControlTiposAccidentes PostConstruct ");

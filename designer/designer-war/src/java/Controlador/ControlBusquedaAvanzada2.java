@@ -968,7 +968,11 @@ public class ControlBusquedaAvanzada2 implements Serializable {
         //cambioBtnPrueba();
     }
 
-    @PostConstruct
+   public void limpiarListasValor() {
+
+   }
+
+   @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();

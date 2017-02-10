@@ -225,6 +225,10 @@ public class ControlInterfaseContableSapBO {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void inicializarAdministrador() {
       try {

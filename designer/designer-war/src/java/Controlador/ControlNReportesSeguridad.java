@@ -217,6 +217,10 @@ public class ControlNReportesSeguridad implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
+  public void limpiarListasValor() {
+
+   }
+
    @PostConstruct
    public void iniciarAdministrador() {
       try {
