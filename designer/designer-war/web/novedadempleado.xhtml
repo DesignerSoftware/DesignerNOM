@@ -637,10 +637,10 @@
             <!-- L.O.V Empleado-->
             <h:form id="formLovEmpleados">
                <p:dialog header="#{msg['buscar']}" widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
-                         showEffect="fade" hideEffect="fade" modal="true" width="645">
+                         showEffect="fade" hideEffect="fade" modal="true" width="655">
 
                   <p:dataTable id="LOVEmpleados" var="emp" value="#{controlNovedadesEmpleados.lovEmpleados}"
-                               scrollable="true" scrollHeight="200" scrollWidth="620" widgetVar="LOVEmpleados" selectionMode="single"
+                               scrollable="true" scrollHeight="200" scrollWidth="630" widgetVar="LOVEmpleados" selectionMode="single"
                                filteredValue="#{controlNovedadesEmpleados.filtrarLovEmpleados}" emptyMessage="#{msg['lovvacio']}"
                                rowKey="#{emp.id}" selection="#{controlNovedadesEmpleados.empleadoSeleccionadoLov}">
 

@@ -14,8 +14,6 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
-            <div class="loader"></div> 
-            <div style="position: static;"></div>
             <h:form id="form"> 
                <script>
                   /*window.addEventListener('load', function () {*/
@@ -30,6 +28,7 @@
                   }
                   ;
                </script>
+               <div class="loader"></div> 
 
                <f:loadBundle basename="Recursos.personaindividual" var="msg"/>
                <p:growl id="growl" showDetail="true"/>

@@ -10,12 +10,17 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
-            <script type="text/javascript">
-               $(window).load(function () {
-                  $(".loader").fadeOut("slow");
-               });
-            </script>
-            <div class="loader"/>
+            <script>
+                  $(window).load(function () {
+                     $(".loader").fadeOut("slow");
+                     foco('form:tabmenu:tipopersonal');
+                  });
+                  function foco(idElemento) {
+                     document.getElementById(idElemento).focus();
+                  }
+                  ;
+               </script>
+               <div class="loader"></div> 
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.nominaf" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -625,7 +630,7 @@
                                                    <p:dataExporter type="xls" target="#/{controlRemoto.tablaExportar}" fileName="#/{controlRemoto.nombreArchivo}"/>
                                                 </p:commandButton>-->
 
-                        <h:commandLink style="position: absolute; left: 805px; top: 65px; z-index: 9;">  
+                        <h:commandLink id="linkExcel" style="position: absolute; left: 805px; top: 65px; z-index: 9;">  
                            <p:graphicImage value="Imagenes/Iconos/excel.png"  width="30" height="30"/>  
                            <p:dataExporter type="xls" target="#{controlRemoto.tablaExportar}" fileName="#{controlRemoto.nombreArchivo}"/> 
                         </h:commandLink>
@@ -719,7 +724,7 @@
                <p:dialog id="alerta" widgetVar="alerta" header="#{msg['nohaydatos']}" resizable="false" draggable="true" modal="true" height="94" width="305" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['noexistepersonal']} #{controlRemoto.mensaje} #{msg['dentrodelabasededatos']}" style="position: absolute; left: 75px; top: 20px; width: 210px;"/>
-                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('alerta').hide();" style="position: absolute; top: 60px; left: 200px;"/>
+                  <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check" onclick="PF('alerta').hide();" style="position: absolute; top: 60px; left: 200px;"/>
                </p:dialog>
 
                <p:dialog id="ventanatab" widgetVar="ventanatab" header="#{msg['ventanaseguntabla']}" resizable="false" draggable="true" modal="true" height="50" width="285" closable="true">   

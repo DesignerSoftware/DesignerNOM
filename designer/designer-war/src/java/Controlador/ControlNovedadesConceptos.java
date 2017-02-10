@@ -136,7 +136,6 @@ public class ControlNovedadesConceptos implements Serializable {
    public ControlNovedadesConceptos() {
       permitirIndex = true;
       listaNovedades = new ArrayList<Novedades>();
-      lovEmpleados = null;
       lovFormulas = null;
       lovEmpleados = null;
       lovPeriodicidades = null;
@@ -288,6 +287,7 @@ public class ControlNovedadesConceptos implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
       RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
       RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+      RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
       RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarE");
       RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
    }
@@ -409,9 +409,10 @@ public class ControlNovedadesConceptos implements Serializable {
       novedadSeleccionada = novedad;
       tipoActualizacion = LND;
       if (dlg == 0) {
-         contarRegistrosEmpleados();
          activarBotonLOV();
          RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+         RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
+         contarRegistrosEmpleados();
          RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
       } else if (dlg == 2) {
          contarRegistrosLovFormulas();
@@ -437,9 +438,10 @@ public class ControlNovedadesConceptos implements Serializable {
       anularBotonLOV();
       tipoActualizacion = LND;
       if (dlg == 0) {
-         contarRegistrosEmpleados();
          activarBotonLOV();
          RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+         RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
+         contarRegistrosEmpleados();
          RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
       } else if (dlg == 1) {
          contarRegistrosLovConceptos();
@@ -560,8 +562,6 @@ public class ControlNovedadesConceptos implements Serializable {
          }
          if (coincidencias == 1) {
             novedadSeleccionada.setFormula(lovFormulas.get(indiceUnicoElemento));
-            lovFormulas.clear();
-            getLovFormulas();
          } else {
             permitirIndex = false;
             contarRegistrosLovFormulas();
@@ -580,8 +580,6 @@ public class ControlNovedadesConceptos implements Serializable {
          }
          if (coincidencias == 1) {
             novedadSeleccionada.setTercero(lovTerceros.get(indiceUnicoElemento));
-            lovTerceros.clear();
-            getLovTerceros();
          } else {
             permitirIndex = false;
             contarRegistrosTerceros();
@@ -602,12 +600,11 @@ public class ControlNovedadesConceptos implements Serializable {
          }
          if (coincidencias == 1) {
             novedadSeleccionada.setEmpleado(lovEmpleados.get(indiceUnicoElemento));
-            lovEmpleados.clear();
-            getLovEmpleados();
          } else {
             permitirIndex = false;
             contarRegistrosEmpleados();
             RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
             tipoActualizacion = 0;
          }
@@ -624,8 +621,6 @@ public class ControlNovedadesConceptos implements Serializable {
          }
          if (coincidencias == 1) {
             novedadSeleccionada.setPeriodicidad(lovPeriodicidades.get(indiceUnicoElemento));
-            lovPeriodicidades.clear();
-            getLovPeriodicidades();
          } else {
             permitirIndex = false;
             contarRegistrosPeriodicidades();
@@ -683,6 +678,7 @@ public class ControlNovedadesConceptos implements Serializable {
       RequestContext.getCurrentInstance().execute("PF('LOVEmpleados').clearFilters()");
       RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
       RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+      RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
       RequestContext.getCurrentInstance().update("formLovEmpleados:aceptarE");
       RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').hide()");
    }
@@ -1111,6 +1107,7 @@ public class ControlNovedadesConceptos implements Serializable {
          if (cualCelda == 0) {
             contarRegistrosEmpleados();
             RequestContext.getCurrentInstance().update("formLovEmpleados:empleadosDialogo");
+            RequestContext.getCurrentInstance().update("formLovEmpleados:LOVEmpleados");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
             tipoActualizacion = 0;
          } else if (cualCelda == 6) {
@@ -1427,8 +1424,6 @@ public class ControlNovedadesConceptos implements Serializable {
                duplicarNovedad.setFormula(lovFormulas.get(indiceUnicoElemento));
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFormula");
             }
-            lovFormulas.clear();
-            getLovFormulas();
          } else {
             contarRegistrosLovFormulas();
             RequestContext.getCurrentInstance().update("form:formulasDialogo");
@@ -1463,8 +1458,7 @@ public class ControlNovedadesConceptos implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroNit");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTerceroNombre");
             }
-            lovTerceros.clear();
-            getLovTerceros();
+
          } else {
             contarRegistrosTerceros();
             RequestContext.getCurrentInstance().update("form:tercerosDialogo");
@@ -1501,8 +1495,6 @@ public class ControlNovedadesConceptos implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPeriodicidadDescripcion");
             }
-            lovPeriodicidades.clear();
-            getLovPeriodicidades();
          } else {
             contarRegistrosPeriodicidades();
             RequestContext.getCurrentInstance().update("form:periodicidadesDialogo");
@@ -1517,6 +1509,8 @@ public class ControlNovedadesConceptos implements Serializable {
             }
          }
       } else if (confirmarCambio.equalsIgnoreCase("EMPLEADO")) {
+         getLovEmpleados();
+         RequestContext.getCurrentInstance().update("form:empleadosDialogo");
          if (tipoNuevo == 1) {
             nuevaNovedad.getEmpleado().setCodigoempleadoSTR(codigoEmpleado);
          } else if (tipoNuevo == 2) {
@@ -1539,12 +1533,10 @@ public class ControlNovedadesConceptos implements Serializable {
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoCodigo");
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarEmpleadoNombre");
             }
-            lovEmpleados.clear();
-            getLovEmpleados();
          } else {
-            contarRegistrosEmpleados();
             RequestContext.getCurrentInstance().update("form:empleadosDialogo");
             RequestContext.getCurrentInstance().execute("PF('empleadosDialogo').show()");
+            contarRegistrosEmpleados();
             tipoActualizacion = tipoNuevo;
             if (tipoNuevo == 1) {
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoEmpleadoCodigo");
@@ -1559,7 +1551,6 @@ public class ControlNovedadesConceptos implements Serializable {
 
    //RASTROS 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (novedadSeleccionada != null) {
          int result = administrarRastros.obtenerTabla(novedadSeleccionada.getSecuencia(), "NOVEDADES");
          if (result == 1) {
@@ -1573,9 +1564,6 @@ public class ControlNovedadesConceptos implements Serializable {
          } else if (result == 5) {
             RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
-//            } else {
-//                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-//            }
       } else if (administrarRastros.verificarHistoricosTabla("NOVEDADES")) {
          RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
