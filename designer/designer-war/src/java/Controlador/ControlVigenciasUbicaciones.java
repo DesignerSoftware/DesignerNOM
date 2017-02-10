@@ -120,7 +120,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+      listaUbicaciones = null;
    }
 
    @PostConstruct
@@ -663,6 +663,7 @@ public class ControlVigenciasUbicaciones implements Serializable {
         listVUModificar.clear();
         vigenciaSeleccionada = null;
         k = 0;
+        limpiarListasValor();
         vigenciasUbicaciones = null;
         guardado = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");

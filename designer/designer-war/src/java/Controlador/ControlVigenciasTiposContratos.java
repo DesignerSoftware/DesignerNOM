@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -83,13 +84,12 @@ public class ControlVigenciasTiposContratos implements Serializable {
    //
    private DataTable tablaC;
    private boolean activarLOV;
-      private String paginaAnterior = "nominaf";
-    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private String paginaAnterior = "nominaf";
+   private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
    public ControlVigenciasTiposContratos() {
       permitirIndex = true;
       vigenciasTiposContratoEmpleado = null;
-      listaCiudades = null;
       empleado = new Empleados();
       ciudadSelecionada = new Ciudades();
       //Otros
@@ -97,6 +97,8 @@ public class ControlVigenciasTiposContratos implements Serializable {
       //borrar aficiones
       listVTCBorrar = new ArrayList<VigenciasTiposContratos>();
       listaTiposContratos = null;
+      listaMotivosContratos = null;
+      listaCiudades = null;
       //crear aficiones
       listVTCCrear = new ArrayList<VigenciasTiposContratos>();
       k = 0;
@@ -104,7 +106,6 @@ public class ControlVigenciasTiposContratos implements Serializable {
       listVTCModificar = new ArrayList<VigenciasTiposContratos>();
       //editar
       editarVTC = new VigenciasTiposContratos();
-      listaMotivosContratos = null;
       cambioEditor = false;
       aceptarEditar = true;
       cualCelda = -1;
@@ -119,11 +120,13 @@ public class ControlVigenciasTiposContratos implements Serializable {
       vigenciaSeleccionada = null;
       altoTabla = "280";
       activarLOV = true;
-       mapParametros.put ("paginaAnterior", paginaAnterior);
+      mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      listaTiposContratos = null;
+      listaMotivosContratos = null;
+      listaCiudades = null;
    }
 
    @PostConstruct
@@ -138,6 +141,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          System.out.println("Causa: " + e.getCause());
       }
    }
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -148,9 +152,9 @@ public class ControlVigenciasTiposContratos implements Serializable {
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
       //inicializarCosas(); Inicializar cosas de ser necesario
    }
-      
+
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
-    public void navegar(String pag) {
+   public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
@@ -159,22 +163,21 @@ public class ControlVigenciasTiposContratos implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "emplvigenciatipocontrato";
-        //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //      } else if (pag.equals("rastrotablaH")) {
+         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
-   //}
+         //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-    }
-
+   }
 
    //EMPLEADO DE LA VIGENCIA
    public void recibirEmpleado(Empleados emp) {
@@ -532,7 +535,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
          if (vigenciasTiposContratoEmpleado != null && !vigenciasTiposContratoEmpleado.isEmpty()) {
             vigenciaSeleccionada = vigenciasTiposContratoEmpleado.get(0);
             //infoRegistro = "Cantidad de registros: " + vigenciasTiposContratoEmpleado.size();
-         } 
+         }
          activarLOV = true;
          RequestContext.getCurrentInstance().update("form:listaValores");
          RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
@@ -853,7 +856,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
       guardado = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       permitirIndex = true;
-
+      limpiarListasValor();
       RequestContext.getCurrentInstance().update("form:datosVTCEmpleado");
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
@@ -1147,7 +1150,7 @@ public class ControlVigenciasTiposContratos implements Serializable {
    public void contarRegistros() {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
-   
+
    public void contarRegistrosCiudades() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
    }
@@ -1175,7 +1178,6 @@ public class ControlVigenciasTiposContratos implements Serializable {
 //   private void modificarInfoRegistroMotivos(int valor) {
 //      infoRegistroMotivos = String.valueOf(valor);
 //   }
-
 //   public void contarRegistrosVTC() {
 //      if (vigenciasTiposContratoEmpleado != null) {
 //         modificarInfoRegistro(vigenciasTiposContratoEmpleado.size());
@@ -1183,7 +1185,6 @@ public class ControlVigenciasTiposContratos implements Serializable {
 //         modificarInfoRegistro(0);
 //      }
 //   }
-
    public void recordarSeleccion() {
       if (vigenciaSeleccionada != null) {
          FacesContext c = FacesContext.getCurrentInstance();

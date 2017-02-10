@@ -129,7 +129,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+      listaReformasLaborales = null;
    }
 
    @PostConstruct
@@ -738,6 +738,7 @@ public class ControlVigenciasReformasLaborales implements Serializable {
         intNuevaSec = 0;
         vigenciasReformasLaborales = null;
         guardado = true;
+        limpiarListasValor();
     }
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
 

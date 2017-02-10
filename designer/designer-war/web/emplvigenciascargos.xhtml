@@ -17,7 +17,8 @@
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <div class="loader"/>
             <h:form id="form">
@@ -165,7 +166,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 200px;" id="fooEstructuras" action="estructura" actionListener="#{controlEstructuraPlanta.inicializarPagina('emplvigenciascargos')}"/>
+                              <p:commandButton value="" style="width: 200px;" id="fooEstructuras" action="estructura">
+                                 <f:actionListener binding="#{controlEstructuraPlanta.inicializarPagina('emplvigenciascargos')}"/>
+                                 <f:actionListener binding="#{controlVigenciasCargos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -183,7 +187,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer" >
-                              <p:commandButton value="" style="width: 200px;" action="motivocambiocargo" onclick="#{controlMotivosCambiosCargos.recibirPag('emplvigenciascargos')}" id="fooMotivos" />
+                              <p:commandButton value="" style="width: 200px;" action="motivocambiocargo" id="fooMotivos">
+                                 <f:actionListener binding="#{controlMotivosCambiosCargos.recibirPag('emplvigenciascargos')}"/>
+                                 <f:actionListener binding="#{controlVigenciasCargos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -201,7 +208,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer" >
-                              <p:commandButton value="" style="width: 200px;" id="fooCargos" actionListener="#{controlCargo.recibirPaginaEntrante('emplvigenciascargos') }" action="cargo"/>
+                              <p:commandButton value="" style="width: 200px;" id="fooCargos" action="cargo">
+                                 <f:actionListener binding="#{controlCargo.recibirPaginaEntrante('emplvigenciascargos') }"/>
+                                 <f:actionListener binding="#{controlVigenciasCargos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>  
 
@@ -219,8 +229,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer" >
-                              <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" id="fooCentrosCostos"
-                                               actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('atrascentrocostoemplvigenciacargo')}"/>
+                              <p:commandButton value="" style="width: 200px;" action="centrocostoemplvigenciacargo" id="fooCentrosCostos">
+                                 <f:actionListener binding="#{controlBetaCentrosCostos.recibirPaginaEntrante('atrascentrocostoemplvigenciacargo')}"/>
+                                 <f:actionListener binding="#{controlVigenciasCargos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 

@@ -26,7 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -287,8 +288,15 @@ public class ControlCargo implements Serializable {
       activarLOV = true;
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
+      lovCargos = null;
+      lovEmpresas = null;
+      lovEnfoques = null;
+      lovEvalCompetencias = null;
+      lovGruposSalariales = null;
+      lovGruposViaticos = null;
+      lovProcesosProductivos = null;
+      lovTiposEmpresas = null;
    }
 
    @PostConstruct
@@ -2313,6 +2321,7 @@ public class ControlCargo implements Serializable {
       if (banderaTipoDetalle == 1) {
          restaurarTablaTipoD();
       }
+      limpiarListasValor();
       listCargosBorrar.clear();
       listCargosCrear.clear();
       listCargosModificar.clear();
