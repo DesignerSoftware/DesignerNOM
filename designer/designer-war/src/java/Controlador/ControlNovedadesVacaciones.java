@@ -1042,14 +1042,19 @@ public class ControlNovedadesVacaciones implements Serializable {
         System.out.println("aux2 :" + aux2);
 
         siguientefechalimite2 = administrarNovedadesVacaciones.despuesFechaLimite(aux2, periodicidadCodigoDos);
+        
+        System.out.println("siguientefechalimite" + siguientefechalimite);
+        System.out.println("siguientefechalimite2" + siguientefechalimite2);
 
         if (vacdifnomina.equals("S")) {
             nuevaNovedad.setFechapago(siguientefechalimite);
             System.out.println("validacionProcesoVacaciones igual S fecha pago nueva novedad : " + nuevaNovedad.getFechapago());
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaPago");
-        } else {
+        } else if(vacdifnomina.equals("N")) {
             nuevaNovedad.setFechapago(siguientefechalimite2);
             System.out.println("validacionProcesoVacaciones igual N fecha pago nueva novedad : " + nuevaNovedad.getFechapago());
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaPago");
         }
     }
