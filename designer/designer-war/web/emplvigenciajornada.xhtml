@@ -160,7 +160,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 115%;" id="fooTIpoDescanso" action="tipodescanso" actionListener="#{controlTiposDescansos.recibirPaginaEntrante('atrastipodescanso')}" value=""/>
+                                        <p:commandButton style="width: 115%;" id="fooTIpoDescanso" action="tipodescanso" value="" >
+                                 <f:actionListener binding="#{controlTiposDescansos.recibirPaginaEntrante('atrastipodescanso')}"/>
+                                 <f:actionListener binding="#{controlVigenciaJornada.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>  

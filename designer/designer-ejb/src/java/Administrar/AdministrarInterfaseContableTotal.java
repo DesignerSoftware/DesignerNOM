@@ -126,7 +126,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
     public void modificarParametroContable(ParametrosContables parametro) {
         try {
             if (parametro.getProceso().getSecuencia() == null) {
-                parametro.setProceso(new Procesos());
+                parametro.setProceso(null);
             }
             persistenciaParametrosContables.editar(em, parametro);
         } catch (Exception e) {
@@ -140,7 +140,7 @@ public class AdministrarInterfaseContableTotal implements AdministrarInterfaseCo
         try {
             for (int i = 0; i < listPC.size(); i++) {
                 if (listPC.get(i).getProceso().getSecuencia() == null) {
-                    listPC.get(i).setProceso(new Procesos());
+                    listPC.get(i).setProceso(null);
                 }
                 persistenciaParametrosContables.borrar(em, listPC.get(i));
             }

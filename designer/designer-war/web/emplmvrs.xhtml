@@ -195,7 +195,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" action="motivomvr" id="fooMotivo" actionListener="#{controlMotivosMvrs.recibirPaginaAnterior('emplmvrs')}"  value=""/>
+                              <p:commandButton style="width: 120%;" action="motivomvr" id="fooMotivo"  value="">
+                                 <f:actionListener binding="#{controlMotivosMvrs.recibirPaginaAnterior('emplmvrs')}"/>
+                                 <f:actionListener binding="#{controlEmplMvr.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 

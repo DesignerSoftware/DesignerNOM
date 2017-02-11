@@ -96,7 +96,7 @@ public class ControlVigenciaDeporte implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+       listDeportes = null;
    }
 
    @PostConstruct
@@ -864,7 +864,7 @@ public class ControlVigenciaDeporte implements Serializable {
             tipoLista = 0;
             deshabilitarBotonLov();
         }
-
+        limpiarListasValor();
         listVigenciaDeporteBorrar.clear();
         listVigenciaDeporteCrear.clear();
         listVigenciaDeporteModificar.clear();

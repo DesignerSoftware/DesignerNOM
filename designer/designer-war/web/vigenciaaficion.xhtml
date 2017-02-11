@@ -78,12 +78,12 @@
                             <h:outputText id="nombreEmpleado" value="#{controlVigenciaAficion.empleado.persona.nombreCompleto}" 
                                           style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
                         </fieldset>
-                        
-                        
+
+
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" " disabled="#{controlVigenciaAficion.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasAficiones" process="@this" />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " actionListener="#{controlVigenciaAficion.cancelarSalir()}" action="vigAfiEmplInd" process="@this" />
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistros']} #{controlVigenciaAficion.infoRegistro}" style="position: absolute; left: 20px; top: 480px; font-weight: bold"/>
-                        
+
                         <fieldset style="position: absolute; left: 10px; top: 105px;width: 830px; height: 375px; border-radius: 10px; ">
                             <legend style="color: blue;text-align:left"><strong>#{msg['aficionesPersona']}</strong></legend>
 
@@ -108,7 +108,7 @@
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaAficion.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarFechas(info,0)}" update="dateFechaInicial" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info,0)}" process="@this"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -130,7 +130,7 @@
                                                 <p:ajax event="dateSelect" listener="#{controlVigenciaAficion.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarFechas(info,1)}" update="dateFechaFinal" process="@this"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info,1)}" process="@this"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
                                             </p:calendar>
                                         </f:facet>   
                                     </p:cellEditor>
@@ -148,19 +148,22 @@
                                             <p:inputText  autocomplete="off"  value="#{info.aficion.descripcion}" id="editarDescripcionVigencia" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarVigenciaAficion(info, 'AFICIONES', info.aficion.descripcion)}"/>
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info, 2)}"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" />
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" />
                                                 <p:ajax event="dblclick" listener="#{controlVigenciaAficion.asignarIndex(info, 0)}"/>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooDescripcion" value=" " action="aficiones" onclick="#{controlAficiones.recibirPag('vigenciaaficion')}"/>
+                                        <p:commandButton style="width: 120%;" id="fooDescripcion" value=" " action="aficiones">
+                                            <f:actionListener binding="#{controlAficiones.recibirPag('vigenciaaficion')}"/>
+                                            <f:actionListener binding="#{controlVigenciaAficion.limpiarListasValor()}"/>
+                                        </p:commandButton>
                                     </f:facet>
                                 </p:column>  
 
                                 <p:column  sortBy="#{info.valorcuantitativo}" filterBy="#{info.valorcuantitativo}" width="76"
-                                          filterMatchMode="contains" id="veIndividual" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
+                                           filterMatchMode="contains" id="veIndividual" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
                                     <f:facet name="header"> 
                                         <h:outputText id="PI" value="#{msg['puntajeIcorto']}"/>
                                         <p:tooltip for="PI" value="#{msg['puntajeI']}" />
@@ -170,7 +173,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativo}" id="editarIndividual" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info,3)}" process="@this"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarVigenciaAficion(info)}" process="@this" update="editarIndividual"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -182,7 +185,7 @@
 
                                 <p:column headerText="#{msg['puntajeCI']}" sortBy="#{info.valorcualitativo}" filterBy="#{info.valorcualitativo}" width="76"
                                           filterMatchMode="contains" id="veCIndividual" filterStyle="display: none; visibility: hidden;"  style="width: 110px;" >                                  
-                                   <f:facet name="header"> 
+                                    <f:facet name="header"> 
                                         <h:outputText id="PCI" value="#{msg['puntajeCIcorto']}"/>
                                         <p:tooltip for="PCI" value="#{msg['puntajeCI']}" />
                                     </f:facet> 
@@ -212,7 +215,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info,5)}" process="@this"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarVigenciaAficion(info)}" process="@this" update="editarGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -233,7 +236,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"   value="#{info.valorcuantitativogrupo}" id="editarCGrupal" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                                 <p:ajax event="select" listener="#{controlVigenciaAficion.cambiarIndice(info,6)}" process="@this"
-                                                       onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
+                                                        onstart="PF('datosVigenciasAficiones').unselectAllRows();PF('datosVigenciasAficiones').selectRow(#{indice});" /> 
                                                 <p:ajax event="change" listener="#{controlVigenciaAficion.modificarVigenciaAficion(info)}" process="@this" update="editarCGrupal"/>                                   
                                             </p:inputText>
                                         </f:facet>  
@@ -267,9 +270,9 @@
                             </p:dataTable>
 
                             <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroAficion" value="#{msg['infoRegistros']} #{controlVigenciaAficion.infoRegistroAficion}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarA" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
-                            <p:commandButton id="atrasA" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
+                                <h:outputText id="infoRegistroAficion" value="#{msg['infoRegistros']} #{controlVigenciaAficion.infoRegistroAficion}" class="cssinfoRegistroLOV"/>
+                                <p:commandButton id="aceptarA" class="cssAceptarLOV" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlVigenciaAficion.aceptar}"  actionListener="#{controlVigenciaAficion.actualizarAficion()}"  process="@this"/>
+                                <p:commandButton id="atrasA" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" actionListener="#{controlVigenciaAficion.cancelarCambioAficion()}"  process="@this"/>
                             </div>
 
                         </p:dialog> 
@@ -353,16 +356,16 @@
                         <p:panel id="nuevaVigencias" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 55px; left: 18px;" /></strong>
-                                <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 230px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
-                                </p:calendar>
+                            <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 230px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechainicial}" >
+                                <p:ajax event="dateSelect" update="nuevaFechaInicial" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaInicial" process="@this"/>
+                            </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 85px; " /></strong>
-                                <p:calendar  style="position: absolute; top: 80px; left: 230px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
-                                </p:calendar>
+                            <p:calendar  style="position: absolute; top: 80px; left: 230px" autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlVigenciaAficion.nuevaVigenciaAficion.fechafinal}" >
+                                <p:ajax event="dateSelect" update="nuevaFechaFinal" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaFinal" process="@this"/>
+                            </p:calendar>
 
                             <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 115px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="nuevaDescripcion" value="#{controlVigenciaAficion.nuevaVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 230px; top: 110px;">
@@ -411,16 +414,16 @@
                         <p:panel id="duplicarVigencias" style="border: none;">
 
                             <strong><h:outputText value="*#{msg['fechaIncialN']}" style="position: absolute; top: 55px; left: 18px;" /></strong>
-                                <p:calendar  autocomplete="off"  style="position: absolute; top: 50px; left: 230px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechainicial}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
-                                </p:calendar>
+                            <p:calendar  autocomplete="off"  style="position: absolute; top: 50px; left: 230px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechainicial}" >
+                                <p:ajax event="dateSelect" update="duplicarFechaInicial" process="@this"/>
+                                <p:ajax event="change" update="duplicarFechaInicial" process="@this"/>
+                            </p:calendar>
 
                             <strong><h:outputText value="#{msg['fechaFinalN']}" style="position: absolute; top: 85px;" /></strong>
-                                <p:calendar  autocomplete="off"  style="position: absolute; top: 80px; left: 230px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechafinal}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
-                                </p:calendar>
+                            <p:calendar  autocomplete="off"  style="position: absolute; top: 80px; left: 230px" mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlVigenciaAficion.duplicarVigenciaAficion.fechafinal}" >
+                                <p:ajax event="dateSelect" update="duplicarFechaFinal" process="@this"/>
+                                <p:ajax event="change" update="duplicarFechaFinal" process="@this"/>
+                            </p:calendar>
 
                             <strong><h:outputText value="*#{msg['aficionN']}" style="position: absolute; top: 115px; left: 18px;" /></strong>
                             <p:inputText  autocomplete="off"  id="duplicarDescripcion" value="#{controlVigenciaAficion.duplicarVigenciaAficion.aficion.descripcion}" style="width: 122px; position: absolute; left: 230px; top: 110px;">

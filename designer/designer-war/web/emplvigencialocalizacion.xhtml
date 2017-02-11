@@ -162,7 +162,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style ="width: 115%;" action="estructuraPlanta" actionListener="#{controlEstructuraPlanta.inicializarPagina('atrasVLoca')}" id="fooNombreJornada" value=""/>
+                              <p:commandButton style ="width: 115%;" action="estructuraPlanta"  id="fooNombreJornada" value="">
+                                 <f:actionListener binding="#{controlEstructuraPlanta.inicializarPagina('atrasVLoca')}"/>
+                                 <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -209,7 +212,10 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" id="fooMotivo" action="motivolocalizacion" onclick="#{controlMotivosLocalizaciones.recibirPag('motivolocalizacion')}" value=""/>
+                              <p:commandButton style="width: 115%;" id="fooMotivo" action="motivolocalizacion" value="">
+                                 <f:actionListener binding="#{controlMotivosLocalizaciones.recibirPag('motivolocalizacion')}"/>
+                                 <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -231,7 +237,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" id="fooProyecto" value="" action="pageProyectos" actionListener="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                              <p:commandButton style="width: 115%;" id="fooProyecto" value="" action="pageProyectos">
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
                      </p:dataTable>  
@@ -366,7 +375,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 160px;" id="fooProyectoVP" value="" action="pageProyectos" actionListener="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                              <p:commandButton style="width: 160px;" id="fooProyectoVP" value="" action="pageProyectos" >
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -424,7 +436,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooProyectosPP" value="" action="pageProyectos" actionListener="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                              <p:commandButton style="width: 120%;" id="fooProyectosPP" value="" action="pageProyectos">
+                                 <f:actionListener binding="#{controlProyecto.recibirPaginaEntrante('vigencialocalizacion')}"/>
+                                 <f:actionListener binding="#{controlVigenciaLocalizacion.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 

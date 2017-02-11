@@ -164,7 +164,10 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " action="evento" onclick="#{controlEventos.recibirPag('emplvigenciaevento')}" />
+                                        <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " action="evento" >
+                                 <f:actionListener binding="#{controlEventos.recibirPag('emplvigenciaevento')}"/>
+                                 <f:actionListener binding="#{controlEmplVigenciaEvento.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>  
 

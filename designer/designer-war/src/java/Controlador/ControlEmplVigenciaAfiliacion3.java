@@ -196,7 +196,9 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
    }
 
   public void limpiarListasValor() {
-
+      listEstadosAfiliaciones = null;
+      listTerceros = null;
+      listTiposEntidades = null;
    }
 
    @PostConstruct
@@ -1771,6 +1773,7 @@ public class ControlEmplVigenciaAfiliacion3 implements Serializable {
       vigenciaValidaciones = null;
       cambioVigenciaA = false;
       tipoActualizacion = -1;
+      limpiarListasValor();
    }
    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO) (list = ESTRUCTURAS - MOTIVOSLOCALIZACIONES - PROYECTOS)
 

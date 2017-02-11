@@ -138,7 +138,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110%;" id="fooTipoTrabajador" actionListener="#{controlTiposTrabajadores.recibirPaginaAnterior('atrastipotrabajadoremplvigenciatipotrabajador')}" action="tipotrabajadoremplvigenciatipotrabajador" value="" process="@this"/>
+                              <p:commandButton style="width: 110%;" id="fooTipoTrabajador" action="tipotrabajadoremplvigenciatipotrabajador" value="" process="@this">
+                                 <f:actionListener binding="#{controlTiposTrabajadores.recibirPaginaAnterior('atrastipotrabajadoremplvigenciatipotrabajador')}"/>
+                                 <f:actionListener binding="#{controlVigenciaTipoTrabajador.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -156,7 +159,10 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 270px;" id="fooTipoCotizante" actionListener="#{controlTipoCotizante.recibirPaginaEntrante(tipoentidadv)}" action="tipoentidadv" value="" process="@this"/>
+                              <p:commandButton style="width: 270px;" id="fooTipoCotizante" action="tipoentidadv" value="" process="@this">
+                                 <f:actionListener binding="#{controlTipoCotizante.recibirPaginaEntrante(tipoentidadv)}"/>
+                                 <f:actionListener binding="#{controlVigenciaTipoTrabajador.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column> 
                      </p:dataTable>  

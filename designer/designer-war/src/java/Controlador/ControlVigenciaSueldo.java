@@ -212,7 +212,10 @@ public class ControlVigenciaSueldo implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+       listMotivosCambiosSueldos = null;
+       listTerceros = null;
+       listTiposEntidades = null;
+       listTiposSueldos = null;
    }
 
    @PostConstruct
@@ -1819,7 +1822,7 @@ public class ControlVigenciaSueldo implements Serializable {
             filtrarVigenciasAfiliaciones = null;
             tipoListaVA = 0;
         }
-
+        limpiarListasValor();
         listVSBorrar.clear();
         listVSCrear.clear();
         listVSModificar.clear();

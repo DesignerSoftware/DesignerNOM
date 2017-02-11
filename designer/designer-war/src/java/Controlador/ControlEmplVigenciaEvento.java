@@ -156,7 +156,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
    }
 
   public void limpiarListasValor() {
-
+      listEventos = null;
    }
 
    @PostConstruct
@@ -836,7 +836,7 @@ public class ControlEmplVigenciaEvento implements Serializable {
          filtrarListVigenciasEventos = null;
          tipoLista = 0;
       }
-
+      limpiarListasValor();
       listVigenciaEventoBorrar.clear();
       listVigenciaEventoCrear.clear();
       listVigenciaEventoModificar.clear();

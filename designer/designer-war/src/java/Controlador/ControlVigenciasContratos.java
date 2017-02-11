@@ -127,7 +127,8 @@ public class ControlVigenciasContratos implements Serializable {
        mapParametros.put ("paginaAnterior", paginaAnterior);
    }
   public void limpiarListasValor() {
-
+      listaContratos = null;
+      listaTiposContratos = null;
    }
 
    @PostConstruct
@@ -894,7 +895,7 @@ public class ControlVigenciasContratos implements Serializable {
          filtrarVC = null;
          tipoLista = 0;
       }
-
+      limpiarListasValor();
       activarLOV = true;
       RequestContext.getCurrentInstance().update("form:listaValores");
       listVCBorrar.clear();

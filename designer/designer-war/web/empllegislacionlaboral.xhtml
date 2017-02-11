@@ -155,7 +155,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%" id="fooContratos" action="legislacion" actionListener="#{controlLegislacion.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
+                                        <p:commandButton style="width: 120%" id="fooContratos" action="legislacion"  value="">
+                                 <f:actionListener binding="#{controlLegislacion.recibirPaginaEntrante('empllegislacionlaboral')}"/>
+                                 <f:actionListener binding="#{controlVigenciasContratos.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
                                 
@@ -174,7 +177,10 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooTiposContratos" action="tipocontrato" actionListener="#{controlTipoContrato.recibirPaginaEntrante('empllegislacionlaboral')}" value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooTiposContratos" action="tipocontrato" value="">
+                                 <f:actionListener binding="#{controlTipoContrato.recibirPaginaEntrante('empllegislacionlaboral')}"/>
+                                 <f:actionListener binding="#{controlVigenciasContratos.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>  

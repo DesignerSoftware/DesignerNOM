@@ -246,7 +246,10 @@ public class ControlVigenciaLocalizacion implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+       listCentrosCostos = null;
+       listEstructurasCC = null;
+       listMotivosLocalizaciones = null;
+       listProyectos = null;
    }
 
    @PostConstruct
@@ -2557,7 +2560,7 @@ public class ControlVigenciaLocalizacion implements Serializable {
             restablecerTablaVL();
             RequestContext.getCurrentInstance().update("form:datosVLEmpleado");
         }
-
+        limpiarListasValor();
         listVLBorrar.clear();
         listVLCrear.clear();
         listVLModificar.clear();

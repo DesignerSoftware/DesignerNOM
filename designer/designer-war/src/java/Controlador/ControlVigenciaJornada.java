@@ -220,7 +220,8 @@ public class ControlVigenciaJornada implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+       listJornadasLaborales = null;
+       listTiposDescansos = null;
    }
 
    @PostConstruct
@@ -1998,6 +1999,7 @@ public class ControlVigenciaJornada implements Serializable {
             filtrarVJ = null;
             tipoLista = 0;
         }
+        limpiarListasValor();
         listVJBorrar.clear();
         listVJCrear.clear();
         listVJModificar.clear();

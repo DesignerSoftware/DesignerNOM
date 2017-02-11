@@ -242,7 +242,10 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+     listaPensionados = null;
+     listaPersonas = null;
+     listaTiposTrabajadores = null;
+     clasesPensiones = null;
    }
 
    @PostConstruct
@@ -1133,6 +1136,7 @@ public class ControlVigenciaTipoTrabajador implements Serializable {
         listaPensionados = null;
         motivosRetiros = null;
         listaTiposTrabajadores = null;
+        limpiarListasValor();
         //RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 

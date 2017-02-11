@@ -159,7 +159,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciaafiliacion3')}" action="tipoentidademplvigenciaafiliacion3"  value=""/>
+                                        <p:commandButton style="width: 120%;"  action="tipoentidademplvigenciaafiliacion3"  value="">
+                                 <f:actionListener binding="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciaafiliacion3')}"/>
+                                 <f:actionListener binding="#{controlEmplVigenciaAfiliacion3.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 
@@ -177,7 +180,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 220px;" actionListener="#{controlTercero.recibirPaginaEntrante('atrasterceroemplvigenciaafiliacion3')}" action="terceroemplvigenciaafiliacion3" value=""/>
+                                        <p:commandButton style="width: 220px;" action="terceroemplvigenciaafiliacion3" value="">
+                                 <f:actionListener binding="#{controlTercero.recibirPaginaEntrante('atrasterceroemplvigenciaafiliacion3')}"/>
+                                 <f:actionListener binding="#{controlEmplVigenciaAfiliacion3.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 

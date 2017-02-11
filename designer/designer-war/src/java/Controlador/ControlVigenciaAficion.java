@@ -117,7 +117,7 @@ public class ControlVigenciaAficion implements Serializable {
     }
 
    public void limpiarListasValor() {
-
+       listAficiones = null;
    }
 
    @PostConstruct
@@ -887,7 +887,7 @@ public class ControlVigenciaAficion implements Serializable {
             filtrarListVigenciasAficiones = null;
             tipoLista = 0;
         }
-
+        limpiarListasValor();
         listVigenciaAficionBorrar.clear();
         listVigenciaAficionCrear.clear();
         listVigenciaAficionModificar.clear();

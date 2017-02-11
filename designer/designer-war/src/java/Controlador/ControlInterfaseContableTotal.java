@@ -288,12 +288,9 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void modificarParametroContable() {
-        if (guardado == true) {
             guardado = false;
-        }
         cambiosParametro = true;
         modificacionParametro = true;
-        parametroContableActual = null;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -562,6 +559,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             String pathServidorWeb = administrarInterfaseContableTotal.obtenerPathServidorWeb();
             System.out.println("pathServidorWeb : " + pathServidorWeb);
             pathProceso = administrarInterfaseContableTotal.obtenerPathProceso();
+            System.out.println("path proceso :" + pathProceso);
             administrarInterfaseContableTotal.ejecutarPKGCrearArchivoPlano(tipoPlano, parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia(), descripcionProceso);
             rutaArchivo = "";
             rutaArchivo = pathProceso + nombreArchivo + ".txt";
@@ -987,18 +985,13 @@ public class ControlInterfaseContableTotal implements Serializable {
                 if (parametroContableActual.getArchivo() == null) {
                     parametroContableActual.setArchivo("NOMINA");
                 }
-                 if(parametroContableActual.getProceso() == null){
-                     parametroContableActual.setProceso(new Procesos());
+                 if(parametroContableActual.getProceso().getSecuencia() == null){
+                     System.out.println("entra al if 2");
+                     parametroContableActual.setProceso(null);
                  }
                 
                 administrarInterfaseContableTotal.modificarParametroContable(parametroContableActual);
                 modificacionParametro = false;
-            }
-            if (!listParametrosContablesBorrar.isEmpty()) {
-                for (int i = 0; i < listParametrosContablesBorrar.size(); i++) {
-                    administrarInterfaseContableTotal.borrarParametroContable(listParametrosContablesBorrar);
-                }
-                listParametrosContablesBorrar.clear();
             }
 
             if (!listaGeneradosBorrar.isEmpty()) {

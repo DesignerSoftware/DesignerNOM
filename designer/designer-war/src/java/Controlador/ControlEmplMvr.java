@@ -223,7 +223,8 @@ public class ControlEmplMvr implements Serializable {
     }
 
   public void limpiarListasValor() {
-
+      listMotivosMvrs = null;
+      listTiposCertificados = null;
    }
 
    @PostConstruct
@@ -1438,7 +1439,7 @@ public class ControlEmplMvr implements Serializable {
       if (banderaOC == 1) {
          restablecerTablaOC();
       }
-
+      limpiarListasValor();
       listMvrsBorrar.clear();
       listMvrsCrear.clear();
       listMvrsModificar.clear();

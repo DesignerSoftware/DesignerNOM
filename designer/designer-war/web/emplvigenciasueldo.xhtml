@@ -153,7 +153,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                       <p:commandButton style="width: 120%" id="fooMotivoCambioSueldo" action="motivocambiosueldo" actionListener="#{controlMotivosCambiosSueldos.recibirPaginaEntrante('emplvigenciasueldo')}" value=""/>
+                                       <p:commandButton style="width: 120%" id="fooMotivoCambioSueldo" action="motivocambiosueldo" value="">
+                                 <f:actionListener binding="#{controlMotivosCambiosSueldos.recibirPaginaEntrante('emplvigenciasueldo')}"/>
+                                 <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 
@@ -171,7 +174,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%" id="fooTipoSueldo" value="" action="tipossueldo" actionListener="#{controlTipoSueldo.inicializarPagina('emplvigenciasueldo')}" />
+                                        <p:commandButton style="width: 120%" id="fooTipoSueldo" value="" action="tipossueldo" >
+                                 <f:actionListener binding="#{controlTipoSueldo.inicializarPagina('emplvigenciasueldo')}"/>
+                                 <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 
@@ -330,7 +336,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 120%;" id="fooTerceroVA" action="tercero" actionListener="#{controlTercero.recibirPaginaEntrante('emplvigenciasueldo')}" value=""/>
+                                        <p:commandButton style="width: 120%;" id="fooTerceroVA" action="tercero" value="">
+                                 <f:actionListener binding="#{controlTercero.recibirPaginaEntrante('emplvigenciasueldo')}"/>
+                                 <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 
@@ -348,7 +357,10 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" action="tipoentidademplvigenciasueldo" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciasueldo')}" value=""/>
+                                        <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" action="tipoentidademplvigenciasueldo" value="">
+                                 <f:actionListener binding="#{controlTiposEntidades.recibirPaginaEntrante('atrastipoentidademplvigenciasueldo')}"/>
+                                 <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
 
