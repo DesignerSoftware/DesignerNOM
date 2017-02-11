@@ -132,9 +132,6 @@ public class Soausentismos implements Serializable {
     }
 
     public BigInteger getDias() {
-        if(dias == null){
-            dias = BigInteger.valueOf(0);
-        }
         return dias;
     }
 
@@ -143,9 +140,6 @@ public class Soausentismos implements Serializable {
     }
 
     public BigInteger getHoras() {
-        if(horas == null){
-            horas = BigInteger.valueOf(0);
-        }
         return horas;
     }
 

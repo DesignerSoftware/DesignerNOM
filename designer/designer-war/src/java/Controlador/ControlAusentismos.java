@@ -277,11 +277,11 @@ public class ControlAusentismos implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -357,7 +357,6 @@ public class ControlAusentismos implements Serializable {
             RequestContext.getCurrentInstance().update("formLovCausasAusentismos:causasAusentismosDialogo");
             RequestContext.getCurrentInstance().execute("PF('causasAusentismosDialogo').show()");
         } else if (dlg == 4) {
-            listaPorcentaje = null;
             contarRegistroPorcentaje();
             RequestContext.getCurrentInstance().update("formLovPorcentajes:porcentajesDialogo");
             RequestContext.getCurrentInstance().execute("PF('porcentajesDialogo').show()");
@@ -1652,7 +1651,7 @@ public class ControlAusentismos implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarObservacionesD').show()");
             }
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -2128,7 +2127,7 @@ public class ControlAusentismos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAusentismo");
             RequestContext.getCurrentInstance().execute("PF('DuplicarAusentismoEmpleado').show()");
         } else {
-            RequestContext.getCurrentInstance().execute("seleccionarRegistro').show()");
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
@@ -2293,39 +2292,32 @@ public class ControlAusentismos implements Serializable {
         int pasa = 0;
         mensajeValidacion = new String();
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("Nuevo Ausentismo Fecha Inicial: " + nuevoAusentismo.getFecha());
 
         if (nuevoAusentismo.getFecha() == null) {
             System.out.println("Entro a Fecha ");
-            mensajeValidacion = mensajeValidacion + " * Fecha Inicio Ausentismo\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (nuevoAusentismo.getTipo().getDescripcion().equals(" ") || nuevoAusentismo.getTipo().getDescripcion().equals("")) {
-            System.out.println("Entro a Tipo");
-            mensajeValidacion = mensajeValidacion + " * Tipo\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (nuevoAusentismo.getCausa().getDescripcion().equals("")) {
-            System.out.println("Entro a Causa");
-            mensajeValidacion = mensajeValidacion + " * Causa\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevoAusentismo.getClase().getDescripcion().equals("")) {
-            System.out.println("Entro a Clase");
-            mensajeValidacion = mensajeValidacion + " * Clase\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (nuevoAusentismo.getFormaliquidacion() == null) {
-            System.out.println("Entro a Forma");
-            mensajeValidacion = mensajeValidacion + " * Forma Liquidación\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
-        System.out.println("Valor Pasa: " + pasa);
-        System.out.println("Fecha Inicio " + nuevoAusentismo.getFecha());
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoAusentismo");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoAusentismo').show()");
@@ -2334,14 +2326,11 @@ public class ControlAusentismos implements Serializable {
         if (pasa == 0) {
             if (bandera == 1) {
                 altoTabla = "139";
-                System.out.println("Activar");
-                System.out.println("TipoLista= " + tipoLista);
                 cerrarFiltrado();
             }
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
-            //AGREGAR REGISTRO A LA LISTA NOVEDADES .
             k++;
             l = BigInteger.valueOf(k);
             nuevoAusentismo.setSecuencia(l);
@@ -2381,35 +2370,29 @@ public class ControlAusentismos implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
 
         if (duplicarAusentismo.getFecha() == null) {
-            System.out.println("Entro a Fecha ");
-            mensajeValidacion = mensajeValidacion + " * Fecha Inicio Ausentismo\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (duplicarAusentismo.getTipo().getDescripcion().equals(" ") || duplicarAusentismo.getTipo().getDescripcion().equals("")) {
-            System.out.println("Entro a Tipo");
-            mensajeValidacion = mensajeValidacion + " * Tipo\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (duplicarAusentismo.getCausa().getDescripcion().equals(" ")) {
-            System.out.println("Entro a Causa");
-            mensajeValidacion = mensajeValidacion + " * Causa\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (duplicarAusentismo.getClase().getDescripcion().equals(" ")) {
-            System.out.println("Entro a Clase");
-            mensajeValidacion = mensajeValidacion + " * Clase\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (duplicarAusentismo.getFormaliquidacion().equals(" ")) {
-            System.out.println("Entro a Forma");
-            mensajeValidacion = mensajeValidacion + " * Forma Liquidación\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
-        System.out.println("Valor Pasa: " + pasa);
         if (pasa != 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoAusentismo");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevoAusentismo').show()");

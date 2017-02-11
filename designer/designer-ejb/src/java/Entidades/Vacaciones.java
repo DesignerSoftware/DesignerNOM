@@ -94,9 +94,6 @@ public class Vacaciones implements Serializable {
     }
 
     public BigDecimal getDiaspendientes() {
-        if (diaspendientes == null){
-            diaspendientes = BigDecimal.valueOf(0);
-        }
         return diaspendientes;
     }
 

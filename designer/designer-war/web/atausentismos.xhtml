@@ -1344,13 +1344,13 @@
                         <p:ajax event="change"  update="nuevaFechaExpedicion" process="@this"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
+                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                      <p:calendar  autocomplete="off" style=" position: absolute; top: 120px; left: 400px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicioPago" value="#{controlAusentismos.nuevoAusentismo.fechainipago}" >
                         <p:ajax event="dateSelect"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
                         <p:ajax event="change"  update="nuevaFechaInicioPago" process="@this" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.nuevoAusentismo.fechainipago, controlAusentismos.nuevoAusentismo.dias, 1)}"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['fpagoN']}" style=" position: absolute; top: 165px; left: 300px;" /></strong>
+                     <strong><h:outputText value="*#{msg['fpagoN']}" style=" position: absolute; top: 165px; left: 300px;" /></strong>
                      <p:calendar  autocomplete="off" style=" position: absolute; top: 160px; left: 400px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalPago" value="#{controlAusentismos.nuevoAusentismo.fechafinpago}" >
                         <p:ajax event="dateSelect"  update="nuevaFechaFinalPago" process="@this"/>
                         <p:ajax event="change"  update="nuevaFechaFinalPago" process="@this"/>
@@ -1528,13 +1528,13 @@
                         </p:calendar>
                      </div>
 
-                     <strong><h:outputText value="#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
+                     <strong><h:outputText value="*#{msg['ipagoN']}" style=" position: absolute; top: 125px; left: 300px;"  /></strong>
                      <p:calendar  autocomplete="off"  mask="true" style=" position: absolute; top: 120px; left: 400px" pattern="dd/MM/yyyy" id="duplicarFechaInicioPago" value="#{controlAusentismos.duplicarAusentismo.fechainipago}" >
                         <p:ajax event="dateSelect"  update="duplicarFechaInicioPago" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.duplicarAusentismo.fechainipago, controlAusentismos.duplicarAusentismo.dias, 2)}" process="@this"/>
                         <p:ajax event="change"  update="duplicarFechaInicioPago" listener="#{controlAusentismos.autocompletarFechapago(controlAusentismos.duplicarAusentismo.fechainipago, controlAusentismos.duplicarAusentismo.dias, 2)}" process="@this"/>
                      </p:calendar>
 
-                     <strong><h:outputText value="#{msg['fpago']}" style=" position: absolute; top: 165px; left:300px;" /></strong>
+                     <strong><h:outputText value="*#{msg['fpago']}" style=" position: absolute; top: 165px; left:300px;" /></strong>
                      <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" style=" position: absolute; top: 160px; left: 400px" id="duplicarFechaFinPago" value="#{controlAusentismos.duplicarAusentismo.fechafinpago}" >
                         <p:ajax event="dateSelect"  update="duplicarFechaFinPago" process="@this"/>
                         <p:ajax event="change"  update="duplicarFechaFinPago" process="@this"/>
