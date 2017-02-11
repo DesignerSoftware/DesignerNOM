@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.export.JRCsvMetadataExporterParameter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRXhtmlExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.AsynchronousFillHandle;
@@ -75,25 +76,37 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             String outFileName = rutaGenerado + nombreArchivo;
             System.out.println("INICIARREPORTE outFileName: " + outFileName);
             JRExporter exporter = null;
-            if (tipoReporte.equals("PDF")) {
-                exporter = new JRPdfExporter();
-            } else if (tipoReporte.equals("XLSX")) {
-                exporter = new JRXlsxExporter();
-            } else if (tipoReporte.equals("XLS")) {
-                exporter = new JExcelApiMetadataExporter();
-                exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
-                exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-                exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
-            } else if (tipoReporte.equals("CSV")) {
-                exporter = new JRCsvMetadataExporter();
-                exporter.setParameter(JRCsvMetadataExporterParameter.CHARACTER_ENCODING, "ISO-8859-1");
-            } else if (tipoReporte.equals("HTML")) {
-                exporter = new JRXhtmlExporter();
-                exporter.setParameter(JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR, Boolean.FALSE);
-            } else if (tipoReporte.equals("DOCX")) {
-                //exporter = new JRDocxExporter();
-                exporter = new JRRtfExporter();
-                //exporter.setParameter(JRDocxExporterParameter., Boolean.FALSE);
+            switch (tipoReporte) {
+                case "PDF":
+                    exporter = new JRPdfExporter();
+                    break;
+                case "XLSX":
+                    exporter = new JRXlsxExporter();
+                    break;
+                case "XLS":
+                    exporter = new JExcelApiMetadataExporter();
+                    exporter.setParameter(JExcelApiExporterParameter.IS_FONT_SIZE_FIX_ENABLED, Boolean.TRUE);
+                    exporter.setParameter(JExcelApiExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+                    exporter.setParameter(JExcelApiExporterParameter.IS_IGNORE_CELL_BACKGROUND, Boolean.TRUE);
+                    break;
+                case "CSV":
+                    exporter = new JRCsvMetadataExporter();
+                    exporter.setParameter(JRCsvMetadataExporterParameter.CHARACTER_ENCODING, "ISO-8859-1");
+                    break;
+                case "HTML":
+                    exporter = new JRXhtmlExporter();
+                    exporter.setParameter(JRHtmlExporterParameter.IS_OUTPUT_IMAGES_TO_DIR, Boolean.FALSE);
+                    break;
+                case "DOCX":
+                    //exporter = new JRDocxExporter();
+                    exporter = new JRRtfExporter();
+                    //exporter.setParameter(JRDocxExporterParameter., Boolean.FALSE);
+                    break;
+                case "DELIMITED":
+                    exporter = new JRTextExporter();
+                    break;
+                default:
+                    break;
             }
             if (exporter != null) {
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, imprimir);

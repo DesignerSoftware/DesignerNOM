@@ -48,10 +48,6 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
 
     @Override
     public void editar(EntityManager em, Inforeportes inforeportes) {
-        System.out.println("Persistencia.PersistenciaInforeportes.editar()");
-        
-        System.out.println("inforeportes : " + inforeportes);
-        System.out.println("inforeportes.getTipo() : " + inforeportes.getTipo());
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
