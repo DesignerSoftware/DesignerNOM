@@ -4,6 +4,7 @@
 package InterfacePersistencia;
 
 import Entidades.VigenciasFormasPagos;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
@@ -51,4 +52,7 @@ public interface PersistenciaVigenciasFormasPagosInterface {
      * @return Retorna una lista de VigenciasFormasPagos.
      */
     public List<VigenciasFormasPagos> buscarVigenciasFormasPagos(EntityManager em );
+    
+     public BigDecimal buscarPeriodicidadPorEmpl(EntityManager em, BigInteger secEmpleado);
+    
 }

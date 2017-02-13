@@ -78,7 +78,6 @@ public class ControlInterfaseContableTotal implements Serializable {
     private ParametrosContables parametroContableActual;
     private ParametrosContables nuevoParametroContable;
     private List<ParametrosContables> listaParametrosContables;
-    private String auxParametroEmpresa, auxParametroProceso;
     private Date auxParametroFechaInicial, auxParametroFechaFinal;
     private boolean permitirIndexParametro;
     private boolean cambiosParametro;
@@ -115,7 +114,6 @@ public class ControlInterfaseContableTotal implements Serializable {
     private StreamedContent reporte;
     private String pathReporteGenerado = null;
     private String nombreReporte, tipoReporte;
-    private Inforeportes cifraControl;
     private String cabezeraVisor;
     //
     private boolean guardado;
@@ -130,31 +128,22 @@ public class ControlInterfaseContableTotal implements Serializable {
     //
     private int tipoActualizacion;
     //
-    private boolean modificacionParametro;
-    //
     private Column genConcepto, genValor, genTercero, genCntDebito, genCntCredito, genEmpleado, genProceso;
     private String altoTablaGenerada;
     private Column interEmpleado, interTercero, interCuenta, interDebito, interCredito, interConcepto, interCentroCosto;
     private String altoTablaIntercon;
-    //
     private int tipoPlano;
-    //
     private String msnFechasActualizar;
-    //
     private BigDecimal totalCGenerado, totalDGenerado, totalDInter, totalCInter;
-    //
     private String msnPaso1;
-    //
     private String fechaIniRecon, fechaFinRecon;
-    //
     private String rutaArchivo, nombreArchivo, pathProceso;
-    //
-    private final String server = "192.168.0.16";
-    private final int port = 21;
-    private final String user = "Administrador";
-    private final String pass = "Soporte9";
+//    private final String server = "192.168.0.16";
+//    private final int port = 21;
+//    private final String user = "Administrador";
+//    private final String pass = "Soporte9";
 
-    private FTPClient ftpClient;
+//    private FTPClient ftpClient;
     private DefaultStreamedContent download;
     private UsuariosInterfases usuarioInterfaseContabilizacion;
     private boolean estadoReporte;
@@ -165,7 +154,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlInterfaseContableTotal() {
-        ftpClient = new FTPClient();
+//        ftpClient = new FTPClient();
         msnPaso1 = " ";
         totalCGenerado = BigDecimal.ZERO;
         totalDGenerado = BigDecimal.ZERO;
@@ -181,7 +170,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         tipoListaIntercon = 0;
         banderaGenerado = 0;
         banderaIntercon = 0;
-        modificacionParametro = false;
         listParametrosContablesBorrar = new ArrayList<ParametrosContables>();
         nuevoParametroContable = new ParametrosContables();
         nuevoParametroContable.setEmpresaRegistro(new Empresas());
@@ -261,11 +249,11 @@ public class ControlInterfaseContableTotal implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -288,9 +276,8 @@ public class ControlInterfaseContableTotal implements Serializable {
     }
 
     public void modificarParametroContable() {
-            guardado = false;
+        guardado = false;
         cambiosParametro = true;
-        modificacionParametro = true;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
@@ -299,7 +286,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         int indiceUnicoElemento = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         if (valorConfirmar.equals("EMPRESA")) {
-            parametroContableActual.getEmpresaRegistro().setNombre(auxParametroEmpresa);
+            parametroContableActual.getEmpresaRegistro().setNombre(parametroContableActual.getEmpresaRegistro().getNombre());
             for (int i = 0; i < lovEmpresas.size(); i++) {
                 if (lovEmpresas.get(i).getNombre().startsWith(confirmarCambio.toUpperCase())) {
                     indiceUnicoElemento = i;
@@ -315,7 +302,6 @@ public class ControlInterfaseContableTotal implements Serializable {
                     guardado = false;
                 }
                 cambiosParametro = true;
-                modificacionParametro = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:parametroEmpresa");
             } else {
@@ -327,7 +313,9 @@ public class ControlInterfaseContableTotal implements Serializable {
             }
         } else if (valorConfirmar.equals("PROCESO")) {
             if (!confirmarCambio.isEmpty()) {
-                parametroContableActual.getProceso().setDescripcion(auxParametroProceso);
+                System.out.println("valor confirmar igual a proceso");
+                System.out.println("parametroContableActual.getProceso().getDescripcion() : " + parametroContableActual.getProceso().getDescripcion());
+                parametroContableActual.getProceso().setDescripcion(parametroContableActual.getProceso().getDescripcion());
                 for (int i = 0; i < lovProcesos.size(); i++) {
                     if (lovProcesos.get(i).getDescripcion().startsWith(confirmarCambio.toUpperCase())) {
                         indiceUnicoElemento = i;
@@ -337,12 +325,11 @@ public class ControlInterfaseContableTotal implements Serializable {
                 if (coincidencias == 1) {
                     parametroContableActual.setProceso(lovProcesos.get(indiceUnicoElemento));
                     lovProcesos.clear();
-                    getLovProcesos();
+                    cargarLovProcesos();
                     if (guardado == true) {
                         guardado = false;
                     }
                     cambiosParametro = true;
-                    modificacionParametro = true;
                     RequestContext.getCurrentInstance().update("form:ACEPTAR");
                     RequestContext.getCurrentInstance().update("form:parametroProceso");
                 } else {
@@ -353,12 +340,9 @@ public class ControlInterfaseContableTotal implements Serializable {
                     RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
                 }
             } else {
-                parametroContableActual.setProceso(new Procesos());
-                if (guardado == true) {
-                    guardado = false;
-                }
+                parametroContableActual.setProceso(null);
+                guardado = false;
                 cambiosParametro = true;
-                modificacionParametro = true;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 RequestContext.getCurrentInstance().update("form:parametroProceso");
             }
@@ -367,28 +351,27 @@ public class ControlInterfaseContableTotal implements Serializable {
 
     public void modificarFechasParametro(ParametrosContables parametroc, int c) {
         parametroContableActual = parametroc;
-        if (parametroContableActual.getFechainicialcontabilizacion() != null && parametroContableActual.getFechafinalcontabilizacion() != null) {
-            boolean validacion = validarFechaParametro(0);
-            System.out.println("validacion : " + validacion);
-            if (validacion == true) {
-                cambiarIndiceParametro(parametroContableActual, c);
-                modificarParametroContable();
-            } else {
-                parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
-                parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
-                RequestContext context = RequestContext.getCurrentInstance();
-                RequestContext.getCurrentInstance().update("form:parametroFechaFinal");
-                RequestContext.getCurrentInstance().update("form:parametroFechaInicial");
-                RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
-            }
-        } else {
-            parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
-            parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaFinal");
-            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaInicial");
-            RequestContext.getCurrentInstance().execute("PF('errorFechasNull').show()");
-        }
+//        if (parametroContableActual.getFechainicialcontabilizacion() != null && parametroContableActual.getFechafinalcontabilizacion() != null) {
+//        boolean validacion = validarFechaParametro(0);
+//        if (validacion == true) {
+        cambiarIndiceParametro(parametroContableActual, c);
+        modificarParametroContable();
+//        } else {
+//            parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
+//            parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("form:parametroFechaFinal");
+//            RequestContext.getCurrentInstance().update("form:parametroFechaInicial");
+//            RequestContext.getCurrentInstance().execute("PF('errorFechasParametro').show()");
+//        }
+//        } else {
+//            parametroContableActual.setFechafinalcontabilizacion(auxParametroFechaFinal);
+//            parametroContableActual.setFechainicialcontabilizacion(auxParametroFechaInicial);
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaFinal");
+//            RequestContext.getCurrentInstance().update("form:panelParametro:parametroFechaInicial");
+//            RequestContext.getCurrentInstance().execute("PF('errorFechasNull').show()");
+//        }
     }
 
     public boolean validarFechaParametro(int i) {
@@ -453,9 +436,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         if (permitirIndexParametro == true) {
             parametroContableActual = parametroC;
             if (cualCeldaParametroContable == 0) {
-                auxParametroEmpresa = parametroContableActual.getEmpresaRegistro().getNombre();
+                parametroContableActual.getEmpresaRegistro().getNombre();
             } else if (cualCeldaParametroContable == 1) {
-                auxParametroProceso = parametroContableActual.getProceso().getDescripcion();
+                parametroContableActual.getProceso().getDescripcion();
             } else if (cualCeldaParametroContable == 2) {
                 auxParametroFechaFinal = parametroContableActual.getFechafinalcontabilizacion();
             } else if (cualCeldaParametroContable == 3) {
@@ -620,6 +603,7 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void exportarPlano() throws IOException {
         try {
             System.out.println(this.getClass().getName() + ".exportarPlano()");
+            System.out.println("path proceso en exportarPlano() : " + pathProceso);
             if (pathProceso != null || !pathProceso.startsWith("Error:")) {
                 File planof = new File(pathProceso);
                 FacesContext ctx = FacesContext.getCurrentInstance();
@@ -981,18 +965,15 @@ public class ControlInterfaseContableTotal implements Serializable {
     public void guardarCambiosParametro() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
-            if (modificacionParametro == true) {
-                if (parametroContableActual.getArchivo() == null) {
-                    parametroContableActual.setArchivo("NOMINA");
-                }
-                 if(parametroContableActual.getProceso().getSecuencia() == null){
-                     System.out.println("entra al if 2");
-                     parametroContableActual.setProceso(null);
-                 }
-                
-                administrarInterfaseContableTotal.modificarParametroContable(parametroContableActual);
-                modificacionParametro = false;
+            if (parametroContableActual.getArchivo() == null) {
+                parametroContableActual.setArchivo("NOMINA");
             }
+            if (parametroContableActual.getProceso().getSecuencia() == null) {
+                System.out.println("entra al if 2");
+                parametroContableActual.setProceso(new Procesos());
+            }
+
+            administrarInterfaseContableTotal.modificarParametroContable(parametroContableActual);
 
             if (!listaGeneradosBorrar.isEmpty()) {
                 administrarInterfaseContableTotal.borrarRegistroGenerado(listaGeneradosBorrar);
@@ -1072,7 +1053,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         totalCInter = BigDecimal.ZERO;
         activarEnviar = true;
         activarDeshacer = true;
-        modificacionParametro = false;
         aceptar = true;
         listParametrosContablesBorrar.clear();
         actualUsuarioBD = null;
@@ -1242,7 +1222,6 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
         RequestContext context = RequestContext.getCurrentInstance();
         listParametrosContablesBorrar.clear();
-        modificacionParametro = false;
         listaParametrosContables = null;
         getListaParametrosContables();
         parametroContableActual = null;
@@ -1289,7 +1268,6 @@ public class ControlInterfaseContableTotal implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            modificacionParametro = true;
             cambiosParametro = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:parametroEmpresa");
@@ -1336,7 +1314,6 @@ public class ControlInterfaseContableTotal implements Serializable {
             if (guardado == true) {
                 guardado = false;
             }
-            modificacionParametro = true;
             cambiosParametro = true;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:parametroProceso");
@@ -1388,11 +1365,6 @@ public class ControlInterfaseContableTotal implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             }
         }
-    }
-
-    public void valoresBackupAutocompletar() {
-        auxParametroEmpresa = nuevoParametroContable.getEmpresaRegistro().getNombre();
-        auxParametroProceso = nuevoParametroContable.getProceso().getDescripcion();
     }
 
     public void borrarRegistro() {
@@ -1459,66 +1431,8 @@ public class ControlInterfaseContableTotal implements Serializable {
         }
     }
 
-    public void autocompletarNuevo(String procesoCambio, String confirmarCambio) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (procesoCambio.equals("EMPRESA")) {
-            nuevoParametroContable.getEmpresaRegistro().setNombre(auxParametroEmpresa);
-            for (int i = 0; i < lovEmpresas.size(); i++) {
-                if (lovEmpresas.get(i).getNombre().startsWith(confirmarCambio.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                nuevoParametroContable.setEmpresaRegistro(lovEmpresas.get(indiceUnicoElemento));
-                nuevoParametroContable.setEmpresaCodigo(lovEmpresas.get(indiceUnicoElemento).getCodigo());
-                lovEmpresas.clear();
-                getLovEmpresas();
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaParametro");
-            } else {
-                nuevoParametroContable.getEmpresaRegistro().setNombre(auxParametroEmpresa);
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaEmpresaParametro");
-                permitirIndexParametro = false;
-                RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
-                RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
-            }
-        } else if (procesoCambio.equals("PROCESO")) {
-            if (!confirmarCambio.isEmpty()) {
-                nuevoParametroContable.getProceso().setDescripcion(auxParametroProceso);
-                for (int i = 0; i < lovProcesos.size(); i++) {
-                    if (lovProcesos.get(i).getDescripcion().startsWith(confirmarCambio.toUpperCase())) {
-                        indiceUnicoElemento = i;
-                        coincidencias++;
-                    }
-                }
-                if (coincidencias == 1) {
-                    nuevoParametroContable.setProceso(lovProcesos.get(indiceUnicoElemento));
-                    lovProcesos.clear();
-                    getLovProcesos();
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
-                } else {
-                    nuevoParametroContable.getProceso().setDescripcion(auxParametroProceso);
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
-                    permitirIndexParametro = false;
-                    RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
-                    RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
-                }
-            } else {
-                nuevoParametroContable.setProceso(new Procesos());
-                lovProcesos.clear();
-                getLovProcesos();
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
-            }
-        }
-    }
-
 //    public void borrarParametroContable() {
 //        System.out.println("entró a borrar parametro contable");
-//        if (modificacionParametro == true) {
-//            modificacionParametro = false;
-//        }
 //        listaParametrosContables.remove(parametroContableActual);
 //        listParametrosContablesBorrar.add(parametroContableActual);
 //        if (listaParametrosContables != null) {

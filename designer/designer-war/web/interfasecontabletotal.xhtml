@@ -124,17 +124,17 @@
                                 <strong><h:outputText value="#{msg['fechaInicial']}" style="position: relative; top: -90px; left: 480px"/></strong>
                                 <div id="posicionFechaIni" style="position: relative; top: -110px; left: 580px">
                                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaInicial"  value="#{controlInterfaseContableTotal.parametroContableActual.fechainicialcontabilizacion}">
-                                       <p:ajax event="dateSelect"  update="@this"/> <!-- listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}" -->
-                                       <p:ajax event="change"  update="@this"/> <!-- listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}"   -->
-                                        <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,3)}" />
+                                       <p:ajax event="dateSelect"  update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}"/> 
+                                       <p:ajax event="change" listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,3)}"  update="@this"/> 
+                                       <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,3)}" />
                                     </p:calendar>
                                 </div>
 
                                 <strong><h:outputText value="#{msg['fechaFinal']}" style="position: relative; top: -95px; left: 480px"/></strong>
                                 <div id="posicionFechaFin" style="position: relative; top: -115px; left: 580px">
                                     <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="parametroFechaFinal" value="#{controlInterfaseContableTotal.parametroContableActual.fechafinalcontabilizacion}" >
-                                       <p:ajax event="dateSelect"  update="@this"/> <!-- listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}" -->
-                                       <p:ajax event="change" update="@this"/> <!-- listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}"   -->
+                                       <p:ajax event="dateSelect"  update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}" /> 
+                                       <p:ajax event="change" update="@this"  listener="#{controlInterfaseContableTotal.modificarFechasParametro(controlInterfaseContableTotal.parametroContableActual,4)}" /> 
                                         <p:ajax event="click" listener="#{controlInterfaseContableTotal.cambiarIndiceParametro(controlInterfaseContableTotal.parametroContableActual,4)}" />
                                     </p:calendar>
                                 </div>
@@ -763,56 +763,6 @@
 
                 </h:form>
                 <h:form id="formularioDialogos" >
-
-                    <p:dialog id="NuevoRegistroPC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroPC" closable="false" resizable="false"  draggable="true" modal="true" height="255" width="400" style=" padding: 0px">  
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px" /></strong></center> 
-
-                        <p:panel id="nuevaParametroContable" style="border: none;">
-                            <strong><h:outputText value="*#{msg['empresaN']}" style=" position: absolute; top: 55px; left: 18px" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaEmpresaParametro" value="#{controlInterfaseContableTotal.nuevoParametroContable.empresaRegistro.nombre}" style=" width: 122px; position: absolute; left: 200px; top: 50px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.nuevoParametroContable,0,1)}"/>
-                                <p:ajax event="click" listener="#{controlInterfaseContableTotal.autocompletarNuevo('EMPRESA',controlInterfaseContableTotal.nuevoParametroContable.empresaRegistro.nombre)}" />
-                                <p:ajax event="change" listener="#{controlInterfaseContableTotal.valoresBackupAutocompletar()}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 335px; top: 53px; " id="btnNuevaEmpresa" value="" process="@this" class="cssBotonLovDialogos"
-                                             actionListener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.nuevoParametroContable,0,1)}"/>   
-                            <p:watermark for="nuevaEmpresaParametro" value="#{msg['empresa']}" />
-
-                            <strong><h:outputText value="#{msg['docContableN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaDocContaParametro" maxlength="4" value="#{controlInterfaseContableTotal.nuevoParametroContable.documentoContable}" style=" width: 122px; position: absolute; left: 200px; top: 80px;text-transform: uppercase">
-                                <p:ajax event="change" update="nuevaDocContaParametro" process="@this"/>
-                            </p:inputText>
-                            <p:watermark for="nuevaDocContaParametro" value="#{msg['docContable']}" />
-
-                            <strong><h:outputText value="#{msg['procesoN']}" style=" position: absolute; top: 115px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaProcesoParametro" value="#{controlInterfaseContableTotal.nuevoParametroContable.proceso.descripcion}" style=" width: 122px; position: absolute; left: 200px; top: 110px;text-transform: uppercase">
-                                <p:ajax event="dblclick" listener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.nuevoParametroContable,1,1)}"/>
-                                <p:ajax event="click" listener="#{controlInterfaseContableTotal.autocompletarNuevo('PROCESO', controlInterfaseContableTotal.nuevoParametroContable.proceso.descripcion)}" />
-                                <p:ajax event="change" listener="#{controlInterfaseContableTotal.valoresBackupAutocompletar()}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 335px; top: 113px;  " id="btnNuevaProceso" value=" " process="@this" class="cssBotonLovDialogos"
-                                             actionListener="#{controlInterfaseContableTotal.asignarIndex(controlInterfaseContableTotal.nuevoParametroContable,1,1)}"/>   
-                            <p:watermark for="nuevaProcesoParametro" value="#{msg['proceso']}" />
-
-                            <strong><h:outputText value="*#{msg['fechaInicialN']}" style=" position: absolute; top: 145px; left: 18px;" /></strong>
-                                <p:calendar  autocomplete="off" style=" position: absolute; top: 140px; left: 200px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialParametro"
-                                             value="#{controlInterfaseContableTotal.nuevoParametroContable.fechainicialcontabilizacion}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaInicialParametro" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaInicialParametro" process="@this"/>
-                                </p:calendar>
-
-                            <strong><h:outputText value="*#{msg['fechaFinalN']}" style=" position: absolute; top: 175px; left: 18px;" /></strong>
-                                <p:calendar  autocomplete="off"  style=" position: absolute; top: 170px; left: 200px" mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinalParametro" value="#{controlInterfaseContableTotal.nuevoParametroContable.fechafinalcontabilizacion}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaFinalParametro" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaFinalParametro" process="@this"/>
-                                </p:calendar>
-
-                            <p:commandButton id="limpiarPC" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 225px;" icon="ui-icon-trash" actionListener="#{controlInterfaseContableTotal.limpiarNuevoParametro()}" update="nuevaParametroContable" process="@this"/>
-                            <p:commandButton id="agregarPC" value="#{msg['agregar']}" style=" position: absolute; left: 180px; top: 225px;" icon="ui-icon-circle-check" process="@this" actionListener="#{controlInterfaseContableTotal.agregarNuevoParametro()}"   />
-                            <p:commandButton id="cancelarPC" value="#{msg['cancelar']}" style=" position: absolute; left: 280px; top: 225px;" icon="ui-icon-circle-close" actionListener="#{controlInterfaseContableTotal.limpiarNuevoParametro()}" update="nuevaParametroContable" onclick="PF('NuevoRegistroPC').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
 
                     <p:dialog  id="verReportePDF" header="#{controlInterfaseContableTotal.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
                         <p:media value="#{controlInterfaseContableTotal.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlInterfaseContableTotal.reporte != null}"/>

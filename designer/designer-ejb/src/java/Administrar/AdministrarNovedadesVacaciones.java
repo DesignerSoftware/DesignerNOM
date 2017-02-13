@@ -16,10 +16,12 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
 @Stateful
+@Local
 public class AdministrarNovedadesVacaciones implements AdministrarNovedadesVacacionesInterface {
 
     @EJB

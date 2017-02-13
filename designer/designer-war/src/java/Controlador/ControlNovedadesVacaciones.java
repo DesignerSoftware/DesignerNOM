@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import InterfaceAdministrar.AdministrarEmplVigenciasFormasPagosInterface;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -56,6 +57,8 @@ public class ControlNovedadesVacaciones implements Serializable {
     AdministrarRastrosInterface administrarRastros;
     @EJB
     AdministrarNovedadesSistemaInterface administrarNovedadesSistema;
+    @EJB
+    AdministrarEmplVigenciasFormasPagosInterface administrarVigFormasPagos;
     //SECUENCIA DE LA PERSONA
     private BigInteger secuenciaEmpleado;
     //Lista Empleados Novedad Vacaciones
@@ -200,6 +203,7 @@ public class ControlNovedadesVacaciones implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarNovedadesVacaciones.obtenerConexion(ses.getId());
             administrarNovedadesSistema.obtenerConexion(ses.getId());
+            administrarVigFormasPagos.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
             getListaEmpleadosNovedad();
             if (listaEmpleadosNovedad != null) {
@@ -1042,7 +1046,7 @@ public class ControlNovedadesVacaciones implements Serializable {
         System.out.println("aux2 :" + aux2);
 
         siguientefechalimite2 = administrarNovedadesVacaciones.despuesFechaLimite(aux2, periodicidadCodigoDos);
-        
+
         System.out.println("siguientefechalimite" + siguientefechalimite);
         System.out.println("siguientefechalimite2" + siguientefechalimite2);
 
@@ -1051,8 +1055,15 @@ public class ControlNovedadesVacaciones implements Serializable {
             System.out.println("validacionProcesoVacaciones igual S fecha pago nueva novedad : " + nuevaNovedad.getFechapago());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaPago");
-        } else if(vacdifnomina.equals("N")) {
-            nuevaNovedad.setFechapago(siguientefechalimite2);
+        } else if (vacdifnomina.equals("N")) {
+            System.out.println("secuenciaEmpleado en validacionProcesoVacaciones : " + secuenciaEmpleado);
+            BigDecimal periodicidadaux = administrarVigFormasPagos.consultarPeriodicidadPorEmpl(secuenciaEmpleado);
+            System.out.println("periodicidad aux " + periodicidadaux);
+            if (periodicidadaux.toBigInteger().equals(periodicidadCodigoDos)) {
+                nuevaNovedad.setFechapago(siguientefechalimite);
+            } else if (periodicidadaux.toBigInteger().equals(BigInteger.valueOf(19845))) {
+                nuevaNovedad.setFechapago(siguientefechalimite2);
+            }
             System.out.println("validacionProcesoVacaciones igual N fecha pago nueva novedad : " + nuevaNovedad.getFechapago());
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaNovedad");
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaPago");
@@ -1224,7 +1235,6 @@ public class ControlNovedadesVacaciones implements Serializable {
                 vacDinero = tipoD.getTime();
                 System.out.println("vacDinero :" + vacDinero);
                 nuevaNovedad.setFechasiguientefinvaca(vacDinero);
-
                 Date vacD;
                 Calendar aux = Calendar.getInstance();
                 aux.setTime(nuevaNovedad.getFechasiguientefinvaca());
@@ -1236,7 +1246,6 @@ public class ControlNovedadesVacaciones implements Serializable {
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaSiguiente");
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdelantoHasta");
                 RequestContext.getCurrentInstance().update("formularioDialogos:nuevaFechaPago");
-
             } else if (tipo == 2) {
                 Date vacDineroD;
                 Calendar tipoD = Calendar.getInstance();
@@ -1245,7 +1254,6 @@ public class ControlNovedadesVacaciones implements Serializable {
                 vacDineroD = tipoD.getTime();
                 System.out.println("vacDineroD :" + vacDineroD);
                 duplicarNovedad.setFechasiguientefinvaca(vacDineroD);
-
                 Date vacDD;
                 Calendar aux = Calendar.getInstance();
                 aux.setTime(nuevaNovedad.getFechasiguientefinvaca());
@@ -1259,7 +1267,6 @@ public class ControlNovedadesVacaciones implements Serializable {
                 RequestContext.getCurrentInstance().update("formularioDialogos:duplicarFechaPago");
             }
         }
-
     }
 
     public void cargarLovEmpleados() {

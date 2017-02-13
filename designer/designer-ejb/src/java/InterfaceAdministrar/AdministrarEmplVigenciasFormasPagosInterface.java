@@ -10,6 +10,7 @@ import Entidades.MetodosPagos;
 import Entidades.Periodicidades;
 import Entidades.Sucursales;
 import Entidades.VigenciasFormasPagos;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
@@ -101,4 +102,8 @@ public interface AdministrarEmplVigenciasFormasPagosInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+    
+    public BigDecimal consultarPeriodicidadPorEmpl(BigInteger secEmpleado);
+            
+    
 }
