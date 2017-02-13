@@ -6,657 +6,663 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
-    <h:head>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form"> 
-                    <p:growl id="growl" showDetail="true"/> 
-                    <f:loadBundle basename="Recursos.emplvigenciaformapago" var="msg" />
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+   <h:head>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form"> 
+               <p:growl id="growl" showDetail="true"/> 
+               <f:loadBundle basename="Recursos.emplvigenciaformapago" var="msg" />
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" process="@this" />
-                                <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlVigenciasFormasPagos.editarCelda()}" process="@this"/>
-                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"  actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" process="@this" />
+                        <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"  actionListener="#{controlVigenciasFormasPagos.editarCelda()}" process="@this"/>
+                        <p:tooltip style="" for="editar" value="#{msg['editar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="listaValores" disabled="#{controlVigenciasFormasPagos.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasFormasPagos.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+                        <p:commandButton id="listaValores" disabled="#{controlVigenciasFormasPagos.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasFormasPagos.listaValoresBoton()}" process="@this"/>
+                        <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciasFormasPagos.activarCtrlF11()}"  process="@this"/>
-                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciasFormasPagos.activarCtrlF11()}"  process="@this"/>
+                        <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlVigenciasFormasPagos.exportXLS()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlVigenciasFormasPagos.exportXLS()}" ajax="false"/>
+                        <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosVFPEmpleadoExportar" fileName="VigenciasFormasPagosXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosVFPEmpleadoExportar" fileName="VigenciasFormasPagosXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"  actionListener="#{controlVigenciasFormasPagos.exportPDF()}" ajax="false"/>
-                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"  actionListener="#{controlVigenciasFormasPagos.exportPDF()}" ajax="false"/>
+                        <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "   oncomplete="PF('NuevoRegistroVigenciasFormasPagos').show()" update=":formularioDialogos:nuevaVigenciaFormasPagos" process="@this"/> 
-                                <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px "   oncomplete="PF('NuevoRegistroVigenciasFormasPagos').show()" update=":formularioDialogos:nuevaVigenciaFormasPagos" process="@this"/> 
+                        <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlVigenciasFormasPagos.borrarVigenciasFormasPagos()}" process="@this"/>  
-                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlVigenciasFormasPagos.borrarVigenciasFormasPagos()}" process="@this"/>  
+                        <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPagos()}" process="@this"/>  
-                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPagos()}" process="@this"/>  
+                        <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciasFormasPagos.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlVigenciasFormasPagos.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasFormasPagos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
-                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlVigenciasFormasPagos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf" process="@this"/>  
-                                <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                            </p:toolbarGroup>  
-                        </p:toolbar>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>  
+                  </p:toolbar>
 
-                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
-                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
-                            <h:outputText id="nombreEmpleado" value="#{controlVigenciasFormasPagos.empleadoSeleccionado.persona.nombreCompleto}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                  <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                     <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText id="nombreEmpleado" value="#{controlVigenciasFormasPagos.empleadoSeleccionado.persona.nombreCompleto}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                            <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
-                            <h:outputText id="docEmpleado" value="#{controlVigenciasFormasPagos.empleadoSeleccionado.codigoempleado}" 
-                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
-                        </fieldset>
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText id="docEmpleado" value="#{controlVigenciasFormasPagos.empleadoSeleccionado.codigoempleado}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                  </fieldset>
 
-                        <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
-                            <legend style="font-size: 14px; color: blue;"><strong>#{msg['formaPagoEmpleado']}</strong></legend>
+                  <fieldset style="position: absolute; top: 110px; left: 10px; height: 365px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="font-size: 14px; color: blue;"><strong>#{msg['formaPagoEmpleado']}</strong></legend>
 
-                            <p:dataTable id="datosVigenciasFormasPagos" widgetVar="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
-                                         value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollWidth="835" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
-                                         filteredValue="#{controlVigenciasFormasPagos.filtrarVigenciasFormasPagosPorEmpleado}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"> 
+                     <p:dataTable id="datosVigenciasFormasPagos" widgetVar="datosVigenciasFormasPagos" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="width: 830px; border: 1px;"                           
+                                  value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}" scrollable="true" scrollWidth="835" scrollHeight="#{controlVigenciasFormasPagos.altoTabla}" 
+                                  filteredValue="#{controlVigenciasFormasPagos.filtrarVigenciasFormasPagosPorEmpleado}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell" rows="20" selection="#{controlVigenciasFormasPagos.vigenciaSeleccionada}" selectionMode="single"> 
 
-                                <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrar()}"/>
-                                <f:event type="preRenderView" listener="#{controlVigenciasFormasPagos.recordarSeleccion()}"/>
+                        <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.eventoFiltrar()}"/>
+                        <f:event type="preRenderView" listener="#{controlVigenciasFormasPagos.recordarSeleccion()}"/>
 
-                                <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="68" filterStyle="display: none; vi2sibility: hidden;" >
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechavigencia}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechavigencia)}" update="editFechaVigencia"/>
-                                            </p:calendar>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>  
+                        <p:column id="fechaVigencia" headerText="#{msg['inicial']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  width="68" filterStyle="display: none; vi2sibility: hidden;" >
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.fechavigencia}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaVigencia" value="#{info.fechavigencia}">
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 0)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechavigencia)}" update="editFechaVigencia"/>
+                                 </p:calendar>
+                              </f:facet>
+                           </p:cellEditor>
+                        </p:column>  
 
-                                <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="90" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.cuenta}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.cuenta}" maxlength="25" id="editarCuenta" style="  border-radius: 0px; width: 210px;; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 1)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.cuenta)}" update="cuenta"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column>  
+                        <p:column headerText="#{msg['cuenta']}" sortBy="#{info.cuenta}" filterBy="#{info.cuenta}" filterMatchMode="contains" id="cuenta" width="90" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.cuenta}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.cuenta}" maxlength="25" id="editarCuenta" style="  border-radius: 0px; width: 210px;; height: 12px; text-transform: uppercase"  > 
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 1)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.cuenta)}" update="cuenta"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column>  
 
-                                <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains" width="68" filterStyle="display: none; visibility: hidden;" >
-                                    <f:facet name="header">
-                                        <h:outputText id="headfc" value="F #{msg['cuenta']}"/>
-                                        <p:tooltip for="headfc" value="#{msg['fechaCuenta']}"/>
-                                    </f:facet>
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <h:outputText value="#{info.fechacuenta}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechacuenta)}" update="editFechaCuenta" process="@this"/>
-                                            </p:calendar>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
+                        <p:column id="fechaCuenta" headerText="#{msg['fechaCuenta']}" sortBy="#{info.fechacuenta}" filterBy="#{info.fechacuenta}" filterMatchMode="contains" width="68" filterStyle="display: none; visibility: hidden;" >
+                           <f:facet name="header">
+                              <h:outputText id="headfc" value="F #{msg['cuenta']}"/>
+                              <p:tooltip for="headfc" value="#{msg['fechaCuenta']}"/>
+                           </f:facet>
+                           <p:cellEditor>
+                              <f:facet name="output">
+                                 <h:outputText value="#{info.fechacuenta}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaCuenta" value="#{info.fechacuenta}">
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info,2)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="dateSelect" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.fechacuenta)}" update="editFechaCuenta" process="@this"/>
+                                 </p:calendar>
+                              </f:facet>
+                           </p:cellEditor>
+                        </p:column>
 
-                                <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains"
-                                          id="sucursal" width="150" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.sucursal.nombre}" id="editarSucursal" style="  border-radius: 0px; width: 210px; height: 12px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 3)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,3)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'SUCURSAL', info.sucursal.nombre)}" update="sucursal" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 170px;" action="sucursal"  actionListener="#{controlSucursales.recibirPaginaEntrante('sucursal')}" id="fooSucursal"  process="@this" />
-                                    </f:facet>
-                                </p:column> 
+                        <p:column headerText="#{msg['sucursal']}" sortBy="#{info.sucursal.nombre}" filterBy="#{info.sucursal.nombre}" filterMatchMode="contains"
+                                  id="sucursal" width="150" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.sucursal.nombre}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.sucursal.nombre}" id="editarSucursal" style="  border-radius: 0px; width: 210px; height: 12px; text-transform: uppercase"  > 
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 3)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,3)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'SUCURSAL', info.sucursal.nombre)}" update="sucursal" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton value="" style="width: 170px;" action="sucursal" id="fooSucursal" process="@this">
+                                 <f:actionListener binding="#{controlSucursales.recibirPaginaEntrante('sucursal')}"/>
+                                 <f:actionListener binding="#{controlVigenciasFormasPagos.limpiarListasValor()}"/>
+                              </p:commandButton>
+                           </f:facet>
+                        </p:column> 
 
-                                <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}"
-                                          filterMatchMode="contains" id="formaPago" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.formapago.nombre}" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,4)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'FORMAPAGO', info.formapago.nombre)}"  update="formaPago" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 120%;" action="periodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplvigenciaformapago')}" id="fooFormaPago"/>
-                                    </f:facet>
-                                </p:column> 
+                        <p:column headerText="#{msg['formaPago']}" sortBy="#{info.formapago.nombre}" filterBy="#{info.formapago.nombre}"
+                                  filterMatchMode="contains" id="formaPago" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.formapago.nombre}" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.formapago.nombre}" id="editarFormaPago" style="  border-radius: 0px; height: 12px; width: 96%; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 4)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,4)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'FORMAPAGO', info.formapago.nombre)}"  update="formaPago" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton value="" style="width: 120%;" action="periodicidad" id="fooFormaPago">
+                                 <f:actionListener binding="#{controlPeriodicidades.recibirPaginaEntrante('emplvigenciaformapago')}"/>
+                                 <f:actionListener binding="#{controlVigenciasFormasPagos.limpiarListasValor()}"/>
+                              </p:commandButton>
+                           </f:facet>
+                        </p:column> 
 
-                                <p:column headerText="#{msg['tc']}" sortBy="#{info.tipocuenta}" filterBy="#{info.tipocuenta}" filterMatchMode="contains" id="tc" width="15" filterStyle="display: none; visibility: hidden;">                                  
-                                    <f:facet name="header">
-                                        <h:outputText id="headtc" value="#{msg['tc']}"/>
-                                        <p:tooltip for="headtc" value="#{msg['tcH']}"/>
-                                    </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style="text-transform: uppercase;" /></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}" update="tc" process="@this"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                </p:column> 
+                        <p:column headerText="#{msg['tc']}" sortBy="#{info.tipocuenta}" filterBy="#{info.tipocuenta}" filterMatchMode="contains" id="tc" width="15" filterStyle="display: none; visibility: hidden;">                                  
+                           <f:facet name="header">
+                              <h:outputText id="headtc" value="#{msg['tc']}"/>
+                              <p:tooltip for="headtc" value="#{msg['tcH']}"/>
+                           </f:facet>
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.tipocuenta}" style="text-transform: uppercase;" /></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.tipocuenta}" maxlength="1" id="editarTC" style="border-radius: 0px; text-transform: uppercase;"> 
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 5)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'N', info.tipocuenta)}" update="tc" process="@this"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                        </p:column> 
 
-                                <p:column headerText="#{msg['metodoPago']}" sortBy="#{info.metodopago.descripcion}" filterBy="#{info.metodopago.descripcion}" filterMatchMode="contains" id="metodoPago" width="130" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase"  > 
-                                                <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"
-                                                        onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
-                                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,6)}" process="@this"/>
-                                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'METODOPAGO', info.metodopago.descripcion)}"/>
-                                            </p:inputText>
-                                        </f:facet>  
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <p:commandButton value="" style="width: 150px;" action="metodospagos" id="fooMetodoPago" />
-                                    </f:facet>
-                                </p:column> 
+                        <p:column headerText="#{msg['metodoPago']}" sortBy="#{info.metodopago.descripcion}" filterBy="#{info.metodopago.descripcion}" filterMatchMode="contains" id="metodoPago" width="130" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output"><h:outputText value="#{info.metodopago.descripcion}"/></f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{info.metodopago.descripcion}" id="editarMetodoPago" style="height: 12px; border-radius: 0px; width: 210px; text-transform: uppercase"  > 
+                                    <p:ajax event="select" listener="#{controlVigenciasFormasPagos.cambiarIndice(info, 6)}" process="@this"
+                                            onstart="PF('datosVigenciasFormasPagos').unselectAllRows();PF('datosVigenciasFormasPagos').selectRow(#{indice});"/> 
+                                    <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarIndex(info, 0,6)}" process="@this"/>
+                                    <p:ajax event="change" listener="#{controlVigenciasFormasPagos.modificarVigenciasFormasPagos(info, 'METODOPAGO', info.metodopago.descripcion)}"/>
+                                 </p:inputText>
+                              </f:facet>  
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <p:commandButton value="" style="width: 150px;" action="metodospagos" id="fooMetodoPago" />
+                           </f:facet>
+                        </p:column> 
 
-                            </p:dataTable>
-                        </fieldset>
+                     </p:dataTable>
+                  </fieldset>
 
-                        <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
-                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" disabled="#{controlVigenciasFormasPagos.guardado}" onclick="PF('confirmarGuardar').show();"  update="datosVigenciasFormasPagos" process="@this"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf"/>
+                  <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistro}" style="position: absolute; left: 20px; top: 470px; font-weight: bold"/>
+                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" disabled="#{controlVigenciasFormasPagos.guardado}" onclick="PF('confirmarGuardar').show();"  update="datosVigenciasFormasPagos" process="@this"/>
+                  <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlVigenciasFormasPagos.salir()}" action="nominaf"/>
 
-                        <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
-                            <p:dataTable id="lovSucursales" var="sucursal" value="#{controlVigenciasFormasPagos.listaSucursales}" rowKey="#{sucursal.secuencia}"
-                                         selection="#{controlVigenciasFormasPagos.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="450" scrollHeight="250"
-                                         filteredValue="#{controlVigenciasFormasPagos.filtradoSucursales}" emptyMessage="#{msg['lovvacio']}">              
+                  <p:dialog header="#{msg['sucursalM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
+                            showEffect="fade" hideEffect="fade" width="465" modal="true" style="">
+                     <p:dataTable id="lovSucursales" var="sucursal" value="#{controlVigenciasFormasPagos.listaSucursales}" rowKey="#{sucursal.secuencia}"
+                                  selection="#{controlVigenciasFormasPagos.sucursalSeleccionada}" selectionMode="single" widgetVar="lovSucursales" scrollable="true" scrollWidth="450" scrollHeight="250"
+                                  filteredValue="#{controlVigenciasFormasPagos.filtradoSucursales}" emptyMessage="#{msg['lovvacio']}">              
 
-                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosSucursales()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarS"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" immediate="true" process="@this" />
+                        <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosSucursales()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarS"/>
+                        <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" immediate="true" process="@this" />
 
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarS']}" />  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
-                                </f:facet>
-                                <p:column filterBy="#{sucursal.codigo}" width="60" filterStyle="width: 85% !important" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['codigo']}" />
-                                    </f:facet>
-                                    <h:outputText value="#{sucursal.codigo}" />
-                                </p:column>
-                                <p:column filterBy="#{sucursal.nombre}" width="160px;" filterStyle="width: 85% !important" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['nombre']}" />
-                                    </f:facet>
-                                    <h:outputText value="#{sucursal.nombre}" />
-                                </p:column>
-                                <p:column filterBy="#{sucursal.banco.nombre}" width="200px;" filterStyle="width: 85% !important" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['banco']}" />
-                                    </f:facet>
-                                    <h:outputText value="#{sucursal.banco.nombre}" />
-                                </p:column>
-                            </p:dataTable>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarS']}" />  
+                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovSucursales').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        </f:facet>
+                        <p:column filterBy="#{sucursal.codigo}" width="60" filterStyle="width: 85% !important" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['codigo']}" />
+                           </f:facet>
+                           <h:outputText value="#{sucursal.codigo}" />
+                        </p:column>
+                        <p:column filterBy="#{sucursal.nombre}" width="160px;" filterStyle="width: 85% !important" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['nombre']}" />
+                           </f:facet>
+                           <h:outputText value="#{sucursal.nombre}" />
+                        </p:column>
+                        <p:column filterBy="#{sucursal.banco.nombre}" width="200px;" filterStyle="width: 85% !important" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['banco']}" />
+                           </f:facet>
+                           <h:outputText value="#{sucursal.banco.nombre}" />
+                        </p:column>
+                     </p:dataTable>
 
-                            <div class="cssBotonesLOV"> 
-                                <h:outputText id="infoRegistroSucursales" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroSucursales}" class="cssinfoRegistroLOV"/>
-                                <p:commandButton id="aceptarS" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" 
-                                                 actionListener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
-                                <p:commandButton id="atrasS" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w"
-                                                 actionListener="#{controlVigenciasFormasPagos.cancelarCambioSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
-                            </div>
-                        </p:dialog>
+                     <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroSucursales" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroSucursales}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarS" class="cssAceptarLOV" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" 
+                                         actionListener="#{controlVigenciasFormasPagos.actualizarSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
+                        <p:commandButton id="atrasS" class="cssAtrasLOV" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w"
+                                         actionListener="#{controlVigenciasFormasPagos.cancelarCambioSucursal()}" update=":form:sucursalesDialogo" process="@this"/>
+                     </div>
+                  </p:dialog>
 
-                        <p:dialog header="#{msg['formaPagoM']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" closable="false" id="periodicidadesDialogo"  
-                                  showEffect="fade" hideEffect="fade" width="400" modal="true" style="">
-                            <p:dataTable id="lovperiodicidades" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
-                                         selection="#{controlVigenciasFormasPagos.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovperiodicidades" scrollable="true" scrollWidth="380" scrollHeight="200"
-                                         filteredValue="#{controlVigenciasFormasPagos.filtradoPeriodicidades}" emptyMessage="#{msg['lovvacio']}">  
+                  <p:dialog header="#{msg['formaPagoM']}" widgetVar="periodicidadesDialogo" draggable="true" resizable="false" closable="false" id="periodicidadesDialogo"  
+                            showEffect="fade" hideEffect="fade" width="400" modal="true" style="">
+                     <p:dataTable id="lovperiodicidades" var="periodicidades" value="#{controlVigenciasFormasPagos.listaPeriodicidades}" rowKey="#{periodicidades.secuencia}"
+                                  selection="#{controlVigenciasFormasPagos.periodicidadSeleccionada}" selectionMode="single" widgetVar="lovperiodicidades" scrollable="true" scrollWidth="380" scrollHeight="200"
+                                  filteredValue="#{controlVigenciasFormasPagos.filtradoPeriodicidades}" emptyMessage="#{msg['lovvacio']}">  
 
-                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosPeriodicidad()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarP"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" immediate="true" update=":form:periodicidadesDialogo" process="@this" />
+                        <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosPeriodicidad()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarP"/>
+                        <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" immediate="true" update=":form:periodicidadesDialogo" process="@this" />
 
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarFP']}" />  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
-                                </f:facet>
-                                
-                                <p:column filterBy="#{periodicidades.codigo}" width="50" filterStyle="width: 85% !important" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['codigo']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{periodicidades.codigo}" />
-                                </p:column>
-                                
-                                <p:column filterBy="#{periodicidades.nombre}" filterStyle="width: 85% !important" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['formaPago']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{periodicidades.nombre}" />
-                                </p:column>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarFP']}" />  
+                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovperiodicidades').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        </f:facet>
 
-                            </p:dataTable>
+                        <p:column filterBy="#{periodicidades.codigo}" width="50" filterStyle="width: 85% !important" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['codigo']}"/>
+                           </f:facet>
+                           <h:outputText value="#{periodicidades.codigo}" />
+                        </p:column>
 
-                            <div class="cssBotonesLOV"> 
-                                <h:outputText id="infoRegistroPeriodicidades" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroPeriodicidades}" class="cssinfoRegistroLOV"/>
-                                <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" 
-                                                 update=":form:periodicidadesDialogo" process="@this" class="cssAceptarLOV"/>
-                                <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioPeriodicidad()}" update=":form:periodicidadesDialogo"
-                                                 process="@this" class="cssAtrasLOV"/>  
-                            </div>
+                        <p:column filterBy="#{periodicidades.nombre}" filterStyle="width: 85% !important" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['formaPago']}"/>
+                           </f:facet>
+                           <h:outputText value="#{periodicidades.nombre}" />
+                        </p:column>
 
-                        </p:dialog>
+                     </p:dataTable>
+
+                     <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroPeriodicidades" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroPeriodicidades}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}" actionListener="#{controlVigenciasFormasPagos.actualizarPeriodicidad()}" 
+                                         update=":form:periodicidadesDialogo" process="@this" class="cssAceptarLOV"/>
+                        <p:commandButton id="atrasP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioPeriodicidad()}" update=":form:periodicidadesDialogo"
+                                         process="@this" class="cssAtrasLOV"/>  
+                     </div>
+
+                  </p:dialog>
 
 
-                        <p:dialog header="#{msg['metodoPagoM']}" widgetVar="metodosPagosialogo" draggable="true" resizable="false" closable="false" id="metodosPagosialogo"  
-                                  showEffect="fade" hideEffect="fade" width="390"  modal="true" style="">
-                            <p:dataTable id="lovmetodospagos" var="metodospagos" value="#{controlVigenciasFormasPagos.listaMetodosPagos}" rowKey="#{metodospagos.secuencia}"
-                                         selection="#{controlVigenciasFormasPagos.metodoPagoSeleccionado}" selectionMode="single" widgetVar="lovmetodospagos" scrollable="true" scrollWidth="370" scrollHeight="90"
-                                         filteredValue="#{controlVigenciasFormasPagos.filtradoMetodosPagos }" emptyMessage="#{msg['lovvacio']}"> 
+                  <p:dialog header="#{msg['metodoPagoM']}" widgetVar="metodosPagosialogo" draggable="true" resizable="false" closable="false" id="metodosPagosialogo"  
+                            showEffect="fade" hideEffect="fade" width="390"  modal="true" style="">
+                     <p:dataTable id="lovmetodospagos" var="metodospagos" value="#{controlVigenciasFormasPagos.listaMetodosPagos}" rowKey="#{metodospagos.secuencia}"
+                                  selection="#{controlVigenciasFormasPagos.metodoPagoSeleccionado}" selectionMode="single" widgetVar="lovmetodospagos" scrollable="true" scrollWidth="370" scrollHeight="90"
+                                  filteredValue="#{controlVigenciasFormasPagos.filtradoMetodosPagos }" emptyMessage="#{msg['lovvacio']}"> 
 
-                               <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosMetodoPago()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarMP"/>
-                                <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" immediate="true" update=":form:metodosPagosialogo" process="@this" />
+                        <p:ajax event="filter" listener="#{controlVigenciasFormasPagos.contarRegistrosMetodoPago()}"/>
+                        <p:ajax event="rowSelect" listener="#{controlVigenciasFormasPagos.activarAceptar()}" update=":form:aceptarMP"/>
+                        <p:ajax event="rowDblselect" listener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" immediate="true" update=":form:metodosPagosialogo" process="@this" />
 
-                                <f:facet name="header">  
-                                    <h:outputText value="#{msg['buscarMP']}" />  
-                                    <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
-                                </f:facet>
-                                
-                                <p:column filterBy="#{metodospagos.codigo}" filterStyle="width: 85% !important;" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['codigo']}" />
-                                    </f:facet>
-                                    <h:outputText value="#{metodospagos.codigo}" />
-                                </p:column>
-                                <p:column filterBy="#{metodospagos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['metodoPago']}" />
-                                    </f:facet>
-                                    <h:outputText value="#{metodospagos.descripcion}" />
-                                </p:column>
-                            </p:dataTable>
+                        <f:facet name="header">  
+                           <h:outputText value="#{msg['buscarMP']}" />  
+                           <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovmetodospagos').filter();" value="#{filtrado}" class="cssFiltroLOV" />  
+                        </f:facet>
 
-                            <div class="cssBotonesLOV"> 
-                            <h:outputText id="infoRegistroMetodosPagos" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroMetodosPagos}" class="cssinfoRegistroLOV"/>
-                            <p:commandButton id="aceptarMP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}"
-                                             actionListener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" update=":form:metodosPagosialogo" process="@this" class="cssAceptarLOV"/>
-                            <p:commandButton id="atrasMP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioMetodoPago()}"
-                                             update=":form:metodosPagosialogo" class="cssAtrasLOV" process="@this"/>    
+                        <p:column filterBy="#{metodospagos.codigo}" filterStyle="width: 85% !important;" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['codigo']}" />
+                           </f:facet>
+                           <h:outputText value="#{metodospagos.codigo}" />
+                        </p:column>
+                        <p:column filterBy="#{metodospagos.descripcion}" filterStyle="width: 85% !important;" filterMatchMode="contains">
+                           <f:facet name="header">
+                              <h:outputText value="#{msg['metodoPago']}" />
+                           </f:facet>
+                           <h:outputText value="#{metodospagos.descripcion}" />
+                        </p:column>
+                     </p:dataTable>
 
-                            </div>
+                     <div class="cssBotonesLOV"> 
+                        <h:outputText id="infoRegistroMetodosPagos" value="#{msg['infoRegistro']} #{controlVigenciasFormasPagos.infoRegistroMetodosPagos}" class="cssinfoRegistroLOV"/>
+                        <p:commandButton id="aceptarMP" value="#{msg['aceptar']}" icon="ui-icon-check" disabled="#{controlVigenciasFormasPagos.aceptar}"
+                                         actionListener="#{controlVigenciasFormasPagos.actualizarMetodoPago()}" update=":form:metodosPagosialogo" process="@this" class="cssAceptarLOV"/>
+                        <p:commandButton id="atrasMP" value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" actionListener="#{controlVigenciasFormasPagos.cancelarCambioMetodoPago()}"
+                                         update=":form:metodosPagosialogo" class="cssAtrasLOV" process="@this"/>    
 
-                        </p:dialog>
+                     </div>
 
-                        <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="true" modal="true" height="110" width="400" style="" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 20px;"  />
-                            <h:outputText value="#{msg['validacioNuevaVigencia']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
-                        </p:dialog>
+                  </p:dialog>
 
-                        <p:dialog id="fechas" header="#{msg['precaucion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="110" width="420" style="" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 20px;"  />
-                            <h:outputText value="#{msg['fechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('fechas').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
-                        </p:dialog>
+                  <p:dialog id="validacionNuevaVigencia" header="#{msg['precaucion']}" widgetVar="validacioNuevaVigencia"  resizable="false" draggable="true" modal="true" height="110" width="400" style="" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 20px;"  />
+                     <h:outputText value="#{msg['validacioNuevaVigencia']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioNuevaVigencia').hide();" style="position: absolute; top: 70px; left: 280px;" process="@this" />
+                  </p:dialog>
 
-                        <p:dialog id="validacionModificarVigenciaFechas" header="#{msg['precaucion']}" widgetVar="validacioModificarVigenciaFechas"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['validacioModificarVigenciaFechas']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioModificarVigenciaFechas').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
-                        </p:dialog>
+                  <p:dialog id="fechas" header="#{msg['precaucion']}" widgetVar="fechas"  resizable="false" draggable="true" modal="true" height="110" width="420" style="" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 20px; top: 20px;"  />
+                     <h:outputText value="#{msg['fechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('fechas').hide();" style="position: absolute; top: 70px; left: 300px;" process="@this" />
+                  </p:dialog>
 
-                        <p:dialog id="validacionModificarMetodoPago" header="#{msg['precaucion']}" widgetVar="validacionModificarMetodoPago"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['validacionModificarMetodoPago']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionModificarMetodoPago').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
-                        </p:dialog>
+                  <p:dialog id="validacionModificarVigenciaFechas" header="#{msg['precaucion']}" widgetVar="validacioModificarVigenciaFechas"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:outputText value="#{msg['validacioModificarVigenciaFechas']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioModificarVigenciaFechas').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
+                  </p:dialog>
+
+                  <p:dialog id="validacionModificarMetodoPago" header="#{msg['precaucion']}" widgetVar="validacionModificarMetodoPago"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:outputText value="#{msg['validacionModificarMetodoPago']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionModificarMetodoPago').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
+                  </p:dialog>
 
                   <!--      <p:dialog id="validacioModificarMetodoPago" header="#{msg['precaucion']}" widgetVar="validacioModificarMetodoPago"  resizable="false" draggable="true" modal="true" height="95" width="400" style="" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['validacioModificarMetodoPago']} #{controlVigenciasFormasPagos.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
                             <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacioModificarMetodoPago').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this" />
                         </p:dialog>
-                        -->
-                        <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                            <h:outputText value="#{msg['confirmarGuardar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" action="nominaf" style="position: absolute; top: 50px; left: 168px;" process="@this" icon="ui-icon-check" />
-                            <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-close" />
-                            <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                        </p:dialog>
+                  -->
+                  <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                     <h:outputText value="#{msg['confirmarGuardar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                     <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.guardarCambiosVigenciasFormasPagos()}" action="nominaf" style="position: absolute; top: 50px; left: 168px;" process="@this" icon="ui-icon-check" />
+                     <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlVigenciasFormasPagos.cancelarModificacion()}" style="position: absolute; top: 50px; left: 233px;" process="@this" icon="ui-icon-close" />
+                     <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 305px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+                  </p:dialog>
 
-                        <p:dialog id="validacionFechas" header="#{msg['precaucion']}" widgetVar="validacionFechas"  resizable="false" draggable="true" modal="true" height="95" width="450"  closable="false">  
-                            <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
-                            <h:outputText value="#{msg['validacionFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
-                            <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                        </p:dialog>
-                    </p:panel>
+                  <p:dialog id="validacionFechas" header="#{msg['precaucion']}" widgetVar="validacionFechas"  resizable="false" draggable="true" modal="true" height="95" width="450"  closable="false">  
+                     <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="60" style="position: absolute; left: 20px; top: 10px;"  />
+                     <h:outputText value="#{msg['validacionFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px; font-weight:bold" />
+                     <p:commandButton value="#{msg['aceptar']}" icon="ui-icon-check"  onclick="PF('validacionFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+                  </p:dialog>
+               </p:panel>
 
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasFormasPagos.activarCtrlF11()}"/> 
-                </h:form>
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlVigenciasFormasPagos.activarCtrlF11()}"/> 
+            </h:form>
 
-                <h:form id="formularioDialogos">
+            <h:form id="formularioDialogos">
 
-                    <!-- DIALOGOS RASTROS -->
+               <!-- DIALOGOS RASTROS -->
 
-                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 67px; left: 190px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 67px; left: 190px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 65px; left: 190px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 65px; left: 190px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 15px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 15px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 67px; left: 190px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}" style="position: absolute; top: 67px; left: 190px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
 
-                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="355"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 280px; font-weight:bold;" />
-                    </p:dialog>
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="355"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 280px; font-weight:bold;" />
+               </p:dialog>
 
-                    <p:dialog id="editarFechaVigencia" header="#{msg['editarFechaVigencia']}" widgetVar="editarFechaVigencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.fechavigencia}" style="overflow: auto;" readonly="true">  
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
+               <p:dialog id="editarFechaVigencia" header="#{msg['editarFechaVigencia']}" widgetVar="editarFechaVigencia" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.fechavigencia}" style="overflow: auto;" readonly="true">  
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
 
-                    <p:dialog id="editCuenta" header="Cuenta" widgetVar="editCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.cuenta}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editCuenta" header="Cuenta" widgetVar="editCuenta" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.cuenta}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                    <p:dialog id="fechaCuentaEditar" header="#{msg['fechaCuentaEditar']}" widgetVar="fechaCuentaEditar" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.fechacuenta}" style="overflow: auto;" readonly="true">  
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
+               <p:dialog id="fechaCuentaEditar" header="#{msg['fechaCuentaEditar']}" widgetVar="fechaCuentaEditar" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.fechacuenta}" style="overflow: auto;" readonly="true">  
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
 
-                    <p:dialog id="editSucursal" header="#{msg['editSucursal']}" widgetVar="editSucursal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.sucursal.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editSucursal" header="#{msg['editSucursal']}" widgetVar="editSucursal" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.sucursal.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                    <p:dialog id="editFormaPago" header="#{msg['editFormaPago']}" widgetVar="editFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.formapago.nombre}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editTC" header="#{msg['editTC']}" widgetVar="editTC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.tipocuenta}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
-                    <p:dialog id="editMetodoPago" header="#{msg['editMetodoPago']}" widgetVar="editMetodoPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
-                        <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.metodopago.descripcion}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editFormaPago" header="#{msg['editFormaPago']}" widgetVar="editFormaPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.formapago.nombre}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editTC" header="#{msg['editTC']}" widgetVar="editTC" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.tipocuenta}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+               <p:dialog id="editMetodoPago" header="#{msg['editMetodoPago']}" widgetVar="editMetodoPago" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style="">  
+                  <p:inputTextarea value="#{controlVigenciasFormasPagos.editarVigenciaFormasPagoPorEmpleado.metodopago.descripcion}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                    <p:dialog id="NuevoRegistroVigenciasFormasPagos" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigenciasFormasPagos" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="360" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacion" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+               <p:dialog id="NuevoRegistroVigenciasFormasPagos" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroVigenciasFormasPagos" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="360" style=" padding: 0px">  
+                  <center><strong><h:outputText id="informacion" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
-                        <p:panel id="nuevaVigenciaFormasPagos" style="border: none;">
-                            <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <div id="posicionFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 150px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
-                                </p:calendar>
-                            </div>
+                  <p:panel id="nuevaVigenciaFormasPagos" style="border: none;">
+                     <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;" /></strong>
+                     <div id="posicionFechaVigenciaNuevoReg" style=" position: absolute; top: 80px; left: 150px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaVigencia" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechavigencia}" >
+                           <p:ajax event="dateSelect" update="nuevaFechaVigencia" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaVigencia" process="@this"/>
+                        </p:calendar>
+                     </div>
 
-                            <strong><h:outputText value="*#{msg['cuentaN']}"  style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCuenta" maxlength="25" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.cuenta}" style=" width: 140px; position: absolute; left: 150px; top: 120px;">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoCuenta" value="#{msg['cuenta']}" />
+                     <strong><h:outputText value="*#{msg['cuentaN']}"  style=" position: absolute; top: 125px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoCuenta" maxlength="25" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.cuenta}" style=" width: 140px; position: absolute; left: 150px; top: 120px;">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoCuenta" value="#{msg['cuenta']}" />
 
-                            <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <div id="posicionFechaCuentaNuevoReg" style=" position: absolute; top: 160px; left: 150px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}" >
-                                    <p:ajax event="dateSelect" update="nuevaFechaCuenta" process="@this"/>
-                                    <p:ajax event="change" update="nuevaFechaCuenta" process="@this"/>
-                                </p:calendar>
-                            </div>
+                     <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <div id="posicionFechaCuentaNuevoReg" style=" position: absolute; top: 160px; left: 150px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaCuenta" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.fechacuenta}" >
+                           <p:ajax event="dateSelect" update="nuevaFechaCuenta" process="@this"/>
+                           <p:ajax event="change" update="nuevaFechaCuenta" process="@this"/>
+                        </p:calendar>
+                     </div>
 
-                            <strong><h:outputText value="#{msg['sucursalN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre,1)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
-                                             value="" id="btnnuevoNombreSucursal" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}" />
+                     <strong><h:outputText value="#{msg['sucursalN']}" style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoNombreSucursal" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'SUCURSAL')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.sucursal.nombre,1)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(0)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
+                                      value="" id="btnnuevoNombreSucursal" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(0)}"/>   
+                     <p:watermark for="nuevoNombreSucursal" value="#{msg['sucursal']}" />
 
-                            <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'FORMAPAGO')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre, 1)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos" 
-                                             value="" id="btnnuevaFormaPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}" />
+                     <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaFormaPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'FORMAPAGO')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.formapago.nombre, 1)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(0)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos" 
+                                      value="" id="btnnuevaFormaPago" process="@this"  actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(0)}"/>   
+                     <p:watermark for="nuevaFormaPago" value="#{msg['formaPago']}" />
 
-                            <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; " /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoTC" maxlength="1" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.tipocuenta}"  style=" width: 140px; position: absolute; left: 150px; top: 280px;" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="nuevoTC" value="#{msg['tc']}" />
+                     <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px ; " /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoTC" maxlength="1" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.tipocuenta}"  style=" width: 140px; position: absolute; left: 150px; top: 280px;" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="nuevoTC" value="#{msg['tc']}" />
 
-                            <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'METODOPAGO')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion ,1)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top:320px;" class="cssBotonLovDialogos" 
-                                             value="" id="btnnuevaMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
-                            <p:watermark for="nuevaMetodoPago" value="#{msg['metodoPago']}" />
-
-
-                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;"  actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}" icon="ui-icon-trash" update="nuevaVigenciaFormasPagos" process="@this"/>
-                            <p:commandButton id="agregarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 350px;" actionListener="#{controlVigenciasFormasPagos.validacionesNuevaVigenciaFormasPagos()}" icon="ui-icon-circle-check" process="@this" />
-                            <p:commandButton id="cancelarVFP" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 350px;"  update="nuevaVigenciaFormasPagos" onclick="PF('NuevoRegistroVigenciasFormasPagos').hide();" icon="ui-icon-circle-close" actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
+                     <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevaMetodoPago" value="#{controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(1, 'METODOPAGO')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.nuevaVigenciaFormasPago.metodopago.descripcion ,1)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(0)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top:320px;" class="cssBotonLovDialogos" 
+                                      value="" id="btnnuevaMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(0)}"/>   
+                     <p:watermark for="nuevaMetodoPago" value="#{msg['metodoPago']}" />
 
 
-                    <p:dialog id="duplicarRegistroVigenciasFormasPagos" header="#{msg['duplicarregistro']}" widgetVar="duplicarRegistroVigenciasFormasPagos" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="360" style=" padding: 0px">  
-                        <center><strong><h:outputText id="informacionDuplicar" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarVigenciaFormasPagos" style="border: none;">
-                            <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <div id="posicionFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 150px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['cuentaN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.cuenta}" style=" width: 102px; position: absolute; left: 150px; top: 120px;">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarCuenta" value="#{msg['cuenta']}" />
-
-                            <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <div id="posicionFechaCuentaDuplicarReg" style=" position: absolute; top: 160px; left: 150px">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}" >
-                                    <p:ajax event="dateSelect" update="duplicarFechaCuenta" process="@this"/>
-                                    <p:ajax event="change" update="duplicarFechaCuenta" process="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off" id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre,2)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
-                                             value="" id="btnduplicarNombreSucursal" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
-                            <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}" />
-
-                            <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'FORMAPAGO')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre, 2)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos"
-                                             value="" id="btnduplicarFormaPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
-                            <p:watermark for="duplicarFormaPago" value="#{msg['formaPago']}" />
-
-                            <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px; text-transform: uppercase" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarTC" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.tipocuenta}"  style=" width: 102px; position: absolute; left: 150px; top: 280px;" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-                            <p:watermark for="duplicarTC" value="#{msg['tc']}" />
-
-                            <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
-                                <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'METODOPAGO')}" />
-                                <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion ,2)}" />
-                                <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}" />
-                            </p:inputText>
-                            <p:commandButton style="position: absolute; left: 300px; top: 320px;" class="cssBotonLovDialogos" 
-                                             value="" id="btnduplicarMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
-                            <p:watermark for="duplicarMetodoPago" value="#{msg['metodoPago']}" />
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 350px;"  actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}" icon="ui-icon-trash" update="nuevaVigenciaFormasPagos" process="@this"/>
+                     <p:commandButton id="agregarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 350px;" actionListener="#{controlVigenciasFormasPagos.validacionesNuevaVigenciaFormasPagos()}" icon="ui-icon-circle-check" process="@this" />
+                     <p:commandButton id="cancelarVFP" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 350px;"  update="nuevaVigenciaFormasPagos" onclick="PF('NuevoRegistroVigenciasFormasPagos').hide();" icon="ui-icon-circle-close" actionListener="#{controlVigenciasFormasPagos.limpiarNuevaVigenciaFormpasPagos()}"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
 
 
-                            <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 354px;"  icon="ui-icon-trash" actionListener="#{controlVigenciasFormasPagos.limpiarduplicarVigenciasFormasPagos()}" update="duplicarVigenciaFormasPagos"  process="@this"/>
-                            <p:commandButton id="duplicarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 354px;" icon="ui-icon-circle-check" actionListener="#{controlVigenciasFormasPagos.confirmarDuplicar()}"  process="@this" />
-                            <p:commandButton id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 354px;"  icon="ui-icon-circle-close" update="duplicarVigenciaFormasPagos" onclick="PF('duplicarRegistroVigenciasFormasPagos').hide();" actionListener="#{controlVigenciasFormasPagos.limpiarduplicarVigenciasFormasPagos()}"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-                </h:form>
-                <h:form id="formExportar">
-                    <p:dataTable id="datosVFPEmpleadoExportar" var="infoExp" style="visibility: hidden; display: none;"                           
-                                 value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}">
+               <p:dialog id="duplicarRegistroVigenciasFormasPagos" header="#{msg['duplicarregistro']}" widgetVar="duplicarRegistroVigenciasFormasPagos" closable="false" resizable="false"  draggable="true" modal="true" height="380" width="360" style=" padding: 0px">  
+                  <center><strong><h:outputText id="informacionDuplicar" value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
-                        <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['fechaX']}" /></f:facet>
-                            <h:outputText value="#{infoExp.fechavigencia}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                  <p:panel id="duplicarVigenciaFormasPagos" style="border: none;">
+                     <strong><h:outputText value="*#{msg['fechaVigenciaN']}" style=" position: absolute; top: 85px;" /></strong>
+                     <div id="posicionFechaVigenciaDuplicarReg" style=" position: absolute; top: 80px; left: 150px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaVigencia" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechavigencia}" >
+                           <p:ajax event="dateSelect" update="duplicarFechaVigencia" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaVigencia" process="@this"/>
+                        </p:calendar>
+                     </div>
 
-                        <p:column>                                  
-                            <f:facet name="header"><h:outputText value="#{msg['cuentaX']}"/></f:facet> 
-                            <h:outputText value="#{infoExp.cuenta}" />
-                        </p:column>  
+                     <strong><h:outputText value="#{msg['cuentaN']}" style=" position: absolute; top: 125px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.cuenta}" style=" width: 102px; position: absolute; left: 150px; top: 120px;">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarCuenta" value="#{msg['cuenta']}" />
 
-                        <p:column>  
-                            <f:facet name="header"><h:outputText value="#{msg['fechaCuentaX']}" /></f:facet>
-                            <h:outputText value="#{infoExp.fechacuenta}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                     <strong><h:outputText value="#{msg['fechaCuentaN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <div id="posicionFechaCuentaDuplicarReg" style=" position: absolute; top: 160px; left: 150px">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaCuenta" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.fechacuenta}" >
+                           <p:ajax event="dateSelect" update="duplicarFechaCuenta" process="@this"/>
+                           <p:ajax event="change" update="duplicarFechaCuenta" process="@this"/>
+                        </p:calendar>
+                     </div>
 
-                        <p:column headerText="#{msg['sucursalX']}">                                                              
-                            <f:facet name="header"> 
-                                <h:outputText value="#{msg['sucursalX']}"/>
-                            </f:facet>
-                            <h:outputText value="#{infoExp.sucursal.nombre}" />
-                        </p:column>  
+                     <strong><h:outputText value="#{msg['sucursalM']}"  style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off" id="duplicarNombreSucursal" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'SUCURSAL')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('SUCURSAL', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.sucursal.nombre,2)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableSucursalNueva(1)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top: 200px;" class="cssBotonLovDialogos"
+                                      value="" id="btnduplicarNombreSucursal" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarSucursalesNuevoRegistro(1)}"/>   
+                     <p:watermark for="duplicarNombreSucursal" value="#{msg['sucursal']}" />
 
-                        <p:column headerText="#{msg['formaPagoXX']}">                                                                                              
-                            <f:facet name="header"><h:outputText value="#{msg['formaPagoX']}"/></f:facet>
-                            <h:outputText value="#{infoExp.formapago.nombre}" />
-                        </p:column>  
+                     <strong><h:outputText value="*#{msg['formaPagoN']}" style=" position: absolute; top: 245px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarFormaPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre}" style=" width: 140px; position: absolute; left: 150px; top: 240px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'FORMAPAGO')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('FORMAPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.formapago.nombre, 2)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariablePeriodicidadNueva(1)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top: 240px;" class="cssBotonLovDialogos"
+                                      value="" id="btnduplicarFormaPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarPeriodicidadNuevoRegistro(1)}"/>   
+                     <p:watermark for="duplicarFormaPago" value="#{msg['formaPago']}" />
 
-                        <p:column headerText="#{msg['tipoCuentaXX']}">                                                              
-                            <f:facet name="header"><h:outputText value="#{msg['tipoCuentaX']}"/></f:facet>
-                            <h:outputText value="#{infoExp.tipocuenta}" />
-                        </p:column>
+                     <strong><h:outputText value="#{msg['tipoCuentaN']}"  style=" position: absolute; top: 285px; text-transform: uppercase" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarTC" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.tipocuenta}"  style=" width: 102px; position: absolute; left: 150px; top: 280px;" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+                     <p:watermark for="duplicarTC" value="#{msg['tc']}" />
 
-                        <p:column headerText="#{msg['metodoPagoXX']}">                                                              
-                            <f:facet name="header"><h:outputText value="#{msg['metodoPagoX']}"/></f:facet>
-                            <h:outputText value="#{infoExp.metodopago.descripcion}" />
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                     <strong><h:outputText value="*#{msg['metodoPagoN']}" style=" position: absolute; top: 325px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarMetodoPago" value="#{controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion}" style=" width: 140px; position: absolute; left: 150px; top: 320px; text-transform: uppercase" onclick="select();">
+                        <p:ajax event="click" listener="#{controlVigenciasFormasPagos.valoresBackupAutocompletar(2, 'METODOPAGO')}" />
+                        <p:ajax event="change" listener="#{controlVigenciasFormasPagos.autocompletarNuevoyDuplicado('METODOPAGO', controlVigenciasFormasPagos.duplicarVigenciaFormasPago.metodopago.descripcion ,2)}" />
+                        <p:ajax event="dblclick" listener="#{controlVigenciasFormasPagos.asignarVariableMetodosPagosNueva(1)}" />
+                     </p:inputText>
+                     <p:commandButton style="position: absolute; left: 300px; top: 320px;" class="cssBotonLovDialogos" 
+                                      value="" id="btnduplicarMetodoPago" process="@this" actionListener="#{controlVigenciasFormasPagos.cargarMetodosPagosNuevoRegistro(1)}"/>   
+                     <p:watermark for="duplicarMetodoPago" value="#{msg['metodoPago']}" />
+
+
+                     <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 354px;"  icon="ui-icon-trash" actionListener="#{controlVigenciasFormasPagos.limpiarduplicarVigenciasFormasPagos()}" update="duplicarVigenciaFormasPagos"  process="@this"/>
+                     <p:commandButton id="duplicarVFP" value="#{msg['agregar']}" style=" position: absolute; left: 140px; top: 354px;" icon="ui-icon-circle-check" actionListener="#{controlVigenciasFormasPagos.confirmarDuplicar()}"  process="@this" />
+                     <p:commandButton id="cancelarDuplicarVFP" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 354px;"  icon="ui-icon-circle-close" update="duplicarVigenciaFormasPagos" onclick="PF('duplicarRegistroVigenciasFormasPagos').hide();" actionListener="#{controlVigenciasFormasPagos.limpiarduplicarVigenciasFormasPagos()}"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+            </h:form>
+            <h:form id="formExportar">
+               <p:dataTable id="datosVFPEmpleadoExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                            value="#{controlVigenciasFormasPagos.listVigenciasFormasPagosPorEmpleado}">
+
+                  <p:column>  
+                     <f:facet name="header"><h:outputText value="#{msg['fechaX']}" /></f:facet>
+                     <h:outputText value="#{infoExp.fechavigencia}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column>                                  
+                     <f:facet name="header"><h:outputText value="#{msg['cuentaX']}"/></f:facet> 
+                     <h:outputText value="#{infoExp.cuenta}" />
+                  </p:column>  
+
+                  <p:column>  
+                     <f:facet name="header"><h:outputText value="#{msg['fechaCuentaX']}" /></f:facet>
+                     <h:outputText value="#{infoExp.fechacuenta}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['sucursalX']}">                                                              
+                     <f:facet name="header"> 
+                        <h:outputText value="#{msg['sucursalX']}"/>
+                     </f:facet>
+                     <h:outputText value="#{infoExp.sucursal.nombre}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['formaPagoXX']}">                                                                                              
+                     <f:facet name="header"><h:outputText value="#{msg['formaPagoX']}"/></f:facet>
+                     <h:outputText value="#{infoExp.formapago.nombre}" />
+                  </p:column>  
+
+                  <p:column headerText="#{msg['tipoCuentaXX']}">                                                              
+                     <f:facet name="header"><h:outputText value="#{msg['tipoCuentaX']}"/></f:facet>
+                     <h:outputText value="#{infoExp.tipocuenta}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['metodoPagoXX']}">                                                              
+                     <f:facet name="header"><h:outputText value="#{msg['metodoPagoX']}"/></f:facet>
+                     <h:outputText value="#{infoExp.metodopago.descripcion}" />
+                  </p:column>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>
+   </h:body>
 </html>

@@ -465,28 +465,52 @@
                         <h:commandLink value="#{msg['proyectos']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B; "
                                        action ="proyecto" actionListener="#{controlVigenciasProyectos.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
                         <p:inputText  autocomplete="off"  id="proyectos" value="#{controlEmpleadoIndividual.proyectosP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase;"/>
+                    
+                        <p:commandButton id="btnEventos" value="" style="background-image: url(Imagenes/Iconos/evento.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;"
+                                         process="@this" action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <h:commandLink value="#{msg['eventos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 123px"
+                                       action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="eventos" value="#{controlEmpleadoIndividual.eventosP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+
+                        <p:commandButton id="btnDeporte" value="" style="background-image: url(Imagenes/Iconos/deporte.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" 
+                                         process="@this" action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <h:commandLink value="#{msg['deporte']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px"
+                                       action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="deporte" value="#{controlEmpleadoIndividual.deportesP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+
                      </fieldset>
 
                      <fieldset style="position: absolute; left: 418px; top: 2px; width: 197px; height: 120px; border-radius: 7px; padding: 0px; border: none;">
                          <!-- <legend style="font-weight: bold; color: blue">#{msg['experiencia']}</legend> -->
 
                         <p:commandButton id="btnReferenciaLaboral" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaLaboral')}" oncomplete="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"   
-                                         style="background-image: url(Imagenes/Iconos/referencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border:none; text-transform: uppercase " process="@this"/>
+                                         style="background-image: url(Imagenes/Iconos/referencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; border: none;" process="@this"/>
                         <h:commandLink value="#{msg['referencialaboral']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B;"
                                        actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perReferenciaLaboral')}" immediate="#{controlHvReferencias.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>  
-                        <p:inputText  autocomplete="off"  id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        <p:inputText  autocomplete="off" id="referenciaLaboral" value="#{controlEmpleadoIndividual.referenciasPersonalesP}"  readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                         <p:commandButton id="btnReferenciaFamiliar" value="" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" 
-                                         style="background-image: url(Imagenes/Iconos/referenciafamiliar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none; text-transform: uppercase" process="@this"/>
+                                         style="background-image: url(Imagenes/Iconos/referenciafamiliar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border: none;" process="@this"/>
                         <h:commandLink value="#{msg['referenciafamiliar']}" style="position: absolute; left: 47px; top: 41px; font-weight: bold; color: #14388B;"
                                        actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('perreferencialaboral1')}" immediate="#{controlHvReferencias1.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        <p:inputText  autocomplete="off" id="referenciaFamiliar" value="#{controlEmpleadoIndividual.referenciasFamiliaresP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                         <p:commandButton id="btnExperienciaLaboral" value="" process="@this" actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"
-                                         style="background-image: url(Imagenes/Iconos/experiencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border:none; text-transform: uppercase"/>
+                                         style="background-image: url(Imagenes/Iconos/experiencialaboral.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 82px; border: none;"/>
                         <h:commandLink value="#{msg['experiencialaboral']}" style="position: absolute; left: 47px; top: 82px; font-weight: bold; color: #14388B; "
                                        actionListener="#{controlEmpleadoIndividual.validarRedirigirReferencias('experienciaLabPersona')}" immediate="#{controlPerExperienciaLaboral.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="experienciaLaboral" value="#{controlEmpleadoIndividual.experienciaLaboralP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        <p:inputText  autocomplete="off" id="experienciaLaboral" value="#{controlEmpleadoIndividual.experienciaLaboralP}" readonly="true" style="position: absolute; left: 45px; top: 97px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+                        
+                         <p:commandButton id="btnAficiones" value="" style="background-image: url(Imagenes/Iconos/aficion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 123px; border:none;"
+                                         action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
+                        <h:commandLink value="#{msg['aficiones']}" style="position: absolute; left: 47px; top: 123px; font-weight: bold; color: #14388B;"
+                                       action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
+                        <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 45px; top: 138px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
+
+                        <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 164px; border:none;" 
+                                         process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
+                        <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 164px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
+                        <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 45px; top: 179px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
 
                      </fieldset>
 
@@ -527,31 +551,8 @@
 
 
                      <!--<fieldset style="position: absolute; left: 208px; top: 126px; width: 409px; height: 83px; border-radius: 7px; padding: 0px; border: none;">-->
-                         <!-- <legend style="font-weight: bold; color: blue">#{msg['actividades']}</legend> -->
-
-                        <p:commandButton id="btnEventos" value="" style="background-image: url(Imagenes/Iconos/evento.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 0px; border:none;"
-                                         process="@this" action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <h:commandLink value="#{msg['eventos']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 0px"
-                                       action="vigenciasEvents" actionListener="#{controlEmplVigenciaEvento.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="eventos" value="#{controlEmpleadoIndividual.eventosP}" readonly="true" style="position: absolute; left: 45px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
-
-                        <p:commandButton id="btnDeporte" value="" style="background-image: url(Imagenes/Iconos/deporte.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; border:none;" 
-                                         process="@this" action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <h:commandLink value="#{msg['deporte']}" style="position: absolute; left: 47px; font-weight: bold; color: #14388B; top: 41px"
-                                       action="infoDeportesPersona" actionListener="#{controlVigenciaDeporte.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="deporte" value="#{controlEmpleadoIndividual.deportesP}" readonly="true" style="position: absolute; left: 45px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
-
-                        <p:commandButton id="btnAficiones" value="" style="background-image: url(Imagenes/Iconos/aficion.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 0px; left: 211px; border:none;"
-                                         action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}" process="@this"/>
-                        <h:commandLink value="#{msg['aficiones']}" style="position: absolute; left: 255px; top: 0px; font-weight: bold; color: #14388B;"
-                                       action="vigenciaaficion" actionListener="#{controlVigenciaAficion.recibirEmpleado(controlEmpleadoIndividual.empleado.secuencia)}"/>
-                        <p:inputText  autocomplete="off"  id="aficiones" value="#{controlEmpleadoIndividual.aficionesP}" readonly="true" style="position: absolute; left: 249px; top: 15px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
-
-                        <p:commandButton id="btnFamiliares" value="" style="background-image: url(Imagenes/Iconos/familiar.png); background-size: 100% 100%; background-repeat: no-repeat; width: 35px; height: 38px; position: absolute; top: 41px; left: 211px; border:none;" 
-                                         process="@this"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}"/>
-                        <h:commandLink value="#{msg['familiares']}" style="position: absolute; left: 255px; font-weight: bold; color: #14388B; top: 41px;"  action="familiares"  actionListener="#{controlFamiliares.recibirPaginaEntrante('empleadoindividual', controlEmpleadoIndividual.empleado.persona.secuencia)}" />
-                        <p:inputText  autocomplete="off"  id="familiares" value="#{controlEmpleadoIndividual.familiaresP}" readonly="true" style="position: absolute; left: 249px; top: 56px; width: 140px; box-shadow: none; border: none; text-transform: uppercase"/>
-                     <!--</fieldset>-->
+                         <!-- <legend style="font-weight: bold; color: blue">#/{msg['actividades']}</legend> -->
+                       <!--</fieldset>-->
                   </fieldset>
                   <!-- </p:scrollPanel> -->
                   <!-- ********************************************************************** -->

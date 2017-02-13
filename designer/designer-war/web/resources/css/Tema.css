@@ -826,3 +826,22 @@ a:link:focus {
 .ui-paginator-prev.ui-state-focus {
    padding: 2px 6px !important;
 }
+
+.ui-selectonemenu-trigger.ui-corner-right.ui-state-highlight,
+.ui-selectonemenu-trigger.ui-corner-right.ui-state-focus{
+   background: #1A5FA0 !important;
+   border-radius: 2px !important;
+   border-color: white !important;
+   
+   
+   color: black !important;
+}
+
+.ui-datatable-scrollable .ui-selectonemenu label.ui-selectonemenu-label.ui-inputfield {
+   background: #0a246a !important;
+   margin-left: 0px !important;
+}
+
+.ui-datatable-scrollable .ui-selectonemenu{
+   padding-left: 0px !important;
+}

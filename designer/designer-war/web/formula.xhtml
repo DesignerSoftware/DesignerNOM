@@ -17,17 +17,14 @@
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-                  foco('form:guardarRapido');
-               };
-               function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <div class="loader"/>
             <h:form id="form">
                <f:loadBundle basename="Recursos.formula" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
-               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left"> 
 
@@ -99,7 +96,7 @@
 
                      <p:dataTable id="datosFormulas" widgetVar="datosFormulas" var="formula" rowKey="#{formula.secuencia}" rowIndexVar="indice" style="width: 820px; position: relative;"                           
                                   value="#{controlFormula.listaFormulas}" scrollable="true" scrollWidth="835"
-                                  filteredValue="#{controlFormula.filtradoListaFormulas}" emptyMessage="#{msg['vacio']}" 
+                                  filteredValue="#{controlFormula.filtradoListaFormulas}" emptyMessage="#{msg['vacio']}" scrollHeight="190"
                                   selection="#{controlFormula.formulaSeleccionada}" selectionMode="single" editable="true" editMode="cell"
                                   paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
                                   rows="#{controlFormula.altoTabla}" paginator="true" currentPageReportTemplate="{totalPages}">

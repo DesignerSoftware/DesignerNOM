@@ -26,6 +26,12 @@
       </navigation-case>
       
       <navigation-case>
+         <from-outcome>emplvigencianormalaboral</from-outcome>
+         <to-view-id>/emplvigencianormalaboral.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+      
+      <navigation-case>
          <from-outcome>emplubicaciongeografica</from-outcome>
          <to-view-id>/emplubicaciongeografica.xhtml</to-view-id>
          <redirect />
@@ -1705,7 +1711,7 @@
    <navigation-rule>
       <from-view-id>/emplvigencianormalaboral.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>normalaboralNominaF</from-outcome>
+         <from-outcome>nominaf</from-outcome>
          <to-view-id>/nominaf.xhtml</to-view-id>
          <redirect />
       </navigation-case>

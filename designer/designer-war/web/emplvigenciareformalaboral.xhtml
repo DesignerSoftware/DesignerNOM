@@ -134,7 +134,10 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                       <p:commandButton style="width: 120%;" id="fooReformaLaboral" action="reformasLaborales" actionListener="#{controlReformaLaboral.recibirPaginaEntrante('emplvigenciareformalaboral')}" value=""/>
+                                       <p:commandButton style="width: 120%;" id="fooReformaLaboral" action="reformasLaborales" value="">
+                                 <f:actionListener binding="#{controlReformaLaboral.recibirPaginaEntrante('emplvigenciareformalaboral')}"/>
+                                 <f:actionListener binding="#{controlVigenciasReformasLaborales.limpiarListasValor()}"/>
+                              </p:commandButton>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>

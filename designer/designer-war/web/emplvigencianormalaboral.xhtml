@@ -71,7 +71,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBetaEmplVigenciaNormaLaboral.salir()}" action="normalaboralNominaF" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlBetaEmplVigenciaNormaLaboral.salir()}" action="nominaf" process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
                             </p:toolbarGroup>  
                         </p:toolbar>
@@ -144,7 +144,7 @@
 
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlBetaEmplVigenciaNormaLaboral.infoRegistro}" style="position: absolute; left: 25px; top: 467px; font-weight: bold"/>
                         <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " disabled="#{controlBetaEmplVigenciaNormaLaboral.guardado}" actionListener="#{controlBetaEmplVigenciaNormaLaboral.revisarDialogoGuardar()}" process="@this"/>
-                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " action="normalaboralNominaF" />
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " action="nominaf" />
 
                         <p:dialog header="#{msg['normaLaboralM']}" widgetVar="sucursalesDialogo" draggable="true" resizable="false" closable="false" id="sucursalesDialogo"  
                                   showEffect="fade" hideEffect="fade" width="470" modal="true">
@@ -186,7 +186,7 @@
                         <p:dialog id="confirmarGuardar" header="#{msg['precaucion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                             <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlBetaEmplVigenciaNormaLaboral.guardarEmplVigenciaNormaLaboral()}" action="normalaboralNominaF" 
+                            <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlBetaEmplVigenciaNormaLaboral.guardarEmplVigenciaNormaLaboral()}" action="nominaf" 
                                              style="position: absolute; top: 45px; left: 180px;" process="@this" icon="ui-icon-check" />
                             <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlBetaEmplVigenciaNormaLaboral.cancelarModificacion()}" 
                                              style="position: absolute; top: 45px; left: 245px;" process="@this" icon="ui-icon-close" />

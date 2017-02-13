@@ -130,7 +130,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooContrato" action="motivocontrato" actionListener="#{controlMotivosContratos.recibirPaginaEntrante('emplvigenciatipocontrato')}" value=" "/>
+                              <p:commandButton style="width: 170px;" id="fooContrato" action="motivocontrato" value=" ">
+                                 <f:actionListener binding="#{controlMotivosContratos.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
+                                 <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>  
 
@@ -149,7 +152,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooMotivos" action="tipocontrato" actionListener="#{controlTipoContrato.recibirPaginaEntrante('emplvigenciatipocontrato')}" value=" "/>
+                              <p:commandButton style="width: 170px;" id="fooMotivos" action="tipocontrato" value=" ">
+                                 <f:actionListener binding="#{controlTipoContrato.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
+                                 <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
@@ -167,7 +173,10 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooCargos" action="ciudad" actionListener="#{controlCiudades.recibirPaginaEntrante('emplvigenciatipocontrato')}" value=" "/>
+                              <p:commandButton style="width: 170px;" id="fooCargos" action="ciudad" value=" ">
+                                 <f:actionListener binding="#{controlCiudades.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
+                                 <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
+                              </p:commandButton>
                            </f:facet>
                         </p:column>
 
