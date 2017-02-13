@@ -348,7 +348,9 @@
                             </p:inputText>
 
 
-                            <p:commandButton style="width: 75px; height: 45px; position: absolute; left: 760px; top: 12px;  " id="btnClonar" value="#{msg['clonar']}" actionListener="#{controlTipoCotizante.clonarTipoCotizante()}" process="@this"/>   
+                            <p:commandButton style="position: absolute; left: 760px; top: 12px;" class="cssBotonClonar" id="btnClonar" value=""
+                                             actionListener="#{controlTipoCotizante.clonarTipoCotizante()}" process="@this"/>
+                            <p:tooltip for="btnClonar" value="#{msg['clonar']}"/>
                         </fieldset>
 
 

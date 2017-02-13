@@ -474,8 +474,9 @@
                         <p:commandButton value="" actionListener="#{controlConcepto.lovConcepto(1)}" style=" background-image: url(Imagenes/Iconos/lupa.png); position: relative; 
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 23px; height: 23px;  top: 0px; margin: 1px; left: 710px;" process="@this"/>
                      </p:panel>
-                     <p:commandButton value="#{msg['clonar']}" actionListener="#{controlConcepto.clonarConcepto()}" 
-                                      style="position: relative; top: -3px; left: 765px; width: 46px; height: 46px; border: none;" process="@this"/>
+                     <p:commandButton value="" actionListener="#{controlConcepto.clonarConcepto()}" id="botonClonar"
+                                      style="position: relative; top: -3px; left: 775px; border: none;" class="cssBotonClonar" process="@this"/>
+                     <p:tooltip for="botonClonar" value="#{msg['clonar']}"/>
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();" 

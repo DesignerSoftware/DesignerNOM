@@ -232,7 +232,9 @@
                         <p:ajax event="dblclick" process="@this" listener="#{controlReformaLaboral.dispararDialogoClonarReformaLaboral()}"/>
                      </p:inputText>
 
-                     <p:commandButton value="#{msg['clonar']}" actionListener="#{controlReformaLaboral.clonarReformaLaboral()}" class="boton" style="position: absolute; top : 120px; left: 310px; width: 50px; height: 50px;"/>
+                     <p:commandButton value="" actionListener="#{controlReformaLaboral.clonarReformaLaboral()}" class="cssBotonClonar"
+                                      id="botonclonar" style="position: absolute; top : 125px; left: 310px;"/>
+                     <p:tooltip for="botonclonar" value="#{msg['clonar']}"/>
                   </fieldset> 
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardarSalida').show();" disabled="#{controlReformaLaboral.cambiosPagina}" process="@this"/>

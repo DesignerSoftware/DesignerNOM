@@ -86,7 +86,8 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
       try {
          em.clear();
          if (!p_tipo.isEmpty()) {
-            Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador");
+            Query query = em.createQuery("SELECT vwatt FROM VWActualesTiposTrabajadores vwatt, Empleados e"
+                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado.secuencia = e.secuencia");
             query.setParameter("tipotrabajador", p_tipo);
             query.setFirstResult(posicion);
             query.setMaxResults(1);
@@ -106,7 +107,8 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
       try {
          em.clear();
          if (!p_tipo.isEmpty()) {
-            Query query = em.createQuery("SELECT COUNT(vwatt) FROM VWActualesTiposTrabajadores vwatt WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador");
+            Query query = em.createQuery("SELECT COUNT(vwatt) FROM VWActualesTiposTrabajadores vwatt, Empleados e"
+                    + " WHERE vwatt.tipoTrabajador.tipo = :tipotrabajador AND vwatt.empleado.secuencia = e.secuencia");
             query.setParameter("tipotrabajador", p_tipo);
             Long totalRegistros = (Long) query.getSingleResult();
 //            System.out.println("Valor total Registros: " + totalRegistros);

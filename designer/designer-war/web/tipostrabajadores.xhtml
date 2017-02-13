@@ -602,8 +602,8 @@
                                 <p:ajax event="dblclick" process="@this" listener="#{controlTiposTrabajadores.llamadoDialogoTT(3)}"/>
                             </p:inputText>
 
-                            <p:commandButton widgetVar="BtnClonar" id="BtnClonar" value="#{msg['clonar']}" actionListener="#{controlTiposTrabajadores.clonarTT}" process="@this"
-                                             style="position: relative; top : -100px; left: 500px; height: 50px; width: 50px; display: block; background-size: 100% 100%;"/>
+                            <p:commandButton widgetVar="BtnClonar" id="BtnClonar" class="cssBotonClonar" value="" actionListener="#{controlTiposTrabajadores.clonarTT}" process="@this"
+                                             style="position: relative; top: -100px; left: 500px; display: block;"/>
                             <p:tooltip for="BtnClonar" value="#{msg['clonar']}"/>
                         </fieldset>
 

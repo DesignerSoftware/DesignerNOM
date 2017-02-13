@@ -373,7 +373,9 @@
                                 <p:ajax event="dblclick" process="@this" listener="#{controlProceso.dispararDialogoClonarProceso()}"/>
                             </p:inputText>
 
-                            <p:commandButton style="position: absolute; top: 25px; left: 780px;" value="#{msg['clonar']}" actionListener="#{controlProceso.clonarProceso()}"/>
+                            <p:commandButton style="position: absolute; top: 25px; left: 780px;" value="" id="botomClonar" class="cssBotonClonar"
+                                             actionListener="#{controlProceso.clonarProceso()}"/>
+                            <p:tooltip for="botomClonar" value="#{msg['clonar']}"/>
 
                         </fieldset>
 

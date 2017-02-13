@@ -305,8 +305,9 @@
                                          position: relative ; top: 8px; margin: 1px; background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                          width: 23px; height: 23px; left: 726px;" process="@this"/>
                      </p:panel>
-                     <p:commandButton value="#{msg['clonarboton']}" actionListener="#{controlFormula.clonarFormula()}" 
-                                      style="position: absolute; top: 14px; width: 50px; height: 50px; left: 788px; border: none" process="@this"/>
+                     <p:commandButton value="" actionListener="#{controlFormula.clonarFormula()}" class="cssBotonClonar" id="botonClonar"
+                                      style="position: absolute; top: 14px; left: 788px;" process="@this"/>
+                     <p:tooltip for="botonClonar" value="#{msg['clonarboton']}"/>
                   </fieldset>
 
                   <p:commandButton class="cssBotonAceptar" disabled="#{controlFormula.guardado}" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();"  process="@this" />

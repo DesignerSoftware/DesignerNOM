@@ -795,6 +795,17 @@ button .ui-widget-header{
    height: 10px !important;
 }
 
+.cssBotonClonar{
+   background-image: url(../../Imagenes/Iconos/duplicar.png) !important;
+   background-size: 96% 96% !important;
+   background-repeat: no-repeat !important;
+   border: solid 2px #1A5FA0 !important;
+   border-radius: 8px !important;
+   padding: 3px !important;
+   width: 46px;
+   height: 46px;
+}
+
 /*.ui-selectonemenu ui-widget ui-state-default ui-corner-all*/
 .ui-selectonemenu{
    min-width: 0px !important;
@@ -831,17 +842,15 @@ a:link:focus {
 .ui-selectonemenu-trigger.ui-corner-right.ui-state-focus{
    background: #1A5FA0 !important;
    border-radius: 2px !important;
-   border-color: white !important;
-   
-   
+   border-color: white !important; 
    color: black !important;
 }
 
-.ui-datatable-scrollable .ui-selectonemenu label.ui-selectonemenu-label.ui-inputfield {
+.ui-datatable-scrollable .ui-cell-editor-input .ui-selectonemenu label.ui-selectonemenu-label.ui-inputfield {
    background: #0a246a !important;
    margin-left: 0px !important;
 }
 
-.ui-datatable-scrollable .ui-selectonemenu{
+.ui-datatable-scrollable .ui-cell-editor-input .ui-selectonemenu{
    padding-left: 0px !important;
 }
