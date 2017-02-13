@@ -7385,11 +7385,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void activarOtroServicio() {
         if (vigenciasDomiciliariaSeleccionada.isRecotro() == true) {
-            System.out.println("activo otros servicios");
             activarotroservicio = false;
             RequestContext.getCurrentInstance().update("form:otrosservicios");
         } else {
-            System.out.println("desactivo otros servicios");
             activarotroservicio = true;
             RequestContext.getCurrentInstance().update("form:otrosservicios");
         }
@@ -7397,11 +7395,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void activarOtroEgreso() {
         if (vigenciasDomiciliariaSeleccionada.isEgresoOtros() == true) {
-            System.out.println("activo otros egresos");
             activarotroegreso = false;
             RequestContext.getCurrentInstance().update("form:otrosEgresos");
         } else {
-            System.out.println("desactivo otros egresos");
             activarotroegreso = true;
             RequestContext.getCurrentInstance().update("form:otrosEgresos");
         }
@@ -7409,11 +7405,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void activarOtroAporte() {
         if (vigenciasDomiciliariaSeleccionada.isAporteotro() == true) {
-            System.out.println("activo otros aportes");
             activarotroaporte = false;
             RequestContext.getCurrentInstance().update("form:otrosIngresos");
         } else {
-            System.out.println("desactivo otros aportes");
             activarotroaporte = true;
             RequestContext.getCurrentInstance().update("form:otrosIngresos");
         }
@@ -7495,9 +7489,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void checkDefault() {
-        activarotroaporte = true;
-        activarotroegreso = true;
-        activarotroservicio = true;
+//        activarotroaporte = true;
+//        activarotroegreso = true;
+//        activarotroservicio = true;
         RequestContext.getCurrentInstance().update("form:servagua");
         RequestContext.getCurrentInstance().update("form:servluz");
         RequestContext.getCurrentInstance().update("form:servtel");
@@ -7506,7 +7500,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:servalc");
         RequestContext.getCurrentInstance().update("form:servaseo");
         RequestContext.getCurrentInstance().update("form:servotro");
-        RequestContext.getCurrentInstance().update("form:otrosservicios");
+//        RequestContext.getCurrentInstance().update("form:otrosservicios");
 
         RequestContext.getCurrentInstance().update("form:editarIngresos");
         RequestContext.getCurrentInstance().update("form:comind");
@@ -7522,7 +7516,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:Abuelo");
         RequestContext.getCurrentInstance().update("form:Tío");
         RequestContext.getCurrentInstance().update("form:Otro");
-        RequestContext.getCurrentInstance().update("form:otrosIngresos");
+//        RequestContext.getCurrentInstance().update("form:otrosIngresos");
 
         RequestContext.getCurrentInstance().update("form:educacion");
         RequestContext.getCurrentInstance().update("form:recreacion");
@@ -7531,7 +7525,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:Arriendo");
         RequestContext.getCurrentInstance().update("form:Servicios");
         RequestContext.getCurrentInstance().update("form:egresootro");
-        RequestContext.getCurrentInstance().update("form:otrosEgresos");
+//        RequestContext.getCurrentInstance().update("form:otrosEgresos");
 
         RequestContext.getCurrentInstance().update("form:editarObservaciones");
         RequestContext.getCurrentInstance().update("form:editarConceptoF");

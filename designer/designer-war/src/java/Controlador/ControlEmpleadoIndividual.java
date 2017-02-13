@@ -222,11 +222,11 @@ public class ControlEmpleadoIndividual implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         imprimir("1: inicializarAdministrador.", null);
         try {
@@ -500,21 +500,21 @@ public class ControlEmpleadoIndividual implements Serializable {
         if (Campo.equals("TIPODOCUMENTO")) {
             tipoDocumento = persona.getTipodocumento().getNombrecorto();
             dialogo = 0;
-            nombreTabla = "Personas";
+            nombreTabla = "PERSONAS";
         } else if (Campo.equals("CIUDADDOCUMENTO")) {
             modificacionCiudad = 0;
             ciudaddocumento = persona.getCiudaddocumento().getNombre();
             dialogo = 1;
-            nombreTabla = "Personas";
+            nombreTabla = "PERSONAS";
         } else if (Campo.equals("CIUDADNACIMIENTO")) {
             modificacionCiudad = 1;
             ciudad = persona.getCiudadnacimiento().getNombre();
             dialogo = 1;
-            nombreTabla = "Personas";
+            nombreTabla = "PERSONAS";
         } else if (Campo.equals("CARGOPOSTULADO")) {
             cargoPostulado = hojaDeVidaPersona.getCargo().getNombre();
             dialogo = 2;
-            nombreTabla = "HVHojasDeVida";
+            nombreTabla = "PERSONAS";
         }
     }
 
@@ -706,37 +706,37 @@ public class ControlEmpleadoIndividual implements Serializable {
     public void verificarRastro() {
         imprimir("21: verificarRastro.", "secuencia: " + secuencia);
 //        RequestContext context = RequestContext.getCurrentInstance();
-        int resultado = -1;
-        if (nombreTabla != null) {
-            if (nombreTabla.equals("Personas")) {
-                secRastro = persona.getSecuencia();
-                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
-            } else if (nombreTabla.equals("Empleados")) {
-                secRastro = empleado.getSecuencia();
-                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
-            } else if (nombreTabla.equals("HVHojasDeVida")) {
-                secRastro = hojaDeVidaPersona.getSecuencia();
-                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
-            }
-            if (resultado == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorObjetosDB");
-                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
+//        int resultado = -1;
+//        if (nombreTabla != null) {
+//            if (nombreTabla.equals("Personas")) {
+//                secRastro = persona.getSecuencia();
+//                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
+//            } else if (nombreTabla.equals("Empleados")) {
+//                secRastro = empleado.getSecuencia();
+//                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
+//            } else if (nombreTabla.equals("HVHojasDeVida")) {
+//                secRastro = hojaDeVidaPersona.getSecuencia();
+//                resultado = administrarRastros.obtenerTabla(secRastro, nombreTabla.toUpperCase());
+//            }
+//            if (resultado == 1) {
+//                RequestContext.getCurrentInstance().update("formularioDialogos:errorObjetosDB");
+//                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+//            } else if (resultado == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:confirmarRastro");
                 RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorRegistroRastro");
-                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaConRastro");
-                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaSinRastro");
-                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-        } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-        }
+//            } else if (resultado == 3) {
+//                RequestContext.getCurrentInstance().update("formularioDialogos:errorRegistroRastro");
+//                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+//            } else if (resultado == 4) {
+//                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaConRastro");
+//                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+//            } else if (resultado == 5) {
+//                RequestContext.getCurrentInstance().update("formularioDialogos:errorTablaSinRastro");
+//                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
+//            }
+//        } else {
+//            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+//        }
     }
 
     //MODIFICACION
@@ -1095,6 +1095,22 @@ public class ControlEmpleadoIndividual implements Serializable {
                 ctx.responseComplete();
             }
         }
+    }
+
+    public void contarRegistrosCiudades() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudad");
+    }
+
+    public void contarRegistrosCiudadesDocumentos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudadDocumento");
+    }
+
+    public void contarRegistrosTiposDocumentos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoDocumento");
+    }
+
+    public void contarRegistrosCargos() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCargo");
     }
 
 //GETTER AND SETTER

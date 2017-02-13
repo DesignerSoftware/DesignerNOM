@@ -96,7 +96,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         duplicarTipoCentroCosto.setGrupotipocc(new GruposTiposCC());
         guardado = true;
         aceptar = true;
-        tamano = 270;
+        tamano = 330;
         activarLov = true;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
@@ -339,7 +339,7 @@ public class ControlTiposCentrosCostos implements Serializable {
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 250;
+            tamano = 310;
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");
             codigo.setFilterStyle("width: 85% !important;");
             nombre = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:nombre");
@@ -350,7 +350,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            tamano = 270;
+            tamano = 330;
             System.out.println("Desactivar");
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");

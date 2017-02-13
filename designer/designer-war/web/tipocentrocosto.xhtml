@@ -71,24 +71,17 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
+                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 390px;width: 830px; border-radius: 10px; text-align: left">
                             <legend style="font-size: 14px; color: blue"><strong>Tipo Centro Costo</strong></legend>
 
                             <p:dataTable id="datosTipoCentroCosto" var="info" rowKey="#{info.secuencia}"  rowIndexVar="indice" style="width: 810px ; border: 1px;"                           
-                                         value="#{controlTiposCentrosCostos.listTiposCentrosCostos}" 
-                                         widgetVar="datosTipoCentroCosto"
-                                         scrollable="true"
-                                         scrollHeight="#{controlTiposCentrosCostos.tamano}"
-                                         scrollWidth="830"
-                                         filteredValue="#{controlTiposCentrosCostos.filtrarTiposCentrosCostos}"
-                                         emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" paginator="false" 
-                                         selection="#{controlTiposCentrosCostos.tipoCentroCostoSeleccionado}"
-                                         selectionMode="single"
-                                         >
+                                         value="#{controlTiposCentrosCostos.listTiposCentrosCostos}"  widgetVar="datosTipoCentroCosto" scrollable="true"
+                                         scrollHeight="#{controlTiposCentrosCostos.tamano}" scrollWidth="830" filteredValue="#{controlTiposCentrosCostos.filtrarTiposCentrosCostos}"
+                                         emptyMessage="#{msg['vacio']}" editable="true" editMode="cell" paginator="false"  selection="#{controlTiposCentrosCostos.tipoCentroCostoSeleccionado}"
+                                         selectionMode="single" >
                                 <p:ajax event="filter" listener="#{controlTiposCentrosCostos.eventoFiltrar()}"/>
 
-                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="200" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['codigo']}" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains" id="codigo" width="60" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.codigo}" /></f:facet>  
                                         <f:facet name="input">
@@ -101,7 +94,7 @@
                                     </p:cellEditor>
 
                                 </p:column>
-                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="Nombre" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains" id="nombre"  filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.nombre}" /></f:facet>  
                                         <f:facet name="input">
@@ -114,7 +107,7 @@
                                     </p:cellEditor>
 
                                 </p:column>
-                                <p:column headerText="#{msg['grupo']}" sortBy="#{info.grupotipocc.descripcion}" filterBy="#{info.grupotipocc.descripcion}" filterMatchMode="contains" id="grupoTipoCC" width="275" filterStyle="display: none; visibility: hidden;" >                                  
+                                <p:column headerText="#{msg['grupo']}" sortBy="#{info.grupotipocc.descripcion}" filterBy="#{info.grupotipocc.descripcion}" filterMatchMode="contains" id="grupoTipoCC"  filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText style="text-transform: uppercase" value="#{info.grupotipocc.descripcion}" /></f:facet>  
                                         <f:facet name="input">
@@ -131,15 +124,12 @@
                                         <p:commandButton value="" actionListener="#{controlGruposTiposCC.recibirPaginaEntrante('grupotipocc')}" action="grupostipocc" style="width: 780px;" id="fooGrupoTipoCC" />
                                     </f:facet>
                                 </p:column>
-
-
                             </p:dataTable>
-
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTiposCentrosCostos.infoRegistro}" style="position: relative; top: 0px; font-weight: bold"/>
-                            <p:commandButton class="cssBotonAceptar" style="position: relative; top: 80px; left: 585px;"  id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlTiposCentrosCostos.guardado}"   update="datosTipoCentroCosto"  process="@this"   />
-                            <p:commandButton class="cssBotonCancelar" style="position: relative; top: 80px; left: 590px;" id="ATRAS" value=" " actionListener="#{controlTiposCentrosCostos.salir()}"    />
                         </fieldset>
 
+                        <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=" " onclick="PF('confirmarGuardar').show();" disabled="#{controlTiposCentrosCostos.guardado}"   update="datosTipoCentroCosto"  process="@this"   />
+                        <p:commandButton class="cssBotonCancelar"  id="ATRAS" value=" " actionListener="#{controlTiposCentrosCostos.salir()}"    />
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
@@ -154,9 +144,7 @@
                             </p:commandButton>
                             <p:commandButton value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                         </p:dialog>
-
                     </p:panel>
-
 
                     <p:dialog header="Grupos de Tipos Centros Costos" widgetVar="gruposTiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="gruposTiposCentrosCostosDialogo"  
                               showEffect="fade" hideEffect="fade" width="470" modal="true" style="">

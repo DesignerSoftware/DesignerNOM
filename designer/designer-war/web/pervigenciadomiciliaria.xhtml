@@ -1356,7 +1356,7 @@
                                     </p:selectBooleanCheckbox> 
 
                                     <h:outputText value="#{msg['cual']}" style="position: absolute; left: 335px; top :50px;" />
-                                    <p:inputText id="otrosservicios"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotrosservicios}" disabled="#{controlPerVigenciaDomiciliaria.activarotroservicio}"
+                                    <p:inputText id="otrosservicios" widgetVar="otrosservicios"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotrosservicios}" disabled="#{controlPerVigenciaDomiciliaria.activarotroservicio}"
                                                  style=" border-radius: 0px; width: 93.5%;text-transform: uppercase; height: 12px; position: absolute; left: 390px; top :50px; width: 160px;" > 
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}"/>
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 14)}" />
@@ -1458,20 +1458,18 @@
 
 
                                     <h:outputText value="Otro" style="position: absolute; left: 460px; top :25px;" />
-                                    <p:selectBooleanCheckbox id="Otro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.aporteotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 500px; top :25px;">
+                                    <p:selectBooleanCheckbox id="Otro" value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.aporteotro}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 500px; top :25px;" >
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" oncomplete="#{controlPerVigenciaDomiciliaria.activarOtroAporte()}" update="@this" />
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 27)}" />
                                     </p:selectBooleanCheckbox>      
 
                                     <h:outputText value="#{msg['cual']}" style="position: absolute; left: 540px; top :25px;" />
-                                    <p:inputText id="otrosIngresos" disabled="=#{controlPerVigenciaDomiciliaria.activarotroaporte}"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotroingreso}" 
+                                    <p:inputText id="otrosIngresos" widgetVar="otrosIngresos" disabled="=#{controlPerVigenciaDomiciliaria.activarotroaporte}"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotroingreso}" 
                                                  style=" border-radius: 0px; width: 125px;text-transform: uppercase; height: 12px; position: absolute; left: 590px; top :25px;" > 
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}"/>
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 28)}" />
                                     </p:inputText>
-
                                 </fieldset>  
-
 
                                 <fieldset style="position: absolute;top: 220px;left: 7px;height: 100px;width: 720px; border-radius: 10px; text-align: left">
                                     <legend style="color: blue"><strong>Egresos Mensuales</strong></legend>
@@ -1519,12 +1517,11 @@
                                     </p:selectBooleanCheckbox>      
 
                                     <h:outputText value="#{msg['cual']}" style="position: absolute; left: 10px; top :55px;" />
-                                    <p:inputText id="otrosEgresos" disabled="=#{controlPerVigenciaDomiciliaria.activarotroegreso}"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotrasinversiones}" 
+                                    <p:inputText id="otrosEgresos" widgetVar="otrosEgresos" disabled="=#{controlPerVigenciaDomiciliaria.activarotroegreso}"  autocomplete="off"  value="#{controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada.detalleotrasinversiones}" 
                                                  style=" border-radius: 0px; width: 125px;text-transform: uppercase; height: 12px; position: absolute; left: 70px; top :55px;" > 
                                         <p:ajax event="change" listener="#{controlPerVigenciaDomiciliaria.modificarVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada)}" />
                                         <p:ajax event="select" listener="#{controlPerVigenciaDomiciliaria.cambiarIndiceVigenciaDomiciliaria(controlPerVigenciaDomiciliaria.vigenciasDomiciliariaSeleccionada, 36)}" />
                                     </p:inputText>
-
                                 </fieldset>  
                             </fieldset>
 
