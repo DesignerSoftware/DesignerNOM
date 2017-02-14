@@ -447,6 +447,14 @@ public class ControlDetalleConcepto implements Serializable {
          //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
          //mapParametros.put("paginaAnterior", pagActual);
          //mas Parametros
+         if (pag.equals("formula")) {
+            mapParametros.put("paginaAnterior", pagActual);
+            mapParametros.put("secFormula", actualFormulaConcepto.getFormula());
+            mapParametros.put("cargarFormula", (String) "SI");
+            ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
+            controlFormula.recibirParametros(mapParametros);
+         }
+
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
@@ -460,7 +468,7 @@ public class ControlDetalleConcepto implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -538,14 +546,14 @@ public class ControlDetalleConcepto implements Serializable {
          formulaSeleccionada = true;
          try {
             FacesContext fc = FacesContext.getCurrentInstance();
-            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleConcepto");
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTT");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTC");
-            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoRL");
-            RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
+            fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleconcepto");
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
+//            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
+//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTT");
+//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTC");
+//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoRL");
+//            RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
             System.out.println("3");
          } catch (Exception e) {
             System.out.println("obtenerConcepto() Entro al Catch, Error : " + e.toString());

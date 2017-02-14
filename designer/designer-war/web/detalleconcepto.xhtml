@@ -769,9 +769,8 @@
                            </p:dataTable>
                            <h:outputText id="infoRegistroFormulaConcepto" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroFormulaConcepto}" style=" left: 10px; top: 0px; font-weight: bold; display: table;"/>
 
-                           <p:commandButton value="#{msg['detalle']}" icon="ui-icon-extlink" style="background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; display: table;
-                                            width: 120px; height: 29px; left: 680px; top: -16px; color: white;" id="detalleFormula" disabled="#{controlDetalleConcepto.formulaSeleccionada}" immediate="#{controlFormula.recibirPaginaEntrante('detalleconcepto')}"
-                                            action="formulaSeleccionada" actionListener="#{controlFormula.obtenerFormulaSecuencia(controlDetalleConcepto.actualFormulaConcepto.formula.secuencia)}"/>
+                           <p:commandButton value="#{msg['detalle']}" icon="ui-icon-extlink" style="display: table; left: 680px; top: -16px;" id="detalleFormula"
+                                            disabled="#{controlDetalleConcepto.formulaSeleccionada}" class="cssBoton" actionListener="#{controlDetalleConcepto.navegar('formula')}"/>
                            <p:tooltip  for="detalleFormula" value="#{msg['detallesdelaformulaseleccionada']}" />
                         </fieldset>
                      </p:scrollPanel>  

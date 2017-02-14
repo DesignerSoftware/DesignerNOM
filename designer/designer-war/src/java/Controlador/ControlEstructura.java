@@ -177,6 +177,11 @@ public class ControlEstructura implements Serializable {
             organigramaSeleccionado = listaOrganigramas.get(0);
          }
       }
+      auxEmpresa = organigramaSeleccionado.getEmpresa().getNombre();
+      auxCodigo = organigramaSeleccionado.getCodigo();
+      arbolEstructuras = null;
+      codigoEmpresa = organigramaSeleccionado.getEmpresa().getCodigo();
+      getArbolEstructuras();
    }
 
    public void recibirParametros(Map<String, Object> map) {
@@ -189,6 +194,11 @@ public class ControlEstructura implements Serializable {
             organigramaSeleccionado = listaOrganigramas.get(0);
          }
       }
+      auxEmpresa = organigramaSeleccionado.getEmpresa().getNombre();
+      auxCodigo = organigramaSeleccionado.getCodigo();
+      arbolEstructuras = null;
+      codigoEmpresa = organigramaSeleccionado.getEmpresa().getCodigo();
+      getArbolEstructuras();
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -233,10 +243,6 @@ public class ControlEstructura implements Serializable {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
       }
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
    }
 
    //Ubicacion Celda.

@@ -107,14 +107,14 @@
                      <h:outputText id="nitEmpresa" value="#{controlConcepto.empresaActual.nit}" style="font-weight: bold; color: #BF1A1A; position: relative; left: 140px; top: 1px;"/>
                   </fieldset>   
 
-                  <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 272px; border-radius: 10px;">
+                  <fieldset style="position: absolute; left: 5px; top: 108px; width: 835px; height: 274px; border-radius: 10px; padding-top: 0px;">
                      <legend style="color: blue"><strong>#{msg['titulo']}</strong></legend>
 
                      <p:dataTable id="datosConceptos" var="concepto" rowKey="#{concepto.secuencia}" rowIndexVar="indice" style="width: 1300px; position: absolute;"                            
                                   value="#{controlConcepto.listaConceptosEmpresa}" scrollable="true" scrollWidth="835"
-                                  filteredValue="#{controlConcepto.filtradoConceptosEmpresa}" emptyMessage="#{msg['vacio']}"
+                                  filteredValue="#{controlConcepto.filtradoConceptosEmpresa}" emptyMessage="#{msg['vacio']}" scrollHeight="#{controlConcepto.altoTablaH}"
                                   widgetVar="datosConceptos" editable="true" editMode="cell" selection="#{controlConcepto.conceptoSeleccionado}" selectionMode="single"
-                                  rows="#{controlConcepto.altoTabla}" paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
+                                  rows="#{controlConcepto.altoTablaReg}" paginator="true" paginatorTemplate="página {JumpToPageDropdown} de {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {NextPageLink} {LastPageLink}"
                                   currentPageReportTemplate="{totalPages}">
 
                         <!--<f:event type="preRenderView" listener="#/{controlConcepto.recordarSeleccion()}"/>-->
@@ -129,7 +129,7 @@
                               <f:facet name="output"><img src="Imagenes/Iconos/editar.png" width="18" height="18"/></f:facet>  
                               <f:facet name="input">
                                  <p:inputText autocomplete="off" value="D" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="editarD">
-                                    <p:ajax event="select" listener="#{controlDetalleConcepto.obtenerConcepto(concepto.secuencia, 'retornoConcepto')}"
+                                    <p:ajax event="select" listener="#{controlDetalleConcepto.obtenerConcepto(concepto.secuencia, 'concepto')}"
                                             onstart="PF('datosConceptos').unselectAllRows();PF('datosConceptos').selectRow(#{indice});"/>
                                  </p:inputText>
                               </f:facet>
@@ -852,7 +852,7 @@
                          showEffect="fade" hideEffect="fade" width="520" modal="true">
                   <p:dataTable id="lovConceptos" liveScroll="true" scrollRows="30" var="conceptoEstado" value="#{controlConcepto.lovConceptosEmpresa}" 
                                rowKey="#{conceptoEstado.secuencia}" selection="#{controlConcepto.conceptoSeleccionadoLOV}" selectionMode="single" widgetVar="lovConceptos" scrollable="true" 
-                               scrollWidth="490" scrollHeight="220" filteredValue="#{controlConcepto.filtradoConceptosEmpresaLOV}" emptyMessage="#{msg['lovvacio']}">              
+                               scrollWidth="496" scrollHeight="220" filteredValue="#{controlConcepto.filtradoConceptosEmpresaLOV}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlConcepto.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
                      <p:ajax event="rowDblselect" listener="#{controlConcepto.seleccionConcepto()}" process="@this"/>

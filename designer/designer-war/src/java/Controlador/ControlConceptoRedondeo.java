@@ -788,6 +788,7 @@ public class ControlConceptoRedondeo implements Serializable {
       k = 0;
       listaConceptosRedondeos = null;
       guardado = true;
+      navegar("atras");
    }
 
    /**
@@ -864,6 +865,10 @@ public class ControlConceptoRedondeo implements Serializable {
       }
    }
 
+   public void guardarySalir(){
+      guardarCambiosConceptosRedondeos();
+      salir();
+   }
    //GUARDAR
    public void guardarCambiosConceptosRedondeos() {
       if (guardado == false) {

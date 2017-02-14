@@ -52,7 +52,7 @@ public class ControlFormula implements Serializable {
    private Column columnaNombreLargo, columnaNombreCorto, columnaEstado, columnaNota, columnaTipo; //, columnaPeriodicidad;
    //Otros
    private boolean aceptar;
-   private String altoTabla;
+   private String altoTablaReg, altoTablaH;
    private boolean disabledPropiedadesFormula;
    //modificar
    private List<Formulas> listaFormulasModificar;
@@ -111,7 +111,7 @@ public class ControlFormula implements Serializable {
       formulaClon = new Formulas();
       formulaOriginal = new Formulas();
 //      permitirIndex = true;
-//      altoTabla = "204";
+//      altoTablaReg = "204";
       tiposFormulas = null;
 
       formulaSeleccionada = null;
@@ -120,6 +120,22 @@ public class ControlFormula implements Serializable {
       nombreLargoMientras = "0";
       tipoLista = 0;
       mapParametros.put("paginaAnterior", paginaAnterior);
+   }
+
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarFormula.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
+
+   public void limpiarListasValor() {
    }
 
    public void recibirPaginaEntrante(String pagina) {
@@ -131,8 +147,17 @@ public class ControlFormula implements Serializable {
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      listaFormulas = null;
-      getListaFormulas();
+      String cargarFormula = (String) mapParametros.get("cargarFormula");
+      if (cargarFormula != null) {
+         if (cargarFormula.equals("SI")) {
+            BigInteger sec = (BigInteger) mapParametros.get("secFormula");
+            obtenerFormulaSecuencia(sec);
+         } else {
+            listaFormulas = null;
+         }
+      } else {
+         listaFormulas = null;
+      }
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -162,23 +187,6 @@ public class ControlFormula implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-  public void limpiarListasValor() {
-
-   }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarFormula.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
-   }
-
    public boolean activarSelec() {
       unaVez = true;
 //      regSolucion = -1;
@@ -195,27 +203,12 @@ public class ControlFormula implements Serializable {
          listaFormulas = new ArrayList<Formulas>();
          listaFormulas.add(actual);
          activoBuscarTodos = true;
-         RequestContext.getCurrentInstance().update("form:novedadFormula");
-         RequestContext.getCurrentInstance().update("form:procesoFormula");
-         RequestContext.getCurrentInstance().update("form:conceptoFormula");
-         RequestContext.getCurrentInstance().update("form:legislacionFormula");
-         RequestContext.getCurrentInstance().update("form:buscarFormula");
-         RequestContext.getCurrentInstance().update("form:mostrarTodos");
       } else {
          getListaFormulas();
-         RequestContext.getCurrentInstance().update("form:novedadFormula");
-         RequestContext.getCurrentInstance().update("form:procesoFormula");
-         RequestContext.getCurrentInstance().update("form:conceptoFormula");
-         RequestContext.getCurrentInstance().update("form:legislacionFormula");
-
-         RequestContext.getCurrentInstance().update("form:buscarFormula");
-         RequestContext.getCurrentInstance().update("form:mostrarTodos");
          activoBuscarTodos = false;
       }
       llamadoPrevioPagina = 0;
-      contarRegistros();
       mostrarTodos = false;
-      RequestContext.getCurrentInstance().update("form:mostrarTodos");
    }
 
    public void recibirDatosTiposFormulas(TiposFormulas tiposFormulasRegistro) {
@@ -545,7 +538,7 @@ public class ControlFormula implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
       formulaSeleccionada = null;
       if (bandera == 0) {
-//         altoTabla = "184";
+//         altoTablaReg = "184";
          columnaNombreLargo = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreLargo");
          columnaNombreLargo.setFilterStyle("width: 85% !important;");
          columnaNombreCorto = (Column) c.getViewRoot().findComponent("form:datosFormulas:columnaNombreCorto");
@@ -1136,15 +1129,30 @@ public class ControlFormula implements Serializable {
       this.formulaClon = formulaClon;
    }
 
-   public String getAltoTabla() {
+   public String getAltoTablaReg() {
       columnaNombreCorto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulas:columnaNombreCorto");
       if (columnaNombreCorto.getFilterStyle().startsWith("width: 85%")) {
-         altoTabla = "" + 7;
+         altoTablaReg = "" + 8;
       } else {
          bandera = 0;
-         altoTabla = "" + 8;
+         altoTablaReg = "" + 9;
       }
-      return altoTabla;
+      return altoTablaReg;
+   }
+
+   public String getAltoTablaH() {
+      columnaNombreCorto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosFormulas:columnaNombreCorto");
+      if (columnaNombreCorto.getFilterStyle().startsWith("width: 85%")) {
+         altoTablaH = "" + 180;
+      } else {
+         bandera = 0;
+         altoTablaH = "" + 200;
+      }
+      return altoTablaH;
+   }
+
+   public void setAltoTablaH(String altoTablaH) {
+      this.altoTablaH = altoTablaH;
    }
 
    public boolean isDisabledPropiedadesFormula() {
@@ -1175,14 +1183,6 @@ public class ControlFormula implements Serializable {
    }
 
    public Formulas getFormulaSeleccionada() {
-      getListaFormulas();
-      if (listaFormulas != null) {
-         if (listaFormulas.size() > 0) {
-            if (formulaSeleccionada == null) {
-               formulaSeleccionada = listaFormulas.get(0);
-            }
-         }
-      }
       return formulaSeleccionada;
    }
 

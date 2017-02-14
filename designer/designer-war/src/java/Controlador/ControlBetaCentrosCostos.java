@@ -1276,8 +1276,6 @@ public class ControlBetaCentrosCostos implements Serializable {
    }
 
    public void guardarCambiosCentroCosto() {
-      RequestContext context = RequestContext.getCurrentInstance();
-
       if (guardado == false) {
          if (!borrarCentrosCostos.isEmpty()) {
             administrarCentroCostos.borrarCentroCostos(borrarCentrosCostos);
@@ -1293,7 +1291,7 @@ public class ControlBetaCentrosCostos implements Serializable {
             administrarCentroCostos.modificarCentroCostos(modificarCentrosCostos);
             modificarCentrosCostos.clear();
          }
-         RequestContext.getCurrentInstance().update("form:datosTipoCentroCosto");
+         RequestContext.getCurrentInstance().update("form:datosCentrosCostos");
          k = 0;
          guardado = true;
 
@@ -1323,12 +1321,10 @@ public class ControlBetaCentrosCostos implements Serializable {
          RequestContext.getCurrentInstance().update("form:lovEmpresas");
          banderaModificacionEmpresa = 1;
       }
-
    }
 
    public void activarCtrlF11() {
       System.out.println("\n ENTRE A CONTROLBETACENTROSCOSTOS.activarCtrlF11 \n");
-
       try {
          FacesContext c = FacesContext.getCurrentInstance();
          if (bandera == 0) {

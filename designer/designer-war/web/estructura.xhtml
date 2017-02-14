@@ -232,9 +232,9 @@
                   </fieldset>
                </p:panel>
 
-               <p:commandButton id="ACEPTAR" value="" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();" disabled="#{controlEstructura.guardado}"
-                                update=":form:datosOrganigramas" process="@this" />
-               <p:commandButton id="ATRAS" value="" class="cssBotonCancelar" actionListener="#{controlEstructura.salir()}"  process="@this"/>
+               <p:commandButton id="ACEPTAR" value="" style="margin-top: 5px;" class="cssBotonAceptar" onclick="PF('confirmarGuardar').show();" disabled="#{controlEstructura.guardado}"
+                                update=":form:datosOrganigramas" process="@this"/>
+               <p:commandButton id="ATRAS" value="" style="margin-top: 5px;" class="cssBotonCancelar" actionListener="#{controlEstructura.salir()}" process="@this"/>
 
                <!-- DIALOGO L.O.V ESTATICO DE EMPRESAS -->
                <p:dialog header="#{msg['empresasEM']}" widgetVar="EmpresasDialogo" draggable="true" resizable="false" closable="false" id="EmpresasDialogo"  

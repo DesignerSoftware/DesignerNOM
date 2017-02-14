@@ -11,7 +11,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -95,7 +96,7 @@ public class ControlConcepto implements Serializable {
    private String paginaAnterior;
    private Map<String, Object> mapParametros;
    //
-   private String altoTabla;
+   private String altoTablaReg, altoTablaH;
    private String infoRegistro;
    private String infoRegistroUnidad, infoRegistroTercero, infoRegistroEmpresa, infoRegistroConcepto;
    //
@@ -111,7 +112,7 @@ public class ControlConcepto implements Serializable {
 
       conceptoSeleccionado = null;
       activoDetalle = true;
-//      altoTabla = "205";
+//      altoTablaReg = "205";
       lovUnidades = null;
       lovTerceros = null;
       lovEmpresas = null;
@@ -167,7 +168,7 @@ public class ControlConcepto implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -1027,6 +1028,7 @@ public class ControlConcepto implements Serializable {
       cualCelda = -1;
       activoDetalle = true;
 //        RequestContext.getCurrentInstance().update("form:DETALLES");
+      contarRegistros();
    }
 
    public void seleccionConcepto() {
@@ -1054,6 +1056,7 @@ public class ControlConcepto implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:lovConceptos");
       RequestContext.getCurrentInstance().update("formularioDialogos:ConceptosDialogo");
       RequestContext.getCurrentInstance().update("formularioDialogos:aceptarC");
+      contarRegistros();
    }
 
    public void cancelarSeleccionConcepto() {
@@ -1185,7 +1188,7 @@ public class ControlConcepto implements Serializable {
       conceptoSeleccionado = null;
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-//         altoTabla = "185";
+//         altoTablaReg = "185";
          columnaIndependienteConcepto = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaIndependienteConcepto");
          columnaIndependienteConcepto.setFilterStyle("width: 85% !important;");
          columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
@@ -1506,7 +1509,7 @@ public class ControlConcepto implements Serializable {
          cargarTablaDefault();
       }
       activoDetalle = true;
-//      altoTabla = "205";
+//      altoTablaReg = "205";
       aceptar = true;
       listaConceptosBorrar.clear();
       listaConceptosEmpresaCrear.clear();
@@ -1558,7 +1561,7 @@ public class ControlConcepto implements Serializable {
 
    public void cargarTablaDefault() {
       FacesContext c = FacesContext.getCurrentInstance();
-//      altoTabla = "205";
+//      altoTablaReg = "205";
       columnaCodigo = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
       columnaCodigo.setFilterStyle("display: none; visibility: hidden;");
       columnaDescripción = (Column) c.getViewRoot().findComponent("form:datosConceptos:columnaDescripción");
@@ -1750,7 +1753,7 @@ public class ControlConcepto implements Serializable {
    public void verDetalle(Conceptos conceptoS) {
       conceptoSeleccionado = conceptoS;
       FacesContext fc = FacesContext.getCurrentInstance();
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleConcepto");
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleconcepto");
    }
 
    public void cargarLovs() {
@@ -1986,19 +1989,34 @@ public class ControlConcepto implements Serializable {
       this.guardado = guardado;
    }
 
-   public String getAltoTabla() {
+   public String getAltoTablaReg() {
       columnaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
       if (columnaCodigo.getFilterStyle().startsWith("width: 85%")) {
-         altoTabla = "" + 7;
+         altoTablaReg = "" + 7;
       } else {
          bandera = 0;
-         altoTabla = "" + 8;
+         altoTablaReg = "" + 8;
       }
-      return altoTabla;
+      return altoTablaReg;
    }
 
-   public void setAltoTabla(String altoTabla) {
-      this.altoTabla = altoTabla;
+   public void setAltoTablaReg(String altoTablaReg) {
+      this.altoTablaReg = altoTablaReg;
+   }
+
+   public String getAltoTablaH() {
+      columnaCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosConceptos:columnaCodigo");
+      if (columnaCodigo.getFilterStyle().startsWith("width: 85%")) {
+         altoTablaH = "" + 170;
+      } else {
+         bandera = 0;
+         altoTablaH = "" + 190;
+      }
+      return altoTablaH;
+   }
+
+   public void setAltoTablaH(String altoTablaH) {
+      this.altoTablaH = altoTablaH;
    }
 
    public String getInfoRegistro() {
