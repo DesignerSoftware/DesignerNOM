@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -121,7 +122,9 @@ public class ControlNReporteContabilidad implements Serializable {
     private String resultadoReporte;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-
+private ExternalContext externalContext;
+    private String userAgent;
+    
     public ControlNReporteContabilidad() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
@@ -201,6 +204,8 @@ public class ControlNReporteContabilidad implements Serializable {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            externalContext = x.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
             administrarNReporteContabilidad.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
             administrarInforeportes.obtenerConexion(ses.getId());
@@ -654,14 +659,19 @@ public class ControlNReporteContabilidad implements Serializable {
                 if (file != null) {
                     System.out.println("validar descarga reporte - ingreso al if 3");
                     if (inforreporteSeleccionado != null) {
-                        System.out.println("validar descarga reporte - ingreso al if 4");
-                        cabezeraVisor = "Reporte - " + nombreReporte;
+                         if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                            //System.out.println("Acceso por mobiles.");
+                            context.update("formDialogos:descargarReporte");
+                            context.execute("PF('descargarReporte').show();");
+                        } else {
+                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        }
                     } else {
                         System.out.println("validar descarga reporte - ingreso al if 4 else ");
                         cabezeraVisor = "Reporte - ";
                     }
-                    RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                    RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                   
                 }
             }
         } else {

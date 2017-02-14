@@ -28,9 +28,12 @@ import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -156,6 +159,8 @@ public class ControlNReporteNomina implements Serializable {
     private int tipoLista;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<>();
+    private ExternalContext externalContext;
+    private String userAgent;
 
     public ControlNReporteNomina() {
         System.out.println(this.getClass().getName() + ".Constructor()");
@@ -251,16 +256,18 @@ public class ControlNReporteNomina implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void iniciarAdministradores() {
         System.out.println(this.getClass().getName() + ".iniciarAdministradores()");
         try {
             FacesContext contexto = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) contexto.getExternalContext().getSession(false);
+            externalContext = contexto.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
             administarReportes.obtenerConexion(ses.getId());
             administrarNReportesNomina.obtenerConexion(ses.getId());
             System.out.println(this.getClass().getName() + " fin de iniciarAdministradores()");
@@ -888,16 +895,23 @@ public class ControlNReporteNomina implements Serializable {
                 }
                 if (reporte != null) {
                     System.out.println("validar descarga reporte - ingreso al if 3");
+                    System.out.println("userAgent: " + userAgent);
+                    System.out.println("userAgent.toUpperCase().contains(\"Mobile.toUpperCase(): " + userAgent.toUpperCase().contains("Mobile".toUpperCase()));
                     if (reporteSeleccionado != null) {
                         System.out.println("validar descarga reporte - ingreso al if 4");
-                        //cabezeraVisor = "Reporte - " + reporteSeleccionado.getNombre();
+                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                            //System.out.println("Acceso por mobiles.");
+                            context.update("formDialogos:descargarReporte");
+                            context.execute("PF('descargarReporte').show();");
+                        } else {
+                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        }
                         cabezeraVisor = "Reporte - " + nombreReporte;
                     } else {
                         System.out.println("validar descarga reporte - ingreso al if 4 else ");
                         cabezeraVisor = "Reporte - ";
                     }
-                    RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                    RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                 }
 //                pathReporteGenerado = null;
             }
@@ -1540,14 +1554,12 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setLocalizacion(new Estructuras());
                 parametroModificacion = parametroDeReporte;
-                listValEstructuras.clear();
-                getListValEstructuras();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
         }
         if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
-            if (!valorConfirmar.isEmpty()) {
+     if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
                 for (int i = 0; i < listValTiposTrabajadores.size(); i++) {
                     if (listValTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -1570,8 +1582,6 @@ public class ControlNReporteNomina implements Serializable {
             } else {
                 parametroDeReporte.setTipotrabajador(new TiposTrabajadores());
                 parametroModificacion = parametroDeReporte;
-                listValTiposTrabajadores.clear();
-                getListValTiposTrabajadores();
                 cambiosReporte = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
             }
@@ -1941,6 +1951,7 @@ public class ControlNReporteNomina implements Serializable {
 
     public void contarRegistrosTipoTrabajador() {
         RequestContext.getCurrentInstance().update("form:infoRegistroTipoTrabajador");
+
     }
 
     private static abstract class FacesContextWrapper extends FacesContext {

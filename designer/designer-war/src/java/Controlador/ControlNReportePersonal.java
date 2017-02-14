@@ -34,6 +34,7 @@ import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -158,6 +159,8 @@ public class ControlNReportePersonal implements Serializable {
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<>();
     private Map<BigInteger, Object> mapTipos = new LinkedHashMap<>();
+    private ExternalContext externalContext;
+    private String userAgent;
 
     public ControlNReportePersonal() {
         System.out.println("Controlador.ControlNReportePersonal.<init>()");
@@ -249,16 +252,18 @@ public class ControlNReportePersonal implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         System.out.println(this.getClass().getName() + ".iniciarAdministrador()");
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            externalContext = x.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
             administrarNReportePersonal.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
             administrarInforeportes.obtenerConexion(ses.getId());
@@ -345,7 +350,7 @@ public class ControlNReportePersonal implements Serializable {
                 System.out.println("ControlNReporteNomina.guardarCambios().if (!listaInfoReportesModificados.isEmpty())");
                 System.out.println("listaInfoReportesModificados.get(0): " + listaInfoReportesModificados.get(0) + "Tipo: " + listaInfoReportesModificados.get(0).getTipo());
                 if (!mapTipos.isEmpty()) {
-                    listaInfoReportesModificados.get(0).setTipo( (String) mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()));
+                    listaInfoReportesModificados.get(0).setTipo((String) mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()));
                     System.out.println("mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()): " + mapTipos.get(listaInfoReportesModificados.get(0).getSecuencia()));
                 }
                 System.out.println("listaInfoReportesModificados.get(0): " + listaInfoReportesModificados.get(0) + "Tipo: " + listaInfoReportesModificados.get(0).getTipo());
@@ -2001,15 +2006,19 @@ public class ControlNReportePersonal implements Serializable {
                 if (reporte != null) {
                     System.out.println("validar descarga reporte - ingreso al if 3");
                     if (reporteSeleccionado != null) {
-                        System.out.println("validar descarga reporte - ingreso al if 4");
-                        //cabezeraVisor = "Reporte - " + reporteSeleccionado.getNombre();
+                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                            //System.out.println("Acceso por mobiles.");
+                            context.update("formDialogos:descargarReporte");
+                            context.execute("PF('descargarReporte').show();");
+                        } else {
+                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                        }
                         cabezeraVisor = "Reporte - " + nombreReporte;
                     } else {
                         System.out.println("validar descarga reporte - ingreso al if 4 else ");
                         cabezeraVisor = "Reporte - ";
                     }
-                    RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                    RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
                 }
                 //pathReporteGenerado = null;
             }

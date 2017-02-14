@@ -42,6 +42,7 @@ import org.primefaces.component.inputtext.InputText;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.StreamedContent;
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
@@ -134,6 +135,8 @@ public class ControlReportesBancos implements Serializable {
     private String resultadoReporte;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private ExternalContext externalContext;
+    private String userAgent;
 
     public ControlReportesBancos() {
         activoMostrarTodos = true;
@@ -176,15 +179,17 @@ public class ControlReportesBancos implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+            externalContext = x.getExternalContext();
+            userAgent = externalContext.getRequestHeaderMap().get("User-Agent");
             administrarReportesBancos.obtenerConexion(ses.getId());
             administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
@@ -1142,7 +1147,11 @@ public class ControlReportesBancos implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
             System.out.println("validar descarga reporte - ingreso al if");
-            RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
+            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                //System.out.println("Acceso por mobiles.");
+                context.update("formDialogos:descargarReporte");
+                context.execute("PF('descargarReporte').show();");
+            }
         } else {
             System.out.println("validar descarga reporte - ingreso al else");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
