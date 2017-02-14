@@ -61,15 +61,14 @@ public class TiposTallas implements Serializable {
     }
 
     public String getDescripcion() {
+        if (descripcion == null) {
+            descripcion = "";
+        }
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        if (descripcion != null) {
-            this.descripcion = descripcion.toUpperCase();
-        } else {
-            this.descripcion = descripcion;
-        }
+        this.descripcion = descripcion;
     }
 
     @Override

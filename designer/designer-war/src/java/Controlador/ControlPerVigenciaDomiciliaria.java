@@ -427,11 +427,11 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -536,15 +536,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         getListVigenciasDomiciliarias();
         listAntecedentesM = null;
         getListAntecedentesM();
-//        if (listAntecedentesM != null) {
-//            if (!listAntecedentesM.isEmpty()) {
-//                antecedentemSeleccionado = listAntecedentesM.get(0);
-//                System.out.println("antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getSecuencia());
-//                System.out.println("tipo antecedente medico seleccionado en recibir empleado" + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
-//            }
-//        }
-
-        getLovAntecedentes();
+        lovAntecedentes = null;
+        cargarLovAntecedentes();
         if (lovAntecedentes != null) {
             for (int i = 0; i < lovAntecedentes.size(); i++) {
                 lovAntecedentesDescripcion.add(lovAntecedentes.get(i).getDescripcion());
@@ -612,7 +605,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                         familiarSeleccionado.setTipofamiliar(lovTiposFamiliares.get(indiceUnicoElemento));
                     }
                     lovTiposFamiliares.clear();
-                    getLovTiposFamiliares();
+                    cargarLovTiposFamiliares();
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
@@ -627,24 +620,12 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     familiarSeleccionado.setTipofamiliar(new TiposFamiliares());
                 }
                 lovTiposFamiliares.clear();
-                getLovTiposFamiliares();
+                cargarLovTiposFamiliares();
             }
 
         }
         if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
-                    if (listaFamiliaresModificar.isEmpty()) {
-                        listaFamiliaresModificar.add(familiarSeleccionado);
-                    } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
-                        listaFamiliaresModificar.add(familiarSeleccionado);
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-            } else if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
+            if (!listaFamiliaresCrear.contains(familiarSeleccionado)) {
                 if (listaFamiliaresModificar.isEmpty()) {
                     listaFamiliaresModificar.add(familiarSeleccionado);
                 } else if (!listaFamiliaresModificar.contains(familiarSeleccionado)) {
@@ -980,22 +961,32 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 1) {
+            lovPersonas = null;
+            cargarLovPersonas();
             contarRegistroPersonas();
             RequestContext.getCurrentInstance().update("formularioDialogos:personaFamiliarDialogo");
             RequestContext.getCurrentInstance().execute("PF('personaFamiliarDialogo').show()");
         } else if (dlg == 2) {
+            lovTiposFamiliares = null;
+            cargarLovTiposFamiliares();
             contarRegistroTipoFamiliar();
             RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
             RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').show()");
         } else if (dlg == 3) {
+            lovTiposDocumentos = null;
+            cargarLovTiposDocumentos();
             contarRegistrosTipoDocumento();
             RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
             RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').show()");
         } else if (dlg == 4) {
+            lovCiudadDocumento = null;
+            cargarLovCiudadesDocumento();
             contarRegistroCiudades();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').show()");
         } else if (dlg == 5) {
+            lovCiudades = null;
+            cargarLovCiudades();
             contarRegistroCiudadNacimiento();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
@@ -1307,7 +1298,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoFamiliar");
                 }
                 lovTiposFamiliares.clear();
-                getLovTiposFamiliares();
+                cargarLovTiposFamiliares();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:tipoFamiliarDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tipoFamiliarDialogo').show()");
@@ -1339,7 +1330,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadDocumento");
                 }
                 lovCiudades.clear();
-                getLovTiposFamiliares();
+                cargarLovCiudadesDocumento();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').show()");
@@ -1372,7 +1363,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarCiudadNacimiento");
                 }
                 lovCiudades.clear();
-                getLovTiposFamiliares();
+                cargarLovCiudades();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
@@ -1404,7 +1395,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoDocumento");
                 }
                 lovTiposDocumentos.clear();
-                getLovTiposFamiliares();
+                getLovTiposDocumentos();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').show()");
@@ -1488,7 +1479,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 if (coincidencias == 1) {
                     antecedentemSeleccionado.setTipoantecedente(lovTiposAntecedentes.get(indiceUnicoElemento));
                     lovTiposAntecedentes.clear();
-                    getLovTiposAntecedentes();
+                    cargarLovTiposAntecedentes();
                 } else {
                     permitirIndex = false;
                     RequestContext.getCurrentInstance().update("formularioDialogos:tipoAntecedenteDialogo");
@@ -1498,7 +1489,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             } else {
                 coincidencias = 1;
                 antecedentemSeleccionado.setTipoantecedente(new SoTiposAntecedentes());
-                getLovTiposAntecedentes();
+                cargarLovTiposAntecedentes();
             }
 
         }
@@ -1955,6 +1946,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 2) {
+            lovTiposAntecedentes = null;
+            cargarLovTiposAntecedentes();
             contarRegistroTipoAntecedentes();
             RequestContext.getCurrentInstance().execute("PF('tiposAntecedentesDialogo').show()");
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposAntecedentesDialogo");
@@ -2374,7 +2367,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     direccionSeleccionada.setCiudad(lovCiudades.get(indiceUnicoElemento));
                 }
                 lovCiudades.clear();
-                getLovCiudades();
+                cargarLovCiudadesDireccion();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
@@ -2412,6 +2405,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     public void asignarIndexDirecciones(Direcciones direccion) {
         direccionSeleccionada = direccion;
         RequestContext context = RequestContext.getCurrentInstance();
+        lovCiudadDireccion = null;
+        cargarLovCiudadesDireccion();
         contarRegistrosCiudadesDirecciones();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
         RequestContext.getCurrentInstance().execute("PF('ciudadesDireccionesDialogo').show()");
@@ -2436,6 +2431,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         } else if (tipoN == 2) {
             tipoActualizacion = 2;
         }
+        lovCiudadDireccion = null;
+        cargarLovCiudadesDireccion();
         contarRegistrosCiudadesDirecciones();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDireccionesDialogo");
@@ -2938,15 +2935,16 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         telefonoSeleccionado = telefono;
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
-
         if (dlg == 0) {
-            getLovTiposTelefonos();
-//            contarRegistroTT();
+            lovTiposTelefonos = null;
+            cargarLovTiposTelefonos();
+            contarRegistroTT();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposTelefonosDialogo').show()");
         } else if (dlg == 1) {
-            getLovCiudades();
-//            contarRegistroCiudad();
+            lovCiudadTelefono = null;
+            cargarLovCiudadesTelefono();
+            contarRegistrosCiudadesTelefonos();
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesTelefonoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadesTelefonoDialogo').show()");
         }
@@ -3005,7 +3003,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     telefonoSeleccionado.setTipotelefono(lovTiposTelefonos.get(indiceUnicoElemento));
                 }
                 lovTiposTelefonos.clear();
-                getLovTiposTelefonos();
+                cargarLovTiposTelefonos();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposTelefonosDialogo");
@@ -3031,7 +3029,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     telefonoSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
                 }
                 lovCiudades.clear();
-                getLovCiudades();
+                cargarLovCiudades();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:ciudadesDialogo");
@@ -3572,8 +3570,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         vigenciaEstadoCivilSeleccionado = vigenciaEstadoCivil;
         tipoActualizacion = LND;
         if (dig == 1) {
-//                habilitarBotonLov();
-//                contarRegistroEC();
+            lovEstadosCiviles = null;
+            cargarLovEstadosCiviles();
+            contarRegistroLovEstadosCiviles();
             RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
         }
@@ -3806,6 +3805,8 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         if (tipoNuevo == 1) {
             tipoActualizacion = 2;
         }
+        lovEstadosCiviles = null;
+        cargarLovEstadosCiviles();
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:EstadoCivilDialogo");
         RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
@@ -4118,18 +4119,26 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
+            lovTiposEducaciones = null;
+            cargarLovTiposEducaciones();
             contarRegistrosTipoEducacion();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
+            lovProfesiones = null;
+            cargarLovProfesiones();
             contarRegistrosProfesion();
             RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
+            lovInstituciones = null;
+            cargarLovInstituciones();
             contarRegistrosInstituciones();
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
+            lovAdiestramientos = null;
+            cargarLovAdiestramientos();
             contarRegistrosAdiestramiento();
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
@@ -4219,7 +4228,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     vigenciaFormalSeleccionada.setTipoeducacion(lovTiposEducaciones.get(indiceUnicoElemento));
                 }
                 lovTiposEducaciones.clear();
-                getLovTiposEducaciones();
+                cargarLovTiposEducaciones();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
@@ -4245,7 +4254,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     vigenciaFormalSeleccionada.setProfesion(lovProfesiones.get(indiceUnicoElemento));
                 }
                 lovProfesiones.clear();
-                getLovProfesiones();
+                cargarLovProfesiones();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
@@ -4271,7 +4280,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     vigenciaFormalSeleccionada.setInstitucion(lovInstituciones.get(indiceUnicoElemento));
                 }
                 lovInstituciones.clear();
-                getLovInstituciones();
+                cargarLovInstituciones();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
@@ -4297,7 +4306,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     vigenciaFormalSeleccionada.setAdiestramientof(lovAdiestramientos.get(indiceUnicoElemento));
                 }
                 lovAdiestramientos.clear();
-                getLovAdiestramientos();
+                cargarLovAdiestramientos();
             } else {
                 permitirIndex = false;
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
@@ -4994,7 +5003,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
                 }
                 lovTiposEducaciones.clear();
-                getLovTiposEducaciones();
+                cargarLovTiposEducaciones();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
@@ -5026,7 +5035,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
                 }
                 lovProfesiones.clear();
-                getLovProfesiones();
+                cargarLovProfesiones();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
@@ -5058,7 +5067,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
                 }
                 lovInstituciones.clear();
-                getLovInstituciones();
+                cargarLovInstituciones();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
@@ -5090,7 +5099,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
                 }
                 lovAdiestramientos.clear();
-                getLovAdiestramientos();
+                cargarLovAdiestramientos();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
                 RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
@@ -5179,10 +5188,14 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             tipoActualizacion = 2;
         }
         if (dlg == 1) {
+            lovSectoresEconomicos = null;
+            cargarLovSectoresEconomicos();
             contarRegistroSector();
             RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
             RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
         } else if (dlg == 2) {
+            lovMotivos = null;
+            cargarLovMotivos();
             contarRegistroMotivo();
             RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
             RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
@@ -5398,7 +5411,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     hvexpSeleccionada.setSectoreconomico(lovSectoresEconomicos.get(indiceUnicoElemento));
                 }
                 lovSectoresEconomicos = null;
-                getLovSectoresEconomicos();
+                cargarLovSectoresEconomicos();
 
             } else {
                 permitirIndex = false;
@@ -5428,7 +5441,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                         hvexpSeleccionada.setMotivoretiro(lovMotivos.get(indiceUnicoElemento));
                     }
                     lovMotivos = null;
-                    getLovMotivos();
+                    cargarLovMotivos();
 
                 } else {
                     permitirIndex = false;
@@ -5439,7 +5452,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             } else {
                 coincidencias = 1;
                 lovMotivos = null;
-                getLovMotivos();
+                cargarLovMotivos();
                 if (tipoLista == 0) {
                     hvexpSeleccionada.setMotivoretiro(new MotivosRetiros());
                 } else {
@@ -5521,7 +5534,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                     RequestContext.getCurrentInstance().update("formularioDialogos:duplicarSectorEP");
                 }
                 lovSectoresEconomicos = null;
-                getLovSectoresEconomicos();
+                cargarLovSectoresEconomicos();
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:SectorDialogo");
                 RequestContext.getCurrentInstance().execute("PF('SectorDialogo').show()");
@@ -5555,7 +5568,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                         RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMotivoEP");
                     }
                     lovMotivos = null;
-                    getLovMotivos();
+                    cargarLovMotivos();
                 } else {
                     RequestContext.getCurrentInstance().update("formularioDialogos:MotivosDialogo");
                     RequestContext.getCurrentInstance().execute("PF('MotivosDialogo').show()");
@@ -5568,7 +5581,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 }
             } else {
                 lovMotivos = null;
-                getLovMotivos();
+                cargarLovMotivos();
                 if (tipoNuevo == 1) {
                     nuevahvexp.setMotivoretiro(new MotivosRetiros());
                     RequestContext.getCurrentInstance().update("formularioDialogos:nuevaMotivoEP");
@@ -5580,42 +5593,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         }
     }
 
-//    public void guardarCambiosExpLaboral() {
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        try {
-//            if (guardado == false) {
-//                if (!listhvExpLaboralesBorrar.isEmpty()) {
-//                    administrarVigDomiciliarias.borrarExperienciaLaboral(listhvExpLaboralesBorrar);
-//                    listhvExpLaboralesBorrar.clear();
-//                }
-//                if (!listhvExpLaboralesCrear.isEmpty()) {
-//                    administrarVigDomiciliarias.crearExperienciaLaboral(listhvExpLaboralesCrear);
-//                    listhvExpLaboralesCrear.clear();
-//                }
-//                if (!listhvExpLaboralesModificar.isEmpty()) {
-//                    administrarVigDomiciliarias.editarExperienciaLaboral(listhvExpLaboralesModificar);
-//                    listhvExpLaboralesModificar.clear();
-//                }
-//                listhvExpLaborales = null;
-//                getListhvExpLaborales();
-//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//                k = 0;
-//                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
-//                FacesContext.getCurrentInstance().addMessage(null, msg);
-//                RequestContext.getCurrentInstance().update("form:growl");
-//                contarRegistrosExp();
-//                hvexpSeleccionada = null;
-//            }
-//            guardado = true;
-//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//            RequestContext.getCurrentInstance().update("form:datosExperiencia");
-//        } catch (Exception e) {
-//            System.out.println("Error guardarCambios : " + e.toString());
-//            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-//            RequestContext.getCurrentInstance().update("form:growl");
-//        }
-//    }
     public void cancelarModificacionExpLaboral() {
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -6141,20 +6118,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     //////
     public void modificarVigenciaDomiciliaria(VigenciasDomiciliarias vigenciaD) {
         vigenciasDomiciliariaSeleccionada = vigenciaD;
-        if (tipoLista == 0) {
-            if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
-                if (listVigenciasDomiciliariasModificar.isEmpty()) {
-                    listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
-                } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
-                    listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
-                }
-                if (guardado == true) {
-                    guardado = false;
-                    RequestContext context = RequestContext.getCurrentInstance();
-                    RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                }
-            }
-        } else if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
+        if (!listVigenciasDomiciliariasCrear.contains(vigenciasDomiciliariaSeleccionada)) {
             if (listVigenciasDomiciliariasModificar.isEmpty()) {
                 listVigenciasDomiciliariasModificar.add(vigenciasDomiciliariaSeleccionada);
             } else if (!listVigenciasDomiciliariasModificar.contains(vigenciasDomiciliariaSeleccionada)) {
@@ -6605,6 +6569,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void mostrarDialogoCargos() {
+        lovCargos = null;
+        cargarLovCargos();
+        contarRegistrosCargo();
         RequestContext.getCurrentInstance().update("formularioDialogos:cargoDialogo");
         RequestContext.getCurrentInstance().execute("PF('cargoDialogo').show()");
     }
@@ -7373,7 +7340,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
                 vigenciaEstadoCivilSeleccionado = null;
                 hvexpSeleccionada = null;
                 lovVisitas = null;
-                getLovVisitas();
+                cargarLovVisitas();
             }
         } catch (Exception e) {
             System.out.println("Error guardarCambios : " + e.getMessage());
@@ -7489,9 +7456,9 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public void checkDefault() {
-//        activarotroaporte = true;
-//        activarotroegreso = true;
-//        activarotroservicio = true;
+        activarotroaporte = true;
+        activarotroegreso = true;
+        activarotroservicio = true;
         RequestContext.getCurrentInstance().update("form:servagua");
         RequestContext.getCurrentInstance().update("form:servluz");
         RequestContext.getCurrentInstance().update("form:servtel");
@@ -7500,7 +7467,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:servalc");
         RequestContext.getCurrentInstance().update("form:servaseo");
         RequestContext.getCurrentInstance().update("form:servotro");
-//        RequestContext.getCurrentInstance().update("form:otrosservicios");
+        RequestContext.getCurrentInstance().update("form:otrosservicios");
 
         RequestContext.getCurrentInstance().update("form:editarIngresos");
         RequestContext.getCurrentInstance().update("form:comind");
@@ -7516,7 +7483,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:Abuelo");
         RequestContext.getCurrentInstance().update("form:Tío");
         RequestContext.getCurrentInstance().update("form:Otro");
-//        RequestContext.getCurrentInstance().update("form:otrosIngresos");
+        RequestContext.getCurrentInstance().update("form:otrosIngresos");
 
         RequestContext.getCurrentInstance().update("form:educacion");
         RequestContext.getCurrentInstance().update("form:recreacion");
@@ -7525,7 +7492,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:Arriendo");
         RequestContext.getCurrentInstance().update("form:Servicios");
         RequestContext.getCurrentInstance().update("form:egresootro");
-//        RequestContext.getCurrentInstance().update("form:otrosEgresos");
+        RequestContext.getCurrentInstance().update("form:otrosEgresos");
 
         RequestContext.getCurrentInstance().update("form:editarObservaciones");
         RequestContext.getCurrentInstance().update("form:editarConceptoF");
@@ -7536,7 +7503,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:editarNivelAc");
         RequestContext.getCurrentInstance().update("form:editarMotivacionC");
         RequestContext.getCurrentInstance().update("form:editarPersonas");
-
     }
 
     public void mostrarDialogoInsertarTelefono() {
@@ -7624,13 +7590,11 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
 
     public void mostrarDialogoBuscarVisita() {
         lovVisitas = null;
-        getLovVisitas();
+        cargarLovVisitas();
+        contarRegistrosLovVisita();
         System.out.println("lov visitas : " + lovVisitas);
         if (lovVisitas == null || lovVisitas.isEmpty()) {
-//            if (lovVisitas.isEmpty()) {
             RequestContext.getCurrentInstance().execute("PF('sinVisitas').show()");
-//            }
-//            }
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:buscarVisita");
             RequestContext.getCurrentInstance().execute("PF('buscarVisita').show()");
@@ -7964,6 +7928,126 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
+    public void cargarLovTiposEducaciones() {
+        if (lovTiposEducaciones == null) {
+            lovTiposEducaciones = administrarVigDomiciliarias.lovTiposEducaciones();
+        }
+    }
+
+    public void cargarLovProfesiones() {
+        if (lovProfesiones == null) {
+            lovProfesiones = administrarVigDomiciliarias.lovProfesiones();
+        }
+    }
+
+    public void cargarLovAdiestramientos() {
+        if (lovAdiestramientos == null) {
+            lovAdiestramientos = administrarVigDomiciliarias.lovAdiestramientos();
+        }
+    }
+
+    public void cargarLovInstituciones() {
+        if (lovInstituciones == null) {
+            lovInstituciones = administrarVigDomiciliarias.lovInstituciones();
+        }
+    }
+
+    public void cargarLovMotivos() {
+        if (lovMotivos == null) {
+            lovMotivos = administrarVigDomiciliarias.lovMotivosRetiros();
+        }
+    }
+
+    public void cargarLovTiposFamiliares() {
+        if (lovTiposFamiliares == null) {
+            lovTiposFamiliares = administrarVigDomiciliarias.lovTiposFamiliares();
+        }
+    }
+
+    public void cargarLovPersonas() {
+        if (lovPersonas == null) {
+            lovPersonas = administrarVigDomiciliarias.lovPersonas();
+        }
+    }
+
+    public void cargarLovAntecedentes() {
+        if (lovAntecedentes == null) {
+            if (tipoActualizacion == 0) {
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(antecedentemSeleccionado.getTipoantecedente().getSecuencia());
+            } else if (tipoActualizacion == 1) {
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(nuevoAntecedentem.getTipoantecedente().getSecuencia());
+            } else if (tipoActualizacion == 2) {
+                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(duplicarAntecedenteM.getTipoantecedente().getSecuencia());
+            }
+        }
+    }
+
+    public void cargarLovTiposAntecedentes() {
+        if (lovTiposAntecedentes == null) {
+            lovTiposAntecedentes = administrarVigDomiciliarias.lovTiposAntecedentes();
+        }
+    }
+
+    public void cargarLovEstadosCiviles() {
+        if (lovEstadosCiviles == null) {
+            lovEstadosCiviles = administrarVigDomiciliarias.lovVigenciasEstadosCiviles();
+        }
+    }
+
+    public void cargarLovTiposTelefonos() {
+        if (lovTiposTelefonos == null) {
+            lovTiposTelefonos = administrarVigDomiciliarias.lovTiposTelefonos();
+        }
+    }
+
+    public void cargarLovCiudades() {
+        if (lovCiudades == null) {
+            lovCiudades = administrarVigDomiciliarias.lovCiudades();
+        }
+    }
+
+    public void cargarLovCiudadesDocumento() {
+        if (lovCiudadDocumento == null) {
+            lovCiudadDocumento = administrarVigDomiciliarias.lovCiudades();
+        }
+    }
+
+    public void cargarLovCiudadesDireccion() {
+        if (lovCiudadDireccion == null) {
+            lovCiudadDireccion = administrarVigDomiciliarias.lovCiudades();
+        }
+    }
+
+    public void cargarLovCiudadesTelefono() {
+        if (lovCiudadTelefono == null) {
+            lovCiudadTelefono = administrarVigDomiciliarias.lovCiudades();
+        }
+    }
+
+    public void cargarLovCargos() {
+        if (lovCargos == null) {
+            lovCargos = administrarVigDomiciliarias.lovCargos();
+        }
+    }
+
+    public void cargarLovTiposDocumentos() {
+        if (lovTiposDocumentos == null) {
+            lovTiposDocumentos = administrarVigDomiciliarias.consultarTiposDocumentos();
+        }
+    }
+
+    public void cargarLovSectoresEconomicos() {
+        if (lovSectoresEconomicos == null) {
+            lovSectoresEconomicos = administrarVigDomiciliarias.lovSectoresEconomicos();
+        }
+    }
+
+    public void cargarLovVisitas() {
+        if (lovVisitas == null) {
+            lovVisitas = administrarVigDomiciliarias.vigenciasDomiciliariasporPersona(persona.getSecuencia());
+        }
+    }
+
 /// /////SETS Y GETS///////
     public List<VigenciasDomiciliarias> getListVigenciasDomiciliarias() {
         if (listVigenciasDomiciliarias == null) {
@@ -8191,79 +8275,46 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<Ciudades> getLovCiudades() {
-        if (lovCiudades == null) {
-            lovCiudades = administrarVigDomiciliarias.lovCiudades();
-        }
         return lovCiudades;
     }
 
     public List<Cargos> getLovCargos() {
-        if (lovCargos == null) {
-            lovCargos = administrarVigDomiciliarias.lovCargos();
-        }
         return lovCargos;
     }
 
     public List<TiposTelefonos> getLovTiposTelefonos() {
-        if (lovTiposTelefonos == null) {
-            lovTiposTelefonos = administrarVigDomiciliarias.lovTiposTelefonos();
-        }
         return lovTiposTelefonos;
     }
 
     public List<TiposEducaciones> getLovTiposEducaciones() {
-        if (lovTiposEducaciones == null) {
-            lovTiposEducaciones = administrarVigDomiciliarias.lovTiposEducaciones();
-        }
         return lovTiposEducaciones;
     }
 
     public List<Profesiones> getLovProfesiones() {
-        if (lovProfesiones == null) {
-            lovProfesiones = administrarVigDomiciliarias.lovProfesiones();
-        }
         return lovProfesiones;
     }
 
     public List<AdiestramientosF> getLovAdiestramientos() {
-        if (lovAdiestramientos == null) {
-            lovAdiestramientos = administrarVigDomiciliarias.lovAdiestramientos();
-        }
         return lovAdiestramientos;
     }
 
     public List<Instituciones> getLovInstituciones() {
-        if (lovInstituciones == null) {
-            lovInstituciones = administrarVigDomiciliarias.lovInstituciones();
-        }
         return lovInstituciones;
     }
 
     public List<MotivosRetiros> getLovMotivos() {
-        if (lovMotivos == null) {
-            lovMotivos = administrarVigDomiciliarias.lovMotivosRetiros();
-        }
         return lovMotivos;
     }
 
     public List<Personas> getLovPersonas() {
-        if (lovPersonas == null) {
-            lovPersonas = administrarVigDomiciliarias.lovPersonas();
-        }
         return lovPersonas;
     }
 
     public List<SoTiposAntecedentes> getLovTiposAntecedentes() {
-        if (lovTiposAntecedentes == null) {
-            lovTiposAntecedentes = administrarVigDomiciliarias.lovTiposAntecedentes();
-        }
         return lovTiposAntecedentes;
     }
 
     public List<EstadosCiviles> getLovEstadosCiviles() {
-        if (lovEstadosCiviles == null) {
-            lovEstadosCiviles = administrarVigDomiciliarias.lovVigenciasEstadosCiviles();
-        }
         return lovEstadosCiviles;
     }
 
@@ -8385,9 +8436,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<TiposFamiliares> getLovTiposFamiliares() {
-        if (lovTiposFamiliares == null) {
-            lovTiposFamiliares = administrarVigDomiciliarias.lovTiposFamiliares();
-        }
         return lovTiposFamiliares;
     }
 
@@ -8706,9 +8754,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<SectoresEconomicos> getLovSectoresEconomicos() {
-        if (lovSectoresEconomicos == null) {
-            lovSectoresEconomicos = administrarVigDomiciliarias.lovSectoresEconomicos();
-        }
         return lovSectoresEconomicos;
     }
 
@@ -8876,9 +8921,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<Ciudades> getLovCiudadDocumento() {
-        if (lovCiudadDocumento == null) {
-            lovCiudadDocumento = administrarVigDomiciliarias.lovCiudades();
-        }
         return lovCiudadDocumento;
     }
 
@@ -8895,9 +8937,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<Ciudades> getLovCiudadDireccion() {
-        if (lovCiudadDireccion == null) {
-            lovCiudadDireccion = administrarVigDomiciliarias.lovCiudades();
-        }
         return lovCiudadDireccion;
     }
 
@@ -8914,9 +8953,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<Ciudades> getLovCiudadTelefono() {
-        if (lovCiudadTelefono == null) {
-            lovCiudadTelefono = administrarVigDomiciliarias.lovCiudades();
-        }
         return lovCiudadTelefono;
     }
 
@@ -9089,21 +9125,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<SoAntecedentes> getLovAntecedentes() {
-        if (lovAntecedentes == null) {
-            if (tipoActualizacion == 0) {
-                System.out.println("tipo antecedente que entra al get lov antecedentes" + " " + antecedentemSeleccionado.getTipoantecedente().getDescripcion());
-                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(antecedentemSeleccionado.getTipoantecedente().getSecuencia());
-                System.out.println("lov antecedentes en el get" + " " + lovAntecedentes);
-            } else if (tipoActualizacion == 1) {
-                System.out.println("tipo antecedente que entra al get lov antecedentes" + " " + nuevoAntecedentem.getTipoantecedente().getDescripcion());
-                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(nuevoAntecedentem.getTipoantecedente().getSecuencia());
-                System.out.println("lov antecedentes en el get" + " " + lovAntecedentes);
-            } else if (tipoActualizacion == 2) {
-                System.out.println("tipo antecedente que entra al get lov antecedentes" + " " + duplicarAntecedenteM.getTipoantecedente().getDescripcion());
-                lovAntecedentes = administrarVigDomiciliarias.lovAntecedentes(duplicarAntecedenteM.getTipoantecedente().getSecuencia());
-                System.out.println("lov antecedentes en el get" + " " + lovAntecedentes);
-            }
-        }
         return lovAntecedentes;
     }
 
@@ -9336,9 +9357,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<TiposDocumentos> getLovTiposDocumentos() {
-        if (lovTiposDocumentos == null) {
-            lovTiposDocumentos = administrarVigDomiciliarias.consultarTiposDocumentos();
-        }
         return lovTiposDocumentos;
     }
 
@@ -9440,6 +9458,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroservicio() {
+        System.out.println("activarotroservicio" + activarotroservicio);
         return activarotroservicio;
     }
 
@@ -9448,6 +9467,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroegreso() {
+        System.out.println("activarotroegreso" + activarotroegreso);
         return activarotroegreso;
     }
 
@@ -9456,6 +9476,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public boolean isActivarotroaporte() {
+        System.out.println("activarotroaporte" + activarotroaporte);
         return activarotroaporte;
     }
 
@@ -9566,9 +9587,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
     }
 
     public List<VigenciasDomiciliarias> getLovVisitas() {
-        if (lovVisitas == null) {
-            lovVisitas = administrarVigDomiciliarias.vigenciasDomiciliariasporPersona(persona.getSecuencia());
-        }
         return lovVisitas;
     }
 
