@@ -388,15 +388,15 @@
                                  </f:facet>
                               </p:column>
 
-                              <p:column style="text-align: center" headerText="#{msg['codigoCC']}" sortBy="#{infoVGC.grupoconcepto.strCodigo}" filterBy="#{infoVGC.grupoconcepto.strCodigo}" 
+                              <p:column style="text-align: center" headerText="#{msg['codigoCC']}" sortBy="#{infoVGC.grupoconcepto.codigo}" filterBy="#{infoVGC.grupoconcepto.codigo}" 
                                         filterMatchMode="contains" id="vigenciaGCCodigo" width="70" filterStyle="display: none; visibility: hidden">                                  
                                  <p:cellEditor>  
-                                    <f:facet name="output"><h:outputText value="#{infoVGC.grupoconcepto.strCodigo}" style="text-transform: uppercase"/></f:facet>  
+                                    <f:facet name="output"><h:outputText value="#{infoVGC.grupoconcepto.codigo}" style="text-transform: uppercase"/></f:facet>  
                                     <f:facet name="input">
-                                       <p:inputText autocomplete="off" value="#{infoVGC.grupoconcepto.strCodigo}" id="editarCodigoVGC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
+                                       <p:inputText autocomplete="off" value="#{infoVGC.grupoconcepto.codigo}" id="editarCodigoVGC" style="border-radius: 0px; width: 99%; text-transform: uppercase;"> 
                                           <p:ajax event="select" listener="#{controlDetalleConcepto.cambiarIndiceVigenciaGrupoConcepto(infoVGC, 2)}"
                                                   onstart="PF('datosVigenciaGrupoConcepto').unselectAllRows();PF('datosVigenciaGrupoConcepto').selectRow(#{indiceVGC});"/>
-                                          <p:ajax event="change" update="editarCodigoVGC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaGrupoConcepto(infoVGC, 'CODIGO', infoVGC.grupoconcepto.strCodigo)}"/>
+                                          <p:ajax event="change" update="editarCodigoVGC" onstart="PF('operacionEnProcesoLovs').show()" oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.modificarVigenciaGrupoConcepto(infoVGC, 'CODIGO', infoVGC.grupoconcepto.codigo)}"/>
                                           <p:ajax event="dblclick" onstart="PF('operacionEnProcesoLovs').show(); PF('datosVigenciaCuenta').unselectAllRows(); PF('datosVigenciaConceptoTT').unselectAllRows(); PF('datosVigenciaConceptoTC').unselectAllRows(); PF('datosVigenciaConceptoRL').unselectAllRows(); PF('datosFormulaConcepto').unselectAllRows();"
                                                   oncomplete="PF('operacionEnProcesoLovs').hide()" listener="#{controlDetalleConcepto.asignarIndex(0,0,1)}" />
                                        </p:inputText>
@@ -767,7 +767,7 @@
                               </p:column> 
 
                            </p:dataTable>
-                           <h:outputText id="infoRegistroFormulaConcepto" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroFormulaConcepto}" style=" left: 10px; top: 0px; font-weight: bold; display: table;"/>
+                           <h:outputText id="infoRegistroFormulaConcepto" value="#{msg['infoRegistro']} #{controlDetalleConcepto.infoRegistroFormulaConcepto}" style="margin-left: 10px; top: 0px; font-weight: bold; display: table;"/>
 
                            <p:commandButton value="#{msg['detalle']}" icon="ui-icon-extlink" style="display: table; left: 680px; top: -16px;" id="detalleFormula"
                                             disabled="#{controlDetalleConcepto.formulaSeleccionada}" class="cssBoton" actionListener="#{controlDetalleConcepto.navegar('formula')}"/>

@@ -85,8 +85,8 @@ public class AdministrarParametros implements AdministrarParametrosInterface {
    }
 
    @Override
-   public List<Procesos> lovProcesos() {
-      return persistenciaProcesos.procesosParametros(em);
+   public List<Procesos> lovProcesos(String aut) {
+      return persistenciaProcesos.procesosParametros(em, aut);
    }
 
    @Override

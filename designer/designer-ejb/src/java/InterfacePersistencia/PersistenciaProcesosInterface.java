@@ -75,7 +75,7 @@ public interface PersistenciaProcesosInterface {
     * @return Retorna una lista de Procesos asociados al usuario que está usando
     * el aplicativo.
     */
-   public List<Procesos> procesosParametros(EntityManager em);
+   public List<Procesos> procesosParametros(EntityManager em, String aut);
 
    public Procesos buscarProcesosPorCodigo(EntityManager em, short codigo);
 

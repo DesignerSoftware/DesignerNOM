@@ -11,6 +11,18 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">                  
+            <script>
+               $(window).load(function () {
+               $(".loader").fadeOut("slow");
+               foco('form:guardarRapido');
+               actualizarLOV();
+               });
+               function foco(idElemento) {
+               document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <div class="loader"></div>
             <h:form id="form">
                <f:loadBundle basename="Recursos.parametro" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -153,8 +165,9 @@
                               </p:inputText>
                               <p:inputText autocomplete="off" id="proceso" value="#{controlParametro.parametroLiquidacion.proceso.descripcion}" 
                                            style="position: relative; left: 28px; width: 180px; text-transform: uppercase; height: 12px; display: inline-block;" 
-                                           ondblclick="llamarLov(([{name: 'LOV', value: 'PROCESO'}]));" onclick="select();">
-                                 <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}"/>
+                                           onclick="select();">
+                                 <p:ajax event="click" listener="#{controlParametro.valoresBackupAutocompletar('PROCESO')}" update=":formularioDialogos:lovProcesos"/>
+                                 <p:ajax event="dblclick" onstart="PF('lovProcesos').clearFilters(); PF('ProcesosDialogo').show();" update=":formularioDialogos:lovProcesos" process="@this"/>
                                  <p:ajax event="change" listener="#{controlParametro.autocompletar('PROCESO', controlParametro.parametroLiquidacion.proceso.descripcion)}"/>
                               </p:inputText>
                            </div>
@@ -347,6 +360,7 @@
                </p:panel>
 
                <p:remoteCommand name="llamarLov" actionListener="#{controlParametro.llamarLov()}" process="@this"/>
+               <!--<p:remoteCommand name="actualizarLOV" update=":formularioDialogos:lovProcesos, formularioDialogos:ProcesosDialogo"/>-->
                <p:remoteCommand name="ubicacionC" actionListener="#{controlParametro.ubicacionCampo()}" process="@this"/>
                <p:remoteCommand name="ubicacionTabla" actionListener="#{controlParametro.ubicacionCampoTabla()}" process="@this"/>
                <p:remoteCommand name="salirGuardado" action="nominaf" process="@this"/>

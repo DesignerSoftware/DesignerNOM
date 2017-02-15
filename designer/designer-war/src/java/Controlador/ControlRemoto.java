@@ -201,7 +201,7 @@ public class ControlRemoto implements Serializable {
       listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -1703,6 +1703,22 @@ public class ControlRemoto implements Serializable {
       columna3.setFilterStyle("");
       RequestContext.getCurrentInstance().update("form:tablasuperiorderecha");
       RequestContext.getCurrentInstance().update("form:tablasuperiorizquierda");
+   }
+
+   public void navegarAParametro() {
+      String automatico = "";
+      if (pago.equalsIgnoreCase("NO AUTOMATICO")) {
+         automatico = "N";
+      } else {
+         automatico = "S";
+      }
+      Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+      mapParametros.put("paginaAnterior", "nominaf");
+      mapParametros.put("automatico", automatico);
+      FacesContext fc = FacesContext.getCurrentInstance();
+      ControlParametro controlParametro = (ControlParametro) fc.getApplication().evaluateExpressionGet(fc, "#{controlParametro}", ControlParametro.class);
+      controlParametro.recibirParametros(mapParametros);
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "parametro");
    }
 
    public void cambiarFormaPago() {

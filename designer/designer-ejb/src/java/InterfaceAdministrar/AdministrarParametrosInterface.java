@@ -38,7 +38,7 @@ public interface AdministrarParametrosInterface {
 
    public List<TiposTrabajadores> lovTiposTrabajadores();
 
-   public List<Procesos> lovProcesos();
+   public List<Procesos> lovProcesos(String aut);
 
    public List<Parametros> empleadosParametros();
 

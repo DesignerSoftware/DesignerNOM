@@ -11,16 +11,16 @@
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
             <script>
-                  $(window).load(function () {
-                     $(".loader").fadeOut("slow");
-                     foco('form:tabmenu:tipopersonal');
-                  });
-                  function foco(idElemento) {
-                     document.getElementById(idElemento).focus();
-                  }
-                  ;
-               </script>
-               <div class="loader"></div> 
+               $(window).load(function () {
+                  $(".loader").fadeOut("slow");
+                  foco('form:tabmenu:tipopersonal');
+               });
+               function foco(idElemento) {
+                  document.getElementById(idElemento).focus();
+               }
+               ;
+            </script>
+            <div class="loader"></div> 
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.nominaf" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
@@ -422,7 +422,7 @@
 
                      <p:tab id="nomina" title="#{msg['nomina']}">
 
-                        <fieldset style="position: absolute; border-radius: 10px; width: 800px; height: 110px; top: 54px;">
+                        <fieldset style="position: absolute; border-radius: 10px; width: 804px; height: 110px; top: 54px; left: 12px;">
                            <h:outputText value="#{msg['propiedadesdenomina']}" styleClass="outputTextFielset" />
 
                            <h:outputText  id="lblnovedadesnomina" style="position: absolute; left: 22px; top: 104px; color: #14388B; font-weight: bold; text-align: center; width: 150px;" value="#{msg['novedadesdenomina']}"/>
@@ -461,31 +461,31 @@
                            </p:tooltip>
                         </fieldset>
 
-                        <fieldset style="position: absolute; border-radius: 10px; width: 800px; height: 265px; top: 191px;">
+                        <fieldset style="position: absolute; border-radius: 10px; width: 804px; height: 274px; top: 191px; left: 12px;">
                            <h:outputText value="#{msg['opcionesdeliquidacion']}" styleClass="outputTextFielset" />
 
-                           <fieldset style="position: absolute; border-radius: 10px; width: 250px; height: 130px; top: 7px;">
+                           <fieldset style="position: absolute; border-radius: 10px; width: 262px; height: 160px; top: 12px;">
 
-                              <p:selectOneRadio id="options" value="#{controlRemoto.pago}" style=" font-size: 11px; font-weight: bold; position: absolute; top: -2px; margin: 0px;" layout="pageDirection" >  
+                              <p:selectOneRadio id="options" value="#{controlRemoto.pago}" style=" font-size: 11px; font-weight: bold; position: absolute; top: 0px; margin: 0px; left: 4px;" layout="pageDirection" >  
                                  <f:selectItem itemLabel="#{msg['pagosautomaticos']}" itemValue="AUTOMATICO"/>  
-                                 <f:selectItem  itemLabel="#{msg['pagosnoautomaticos']}" itemValue="NO AUTOMATICO" />
+                                 <f:selectItem  itemLabel="#{msg['pagosnoautomaticos']}" itemValue="NO AUTOMATICO"/>
                                  <p:ajax update="@this" listener="#{controlRemoto.cambiarFormaPago()}"/>
                               </p:selectOneRadio> 
-                              <hr style="position: absolute; top: 35px; width: 254px; left: 5px;"/>
-                              <center><strong><h:outputText id="tipopago" style=" color: #14388B; position: relative; top: 55px;" value="#{controlRemoto.tituloPago}"/></strong></center>
-                              <h:outputText id="mensajepago" style="overflow: auto; position: absolute; left: 9px; top: 80px; width: 250px; height: 53px; text-align: justify;" value="#{controlRemoto.mensajePagos}" />
+                              <hr style="position: absolute; top: 42px; width: 250px; left: 12px; color: grey;"/>
+                              <center><strong><h:outputText id="tipopago" style=" color: #14388B; position: relative; top: 52px;" value="#{controlRemoto.tituloPago}"/></strong></center>
+                              <h:outputText id="mensajepago" style="overflow: auto; position: absolute; left: 12px; top: 75px; width: 264px; height: 84px; text-align: justify;" value="#{controlRemoto.mensajePagos}" />
 
                            </fieldset>
 
-                           <fieldset style="position: absolute; border-radius: 10px; width: 250px; height: 100px; top: 157px;">
+                           <fieldset style="position: absolute; border-radius: 10px; width: 262px; height: 70px; top: 192px;">
 
-                              <strong><h:outputText  value="#{msg['estadisticas']}" style=" color: #14388B; position: absolute; left: 100px; top: 9px;"/></strong>
-                              <h:outputText style=" position: absolute; left: 100px; top: 25px; width: 160px; text-align: justify" value="#{msg['textoestadisticas']}"/>
-                              <p:commandButton id="btnestadisticas" value=" " style="position: absolute; left: 5px; top: 8px; width: 90px; height: 90px; background-image: url(Imagenes/Iconos/interrogante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
+                              <strong><h:outputText  value="#{msg['estadisticas']}" style=" color: #14388B; position: absolute; left: 100px; top: 5px;"/></strong>
+                              <h:outputText style=" position: absolute; left: 90px; top: 24px; width: 175px; text-align: justify" value="#{msg['textoestadisticas']}"/>
+                              <p:commandButton id="btnestadisticas" value=" " style="position: absolute; left: 4px; top: 4px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/interrogante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
                                                actionListener="#{controlParametrosConjuntos.recibirPaginaAnterior('atrasNomina')}" action="estadisticas" styleClass="bticon"/>
                            </fieldset>
 
-                           <fieldset style="position: absolute; border-radius: 10px; width: 500px; height: 250px; top: 7px; left: 284px;">
+                           <fieldset style="position: absolute; border-radius: 10px; width: 490px; height: 250px; top: 12px; left: 300px;">
 
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 100px; top: 5px;" value="#{msg['parametrosdeliquidacion']}"/></strong>
                               <h:outputText style=" position: absolute; left: 100px; top: 25px; width: 150px; text-align: justify" value="#{msg['textoparametrosdeliquidacion']}"/>
@@ -498,27 +498,32 @@
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 360px; top: 90px;" value="#{msg['cerrarliquidacion']}"/></strong>
                               <h:outputText style=" position: absolute; left: 360px; top: 110px; width: 130px; text-align: justify" value="#{msg['textocerrarliquidacion']}"/>
                               <strong><h:outputText style=" color: #14388B; position: absolute; left: 360px; top: 175px;" value="#{msg['reportesdenomina']}"/></strong>
-                              <h:outputText style=" position: absolute; left: 360px; top: 195px; width: 150px;" value="#{msg['textoreportesdenomina']}"/>
+                              <h:outputText style=" position: absolute; left: 360px; top: 195px; width: 140px;" value="#{msg['textoreportesdenomina']}"/>
 
 
-                              <p:commandButton value=" " id="btnparametrosliquidacion" style="position: absolute; left: 10px; top: 5px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_parametros.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="parametro"
+                              <p:commandButton value=" " id="btnparametrosliquidacion" style="position: absolute; left: 10px; top: 5px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_parametros.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               actionListener="#{controlRemoto.navegarAParametro()}"
                                                styleClass="bticon"/>
 
-                              <p:commandButton value=" " id="btngenerarliquidacion" style="position: absolute; left: 10px; top: 90px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_liquidar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" update="confirmarliquidacion" oncomplete="PF('confirmarliquidacion').show();"
+                              <p:commandButton value=" " id="btngenerarliquidacion" style="position: absolute; left: 10px; top: 90px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_liquidar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               update="confirmarliquidacion" oncomplete="PF('confirmarliquidacion').show();"
                                                styleClass="bticon"/>
 
-                              <p:commandButton value=" " id="btncomprobantespago" style="position: absolute; left: 10px; top: 175px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_comprobante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="comprobante"
+                              <p:commandButton value=" " id="btncomprobantespago" style="position: absolute; left: 10px; top: 175px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_comprobante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               action="comprobante"
                                                styleClass="bticon"/>
 
                               <hr style="float: left; height: 250px; position: absolute; left: 270px; top: 0px;"/>
 
-                              <p:commandButton id="btnborrarliquidacion" value=" " style="position: absolute; left: 275px; top: 5px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_borrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlRemoto.validarBorradoLiquidacion()}"
+                              <p:commandButton id="btnborrarliquidacion" value=" " style="position: absolute; left: 275px; top: 5px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_borrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               actionListener="#{controlRemoto.validarBorradoLiquidacion()}"
                                                styleClass="bticon"/>
 
-                              <p:commandButton id="btncerrarliquidacion" value=" " style="position: absolute; left: 275px; top: 90px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/nom_cerrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;" actionListener="#{controlCerrarLiquidacion.tipoLiquidacion(controlRemoto.pago)}" action="cerrarliq"
+                              <p:commandButton id="btncerrarliquidacion" value=" " style="position: absolute; left: 275px; top: 90px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_cerrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               actionListener="#{controlCerrarLiquidacion.tipoLiquidacion(controlRemoto.pago)}" action="cerrarliq"
                                                styleClass="bticon"/>
 
-                              <p:commandButton style="position: absolute; left: 275px; top: 175px; width: 80px; height: 80px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                              <p:commandButton style="position: absolute; left: 275px; top: 175px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;"
                                                id="btnreportesnomina" value=" " actionListener="#{controlNReporteNomina.iniciarPagina()}" action="ReporteNomina" styleClass="bticon"/>
 
                            </fieldset>
