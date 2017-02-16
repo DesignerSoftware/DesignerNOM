@@ -89,10 +89,7 @@ public class ControlPerTelefonos implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 
     public ControlPerTelefonos() {
-        permitirIndex = true;
-        //secuenciaPersona = BigInteger.valueOf(10668967);
         aceptar = true;
-        tipoLista = 0;
         listaTelefonosBorrar = new ArrayList<Telefonos>();
         listaTelefonosCrear = new ArrayList<Telefonos>();
         listaTelefonosModificar = new ArrayList<Telefonos>();
@@ -115,7 +112,6 @@ public class ControlPerTelefonos implements Serializable {
         k = 0;
         altoTabla = "270";
         guardado = true;
-//        empleado = new Empleados();
         activarLov = true;
         paginaAnterior = " ";
         mapParametros.put("paginaAnterior", paginaAnterior);
@@ -464,8 +460,6 @@ public class ControlPerTelefonos implements Serializable {
             telefonoSeleccionado = duplicarTelefono;
             getListaTelefonos();
             contarRegistros();
-            RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
             RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
             if (guardado == true) {
                 guardado = false;
@@ -941,14 +935,11 @@ public class ControlPerTelefonos implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosTelefonosPersona");
         permitirIndex = true;
         telefonoSeleccionado = null;
-
     }
 
     public void salir() {
         FacesContext c = FacesContext.getCurrentInstance();
-
         if (bandera == 1) {
-
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");
             tFecha.setFilterStyle("display: none; visibility: hidden;");
             tTipoTelefono = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tTipoTelefono");
@@ -1134,22 +1125,10 @@ public class ControlPerTelefonos implements Serializable {
         contarRegistros();
     }
 
-//    public void eventoFiltrarTT() {
-//        modificarInfoRegistroTT(filtradoslistaTiposTelefonos.size());
-//    }
-//
-//    public void eventoFiltrarCiudad() {
-//        modificarInfoRegistroCiudad(filtradoslistaCiudades.size());
-//    }
-//
-//    public void modificarInfoRegistro(int valor) {
-//        infoRegistro = String.valueOf(valor);
-//    }
 //
     public void contarRegistroTT() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTT");
     }
-//
 
     public void contarRegistroCiudad() {
         RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");

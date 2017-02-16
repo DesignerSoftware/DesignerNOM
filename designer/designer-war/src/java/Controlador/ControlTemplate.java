@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.bean.ManagedBean;
@@ -48,6 +49,7 @@ public class ControlTemplate implements Serializable {
     private String nombrePerfil;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private BigDecimal smlv, auxtrans, uvt, minibc, segsocial;
 
     public ControlTemplate() {
         webSite = "www.nomina.com.co";
@@ -93,11 +95,11 @@ public class ControlTemplate implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         System.out.println("Inicializando Template.");
         try {
@@ -247,6 +249,51 @@ public class ControlTemplate implements Serializable {
             nombrePerfil = administrarTemplate.consultarNombrePerfil();
         }
         return nombrePerfil;
+    }
+
+    public BigDecimal getSmlv() {
+        smlv = administrarTemplate.consultarSMLV();
+        return smlv;
+    }
+
+    public void setSmlv(BigDecimal smlv) {
+        this.smlv = smlv;
+    }
+
+    public BigDecimal getAuxtrans() {
+        auxtrans = administrarTemplate.consultarAuxTrans();
+        return auxtrans;
+    }
+
+    public void setAuxtrans(BigDecimal auxtrans) {
+        this.auxtrans = auxtrans;
+    }
+
+    public BigDecimal getUvt() {
+        uvt = administrarTemplate.consultarUVT();
+        return uvt;
+    }
+
+    public void setUvt(BigDecimal uvt) {
+        this.uvt = uvt;
+    }
+
+    public BigDecimal getMinibc() {
+        minibc = administrarTemplate.consultarMinIBC();
+        return minibc;
+    }
+
+    public void setMinibc(BigDecimal minibc) {
+        this.minibc = minibc;
+    }
+
+    public BigDecimal getSegsocial() {
+        segsocial = administrarTemplate.consultarTopeSegSocial();
+        return segsocial;
+    }
+
+    public void setSegsocial(BigDecimal segsocial) {
+        this.segsocial = segsocial;
     }
 
 }

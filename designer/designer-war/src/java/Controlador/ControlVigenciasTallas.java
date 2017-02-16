@@ -166,6 +166,11 @@ public class ControlVigenciasTallas implements Serializable {
         listVigenciasTallas = null;
         getEmpleadoSeleccionado();
         getListVigenciasTallas();
+        if(listVigenciasTallas != null){
+            if(!listVigenciasTallas.isEmpty()){
+                vigenciaTallaSeleccionada = listVigenciasTallas.get(0);
+            }
+        }
     }
 
     public void eventoFiltrar() {

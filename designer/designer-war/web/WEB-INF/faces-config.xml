@@ -7486,7 +7486,7 @@
    <navigation-rule>
       <from-view-id>/tipostrabajadores.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposcotizante</from-outcome>
+         <from-outcome>tipocotizante</from-outcome>
          <to-view-id>/tipocotizante.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7494,7 +7494,7 @@
    <navigation-rule>
       <from-view-id>/tipocotizante.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>tiposcotizante</from-outcome>
+         <from-outcome>tipostrabajadores</from-outcome>
          <to-view-id>/tipostrabajadores.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7686,6 +7686,23 @@
       <navigation-case>
          <from-outcome>empleado</from-outcome>
          <to-view-id>/empleado.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+    <navigation-rule>
+      <from-view-id>/empleadoindividual.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>anteriorescontratos</from-outcome>
+         <to-view-id>/anteriorescontratos.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/anteriorescontratos.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>empleadoindividual</from-outcome>
+         <to-view-id>/empleadoindividual.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>

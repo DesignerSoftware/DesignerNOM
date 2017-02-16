@@ -11,12 +11,15 @@ import InterfacePersistencia.PersistenciaActualUsuarioInterface;
 import InterfacePersistencia.PersistenciaDetallesEmpresasInterface;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaGeneralesInterface;
+import InterfacePersistencia.PersistenciaParametrosAnualesInterface;
 import InterfacePersistencia.PersistenciaParametrosEstructurasInterface;
 import InterfacePersistencia.PersistenciaPerfilesInterface;
 import java.io.Serializable;
+import java.math.BigDecimal;
 //import java.math.BigInteger;
 //import java.text.SimpleDateFormat;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
@@ -25,6 +28,7 @@ import javax.persistence.EntityManager;
  * @author -Felipphe-
  */
 @Stateful
+@Local
 public class AdministrarTemplate implements AdministrarTemplateInterface, Serializable {
 
     /**
@@ -63,6 +67,8 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
     PersistenciaParametrosEstructurasInterface persistenciaParametrosEstructuras;
     @EJB
     PersistenciaPerfilesInterface persistenciaPerfiles;
+    @EJB
+    PersistenciaParametrosAnualesInterface persistenciaParametrosAnuales;
 
     private EntityManager em;
     private Generales general;
@@ -140,5 +146,60 @@ public class AdministrarTemplate implements AdministrarTemplateInterface, Serial
     @Override
     public String consultarNombrePerfil(){
         return persistenciaPerfiles.consultarPerfil(em, consultarActualUsuario().getPerfil()).getDescripcion();
+    }
+
+    @Override
+    public BigDecimal consultarSMLV() {
+        try{
+           BigDecimal smlv = persistenciaParametrosAnuales.consultarSMLV(em);
+           return smlv;
+        }catch(Exception e){
+            System.out.println("error en consultarSMLV admi " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarAuxTrans() {
+        try{
+            BigDecimal auxtrans = persistenciaParametrosAnuales.consultarAuxTransporte(em);
+            return auxtrans;
+        }catch(Exception e){
+            System.out.println("error en consultarAuxTrans admi " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarUVT() {
+        try{
+          BigDecimal uvt = persistenciaParametrosAnuales.consultarValorUVT(em);
+          return uvt;
+        }catch(Exception e){
+            System.out.println("error en consultarUVT admi " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarMinIBC() {
+       try{
+          BigDecimal minibc = persistenciaParametrosAnuales.consultarvalorMinIBC(em);
+          return minibc;
+        }catch(Exception e){
+            System.out.println("error en consultarMinIBC admi " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BigDecimal consultarTopeSegSocial() {
+        try{
+          BigDecimal segsocial = persistenciaParametrosAnuales.consultarTopeMaxSegSocial(em);
+          return segsocial;
+        }catch(Exception e){
+            System.out.println("error en consultarTopeSegSocial admi " + e.toString());
+            return null;
+        }
     }
 }

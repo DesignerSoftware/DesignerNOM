@@ -1,0 +1,595 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:lnk="http://java.sun.com/jsf/composite/linkare"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="body">                  
+                <h:form id="form"> 
+
+                    <f:loadBundle basename="Recursos.anteriorescontratos" var="msg" />
+                    <p:growl id="growl" showDetail="true"/>
+
+                    <p:panel  id="PanelTotal" header="Anteriores Contratos" styleClass="panelTotal" >  
+
+                        <p:toolbar styleClass="cssToolbar" >
+                            <p:toolbarGroup align="left">
+
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" 
+                                                 actionListener="#{controlAnterioresContratos.guardarCambiosAC()}" process="@this" />
+                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+
+                                <p:commandButton  id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" 
+                                                  actionListener="#{controlAnterioresContratos.editarCelda()}" process="@this"/>
+                                <p:tooltip style="" for="editar" value="#{msg['editar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png)" 
+                                                 disabled="#{controlAnterioresContratos.activarLOV}"  actionListener="#{controlAnterioresContratos.listaValoresBoton()}" process="@this"/>
+                                <p:tooltip style="" for="listaValores" value="#{msg['lista']}" />
+
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                                 actionListener="#{controlAnterioresContratos.activarCtrlF11()}" process="@this" />
+                                <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                                 ajax="false" actionListener="#{controlAnterioresContratos.exportXLS()}" />
+                                <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}" />
+
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                                 actionListener="#{controlAnterioresContratos.limpiarNuevoAC()}" ajax="false">
+                                    <p:dataExporter type="xml"  target=":formExportar:datosAnterioresContratosExportar" fileName="AnterioresContratosXML" encoding="UTF-8"/> 
+                                </p:commandButton> 
+                                <p:tooltip style="" for="exportarXML" value="#{msg['xml']}" />
+
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlAnterioresContratos.exportPDF()}" ajax="false" />
+                                <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);  background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 25px; height: 25px " 
+                                                 oncomplete="PF('NuevoRegistroAC').show()" update=":formularioDialogos:nuevoAC" process="@this" /> 
+                                <p:tooltip style="" for="insertar" value="#{msg['insertar']}" />
+
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" 
+                                                 actionListener="#{controlAnterioresContratos.borrarAnterioresContratos()}" process="@this"  />  
+                                <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}" />
+
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlAnterioresContratos.duplicarAT()}"  process="@this" />  
+                                <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                                 actionListener="#{controlAnterioresContratos.verificarRastro()}" process="@this" />  
+                                <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                                 oncomplete="window.location.reload()" actionListener="#{controlAnterioresContratos.cancelarModificacion()}" process="@this" />  
+                                <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
+
+                                <p:separator style="position: relative; top: -9px"/>
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAnterioresContratos.salir()}"
+                                                 action="#{controlAnterioresContratos.redirigir()}" process="@this" />  
+                                <p:tooltip  for="salir" value="Salir"/>
+
+                            </p:toolbarGroup>    
+                        </p:toolbar>
+
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlAnterioresContratos.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
+                        </fieldset>
+
+                        <fieldset style="position: absolute; left: 10px; top: 115px;width: 830px; height: 345px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align:left"><strong>Anteriores Contratos</strong></legend>
+
+                            <p:dataTable id="datosAnterioresContratosPersona"  widgetVar="datosAnterioresContratosPersona" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 820px;"                           
+                                         value="#{controlAnterioresContratos.listAnterioresContratos}" scrollable="true" scrollHeight="#{controlAnterioresContratos.altoTabla}" scrollWidth="820"
+                                         filteredValue="#{controlAnterioresContratos.listAnterioresContratosFiltrar}" emptyMessage="#{msg['vacio']}"  editable="true" editMode="cell" liveScroll="true" scrollRows="15"
+                                         selection="#{controlAnterioresContratos.anteriorContratoSeleccionado}" selectionMode="single">
+
+                                <p:ajax event="filter" listener="#{controlAnterioresContratos.eventoFiltrar()}"/>
+                                <p:column headerText="Fecha Inicial" sortBy="#{info.fechainicial}" filterBy="#{info.fechainicial}" filterMatchMode="contains" width="75" 
+                                          id="fechainicial" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechainicial}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaInicial" value="#{info.fechainicial}" > 
+                                                <p:ajax event="dateSelect" update="dateFechaInicial" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
+                                                <p:ajax event="change" update="dateFechaInicial" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,0)}" process="@this"
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                            </p:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Fecha Final" sortBy="#{info.fechafinal}" filterBy="#{info.fechafinal}" filterMatchMode="contains"  width="75" 
+                                          id="fechafinal" filterStyle="display: none; visibility: hidden;" style="width: 110px;" >  
+                                    <p:cellEditor>  
+                                        <f:facet name="output">
+                                            <h:outputText value="#{info.fechafinal}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </f:facet>  
+                                        <f:facet name="input">
+                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="dateFechaFinal" value="#{info.fechafinal}" > 
+                                                <p:ajax event="dateSelect"  update="dateFechaFinal" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
+                                                <p:ajax event="change"  update="dateFechaFinal" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this"/>
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,1)}" process="@this" 
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                            </p:calendar>
+                                        </f:facet>   
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column headerText="Empresa" sortBy="#{info.empresa}" filterBy="#{info.empresa}"
+                                          filterMatchMode="contains" id="empresa" filterStyle="display: none; visibility: hidden;" >                                  
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.empresa}" /></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.empresa}" id="editarEmpresa" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}"/>
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info, 2)}" 
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>  
+
+                                <p:column filterBy="#{info.jefe}" sortBy="#{info.jefe}" 
+                                          filterMatchMode="contains" id="jefe" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" >                                  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PI" value="Jefe"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.jefe}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"  value="#{info.jefe}" id="editarJefe" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:keyFilter for="editarJefe" mask="num"/>
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,3)}" process="@this"
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarJefe"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{info.telefono}" filterBy="#{info.telefono}" 
+                                          filterMatchMode="contains" id="telefono" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" >     
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PCI" value="Teléfono"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.telefono}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.telefono}" id="editarTel" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,4)}" process="@this"
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarTel"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{info.diasant}" filterBy="#{info.diasant}" 
+                                          filterMatchMode="contains" id="dias" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" >  
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PG" value="Días"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.diasant}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.diasant}" id="editarDiasAnt" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,5)}" process="@this"
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarDiasAnt"/>                                   
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{info.cargo}" filterBy="#{info.cargo}" width="140"
+                                          filterMatchMode="contains" id="cargo" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" > 
+                                    <f:facet name="header"> 
+                                        <h:outputText id="PCG" value="Cargo"/>
+                                    </f:facet> 
+                                    <p:cellEditor>  
+                                        <f:facet name="output"><h:outputText value="#{info.cargo.nombre}" style="width: 100px;"/></f:facet>  
+                                        <f:facet name="input">
+                                            <p:inputText  autocomplete="off"   value="#{info.cargo.nombre}" id="editarCargo" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                                <p:ajax event="select" listener="#{controlAnterioresContratos.cambiarIndice(info,6)}" process="@this"
+                                                        onstart="PF('datosAnterioresContratosPersona').unselectAllRows();PF('datosAnterioresContratosPersona').selectRow(#{indice});" /> 
+                                                <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" process="@this" update="editarCargo"/>    
+                                                <p:ajax event="dblclick" listener="#{controlAnterioresContratos.asignarIndex(info, 0, 0)}" />
+                                            </p:inputText>
+                                        </f:facet>  
+                                    </p:cellEditor>
+                                    <f:facet name="footer">
+                                        <h:outputText  value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column sortBy="#{info.tiemporegimencesantias}" filterBy="#{info.tiemporegimencesantias}" width="20"
+                                          filterMatchMode="contains" id="regimenc" filterStyle="display: none; visibility: hidden;"  style="text-align: center;" > 
+                                    <f:facet name="header"> 
+                                        <h:outputText id="TRC" value="..."/>
+                                        <p:tooltip for="TRC" value="Tiempo Régimen Cesantías" />
+                                    </f:facet> 
+                                    <p:selectBooleanCheckbox value="#{info.checktiemporegces}" style="border-radius: 4px; width: -20px; font-weight: bold; "> 
+                                        <p:ajax event="change" listener="#{controlAnterioresContratos.modificarAC(info)}" update="@this" />
+                                    </p:selectBooleanCheckbox>  
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>  
+                            <h:outputText id="infoRegistro" value="#{msg['infoRegistros']} #{controlAnterioresContratos.infoRegistro}" style="position: relative; top: 1px; font-weight: bold"/>
+                        </fieldset> 
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value=" " disabled="#{controlAnterioresContratos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosAnterioresContratosPersona" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlAnterioresContratos.salir()}" action="#{controlAnterioresContratos.redirigir()}" process="@this" />
+
+                    </p:panel>
+
+                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['si']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAnterioresContratos.guardarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['no']}" action="vigDepEmplInd" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlAnterioresContratos.cancelarSalir()}" 
+                                         style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
+                                         icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAnterioresContratos.anteriorContratoSeleccionado.secuencia, 'AnterioresContratos', 'AnterioresContratos')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
+                    </p:dialog>
+
+                    <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('AnterioresContratos', 'AnterioresContratos')}"
+                                         style="position: absolute; top: 60px; left: 175px;" action="rastrotabla" icon="ui-icon-check"  process="@this"  />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold; text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAnterioresContratos.anteriorContratoSeleccionado.secuencia, 'AnterioresContratos', 'AnterioresContratos')}" 
+                                         style="position: absolute; top: 63px; left: 175px;" icon="ui-icon-check" action="rastrotabla" process="@this" />
+                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this" />
+                    </p:dialog>
+
+                    <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;text-align: center" />
+                    </p:dialog>
+
+                    <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="70" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+
+                    <p:dialog id="errorRegNew" header="#{msg['error']}" widgetVar="errorRegNew"  resizable="false" draggable="true" modal="true" height="80" width="300"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                        <h:outputText value="#{controlAnterioresContratos.mensajeValidacion}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorRegNew').hide();" icon="ui-icon-check"  process="@this" style="position: absolute; left: 165px; top: 60px;"  />
+                    </p:dialog>
+
+
+                    <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 15px; top: 10px;"  />
+                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;" />
+                    </p:dialog>
+                    <p:hotkey bind="ctrl+f11" actionListener="#{controlAnterioresContratos.activarCtrlF11()}"/> 
+                </h:form>
+
+                <h:form id="formularioDialogos" >
+                    <p:dialog id="NuevoRegistroAC" header="#{msg['nuevoregistro']}" widgetVar="NuevoRegistroAC" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <p:panel id="nuevoAC" style="border: none;">
+
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;" /></strong>
+                            <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicialV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechainicial}"  >
+                                <p:ajax event="dateSelect" update="nuevaFechaInicialV" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaInicialV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*Fecha Final" style="position: absolute; top: 85px; left: 18px; " /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="nuevaFechaFinalV" value="#{controlAnterioresContratos.nuevoAnteriorContrato.fechafinal}" >
+                                <p:ajax event="dateSelect" update="nuevaFechaFinalV" process="@this"/>
+                                <p:ajax event="change" update="nuevaFechaFinalV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 115px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaEmpresa" value="#{controlAnterioresContratos.nuevoAnteriorContrato.empresa}"
+                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                <p:ajax event="change" update="nuevaEmpresa"/>
+                            </p:inputText>
+                            <p:watermark for="nuevaEmpresa" value="Empresa" />
+
+                            <strong><h:outputText value="Jefe" style="position: absolute; top: 145px; " /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoJefe" value="#{controlAnterioresContratos.nuevoAnteriorContrato.jefe}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
+                                <p:ajax event="change" update="nuevoJefe"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoJefe" value="Jefe" />
+
+                            <strong><h:outputText value="Teléfono" style="position: absolute; top: 175px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoTelefono" value="#{controlAnterioresContratos.nuevoAnteriorContrato.telefono}"
+                                          style="width: 122px; position: absolute; left: 220px; top: 170px;">
+                                <p:ajax event="change" update="nuevoTelefono"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoTelefono" value="Teléfono" />
+
+                            <strong><h:outputText value="Días" style="position: absolute; top: 205px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoDia" value="#{controlAnterioresContratos.nuevoAnteriorContrato.diasant}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 200px;">
+                                <p:ajax event="change" update="nuevoDia"/>
+                            </p:inputText>
+                            <p:watermark for="nuevoDia" value="Días" />
+
+                            <strong><h:outputText value="*Cargo" style="position: absolute; top: 235px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoCargo" value="#{controlAnterioresContratos.nuevoAnteriorContrato.cargo.nombre}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 230px;">
+                                <p:ajax event="change" update="nuevoCargo"/>
+                                <p:ajax event="dblclick" listener="#{controlAnterioresContratos.asignarIndex(info,0,1)}"/>
+                            </p:inputText>
+                            <p:commandButton style="position: absolute; left: 351px; top: 235px;"  class="cssBotonLovDialogos"  id="btnNuevoCargo" value="" process="@this" actionListener="#{controlAnterioresContratos.asignarIndex(info,0,1)}"/>   
+                            <p:watermark for="nuevoCargo" value="Cargo" />
+
+                            <strong><h:outputText value="Régimen Cesantías" style="position: absolute; top: 265px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlAnterioresContratos.nuevoAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px; "> 
+                                <p:ajax event="change"  update="@this" />
+                            </p:selectBooleanCheckbox>  
+
+                            <p:commandButton id="limpiarV" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlAnterioresContratos.limpiarNuevoAC()}" update="nuevoAC" process="@this"/>
+                            <p:commandButton id="agregarV" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlAnterioresContratos.agregarNuevoAC()}"   />
+                            <p:commandButton id="cancelarV" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlAnterioresContratos.limpiarNuevoAC()}" update="nuevoAC" onclick="PF('NuevoRegistroAC').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="DuplicarRegistroAC" header="#{msg['duplicarregistro']}" widgetVar="DuplicarRegistroAC" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="400" style="padding: 0px">  
+                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="color: blue; position: relative; top: 10px;" /></strong></center> 
+                        <p:panel id="duplicarAC" style="border: none;">
+
+                            <strong><h:outputText value="*Fecha Inicial" style="position: absolute; top: 50px; left: 18px;" /></strong>
+                            <p:calendar  autocomplete="off" style="position: absolute; top: 50px; left: 220px"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicialV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechainicial}"  >
+                                <p:ajax event="dateSelect" update="duplicarFechaInicialV" process="@this"/>
+                                <p:ajax event="change" update="duplicarFechaInicialV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="*Fecha Final" style="position: absolute; top: 85px; left: 18px; " /></strong>
+                            <p:calendar  autocomplete="off"  mask="true" style="position: absolute; top: 80px; left: 220px" pattern="dd/MM/yyyy" id="duplicarFechaFinalV" value="#{controlAnterioresContratos.duplicarAnteriorContrato.fechafinal}" >
+                                <p:ajax event="dateSelect" update="duplicarFechaFinalV" process="@this"/>
+                                <p:ajax event="change" update="duplicarFechaFinalV" process="@this"/>
+                            </p:calendar>
+
+                            <strong><h:outputText value="Empresa" style="position: absolute; top: 115px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarEmpresa" value="#{controlAnterioresContratos.duplicarAnteriorContrato.empresa}"
+                                          style="width: 122px; position: absolute; left: 220px; top: 110px;">
+                                <p:ajax event="change" update="duplicarEmpresa"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarEmpresa" value="Empresa" />
+                            <strong><h:outputText value="Jefe" style="position: absolute; top: 145px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarJefe" value="#{controlAnterioresContratos.duplicarAnteriorContrato.jefe}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 140px;">
+                                <p:ajax event="change" update="duplicarJefe"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarJefe" value="Jefe" />
+
+                            <strong><h:outputText value="Teléfono" style="position: absolute; top: 175px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarTelefono" value="#{controlAnterioresContratos.duplicarAnteriorContrato.telefono}"
+                                          style="width: 122px; position: absolute; left: 220px; top: 170px;">
+                                <p:ajax event="change" update="duplicarTelefono"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarTelefono" value="Teléfono" />
+
+                            <strong><h:outputText value="Días" style="position: absolute; top: 205px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarDia" value="#{controlAnterioresContratos.duplicarAnteriorContrato.diasant}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 200px;">
+                                <p:ajax event="change" update="duplicarDia"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarDia" value="Días" />
+
+                            <strong><h:outputText value="*Cargo" style="position: absolute; top: 235px; left: 18px;" /></strong>
+                            <p:inputText  autocomplete="off"  id="duplicarCargo" value="#{controlAnterioresContratos.duplicarAnteriorContrato.cargo.nombre}" 
+                                          style="width: 122px; position: absolute; left: 220px; top: 230px;">
+                                <p:ajax event="change" update="duplicarCargo"/>
+                                <p:ajax event="dblclick" listener="#{controlAnterioresContratos.asignarIndex(info,0,2)}"/>
+                            </p:inputText>
+                            <p:watermark for="duplicarCargo" value="Cargo" />
+                            <p:commandButton style="position: absolute; left: 351px; top: 230px;"  class="cssBotonLovDialogos"  id="btnDuplicarCargo" value="" process="@this" actionListener="#{controlAnterioresContratos.asignarIndex(info,0,2)}"/>   
+
+                            <strong><h:outputText value="Régimen Cesantías" style="position: absolute; top: 265px;" /></strong>
+                            <p:selectBooleanCheckbox value="#{controlAnterioresContratos.duplicarAnteriorContrato.checktiemporegces}" style="border-radius: 4px; width: 15px; font-weight: bold; position: absolute; left: 220px; top: 260px; "> 
+                                <p:ajax event="change"  update="@this" />
+                            </p:selectBooleanCheckbox>  
+
+                            <p:commandButton id="limpiarDV" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 300px;" actionListener="#{controlAnterioresContratos.limpiarDuplicarAC()}" update="nuevoAC" process="@this"/>
+                            <p:commandButton id="agregarDV" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 180px; top: 300px;"  process="@this" actionListener="#{controlAnterioresContratos.confirmarDuplicar()}"   />
+                            <p:commandButton id="cancelarDV" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 280px; top: 300px;" actionListener="#{controlAnterioresContratos.limpiarDuplicarAC()}" update="nuevoAC" onclick="PF('DuplicarRegistroAC').hide();"  process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog header="Cargos" widgetVar="cargosDialogo" draggable="true" resizable="false" id="cargosDialogo" closable="false"  
+                              showEffect="fade" hideEffect="fade" modal="true" width="347" >
+
+                        <p:dataTable  id="LOVCargos" var="cargo" value="#{controlAnterioresContratos.lovCargos}"
+                                      scrollable="true" scrollHeight="117" scrollWidth="315" widgetVar="LOVCargos" 
+                                      filteredValue="#{controlAnterioresContratos.lovCargosFiltrar}" emptyMessage="#{msg['lovvacio']}"
+                                      rowKey="#{cargo.secuencia}" selection="#{controlAnterioresContratos.cargoSeleccionado}" selectionMode="single">
+                            <p:ajax event="filter" listener="#{controlAnterioresContratos.contarRegistrosCargos()}"/>
+                            <p:ajax event="rowSelect" listener="#{controlAnterioresContratos.activarAceptar()}" update=":formularioDialogos:aceptarC"/>
+                            <p:ajax event="rowDblselect" listener="#{controlAnterioresContratos.actualizarCargos()}" process="@this" />
+                            <f:facet name="header">  
+                                <h:outputText value="Buscar Cargo:"/>  
+                                <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('LOVCargos').filter();" class="cssFiltroLOV" />  
+                            </f:facet>
+
+                            <p:column filterBy="#{cargo.nombre}" width="150" filterMatchMode="contains" filterStyle="width: 80% !important" > 
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{cargo.nombre}" />  
+                            </p:column>
+                        </p:dataTable>   
+
+                        <div class="cssBotonesLOV">
+                            <h:outputText id="infoRegistroCargo" value="#{msg['infoRegistros']} #{controlAnterioresContratos.infoRegistroCargo}" class="cssinfoRegistroLOV"/>   
+                            <p:commandButton id="aceptarC" value="#{msg['aceptar']}" disabled="#{controlAnterioresContratos.aceptar}" class="cssAceptarLOV" icon="ui-icon-check" actionListener="#{controlAnterioresContratos.actualizarCargos()}" process="@this"/>
+                            <p:commandButton id="atrasC" value="#{msg['atras']}" class="cssAtrasLOV" icon="ui-icon-arrowreturnthick-1-w"  actionListener="#{controlAnterioresContratos.cancelarCambioCargos()}" process="@this"/>
+                        </div>
+                    </p:dialog>    
+
+                    <p:dialog id="editarFechaInicialD" header="Fecha Inicial" widgetVar="editarFechaInicialD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.fechainicial}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarFechaFinalD" header="Fecha Final" widgetVar="editarFechaFinalD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.fechafinal}" style="overflow: auto;" readonly="true">                        
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </p:inputTextarea>
+                    </p:dialog>
+
+                    <p:dialog id="editarEmpresaD" header="Empresa" widgetVar="editarEmpresaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.empresa}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarJefeD" header="Jefe" widgetVar="editarJefeD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.jefe}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarTelefonoD" header="Teléfono" widgetVar="editarTelefonoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.telefono}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarDiasD" header="Días" widgetVar="editarDiasD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.diasant}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                    <p:dialog id="editarCargoD" header="Cargo" widgetVar="editarCargoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                        <p:inputTextarea value="#{controlAnterioresContratos.editarAnteriorContrato.cargo.nombre}" style="overflow: auto;" readonly="true"/>
+                    </p:dialog>
+
+                </h:form>
+
+                <h:form id="formExportar">
+                    <p:dataTable id="datosAnterioresContratosExportar" var="infoExp" style="visibility: hidden; display: none;"                           
+                                 value="#{controlAnterioresContratos.listAnterioresContratos}"> 
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Inicial" />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.fechainicial}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>  
+                            <f:facet name="header">
+                                <h:outputText value="Fecha Final" />
+                            </f:facet>
+                            <h:outputText value="#{infoExp.fechafinal}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Empresa">                                  
+                            <f:facet name="header"><h:outputText value="Empresa"/> </f:facet> 
+                            <h:outputText value="#{infoExp.empresa}" />
+                        </p:column>  
+
+                        <p:column headerText="Jefe" >                                  
+                            <f:facet name="header"> <h:outputText value="Jefe" /> </f:facet> 
+                            <h:outputText value="#{infoExp.jefe}" />
+                        </p:column>
+
+                        <p:column headerText="Telefono" >                                  
+                            <f:facet name="header"><h:outputText value="Telefono" /> </f:facet> 
+                            <h:outputText value="#{infoExp.telefono}" />
+                        </p:column>
+
+                        <p:column headerText="Dias">                                  
+                            <f:facet name="header"><h:outputText value="Dias" /> </f:facet> 
+                            <h:outputText value="#{infoExp.diasant}" />
+                        </p:column>
+
+                        <p:column headerText="Cargo">                                  
+                            <f:facet name="header"><h:outputText value="Cargo" /> </f:facet> 
+                            <h:outputText value="#{infoExp.cargo.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="Regimen Cesantias">                                  
+                            <f:facet name="header"><h:outputText value="Regimen Cesantias" /> </f:facet> 
+                            <h:outputText value="#{infoExp.tiemporegimencesantias}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
