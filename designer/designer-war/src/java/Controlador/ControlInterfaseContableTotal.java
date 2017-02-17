@@ -539,13 +539,12 @@ public class ControlInterfaseContableTotal implements Serializable {
             guardadoGeneral();
             String descripcionProceso = administrarInterfaseContableTotal.obtenerDescripcionProcesoArchivo(parametroContableActual.getProceso().getSecuencia());
             nombreArchivo = "Interfase_Total_" + descripcionProceso;
-            String pathServidorWeb = administrarInterfaseContableTotal.obtenerPathServidorWeb();
-            System.out.println("pathServidorWeb : " + pathServidorWeb);
             pathProceso = administrarInterfaseContableTotal.obtenerPathProceso();
             System.out.println("path proceso :" + pathProceso);
             administrarInterfaseContableTotal.ejecutarPKGCrearArchivoPlano(tipoPlano, parametroContableActual.getFechainicialcontabilizacion(), parametroContableActual.getFechafinalcontabilizacion(), parametroContableActual.getProceso().getSecuencia(), descripcionProceso);
             rutaArchivo = "";
             rutaArchivo = pathProceso + nombreArchivo + ".txt";
+            System.out.println("rutaArchivo " + rutaArchivo);
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("formularioDialogos:planoGeneradoOK");
             RequestContext.getCurrentInstance().execute("PF('planoGeneradoOK').show()");
@@ -605,7 +604,7 @@ public class ControlInterfaseContableTotal implements Serializable {
             System.out.println(this.getClass().getName() + ".exportarPlano()");
             System.out.println("path proceso en exportarPlano() : " + pathProceso);
             if (pathProceso != null || !pathProceso.startsWith("Error:")) {
-                File planof = new File(pathProceso);
+                File planof = new File(rutaArchivo);
                 FacesContext ctx = FacesContext.getCurrentInstance();
                 FileInputStream fis = new FileInputStream(planof);
                 byte[] bytes = new byte[1024];
@@ -1562,7 +1561,9 @@ public class ControlInterfaseContableTotal implements Serializable {
         System.out.println("tipo : " + tipo);
         tipoPlano = tipo;
         System.out.println("tipo Plano despues de modificar : " + tipoPlano);
+        guardadoGeneral();
         RequestContext.getCurrentInstance().update("form:tipoPlano");
+
     }
 
     public void validarExportPDF() throws IOException {

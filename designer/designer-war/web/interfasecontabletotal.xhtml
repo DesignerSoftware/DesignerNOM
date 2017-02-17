@@ -307,13 +307,13 @@
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;"/>
                             <p:tooltip  for="reporteControl" value="#{msg['reportecontrol']}" />
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px;width: 100px; height: 10px;">
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 0px; left: 18px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalDGenerado" value="#{controlInterfaseContableTotal.totalDGenerado}" readonly="true" style="position: relative; top: 0px; left: 20px;width: 100px; height: 10px; text-align: left; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px;width: 100px; height: 10px;">
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 0px; left: 22px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalCGenerado" value="#{controlInterfaseContableTotal.totalCGenerado}" readonly="true" style="position: relative; top: 0px; left: 22px;width: 100px; height: 10px; text-align: right; border-color: transparent">
                                 <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
                         </fieldset>
@@ -471,14 +471,14 @@
                             </p:dataTable> 
                             <h:outputText id="infoRegistroContabilizados" value="#{msg['infoRegistros']} #{controlInterfaseContableTotal.infoRegistroContabilizados}" style="position: relative; left: 3px; top: 8px; font-weight: bold"/>
 
-                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 290px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 295px;width: 90px;height: 10px">
-                                <f:convertNumber currencySymbol="$" type="currency" />
+                            <strong><h:outputText value="#{msg['totalD']}" style="position: relative; top: 8px; left: 313px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalDInter" readonly="true" value="#{controlInterfaseContableTotal.totalDInter}" style="position: relative; top: 8px; left: 316px;width: 90px;height: 10px; text-align: left; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0" />
                             </p:inputText>
 
-                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 8px; left: 315px"/></strong>
-                            <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 320px;width: 90px;height: 10px">
-                                <f:convertNumber currencySymbol="$" type="currency" />
+                            <strong><h:outputText value="#{msg['totalC']}" style="position: relative; top: 8px; left: 328px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="totalCInter" readonly="true" value="#{controlInterfaseContableTotal.totalCInter}" style="position: relative; top: 8px; left: 345px;width: 90px;height: 10px; text-align: right; border-color: transparent">
+                                <f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="0"  />
                             </p:inputText>
 
                         </fieldset>
@@ -877,8 +877,8 @@
                         <h:outputText value="#{msg['planoGeneradoOK']}" style="position: absolute; left: 70px; top: 15px; font-weight:bold;width: 250px;"  />
                         <p:inputText  autocomplete="off"  value="#{controlInterfaseContableTotal.rutaArchivo}" style="position: absolute; left: 70px; top: 50px;text-transform: uppercase;width: 230px;" readonly="true"/>
                         <h:outputText value="#{msg['deseaGuardarTxt']}" style="position: absolute; left: 70px; top: 80px; font-weight:bold;width: 230px;"  />
-                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); #{controlInterfaseContableTotal.cerrarPaginaDescarga()}" 
-                                         icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarPlano()}">
+                        <p:commandButton id="downloadLink" value="#{msg['descargar']}" ajax="false" style="position: absolute; top: 118px; left: 70px"  icon="ui-icon-download" actionListener="#{controlInterfaseContableTotal.exportarPlano()}"
+                                         onclick="PF('planoGeneradoOK').hide()" >
                             <p:fileDownload value="#{controlInterfaseContableTotal.download}" />
                         </p:commandButton>
 

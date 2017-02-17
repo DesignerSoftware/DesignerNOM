@@ -148,6 +148,7 @@ public class ControlNReporteLaboral implements Serializable {
         permitirIndex = true;
         listEmpleados = null;
         listEmpresas = null;
+        listaIR = null;
         empresaSeleccionada = new Empresas();
         empleadoSeleccionado = new Empleados();
         mapParametros.put("paginaAnterior", paginaAnterior);
@@ -431,72 +432,82 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (inforreporteSeleccionado != null) {
-            System.out.println("generando reporte - ingreso al if");
-            nombreReporte = inforreporteSeleccionado.getNombrereporte();
-            tipoReporte = inforreporteSeleccionado.getTipo();
+        try {
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (inforreporteSeleccionado != null) {
+                System.out.println("generando reporte - ingreso al if");
+                nombreReporte = inforreporteSeleccionado.getNombrereporte();
+                tipoReporte = inforreporteSeleccionado.getTipo();
 
-            if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-            }
-            if (pathReporteGenerado != null) {
-                System.out.println("generando reporte - ingreso al 3 if");
-                validarDescargaReporte();
+                if (nombreReporte != null && tipoReporte != null) {
+                    System.out.println("generando reporte - ingreso al 2 if");
+                    pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+                }
+                if (pathReporteGenerado != null) {
+                    System.out.println("generando reporte - ingreso al 3 if");
+                    validarDescargaReporte();
+                } else {
+                    System.out.println("generando reporte - ingreso al 3 if else");
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+                    RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                    RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                }
             } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
-                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                System.out.println("generando reporte - ingreso al if else");
+                System.out.println("Reporte Seleccionado es nulo");
             }
-        } else {
-            System.out.println("generando reporte - ingreso al if else");
-            System.out.println("Reporte Seleccionado es nulo");
+        } catch (Exception e) {
+            System.out.println("error generarDocumentoReporte() " + e.getMessage());
         }
     }
 
     public void validarDescargaReporte() {
-        System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (!tipoReporte.equals("PDF")) {
-                System.out.println("validar descarga reporte - ingreso al if 2");
-                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-            } else {
-                System.out.println("validar descarga reporte - ingreso al if 2 else");
-                FileInputStream fis;
-                try {
-                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                    fis = new FileInputStream(new File(pathReporteGenerado));
-                    System.out.println("fis : " + fis);
-                    reporte = new DefaultStreamedContent(fis, "application/pdf");
-                } catch (FileNotFoundException ex) {
-                    System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex);
-                    reporte = null;
-                }
-                if (reporte != null) {
-                    System.out.println("validar descarga reporte - ingreso al if 3");
-                    if (inforreporteSeleccionado != null) {
-                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
-                            //System.out.println("Acceso por mobiles.");
-                            context.update("formDialogos:descargarReporte");
-                            context.execute("PF('descargarReporte').show();");
+        try {
+            System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("validar descarga reporte - ingreso al if 1");
+                if (!tipoReporte.equals("PDF")) {
+                    System.out.println("validar descarga reporte - ingreso al if 2");
+                    RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
+                } else {
+                    System.out.println("validar descarga reporte - ingreso al if 2 else");
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("validar descarga reporte - ingreso al catch 1");
+                        System.out.println(ex);
+                        reporte = null;
+                    }
+                    if (reporte != null) {
+                        System.out.println("validar descarga reporte - ingreso al if 3");
+                        if (inforreporteSeleccionado != null) {
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                                //System.out.println("Acceso por mobiles.");
+                                context.update("formDialogos:descargarReporte");
+                                context.execute("PF('descargarReporte').show();");
+                            } else {
+                                RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
                         } else {
-                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            System.out.println("validar descarga reporte - ingreso al if 4 else ");
+                            cabezeraVisor = "Reporte - ";
                         }
-                    } else {
-                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-                        cabezeraVisor = "Reporte - ";
                     }
                 }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+        } catch (Exception e) {
+            System.out.println("error Validar DescargarReporte () " + e.getMessage());
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
@@ -677,13 +688,13 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void cargarLovCargos() {
-        if (listCargos == null || listCargos.isEmpty()) {
+        if (listCargos == null) {
             listCargos = administrarNReporteLaboral.listCargos();
         }
     }
 
     public void cargarLovEmpresas() {
-        if (listEmpresas == null || listEmpresas.isEmpty()) {
+        if (listEmpresas == null) {
             listEmpresas = administrarNReporteLaboral.listEmpresas();
         }
     }
@@ -697,21 +708,25 @@ public class ControlNReporteLaboral implements Serializable {
     public void mostrarDialogosListas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
+            listEmpleados = null;
             cargarLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (casilla == 4) {
+            listEmpleados =null;
             cargarLovEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (casilla == 5) {
+            listCargos = null;
             cargarLovCargos();
             RequestContext.getCurrentInstance().update("formDialogos:CargoDialogo");
             RequestContext.getCurrentInstance().execute("PF('CargoDialogo').show()");
         }
         if (casilla == 6) {
+            listEmpresas = null;
             cargarLovEmpresas();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
@@ -1010,31 +1025,39 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+        try {
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+            System.out.println(this.getClass().getName() + ".exportarReporte()");
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
+
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte() " + e.getMessage());
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
+
     }
 
     public void cancelarReporte() {
@@ -1378,7 +1401,7 @@ public class ControlNReporteLaboral implements Serializable {
     }
 
     public List<Inforeportes> getLovInforeportes() {
-        if (lovInforeportes == null || lovInforeportes.isEmpty()) {
+        if (lovInforeportes == null) {
             lovInforeportes = administrarNReporteLaboral.listInforeportesUsuario();
         }
         return lovInforeportes;

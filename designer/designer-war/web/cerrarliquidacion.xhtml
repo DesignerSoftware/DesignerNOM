@@ -16,83 +16,6 @@
                     <p:growl id="growl" showDetail="true"/>
 
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
-
-                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 830px; height: 390px; border-radius: 10px; ">
-                            <legend style="color: blue;text-align: left; font-weight: bold">#{msg['parametros']}</legend>
-
-                            <p:commandButton id="btnBorrarComprobantes" value="" ondblclick="abrirLiquidacion()" style="background-image: url(Imagenes/Iconos/nom_cerrar.png); width: 140px; height: 140px; background-repeat: no-repeat; background-size: 100% 100%;; z-index: 1; position: absolute; top: 20px; left: 10px"/>
-
-                            <p:panel id="panelInf" style="border: none;">
-                                <h:outputText value="#{msg['totaltrabajadores']}" style="font-weight: bold; position: absolute; top: 25px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.totalEmpleadosParaLiquidar}" style="position: absolute; left: 310px; top: 20px; width: 80px;" readonly="true"/>
-
-                                <h:outputText value="#{msg['fechainicial']}" style="font-weight: bold; position: absolute; top: 65px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 310px; width: 80px; top: 60px;" readonly="true">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:inputText>
-
-                                <h:outputText value="#{msg['fechafinal']}" style="font-weight: bold; position: absolute; left: 180px; top: 105px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechahastacausado}" style="position: absolute; left: 310px; width: 80px; top: 100px;" readonly="true">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:inputText>
-
-                                <h:outputText value="#{msg['fechapago']}" style="font-weight: bold; position: absolute; top: 145px; left: 180px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechasistema}" style="position: absolute; left: 310px; width: 80px; top: 140px;" readonly="true">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:inputText>
-
-                                <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 25px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.estructura.nombre}" style="position: absolute; left: 570px; width: 250px; top: 20px;" readonly="true"/>
-
-                                <h:outputText value="#{msg['proceso']}" style="font-weight: bold; position: absolute; top: 65px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 570px; width: 250px; top: 60px;" readonly="true" /> 
-
-                                <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 105px; left: 450px"/>
-                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 570px; width: 250px; top: 100px;" readonly="true" /> 
-                            </p:panel>
-
-                            <fieldset style="position: absolute; left: 10px; top: 165px; width: 800px; height: 195px; border-radius: 10px; ">
-                                <legend style="color: blue;text-align: left; font-weight: bold">#{msg['empleados']}</legend>
-                                <p:dataTable id="datosEmpleadosParametros" var="empleadoParametro" style="width: 779px;text-align: left" value="#{controlCerrarLiquidacion.listaParametros}"
-                                             scrollable="true" scrollWidth="795"  editable="true" editMode="cell" rowKey="#{empleadoParametro.secuencia}" scrollHeight="#{controlCerrarLiquidacion.altoTabla}" 
-                                             filteredValue="#{controlCerrarLiquidacion.filtradoListaParametros}" emptyMessage="#{msg['vacio']}" widgetVar="datosEmpleadosParametros"
-                                             selection="#{controlCerrarLiquidacion.empleadoTablaSeleccionado}" selectionMode="single" rowIndexVar="indice" >
-
-                                    <p:ajax event="filter" listener="#{controlCerrarLiquidacion.eventoFiltrar()}"/>
-
-                                    <p:column id="codigoEmpleado" headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" width="80" filterBy="#{empleadoParametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  > 
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase" readonly="true" >
-                                                <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-
-                                    <p:column id="nombreEmpleado" headerText="#{msg['nombreempleado']}" sortBy="#{empleadoParametro.empleado.persona.nombreCompleto}"  filterBy="#{empleadoParametro.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
-                                        <p:cellEditor>  
-                                            <f:facet name="output">
-                                                <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
-                                            </f:facet>  
-                                            <f:facet name="input">
-                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase" readonly="true" >
-                                                <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
-                                                </p:inputText>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-                                </p:dataTable>
-                            </fieldset>
-
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCerrarLiquidacion.infoRegistro}" style="position: absolute; left: 15px; top: 380px; font-weight: bold"/>
-                        </fieldset>
-                        <p:commandButton value=""  style="position: absolute; top: 485px; left: 660px;  height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" onclick="PF('confirmarCerrar').show();"/>
-                        <p:commandButton value="" style="position: absolute; top: 485px; left: 755px;  height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" actionListener="#{controlCerrarLiquidacion.salir()}" action="nominaf" process="@this"/>
-
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
 
@@ -149,8 +72,81 @@
 
                             </p:toolbarGroup>  
                         </p:toolbar> 
+                        
+                        <fieldset style="position: absolute; left: 10px; top: 75px; width: 830px; height: 405px; border-radius: 10px; ">
+                            <legend style="color: blue;text-align: left; font-weight: bold">#{msg['parametros']}</legend>
 
+                            <p:commandButton id="btnBorrarComprobantes" value="" ondblclick="abrirLiquidacion()" style="background-image: url(Imagenes/Iconos/nom_cerrar.png); width: 140px; height: 140px; background-repeat: no-repeat; background-size: 100% 100%;; z-index: 1; position: absolute; top: 20px; left: 10px"/>
 
+                            <p:panel id="panelInf" style="border: none;">
+                                <h:outputText value="#{msg['totaltrabajadores']}" style="font-weight: bold; position: absolute; top: 25px; left: 180px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.totalEmpleadosParaLiquidar}" style="position: absolute; left: 310px; top: 20px; width: 80px;" readonly="true"/>
+
+                                <h:outputText value="#{msg['fechainicial']}" style="font-weight: bold; position: absolute; top: 65px; left: 180px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechadesdecausado}" style="position: absolute; left: 310px; width: 80px; top: 60px;" readonly="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+
+                                <h:outputText value="#{msg['fechafinal']}" style="font-weight: bold; position: absolute; left: 180px; top: 105px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechahastacausado}" style="position: absolute; left: 310px; width: 80px; top: 100px;" readonly="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+
+                                <h:outputText value="#{msg['fechapago']}" style="font-weight: bold; position: absolute; top: 145px; left: 180px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.fechasistema}" style="position: absolute; left: 310px; width: 80px; top: 140px;" readonly="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:inputText>
+
+                                <h:outputText value="#{msg['estructura']}" style="font-weight: bold; position: absolute; top: 25px; left: 450px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.estructura.nombre}" style="position: absolute; left: 570px; width: 250px; top: 20px;" readonly="true"/>
+
+                                <h:outputText value="#{msg['proceso']}" style="font-weight: bold; position: absolute; top: 65px; left: 450px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.proceso.descripcion}" style="position: absolute; left: 570px; width: 250px; top: 60px;" readonly="true" /> 
+
+                                <h:outputText value="#{msg['tipotrabajador']}" style="font-weight: bold; position: absolute; top: 105px; left: 450px"/>
+                                <p:inputText  autocomplete="off"   value="#{controlCerrarLiquidacion.parametroEstructura.tipotrabajador.nombre}" style="position: absolute; left: 570px; width: 250px; top: 100px;" readonly="true" /> 
+                            </p:panel>
+
+                            <fieldset style="position: absolute; left: 10px; top: 165px; width: 800px; height: 215px; border-radius: 10px; ">
+                                <legend style="color: blue;text-align: left; font-weight: bold">#{msg['empleados']}</legend>
+                                <p:dataTable id="datosEmpleadosParametros" var="empleadoParametro" style="width: 779px;text-align: left" value="#{controlCerrarLiquidacion.listaParametros}"
+                                             scrollable="true" scrollWidth="795"  editable="true" editMode="cell" rowKey="#{empleadoParametro.secuencia}" scrollHeight="#{controlCerrarLiquidacion.altoTabla}" 
+                                             filteredValue="#{controlCerrarLiquidacion.filtradoListaParametros}" emptyMessage="#{msg['vacio']}" widgetVar="datosEmpleadosParametros"
+                                             selection="#{controlCerrarLiquidacion.empleadoTablaSeleccionado}" selectionMode="single" rowIndexVar="indice" >
+
+                                    <p:ajax event="filter" listener="#{controlCerrarLiquidacion.eventoFiltrar()}"/>
+
+                                    <p:column id="codigoEmpleado" headerText="#{msg['codigo']}" sortBy="#{empleadoParametro.empleado.codigoempleado}" width="80" filterBy="#{empleadoParametro.empleado.codigoempleado}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"  > 
+                                        <p:cellEditor>  
+                                            <f:facet name="output">
+                                                <h:outputText value="#{empleadoParametro.empleado.codigoempleado}"/>
+                                            </f:facet>  
+                                            <f:facet name="input">
+                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.codigoempleado}" style="width: 99%; text-transform: uppercase" readonly="true" >
+                                                    <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
+                                                </p:inputText>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column id="nombreEmpleado" headerText="#{msg['nombreempleado']}" sortBy="#{empleadoParametro.empleado.persona.nombreCompleto}"  filterBy="#{empleadoParametro.empleado.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="display: none; visibility: hidden;"> 
+                                        <p:cellEditor>  
+                                            <f:facet name="output">
+                                                <h:outputText value="#{empleadoParametro.empleado.persona.nombreCompleto}"/>
+                                            </f:facet>  
+                                            <f:facet name="input">
+                                                <p:inputText  autocomplete="off"   value="#{empleadoParametro.empleado.persona.nombreCompleto}" style="width: 99%; text-transform: uppercase" readonly="true" >
+                                                    <p:ajax event="select" onstart="PF('datosEmpleadosParametros').unselectAllRows();PF('datosEmpleadosParametros').selectRow(#{indice});" />
+                                                </p:inputText>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                </p:dataTable>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlCerrarLiquidacion.infoRegistro}" style="position: relative; left: 0px; top: 0px; font-weight: bold"/>
+                            </fieldset>
+                        </fieldset>
+                        <p:commandButton value=""  class="cssBotonAceptar" onclick="PF('confirmarCerrar').show();" />
+                        <p:commandButton value="" class="cssBotonCancelar" actionListener="#{controlCerrarLiquidacion.salir()}" action="nominaf" process="@this"/>
                     </p:panel>
 
                     <p:remoteCommand name="abrirLiquidacion" actionListener="#{controlCerrarLiquidacion.confirmarAbrirLiquidacion()}"/>  
@@ -161,7 +157,7 @@
                     <p:dialog id="confirmarCerrar" header="#{msg['atencion']}" widgetVar="confirmarCerrar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarCerrar']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarCerrar').hide();operacionEnProceso').show()" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" style="position: absolute; top: 55px; left: 155px;" oncomplete="PF('operacionEnProceso').hide();liquidacionRealizada').show()" process="@this" icon="ui-icon-check" />
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarCerrar').hide(); operacionEnProceso').show()" actionListener="#{controlCerrarLiquidacion.confirmarCierreLiquidacion()}" style="position: absolute; top: 55px; left: 155px;" oncomplete="PF('operacionEnProceso').hide();liquidacionRealizada').show()" process="@this" icon="ui-icon-check" />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarCerrar').hide();" actionListener="#{controlCerrarLiquidacion.salir()}" action="nominaf" style="position: absolute; top: 55px; left: 220px;" process="@this" icon="ui-icon-close" />
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarCerrar').hide();" style="position: absolute; top: 55px; left: 290px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>

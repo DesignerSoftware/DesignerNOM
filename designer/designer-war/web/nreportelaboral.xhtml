@@ -87,7 +87,7 @@
                         <fieldset style="position: absolute; left: 150px; top: 200px; width: 690px; height: 250px; border-radius: 10px">
                            <!--<legend style=" color: blue;text-align:left"><strong>#{msg['reportes']}</strong></legend>-->
 
-                            <p:dataTable id="reportesLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;"                           
+                            <p:dataTable id="reportesLaboral" widgetVar="reportesLaboral" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px;"                           
                                          value="#{controlNReporteLaboral.listaIR}" scrollable="true" selectionMode="single" scrollHeight="#{controlNReporteLaboral.altoTabla}" scrollWidth="696"
                                          filteredValue="#{controlNReporteLaboral.filtrarListInforeportesUsuario}" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlNReporteLaboral.inforreporteSeleccionado}" liveScroll="true" scrollRows="50">
@@ -97,7 +97,7 @@
                                 <p:ajax event="filter" listener="#{controlNReporteLaboral.eventoFiltrar()}"/>
 
                                 <p:column id="codigoIR" style="padding: 0px; text-align: center; width: 50px;" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
-                                    <h:outputText value="#{info.codigo}"/>
+                                    <h:outputText value="#{info.codigo}" />
                                 </p:column>
 
                                 <p:column  id="reporteIR" headerText="#{msg['reporte']}" sortBy="#{info.nombre}" filterBy="#{info.nombre}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
@@ -108,7 +108,9 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{info.tipo}"/></f:facet>  
                                         <f:facet name="input">
-                                            <p:selectOneMenu value="#{info.tipo}" id="tipoReportee"  style="width: 42px; font-weight: bold; ">  
+                                            <p:selectOneMenu value="#{info.tipo}" id="tipoReportee"  style="width: 42px; font-weight: bold; "
+                                                            onblur="PF('reportesLaboral').unselectAllRows();PF('reportesLaboral').selectRow(#{indice});"
+                                                            onfocus="PF('reportesLaboral').unselectAllRows();PF('reportesLaboral').selectRow(#{indice});">  
                                                 <f:selectItem itemLabel="#{msg['pdf']}" itemValue="PDF" />  
                                                 <f:selectItem itemLabel="#{msg['xhtml']}" itemValue="HTML" />  
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS" />  
@@ -252,7 +254,7 @@
 
                 <h:form id="formDialogos">
                     <p:dialog header="#{msg['reportesR']}" widgetVar="ReportesDialogo" draggable="true" resizable="false" closable="false" id="ReportesDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="475" modal="true" >
                         <p:dataTable id="lovReportesDialogo" var="reportes" value="#{controlNReporteLaboral.lovInforeportes}" rowKey="#{reportes.secuencia}" liveScroll="true" scrollRows="25"
                                      selection="#{controlNReporteLaboral.lovReporteSeleccionado}" selectionMode="single" widgetVar="lovReportesDialogo" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlNReporteLaboral.filtrarLovInforeportes}" emptyMessage="#{msg['lovvacio']}">   
@@ -265,21 +267,21 @@
                                 <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();"/>
                             </f:facet>
 
-                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
                                 <f:facet name="header" >
                                     <h:outputText  value="#{msg['codigoR']}" />
                                 </f:facet>
                                 <h:outputText style="text-align: center" value="#{reportes.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%" sortBy="#{reportes.nombre}">
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" sortBy="#{reportes.nombre}">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>
                                 <h:outputText value="#{reportes.nombre}" />
                             </p:column>
 
-                            <p:column filterBy="#{reportes.tipo}" width="40" filterMatchMode="contains" filterStyle="width: 30px">
+                            <p:column filterBy="#{reportes.tipo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['tipoR']}" />
                                 </f:facet>
@@ -294,7 +296,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['cargosC']}" widgetVar="CargoDialogo" draggable="true" resizable="false" closable="false" id="CargoDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="475" modal="true" >
                         <p:dataTable id="lovCargoDialogo" var="cargo" value="#{controlNReporteLaboral.listCargos}" rowKey="#{cargo.secuencia}"
                                      selection="#{controlNReporteLaboral.cargoSeleccionado}" selectionMode="single" widgetVar="lovCargoDialogo" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlNReporteLaboral.filtrarListCargos}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">
@@ -307,14 +309,14 @@
                                 <h:outputText value="#{msg['buscarC']}"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovCargoDialogo').filter();"/>  
                             </f:facet>
-                            <p:column  filterBy="#{cargo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 30px">
+                            <p:column  filterBy="#{cargo.codigo}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText  value="#{msg['codigoC']}" />
                                 </f:facet>
                                 <h:outputText style="text-align: center" value="#{cargo.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{cargo.nombre}" width="160"  filterMatchMode="contains" filterStyle="width: 160px">
+                            <p:column filterBy="#{cargo.nombre}" width="160"  filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreC']}" />
                                 </f:facet>
@@ -329,7 +331,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['codigoEMP']}" widgetVar="EmpleadoDesdeDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoDesdeDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="475" modal="true" >
                         <p:dataTable id="lovEmpleadoDesde" var="empleadoDesde" value="#{controlNReporteLaboral.listEmpleados}" rowKey="#{empleadoDesde.secuencia}"
                                      selection="#{controlNReporteLaboral.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoDesde" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlNReporteLaboral.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
@@ -363,7 +365,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['codigoEMPH']}" widgetVar="EmpleadoHastaDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoHastaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true">
+                              showEffect="fade" hideEffect="fade" width="475" modal="true">
                         <p:dataTable id="lovEmpleadoHasta" var="empleadoHasta" value="#{controlNReporteLaboral.listEmpleados}" rowKey="#{empleadoHasta.secuencia}"
                                      selection="#{controlNReporteLaboral.empleadoSeleccionado}" selectionMode="single" widgetVar="lovEmpleadoHasta" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlNReporteLaboral.filtrarListEmpleados}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
@@ -376,13 +378,13 @@
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();"/>  
                             </f:facet>
-                            <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 50px">
+                            <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['codigooEMPH']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}" />
                             </p:column>
-                            <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" width="180" filterStyle="width: 120px;" filterMatchMode="contains">
+                            <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" width="180" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreEMPH']}" />
                                 </f:facet>
@@ -399,7 +401,7 @@
                     </p:dialog>
 
                     <p:dialog header="#{msg['empresaE']}" widgetVar="EmpresaDialogo" draggable="true" resizable="false" closable="false" id="EmpresaDialogo"  
-                              showEffect="fade" hideEffect="fade" width="460" modal="true" >
+                              showEffect="fade" hideEffect="fade" width="475" modal="true" >
                         <p:dataTable id="lovEmpresa" var="empresa" value="#{controlNReporteLaboral.listEmpresas}" rowKey="#{empresa.secuencia}"
                                      selection="#{controlNReporteLaboral.empresaSeleccionada}" selectionMode="single" widgetVar="lovEmpresa" scrollable="true" scrollWidth="445" scrollHeight="250"
                                      filteredValue="#{controlNReporteLaboral.filtrarListEmpresas}" emptyMessage="#{msg['lovvacio']}" liveScroll="true" scrollRows="25">              
@@ -412,13 +414,13 @@
                                 <h:outputText value="#{msg['buscarE']}"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovEmpresa').filter();"/>  
                             </f:facet>
-                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 40px">
+                            <p:column filterBy="#{empresa.nit}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nitE']}" />
                                 </f:facet>
                                 <h:outputText  value="#{empresa.nit}" />
                             </p:column>
-                            <p:column filterBy="#{empresa.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 100px">
+                            <p:column filterBy="#{empresa.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText style="text-align: center" value="#{msg['nombreE']}" />
                                 </f:facet>
