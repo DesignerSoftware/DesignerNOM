@@ -137,6 +137,7 @@ public class PersistenciaFamiliares implements PersistenciaFamiliaresInterface {
             familiar = (String) query.getSingleResult();
             return familiar;
         } catch (Exception e) {
+           System.out.println("Persistencia.PersistenciaFamiliares.consultarPrimerFamiliar() e: " + e);
             familiar = "";
             return familiar;
         }

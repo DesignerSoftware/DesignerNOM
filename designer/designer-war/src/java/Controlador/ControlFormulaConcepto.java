@@ -128,7 +128,7 @@ public class ControlFormulaConcepto implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -157,12 +157,13 @@ public class ControlFormulaConcepto implements Serializable {
    }
 
    public void recibirFormula(Formulas formula, String pagina) {
-      System.out.println("Controlador.ControlFormulaConcepto.recibirFormula()");
-      System.out.println("formula : " + formula + " , y pagina : " + pagina);
+      System.out.println("Controlador.ControlFormulaConcepto.recibirFormula() formula: " + formula + " , y pagina: " + pagina);
       paginaAnterior = pagina;
       formulaActual = formula;
       listFormulasConceptos = null;
-      getListFormulasConceptos();
+      if (formulaActual != null) {
+         getListFormulasConceptos();
+      }
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc

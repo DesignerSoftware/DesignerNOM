@@ -47,6 +47,8 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          actualUsuario = (ActualUsuario) query.getSingleResult();
          return actualUsuario;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaActualUsuario.actualUsuarioBD() e: " + e);
+         e.printStackTrace();
          //  PropertyConfigurator.configure("log4j.properties");
          //logger.error("Metodo: actualUsuarioBD - PersistenciaActualUsuario - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
          return null;
@@ -79,6 +81,7 @@ public class PersistenciaActualUsuario implements PersistenciaActualUsuarioInter
          alias = (String) query.getSingleResult();
          return alias;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaActualUsuario.actualAliasBD_EM() e: " + e);
          //PropertyConfigurator.configure("log4j.properties");
          //logger.error("Metodo: actualAliasBD_EM - PersistenciaActualUsuario - Fecha : " + format.format(fechaDia) + " - Error : " + e.toString());
          return null;

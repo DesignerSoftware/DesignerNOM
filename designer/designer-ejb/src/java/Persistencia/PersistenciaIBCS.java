@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -23,97 +22,87 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaIBCS implements PersistenciaIBCSInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos.
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
+   @Override
+   public void crear(EntityManager em, Ibcs ibcs) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(ibcs);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
+      }
+   }
 
-    @Override
-    public void crear(EntityManager em, Ibcs ibcs) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(ibcs);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, Ibcs ibcs) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(ibcs);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, Ibcs ibcs) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(ibcs);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
-        }
-    }
+   @Override
+   public void borrar(EntityManager em, Ibcs ibcs) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(ibcs));
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, Ibcs ibcs) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(ibcs));
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
-        }
-    }
+   @Override
+   public Ibcs buscarIbcs(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         return em.find(Ibcs.class, secuencia);
+      } catch (Exception e) {
+         System.out.println("Error en la persistenciaIBCS formas pagos ERROR : " + e);
+         return null;
+      }
+   }
 
-    @Override
-    public Ibcs buscarIbcs(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            return em.find(Ibcs.class, secuencia);
-        } catch (Exception e) {
-            System.out.println("Error en la persistenciaIBCS formas pagos ERROR : " + e);
-            return null;
-        }
-    }
-
-    @Override
-    public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
-        System.out.println("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
-        System.out.println("empleado en buscar IBC por empleado : " + secEmpleado);
-        try {
-            em.clear();
-            String sql = "SELECT * FROM Ibcs ib WHERE ib.empleado = ? ORDER BY ib.fechainicial DESC";
-            Query query = em.createNativeQuery(sql, Ibcs.class);
-            query.setParameter(1, secEmpleado);
-            List<Ibcs> ibcs = query.getResultList();
-            return ibcs;
-        } catch (Exception e) {
-            System.out.println("Error en PersistenciaIBCS Por Empleados ERROR" + e);
-            return null;
-        }
-    }
+   @Override
+   public List<Ibcs> buscarIbcsPorEmpleado(EntityManager em, BigInteger secEmpleado) {
+      System.out.println("Persistencia.PersistenciaIBCS.buscarIbcsPorEmpleado()");
+      System.out.println("empleado en buscar IBC por empleado : " + secEmpleado);
+      try {
+         em.clear();
+         String sql = "SELECT * FROM Ibcs ib WHERE ib.empleado = ? ORDER BY ib.fechainicial DESC";
+         Query query = em.createNativeQuery(sql, Ibcs.class);
+         query.setParameter(1, secEmpleado);
+         List<Ibcs> ibcs = query.getResultList();
+         return ibcs;
+      } catch (Exception e) {
+         System.out.println("Error en PersistenciaIBCS Por Empleados ERROR" + e);
+         return null;
+      }
+   }
 }

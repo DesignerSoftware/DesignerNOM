@@ -20,68 +20,67 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaClasesRiesgos implements PersistenciaClasesRiesgosInterface {
 
-    @Override
-    public void crear(EntityManager em, ClasesRiesgos claseRiesgo) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(claseRiesgo);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaClasesRiesgos.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
+   @Override
+   public void crear(EntityManager em, ClasesRiesgos claseRiesgo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(claseRiesgo);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaClasesRiesgos.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
 
-    }
+   }
 
-    @Override
-    public void editar(EntityManager em, ClasesRiesgos claseRiesgo) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(claseRiesgo);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaClasesRiesgos.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, ClasesRiesgos claseRiesgo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(claseRiesgo);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaClasesRiesgos.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, ClasesRiesgos claseRiesgo) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(claseRiesgo));
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaClasesRiesgos.borrar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void borrar(EntityManager em, ClasesRiesgos claseRiesgo) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(claseRiesgo));
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaClasesRiesgos.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public List<ClasesRiesgos> consultarListaClasesRiesgos(EntityManager em) {
-       try{
-       em.clear();
-       String sql ="SELECT * FROM CLASESRIESGOS";
-       Query query = em.createNativeQuery(sql, ClasesRiesgos.class);
-       List<ClasesRiesgos> listClasesRiesgos =(List<ClasesRiesgos>) query.getResultList();
-       return listClasesRiesgos;
-           
-       }catch(Exception e){
-           System.out.println("Error PersistenciaClasesRiesgos.consultarClasesRiesgos : " + e.toString());
-           return null;
-       }
-    }
+   @Override
+   public List<ClasesRiesgos> consultarListaClasesRiesgos(EntityManager em) {
+      try {
+         em.clear();
+         String sql = "SELECT * FROM CLASESRIESGOS";
+         Query query = em.createNativeQuery(sql, ClasesRiesgos.class);
+         List<ClasesRiesgos> listClasesRiesgos = (List<ClasesRiesgos>) query.getResultList();
+         return listClasesRiesgos;
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaClasesRiesgos.consultarClasesRiesgos : " + e.toString());
+         return null;
+      }
+   }
 
 }

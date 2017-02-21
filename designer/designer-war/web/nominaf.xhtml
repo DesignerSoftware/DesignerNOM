@@ -10,9 +10,10 @@
    <h:body>
       <ui:composition template="/template.xhtml">
          <ui:define name="body">
+            <!--<div class="loader"></div>--> 
             <script>
                $(window).load(function () {
-                  $(".loader").fadeOut("slow");
+                  //$(".loader").fadeOut("slow");
                   foco('form:tabmenu:tipopersonal');
                });
                function foco(idElemento) {
@@ -20,7 +21,6 @@
                }
                ;
             </script>
-            <div class="loader"></div> 
             <h:form id="form"> 
                <f:loadBundle basename="Recursos.nominaf" var="msg"/>
                <p:growl id="growl" showDetail="true"/>

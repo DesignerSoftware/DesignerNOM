@@ -63,15 +63,11 @@ public class PersistenciaFormulasContratosEntidades implements PersistenciaFormu
             tx.begin();
             em.remove(em.merge(formulasAseguradas));
             tx.commit();
-
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
                 System.out.println("Error PersistenciaFormulasContratosEntidades.borrar: " + e);
-            }
         }
     }
 

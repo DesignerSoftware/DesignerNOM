@@ -12,7 +12,7 @@
          <ui:define name="body"> 
             <script type="text/javascript">
                $(window).load(function () {
-                  $(".loader").fadeOut("slow");
+                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
@@ -126,8 +126,8 @@
                         <f:event type="preRenderView" listener="#{controlVigenciasCargos.recordarSeleccion()}"/>
 
                         <!--COLUMNAS TABLA DATOS VIGENCIAS CARGOS DE UN EMPLEADO -->
-                        <p:column style="text-align: center;" headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  
-                                  width="80" id="vcFecha" filterStyle="display: none; visibility: hidden;"  >  
+                        <p:column class="cssColumnasCentradas" headerText="#{msg['fecha']}" sortBy="#{info.fechavigencia}" filterBy="#{info.fechavigencia}" filterMatchMode="contains"  
+                                  width="76" id="vcFecha" filterStyle="display: none; visibility: hidden;"  >  
                            <f:facet name="header">
                               <h:outputText value="#{msg['fecha']}" />
                            </f:facet>

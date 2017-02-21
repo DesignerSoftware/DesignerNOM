@@ -7,7 +7,6 @@ import Entidades.Estructuras;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -75,13 +74,10 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          tx.commit();
 
       } catch (Exception e) {
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaEstructuras.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("Error PersistenciaEstructuras.borrar: " + e);
       }
    }
 
@@ -91,6 +87,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          em.clear();
          return em.find(Estructuras.class, secuencia);
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaEstructuras.buscarEstructura() e: " + e);
          return null;
       }
    }
@@ -104,6 +101,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          List<Estructuras> estructuras = query.getResultList();
          return estructuras;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaEstructuras.estructuras() e: " + e);
          return null;
       }
    }
@@ -119,6 +117,7 @@ public class PersistenciaEstructuras implements PersistenciaEstructurasInterface
          return estructuras;
       } catch (Exception e) {
          System.out.println("Error buscarEstructurasPorSecuenciaOrganigrama PersistenciaEstructuras");
+         e.printStackTrace();
          return null;
       }
    }

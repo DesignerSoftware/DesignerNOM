@@ -13,73 +13,77 @@
          <ui:define name="body">
             <script type="text/javascript">
                $(window).load(function () {
-                  $(".loader").fadeOut("slow");
+                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
                };
             </script>
-            <div class="loader"></div>
+            <!--<div class="loader"></div>-->
             <div style="position: static;"></div>
             <h:form id="form"> 
-               <f:loadBundle basename="Recursos.empleadoindividual" var="msg" />
+               <f:loadBundle basename="Recursos.empleadoindividual" var="msg"/>
                <p:growl id="growl" showDetail="true"/> 
-               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" > 
+               <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal"> 
                   <p:toolbar styleClass="cssToolbar" >   
                      <p:toolbarGroup align="left"> 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border:none;"
-                                         actionListener="#{controlEmpleadoIndividual.guardarCambios()}" process="@this" />
-                        <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none;"
+                                         actionListener="#{controlEmpleadoIndividual.guardarCambios()}" process="@this"/>
+                        <p:tooltip style="font-size: 12px;" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border:none;" 
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.editarCelda()}" process="@this"/>
-                        <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}" />
+                        <p:tooltip style="font-size: 12px;" for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border:none; " 
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.listaValoresBoton()}" process="@this"/> 
-                        <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" style="background-image: url(Imagenes/Iconos/embudo.png); border:none; "/>
+                        <p:commandButton id="filtrar" value="" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}"
+                                         style="background-image: url(Imagenes/Iconos/embudo.png); border: none;"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                         <p:separator style="position: relative; top: -9px;" />
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border:none; "
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none;"
                                          ajax="false" actionListener="#{controlEmpleadoIndividual.exportXLS()}" />
                         <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}" />
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border:none;" ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none;" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosEmpleadoExportar" fileName="HojaVidaEmpleadoXML" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="font-size: 12px;" for="exportarXML" value="#{msg['xml']}" />
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border:none;"
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.exportPDF()}" ajax="false"/>
                         <p:tooltip style="font-size: 12px;" for="exportarPDF" value="#{msg['pdf']}" />
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="insertar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
+                        <p:commandButton id="insertar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
+                                         style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border:none;"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                        <p:commandButton id="eliminar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/delete.png); border:none; "/>  
+                        <p:commandButton id="eliminar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
+                                         style="background-image: url(Imagenes/Iconos/delete.png); border: none;"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                        <p:commandButton id="duplicar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border:none; "/>  
+                        <p:commandButton id="duplicar" disabled="#{controlEmpleadoIndividual.deshabilitarBotones}" value=""
+                                         style="background-image: url(Imagenes/Iconos/duplicar.png); border: none;"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border:none; " 
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="font-size: 12px;" for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border:none; "
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none;"
                                          actionListener="#{controlEmpleadoIndividual.refrescar()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border:none; " 
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none;" 
                                          actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>  
@@ -149,10 +153,10 @@
                         <p:selectOneMenu id="grupoSanguineo" value="#{controlEmpleadoIndividual.persona.gruposanguineo}" 
                                          style="position: absolute; left: 150px; top: 96px; width: 45px; height: 20px;">  
                            <f:selectItem itemLabel="" itemValue="" />
-                           <f:selectItem itemLabel="#{msg['gruposa']}" itemValue="A" />  
-                           <f:selectItem itemLabel="#{msg['gruposab']}" itemValue="AB" />
-                           <f:selectItem itemLabel="#{msg['gruposb']}" itemValue="B" />
-                           <f:selectItem itemLabel="#{msg['gruposo']}" itemValue="O" />
+                           <f:selectItem itemLabel="#{msg['gruposa']}" itemValue="A"/>  
+                           <f:selectItem itemLabel="#{msg['gruposab']}" itemValue="AB"/>
+                           <f:selectItem itemLabel="#{msg['gruposb']}" itemValue="B"/>
+                           <f:selectItem itemLabel="#{msg['gruposo']}" itemValue="O"/>
                            <p:ajax listener="#{controlEmpleadoIndividual.modificarCampo('P')}" update="@this" />
                         </p:selectOneMenu>
                         <h:outputText id="txtfactorRH" value="#{msg['factorrh']}" 

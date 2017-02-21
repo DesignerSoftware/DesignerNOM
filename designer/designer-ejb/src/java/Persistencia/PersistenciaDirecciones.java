@@ -217,6 +217,8 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             direccion = (String) query.getSingleResult();
             return direccion;
         } catch (Exception e) {
+           System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()");
+           e.printStackTrace();
             direccion = " ";
             return direccion;
         }

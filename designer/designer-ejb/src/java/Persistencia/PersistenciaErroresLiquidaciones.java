@@ -8,7 +8,6 @@ package Persistencia;
 import InterfacePersistencia.PersistenciaErroresLiquidacionesInterface;
 import Entidades.ErroresLiquidacion;
 import Entidades.VigenciasLocalizaciones;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -81,6 +80,7 @@ public class PersistenciaErroresLiquidaciones implements PersistenciaErroresLiqu
          return listaErroresLiquidacionEmpleado;
       } catch (Exception e) {
          System.out.println("\n ERROR EN PersistenciaErroresLiquidaciones consultarErroresLiquidacion ERROR : " + e);
+         e.printStackTrace();
          return null;
       }
    }

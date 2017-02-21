@@ -83,15 +83,11 @@ public class PersistenciaConceptosRedondeos implements PersistenciaConceptosRedo
          tx.begin();
          em.remove(em.merge(conceptosRedondeos));
          tx.commit();
-
       } catch (Exception e) {
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaConceptosRedondeos.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("Error PersistenciaConceptosRedondeos.borrar: " + e);
       }
    }
 

@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -102,7 +101,6 @@ public class PersistenciaEstadosCiviles implements PersistenciaEstadosCivilesInt
             System.out.println("error consultarEstadosCiviles PersistenciaEstadosCivilires : " + e.toString());
             return null;
         }
-
     }
 
     public BigInteger contadorVigenciasEstadosCiviles(EntityManager em, BigInteger secuencia) {

@@ -76,13 +76,10 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
          tx.commit();
 
       } catch (Exception e) {
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaDetallesEmpresas.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("Error PersistenciaDetallesEmpresas.borrar: " + e);
       }
    }
 

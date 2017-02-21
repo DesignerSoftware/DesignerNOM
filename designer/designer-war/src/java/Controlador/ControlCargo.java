@@ -1484,48 +1484,7 @@ public class ControlCargo implements Serializable {
       }
    }
 
-   /**
-    *
-    */
-   public void dialogoNuevoRegistro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      if (guardado == false || guardadoSueldoMercado == false || guardadoCompetencia == false || guardadoTipoDetalle == false) {
-         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-      } else {/*
-             * if (listaCargos.isEmpty()) { activoSueldoMercado = true;
-             * activoCompetencia = true; activoTipoDetalle = false;
-             * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-             * RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()"); } else { if
-             * (listaSueldosMercados.isEmpty() ||
-             * listaCompetenciasCargos.isEmpty() ||
-             * listaTiposDetalles.isEmpty()) { activoSueldoMercado = false;
-             * activoCompetencia = false; activoTipoDetalle = false;
-             * RequestContext.getCurrentInstance().update("formularioDialogos:verificarNuevoRegistro");
-             * RequestContext.getCurrentInstance().execute("PF('verificarNuevoRegistro').show()"); } else {
-             * activoSueldoMercado = false; activoCompetencia = false;
-             * activoTipoDetalle = false; if (cargoTablaSeleccionado != null) {
-             * codigoNuevoCargo();
-             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
-             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').show()"); } if
-             * (sueldoMercadoSeleccionado != null) {
-             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroSueldoMercado");
-             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroSueldoMercado').show()"); } if
-             * (competenciaCargoSeleccionado != null) {
-             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCompetenciaCargo");
-             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCompetenciaCargo').show()"); } if
-             * (tipoDetalleSeleccionado != null) { codigoNuevoTipoDetalle();
-             * RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroTipoDetalle");
-             * RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').show()"); } } }
-          */
-
-      }
-   }
-
-   /**
-    *
-    */
    public void dispararDialogoNuevoCargo() {
-      RequestContext context = RequestContext.getCurrentInstance();
       codigoNuevoCargo();
       RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroCargo");
       RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').show()");
@@ -1541,25 +1500,31 @@ public class ControlCargo implements Serializable {
     *
     */
    public void codigoNuevoCargo() {
-      String code = "";
+      Short codMost = 1;
       if (listaCargos.size() > 0) {
-         int newCode = listaCargos.get(listaCargos.size() - 1).getCodigo().intValue() + 1;
-         code = String.valueOf(newCode);
-      } else {
-         code = "1";
+         for (int i = 0; i < listaCargos.size(); i++) {
+            if (listaCargos.get(i).getCodigo() > codMost) {
+               codMost = listaCargos.get(i).getCodigo();
+            }
+         }
+         int n = codMost.intValue() + 1;
+         codMost = new Short("" + n);
       }
-      nuevoCargo.setCodigo(new Short(code));
+      nuevoCargo.setCodigo(codMost);
    }
 
    public void codigoNuevoTipoDetalle() {
-      String code = "";
+      BigInteger codMost = new BigInteger("1");
       if (listaTiposDetalles.size() > 0) {
-         int newCode = listaTiposDetalles.get(listaTiposDetalles.size() - 1).getCodigo().intValue() + 1;
-         code = String.valueOf(newCode);
-      } else {
-         code = "1";
+         for (int i = 0; i < listaTiposDetalles.size(); i++) {
+            if (listaTiposDetalles.get(i).getCodigo().intValue() > codMost.intValue()) {
+               codMost = listaTiposDetalles.get(i).getCodigo();
+            }
+         }
+         int n = codMost.intValue() + 1;
+         codMost = new BigInteger("" + n);
       }
-      nuevoTipoDetalle.setCodigo(new BigInteger(code));
+      nuevoTipoDetalle.setCodigo(codMost);
    }
 
 //CREAR 
@@ -1568,51 +1533,64 @@ public class ControlCargo implements Serializable {
     */
    public void agregarNuevoCargo() {
       boolean respueta = validarCamposNulosCargos(1);
+      RequestContext context = RequestContext.getCurrentInstance();
       if (respueta == true) {
-         int tamDes = nuevoCargo.getNombre().length();
-         if (tamDes >= 1 && tamDes <= 50) {
-            if (bandera == 1) {
-               restaurarTablaCargos();
+         if (nuevoCargo.getNombre().length() >= 1 && nuevoCargo.getNombre().length() <= 50) {
+            boolean codRepetido = false;
+            if (listaCargos != null) {
+               if (!listaCargos.isEmpty()) {
+                  for (int i = 0; i < listaCargos.size(); i++) {
+                     if (nuevoCargo.getCodigo().equals(listaCargos.get(i).getCodigo())) {
+                        codRepetido = true;
+                        break;
+                     }
+                  }
+               }
             }
-
-            k++;
-            l = BigInteger.valueOf(k);
-            nuevoCargo.setEmpresa(empresaActual);
-            String text = nuevoCargo.getNombre().toUpperCase();
-            nuevoCargo.setNombre(text);
-            if (nuevoCargo.getCodigoalternativo() != null) {
-               String text2 = nuevoCargo.getCodigoalternativo().toUpperCase();
-               nuevoCargo.setCodigoalternativo(text2);
-            }
-            nuevoCargo.setSecuencia(l);
-            listCargosCrear.add(nuevoCargo);
-            listaCargos.add(nuevoCargo);
-            contarRegistrosC();
-            cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(nuevoCargo));
-            nuevoCargo = new Cargos();
-            nuevoCargo.setGruposalarial(new GruposSalariales());
-            nuevoCargo.setGrupoviatico(new GruposViaticos());
-            nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosCargo");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCargo').hide()");
-            if (guardado == true) {
-               guardado = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            if (!codRepetido) {
+               k++;
+               l = BigInteger.valueOf(k);
+               nuevoCargo.setEmpresa(empresaActual);
+               String text = nuevoCargo.getNombre().toUpperCase();
+               nuevoCargo.setNombre(text);
+               if (nuevoCargo.getCodigoalternativo() != null) {
+                  String text2 = nuevoCargo.getCodigoalternativo().toUpperCase();
+                  nuevoCargo.setCodigoalternativo(text2);
+               }
+               nuevoCargo.setSecuencia(l);
+               listCargosCrear.add(nuevoCargo);
+               listaCargos.add(nuevoCargo);
+               cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(nuevoCargo));
+               nuevoCargo = new Cargos();
+               nuevoCargo.setGruposalarial(new GruposSalariales());
+               nuevoCargo.setGrupoviatico(new GruposViaticos());
+               nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
+               cambiosPagina = false;
+               context.update("form:ACEPTAR");
+               if (bandera == 1) {
+                  restaurarTablaCargos();
+               }
+               context.update("form:datosCargo");
+               contarRegistrosC();
+               context.execute("PF('NuevoRegistroCargo').hide()");
+               if (guardado == true) {
+                  guardado = false;
+                  context.update("form:ACEPTAR");
+               }
+            } else {
+               context.execute("PF('errorCodigoCargoRepetido').show()");
             }
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorDescripcionCargo').show()");
+            context.execute("PF('errorDescripcionCargo').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('errorDatosNullCargo').show()");
+         context.execute("PF('errorDatosNullCargo').show()");
       }
    }
 
    public void agregarNuevoSueldoMercado() {
       boolean respueta = validarCamposNulosSueldosMercados(1);
+      RequestContext context = RequestContext.getCurrentInstance();
       if (respueta == true) {
          if (banderaSueldoMercado == 1) {
             restaurarTablaSueldoM();
@@ -1630,19 +1608,17 @@ public class ControlCargo implements Serializable {
          contarRegistrosSM();
          sueldoMercadoSeleccionado = listaSueldosMercados.get(listaSueldosMercados.indexOf(nuevoSueldoMercado));
          cambiosPagina = false;
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         RequestContext.getCurrentInstance().update("form:datosSueldoMercado");
-         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroSueldoMercado').hide()");
+         context.update("form:ACEPTAR");
+         context.update("form:datosSueldoMercado");
+         context.execute("PF('NuevoRegistroSueldoMercado').hide()");
          nuevoSueldoMercado = new SueldosMercados();
          nuevoSueldoMercado.setTipoempresa(new TiposEmpresas());
          if (guardadoSueldoMercado == true) {
             guardadoSueldoMercado = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            context.update("form:ACEPTAR");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('errorDatosNullSueldoMercado').show()");
+         context.execute("PF('errorDatosNullSueldoMercado').show()");
       }
    }
 
@@ -1667,7 +1643,6 @@ public class ControlCargo implements Serializable {
          contarRegistrosCC();
          competenciaCargoSeleccionado = listaCompetenciasCargos.get(listaCompetenciasCargos.indexOf(nuevoCompetenciaCargo));
          cambiosPagina = false;
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosCompetenciaCargo");
          RequestContext.getCurrentInstance().execute("PF('NuevoRegistroCompetenciaCargo').hide()");
@@ -1677,7 +1652,6 @@ public class ControlCargo implements Serializable {
             guardadoCompetencia = false;
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().execute("PF('errorDatosNullCompetencia').show()");
       }
    }
@@ -1687,6 +1661,7 @@ public class ControlCargo implements Serializable {
     */
    public void agregarNuevoTipoDetalle() {
       boolean respueta = validarCamposNulosTiposDetalles(1);
+      RequestContext context = RequestContext.getCurrentInstance();
       if (respueta == true) {
          if (nuevoTipoDetalle.getDescripcion().length() >= 1 && nuevoTipoDetalle.getDescripcion().length() <= 40) {
             if (banderaTipoDetalle == 1) {
@@ -1706,29 +1681,24 @@ public class ControlCargo implements Serializable {
             contarRegistrosTD();
             tipoDetalleSeleccionado = listaTiposDetalles.get(listaTiposDetalles.indexOf(nuevoTipoDetalle));
             cambiosPagina = false;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosTipoDetalle");
-            RequestContext.getCurrentInstance().execute("PF('NuevoRegistroTipoDetalle').hide()");
+            context.update("form:ACEPTAR");
+            context.update("form:datosTipoDetalle");
+            context.execute("PF('NuevoRegistroTipoDetalle').hide()");
             nuevoTipoDetalle = new TiposDetalles();
             nuevoTipoDetalle.setEnfoque(new Enfoques());
             if (guardadoTipoDetalle == true) {
                guardadoTipoDetalle = false;
-               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               context.update("form:ACEPTAR");
             }
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorDescripcionTipoDetalle').show()");
+            context.execute("PF('errorDescripcionTipoDetalle').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('errorDatosNullTipoDetalle').show()");
+         context.execute("PF('errorDatosNullTipoDetalle').show()");
       }
    }
-   //LIMPIAR NUEVO REGISTRO
 
-   /**
-    */
+   //LIMPIAR NUEVO REGISTRO
    public void limpiarNuevaCargo() {
       nuevoCargo = new Cargos();
       nuevoCargo.setGruposalarial(new GruposSalariales());
@@ -1736,33 +1706,22 @@ public class ControlCargo implements Serializable {
       nuevoCargo.setProcesoproductivo(new ProcesosProductivos());
    }
 
-   /**
-    *
-    */
    public void limpiarNuevaSueldoMercado() {
       nuevoSueldoMercado = new SueldosMercados();
       nuevoSueldoMercado.setTipoempresa(new TiposEmpresas());
    }
 
-   /**
-    *
-    */
    public void limpiarNuevaCompetenciaCargo() {
       nuevoCompetenciaCargo = new Competenciascargos();
       nuevoCompetenciaCargo.setEvalcompetencia(new EvalCompetencias());
    }
 
-   /**
-    *
-    */
    public void limpiarNuevaTipoDetalle() {
       nuevoTipoDetalle = new TiposDetalles();
       nuevoTipoDetalle.setEnfoque(new Enfoques());
    }
 
    //DUPLICAR VC
-   /**
-    */
    public void verificarRegistroDuplicar() {
       if (tablaActiva.equals("C")) {
          if (cargoTablaSeleccionado != null) {
@@ -1802,7 +1761,6 @@ public class ControlCargo implements Serializable {
       duplicarCargo.setProcesoproductivo(cargoTablaSeleccionado.getProcesoproductivo());
       duplicarCargo.setCodigoalternativo(cargoTablaSeleccionado.getCodigoalternativo());
 
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCargo");
       RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCargo').show()");
    }
@@ -1819,7 +1777,6 @@ public class ControlCargo implements Serializable {
       duplicarSueldoMercado.setSueldomax(sueldoMercadoSeleccionado.getSueldomax());
       duplicarSueldoMercado.setSueldomin(sueldoMercadoSeleccionado.getSueldomin());
 
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroSueldoMercado");
       RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroSueldoMercado').show()");
 
@@ -1832,7 +1789,6 @@ public class ControlCargo implements Serializable {
       duplicarCompetenciaCargo.setSecuencia(l);
       duplicarCompetenciaCargo.setEvalcompetencia(competenciaCargoSeleccionado.getEvalcompetencia());
 
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroCompetenciaCargo");
       RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCompetenciaCargo').show()");
    }
@@ -1847,7 +1803,6 @@ public class ControlCargo implements Serializable {
       duplicarTipoDetalle.setDescripcion(tipoDetalleSeleccionado.getDescripcion());
       duplicarTipoDetalle.setEnfoque(tipoDetalleSeleccionado.getEnfoque());
 
-      RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarRegistroTipoDetalle");
       RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroTipoDetalle').show()");
    }
@@ -1857,44 +1812,55 @@ public class ControlCargo implements Serializable {
     */
    public void confirmarDuplicarCargo() {
       boolean respueta = validarCamposNulosCargos(2);
+      RequestContext context = RequestContext.getCurrentInstance();
       if (respueta == true) {
-         int tamDes = 0;
-         tamDes = nuevoCargo.getNombre().length();
-         if (tamDes >= 1 && tamDes <= 50) {
-            if (bandera == 1) {
-               restaurarTablaCargos();
+         if (duplicarCargo.getNombre().length() >= 1 && duplicarCargo.getNombre().length() <= 50) {
+            boolean codRepetido = false;
+            if (listaCargos != null) {
+               if (!listaCargos.isEmpty()) {
+                  for (int i = 0; i < listaCargos.size(); i++) {
+                     if (duplicarCargo.getCodigo().equals(listaCargos.get(i).getCodigo())) {
+                        codRepetido = true;
+                        break;
+                     }
+                  }
+               }
             }
-            k++;
-            l = BigInteger.valueOf(k);
-            duplicarTipoDetalle.setSecuencia(l);
-            duplicarCargo.setEmpresa(empresaActual);
-            String text = duplicarCargo.getNombre().toUpperCase();
-            duplicarCargo.setNombre(text);
-            if (duplicarCargo.getCodigoalternativo() != null) {
-               String text2 = duplicarCargo.getCodigoalternativo().toUpperCase();
-               duplicarCargo.setCodigoalternativo(text2);
+            if (!codRepetido) {
+               k++;
+               l = BigInteger.valueOf(k);
+               duplicarTipoDetalle.setSecuencia(l);
+               duplicarCargo.setEmpresa(empresaActual);
+               String text = duplicarCargo.getNombre().toUpperCase();
+               duplicarCargo.setNombre(text);
+               if (duplicarCargo.getCodigoalternativo() != null) {
+                  String text2 = duplicarCargo.getCodigoalternativo().toUpperCase();
+                  duplicarCargo.setCodigoalternativo(text2);
+               }
+               listaCargos.add(duplicarCargo);
+               listCargosCrear.add(duplicarCargo);
+               cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(duplicarCargo));
+               cambiosPagina = false;
+               context.update("form:ACEPTAR");
+               if (bandera == 1) {
+                  restaurarTablaCargos();
+               }
+               context.update("form:datosCargo");
+               contarRegistrosC();
+               context.execute("PF('DuplicarRegistroCargo').hide()");
+               if (guardado == true) {
+                  guardado = false;
+                  //RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               }
+               duplicarCargo = new Cargos();
+            } else {
+               context.execute("PF('errorCodigoCargoRepetido').show()");
             }
-            listaCargos.add(duplicarCargo);
-            listCargosCrear.add(duplicarCargo);
-            contarRegistrosC();
-            cargoTablaSeleccionado = listaCargos.get(listaCargos.indexOf(duplicarCargo));
-            cambiosPagina = false;
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            RequestContext.getCurrentInstance().update("form:datosCargo");
-            RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroCargo').hide()");
-            if (guardado == true) {
-               guardado = false;
-               //RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            duplicarCargo = new Cargos();
          } else {
-            RequestContext context = RequestContext.getCurrentInstance();
-            RequestContext.getCurrentInstance().execute("PF('errorDescripcionCargo').show()");
+            context.execute("PF('errorDescripcionCargo').show()");
          }
       } else {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('errorDatosNullCargo').show()");
+         context.execute("PF('errorDatosNullCargo').show()");
       }
    }
 
@@ -3920,7 +3886,6 @@ public class ControlCargo implements Serializable {
 
    //GETTERS AND SETTERS
    public List<Cargos> getListaCargos() {
-      //try {
       if (listaCargos == null && empresaActual != null) {
          listaCargos = administrarCargos.listaCargosParaEmpresa(empresaActual.getSecuencia());
          if (listaCargos != null) {
@@ -3937,35 +3902,17 @@ public class ControlCargo implements Serializable {
             }
          }
       }
-
       return listaCargos;
-
-//        } catch (Exception e) {
-//            System.out.println("Error...!! getListaCargos " + e.toString());
-//            return null;
-//        }
    }
 
-   /**
-    *
-    * @param setListaTiposSueldos
-    */
    public void setListaCargos(List<Cargos> setListaTiposSueldos) {
       this.listaCargos = setListaTiposSueldos;
    }
 
-   /**
-    *
-    * @return
-    */
    public List<Cargos> getFiltrarListaCargos() {
       return filtrarListaCargos;
    }
 
-   /**
-    *
-    * @param setFiltrarListaTiposSueldos
-    */
    public void setFiltrarListaCargos(List<Cargos> setFiltrarListaTiposSueldos) {
       this.filtrarListaCargos = setFiltrarListaTiposSueldos;
    }
@@ -3974,18 +3921,10 @@ public class ControlCargo implements Serializable {
       return nuevoCargo;
    }
 
-   /**
-    *
-    * @param setNuevoTipoSueldo
-    */
    public void setNuevoCargo(Cargos setNuevoTipoSueldo) {
       this.nuevoCargo = setNuevoTipoSueldo;
    }
 
-   /**
-    *
-    * @return
-    */
    public boolean isAceptar() {
       return aceptar;
    }
@@ -4021,11 +3960,7 @@ public class ControlCargo implements Serializable {
    public List<SueldosMercados> getListaSueldosMercados() {
       if (listaSueldosMercados == null) {
          if (cargoTablaSeleccionado != null) {
-            if (listaCargos != null) {
-               if (listaCargos.size() > 0) {
-                  listaSueldosMercados = administrarCargos.listaSueldosMercadosParaCargo(cargoTablaSeleccionado.getSecuencia());
-               }
-            }
+            listaSueldosMercados = administrarCargos.listaSueldosMercadosParaCargo(cargoTablaSeleccionado.getSecuencia());
 
             if (listaSueldosMercados != null) {
                for (int i = 0; i < listaSueldosMercados.size(); i++) {
@@ -4244,13 +4179,8 @@ public class ControlCargo implements Serializable {
 
    public List<Competenciascargos> getListaCompetenciasCargos() {
       if (listaCompetenciasCargos == null) {
-         listaCompetenciasCargos = new ArrayList<Competenciascargos>();
          if (cargoTablaSeleccionado != null) {
-            if (listaCargos != null) {
-               if (listaCargos.size() > 0) {
-                  listaCompetenciasCargos = administrarCargos.listaCompetenciasCargosParaCargo(cargoTablaSeleccionado.getSecuencia());
-               }
-            }
+            listaCompetenciasCargos = administrarCargos.listaCompetenciasCargosParaCargo(cargoTablaSeleccionado.getSecuencia());
 
             if (listaCompetenciasCargos != null) {
                for (int i = 0; i < listaCompetenciasCargos.size(); i++) {

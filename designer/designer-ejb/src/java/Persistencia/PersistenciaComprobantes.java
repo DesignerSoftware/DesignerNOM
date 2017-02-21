@@ -11,7 +11,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -43,13 +42,10 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          return true;
       } catch (Exception e) {
          System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
          return false;
       }
    }
@@ -65,13 +61,10 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          tx.commit();
       } catch (Exception e) {
          System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
       }
    }
 
@@ -86,13 +79,10 @@ public class PersistenciaComprobantes implements PersistenciaComprobantesInterfa
          tx.commit();
       } catch (Exception e) {
          System.out.println("El comprobante no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("No se puede hacer rollback porque no hay una transacción");
       }
    }
 

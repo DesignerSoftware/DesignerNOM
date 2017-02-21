@@ -6,7 +6,6 @@ package Persistencia;
 import Entidades.Conceptos;
 import InterfacePersistencia.PersistenciaConceptosInterface;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -75,13 +74,10 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
          tx.commit();
 
       } catch (Exception e) {
-         try {
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
             System.out.println("Error PersistenciaConceptos.borrar: " + e);
-         }
       }
    }
 

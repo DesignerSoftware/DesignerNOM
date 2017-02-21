@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.ParameterMode;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
@@ -72,18 +71,16 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
          tx.commit();
 
       } catch (Exception e) {
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("Error PersistenciaDetallesReformasLaborales.borrar: " + e);
       }
    }
 
    @Override
-   public List<DetallesReformasLaborales> buscarDetallesReformasLaborales(EntityManager em) {
+   public List<DetallesReformasLaborales> buscarDetallesReformasLaborales(EntityManager em
+   ) {
       em.clear();
       Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d");
       query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -92,7 +89,8 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
    }
 
    @Override
-   public DetallesReformasLaborales buscarDetalleReformaSecuencia(EntityManager em, BigInteger secuencia) {
+   public DetallesReformasLaborales buscarDetalleReformaSecuencia(EntityManager em, BigInteger secuencia
+   ) {
       try {
          em.clear();
          Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.secuencia = :secuencia");
@@ -108,7 +106,8 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
    }
 
    @Override
-   public List<DetallesReformasLaborales> buscarDetalleReformasParaReformaSecuencia(EntityManager em, BigInteger secuencia) {
+   public List<DetallesReformasLaborales> buscarDetalleReformasParaReformaSecuencia(EntityManager em, BigInteger secuencia
+   ) {
       try {
          em.clear();
          Query query = em.createQuery("SELECT d FROM DetallesReformasLaborales d WHERE d.reformalaboral.secuencia=:secuencia ORDER BY d.factor ASC");
@@ -152,9 +151,8 @@ public class PersistenciaDetallesReformasLaborales implements PersistenciaDetall
             tx.rollback();
          }
          return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
+      } finally {
+         tx.commit();
       }
-      finally {
-            tx.commit();
-        }
    }
 }

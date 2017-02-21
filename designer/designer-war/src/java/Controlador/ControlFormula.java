@@ -120,6 +120,7 @@ public class ControlFormula implements Serializable {
       nombreLargoMientras = "0";
       tipoLista = 0;
       mapParametros.put("paginaAnterior", paginaAnterior);
+      disabledPropiedadesFormula = true;
    }
 
    @PostConstruct
@@ -716,7 +717,6 @@ public class ControlFormula implements Serializable {
    }
 
    public void salir() {
-      RequestContext context = RequestContext.getCurrentInstance();
       if (bandera == 1) {
          cargarTablaDefault();
       }
@@ -743,6 +743,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void refrescar() {
+      RequestContext context = RequestContext.getCurrentInstance();
       unaVez = true;
       tipoLista = 0;
       nombreLargoMientras = "0";
@@ -756,15 +757,10 @@ public class ControlFormula implements Serializable {
       k = 0;
       listaFormulas = null;
       getListaFormulas();
-      RequestContext.getCurrentInstance().update("form:novedadFormula");
-      RequestContext.getCurrentInstance().update("form:procesoFormula");
-      RequestContext.getCurrentInstance().update("form:conceptoFormula");
-      RequestContext.getCurrentInstance().update("form:legislacionFormula");
-
-      contarRegistros();
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
+      disabledPropiedadesFormula = true;
+      context.update("form:informacionRegistro");
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      context.update("form:ACEPTAR");
       mostrarTodos = true;
       formulaClon = new Formulas();
       formulaOriginal = new Formulas();
@@ -775,14 +771,19 @@ public class ControlFormula implements Serializable {
       if (verMostrarTodos) {
          mostrarTodasFormulas();
       }
+      context.update("form:novedadFormula");
+      context.update("form:procesoFormula");
+      context.update("form:conceptoFormula");
+      context.update("form:legislacionFormula");
 
-      RequestContext.getCurrentInstance().update("form:mostrarTodos");
-      RequestContext.getCurrentInstance().execute("PF('datosFormulas').clearFilters()");
-      RequestContext.getCurrentInstance().update("form:datosFormulas");
-      RequestContext.getCurrentInstance().update("form:nombreLargoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:nombreCortoFormulaClon");
-      RequestContext.getCurrentInstance().update("form:observacionFormulaClon");
-      RequestContext.getCurrentInstance().update("form:descripcionClon");
+      context.update("form:mostrarTodos");
+      context.execute("PF('datosFormulas').clearFilters()");
+      context.update("form:datosFormulas");
+      context.update("form:nombreLargoFormulaClon");
+      context.update("form:nombreCortoFormulaClon");
+      context.update("form:observacionFormulaClon");
+      context.update("form:descripcionClon");
+      contarRegistros();
    }
 
    public void cargarTablaDefault() {
@@ -1019,7 +1020,6 @@ public class ControlFormula implements Serializable {
       if (listaFormulas == null && tiposFormulas == null) {
          listaFormulas = administrarFormula.formulas();
       } else if (tiposFormulas != null) {
-         listaFormulas = administrarFormula.formulas();
          listaFormulas.clear();
          listaFormulas.add(tiposFormulas.getFormula());
       }

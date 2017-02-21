@@ -27,104 +27,113 @@ import javax.persistence.PersistenceException;
 @Stateless
 public class PersistenciaAficiones implements PersistenciaAficionesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-    /**
-     * Atributo Aficiones que representa la afición con el máximo código.
-     */
-    Aficiones maximo = new Aficiones();
+   /**
+    * Atributo Aficiones que representa la afición con el máximo código.
+    */
+   Aficiones maximo = new Aficiones();
 
-    @Override
-    public void crear(EntityManager em, Aficiones aficiones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(aficiones);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaAficiones.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void crear(EntityManager em, Aficiones aficiones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(aficiones);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaAficiones.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void editar(EntityManager em, Aficiones aficiones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(aficiones);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaAficiones.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, Aficiones aficiones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(aficiones);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaAficiones.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void borrar(EntityManager em, Aficiones aficiones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(aficiones));
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaAficiones.borrar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void borrar(EntityManager em, Aficiones aficiones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(aficiones));
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaAficiones.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public Aficiones buscarAficion(EntityManager em, BigInteger secuencia) {
-        em.clear();
-        return em.find(Aficiones.class, secuencia);
-    }
+   @Override
+   public Aficiones buscarAficion(EntityManager em, BigInteger secuencia) {
+      em.clear();
+      return em.find(Aficiones.class, secuencia);
+   }
 
-    @Override
-    public List<Aficiones> buscarAficiones(EntityManager em) {
-        try {
-            em.clear();
-            Query query = em.createQuery("SELECT af FROM Aficiones af ORDER BY af.codigo");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<Aficiones> aficiones = (List<Aficiones>) query.getResultList();
-            return aficiones;
-        } catch (Exception e) {
-            List<Aficiones> aficiones = null;
-            return aficiones;
-        }
-    }
+   @Override
+   public List<Aficiones> buscarAficiones(EntityManager em) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT af FROM Aficiones af ORDER BY af.codigo");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         List<Aficiones> aficiones = (List<Aficiones>) query.getResultList();
+         return aficiones;
+      } catch (Exception e) {
+         List<Aficiones> aficiones = null;
+         System.out.println("Persistencia.PersistenciaAficiones.buscarAficiones() e: " + e);
+         return aficiones;
+      }
+   }
 
-    @Override
-    public short maximoCodigoAficiones(EntityManager em) {
-        Short max;
-        em.clear();
-        Query query = em.createQuery("SELECT af FROM Aficiones af "
-                + "WHERE af.codigo=(SELECT MAX(afi.codigo) FROM Aficiones afi)");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        maximo = (Aficiones) query.getSingleResult();
-        max = maximo.getCodigo();
+   @Override
+   public short maximoCodigoAficiones(EntityManager em) {
+      Short max = new Short("0");
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT af FROM Aficiones af "
+                 + "WHERE af.codigo=(SELECT MAX(afi.codigo) FROM Aficiones afi)");
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         maximo = (Aficiones) query.getSingleResult();
+         max = maximo.getCodigo();
+      } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaAficiones.maximoCodigoAficiones() e: " + e);
+      }
+      return max;
+   }
 
-        return max;
-    }
-
-    @Override
-    public Aficiones buscarAficionCodigo(EntityManager em, Short cod) {
-        em.clear();
-        Query query = em.createQuery("SELECT af FROM Aficiones af WHERE af.codigo=:cod");
-        query.setParameter("cod", cod);
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        Aficiones aficiones = (Aficiones) query.getSingleResult();
-        return aficiones;
-    }
+   @Override
+   public Aficiones buscarAficionCodigo(EntityManager em, Short cod) {
+      try {
+         em.clear();
+         Query query = em.createQuery("SELECT af FROM Aficiones af WHERE af.codigo=:cod");
+         query.setParameter("cod", cod);
+         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         Aficiones aficiones = (Aficiones) query.getSingleResult();
+         return aficiones;
+      } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaAficiones.buscarAficionCodigo() e: " + e);
+         return null;
+      }
+   }
 }

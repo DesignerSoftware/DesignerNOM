@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -128,6 +127,7 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
             pruebas = (String) query.getSingleResult();
             return pruebas;
         } catch (Exception e) {
+           System.out.println("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada()");
            pruebas="";
             return pruebas;
         }

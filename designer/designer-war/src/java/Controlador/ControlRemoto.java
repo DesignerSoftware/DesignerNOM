@@ -199,10 +199,7 @@ public class ControlRemoto implements Serializable {
       activarAceptarEmpresas = true;
       unicaEmpresa = null;
       listaBusquedaAvanzada = new ArrayList<VWActualesTiposTrabajadores>();
-   }
-
-   public void limpiarListasValor() {
-
+      listaTablas = null;
    }
 
    @PostConstruct
@@ -230,6 +227,12 @@ public class ControlRemoto implements Serializable {
          actualizarInformacionTipoTrabajador();
          System.out.println("Ya actualizarInformacionTipoTrabajador()");
          llenarBannerDefault();
+         getListModulos();
+         if (listModulos != null) {
+            if (!listModulos.isEmpty()) {
+               moduloSeleccionado = listModulos.get(0);
+            }
+         }
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -1029,10 +1032,8 @@ public class ControlRemoto implements Serializable {
    public List<Modulos> getListModulos() {
       if (listModulos == null) {
          listModulos = administrarCarpetaDesigner.consultarModulos();
-         return listModulos;
-      } else {
-         return listModulos;
       }
+      return listModulos;
    }
 
    public void cambiarTablas() {
@@ -1234,29 +1235,17 @@ public class ControlRemoto implements Serializable {
 
    //   GET'S Y SET'S
    public List<Tablas> getListaTablas() {
+      if (moduloSeleccionado != null && listaTablas == null) {
+         listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
+         if (listaTablas != null && !listaTablas.isEmpty()) {
+            buscarTablasLOV = false;
+         }
+      }
       return listaTablas;
    }
 
    public Modulos getModuloSeleccionado() {
-      System.out.println(this.getClass().getName() + ".getSelectModulo()");
-      if (moduloSeleccionado == null) {
-         if (listModulos == null) {
-            getListModulos();
-         }
-         if (listModulos != null && !listModulos.isEmpty()) {
-            moduloSeleccionado = listModulos.get(0);
-//            secuenciaMod = moduloSeleccionado.getSecuencia();
-            listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-            if (listaTablas != null && !listaTablas.isEmpty()) {
-               buscarTablasLOV = false;
-            }
-         } else {
-            listaTablas = null;
-         }
-         return moduloSeleccionado;
-      } else {
-         return moduloSeleccionado;
-      }
+      return moduloSeleccionado;
    }
 
    public void setModuloSeleccionado(Modulos moduloSeleccionado) {

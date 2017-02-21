@@ -105,6 +105,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          Contratos contrato = (Contratos) query.getSingleResult();
          return contrato;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaContratos.buscarContratoSecuencia() e: " + e);
          Contratos contrato = null;
          return contrato;
       }
@@ -119,6 +120,7 @@ public class PersistenciaContratos implements PersistenciaContratosInterface {
          List<Contratos> listaContratos = query.getResultList();
          return listaContratos;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaContratos.lovContratos() e: " + e);
          return null;
       }
    }

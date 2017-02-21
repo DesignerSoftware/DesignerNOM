@@ -59,7 +59,7 @@
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="insertar" value="" actionListener="#{controlCargo.dialogoNuevoRegistro()}" onclick="PF('verificarNuevoRegistro').show()" process="@this"
+                        <p:commandButton id="insertar" value="" onclick="PF('verificarNuevoRegistro').show()" process="@this"
                                          style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"/>
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
@@ -248,7 +248,7 @@
                                    width="100" id="cargoGrupoViatico" filterStyle="display: none; visibility: hidden;">
                            <f:facet name="header">
                               <h:outputText id="headerGrupoV" value="#{msg['grupoViatico']}" />
-                              <p:tooltip  for="headerGrupoV" value="#{msg['grupoViatico']}" />
+                              <p:tooltip for="headerGrupoV" value="#{msg['grupoViatico']}" />
                            </f:facet>
                            <p:cellEditor>  
                               <f:facet name="output">
@@ -270,9 +270,9 @@
                         </p:column>
 
                         <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central;" headerText="TR" sortBy="#{info.strCargoRotativo}" filterBy="#{info.strCargoRotativo}" filterMatchMode="contains" 
-                                  id="cargoCargoRotativo" filterStyle="display: none; visibility: hidden;" >     
+                                  id="cargoCargoRotativo" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">     
                            <f:facet name="header">
-                              <h:outputText id="headerTR" value="TR" />
+                              <h:outputText id="headerTR" value="TR"/>
                               <p:tooltip  for="headerTR" value="#{msg['headerTR']}" />
                            </f:facet>
                            <p:selectBooleanCheckbox id="checkCargoRotativoCargo" value="#{info.checkCargoRotativo}" style="alignment-adjust: central;">  
@@ -285,7 +285,7 @@
                         </p:column>
 
                         <p:column style="padding: 0px !important; width: 20px; alignment-adjust: central;" headerText="..." sortBy="#{info.strCargoRotativo}" filterBy="#{info.strCargoRotativo}"
-                                  filterMatchMode="contains" id="cargoJefe" filterStyle="display: none; visibility: hidden;" >     
+                                  filterMatchMode="contains" id="cargoJefe" filterStyle="display: none; visibility: hidden;" class="cssColumnasCentradas">
                            <f:facet name="header">
                               <h:outputText id="headerJefe" value="..." />
                               <p:tooltip  for="headerJefe" value="#{msg['headerJefe']}" />
@@ -670,6 +670,11 @@
                   <h:outputText value="#{msg['errorDescripcionCargo']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
+               <p:dialog id="errorCodigoCargoRepetido" header="#{msg['error']}" widgetVar="errorCodigoCargoRepetido"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorCodigoCargoRepetido']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
                <p:dialog id="errorDatosNullSueldoMercado" header="#{msg['error']}" widgetVar="errorDatosNullSueldoMercado"  resizable="false" draggable="true" modal="true" height="60" width="275" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorDatosNullSueldoMercado']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
@@ -992,7 +997,7 @@
                </p:dialog>
 
                <p:dialog id="verificarNuevoRegistro" widgetVar="verificarNuevoRegistro" header="#{msg['nuevoregistropagina']}" resizable="false" draggable="true" modal="true" height="200" width="400" style="font-size: 12px;" >
-                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px;color: blue;font-weight: bold; width: 380px; text-align: center;"/>
+                  <h:outputText value="#{msg['verificarNuevoRegistro']}" style="position: absolute; left: 20px; top: 20px; color: blue; font-weight: bold; width: 380px; text-align: center;"/>
                   <p:commandButton value="#{msg['cargos']}" onclick="PF('verificarNuevoRegistro').hide();" 
                                    style="position: absolute; left: 80px; top: 50px; width: 240px; height: 28px;"  actionListener="#{controlCargo.dispararDialogoNuevoCargo()}" process="@this" />
                   <p:commandButton value="#{msg['sueldosMercados']}" onclick="PF('verificarNuevoRegistro').hide();" 
@@ -1175,9 +1180,12 @@
                      </p:inputText>
                      <p:watermark value="#{msg['codigoAlternativo']}" for="duplicarCargoCodigoAlternativo"/>
 
-                     <p:commandButton id="limpiarDC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 430px;" actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" process="@this"/>
-                     <p:commandButton id="agregarDC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 430px;"  actionListener="#{controlCargo.confirmarDuplicarCargo()}" process="@this"  />
-                     <p:commandButton id="cancelarDC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 430px;" actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" onclick="PF('DuplicarRegistroCargo').hide();"  process="@this"/>
+                     <p:commandButton id="limpiarDC" icon="ui-icon-trash" value="#{msg['limpiar']}" style="position: absolute; left: 20px; top: 430px;"
+                                      actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" process="@this"/>
+                     <p:commandButton id="agregarDC" icon="ui-icon-circle-check" value="#{msg['agregar']}" style="position: absolute; left: 190px; top: 430px;"
+                                      actionListener="#{controlCargo.confirmarDuplicarCargo()}" process="@this"  />
+                     <p:commandButton id="cancelarDC" icon="ui-icon-circle-close" value="#{msg['cancelar']}" style="position: absolute; left: 290px; top: 430px;"
+                                      actionListener="#{controlCargo.limpiarDuplicarCargo()}" update="duplicarCargo" onclick="PF('DuplicarRegistroCargo').hide();"  process="@this"/>
                   </p:panel>
                </p:dialog>
 

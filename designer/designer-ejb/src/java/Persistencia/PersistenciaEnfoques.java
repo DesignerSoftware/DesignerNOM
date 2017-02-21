@@ -66,13 +66,10 @@ public class PersistenciaEnfoques implements PersistenciaEnfoquesInterface {
             tx.commit();
 
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
                 System.out.println("Error PersistenciaEnfoques.borrar: " + e);
-            }
         }
     }
 

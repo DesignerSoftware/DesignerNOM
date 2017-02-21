@@ -33,6 +33,7 @@ public class PersistenciaAdiestramientosF implements PersistenciaAdiestramientos
             List<AdiestramientosF> adiestramientosF = query.getResultList();
             return adiestramientosF;
         } catch (Exception e) {
+           System.out.println("Persistencia.PersistenciaAdiestramientosF.adiestramientosF() e: " + e);
             return null;
         }
     }

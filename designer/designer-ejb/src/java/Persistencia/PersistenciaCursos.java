@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -22,74 +21,70 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaCursos implements PersistenciaCursosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+   /**
+    * Atributo EntityManager. Representa la comunicación con la base de datos
+    */
+   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
     private EntityManager em;*/
+   @Override
+   public List<Cursos> cursos(EntityManager em) {
+      try {
+         em.clear();
+         String sql = "SELECT * FROM CURSOS ORDER BY CODIGO ASC";
+         Query query = em.createNativeQuery(sql, Cursos.class);
+         List<Cursos> cursos = query.getResultList();
+         return cursos;
+      } catch (Exception e) {
+         return null;
+      }
+   }
 
-    @Override
-    public List<Cursos> cursos(EntityManager em) {
-        try {
-            em.clear();
-            String sql = "SELECT * FROM CURSOS ORDER BY CODIGO ASC";
-            Query query = em.createNativeQuery(sql, Cursos.class);
-            List<Cursos> cursos = query.getResultList();
-            return cursos;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+   @Override
+   public void crear(EntityManager em, Cursos curso) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(curso);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCursos.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    @Override
-    public void crear(EntityManager em, Cursos curso) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(curso);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaCursos.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void borrar(EntityManager em, Cursos curso) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(curso));
+         tx.commit();
 
-    @Override
-    public void borrar(EntityManager em, Cursos curso) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(curso));
-            tx.commit();
+      } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("Error PersistenciaCursos.borrar: " + e);
+      }
+   }
 
-        } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaCursos.borrar: " + e);
-            }
-        }
-    }
-
-    @Override
-    public void editar(EntityManager em, Cursos curso) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(curso);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaCursos.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   @Override
+   public void editar(EntityManager em, Cursos curso) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(curso);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaCursos.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 }

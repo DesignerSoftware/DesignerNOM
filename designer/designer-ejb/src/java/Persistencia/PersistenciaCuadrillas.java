@@ -130,7 +130,7 @@ public class PersistenciaCuadrillas implements PersistenciaCuadrillasInterface {
             List<Cuadrillas> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado : " + e.toString());
+            System.out.println("Error PersistenciaCuadrillas.buscarCuadrillasParaEmpleado : " + e);
             return null;
         }
     }

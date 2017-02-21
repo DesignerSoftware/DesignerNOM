@@ -21,75 +21,72 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaConceptosProyecciones implements PersistenciaConceptosProyeccionesInterface {
 
-    public void crear(EntityManager em, ConceptosProyecciones contadorProyecciones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(contadorProyecciones);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaConceptosProyecciones.crear: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   public void crear(EntityManager em, ConceptosProyecciones contadorProyecciones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(contadorProyecciones);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaConceptosProyecciones.crear: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    public void editar(EntityManager em, ConceptosProyecciones contadorProyecciones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.merge(contadorProyecciones);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println("Error PersistenciaConceptosProyecciones.editar: " + e);
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-        }
-    }
+   public void editar(EntityManager em, ConceptosProyecciones contadorProyecciones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.merge(contadorProyecciones);
+         tx.commit();
+      } catch (Exception e) {
+         System.out.println("Error PersistenciaConceptosProyecciones.editar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
+   }
 
-    public void borrar(EntityManager em, ConceptosProyecciones contadorProyecciones) {
-        em.clear();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            em.remove(em.merge(contadorProyecciones));
-            tx.commit();
+   public void borrar(EntityManager em, ConceptosProyecciones contadorProyecciones) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(contadorProyecciones));
+         tx.commit();
 
-        } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaConceptosProyecciones.borrar: " + e);
-            }
-        }
-    }
+      } catch (Exception e) {
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         System.out.println("Error PersistenciaConceptosProyecciones.borrar: " + e);
+      }
+   }
 
-    public ConceptosProyecciones buscarConceptoProyeccion(EntityManager em, BigInteger secuencia) {
-        try {
-            em.clear();
-            return em.find(ConceptosProyecciones.class, secuencia);
-        } catch (Exception e) {
-            System.out.println("Error buscarDeporte PersistenciaConceptosProyecciones : " + e.toString());
-            return null;
-        }
-    }
+   public ConceptosProyecciones buscarConceptoProyeccion(EntityManager em, BigInteger secuencia) {
+      try {
+         em.clear();
+         return em.find(ConceptosProyecciones.class, secuencia);
+      } catch (Exception e) {
+         System.out.println("Error buscarDeporte PersistenciaConceptosProyecciones : " + e.toString());
+         return null;
+      }
+   }
 
-    public List<ConceptosProyecciones> buscarConceptosProyecciones(EntityManager em) {
-        try {
-            em.clear();
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(ConceptosProyecciones.class));
-            return em.createQuery(cq).getResultList();
-        } catch (Exception e) {
-            System.out.println("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error : " + e);
-            return null;
-        }
-    }
+   public List<ConceptosProyecciones> buscarConceptosProyecciones(EntityManager em) {
+      try {
+         em.clear();
+         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         cq.select(cq.from(ConceptosProyecciones.class));
+         return em.createQuery(cq).getResultList();
+      } catch (Exception e) {
+         System.out.println("Error buscarConceptosProyecciones PersistenciaConceptosProyecciones Error : " + e);
+         return null;
+      }
+   }
 
 }

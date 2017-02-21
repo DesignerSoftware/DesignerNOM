@@ -13,7 +13,7 @@
          <ui:define name="body">                  
             <script>
                $(window).load(function () {
-               $(".loader").fadeOut("slow");
+               //$(".loader").fadeOut("slow");
                foco('form:guardarRapido');
                actualizarLOV();
                });
@@ -22,7 +22,7 @@
                }
                ;
             </script>
-            <div class="loader"></div>
+            <!--<div class="loader"></div>-->
             <h:form id="form">
                <f:loadBundle basename="Recursos.parametro" var="msg"/>
                <p:growl id="growl" showDetail="true"/>

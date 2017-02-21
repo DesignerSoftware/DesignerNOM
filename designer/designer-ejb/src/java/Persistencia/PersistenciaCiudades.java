@@ -6,13 +6,9 @@ package Persistencia;
 import Entidades.Ciudades;
 import InterfacePersistencia.PersistenciaCiudadesInterface;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -92,6 +88,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          List<Ciudades> ciudades = query.getResultList();
          return ciudades;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaCiudades.consultarCiudades() e: " + e);
          return null;
       }
    }
@@ -105,6 +102,7 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          List<Ciudades> ciudades = query.getResultList();
          return ciudades;
       } catch (Exception e) {
+         System.out.println("Persistencia.PersistenciaCiudades.lovCiudades() e: " + e);
          return null;
       }
    }

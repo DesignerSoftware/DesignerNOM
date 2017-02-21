@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -71,13 +70,10 @@ public class PersistenciaFormasPagos implements PersistenciaFormasPagosInterface
             tx.commit();
 
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
                 System.out.println("Error PersistenciaFormasPagos.borrar: " + e);
-            }
         }
     }
 

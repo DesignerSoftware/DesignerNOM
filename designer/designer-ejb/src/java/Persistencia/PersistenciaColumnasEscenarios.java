@@ -5,9 +5,7 @@
  */
 package Persistencia;
 
-import ClasesAyuda.ColumnasBusquedaAvanzada;
 import Entidades.ColumnasEscenarios;
-import Entidades.Empleados;
 import Entidades.ResultadoBusquedaAvanzada;
 import InterfacePersistencia.PersistenciaColumnasEscenariosInterface;
 import java.math.BigInteger;
@@ -109,6 +107,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
 
       } catch (Exception e) {
          System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         e.printStackTrace();
          return null;
       }
    }
@@ -143,6 +142,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
 
       } catch (Exception e) {
          System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
+         e.printStackTrace();
          return null;
       }
    }
@@ -211,6 +211,7 @@ public class PersistenciaColumnasEscenarios implements PersistenciaColumnasEscen
          return registroPrueba;
 
       } catch (Exception e) {
+         e.printStackTrace();
          System.out.println("Error buscarQVWEmpleadosCorteCodigoEmpleado PersistenciaQVWEmpleadosCorte : " + e.toString());
          return null;
       }

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -71,13 +70,10 @@ public class PersistenciaHistoriasformulas implements PersistenciaHistoriasformu
             tx.commit();
 
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
                 System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e);
-            }
         }
     }
 

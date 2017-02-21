@@ -77,13 +77,10 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          tx.commit();
 
       } catch (Exception e) {
-         try {
-            if (tx.isActive()) {
-               tx.rollback();
-            }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaFormulasConceptos.borrar: " + e);
+         if (tx.isActive()) {
+            tx.rollback();
          }
+         System.out.println("Error PersistenciaFormulasConceptos.borrar: " + e);
       }
    }
 
@@ -126,6 +123,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          return resultado;
       } catch (Exception e) {
          System.out.println("Error buscarFormulasConceptos Persistencia : " + e.toString());
+         e.printStackTrace();
          return null;
       }
    }
@@ -184,6 +182,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          return resultado;
       } catch (Exception e) {
          System.out.println("Error en formulasConcepto() : " + e);
+         e.printStackTrace();
          return null;
       }
    }
@@ -278,6 +277,7 @@ public class PersistenciaFormulasConceptos implements PersistenciaFormulasConcep
          return resultado;
       } catch (Exception e) {
          System.out.println("Error Persistencia formulasConceptosParaFormulaSecuencia : " + e.toString());
+         e.printStackTrace();
          return null;
       }
    }

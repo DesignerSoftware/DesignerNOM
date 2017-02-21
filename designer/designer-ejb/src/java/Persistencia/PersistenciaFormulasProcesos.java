@@ -69,13 +69,10 @@ public class PersistenciaFormulasProcesos implements PersistenciaFormulasProceso
             tx.commit();
 
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
                 System.out.println("Error PersistenciaFormulasProcesos.borrar: " + e);
-            }
         }
     }
 
