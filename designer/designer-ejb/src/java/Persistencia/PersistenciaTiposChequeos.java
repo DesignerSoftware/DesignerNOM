@@ -13,22 +13,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposChequeos' de la
- * base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposChequeos tiposChequeos) {
         em.clear();
@@ -38,7 +25,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.merge(tiposChequeos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposChequeos.crear: " + e);
+            System.out.println("Error PersistenciaTiposChequeos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.merge(tiposChequeos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposChequeos.editar: " + e);
+            System.out.println("Error PersistenciaTiposChequeos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.remove(em.merge(tiposChequeos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposChequeos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposChequeos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,6 +70,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             em.clear();
             return em.find(TiposChequeos.class, secuenciaTC);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposChequeos.buscarTipoChequeo()" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +84,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             List<TiposChequeos> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR TIPOS CHEQUEOS  " + e);
+            System.out.println("Persistencia.PersistenciaTiposChequeos.buscarTiposChequeos()" + e.getMessage());
             return null;
         }
     }
@@ -106,15 +94,13 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
         BigInteger retorno;
         try {
             em.clear();
-            System.out.println("Persistencia secuencia borrado " + secuencia);
             String sqlQuery = " SELECT COUNT(*)FROM chequeosmedicos cm WHERE cm.tipochequeo = ? ";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAJUZGADOS CONTADORCHEQUEOSMEDICOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSCHEQUEOS CONTADORCHEQUETOSMEDICOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposChequeos.contadorChequeosMedicos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -133,7 +119,7 @@ public class PersistenciaTiposChequeos implements PersistenciaTiposChequeosInter
             System.out.println("PERSISTENCIAJUZGADOS CONTADORCHEQUEOSMEDICOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSCHEQUEOS CONTADORCHEQUETOSMEDICOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposChequeos.contadorTiposExamenesCargos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

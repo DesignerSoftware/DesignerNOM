@@ -29,12 +29,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public List<UsuariosVistas> buscarUsuariosVistas(EntityManager em) {
         try {
@@ -44,7 +38,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             List<UsuariosVistas> usuariosvistas = (List<UsuariosVistas>) query.getResultList();
             return usuariosvistas;
         } catch (Exception e) {
-            System.out.println("Error buscarUsuarios PersistenciaUsuariosVista");
+            System.out.println("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
             return null;
         }
     }
@@ -58,7 +52,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosVistas.crear: " + e);
+            System.out.println("Error PersistenciaUsuariosVistas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +68,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             em.merge(usuariosVistas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuariosVistas.editar: " + e);
+            System.out.println("Error PersistenciaUsuariosVistas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -96,7 +90,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaUsuariosVistas.borrar: " + e);
+                System.out.println("Error PersistenciaUsuariosVistas.borrar: " + e.getMessage());
             }
         }
     }
@@ -115,7 +109,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
             tx.commit();
             return exe;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.crearUsuarioVista. " + e.toString());
+            System.out.println("Error PersistenciaUsuarios.crearUsuarioVista. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();               
             }

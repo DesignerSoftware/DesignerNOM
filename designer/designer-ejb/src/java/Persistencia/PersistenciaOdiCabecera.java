@@ -38,7 +38,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odicabecera);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.crear: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odicabecera);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.editar: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.remove(em.merge(odicabecera));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.borrar: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -93,7 +93,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            System.out.println("Error: (lovTerceros)" + e);
+            System.out.println("Error: (lovTerceros)" + e.getMessage());
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<TiposEntidades> tiposentidades = query.getResultList();
             return tiposentidades;
         } catch (Exception e) {
-            System.out.println("Error: (lovTiposEntidades)" + e);
+            System.out.println("Error: (lovTiposEntidades)" + e.getMessage());
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Empresas> listaEmpresas = query.getResultList();
             return listaEmpresas;
         } catch (Exception e) {
-            System.out.println("Error: (lovEmpresas)" + e);
+            System.out.println("Error: (lovEmpresas)" + e.getMessage());
             return null;
         }
     }
@@ -150,7 +150,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<Empleados> lovempleados = query.getResultList();
             return lovempleados;
         } catch (Exception e) {
-            System.out.println("Error: (lovSucursalesPila)" + e);
+            System.out.println("Error: (lovSucursalesPila)" + e.getMessage());
             return null;
         }
     }
@@ -165,7 +165,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<SucursalesPila> listasucursalespila = query.getResultList();
             return listasucursalespila;
         } catch (Exception e) {
-            System.out.println("Error: (lovSucursalesPila)" + e);
+            System.out.println("Error: (lovSucursalesPila)" + e.getMessage());
             return null;
         }
     }
@@ -185,7 +185,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             return lovrelacionesincapacidades;
 
         } catch (Exception e) {
-            System.out.println("Error: (lovRelacionesIncapacidades) " + e);
+            System.out.println("Error: (lovRelacionesIncapacidades) " + e.getMessage());
             return null;
         }
     }
@@ -204,7 +204,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             List<OdisCabeceras> listaodiscabeceras = query.getResultList();
             return listaodiscabeceras;
         } catch (Exception e) {
-            System.out.println("Error: (listaNovedades)" + e);
+            System.out.println("Error: (listaNovedades)" + e.getMessage());
             return null;
         }
     }
@@ -218,7 +218,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odidetalle);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.crearDetalle: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.crearDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -234,7 +234,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.merge(odidetalle);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.editarDetalle: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.editarDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -250,7 +250,7 @@ public class PersistenciaOdiCabecera implements PersistenciaOdiCabeceraInterface
             em.remove(em.merge(odidetalle));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOdiCabecera.borrarDetalle: " + e);
+            System.out.println("Error PersistenciaOdiCabecera.borrarDetalle: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

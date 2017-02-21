@@ -36,7 +36,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasPlantas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +51,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.merge(vigenciasPlantas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasPlantas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.remove(em.merge(vigenciasPlantas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasPlantas.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasPlantas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,17 +78,22 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             em.clear();
             return em.find(VigenciasPlantas.class, secVigenciasPlantas);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciaPlanta()" + e.getMessage());
             return null;
         }
     }
 
     public List<VigenciasPlantas> consultarVigenciasPlantas(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT te FROM VigenciasPlantas te ORDER BY te.codigo ASC ");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<VigenciasPlantas> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
-
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaVigenciasPlantas.consultarVigenciasPlantas()" + e.getMessage());
+            return null;
+        }
     }
 
     public BigInteger contarPlantasVigenciaPlanta(EntityManager em, BigInteger secuencia) {
@@ -99,10 +104,9 @@ public class PersistenciaVigenciasPlantas implements PersistenciaVigenciasPlanta
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaVigenciasPlantas contarPlantasVigenciaPlanta  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR. " + e);
+            System.err.println("Error PersistenciaVigenciasPlantas  contarPlantasVigenciaPlanta ERROR. " + e.getMessage());
             return retorno;
         }
     }

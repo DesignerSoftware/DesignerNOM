@@ -37,7 +37,7 @@ public class PersistenciaVWAcumulados implements PersistenciaVWAcumuladosInterfa
             List<VWAcumulados> VWAcumuladosPorEmpleado = query.getResultList();
             return VWAcumuladosPorEmpleado;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia VWAcumulados " + e);
+            System.out.println("Error en Persistencia VWAcumulados " + e.getMessage());
             return null;
         }
     }

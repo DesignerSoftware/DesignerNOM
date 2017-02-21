@@ -36,7 +36,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
             em.remove(em.merge(vretenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasRetencionesMinimas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,10 +77,15 @@ public class PersistenciaVigenciasRetencionesMinimas implements PersistenciaVige
 
     @Override
     public List<VigenciasRetencionesMinimas> buscarVigenciasRetencionesMinimas(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT v FROM VigenciasRetencionesMinimas v ORDER BY v.fechavigencia");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<VigenciasRetencionesMinimas> setsLista = (List<VigenciasRetencionesMinimas>) query.getResultList();
         return setsLista;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaVigenciasRetencionesMinimas.buscarVigenciasRetencionesMinimas()" + e.getMessage());
+         return null;   
+        }
     }
 }

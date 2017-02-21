@@ -22,7 +22,7 @@ public class PersistenciaVWValidaBancos implements PersistenciaVWValidaBancosInt
             VWValidaBancos validacion = (VWValidaBancos) query.getSingleResult();
             return validacion;
         } catch (Exception e) {
-            System.out.println("Error validarDocumentoVWValidaBancos PersistenciaVWValidaBancos : " + e.toString());
+            System.out.println("Error validarDocumentoVWValidaBancos PersistenciaVWValidaBancos : " + e.getMessage());
             return null;
         }
     }

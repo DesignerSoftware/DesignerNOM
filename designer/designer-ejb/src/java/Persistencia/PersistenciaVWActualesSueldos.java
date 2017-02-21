@@ -18,12 +18,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSueldosInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public BigDecimal buscarSueldoActivo(EntityManager em, BigInteger secuencia) {
@@ -35,6 +29,7 @@ public class PersistenciaVWActualesSueldos implements PersistenciaVWActualesSuel
             BigDecimal vwActualesSueldosValor = (BigDecimal) query.getSingleResult();
             return vwActualesSueldosValor;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVWActualesSueldos.buscarSueldoActivo()" + e.getMessage());
             return null;
         }
     }

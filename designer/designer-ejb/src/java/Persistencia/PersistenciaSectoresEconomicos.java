@@ -36,7 +36,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.merge(sectoresEconomicos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEconomicos.crear: " + e);
+            System.out.println("Error PersistenciaSectoresEconomicos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.merge(sectoresEconomicos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEconomicos.editar: " + e);
+            System.out.println("Error PersistenciaSectoresEconomicos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaSectoresEconomicos implements PersistenciaSectoresEcono
             em.remove(em.merge(sectoresEconomicos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEconomicos.borrar: " + e);
+            System.out.println("Error PersistenciaSectoresEconomicos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

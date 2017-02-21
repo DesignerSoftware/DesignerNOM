@@ -15,22 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposCotizantes' de
- * la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-     */
 
     @Override
     public void crear(EntityManager em, TiposCotizantes tiposCotizantes) {
@@ -41,7 +27,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
             em.merge(tiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCotizantes.crear: " + e.toString());
+            System.out.println("Error PersistenciaTiposCotizantes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +44,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
             em.merge(tiposCotizantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCotizantes.editar: " + e.toString());
+            System.out.println("Error PersistenciaTiposCotizantes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +60,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
             em.remove(em.merge(tiposCotizantes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCotizantes.borrar: " + e.toString());
+            System.out.println("Error PersistenciaTiposCotizantes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,6 +76,7 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
             List<TiposCotizantes> listaTiposCotizantes = query.getResultList();
             return listaTiposCotizantes;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposCotizantes.lovTiposCotizantes()" + e.getMessage());
             return null;
         }
     }
@@ -115,11 +102,10 @@ public class PersistenciaTiposCotizantes implements PersistenciaTiposCotizantesI
             query.hasMoreResults();
             Long aux = (Long) query.getOutputParameterValue(4);
             BigInteger secuenciaClonado = BigInteger.valueOf(aux);
-            System.out.println("secuenciaClonado : " + secuenciaClonado);
             tx.commit();
             return secuenciaClonado;
         } catch (Exception e) {
-            System.out.println("error en  persistenciaTiposCotizantes.clonarTipoCotizante " + e.toString());
+            System.out.println("error en  persistenciaTiposCotizantes.clonarTipoCotizante " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

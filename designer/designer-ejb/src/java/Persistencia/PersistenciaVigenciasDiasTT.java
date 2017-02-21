@@ -30,7 +30,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.persist(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasDiasTT.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.merge(vigenciasDiasTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasDiasTT.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
             em.remove(em.merge(vigenciasDiasTT));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDiasTT.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasDiasTT.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,19 +73,14 @@ public class PersistenciaVigenciasDiasTT implements PersistenciaVigenciasDiasTTI
     public List<VigenciasDiasTT> consultarDiasPorTT(EntityManager em, BigInteger secuenciaTT) {
         try {
             em.clear();
-//            Query queryFinal = em.createQuery("SELECT vdt FROM VigenciasDiasTT vdt WHERE vdt.tipoTrabajador.secuencia = :secuenciaTipoT");
             javax.persistence.Query query = em.createQuery("SELECT vdt FROM VigenciasDiasTT vdt WHERE vdt.tipoTrabajador.secuencia = :secuenciaTipoT");
             query.setParameter("secuenciaTipoT", secuenciaTT);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VigenciasDiasTT> listaVigenciasDiasTT = query.getResultList();
             return listaVigenciasDiasTT;
         } catch (Exception e) {
-            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.toString());
+            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
             return null;
         }
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    
 }

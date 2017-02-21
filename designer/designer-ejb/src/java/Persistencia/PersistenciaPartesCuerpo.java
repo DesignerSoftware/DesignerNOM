@@ -37,7 +37,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             em.merge(partesCuerpo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPartesCuerpo.crear: " + e);
+            System.out.println("Error PersistenciaPartesCuerpo.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             em.merge(partesCuerpo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPartesCuerpo.editar: " + e);
+            System.out.println("Error PersistenciaPartesCuerpo.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             em.remove(em.merge(partesCuerpo));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPartesCuerpo.borrar: " + e);
+            System.out.println("Error PersistenciaPartesCuerpo.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,6 +82,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             em.clear();
             return em.find(PartesCuerpo.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaPartesCuerpo.buscarParteCuerpo()" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +96,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             List<PartesCuerpo> listPartesCuerpo = query.getResultList();
             return listPartesCuerpo;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR ELEMENTOS CAUSAS ACCIDENTES  " + e);
+            System.out.println("Persistencia.PersistenciaPartesCuerpo.buscarPartesCuerpo()" + e.getMessage());
             return null;
         }
     }
@@ -109,10 +110,9 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) query.getSingleResult();
-            System.err.println("PARTESCUERPO CONTADORSOACCIDENTESMEDICOS  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PARTESCUERPO  ERROR EN EL CONTADORSOACCIDENTESMEDICOS " + e);
+            System.out.println("Persistencia.PersistenciaPartesCuerpo.contadorSoAccidentesMedicos()" + e.getMessage());
             return retorno;
         }
     }
@@ -126,10 +126,9 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) query.getSingleResult();
-            System.err.println("PARTESCUERPO CONTADOR DETALLES EXAMENES  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PARTESCUERPO  ERROR EN EL DETALLES EXAMENES " + e);
+            System.out.println("Persistencia.PersistenciaPartesCuerpo.contadorDetallesExamenes()" + e.getMessage());
             return retorno;
         }
     }
@@ -146,7 +145,7 @@ public class PersistenciaPartesCuerpo implements PersistenciaPartesCuerpoInterfa
             System.err.println("PARTESCUERPO CONTADOR SO DETALLES REVISIONES  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PARTESCUERPO  ERROR EN EL CONTADORSODETALLESREVISIONES " + e);
+            System.out.println("Persistencia.PersistenciaPartesCuerpo.contadorSoDetallesRevisiones()" + e.getMessage());
             return retorno;
         }
     }

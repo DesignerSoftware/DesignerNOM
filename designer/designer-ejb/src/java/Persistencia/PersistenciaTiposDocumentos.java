@@ -39,7 +39,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.merge(tiposDocumentos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDocumentos.crear: " + e);
+            System.out.println("Error PersistenciaTiposDocumentos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.merge(tiposDocumentos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDocumentos.editar: " + e);
+            System.out.println("Error PersistenciaTiposDocumentos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             em.remove(em.merge(tiposDocumentos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDocumentos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposDocumentos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -87,7 +87,7 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             List<TiposDocumentos> listaTiposDocumentos = query.getResultList();
             return listaTiposDocumentos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDocumentos.ciudades " + e);
+            System.out.println("Error PersistenciaTiposDocumentos.ciudades " + e.getMessage());
             return null;
         }
     }
@@ -102,9 +102,8 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             TiposDocumentos tiposDescansos = (TiposDocumentos) query.getSingleResult();
             return tiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDocumentosSecuencia PersistenciaTiposDocumentos");
-            TiposDocumentos tiposDescansos = null;
-            return tiposDescansos;
+            System.out.println("Error buscarTiposDocumentosSecuencia PersistenciaTiposDocumentos" + e.getMessage());
+            return null;
         }
     }
 
@@ -117,10 +116,9 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposDocumentos contarCodeudoresTipoDocumento persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e);
+            System.err.println("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e.getMessage());
             return retorno;
         }
     }
@@ -134,10 +132,9 @@ public class PersistenciaTiposDocumentos implements PersistenciaTiposDocumentosI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposDocumentos contarCodeudoresTipoDocumento persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e);
+            System.err.println("Error PersistenciaTiposDocumentos contarCodeudoresTipoDocumento. " + e.getMessage());
             return retorno;
         }
     }

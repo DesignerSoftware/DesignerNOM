@@ -29,7 +29,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.crear: " + e);
+            System.out.println("Error PersistenciaSoTiposAntecedentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,13 +46,10 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             tx.commit();
 
         } catch (Exception e) {
-            try {
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaSoAntecedentes.borrar: " + e);
-            }
+                System.out.println("Error PersistenciaSoAntecedentes.borrar: " + e.getMessage());
         }
     }
 
@@ -65,7 +62,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             em.merge(tipoantecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.editar: " + e);
+            System.out.println("Error PersistenciaSoTiposAntecedentes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +80,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes: " + e);
+            System.out.println("Error PersistenciaSoTiposAntecedentes.lovTiposAntecedentes: " + e.getMessage());
             return null;
         }
     }
@@ -97,7 +94,7 @@ public class PersistenciaSoTiposAntecedentes implements PersistenciaSoTiposAntec
             List<SoTiposAntecedentes> tiposantecedentes = query.getResultList();
             return tiposantecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes: " + e);
+            System.out.println("Error PersistenciaSoTiposAntecedentes.listaTiposAntecedentes: " + e.getMessage());
             return null;
         }
     }

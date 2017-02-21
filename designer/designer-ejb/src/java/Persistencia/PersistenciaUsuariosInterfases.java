@@ -22,7 +22,7 @@ public class PersistenciaUsuariosInterfases implements PersistenciaUsuariosInter
             UsuariosInterfases usuario = (UsuariosInterfases) query.getSingleResult();
             return usuario;
         } catch (Exception e) {
-            System.out.println("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases : " + e.toString());
+            System.out.println("Error obtenerUsuarioInterfaseContabilidad PersistenciaUsuariosInterfases : " + e.getMessage());
             return null;
         }
     }

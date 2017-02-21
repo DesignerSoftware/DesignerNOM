@@ -36,8 +36,7 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
             emf = Persistence.createEntityManagerFactory(baseDatos);
             return true;
         } catch (Exception e) {
-            System.out.println("Se estallo... PUM!");
-            System.out.println(e);
+            System.out.println("error crearFactoryInicial" + e.getMessage());
             return false;
         }
     }
@@ -58,7 +57,7 @@ public class SesionEntityManagerFactory implements SesionEntityManagerFactoryInt
             System.out.println("emf=Persistence.createEntityManagerFactory(baseDatos, properties)" + emf.getProperties() );
             return true;
         } catch (Exception e) {
-            System.out.println("Error crearFactoryUsuario: " + e);
+            System.out.println("Error crearFactoryUsuario: " + e.getMessage());
             return false;
         }
     }

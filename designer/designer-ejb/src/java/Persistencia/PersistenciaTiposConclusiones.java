@@ -22,12 +22,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusionesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     public void crear(EntityManager em, TiposConclusiones tiposConclusiones) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -36,7 +30,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.merge(tiposConclusiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConclusiones.crear: " + e);
+            System.out.println("Error PersistenciaTiposConclusiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +45,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.merge(tiposConclusiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConclusiones.editar: " + e);
+            System.out.println("Error PersistenciaTiposConclusiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +60,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             em.remove(em.merge(tiposConclusiones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConclusiones.borrar: " + e);
+            System.out.println("Error PersistenciaTiposConclusiones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,7 +75,7 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             List<TiposConclusiones> tiposConclusiones = query.getResultList();
             return tiposConclusiones;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposConclusiones ERROR" + e);
+            System.out.println("Persistencia.PersistenciaTiposConclusiones.consultarTiposConclusiones()" + e.getMessage());
             return null;
         }
     }
@@ -95,9 +89,8 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             TiposConclusiones tiposConclusiones = (TiposConclusiones) query.getSingleResult();
             return tiposConclusiones;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoConclusionSecuencia");
-            TiposConclusiones tiposConclusiones = null;
-            return tiposConclusiones;
+            System.out.println("Persistencia.PersistenciaTiposConclusiones.consultarTipoConclusion()" + e.getMessage());
+            return null;
         }
     }
 
@@ -109,10 +102,9 @@ public class PersistenciaTiposConclusiones implements PersistenciaTiposConclusio
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaTiposConclusiones contarChequeosMedicosTipoConclusion Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e);
+            System.err.println("Error PersistenciaTiposConclusiones contarChequeosMedicosTipoConclusion ERROR : " + e.getMessage());
             return retorno;
         }
     }

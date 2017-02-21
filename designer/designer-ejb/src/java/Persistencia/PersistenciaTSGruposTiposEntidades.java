@@ -13,22 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla
- * 'TSGruposTiposEntidades' de la base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
-public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposTiposEntidadesInterface{
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
+public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposTiposEntidadesInterface {
 
     @Override
     public void crear(EntityManager em, TSGruposTiposEntidades tSGruposTiposEntidades) {
@@ -39,7 +25,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
             em.persist(tSGruposTiposEntidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSGruposTiposEntidades.crear: " + e);
+            System.out.println("Error PersistenciaTSGruposTiposEntidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +41,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
             em.merge(tSGruposTiposEntidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSGruposTiposEntidades.editar: " + e);
+            System.out.println("Error PersistenciaTSGruposTiposEntidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +57,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
             em.remove(em.merge(tSGruposTiposEntidades));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSGruposTiposEntidades.borrar: " + e);
+            System.out.println("Error PersistenciaTSGruposTiposEntidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -103,8 +89,7 @@ public class PersistenciaTSGruposTiposEntidades implements PersistenciaTSGruposT
             return tSGruposTiposEntidades;
         } catch (Exception e) {
             System.out.println("Error buscarTSGrupoTipoEntidadSecuencia PersistenciaTSGruposTiposEntidades : " + e.toString());
-            TSGruposTiposEntidades tSGruposTiposEntidades = null;
-            return tSGruposTiposEntidades;
+            return null;
         }
     }
 

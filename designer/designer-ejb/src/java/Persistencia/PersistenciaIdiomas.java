@@ -38,7 +38,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomas.crear: " + e);
+            System.out.println("Error PersistenciaIdiomas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.merge(idiomas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomas.editar: " + e);
+            System.out.println("Error PersistenciaIdiomas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,13 +71,10 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaIdiomas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaIdiomas.borrar: " + e);
-            }
         }
     }
 
@@ -86,6 +83,7 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             em.clear();
             return em.find(Idiomas.class, secuenciaI);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaIdiomas.buscarIdioma()" + e.getMessage());
             return null;
         }
     }
@@ -112,7 +110,6 @@ public class PersistenciaIdiomas implements PersistenciaIdiomasInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaIdiomas contadorIdiomasPersonas  " + retorno);
             return retorno;
         } catch (Exception e) {
             System.out.println("Error PersistenciaIdiomas contadorIdiomasPersonas. " + e);

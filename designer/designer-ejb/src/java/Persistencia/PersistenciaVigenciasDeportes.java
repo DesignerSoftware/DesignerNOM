@@ -38,7 +38,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.persist(vigenciasDeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasDeportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.merge(vigenciasDeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasDeportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             em.remove(em.merge(vigenciasDeportes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasDeportes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -94,7 +94,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDeportes.deportePersona" + e);
+            System.out.println("Error PersistenciaVigenciasDeportes.deportePersona" + e.getMessage());
             return null;
         }
     }
@@ -109,7 +109,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             List<VigenciasDeportes> listaVigenciasDeportes = queryFinal.getResultList();
             return listaVigenciasDeportes;
         } catch (Exception e) {
-            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.toString());
+            System.out.println("Error deportesTotalesSecuenciaPersona PersistenciaVigenciasDeportes : " + e.getMessage());
             return null;
         }
     }
@@ -129,6 +129,7 @@ public class PersistenciaVigenciasDeportes implements PersistenciaVigenciasDepor
             deporte = (String) query.getSingleResult();
             return deporte;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasDeportes.consultarPrimerDeporte()" + e.getMessage());
             deporte = "";
             return deporte;
         }

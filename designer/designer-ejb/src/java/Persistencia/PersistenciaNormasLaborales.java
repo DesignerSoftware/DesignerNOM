@@ -40,14 +40,10 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La norma laboral no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaNormasLaborales.crear()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -60,14 +56,10 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.merge(normasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La norma laboral no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaNormasLaborales.editar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -80,14 +72,10 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.remove(em.merge(normasLaborales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La norma laboral no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaNormasLaborales.borrar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -97,17 +85,23 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             em.clear();
             return em.find(NormasLaborales.class, secuenciaNL);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaNormasLaborales.consultarNormaLaboral()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<NormasLaborales> consultarNormasLaborales(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT m FROM NormasLaborales m");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<NormasLaborales> lista = query.getResultList();
         return lista;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaNormasLaborales.consultarNormasLaborales()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -122,7 +116,7 @@ public class PersistenciaNormasLaborales implements PersistenciaNormasLaboralesI
             System.err.println("PersistenciaMotivosCambiosSueldos retorno ==" + retorno.intValue());
 
         } catch (Exception e) {
-            System.err.println("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e);
+            System.err.println("ERROR EN PersistenciaMotivosCambiosSueldos verificarBorradoVigenciasSueldos ERROR :" + e.getMessage());
         } finally {
             return retorno;
         }

@@ -16,19 +16,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author user
- */
 @Stateless
 public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public void crear(EntityManager em, TiposUnidades tiposUnidades) {
@@ -39,7 +28,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.crear: " + e);
+            System.out.println("Error PersistenciaTiposUnidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +44,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.merge(tiposUnidades);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.editar: " + e);
+            System.out.println("Error PersistenciaTiposUnidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +60,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             em.remove(em.merge(tiposUnidades));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades.borrar: " + e);
+            System.out.println("Error PersistenciaTiposUnidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,9 +75,8 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List< TiposUnidades> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
-
         } catch (Exception e) {
-            System.out.println("Error consultarTiposUnidades PersistenciaTiposUnidades : " + e.toString());
+            System.out.println("Error consultarTiposUnidades PersistenciaTiposUnidades : " + e.getMessage());
             return null;
         }
     }
@@ -103,7 +91,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             TiposUnidades tiposUnidades = (TiposUnidades) query.getSingleResult();
             return tiposUnidades;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposUnidades consultarTipoUnidad : " + e.toString());
+            System.out.println("Error PersistenciaTiposUnidades consultarTipoUnidad : " + e.getMessage());
             TiposUnidades tiposEntidades = null;
             return tiposEntidades;
         }
@@ -121,7 +109,7 @@ public class PersistenciaTiposUnidades implements PersistenciaTiposUnidadesInter
             System.err.println("Contador TiposUnidades contadorVigenciasIndicadores persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error TiposUnidades contadorVigenciasIndicadores. " + e);
+            System.out.println("Error TiposUnidades contadorVigenciasIndicadores. " + e.getMessage());
             return retorno;
         }
     }

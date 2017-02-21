@@ -14,21 +14,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'Sucursales' de la
- * base de datos.
- *
- * @author betelgeuse
- */
+
 @Stateless
 public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-//    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-//    private EntityManager em;
     @Override
     public void crear(EntityManager em, Sucursales sucursales) {
         em.clear();
@@ -38,7 +27,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.crear: " + e);
+            System.out.println("Error PersistenciaSucursales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +43,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.merge(sucursales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.editar: " + e);
+            System.out.println("Error PersistenciaSucursales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +59,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.remove(em.merge(sucursales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSucursales.borrar: " + e);
+            System.out.println("Error PersistenciaSucursales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +72,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             em.clear();
             return em.find(Sucursales.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia Sucursales " + e);
+            System.out.println("Persistencia.PersistenciaSucursales.buscarSucursal()" + e.getMessage());
             return null;
         }
     }
@@ -113,7 +102,7 @@ public class PersistenciaSucursales implements PersistenciaSucursalesInterface {
             System.out.println("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e);
+            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
             return retorno;
         }
     }

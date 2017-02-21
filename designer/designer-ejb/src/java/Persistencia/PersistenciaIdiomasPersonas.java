@@ -33,7 +33,6 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
      */
     @Override
     public void crear(EntityManager em, IdiomasPersonas idiomasPersonas) {
-        System.out.println(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -41,7 +40,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             em.persist(idiomasPersonas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.crear: " + e);
+            System.out.println("Error PersistenciaIdiomasPersonas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +49,6 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
 
     @Override
     public void editar(EntityManager em, IdiomasPersonas idiomasPersonas) {
-        System.out.println(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -58,7 +56,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             em.merge(idiomasPersonas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.editar: " + e);
+            System.out.println("Error PersistenciaIdiomasPersonas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +65,6 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
 
     @Override
     public void borrar(EntityManager em, IdiomasPersonas idiomasPersonas) {
-        System.out.println(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -76,18 +73,14 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaIdiomasPersonas.borrar: " + e);
-            }
         }
     }
 
     private Long contarIdiomasPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".contarIdiomasPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -97,7 +90,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("error en contarIdiomasPersona");
+            System.out.println("error en contarIdiomasPersona" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -105,34 +98,20 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
 
     @Override
     public List<IdiomasPersonas> idiomasPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println("secuencia persona:" + secuenciaPersona);
-//        Long resultado = this.contarIdiomasPersona(em, secuenciaPersona);
-//        if (resultado != null && resultado > 0) {
         try {
-            /*em.clear();
-                 Query query = em.createQuery("SELECT COUNT(ip) FROM IdiomasPersonas ip WHERE ip.persona.secuencia = :secuenciaPersona");
-                 query.setParameter("secuenciaPersona", secuenciaPersona);
-                 query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                 Long resultado = (Long) query.getSingleResult();*/
             Query queryFinal = em.createQuery("SELECT ip FROM IdiomasPersonas ip WHERE ip.persona.secuencia = :secuenciaPersona");
             queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
             queryFinal.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<IdiomasPersonas> listaIdiomasPersonas = queryFinal.getResultList();
-            System.out.println("retorna listaIdiomasPersonas: " + listaIdiomasPersonas);
             return listaIdiomasPersonas;
         } catch (Exception e) {
             System.out.println("Error PersistenciaIdiomasPersonas.idiomasPersona" + e.toString());
             return null;
         }
-//        } else {
-//            System.out.println("el conteo no proporcionó datos validos");
-//            return null;
-//        }
     }
 
     @Override
     public List<IdiomasPersonas> totalIdiomasPersonas(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".totalIdiomasPersonas()");
         try {
             em.clear();
             Query query = em.createQuery("SELECT ip FROM IdiomasPersonas ip");
@@ -140,7 +119,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             List<IdiomasPersonas> resultado = (List<IdiomasPersonas>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e);
+            System.out.println("Error PersistenciaIdiomasPersonas.totalIdiomasPersonas" + e.getMessage());
             return null;
         }
     }
@@ -160,6 +139,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             idioma = (String) query.getSingleResult();
             return idioma;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());
             idioma = "";
             return idioma;
         }

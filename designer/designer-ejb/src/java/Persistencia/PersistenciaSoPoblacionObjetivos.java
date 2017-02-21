@@ -32,7 +32,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
             em.merge(soPoblacionObjetivos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoPoblacionObjetivos.crear: " + e);
+            System.out.println("Error PersistenciaSoPoblacionObjetivos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -47,7 +47,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
             em.merge(soPoblacionObjetivos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoPoblacionObjetivos.editar: " + e);
+            System.out.println("Error PersistenciaSoPoblacionObjetivos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,7 +62,7 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
             em.remove(em.merge(soPoblacionObjetivos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoPoblacionObjetivos.borrar: " + e);
+            System.out.println("Error PersistenciaSoPoblacionObjetivos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,15 +74,20 @@ public class PersistenciaSoPoblacionObjetivos implements PersistenciaSoPoblacion
             em.clear();
             return em.find(SoPoblacionObjetivos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Persistencia SoPoblacionObjetivos " + e);
+            System.out.println("Persistencia SoPoblacionObjetivos " + e.getMessage());
             return null;
         }
     }
 
     public List<SoPoblacionObjetivos> consultarSoPoblacionObjetivos(EntityManager em) {
-        em.clear();
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(SoPoblacionObjetivos.class));
-        return em.createQuery(cq).getResultList();
+        try {
+            em.clear();
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(SoPoblacionObjetivos.class));
+            return em.createQuery(cq).getResultList();
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaSoPoblacionObjetivos.consultarSoPoblacionObjetivos()" + e.getMessage());
+            return null;
+        }
     }
 }

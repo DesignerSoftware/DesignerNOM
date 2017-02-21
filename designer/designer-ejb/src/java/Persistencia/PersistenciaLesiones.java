@@ -37,7 +37,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.merge(lesiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLesiones.crear: " + e);
+            System.out.println("Error PersistenciaLesiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.merge(lesiones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLesiones.editar: " + e);
+            System.out.println("Error PersistenciaLesiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,12 +70,9 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             tx.commit();
 
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaLesiones.borrar: " + e);
+            System.out.println("Error PersistenciaLesiones.borrar: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -86,6 +83,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             em.clear();
             return em.find(Lesiones.class, secuenciaL);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaLesiones.buscarLesion()" + e.getMessage());
             return null;
         }
     }
@@ -99,7 +97,7 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             List<Lesiones> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR TIPOS CHEQUEOS  " + e);
+            System.out.println("Persistencia.PersistenciaLesiones.buscarLesiones()" + e.getMessage());
             return null;
         }
     }
@@ -113,10 +111,9 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("PERSISTENCIALESIONES CONTADOR DETALLES LICENSIAS  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALESIONES  ERROR EN EL CONTADOR DETALLES LICENSIAS" + e);
+            System.out.println("Persistencia.PersistenciaLesiones.contadorDetallesLicensias()"  + e.getMessage());
             return retorno;
         }
     }
@@ -130,10 +127,9 @@ public class PersistenciaLesiones implements PersistenciaLesionesInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("PERSISTENCIALESIONES CONTADOR SO ACCIDENTES DOMESTICOS " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALESIONES  ERROR EN EL CONTADOR SO ACCIDENTES DOMESTICOS" + e);
+            System.out.println("Persistencia.PersistenciaLesiones.contadorSoAccidentesDomesticos()" + e.getMessage());
             return retorno;
         }
     }

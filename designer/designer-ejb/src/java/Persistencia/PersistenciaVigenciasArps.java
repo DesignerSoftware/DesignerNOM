@@ -16,12 +16,6 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
 
     @Override
     public String actualARP(EntityManager em, BigInteger secEstructura, BigInteger secCargo, Date fechaHasta) {
-        System.out.println("em: "+ em);
-        System.out.println("secEstructura : "+ secEstructura);
-        System.out.println("secCargo : "+ secCargo);
-        System.out.println("fechaHasta : "+ fechaHasta);
-        
-        
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -33,11 +27,10 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             query.setParameter(2, secCargo);
             query.setParameter(3, fecha);
             String actualARP = (String) query.getSingleResult().toString();
-            System.out.println("actual ARP : " + actualARP );
             tx.commit();
             return actualARP;
         } catch (Exception e) {
-            System.out.println("Exepcion: PersistenciaVigenciasArps.actualARP " + e);
+            System.out.println("Exepcion: PersistenciaVigenciasArps.actualARP " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +47,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             em.merge(vigarp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasArps.crear: " + e.toString());
+            System.out.println("Error PersistenciaVigenciasArps.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +63,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             em.remove(em.merge(vigarp));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasArps.borrar: " + e.toString());
+            System.out.println("Error PersistenciaVigenciasArps.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +79,7 @@ public class PersistenciaVigenciasArps implements PersistenciaVigenciasArpsInter
             em.merge(vigarp);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasArps.editar: " + e.toString());
+            System.out.println("Error PersistenciaVigenciasArps.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

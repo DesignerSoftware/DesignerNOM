@@ -37,7 +37,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaModulos.crear: " + e);
+            System.out.println("Error PersistenciaModulos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             em.merge(modulos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaModulos.editar: " + e);
+            System.out.println("Error PersistenciaModulos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,20 +70,22 @@ public class PersistenciaModulos implements PersistenciaModulosInterface {
             tx.commit();
 
         } catch (Exception e) {
-            try {
+            System.out.println("Error PersistenciaModulos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaModulos.borrar: " + e);
-            }
         }
     }
 
     @Override
     public Modulos buscarModulos(EntityManager em, BigInteger secuencia) {
+        try{
         em.clear();
         return em.find(Modulos.class, secuencia);
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaModulos.buscarModulos()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override

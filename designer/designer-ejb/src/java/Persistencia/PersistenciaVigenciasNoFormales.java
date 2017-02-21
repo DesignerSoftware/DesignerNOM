@@ -25,13 +25,6 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoFormalesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     * @param em
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, VigenciasNoFormales vigenciasNoFormales) {
         em.clear();
@@ -41,7 +34,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasNoFormales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -57,7 +50,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.merge(vigenciasNoFormales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasNoFormales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -73,7 +66,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             em.remove(em.merge(vigenciasNoFormales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasNoFormales.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasNoFormales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,10 +75,15 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
 
     @Override
     public List<VigenciasNoFormales> buscarVigenciasNoFormales(EntityManager em) {
+        try{
         em.clear();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(VigenciasNoFormales.class));
         return em.createQuery(cq).getResultList();
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaVigenciasNoFormales.buscarVigenciasNoFormales()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -98,7 +96,7 @@ public class PersistenciaVigenciasNoFormales implements PersistenciaVigenciasNoF
             List<VigenciasNoFormales> listaVigenciasNoFormales = query.getResultList();
             return listaVigenciasNoFormales;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTelefonos.telefonoPersona" + e);
+            System.out.println("Error PersistenciaTelefonos.telefonoPersona" + e.getMessage());
             return null;
         }
     }

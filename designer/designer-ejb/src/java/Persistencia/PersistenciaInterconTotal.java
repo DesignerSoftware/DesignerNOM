@@ -295,7 +295,6 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
 
     @Override
     public void ejecutarPKGRecontabilizacion(EntityManager em, Date fechaIni, Date fechaFin) throws ExcepcionBD {
-        System.out.println(this.getClass().getName() + ".ejecutarPKGRecontabilizacion()");
         EntityTransaction tx = null;
         try {
             em.clear();
@@ -307,7 +306,6 @@ public class PersistenciaInterconTotal implements PersistenciaInterconTotalInter
             query.setParameter(2, fechaFin);
             query.executeUpdate();
             tx.commit();
-            System.out.println("Terminó proceso de recontabilización");
         } catch (Exception pe) {
             System.out.println("Error en la persistencia causado por: " + pe.toString());
             throw new ExcepcionBD(ExtraeCausaExcepcion.obtenerMensajeSQLException(pe));

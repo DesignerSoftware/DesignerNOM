@@ -36,7 +36,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
             em.persist(conceptosTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosTT.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosTT.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
             em.merge(conceptosTT);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosTT.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosTT.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
             em.remove(em.merge(conceptosTT));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosTT.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosTT.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion PersistenciaVigenciasConceptosTT: " + e);
+            System.out.println("Exepcion PersistenciaVigenciasConceptosTT: " + e.getMessage());
             return false;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaVigenciasConceptosTT implements PersistenciaVigenciasCo
             List<VigenciasConceptosTT> resultado = (List<VigenciasConceptosTT>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Exepcion listVigenciasConceptosTTPorConcepto PersistenciaVigenciasConceptosTT: " + e.toString());
+            System.out.println("Exepcion listVigenciasConceptosTTPorConcepto PersistenciaVigenciasConceptosTT: " + e.getMessage());
             return null;
         }
     }

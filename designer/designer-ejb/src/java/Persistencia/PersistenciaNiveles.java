@@ -35,7 +35,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.merge(niveles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNiveles.crear: " + e);
+            System.out.println("Error PersistenciaNiveles.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.merge(niveles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNiveles.editar: " + e);
+            System.out.println("Error PersistenciaNiveles.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +65,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.remove(em.merge(niveles));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNiveles.borrar: " + e);
+            System.out.println("Error PersistenciaNiveles.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,18 +77,23 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             em.clear();
             return em.find(Niveles.class, secNiveles);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaNiveles.consultarNivel()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<Niveles> consultarNiveles(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT te FROM Niveles te ORDER BY te.codigo ASC ");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<Niveles> listMotivosDemandas = query.getResultList();
         return listMotivosDemandas;
-
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaNiveles.consultarNiveles()" + e.getMessage());
+            return null;
+        }
     }
 
     public BigInteger contarEvalConvocatoriasNivel(EntityManager em, BigInteger secuencia) {
@@ -102,7 +107,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             System.out.println("Contador PersistenciaNiveles contarEvalConvocatoriasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaNiveles  contarEvalConvocatoriasNivel ERROR. " + e);
+            System.err.println("Error PersistenciaNiveles  contarEvalConvocatoriasNivel ERROR. " + e.getMessage());
             return retorno;
         }
     }
@@ -118,7 +123,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             System.out.println("Contador PersistenciaNiveles contarPlantasNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaNiveles  contarPlantasNivel ERROR. " + e);
+            System.err.println("Error PersistenciaNiveles  contarPlantasNivel ERROR. " + e.getMessage());
             return retorno;
         }
     }
@@ -134,7 +139,7 @@ public class PersistenciaNiveles implements PersistenciaNivelesInterface {
             System.out.println("Contador PersistenciaNiveles contarPlantasPersonalesNivel  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaNiveles  contarPlantasPersonalesNivel ERROR. " + e);
+            System.err.println("Error PersistenciaNiveles  contarPlantasPersonalesNivel ERROR. " + e.getMessage());
             return retorno;
         }
     }

@@ -38,7 +38,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.merge(procesos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.crear: " + e);
+            System.out.println("Error PersistenciaPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.merge(procesos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.editar: " + e);
+            System.out.println("Error PersistenciaPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             em.remove(em.merge(procesos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.borrar: " + e);
+            System.out.println("Error PersistenciaPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -115,10 +115,9 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e);
+            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
             return retorno;
         }
     }
@@ -131,10 +130,9 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e);
+            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
             return retorno;
         }
     }
@@ -147,10 +145,9 @@ public class PersistenciaProcesosProductivos implements PersistenciaProcesosProd
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSubCategorias contarVigenciasFormasPagosSucursal persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e);
+            System.err.println("Error PERSISTENCIASUCURSALES contarVigenciasFormasPagosSucursal : " + e.getMessage());
             return retorno;
         }
     }

@@ -37,7 +37,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.merge(motivosDefinitivas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e);
+            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.merge(motivosDefinitivas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e);
+            System.out.println("Error PersistenciaMotivosDefinitivas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,13 +70,10 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaMotivosDefinitivas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaMotivosDefinitivas.borrar: " + e);
-            }
         }
     }
 
@@ -89,7 +86,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             List<MotivosDefinitivas> motivoD = query.getResultList();
             return motivoD;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDefinitivfas.buscarMotivosDefinitivas" + e);
+            System.out.println("Error PersistenciaMotivosDefinitivfas.buscarMotivosDefinitivas" + e.getMessage());
             return null;
         }
     }
@@ -100,6 +97,7 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             em.clear();
             return em.find(MotivosDefinitivas.class, secuenciaME);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosDefinitivas.buscarMotivoDefinitiva()" + e.getMessage());
             return null;
         }
     }
@@ -113,10 +111,9 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORNOVEDADESSISTEMA = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORNOVEDADESSISTEMA  ERROR = " + e);
+            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -130,10 +127,9 @@ public class PersistenciaMotivosDefinitivas implements PersistenciaMotivosDefini
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORPARAMETROSCAMBIOSMASIVOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORPARAMETROSCAMBIOSMASIVOS  ERROR = " + e);
+            System.err.println("ERROR PERSISTENCIAMOTIVOSDEFINITIVAS CONTADORPARAMETROSCAMBIOSMASIVOS  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

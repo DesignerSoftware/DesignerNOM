@@ -23,12 +23,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEventosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, VigenciasEventos vigenciasEventos) {
         em.clear();
@@ -38,7 +32,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.persist(vigenciasEventos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasEventos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +48,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.merge(vigenciasEventos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasEventos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +64,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             em.remove(em.merge(vigenciasEventos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasEventos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -93,7 +87,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.eventosPersona" + e);
+            System.out.println("Error PersistenciaVigenciasEventos.eventosPersona" + e.getMessage());
             return null;
         }
     }
@@ -108,7 +102,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             List<VigenciasEventos> resultado = (List<VigenciasEventos>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado" + e);
+            System.out.println("Error PersistenciaVigenciasEventos.vigenciasEventosSecuenciaEmpleado" + e.getMessage());
             return null;
         }
     }
@@ -128,6 +122,7 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
             evento = (String) query.getSingleResult();
             return evento;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());
             evento = "";
             return evento;
         }

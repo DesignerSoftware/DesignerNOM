@@ -21,12 +21,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
-
     @Override
     public VWActualesCargos buscarCargoEmpleado(EntityManager entity, BigInteger secuencia) {
         try {
@@ -37,9 +31,8 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
             VWActualesCargos vwActualesCargos = (VWActualesCargos) query.getSingleResult();
             return vwActualesCargos;
         } catch (Exception e) {
-            System.out.println("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e);
-            VWActualesCargos vwActualesCargos = null;
-            return vwActualesCargos;
+            System.out.println("Error: PersistenciaVWActualesCargos.buscarCargoEmpleado " + e.getMessage());
+            return null;
         }
     }
 
@@ -53,9 +46,8 @@ public class PersistenciaVWActualesCargos implements PersistenciaVWActualesCargo
             Long conteo = (Long) query.getSingleResult();
             return conteo;
         } catch (Exception e) {
-            System.out.println("Error conteoCodigosEmpleados PersistenciaVWActualesCargos: " + e.toString() + "\n" +e.getCause());
-            Long conteo = null;
-            return conteo;
+            System.out.println("Error conteoCodigosEmpleados PersistenciaVWActualesCargos: " + e.getMessage());
+            return null;
         }
     }
 

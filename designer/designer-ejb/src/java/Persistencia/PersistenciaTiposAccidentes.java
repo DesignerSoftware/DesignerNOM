@@ -22,12 +22,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     public void crear(EntityManager em, TiposAccidentes tiposAccidentes) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -36,7 +30,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e);
+            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +45,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.merge(tiposAccidentes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e);
+            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +60,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.remove(em.merge(tiposAccidentes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e);
+            System.out.println("Error PersistenciaTiposAccidentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,6 +72,7 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             em.clear();
             return em.find(TiposAccidentes.class, secuenciaTA);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposAccidentes.buscarTipoAccidente()" + e.getMessage());
             return null;
         }
     }
@@ -90,13 +85,11 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             List<TiposAccidentes> listPartesCuerpo = query.getResultList();
             return listPartesCuerpo;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR ELEMENTOS CAUSAS ACCIDENTES  " + e);
+            System.out.println("Persistencia.PersistenciaTiposAccidentes.buscarTiposAccidentes()" + e.getMessage());
             return null;
         }
-
     }
 
-    // NATIVE QUERY
     public BigInteger contadorSoAccidentesMedicos(EntityManager em, BigInteger secuencia) {
         BigInteger retorno = new BigInteger("-1");
         try {
@@ -105,15 +98,13 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("TIPOSACCIDENTES CONTADORSOACCIDENTESMEDICOS  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("TIPOSACCIDENTES  ERROR EN EL CONTADORSOACCIDENTESMEDICOS " + e);
+            System.out.println("Persistencia.PersistenciaTiposAccidentes.contadorSoAccidentesMedicos()" + e.getMessage());
             return retorno;
         }
     }
 
-    // NATIVE QUERY
     public BigInteger contadorAccidentes(EntityManager em, BigInteger secuencia) {
         BigInteger retorno = new BigInteger("-1");
         try {
@@ -122,10 +113,9 @@ public class PersistenciaTiposAccidentes implements PersistenciaTiposAccidentesI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("TIPOSACCIDENTES CONTADOR DETALLES EXAMENES  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("TIPOSACCIDENTES  ERROR ACCIDENTES " + e);
+            System.out.println("Persistencia.PersistenciaTiposAccidentes.contadorAccidentes()" + e.getMessage());
             return retorno;
         }
     }

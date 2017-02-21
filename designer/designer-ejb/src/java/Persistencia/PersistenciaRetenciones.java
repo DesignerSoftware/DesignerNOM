@@ -36,7 +36,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.crear: " + e);
+            System.out.println("Error PersistenciaRetenciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.editar: " + e);
+            System.out.println("Error PersistenciaRetenciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             em.remove(em.merge(retenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetenciones.borrar: " + e);
+            System.out.println("Error PersistenciaRetenciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,11 +77,16 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
 
     @Override
     public List<Retenciones> buscarRetenciones(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT r FROM Retenciones r");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<Retenciones> setsLista = (List<Retenciones>) query.getResultList();
-        return setsLista;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT r FROM Retenciones r");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Retenciones> setsLista = (List<Retenciones>) query.getResultList();
+            return setsLista;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaRetenciones.buscarRetenciones()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -94,7 +99,7 @@ public class PersistenciaRetenciones implements PersistenciaRetencionesInterface
             List<Retenciones> retenciones = query.getResultList();
             return retenciones;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Sets " + e);
+            System.out.println("Persistencia.PersistenciaRetenciones.buscarRetencionesVig()" + e.getMessage());
             return null;
         }
     }

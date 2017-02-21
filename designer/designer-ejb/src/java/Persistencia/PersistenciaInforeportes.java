@@ -39,7 +39,7 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             em.merge(inforeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes.crear: " + e);
+            System.out.println("Error PersistenciaInforeportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,12 +51,11 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            System.out.println("Ingrese al try PersistenciaInforeportes.editar()");
             tx.begin();
             em.merge(inforeportes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInforeportes.editar: " + e);
+            System.out.println("Error PersistenciaInforeportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,15 +70,11 @@ public class PersistenciaInforeportes implements PersistenciaInforeportesInterfa
             tx.begin();
             em.remove(em.merge(inforeportes));
             tx.commit();
-
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaInforeportes.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaInforeportes.borrar: " + e);
-            }
         }
     }
 

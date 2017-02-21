@@ -24,14 +24,6 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasAfiliacionesInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos.
-    * @param em
-    * @return 
-    */
-   /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-    */
    @Override
    public boolean crear(EntityManager em, VigenciasAfiliaciones vigenciasAfiliaciones) {
       em.clear();
@@ -42,14 +34,10 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("PersistenciaVigenciasAfiliaciones La vigencia afiliacion no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
          return false;
       }
    }
@@ -63,14 +51,10 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          em.merge(vigenciasAfiliaciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia afiliacion no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.editar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -84,14 +68,10 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          em.remove(em.merge(vigenciasAfiliaciones));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia afiliacion no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasAfiliaciones.borrar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -103,7 +83,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          cq.select(cq.from(VigenciasAfiliaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciaAfiliacion PersistenciaVigenciasAfiliaciones");
+         System.out.println("Error buscarVigenciaAfiliacion PersistenciaVigenciasAfiliaciones" + e.getMessage());
          return null;
       }
    }
@@ -118,7 +98,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          List<VigenciasAfiliaciones> vigenciasAfiliaciones = query.getResultList();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error en buscarVigenciasAfiliacionesEmpleado PersistenciaVigenciasAfiliaciones " + e);
+         System.out.println("Error en buscarVigenciasAfiliacionesEmpleado PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }
@@ -132,7 +112,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          VigenciasAfiliaciones vigenciasAfiliaciones = (VigenciasAfiliaciones) query.getSingleResult();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones ");
+         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }
@@ -147,7 +127,7 @@ public class PersistenciaVigenciasAfiliaciones implements PersistenciaVigenciasA
          List<VigenciasAfiliaciones> vigenciasAfiliaciones = query.getResultList();
          return vigenciasAfiliaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones ");
+         System.out.println("Error buscarVigenciasAfiliacionesSecuencia PersistenciaVigenciasAfiliaciones " + e.getMessage());
          return null;
       }
    }

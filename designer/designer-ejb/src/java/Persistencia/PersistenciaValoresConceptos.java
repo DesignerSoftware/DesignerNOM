@@ -39,7 +39,7 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             em.merge(valoresConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaValoresConceptos.crear: " + e);
+            System.out.println("Error PersistenciaValoresConceptos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             em.merge(valoresConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaValoresConceptos.editar: " + e);
+            System.out.println("Error PersistenciaValoresConceptos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             em.remove(em.merge(valoresConceptos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaValoresConceptos.borrar: " + e);
+            System.out.println("Error PersistenciaValoresConceptos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             List<ValoresConceptos> valoresConceptos = query.getResultList();
             return valoresConceptos;
         } catch (Exception e) {
-            System.out.println("Error consultarValoresConceptos");
+            System.out.println("Error consultarValoresConceptos" + e.getMessage());
             return null;
         }
     }
@@ -98,9 +98,8 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             ValoresConceptos valoresConceptos = (ValoresConceptos) query.getSingleResult();
             return valoresConceptos;
         } catch (Exception e) {
-            System.out.println("Error consultarValoresConceptos");
-            ValoresConceptos valoresConceptos = null;
-            return valoresConceptos;
+            System.out.println("Error consultarValoresConceptos" + e.getMessage());
+            return null;
         }
     }
 
@@ -113,8 +112,7 @@ public class PersistenciaValoresConceptos implements PersistenciaValoresConcepto
             BigInteger conceptosSoportes = new BigInteger(query.getSingleResult().toString());
             return conceptosSoportes;
         } catch (Exception e) {
-            System.out.println("Error consultarValoresConceptos");
-            ValoresConceptos conceptosSoportes = null;
+            System.out.println("Persistencia.PersistenciaValoresConceptos.consultarConceptoValorConcepto()" + e.getMessage());
             return null;
         }
     }

@@ -40,22 +40,16 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface{
                 ObjetosDB objetosDB = (ObjetosDB) query2.getSingleResult();
                 return objetosDB;
             } else {
-                System.out.println("No existe la tabla en objetosDB");
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Excepcion en verificarRastroTabla " + e);
+            System.out.println("Excepcion en verificarRastroTabla " + e.getMessage());
             return null;
         }
     }
     
     @Override
     public List<ObjetosDB> consultarObjetoDB(EntityManager em) {
-        /*em.clear();
-        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(ObjetosDB.class));
-        return em.createQuery(cq).getResultList();
-        */        
         try {
             em.clear();
             Query query = em.createQuery("SELECT ob FROM ObjetosDB ob ORDER BY ob.tipo ASC");
@@ -63,7 +57,7 @@ public class PersistenciaObjetosDB implements PersistenciaObjetosDBInterface{
             List<ObjetosDB> todosObjetos = query.getResultList();
             return todosObjetos;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaObjetosDB consultarObjetoDB ERROR " + e);
+            System.err.println("Error: PersistenciaObjetosDB consultarObjetoDB ERROR " + e.getMessage());
             return null;
         }
         

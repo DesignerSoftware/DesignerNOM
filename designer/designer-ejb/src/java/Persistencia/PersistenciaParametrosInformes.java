@@ -37,7 +37,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             em.merge(parametrosInformes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosInformes.crear: " + e);
+            System.out.println("Error PersistenciaParametrosInformes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             em.merge(parametrosInformes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosInformes.editar: " + e);
+            System.out.println("Error PersistenciaParametrosInformes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             em.remove(em.merge(parametrosInformes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosInformes.borrar: " + e);
+            System.out.println("Error PersistenciaParametrosInformes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             em.clear();
             return em.find(ParametrosInformes.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error buscarParametroInforme Persistencia");
+            System.out.println("Error buscarParametroInforme Persistencia" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +95,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             cq.select(cq.from(ParametrosInformes.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarParametrosInformes");
+            System.out.println("Error buscarParametrosInformes" + e.getMessage());
             return null;
         }
     }
@@ -110,7 +110,7 @@ public class PersistenciaParametrosInformes implements PersistenciaParametrosInf
             ParametrosInformes parametrosInformes = (ParametrosInformes) query.getSingleResult();
             return parametrosInformes;
         } catch (Exception e) {
-            System.out.println("Error en buscarParametroInformeUsuario " + e);
+            System.out.println("Error en buscarParametroInformeUsuario " + e.getMessage());
             return null;
         }
     }   

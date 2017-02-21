@@ -40,8 +40,8 @@ public class PersistenciaVWActualesTiposTrabajadores implements PersistenciaVWAc
          VWActualesTiposTrabajadores vwActualesTiposTrabajadores = (VWActualesTiposTrabajadores) query.getSingleResult();
          return vwActualesTiposTrabajadores;
       } catch (Exception e) {
-         VWActualesTiposTrabajadores vwActualesTiposTrabajadores = null;
-         return vwActualesTiposTrabajadores;
+          System.out.println("Persistencia.PersistenciaVWActualesTiposTrabajadores.buscarTipoTrabajador()" + e.getMessage());
+          return null;
       }
    }
 

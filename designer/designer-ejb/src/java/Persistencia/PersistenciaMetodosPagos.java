@@ -33,7 +33,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.merge(metodosPagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMetodosPagos.crear: " + e);
+            System.out.println("Error PersistenciaMetodosPagos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -49,7 +49,7 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.merge(metodosPagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMetodosPagos.editar: " + e);
+            System.out.println("Error PersistenciaMetodosPagos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,13 +66,10 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             tx.commit();
 
         } catch (Exception e) {
-            try {
+            System.out.println("Error PersistenciaMetodosPagos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaMetodosPagos.borrar: " + e);
-            }
         }
     }
 
@@ -82,16 +79,21 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             em.clear();
             return em.find(MetodosPagos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la persistencia vigencias formas pagos ERROR : " + e);
+            System.out.println("Error en la persistencia vigencias formas pagos ERROR : " + e.getMessage());
             return null;
         }
     }
 
     public List<MetodosPagos> buscarMetodosPagos(EntityManager em) {
+        try{
         em.clear();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(MetodosPagos.class));
         return em.createQuery(cq).getResultList();
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaMetodosPagos.buscarMetodosPagos()" + e.getMessage());
+            return null;
+        }
     }
 
     public BigInteger contadorvigenciasformaspagos(EntityManager em, BigInteger secuencia) {
@@ -102,10 +104,9 @@ public class PersistenciaMetodosPagos implements PersistenciaMetodosPagosInterfa
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println(" PersistenciaMetodosPagos contadorvigenciasformaspagos Contador " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println(" PersistenciaMetodosPagos contadorvigenciasformaspagos Error " + e);
+            System.out.println(" PersistenciaMetodosPagos contadorvigenciasformaspagos Error " + e.getMessage());
             return retorno;
         }
     }

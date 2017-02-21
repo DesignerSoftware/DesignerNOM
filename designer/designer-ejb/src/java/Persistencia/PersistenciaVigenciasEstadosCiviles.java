@@ -36,12 +36,6 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
      */
     @Override
     public boolean crear(EntityManager em, VigenciasEstadosCiviles vigenciaEstadoCivil) {
-        System.out.println(this.getClass().getName() + ".crear()");
-        System.out.println("vigenciaEstadoCivil.getCodigo() : " + vigenciaEstadoCivil.getCodigo());
-         System.out.println("vigenciaEstadoCivil.getEstadocivil() : " + vigenciaEstadoCivil.getEstadocivil());
-         System.out.println("vigenciaEstadoCivil.getFechavigencia() : " + vigenciaEstadoCivil.getFechavigencia());
-         System.out.println("vigenciaEstadoCivil.getPersona() : " + vigenciaEstadoCivil.getPersona());
-         System.out.println("vigenciaEstadoCivil.getSecuencia() : " + vigenciaEstadoCivil.getSecuencia());
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -50,19 +44,17 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("Error en crear, entro al Catch");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.crear()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
             return false;
         }
     }
 
     @Override
     public void editar(EntityManager em, VigenciasEstadosCiviles vigenciasEstadosCiviles) {
-        System.out.println(this.getClass().getName() + "editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -70,18 +62,16 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             em.merge(vigenciasEstadosCiviles);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error en editar");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.editar()" + e.toString());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
         }
     }
 
     @Override
     public void borrar(EntityManager em, VigenciasEstadosCiviles vigenciasEstadosCiviles) {
-        System.out.println(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -89,12 +79,11 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             em.remove(em.merge(vigenciasEstadosCiviles));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error en borrar");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.borrar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("se cerro la transaccion");
         }
     }
 
@@ -105,7 +94,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             em.clear();
             return em.find(VigenciasEstadosCiviles.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en buscarVigenciaEstadoCivil");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.buscarVigenciaEstadoCivil()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -113,14 +102,13 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
 
     @Override
     public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCiviles(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".consultarVigenciasEstadosCiviles()");
         try {
             em.clear();
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(VigenciasEstadosCiviles.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("error en consultarVigenciasEstadosCiviles");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCiviles()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -137,7 +125,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error en contarVigenciasEstadosCivielesPersona");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.contarVigenciasEstadosCivielesPersona()" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -146,20 +134,14 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
     @Override
     public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPersona(EntityManager em, BigInteger secuenciaPersona) {
         Long resultado = this.contarVigenciasEstadosCivielesPersona(em, secuenciaPersona);
-        System.out.println(this.getClass().getName() + ".consultarVigenciasEstadosCivilesPersona()");
         if (resultado != null && resultado > 0) {
             try {
-                /*em.clear();
-                 Query query = em.createQuery("SELECT COUNT(vec) FROM VigenciasEstadosCiviles vec WHERE vec.persona.secuencia = :secuenciaPersona");
-                 query.setParameter("secuenciaPersona", secuenciaPersona);
-                 query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-                 Long resultado = (Long) query.getSingleResult();*/
                 Query queryFinal = em.createQuery("SELECT vec FROM VigenciasEstadosCiviles vec WHERE vec.persona.secuencia = :secuenciaPersona and vec.fechavigencia = (SELECT MAX(veci.fechavigencia) FROM VigenciasEstadosCiviles veci WHERE veci.persona.secuencia = :secuenciaPersona)");
                 queryFinal.setParameter("secuenciaPersona", secuenciaPersona);
                 List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = queryFinal.getResultList();
                 return listaVigenciasEstadosCiviles;
             } catch (Exception e) {
-                System.out.println("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona" + e);
+                System.out.println("Error PersistenciaVigenciasEstadosCiviles.estadoCivilPersona" + e.getMessage());
                 return null;
             }
         } else {
@@ -169,7 +151,6 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
 
     @Override
     public List<VigenciasEstadosCiviles> consultarVigenciasEstadosCivilesPorPersona(EntityManager em, BigInteger secuenciaPersona) {
-        System.out.println(this.getClass().getName() + ".consultarVigenciasEstadosCivilesPorPersona()");
         try {
             em.clear();
             Query query = em.createQuery("SELECT vec FROM VigenciasEstadosCiviles vec WHERE vec.persona.secuencia = :secuenciaPersona");
@@ -178,7 +159,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles = query.getResultList();
             return listaVigenciasEstadosCiviles;
         } catch (Exception e) {
-            System.out.println("error en consultarVigenciasEstadosCivilesPorPersona");
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPorPersona()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -194,7 +175,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             VigenciasEstadosCiviles estadoc = (VigenciasEstadosCiviles) query.getSingleResult();
             return estadoc;
         } catch (Exception e) {
-            System.out.println("Error en estadoCivilActual : " + e.toString());
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.estadoCivilActual()" + e.getMessage());
             return null;
         }
     }
@@ -214,6 +195,7 @@ public class PersistenciaVigenciasEstadosCiviles implements PersistenciaVigencia
             EstadoCivil = (String) query.getSingleResult();
             return EstadoCivil;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil()" + e.getMessage());
             EstadoCivil = "";
             return EstadoCivil;
         }

@@ -14,22 +14,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposAusentismos' de
- * la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismosInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
 
     @Override
     public void crear(EntityManager em, Tiposausentismos tiposAusentismos) {
@@ -40,7 +26,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.crear: " + e);
+            System.out.println("Error PersistenciaTiposAusentismos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +42,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.merge(tiposAusentismos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.editar: " + e);
+            System.out.println("Error PersistenciaTiposAusentismos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +58,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             em.remove(em.merge(tiposAusentismos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAusentismos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposAusentismos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +74,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             List<Tiposausentismos> todosTiposAusentismos = query.getResultList();
             return todosTiposAusentismos;
         } catch (Exception e) {
-            System.out.println("Error: (todasNovedades)" + e);
+            System.out.println("Persistencia.PersistenciaTiposAusentismos.consultarTiposAusentismos()" + e.getMessage());
             return null;
         }
     }
@@ -102,6 +88,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             Tiposausentismos clasesCategorias = (Tiposausentismos) query.getSingleResult();
             return clasesCategorias;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposAusentismos.consultarTipoAusentismo()" + e.getMessage());
             return null;
         }
     }
@@ -117,7 +104,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             System.out.println("Contador PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e);
+            System.err.println("Error PersistenciaTiposAusentismos contarClasesAusentimosTipoAusentismo ERROR : " + e.getMessage());
             return retorno;
         }
     }
@@ -133,7 +120,7 @@ public class PersistenciaTiposAusentismos implements PersistenciaTiposAusentismo
             System.out.println("Contador PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR : " + e);
+            System.err.println("Error PersistenciaTiposAusentismos contarSOAusentimosTipoAusentismo ERROR : " + e.getMessage());
             return retorno;
         }
     }

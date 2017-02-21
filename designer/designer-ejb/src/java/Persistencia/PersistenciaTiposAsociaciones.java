@@ -13,20 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br> 
- * Clase encargada de realizar operaciones sobre la tabla 'TiposAsociaciones'
- * de la base de datos.
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacionesInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public void crear(EntityManager em, TiposAsociaciones tiposAsociaciones) {
@@ -37,7 +25,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.crear: " + e);
+            System.out.println("Error PersistenciaTiposAsociaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +41,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.editar: " + e);
+            System.out.println("Error PersistenciaTiposAsociaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +57,7 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             em.merge(tiposAsociaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAsociaciones.borrar: " + e);
+            System.out.println("Error PersistenciaTiposAsociaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,14 +73,13 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             List<TiposAsociaciones> tiposAsociaciones = (List<TiposAsociaciones>) query.getResultList();
             return tiposAsociaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposAsociaciones");
+            System.out.println("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociaciones()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public TiposAsociaciones buscarTiposAsociacionesSecuencia(EntityManager em, BigInteger secuencia) {
-
         try {
             em.clear();
             Query query = em.createQuery("SELECT t FROM TiposAsociaciones t WHERE t.secuencia = :secuencia");
@@ -101,9 +88,8 @@ public class PersistenciaTiposAsociaciones implements PersistenciaTiposAsociacio
             TiposAsociaciones tiposAsociaciones = (TiposAsociaciones) query.getSingleResult();
             return tiposAsociaciones;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposAsociacionesSecuencia");
-            TiposAsociaciones tiposAsociaciones = null;
-            return tiposAsociaciones;
+            System.out.println("Persistencia.PersistenciaTiposAsociaciones.buscarTiposAsociacionesSecuencia()" + e.getMessage());
+            return null;
         }
     }
 }

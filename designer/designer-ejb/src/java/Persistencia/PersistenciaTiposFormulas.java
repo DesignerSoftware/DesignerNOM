@@ -17,20 +17,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author user
- */
 @Stateless
 public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInterface{
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
-    
+       
     @Override
     public void crear(EntityManager em, TiposFormulas tiposFormulas) {
         em.clear();
@@ -40,7 +30,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
             em.merge(tiposFormulas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFormulas.crear: " + e);
+            System.out.println("Error PersistenciaTiposFormulas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +46,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
             em.merge(tiposFormulas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFormulas.editar: " + e);
+            System.out.println("Error PersistenciaTiposFormulas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +62,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
             em.remove(em.merge(tiposFormulas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFormulas.borrar: " + e);
+            System.out.println("Error PersistenciaTiposFormulas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -93,7 +83,7 @@ public class PersistenciaTiposFormulas implements PersistenciaTiposFormulasInter
             System.out.println("tiposFormulas" + tiposFormulasResult);
             return tiposFormulasResult;
         } catch (Exception e) {
-            System.out.println("Error: (tiposFormulas)" + e);
+            System.out.println("Persistencia.PersistenciaTiposFormulas.tiposFormulas()" + e.getMessage());
             return null;
         }
     }

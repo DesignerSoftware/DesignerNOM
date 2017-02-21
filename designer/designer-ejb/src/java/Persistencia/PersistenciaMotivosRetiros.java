@@ -37,7 +37,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.merge(motivosRetiros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros.crear: " + e);
+            System.out.println("Error PersistenciaMotivosRetiros.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.merge(motivosRetiros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros.editar: " + e);
+            System.out.println("Error PersistenciaMotivosRetiros.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             em.remove(em.merge(motivosRetiros));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros.borrar: " + e);
+            System.out.println("Error PersistenciaMotivosRetiros.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             List<MotivosRetiros> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e);
+            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
             return null;
         }
 
@@ -104,6 +104,7 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             MotivosRetiros motivoR = (MotivosRetiros) query.getSingleResult();
             return motivoR;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosRetiros.consultarMotivoRetiro()" + e.getMessage());
             MotivosRetiros motivoR = null;
             return motivoR;
         }
@@ -118,10 +119,9 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaMotivosRetiros  contarHVExperienciasLaboralesMotivoRetiro  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarHVExperienciasLaboralesMotivoRetiro. " + e);
+            System.out.println("Error PersistenciaMotivosRetiros   contarHVExperienciasLaboralesMotivoRetiro. " + e.getMessage());
             return retorno;
         }
     }
@@ -134,10 +134,9 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaMotivosRetiros  contarNovedadesSistemasMotivoRetiro  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarNovedadesSistemasMotivoRetiro. " + e);
+            System.out.println("Error PersistenciaMotivosRetiros   contarNovedadesSistemasMotivoRetiro. " + e.getMessage());
             return retorno;
         }
     }
@@ -150,10 +149,9 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaMotivosRetiros  contarRetiMotivosRetirosMotivoRetiro  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarRetiMotivosRetirosMotivoRetiro. " + e);
+            System.out.println("Error PersistenciaMotivosRetiros   contarRetiMotivosRetirosMotivoRetiro. " + e.getMessage());
             return retorno;
         }
     }
@@ -166,10 +164,9 @@ public class PersistenciaMotivosRetiros implements PersistenciaMotivosRetirosInt
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaMotivosRetiros  contarRetiRetiradosMotivoRetiro  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarRetiRetiradosMotivoRetiro. " + e);
+            System.out.println("Error PersistenciaMotivosRetiros   contarRetiRetiradosMotivoRetiro. " + e.getMessage());
             return retorno;
         }
     }

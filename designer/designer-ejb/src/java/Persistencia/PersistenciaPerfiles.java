@@ -21,17 +21,21 @@ public class PersistenciaPerfiles implements PersistenciaPerfilesInterface {
             em.clear();
             return em.find(Perfiles.class, secuencia);
         } catch (Exception e) {
-            System.out.println("\n ERROR EN PersistenciaPerfiles buscarPerfil ERROR " + e);
+            System.out.println("Persistencia.PersistenciaPerfiles.consultarPerfil()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<Perfiles> consultarPerfiles(EntityManager em) {
+        try{
         em.clear();
         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(Perfiles.class));
         return em.createQuery(cq).getResultList();
-
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaPerfiles.consultarPerfiles()" + e.getMessage());
+            return null;
+        }
     }
 }

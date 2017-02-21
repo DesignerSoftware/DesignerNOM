@@ -38,7 +38,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             em.merge(organigramas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOrganigramas.crear: " + e);
+            System.out.println("Error PersistenciaOrganigramas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             em.merge(organigramas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOrganigramas.editar: " + e);
+            System.out.println("Error PersistenciaOrganigramas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             em.remove(em.merge(organigramas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOrganigramas.borrar: " + e);
+            System.out.println("Error PersistenciaOrganigramas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,6 +83,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             em.clear();
             return em.find(Organigramas.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaOrganigramas.buscarOrganigrama()" + e.getMessage());
             return null;
         }
     }
@@ -115,23 +116,19 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             List<Organigramas> listOrganigramas = query.getResultList();
             return listOrganigramas;
         } catch (Exception e) {
-            System.out.println("PersistenciaOrganigramas: Fallo en la busqueda de los organigramas por fecha y por empresa ");
-            System.out.println(e);
+            System.out.println("Persistencia.PersistenciaOrganigramas.buscarOrganigramasVigentes()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<Organigramas> buscarOrganigramasEmpresa(EntityManager em, BigInteger secEmpresa) {
-        System.out.println("buscarOrganigramasEmpresa : secEmpresa : " + secEmpresa);
-        System.out.println("buscarOrganigramasEmpresa : em : " + em);
         try {
             em.clear();
             Query query = em.createQuery("SELECT o FROM Organigramas o WHERE o.empresa.secuencia = :secEmpresa");
             query.setParameter("secEmpresa", secEmpresa);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Organigramas> listOrganigramas = query.getResultList();
-            System.out.println("buscarOrganigramasEmpresa : listOrganigramas : " + em);
             /*
              * if (listOrganigramas != null) { for (Organigramas organigrama :
              * listOrganigramas) { System.out.println("organigrama : " +
@@ -140,8 +137,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             System.out.println("Otra empresa");
             return listOrganigramas;
         } catch (Exception e) {
-            System.out.println("PersistenciaOrganigramas: Fallo en la busqueda de los organigramas por empresa ");
-            System.out.println(e);
+            System.out.println("Persistencia.PersistenciaOrganigramas.buscarOrganigramasEmpresa()" + e.getMessage());
             return null;
         }
     }
@@ -163,7 +159,7 @@ public class PersistenciaOrganigramas implements PersistenciaOrganigramasInterfa
             }
             return organigrama;
         } catch (Exception e) {
-            System.out.println("Exepcion en organigramaBaseArbol " + e);
+            System.out.println("Exepcion en organigramaBaseArbol " + e.getMessage());
             return null;
         }
     }

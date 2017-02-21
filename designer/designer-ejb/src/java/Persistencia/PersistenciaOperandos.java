@@ -60,7 +60,6 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
                  + "  CONNECT BY PRIOR formulahijo = FORMULA)", Operandos.class);
          query.setParameter(1, secConcepto);
          List<Operandos> operandos = query.getResultList();
-         System.out.println("Ya consulto los Operandos : " + operandos);
          return operandos;
       } catch (Exception e) {
          System.out.println("Error Persistencia PersistenciaOperandos operandoPorConceptoSoporte : " + e.toString());
@@ -77,14 +76,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("EL Operandos no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -97,14 +92,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("El Operandos no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -117,14 +108,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.remove(em.merge(operandos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("El Operandos no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -139,6 +126,7 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          valor = (String) query.getSingleResult();
          return valor;
       } catch (Exception e) {
+          System.out.println("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
          return null;
       }
    }

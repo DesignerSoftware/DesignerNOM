@@ -21,13 +21,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface{
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
-
     @Override
     public List<TarifaDeseo> retenciones(EntityManager em) {
         try {
@@ -49,7 +42,7 @@ public class PersistenciaTarifaDeseo implements PersistenciaTarifaDeseoInterface
             return resultado;
 
         } catch (Exception e) {
-            System.out.println("Error: ( Persistencia Tarifa Deseo)" + e.toString());
+            System.out.println("Error: ( Persistencia Tarifa Deseo)" + e.getMessage());
             return null;
         }
     }

@@ -32,7 +32,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados : " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaInicialMinimaTurnosEmpleados : " + e.getMessage());
             return null;
         }
     }
@@ -46,7 +46,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             Date fecha = (Date) query.getSingleResult();
             return fecha;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados : " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.obtenerFechaFinalMaximaTurnosEmpleados : " + e.getMessage());
             return null;
         }
     }
@@ -66,7 +66,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             tx.commit();
             return dato;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ : " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_CONTARNOVEDADESLIQ : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,7 +88,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION : " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.EjecutarPKG_ELIMINARLIQUIDACION : " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -104,7 +104,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.persist(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.crear: " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -113,7 +113,6 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
 
     @Override
     public void editar(EntityManager em, TurnosEmpleados turnosEmpleados) {
-
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -121,7 +120,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             em.merge(turnosEmpleados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados.editar: " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -141,7 +140,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             if (tx.isActive()) {
                 tx.rollback();
             }
-            System.out.println("Error PersistenciaTurnosEmpleados.borrar: " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados.borrar: " + e.getMessage());
         }
     }
 
@@ -155,7 +154,7 @@ public class PersistenciaTurnosEmpleados implements PersistenciaTurnosEmpleadosI
             List<TurnosEmpleados> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTurnosEmpleados PersistenciaEmpleados : " + e.toString());
+            System.out.println("Error PersistenciaTurnosEmpleados PersistenciaEmpleados : " + e.getMessage());
             return null;
         }
     }

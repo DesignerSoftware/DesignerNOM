@@ -36,13 +36,9 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.crear()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -55,13 +51,9 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.merge(vigenciaViajero);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.editar()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -75,16 +67,12 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.remove(em.merge(vigenciaViajero));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.borrar()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
-       
+
     }
 
     public VigenciasViajeros consultarTipoExamen(EntityManager em, BigInteger secuencia) {
@@ -92,6 +80,7 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             em.clear();
             return em.find(VigenciasViajeros.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarTipoExamen()" + e.getMessage());
             return null;
         }
     }
@@ -108,16 +97,21 @@ public class PersistenciaVigenciasViajeros implements PersistenciaVigenciasViaje
             }
             return vigenciasViajeros;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Viajeros" + e);
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajerosPorEmpleado()" + e.getMessage());
             return null;
         }
     }
 
     public List<VigenciasViajeros> consultarVigenciasViajeros(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT te FROM VigenciasViajeros te ORDER BY te.fechavigencia ASC ");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<VigenciasViajeros> listMotivosDemandas = query.getResultList();
-        return listMotivosDemandas;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT te FROM VigenciasViajeros te ORDER BY te.fechavigencia ASC ");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<VigenciasViajeros> listMotivosDemandas = query.getResultList();
+            return listMotivosDemandas;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasViajeros.consultarVigenciasViajeros()" + e.getMessage());
+            return null;
+        }
     }
 }

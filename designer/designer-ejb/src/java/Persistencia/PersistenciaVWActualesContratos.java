@@ -18,12 +18,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesContratos implements PersistenciaVWActualesContratosInterface {
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     public VWActualesContratos buscarContrato(EntityManager em, BigInteger secuencia) {
 
@@ -35,7 +29,7 @@ public class PersistenciaVWActualesContratos implements PersistenciaVWActualesCo
             VWActualesContratos actualesContratos = (VWActualesContratos) query.getSingleResult();
             return actualesContratos;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaVWActualesContratos.buscarContrato)" + e);
+            System.out.println("Error: (PersistenciaVWActualesContratos.buscarContrato)" + e.getMessage());
             return null;
         }
     }

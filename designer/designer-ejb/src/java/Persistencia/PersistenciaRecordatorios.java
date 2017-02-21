@@ -29,8 +29,6 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
     public void crear(EntityManager em, Recordatorios recordatorios) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
-        System.out.println("PersistenciaRecordatorios.crear:EntityManager: "+ em );
-        System.out.println("PersistenciaRecordatorios.crear: Recordatorios: "+ recordatorios );
         try {
             tx.begin();
             //em.merge(recordatorios);
@@ -86,11 +84,10 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
                     + "    ORDER BY dbms_random.value)ra\n"
                     + "    WHERE ROWNUM=1";
             Query query = entity.createNativeQuery(consulta, Recordatorios.class);
-            //Query query = entity.createNativeQuery(consulta); // obliga a hacer un casting al usar la lista.
             Recordatorios recordatorio = (Recordatorios) query.getSingleResult();
             return recordatorio;
         } catch (Exception e) {
-            System.out.println("Error: PersistenciaRecordatorios.recordatorioRandom : " + e.toString());
+            System.out.println("Persistencia.PersistenciaRecordatorios.recordatorioRandom()" + e.getMessage());
             return null;
         }
     }
@@ -99,22 +96,16 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
     public List<String> recordatoriosInicio(EntityManager entity) {
         try {
             entity.clear();
-            /*String consulta = "SELECT R.MENSAJE FROM RECORDATORIOS R WHERE R.TIPO='RECORDATORIO' "
-                    + "AND (R.DIA=0 OR R.DIA=TO_NUMBER(TO_CHAR(SYSDATE,'DD'))) AND (R.MES=0 "
-                    + "OR R.MES=TO_NUMBER(TO_CHAR(SYSDATE,'MM'))) AND (R.ANO=0 "
-                    + "OR R.ANO=TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))) "
-                    + "AND (R.USUARIO=(SELECT U.SECUENCIA FROM USUARIOS U "
-                    + "WHERE U.ALIAS=USER) OR R.USUARIO IS NULL)";*/
-            String consulta = "SELECT R.MENSAJE \n" +
-                              "FROM RECORDATORIOS R \n" +
-                              "WHERE R.TIPO='RECORDATORIO' \n" +
-                              "AND (R.DIA=0 OR R.DIA=TO_NUMBER(TO_CHAR(SYSDATE,'DD')) OR (R.DIA - R.DIASPREVIOS) <= TO_NUMBER(TO_CHAR(SYSDATE,'DD')) ) \n" +
-                              "AND (R.MES=0 OR R.MES=TO_NUMBER(TO_CHAR(SYSDATE,'MM'))) \n" +
-                              "AND (R.ANO=0 OR R.ANO=TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))) \n" +
-                              "AND (R.USUARIO=(SELECT U.SECUENCIA \n" +
-                              "                FROM USUARIOS U \n" +
-                              "                WHERE U.ALIAS=USER) \n" +
-                              "     OR R.USUARIO IS NULL)";
+            String consulta = "SELECT R.MENSAJE \n"
+                    + "FROM RECORDATORIOS R \n"
+                    + "WHERE R.TIPO='RECORDATORIO' \n"
+                    + "AND (R.DIA=0 OR R.DIA=TO_NUMBER(TO_CHAR(SYSDATE,'DD')) OR (R.DIA - R.DIASPREVIOS) <= TO_NUMBER(TO_CHAR(SYSDATE,'DD')) ) \n"
+                    + "AND (R.MES=0 OR R.MES=TO_NUMBER(TO_CHAR(SYSDATE,'MM'))) \n"
+                    + "AND (R.ANO=0 OR R.ANO=TO_NUMBER(TO_CHAR(SYSDATE,'YYYY'))) \n"
+                    + "AND (R.USUARIO=(SELECT U.SECUENCIA \n"
+                    + "                FROM USUARIOS U \n"
+                    + "                WHERE U.ALIAS=USER) \n"
+                    + "     OR R.USUARIO IS NULL)";
             Query query = entity.createNativeQuery(consulta);
             List<String> listaRecordatorios = query.getResultList();
             return listaRecordatorios;
@@ -135,7 +126,6 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
                     + "AND (R.USUARIO=(SELECT U.SECUENCIA FROM USUARIOS U "
                     + "WHERE U.ALIAS=USER) OR R.USUARIO IS NULL)";
             Query query = entity.createNativeQuery(consulta, Recordatorios.class);
-            //Query query = entity.createNativeQuery(consulta);
             List<Recordatorios> listaConsultas = query.getResultList();
             return listaConsultas;
         } catch (Exception e) {
@@ -175,36 +165,30 @@ public class PersistenciaRecordatorios implements PersistenciaRecordatoriosInter
     }
 
     @Override
-    public Recordatorios consultaRecordatorios(EntityManager em, BigInteger secuencia) throws Exception{
-        /*em.clear();
-         Query query = em.createQuery("SELECT r FROM Recordatorios r WHERE r.secuencia = :secuencia");
-         query.setParameter("secuencia", secuencia);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         Recordatorios recordatorios = (Recordatorios) query.getSingleResult();
-         return recordatorios;*/
+    public Recordatorios consultaRecordatorios(EntityManager em, BigInteger secuencia) throws Exception {
         try {
             em.clear();
             return em.find(Recordatorios.class, secuencia);
-        }catch(Exception e){
-            System.out.println("consultaRecordatorios en "+this.getClass().getName() + ": " );
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaRecordatorios.consultaRecordatorios()" + e.getMessage());
             e.printStackTrace();
             throw e;
         }
     }
 
     @Override
-    public List<String> ejecutarConsultaRecordatorio(EntityManager em, BigInteger secuencia) throws Exception{
+    public List<String> ejecutarConsultaRecordatorio(EntityManager em, BigInteger secuencia) throws Exception {
         System.out.println("PersistenciaRecordatorios.ejecutarConsultaRecordatorio");
-        try{
-        Recordatorios recor = consultaRecordatorios(em, secuencia);
-        em.clear();
-        String consulta = recor.getConsulta();
-        System.out.println("consulta: "+consulta);
-        Query query = em.createNativeQuery(consulta);
-        List<String> listaConsultas = query.getResultList();
-        return listaConsultas;
-        } catch(Exception e) {
-            System.out.println("ejecutarConsultaRecordatorio en "+ this.getClass().getName() + ": " );
+        try {
+            Recordatorios recor = consultaRecordatorios(em, secuencia);
+            em.clear();
+            String consulta = recor.getConsulta();
+            System.out.println("consulta: " + consulta);
+            Query query = em.createNativeQuery(consulta);
+            List<String> listaConsultas = query.getResultList();
+            return listaConsultas;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaRecordatorios.ejecutarConsultaRecordatorio()" + e.getMessage());
             e.printStackTrace();
             throw e;
         }

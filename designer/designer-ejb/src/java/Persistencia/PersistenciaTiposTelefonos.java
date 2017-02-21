@@ -23,24 +23,16 @@ import javax.persistence.Query;
 @Stateful
 public class PersistenciaTiposTelefonos implements PersistenciaTiposTelefonosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     * @param em
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposTelefonos tiposTelefonos) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            //em.remove(em.merge(tiposTelefonos));
             em.persist(tiposTelefonos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTelefonos.crear: " + e);
+            System.out.println("Error PersistenciaTiposTelefonos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +48,7 @@ public class PersistenciaTiposTelefonos implements PersistenciaTiposTelefonosInt
             em.merge(tiposTelefonos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTelefonos.editar: " + e);
+            System.out.println("Error PersistenciaTiposTelefonos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,12 +63,10 @@ public class PersistenciaTiposTelefonos implements PersistenciaTiposTelefonosInt
             System.out.println("em : " + em);
             System.out.println("tiposTelefonos : "+ tiposTelefonos);
             tx.begin();
-            //em.merge(tiposTelefonos);
-            //em.find(TiposTelefonos.class, tiposTelefonos.getSecuencia());
             em.remove(em.merge(tiposTelefonos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTelefonos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposTelefonos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -90,6 +80,7 @@ public class PersistenciaTiposTelefonos implements PersistenciaTiposTelefonosInt
             BigInteger sec = new BigInteger(secuencia.toString());
             return em.find(TiposTelefonos.class, sec);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposTelefonos.buscarTipoTelefonos()" + e.getMessage());
             return null;
         }
     }
@@ -103,7 +94,7 @@ public class PersistenciaTiposTelefonos implements PersistenciaTiposTelefonosInt
             List<TiposTelefonos> listaTiposTelefonos = query.getResultList();
             return listaTiposTelefonos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposTelefonos.tiposTelefonos" + e);
+            System.out.println("Error PersistenciaTiposTelefonos.tiposTelefonos" + e.getMessage());
             return null;
         }
     }

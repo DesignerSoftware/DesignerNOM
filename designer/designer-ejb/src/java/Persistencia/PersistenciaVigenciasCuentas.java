@@ -35,21 +35,11 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         System.out.println("Entro en crear() vigenciasCuentas : " + vigenciasCuentas);
-         System.out.println("vigenciasCuentas.getFechainicial() : " + vigenciasCuentas.getFechainicial());
-         System.out.println("vigenciasCuentas.getFechafinal() : " + vigenciasCuentas.getFechafinal());
-         System.out.println("vigenciasCuentas.getTipocc() : " + vigenciasCuentas.getTipocc());
-         System.out.println("vigenciasCuentas.getCuentad() : " + vigenciasCuentas.getCuentad());
-         System.out.println("vigenciasCuentas.getCuentac() : " + vigenciasCuentas.getCuentac());
-         System.out.println("vigenciasCuentas.getConcepto() : " + vigenciasCuentas.getConcepto());
-         System.out.println("vigenciasCuentas.getConsolidadorc() : " + vigenciasCuentas.getConsolidadorc());
-         System.out.println("vigenciasCuentas.getConsolidadord() : " + vigenciasCuentas.getConsolidadord());
-         System.out.println("vigenciasCuentas.getProceso() : " + vigenciasCuentas.getProceso());
          tx.begin();
          em.persist(vigenciasCuentas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.crear: " + e);
+         System.out.println("Error PersistenciaVigenciasCuentas.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -65,7 +55,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          em.merge(vigenciasCuentas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.editar: " + e);
+         System.out.println("Error PersistenciaVigenciasCuentas.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -81,7 +71,7 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          em.remove(em.merge(vigenciasCuentas));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCuentas.borrar: " + e);
+         System.out.println("Error PersistenciaVigenciasCuentas.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -107,8 +97,8 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          VigenciasCuentas vigenciasCuentas = (VigenciasCuentas) query.getSingleResult();
          return vigenciasCuentas;
       } catch (Exception e) {
-         VigenciasCuentas vigenciasCuentas = null;
-         return vigenciasCuentas;
+          System.out.println("Persistencia.PersistenciaVigenciasCuentas.buscarVigenciaCuentaSecuencia() + e.getMessage()");
+         return null;
       }
    }
 
@@ -122,9 +112,8 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorCredito Persistencia : " + e.toString());
-         List<VigenciasCuentas> vigenciasCuentas = null;
-         return vigenciasCuentas;
+         System.out.println("Error buscarVigenciasCuentasPorCredito Persistencia : " + e.getMessage());
+         return null;
       }
    }
 
@@ -138,9 +127,8 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorDebito Persistencia : " + e.toString());
-         List<VigenciasCuentas> vigenciasCuentas = null;
-         return vigenciasCuentas;
+         System.out.println("Error buscarVigenciasCuentasPorDebito Persistencia : " + e.getMessage());
+         return null;
       }
    }
 
@@ -154,9 +142,8 @@ public class PersistenciaVigenciasCuentas implements PersistenciaVigenciasCuenta
          List<VigenciasCuentas> vigenciasCuentas = (List<VigenciasCuentas>) query.getResultList();
          return vigenciasCuentas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasCuentasPorConcepto Persistencia : " + e.toString());
-         List<VigenciasCuentas> vigenciasCuentas = null;
-         return vigenciasCuentas;
+         System.out.println("Error buscarVigenciasCuentasPorConcepto Persistencia : " + e.getMessage());
+        return null;
       }
    }
 }

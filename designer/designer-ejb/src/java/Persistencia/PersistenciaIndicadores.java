@@ -38,7 +38,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicadores.crear: " + e);
+            System.out.println("Error PersistenciaIndicadores.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             em.merge(indicadores);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicadores.editar: " + e);
+            System.out.println("Error PersistenciaIndicadores.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,13 +71,10 @@ public class PersistenciaIndicadores implements PersistenciaIndicadoresInterface
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaIndicadores.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaIndicadores.borrar: " + e);
-            }
         }
     }
 

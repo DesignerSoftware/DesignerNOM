@@ -37,7 +37,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             em.merge(soCondicionesTrabajos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesTrabajos.crear: " + e);
+            System.out.println("Error PersistenciaSoCondicionesTrabajos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             em.merge(soCondicionesTrabajos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesTrabajos.editar: " + e);
+            System.out.println("Error PersistenciaSoCondicionesTrabajos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             em.remove(em.merge(soCondicionesTrabajos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesTrabajos.borrar: " + e);
+            System.out.println("Error PersistenciaSoCondicionesTrabajos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             em.clear();
             return em.find(SoCondicionesTrabajos.class, secuencia);
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIASOCONDICIONESTRABAJOS ERROR " + e);
+            System.err.println("ERROR PERSISTENCIASOCONDICIONESTRABAJOS ERROR " + e.getMessage());
             return null;
         }
     }
@@ -96,8 +96,7 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             List<SoCondicionesTrabajos> listaSOCondicionesTrabajos = query.getResultList();
             return listaSOCondicionesTrabajos;
         } catch (Exception e) {
-            System.out.println("ERROR AL CARGAR DATOS DE LA ENTIDAD SOCONDICIONESTRABAJOS ERROR " + e);
-
+            System.out.println("Persistencia.PersistenciaSoCondicionesTrabajos.buscarSoCondicionesTrabajos()" + e.getMessage());
             return null;
         }
     }
@@ -111,10 +110,9 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador CONTADORINSPECCIONES persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorInspecciones. " + e);
+            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorInspecciones. " + e.getMessage());
             return retorno;
         }
     }
@@ -128,10 +126,9 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador CONTADORSOACCIDENTESMEDICOS persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoAccidentesMedicos. " + e);
+            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoAccidentesMedicos. " + e.getMessage());
             return retorno;
         }
     }
@@ -145,10 +142,9 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador CONTADORSODETALLESPANORAMAS persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoDetallesPanoramas. " + e);
+            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoDetallesPanoramas. " + e.getMessage());
             return retorno;
         }
     }
@@ -162,10 +158,9 @@ public class PersistenciaSoCondicionesTrabajos implements PersistenciaSoCondicio
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador CONTADORSOEXPOSICIONESFR persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoExposicionesFr. " + e);
+            System.out.println("Error PERSISTENCIASOCONDICIONESTRABAJOS contadorSoExposicionesFr. " + e.getMessage());
             return retorno;
         }
     }

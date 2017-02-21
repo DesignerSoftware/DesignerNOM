@@ -29,7 +29,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasTallas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.merge(vigenciasTallas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasTallas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -59,7 +59,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             em.remove(em.merge(vigenciasTallas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasTallas.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasTallas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -76,7 +76,7 @@ public class PersistenciaVigenciasTallas implements PersistenciaVigenciasTallasI
             return listMotivosDemandas;
 
         } catch (Exception e) {
-            System.out.println("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona : " + e.toString());
+            System.out.println("Error consultarVigenciasTallas consultarVigenciasTallasPorPersona : " + e.getMessage());
             return null;
         }
     }

@@ -37,7 +37,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.crear: " + e);
+            System.out.println("Error PersistenciaMotivosPrestamos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.merge(motivosPrestamos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.editar: " + e);
+            System.out.println("Error PersistenciaMotivosPrestamos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             em.remove(em.merge(motivosPrestamos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosPrestamos.borrar: " + e);
+            System.out.println("Error PersistenciaMotivosPrestamos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -88,11 +88,16 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
 
     @Override
     public List<MotivosPrestamos> buscarMotivosPrestamos(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT m FROM MotivosPrestamos m ORDER BY m.codigo ASC");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<MotivosPrestamos> listaMotivosPrestamos = query.getResultList();
-        return listaMotivosPrestamos;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT m FROM MotivosPrestamos m ORDER BY m.codigo ASC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<MotivosPrestamos> listaMotivosPrestamos = query.getResultList();
+            return listaMotivosPrestamos;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosPrestamos.buscarMotivosPrestamos()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -104,10 +109,9 @@ public class PersistenciaMotivosPrestamos implements PersistenciaMotivosPrestamo
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR = " + e);
+            System.err.println("ERROR PERSISTENCIAMOTIVOSPRESTAMOS CONTADOREERSPRESTAMOS ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

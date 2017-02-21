@@ -12,22 +12,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'Unidades' de la base
- * de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
 
     @Override
     public void crear(EntityManager em, Unidades unidad) {
@@ -38,7 +25,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.crear: " + e);
+            System.out.println("Error PersistenciaUnidades.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.merge(unidad);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.editar: " + e);
+            System.out.println("Error PersistenciaUnidades.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             em.remove(em.merge(unidad));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUnidades.borrar: " + e);
+            System.out.println("Error PersistenciaUnidades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +73,7 @@ public class PersistenciaUnidades implements PersistenciaUnidadesInterface {
             List<Unidades> listaUnidades = query.getResultList();
             return listaUnidades;
         } catch (Exception e) {
-            System.out.println("Error consultarUnidades PersistenciaUnidades : " + e.toString());
+            System.out.println("Error consultarUnidades PersistenciaUnidades : " + e.getMessage());
             return null;
         }
     }

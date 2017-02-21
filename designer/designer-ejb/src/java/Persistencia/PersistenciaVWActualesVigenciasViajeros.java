@@ -18,12 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWActualesVigenciasViajerosInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
+   
     public VWActualesVigenciasViajeros buscarTipoViajero(EntityManager em, BigInteger secuencia) {
         try {
             em.clear();
@@ -33,8 +28,8 @@ public class PersistenciaVWActualesVigenciasViajeros implements PersistenciaVWAc
             VWActualesVigenciasViajeros vWActualesVigenciasViajeros = (VWActualesVigenciasViajeros) query.getSingleResult();
             return vWActualesVigenciasViajeros;
         } catch (Exception e) {
-            VWActualesVigenciasViajeros vWActualesVigenciasViajeros = null;
-            return vWActualesVigenciasViajeros;
+            System.out.println("Persistencia.PersistenciaVWActualesVigenciasViajeros.buscarTipoViajero()" + e.getMessage());
+            return null;
         }
     }
 }

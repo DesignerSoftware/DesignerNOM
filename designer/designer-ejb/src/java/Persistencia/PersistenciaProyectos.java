@@ -36,7 +36,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.persist(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.crear: " + e);
+            System.out.println("Error PersistenciaProyectos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.merge(proyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.editar: " + e);
+            System.out.println("Error PersistenciaProyectos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             em.remove(em.merge(proyectos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProyectos.borrar: " + e);
+            System.out.println("Error PersistenciaProyectos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             Proyectos proyectos = (Proyectos) query.getSingleResult();
             return proyectos;
         } catch (Exception e) {
-            System.out.println("Error buscarProyectoSecuencia PersistenciaProyectos");
+            System.out.println("Error buscarProyectoSecuencia PersistenciaProyectos"+ e.getMessage());
             Proyectos proyectos = null;
             return proyectos;
         }
@@ -98,11 +98,6 @@ public class PersistenciaProyectos implements PersistenciaProyectosInterface {
             Query query = em.createQuery("SELECT p FROM Proyectos p ORDER BY p.empresa.nombre");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Proyectos> proyectos = query.getResultList();
-            if (proyectos != null){
-               System.out.println("PersistenciaProyectos proyectos : " + proyectos.size());
-            } else {
-               System.out.println("PersistenciaProyectos proyectos = null");
-            }
             return proyectos;
         } catch (Exception e) {
            System.out.println("Error en PersistenciaProyectos, proyectos() : " + e.getCause().toString());

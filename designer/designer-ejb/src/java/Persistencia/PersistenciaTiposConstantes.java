@@ -17,20 +17,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author user
- */
 @Stateless
 public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesInterface{
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
-    
     @Override
     public void crear(EntityManager em, TiposConstantes tiposConstantes) {
         em.clear();
@@ -40,7 +29,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
             em.merge(tiposConstantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConstantes.crear: " + e);
+            System.out.println("Error PersistenciaTiposConstantes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -56,7 +45,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
             em.merge(tiposConstantes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConstantes.editar: " + e);
+            System.out.println("Error PersistenciaTiposConstantes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -72,7 +61,7 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
             em.remove(em.merge(tiposConstantes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposConstantes.borrar: " + e);
+            System.out.println("Error PersistenciaTiposConstantes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -89,11 +78,9 @@ public class PersistenciaTiposConstantes implements PersistenciaTiposConstantesI
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<TiposConstantes> tiposConstantes = query.getResultList();
             List<TiposConstantes> tiposConstantesResult = new ArrayList<TiposConstantes>(tiposConstantes);
-
-            System.out.println("tiposConstantes" + tiposConstantesResult);
             return tiposConstantesResult;
         } catch (Exception e) {
-            System.out.println("Error: (tiposConstantes)" + e);
+            System.out.println("Persistencia.PersistenciaTiposConstantes.tiposConstantes()" + e.getMessage());
             return null;
         }
     }

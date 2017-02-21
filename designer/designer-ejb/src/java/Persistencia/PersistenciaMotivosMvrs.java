@@ -39,7 +39,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.crear: " + e);
+            System.out.println("Error PersistenciaMotivosMvrs.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.editar: " + e);
+            System.out.println("Error PersistenciaMotivosMvrs.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.remove(em.merge(motivosMvrs));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosMvrs.borrar: " + e);
+            System.out.println("Error PersistenciaMotivosMvrs.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,16 +84,22 @@ public class PersistenciaMotivosMvrs implements PersistenciaMotivosMvrsInterface
             em.clear();
             return em.find(Motivosmvrs.class, secuenciaMM);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<Motivosmvrs> buscarMotivosMvrs(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT m FROM Motivosmvrs m");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<Motivosmvrs> lista = query.getResultList();
         return lista;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaMotivosMvrs.buscarMotivosMvrs()" + e.getMessage());
+            return null;
+        }
     }
 }

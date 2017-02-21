@@ -24,14 +24,6 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenciasNormasEmpleadosInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos.
-    * @param em
-    * @return 
-    */
-   /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-    */
    @Override
    public boolean crear(EntityManager em, VigenciasNormasEmpleados vigenciasNormasEmpleados) {
       em.clear();
@@ -42,7 +34,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.crear: " + e);
+         System.out.println("Error PersistenciaVigenciasNormasEmpleados.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -59,7 +51,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.merge(vigenciasNormasEmpleados);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.editar: " + e);
+         System.out.println("Error PersistenciaVigenciasNormasEmpleados.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -75,7 +67,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.remove(em.merge(vigenciasNormasEmpleados));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasNormasEmpleados.borrar: " + e);
+         System.out.println("Error PersistenciaVigenciasNormasEmpleados.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,6 +81,7 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          em.clear();
          return em.find(VigenciasNormasEmpleados.class, secuencia);
       } catch (Exception e) {
+          System.out.println("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleado()" + e.getMessage());
          return null;
       }
    }
@@ -103,16 +96,21 @@ public class PersistenciaVigenciasNormasEmpleados implements PersistenciaVigenci
          List<VigenciasNormasEmpleados> vigenciasNormasEmpleados = query.getResultList();
          return vigenciasNormasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia Vigencias Normas Empleados " + e);
+         System.out.println("Error en Persistencia Vigencias Normas Empleados " + e.getMessage());
          return null;
       }
    }
 
    @Override
    public List<VigenciasNormasEmpleados> buscarVigenciasNormasEmpleados(EntityManager em) {
-      em.clear();
+      try{
+       em.clear();
       CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
       cq.select(cq.from(VigenciasNormasEmpleados.class));
       return em.createQuery(cq).getResultList();
+      }catch(Exception e){
+          System.out.println("Persistencia.PersistenciaVigenciasNormasEmpleados.buscarVigenciasNormasEmpleados()" + e.getMessage());
+          return null;
+      }
    }
 }

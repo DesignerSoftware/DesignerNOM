@@ -38,7 +38,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             em.merge(parametroEstructura);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e);
+            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,6 +55,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             BigInteger secEmpresa = (BigInteger) query.getSingleResult();
             return secEmpresa;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaParametrosEstructuras.buscarEmpresaParametros()" + e.getMessage());
             return null;
         }
     }
@@ -77,7 +78,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.estructurasComprobantes" + e);
+            System.out.println("Error PersistenciaParametrosEstructuras.estructurasComprobantes" + e.getMessage());
             return null;
         }
     }
@@ -94,7 +95,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             query.executeUpdate();
             tx.commit();
         } catch (Exception e) {
-            System.out.println("PersistenciaParametrosEstructuras.adicionarEmpleados: " + e);
+            System.out.println("PersistenciaParametrosEstructuras.adicionarEmpleados: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -117,7 +118,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.empleadosParametrizados " + e);
+            System.out.println("Error PersistenciaParametrosEstructuras.empleadosParametrizados " + e.getMessage());
             return null;
         }
     }
@@ -134,7 +135,7 @@ public class PersistenciaParametrosEstructuras implements PersistenciaParametros
             Integer empeladosALiquidar = a.intValueExact();
             return empeladosALiquidar;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas " + e);
+            System.out.println("Error PersistenciaParametrosEstructuras.diasDiferenciaFechas " + e.getMessage());
             return null;
         }
     }

@@ -42,7 +42,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaParametrosEstados.empleadosParaLiquidar " + e);
+         System.out.println("Error PersistenciaParametrosEstados.empleadosParaLiquidar " + e.getMessage());
          return null;
       }
    }
@@ -59,7 +59,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          Integer empeladosALiquidar = a.intValueExact();
          return empeladosALiquidar;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaParametrosEstados.empleadosLiquidados " + e);
+         System.out.println("Error PersistenciaParametrosEstados.empleadosLiquidados " + e.getMessage());
          return null;
       }
    }
@@ -69,18 +69,16 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-         System.out.println("Ya entro en inicializarParametrosEstados()");
          tx.begin();
          Query query = em.createNativeQuery("call PARAMETROS_PKG.inicializarparametrosestados()");
          query.executeUpdate();
-         System.out.println("Ya ejecuto: PARAMETROS_PKG.inicializarparametrosestados");
          tx.commit();
       } catch (Exception e) {
          System.out.println("Entro en el Catch");
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaParametrosEstados.inicializarparametrosestados " + e);
+         System.out.println("Error PersistenciaParametrosEstados.inicializarparametrosestados " + e.getMessage());
       }
    }
 
@@ -94,7 +92,7 @@ public class PersistenciaParametrosEstados implements PersistenciaParametrosEsta
          String estadoParametro = (String) query.getSingleResult();
          return estadoParametro;
       } catch (Exception e) {
-         System.out.println("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes" + e);
+         System.out.println("Exepcion en PersistenciaParametrosEstados.parametrosComprobantes" + e.getMessage());
          return null;
       }
    }

@@ -34,7 +34,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.crear: " + e);
+            System.out.println("Error PersistenciaTiposDescansos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.merge(tiposDescansos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.editar: " + e);
+            System.out.println("Error PersistenciaTiposDescansos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +66,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             em.remove(em.merge(tiposDescansos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDescansos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposDescansos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +82,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             List<TiposDescansos> listaTiposDescansos = query.getResultList();
             return listaTiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDescansos PersistenciaTiposDescansos");
+            System.out.println("Error buscarTiposDescansos PersistenciaTiposDescansos" + e.getMessage());
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             TiposDescansos tiposDescansos = (TiposDescansos) query.getSingleResult();
             return tiposDescansos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos");
+            System.out.println("Error buscarTiposDescansosSecuencia PersistenciaTiposDescansos" + e.getMessage());
             TiposDescansos tiposDescansos = null;
             return tiposDescansos;
         }
@@ -114,7 +114,7 @@ public class PersistenciaTiposDescansos implements PersistenciaTiposDescansosInt
             System.out.println("PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso contador" + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposDescansos contarVigenciasJornadasTipoDescanso ERROR :  " + e);
+            System.out.println("Persistencia.PersistenciaTiposDescansos.contarVigenciasJornadasTipoDescanso()" + e.getMessage());
             return retorno;
         }
     }

@@ -37,7 +37,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.merge(personas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.crear: " + e);
+            System.out.println("Error PersistenciaPersonas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.merge(personas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.editar: " + e);
+            System.out.println("Error PersistenciaPersonas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             em.remove(em.merge(personas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPersonas.borrar: " + e);
+            System.out.println("Error PersistenciaPersonas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,17 +78,27 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
 
     @Override
     public Personas buscarPersona(EntityManager em, BigInteger secuencia) {
+        try{
         em.clear();
         return em.find(Personas.class, secuencia);
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaPersonas.buscarPersona()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public List<Personas> consultarPersonas(EntityManager em) {
+        try{
         em.clear();
         String sql = "SELECT * FROM Personas";
         Query query = em.createNativeQuery(sql, Personas.class);
         List<Personas> lista = query.getResultList();
         return lista;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaPersonas.consultarPersonas()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -101,7 +111,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             query.executeUpdate();
             em.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("No se pudo agregar estado de fotografia: " + e);
+            System.out.println("Persistencia.PersistenciaPersonas.actualizarFotoPersona()" + e.getMessage());
         }
     }
 
@@ -115,6 +125,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             Personas persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaPersonas.buscarFotoPersona()" + e.getMessage());
             Personas personas = null;
             return personas;
         }
@@ -122,8 +133,6 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
 
     @Override
     public Personas buscarPersonaSecuencia(EntityManager em, BigInteger secuencia) {
-        System.out.println(this.getClass().getName()+"buscarPersonaSecuencia()");
-        System.out.println("secuencia: "+secuencia);
         Personas persona;
         try {
             em.clear();
@@ -134,6 +143,7 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaPersonas.buscarPersonaSecuencia()" + e.getMessage());
             persona = null;
             System.out.println("Error buscarPersonaSecuencia PersistenciaPersonas");
         }
@@ -142,8 +152,6 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
 
     @Override
     public Personas buscarPersonaPorEmpleado(EntityManager em, BigInteger secEmpleado) {
-        System.out.println(this.getClass().getName()+"buscarPersonaSecuencia()");
-        System.out.println("secEmpleado: "+secEmpleado);
         Personas persona;
         try {
             em.clear();
@@ -154,8 +162,8 @@ public class PersistenciaPersonas implements PersistenciaPersonasInterface {
             persona = (Personas) query.getSingleResult();
             return persona;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaPersonas.buscarPersonaPorEmpleado()" + e.getMessage());
             persona = null;
-            System.out.println("Error buscarPersonaSecuencia PersistenciaPersonas");
         }
         return persona;
     }

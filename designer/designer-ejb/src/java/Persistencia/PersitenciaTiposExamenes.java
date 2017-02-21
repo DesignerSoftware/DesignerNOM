@@ -37,7 +37,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.crear: " + e);
+            System.out.println("Error PersitenciaTiposExamenes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.merge(tiposExamenes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.editar: " + e);
+            System.out.println("Error PersitenciaTiposExamenes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -67,7 +67,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.remove(em.merge(tiposExamenes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersitenciaTiposExamenes.borrar: " + e);
+            System.out.println("Error PersitenciaTiposExamenes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,17 +80,24 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             em.clear();
             return em.find(TiposExamenes.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersitenciaTiposExamenes.buscarTipoExamen()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<TiposExamenes> buscarTiposExamenes(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT te FROM TiposExamenes te ORDER BY te.codigo ASC ");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<TiposExamenes> listMotivosDemandas = query.getResultList();
-        return listMotivosDemandas;
+        try {
+
+            em.clear();
+            Query query = em.createQuery("SELECT te FROM TiposExamenes te ORDER BY te.codigo ASC ");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<TiposExamenes> listMotivosDemandas = query.getResultList();
+            return listMotivosDemandas;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersitenciaTiposExamenes.buscarTiposExamenes()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -105,7 +112,7 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             System.err.println("Contador contadorTiposExamenesCargos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e);
+            System.out.println("Error PersistenciaTiposExamenes contadorTiposExamenesCargos. " + e.getMessage());
             return retorno;
         }
     }
@@ -119,10 +126,9 @@ public class PersitenciaTiposExamenes implements PersistenciaTiposExamenesInterf
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaTiposExamenes  contadorVigenciasExamenesMedicos  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos. " + e);
+            System.out.println("Error PersistenciaTiposExamenes   contadorVigenciasExamenesMedicos. " + e.getMessage());
             return retorno;
         }
     }

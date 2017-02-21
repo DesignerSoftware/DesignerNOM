@@ -13,22 +13,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'Terceros' de la base
- * de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTerceros implements PersistenciaTercerosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, Terceros terceros) {
         em.clear();
@@ -38,7 +25,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             em.persist(terceros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTerceros.crear: " + e);
+            System.out.println("Error PersistenciaTerceros.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             em.merge(terceros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTerceros.editar: " + e);
+            System.out.println("Error PersistenciaTerceros.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             em.remove(em.merge(terceros));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTerceros.borrar: " + e);
+            System.out.println("Error PersistenciaTerceros.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +73,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             List<Terceros> terceros = (List<Terceros>) query.getResultList();
             return terceros;
         } catch (Exception e) {
-            System.out.println("Error buscarTerceros");
+            System.out.println("Persistencia.PersistenciaTerceros.buscarTerceros()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +87,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             List<Terceros> terceros = (List<Terceros>) query.getResultList();
             return terceros;
         } catch (Exception e) {
-            System.out.println("Error buscarTerceros");
+            System.out.println("Persistencia.PersistenciaTerceros.todosTerceros()" + e.getMessage());
             return null;
         }
     }
@@ -131,9 +118,8 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             Terceros terceros = (Terceros) query.getSingleResult();
             return terceros;
         } catch (Exception e) {
-            System.out.println("Error buscarTercerosSecuencia");
-            Terceros terceros = null;
-            return terceros;
+            System.out.println("Persistencia.PersistenciaTerceros.buscarTercerosSecuencia()" + e.getMessage());
+            return null;
         }
     }
 
@@ -147,7 +133,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion: " + e);
+            System.out.println("Persistencia.PersistenciaTerceros.verificarTerceroPorNit()" + e.getMessage());
             return false;
         }
     }
@@ -164,7 +150,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion: " + e);
+            System.out.println("Persistencia.PersistenciaTerceros.verificarTerceroParaEmpresaEmpleado()" + e.getMessage());
             return false;
         }
     }
@@ -174,13 +160,12 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT t FROM Terceros t WHERE t.empresa.secuencia = :secEmpresa ORDER BY t.nombre");
-            //Query query = em.createQuery("SELECT t.* FROM Terceros t, Empresas e WHERE t.EMPRESA = e.secuencia and e.secuencia = :secEmpresa ORDER BY t.nombre");
             query.setParameter("secEmpresa", secEmpresa);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTercerosInterface lovTerceros: " + e.toString());
+            System.out.println("Persistencia.PersistenciaTerceros.lovTerceros()" + e.getMessage());
             return null;
         }
     }
@@ -194,7 +179,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             List<Terceros> listaTerceros = query.getResultList();
             return listaTerceros;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaEmpleados.tercerosEmbargos" + e);
+            System.out.println("Persistencia.PersistenciaTerceros.tercerosEmbargos()" + e.getMessage());
             return null;
         }
     }
@@ -213,7 +198,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             }
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error buscarCodigoSSPorSecuenciaTercero PersistenciaTerceros : " + e.toString());
+            System.out.println("Error buscarCodigoSSPorSecuenciaTercero PersistenciaTerceros : " + e.getMessage());
             return null;
         }
     }
@@ -232,7 +217,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             }
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error buscarCodigoSPPorSecuenciaTercero PersistenciaTerceros : " + e.toString());
+            System.out.println("Error buscarCodigoSPPorSecuenciaTercero PersistenciaTerceros : " + e.getMessage());
             return null;
         }
     }
@@ -251,7 +236,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             }
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error buscarCodigoSCPorSecuenciaTercero PersistenciaTerceros : " + e.toString());
+            System.out.println("Error buscarCodigoSCPorSecuenciaTercero PersistenciaTerceros : " + e.getMessage());
             return null;
         }
     }
@@ -266,7 +251,7 @@ public class PersistenciaTerceros implements PersistenciaTercerosInterface {
             Terceros tercero = (Terceros) query.getSingleResult();
             return tercero;
         } catch (Exception e) {
-            System.out.println("Error buscarTerceroPorCodigo PersistenciaTerceros : " + e.toString());
+            System.out.println("Error buscarTerceroPorCodigo PersistenciaTerceros : " + e.getMessage());
             return null;
         }
     }

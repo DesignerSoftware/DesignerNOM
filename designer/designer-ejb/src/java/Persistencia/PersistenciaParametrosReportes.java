@@ -37,7 +37,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.merge(parametrosInformes);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.crear: " + e);
+            System.out.println("Error PersistenciaParametrosReportes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
          em.merge(parametrosInformes);
          tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.editar: " + e);
+            System.out.println("Error PersistenciaParametrosReportes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.remove(em.merge(parametrosInformes));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaParametrosReportes.borrar: " + e);
+            System.out.println("Error PersistenciaParametrosReportes.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             em.clear();
             return em.find(ParametrosReportes.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error buscarParametroInforme Persistencia");
+            System.out.println("Error buscarParametroInforme Persistencia" + e.getMessage());
             return null;
         }
     }
@@ -96,7 +96,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             cq.select(cq.from(ParametrosReportes.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarParametrosReportes");
+            System.out.println("Error buscarParametrosReportes" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +111,7 @@ public class PersistenciaParametrosReportes implements PersistenciaParametrosRep
             ParametrosReportes parametrosInformes = (ParametrosReportes) query.getSingleResult();
             return parametrosInformes;
         } catch (Exception e) {
-            System.out.println("Error en buscarParametroInformeUsuario " + e);
+            System.out.println("Error en buscarParametroInformeUsuario " + e.getMessage());
             return null;
         }
     }   

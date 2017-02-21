@@ -18,11 +18,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesJornadas implements PersistenciaVWActualesJornadasInterface {
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
+
 
     public VWActualesJornadas buscarJornada(EntityManager em, BigInteger secuencia) {
         try {
@@ -33,8 +29,8 @@ public class PersistenciaVWActualesJornadas implements PersistenciaVWActualesJor
             VWActualesJornadas actualesJornadas = (VWActualesJornadas) query.getSingleResult();
             return actualesJornadas;
         } catch (Exception e) {
-            VWActualesJornadas actualesJornadas = null;
-            return actualesJornadas;
+            System.out.println("Persistencia.PersistenciaVWActualesJornadas.buscarJornada()" + e.getMessage());
+            return null;
         }
     }
 }

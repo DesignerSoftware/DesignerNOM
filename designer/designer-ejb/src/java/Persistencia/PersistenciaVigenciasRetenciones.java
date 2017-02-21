@@ -52,7 +52,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
             em.merge(vretenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetenciones.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasRetenciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
             em.remove(em.merge(vretenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasRetenciones.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasRetenciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -77,10 +77,15 @@ public class PersistenciaVigenciasRetenciones implements PersistenciaVigenciasRe
 
     @Override
     public List<VigenciasRetenciones> buscarVigenciasRetenciones(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT v FROM VigenciasRetenciones v ORDER BY v.fechavigencia ASC");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<VigenciasRetenciones> setsLista = (List<VigenciasRetenciones>) query.getResultList();
         return setsLista;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaVigenciasRetenciones.buscarVigenciasRetenciones()" + e.getMessage());
+            return null;
+        }
     }
 }

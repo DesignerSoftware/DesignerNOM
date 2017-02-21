@@ -33,8 +33,8 @@ public class PersistenciaVWActualesUbicaciones implements PersistenciaVWActuales
             VWActualesUbicaciones vWActualesUbicaciones = (VWActualesUbicaciones) query.getSingleResult();
             return vWActualesUbicaciones;
         } catch (Exception e) {
-            VWActualesUbicaciones vWActualesUbicaciones = null;
-            return vWActualesUbicaciones;
+            System.out.println("Persistencia.PersistenciaVWActualesUbicaciones.buscarUbicacion()" + e.getMessage());
+            return null;
         }
     }
 }

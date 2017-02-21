@@ -12,22 +12,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TempNovedades' de la
- * base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos.
-    */
-   /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-    */
    @Override
    public void crear(EntityManager em, TempNovedades tempNovedades) {
       em.clear();
@@ -37,7 +24,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempNovedades.crear: " + e);
+         System.out.println("Error PersistenciaTempNovedades.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +40,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          em.merge(tempNovedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaTempNovedades.editar: " + e);
+         System.out.println("Error PersistenciaTempNovedades.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,13 +57,10 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          tx.commit();
 
       } catch (Exception e) {
-         try {
+        System.out.println("Error PersistenciaTempNovedades.borrar: " + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("Error PersistenciaTempNovedades.borrar: " + e);
-         }
       }
    }
 
@@ -110,7 +94,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<TempNovedades> listTNovedades = query.getResultList();
          return listTNovedades;
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro.");
+          System.out.println("Persistencia.PersistenciaTempNovedades.obtenerTempNovedades()" + e.getMessage());
          return null;
       }
    }
@@ -126,7 +110,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          List<String> listDocumentosSoporte = query.getResultList();
          return listDocumentosSoporte;
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro.");
+          System.out.println("Persistencia.PersistenciaTempNovedades.obtenerDocumentosSoporteCargados()" + e.getMessage());
          return null;
       }
    }
@@ -142,12 +126,10 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.setParameter(1, fechaReporte);
          query.setParameter(2, nombreCortoFormula);
          query.setParameter(3, usarFormula);
-         //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          query.executeUpdate();
-         System.out.println("executeUpdate: ");
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error en el carge." + e);
+          System.out.println("Persistencia.PersistenciaTempNovedades.cargarTempNovedades()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -169,7 +151,7 @@ public class PersistenciaTempNovedades implements PersistenciaTempNovedadesInter
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro.");
+          System.out.println("Persistencia.PersistenciaTempNovedades.reversarTempNovedades()" + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }

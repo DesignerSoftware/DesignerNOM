@@ -22,13 +22,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
-
     @Override
     public void crear(EntityManager em, Tiposviajeros subCategorias) {
         em.clear();
@@ -38,7 +31,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.crear: " + e);
+            System.out.println("Error PersistenciaTiposViajeros.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +47,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.editar: " + e);
+            System.out.println("Error PersistenciaTiposViajeros.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +63,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             em.remove(em.merge(subCategorias));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposViajeros.borrar: " + e);
+            System.out.println("Error PersistenciaTiposViajeros.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,10 +79,9 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             List<Tiposviajeros> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e);
+            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
             return null;
         }
-
     }
 
     @Override
@@ -102,6 +94,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             Tiposviajeros subCategorias = (Tiposviajeros) query.getSingleResult();
             return subCategorias;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposViajeros.consultarSubCategoria()" + e.getMessage());
             return null;
         }
     }
@@ -118,7 +111,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             System.out.println("Contador PersistenciaTiposViajeros contarVigenciasViajeros persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposViajeros contarVigenciasViajeros. " + e);
+            System.err.println("Error PersistenciaTiposViajeros contarVigenciasViajeros. " + e.getMessage());
             return retorno;
         }
     }
@@ -135,7 +128,7 @@ public class PersistenciaTiposViajeros implements PersistenciaTiposViajerosInter
             System.out.println("Contador PersistenciaTiposViajeros contarTiposLegalizaciones persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e);
+            System.err.println("Error PersistenciaTiposViajeros contarTiposLegalizaciones. " + e.getMessage());
             return retorno;
         }
     }

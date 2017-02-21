@@ -12,23 +12,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposPensionados' de
- * la base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
 public class PersistenciaTiposPensionados implements PersistenciaTiposPensionadosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
-    @Override
+   @Override
     public void crear(EntityManager em, TiposPensionados tiposPensionados) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -37,7 +24,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.merge(tiposPensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.crear: " + e);
+            System.out.println("Error PersistenciaTiposPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +40,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.merge(tiposPensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.editar: " + e);
+            System.out.println("Error PersistenciaTiposPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +56,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             em.remove(em.merge(tiposPensionados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPensionados.borrar: " + e);
+            System.out.println("Error PersistenciaTiposPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +73,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             List<TiposPensionados> listaTiposPensionados = query.getResultList();
             return listaTiposPensionados;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposPensionados PersistenciaTiposPensionados e = " + e);
+            System.out.println("Persistencia.PersistenciaTiposPensionados.consultarTiposPensionados()" + e.getMessage());
             return null;
         }
     }
@@ -102,7 +89,7 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             TiposPensionados tipoP = (TiposPensionados) query.getSingleResult();
             return tipoP;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoPensionSecuencia PersistenciaTiposPensionados");
+            System.out.println("Error buscarTipoPensionSecuencia PersistenciaTiposPensionados " + e.getMessage());
             TiposPensionados tipoP = null;
             return tipoP;
         }
@@ -117,10 +104,9 @@ public class PersistenciaTiposPensionados implements PersistenciaTiposPensionado
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaMotivosRetiros  contarRetiradosClasePension  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e);
+            System.out.println("Error PersistenciaMotivosRetiros   contarRetiradosClasePension. " + e.getMessage());
             return retorno;
         }
     }

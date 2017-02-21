@@ -48,7 +48,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          listaPeriodos = query.getResultList();
          return listaPeriodos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVacaciones.periodoVacaciones" + e);
+         System.out.println("Error PersistenciaVacaciones.periodoVacaciones" + e.getMessage());
          return null;
       }
    }
@@ -65,7 +65,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.executeUpdate();
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.adelantarPeriodo " + e.toString());
+         System.out.println("Error persistenciaNovedadesSistema.adelantarPeriodo " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -91,7 +91,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          diaspendientes = (int) query.getSingleResult();
          return diaspendientes;
       } catch (Exception e) {
-         System.out.println("error en diasPendientes : " + e.toString());
+         System.out.println("error en diasPendientes : " + e.getMessage());
          return 0;
       }
 
@@ -117,7 +117,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          return jornada;
 
       } catch (Exception e) {
-         System.out.println("error en consultarJornadaVacaciones :" + e.toString());
+         System.out.println("error en consultarJornadaVacaciones :" + e.getMessage());
          return BigDecimal.valueOf(1);
       }
    }
@@ -136,8 +136,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, FechaInicialDisfrute);
          contadorFestivo = (BigDecimal) query.getSingleResult();
-         System.out.println("contador festivo : " + contadorFestivo);
-
          if (contadorFestivo.shortValueExact() > 0) {
             esfesitvo = true;
          } else {
@@ -145,16 +143,13 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          }
          return esfesitvo;
       } catch (Exception e) {
-         System.out.println("Error en validarFestivoVacaciones : " + e.toString());
+         System.out.println("Error en validarFestivoVacaciones : " + e.getMessage());
          return esfesitvo;
       }
    }
 
    @Override
    public boolean validarDiaLaboralVacaciones(EntityManager em, BigDecimal tipoJornada, String dia) {
-      System.out.println("entró a validarDiaLaboralVacaciones()");
-      System.out.println("tipoJornada : " + tipoJornada);
-      System.out.println("dia : " + dia);
       boolean eslaboral = false;
       try {
          em.clear();
@@ -174,7 +169,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          } else {
             eslaboral = false;
          }
-         System.out.println("eslaboral : " + eslaboral);
          return eslaboral;
 
       } catch (Exception e) {
@@ -187,9 +181,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
    public Date siguienteDia(EntityManager em, Date fecha, BigInteger numeroDias, BigDecimal jornada) {
       EntityTransaction tx = em.getTransaction();
 
-      System.out.println("siguienteDia fecha : " + fecha);
-      System.out.println("siguienteDia numeroDias : " + numeroDias);
-      System.out.println("siguienteDia jornada : " + jornada);
       try {
          em.clear();
          tx.begin();
@@ -201,7 +192,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          Date siguienteDia = (Date) query.getSingleResult();
          query.executeUpdate();
          tx.commit();
-         System.out.println("siguiente dia : " + siguienteDia);
          return siguienteDia;
 
       } catch (Exception e) {
@@ -223,7 +213,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          BigInteger secPeriodicidad = (BigInteger) query.getSingleResult();
          return secPeriodicidad;
       } catch (Exception e) {
-         System.out.println("error en periodicidadEmpleado");
+         System.out.println("error en periodicidadEmpleado" + e.getMessage());
          return null;
       }
 
@@ -244,7 +234,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          tx.commit();
          return anteriorFechaLimite;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.anteriorFechaLimiteCalendario " + e.toString());
+         System.out.println("Error persistenciaNovedadesSistema.anteriorFechaLimiteCalendario " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -267,7 +257,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          tx.commit();
          return despuesFechaLimite;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.despuesFechaLimiteCalendario " + e.toString());
+         System.out.println("Error persistenciaNovedadesSistema.despuesFechaLimiteCalendario " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -292,7 +282,7 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          System.out.println("fechaUltimoCorte : " + fechaUltimoCorte);
          return fechaUltimoCorte;
       } catch (Exception e) {
-         System.out.println("Error persistenciaNovedadesSistema.fechaUltimoCorte " + e.toString());
+         System.out.println("Error persistenciaNovedadesSistema.fechaUltimoCorte " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -300,13 +290,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
       }
    }
 
-   /**
-    *
-    * @param em
-    * @param ndias
-    * @param fechaCambio
-    * @param fechaPago
-    */
    @Override
    public void adicionaVacacionCambiosMasivos(EntityManager em, BigInteger ndias, Date fechaCambio, Date fechaPago) {
       em.clear();
@@ -322,9 +305,8 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(2, fechaCambio);
          query.setParameter(3, fechaPago);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaVacacionCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaVacacionCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".adicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -334,13 +316,6 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
       }
    }
 
-   /**
-    *
-    * @param em
-    * @param ndias
-    * @param fechaCambio
-    * @param fechaPago
-    */
    @Override
    public void undoAdicionaVacacionCambiosMasivos(EntityManager em, BigInteger ndias, Date fechaCambio, Date fechaPago) {
       em.clear();
@@ -356,9 +331,8 @@ public class PersistenciaVacaciones implements PersistenciaVacacionesInterface {
          query.setParameter(2, fechaCambio);
          query.setParameter(3, fechaPago);
          query.execute();
-         System.out.println(this.getClass().getName() + ".undoAdicionaVacacionCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaVacacionCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".undoAdicionaVacacionCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

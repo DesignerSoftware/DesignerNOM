@@ -37,7 +37,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             em.merge(SoActosInseguros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoActosInseguros.crear: " + e);
+            System.out.println("Error PersistenciaSoActosInseguros.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             em.merge(SoActosInseguros);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoActosInseguros.editar: " + e);
+            System.out.println("Error PersistenciaSoActosInseguros.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             em.remove(em.merge(SoActosInseguros));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoActosInseguros.borrar: " + e);
+            System.out.println("Error PersistenciaSoActosInseguros.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,6 +82,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             em.clear();
             return em.find(SoActosInseguros.class, secuenciaSCAP);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaSoActosInseguros.buscarSoActoInseguro()" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +96,7 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             List<SoActosInseguros> listSoCondicionesAmbientalesP = query.getResultList();
             return listSoCondicionesAmbientalesP;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR CLASES SOACTOSINSEGUROS :" + e);
+            System.out.println("Persistencia.PersistenciaSoActosInseguros.buscarSoActosInseguros()" + e.getMessage());
             return null;
         }
     }
@@ -109,10 +110,9 @@ public class PersistenciaSoActosInseguros implements PersistenciaSoActosInseguro
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaSoActosInseguros contadorSoAccidentesMedicos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoActosInseguros contadorSoAccidentesMedicos. " + e);
+            System.out.println("Persistencia.PersistenciaSoActosInseguros.contadorSoAccidentesMedicos()" + e.getMessage());
             return retorno;
         }
     }

@@ -13,22 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposCertificados' de
- * la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposCertificados implements PersistenciaTiposCertificadosInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposCertificados motivosMvrs) {
         em.clear();
@@ -38,7 +24,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCertificados.crear: " + e);
+            System.out.println("Error PersistenciaTiposCertificados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +40,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
             em.merge(motivosMvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCertificados.editar: " + e);
+            System.out.println("Error PersistenciaTiposCertificados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +56,7 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
             em.remove(em.merge(motivosMvrs));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposCertificados.borrar: " + e);
+            System.out.println("Error PersistenciaTiposCertificados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,15 +69,21 @@ public class PersistenciaTiposCertificados implements PersistenciaTiposCertifica
             em.clear();
             return em.find(TiposCertificados.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposCertificados.buscarTipoCertificado()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<TiposCertificados> buscarTiposCertificados(EntityManager em) {
+        try{
         em.clear();
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         cq.select(cq.from(TiposCertificados.class));
         return em.createQuery(cq).getResultList();
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaTiposCertificados.buscarTiposCertificados()" + e.getMessage());   
+            return null;
+        }
     }
 }

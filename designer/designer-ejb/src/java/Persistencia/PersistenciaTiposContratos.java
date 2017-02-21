@@ -13,22 +13,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br> Clase encargada de realizar operaciones sobre la tabla
- * 'TiposContratos' de la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposContratos implements PersistenciaTiposContratosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*
-     * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager
-     * em;
-     */
     @Override
     public void crear(EntityManager em, TiposContratos tiposContratos) {
         em.clear();
@@ -38,7 +25,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
             em.persist(tiposContratos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposContratos.crear: " + e);
+            System.out.println("Error PersistenciaTiposContratos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
             em.merge(tiposContratos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposContratos.editar: " + e);
+            System.out.println("Error PersistenciaTiposContratos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
             em.remove(em.merge(tiposContratos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposContratos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposContratos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -89,9 +76,9 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
             TiposContratos tipoC = (TiposContratos) query.getSingleResult();
             return tipoC;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposContratos.buscarTipoContratoSecuencia()" + e.getMessage());
+            return null;
         }
-        TiposContratos tipoC = null;
-        return tipoC;
     }
 
     @Override
@@ -103,6 +90,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
             List<TiposContratos> tiposContratos = query.getResultList();
             return tiposContratos;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposContratos.tiposContratos()" + e.getMessage());
             return null;
         }
     }
@@ -112,7 +100,7 @@ public class PersistenciaTiposContratos implements PersistenciaTiposContratosInt
         try {
             System.err.println("No esta clonando nada");
         } catch (Exception e) {
-            System.out.println("Error en clonarTipoContrato : " + e.toString());
+            System.out.println("Error en clonarTipoContrato : " + e.getMessage());
         }
     }
 }

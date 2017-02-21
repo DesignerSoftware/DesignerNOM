@@ -38,7 +38,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
             em.merge(operandos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOperandosLogs.crear: " + e);
+            System.out.println("Error PersistenciaOperandosLogs.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
             em.merge(operandos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOperandosLogs.editar: " + e);
+            System.out.println("Error PersistenciaOperandosLogs.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaOperandosLogs implements PersistenciaOperandosLogsInter
             em.remove(em.merge(operandos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaOperandosLogs.borrar: " + e);
+            System.out.println("Error PersistenciaOperandosLogs.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

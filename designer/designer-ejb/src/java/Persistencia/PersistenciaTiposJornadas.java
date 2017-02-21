@@ -13,21 +13,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposJornadas' de la
- * base de datos.
- *
- * @author Andres Pineda.
- */
 @Stateless
 public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;*/
     @Override
     public void crear(EntityManager em, TiposJornadas tiposJornadas) {
         em.clear();
@@ -37,7 +25,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.merge(tiposJornadas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposJornadas.crear: " + e);
+            System.out.println("Error PersistenciaTiposJornadas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +41,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.merge(tiposJornadas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposJornadas.editar: " + e);
+            System.out.println("Error PersistenciaTiposJornadas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +57,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.remove(em.merge(tiposJornadas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposJornadas.borrar: " + e);
+            System.out.println("Error PersistenciaTiposJornadas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +70,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             em.clear();
             return em.find(TiposJornadas.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposJornadas buscarTipoJornada : " + e.toString());
+            System.out.println("Error PersistenciaTiposJornadas buscarTipoJornada : " + e.getMessage());
             return null;
         }
     }
@@ -96,7 +84,7 @@ public class PersistenciaTiposJornadas implements PersistenciaTiposJornadasInter
             List<TiposJornadas> tiposJornadas = query.getResultList();
             return tiposJornadas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposJornadas buscarTiposJornadas : " + e.toString());
+            System.out.println("Error PersistenciaTiposJornadas buscarTiposJornadas : " + e.getMessage());
             return null;
         }
     }

@@ -14,20 +14,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-/**
- *
- * @author user
- */
 @Stateless
 public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
-
-    public void crear(EntityManager em, TiposIndices tiposIndices) {
+   public void crear(EntityManager em, TiposIndices tiposIndices) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -35,7 +25,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.merge(tiposIndices);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposIndices.crear: " + e);
+            System.out.println("Error PersistenciaTiposIndices.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +40,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.merge(tiposIndices);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposIndices.editar: " + e);
+            System.out.println("Error PersistenciaTiposIndices.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -65,7 +55,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             em.remove(em.merge(tiposIndices));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposIndices.borrar: " + e);
+            System.out.println("Error PersistenciaTiposIndices.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -80,7 +70,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             List<TiposIndices> evalActividades = query.getResultList();
             return evalActividades;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposIndices ERROR" + e);
+            System.out.println("Persistencia.PersistenciaTiposIndices.consultarTiposIndices()" + e.getMessage());
             return null;
         }
     }
@@ -94,9 +84,8 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             TiposIndices tiposIndices = (TiposIndices) query.getSingleResult();
             return tiposIndices;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoIndiceSecuencia");
-            TiposIndices tiposIndices = null;
-            return tiposIndices;
+            System.out.println("Persistencia.PersistenciaTiposIndices.consultarTipoIndice()" + e.getMessage());
+            return null;
         }
     }
 
@@ -111,7 +100,7 @@ public class PersistenciaTiposIndices implements PersistenciaTiposIndicesInterfa
             System.out.println("Contador PersistenciaTiposIndices contarIndicesTipoIndice Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaTiposIndices contarIndicesTipoIndice ERROR : " + e);
+            System.err.println("Error PersistenciaTiposIndices contarIndicesTipoIndice ERROR : " + e.getMessage());
             return retorno;
         }
     }

@@ -14,21 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'SolucionesFormulas'
- * de la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFormulasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-//    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-//    private EntityManager em;
     @Override
     public int validarNovedadesNoLiquidadas(EntityManager em, BigInteger secNovedad) {
         try {
@@ -43,7 +31,7 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Exepcion: (validarNovedadesNoLiquidadas) " + e);
+            System.out.println("Exepcion: (validarNovedadesNoLiquidadas) " + e.getMessage());
             return 1;
         }
     }
@@ -62,7 +50,6 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
             if (lista != null) {
                 if (!lista.isEmpty()) {
                     String sql2 = "SELECT SF.SECUENCIA, P.DESCRIPCION NOMBREPROCESO \n"
-//                            + "' ' CODIGOCONCEPTO, ' ' NOMBRETERCERO, 0 CODIGOCUENTAD, 0 CODIGOCUENTAC, ' ' NOMBRECONCEPTO, ' ' NOMBRECENTROCOSTOD,' ' NOMBRECENTROCOSTOC\n"
                             + "FROM SOLUCIONESFORMULAS SF, NOVEDADES N, SOLUCIONESNODOS SN, PROCESOS P\n"
                             + "WHERE SF.NOVEDAD = N.SECUENCIA \n"
                             + "AND  SF.SOLUCIONNODO = SN.SECUENCIA \n"

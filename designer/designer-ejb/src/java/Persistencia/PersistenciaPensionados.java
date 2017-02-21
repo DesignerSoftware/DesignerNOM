@@ -37,13 +37,13 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.merge(pensionados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.crear: " + e);
+            System.out.println("Error PersistenciaPensionados.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
         }
     }
-    
+
     @Override
     public void editar(EntityManager em, Pensionados pensionados) {
         em.clear();
@@ -51,17 +51,15 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
         try {
             tx.begin();
             em.merge(pensionados);
-            //em.clear();
-            //Query sql = em.createQuery("UPDATE Pensionados p SET p. WHERE p.SECUENCIA " + pensionados.getSecuencia());
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.editar: " + e);
+            System.out.println("Error PersistenciaPensionados.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
         }
     }
-    
+
     @Override
     public void borrar(EntityManager em, Pensionados pensionados) {
         em.clear();
@@ -71,13 +69,13 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             em.remove(em.merge(pensionados));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPensionados.borrar: " + e);
+            System.out.println("Error PersistenciaPensionados.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
         }
     }
-    
+
     @Override
     public Pensionados buscarPensionado(EntityManager em, BigInteger secuencia) {
         try {
@@ -85,20 +83,25 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             BigInteger in = (BigInteger) secuencia;
             return em.find(Pensionados.class, in);
         } catch (Exception e) {
-            System.out.println("Error buscarPensionado (PersistenciaPensionados)");
+            System.out.println("Persistencia.PersistenciaPensionados.buscarPensionado()" + e.getMessage());
             return null;
         }
     }
-    
+
     @Override
     public List<Pensionados> buscarPensionados(EntityManager em) {
-        em.clear();
-        String sql = "SELECT * FROM Pensionados";
-        Query query = em.createNativeQuery(sql, Pensionados.class);
-        List<Pensionados> lista = query.getResultList();
-        return lista;
+        try {
+            em.clear();
+            String sql = "SELECT * FROM Pensionados";
+            Query query = em.createNativeQuery(sql, Pensionados.class);
+            List<Pensionados> lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaPensionados.buscarPensionados()" + e.getMessage());
+            return null;
+        }
     }
-    
+
     @Override
     public List<Pensionados> buscarPensionadosEmpleado(EntityManager em, BigInteger secEmpleado) {
         try {
@@ -113,7 +116,7 @@ public class PersistenciaPensionados implements PersistenciaPensionadosInterface
             return null;
         }
     }
-    
+
     @Override
     public Pensionados buscarPensionVigenciaSecuencia(EntityManager em, BigInteger secVigencia) {
         try {

@@ -39,7 +39,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.merge(gruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.crear: " + e);
+            System.out.println("Error PersistenciaMotivosCambiosSueldos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +55,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.merge(gruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e);
+            System.out.println("Error PersistenciaMotivosCambiosSueldos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +71,7 @@ public class PersistenciaOperandosGruposConceptos implements PersistenciaOperand
             em.remove(em.merge(gruposConceptos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCambiosSueldos.borrar: " + e);
+            System.out.println("Error PersistenciaMotivosCambiosSueldos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

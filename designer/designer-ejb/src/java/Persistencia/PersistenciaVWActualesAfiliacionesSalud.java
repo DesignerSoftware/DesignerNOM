@@ -34,8 +34,8 @@ public class PersistenciaVWActualesAfiliacionesSalud implements PersistenciaVWAc
             VWActualesAfiliacionesSalud vwActualesAfiliacionesSalud = (VWActualesAfiliacionesSalud) query.getSingleResult();
             return vwActualesAfiliacionesSalud;
         } catch (Exception e) {
-            VWActualesAfiliacionesSalud vwActualesAfiliacionesSalud=null;
-            return vwActualesAfiliacionesSalud;
+            System.out.println("Persistencia.PersistenciaVWActualesAfiliacionesSalud.buscarAfiliacionSalud()" + e.getMessage());
+            return null;
         }        
     }
 }

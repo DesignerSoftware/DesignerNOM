@@ -38,7 +38,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.merge(motivosDemandas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.crear: " + e);
+            System.out.println("Error PersistenciaMotivosDemandas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.merge(motivosDemandas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.editar: " + e);
+            System.out.println("Error PersistenciaMotivosDemandas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.remove(em.merge(motivosDemandas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.borrar: " + e);
+            System.out.println("Error PersistenciaMotivosDemandas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,6 +82,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             em.clear();
             return em.find(MotivosDemandas.class, secuenciaE);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosDemandas.buscarMotivoDemanda()" + e.getMessage());
             return null;
         }
     }
@@ -95,7 +96,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             List<MotivosDemandas> motivosDemandas = query.getResultList();
             return motivosDemandas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosDemandas.buscarMotivosDemandas" + e);
+            System.out.println("Error PersistenciaMotivosDemandas.buscarMotivosDemandas" + e.getMessage());
             return null;
         }
     }
@@ -111,7 +112,7 @@ public class PersistenciaMotivosDemandas implements PersistenciaMotivosDemandasI
             System.out.println("PersistenciaMotivosDemana Contador " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error  PersistenciaMotivosDemanas contadorDemanas error " + e);
+            System.err.println("Error  PersistenciaMotivosDemanas contadorDemanas error " + e.getMessage());
             return retorno;
         }
     }

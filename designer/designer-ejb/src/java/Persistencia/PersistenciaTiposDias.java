@@ -22,12 +22,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposDias tiposDias) {
         em.clear();
@@ -37,7 +31,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.crear: " + e);
+            System.out.println("Error PersistenciaTiposDias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +47,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.merge(tiposDias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.editar: " + e);
+            System.out.println("Error PersistenciaTiposDias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +63,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.remove(em.merge(tiposDias));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias.borrar: " + e);
+            System.out.println("Error PersistenciaTiposDias.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,7 +76,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             em.clear();
             return em.find(TiposDias.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias buscarTipoDia : " + e.toString());
+            System.out.println("Error PersistenciaTiposDias buscarTipoDia : " + e.getMessage());
             return null;
         }
     }
@@ -96,7 +90,7 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             List<TiposDias> tiposDias = query.getResultList();
             return tiposDias;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposDias buscarTiposDias : " + e.toString());
+            System.out.println("Error PersistenciaTiposDias buscarTiposDias : " + e.getMessage());
             return null;
         }
     }
@@ -110,10 +104,9 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSDIAS CONTADORDIASLABORALES = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSDIAS CONTADORDIASLABORALES ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposDias.contadorDiasLaborales() + e.getMessage()");
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -128,10 +121,9 @@ public class PersistenciaTiposDias implements PersistenciaTiposDiasInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSDIAS CONTADOREXTRASRECARGOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSDIAS CONTADOREXTRASRECARGOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposDias.contadorExtrasRecargos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

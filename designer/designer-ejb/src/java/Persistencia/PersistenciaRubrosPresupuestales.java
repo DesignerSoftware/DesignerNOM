@@ -38,7 +38,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
             em.merge(rubrospresupuestales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRubrosPresupuestales.crear: " + e);
+            System.out.println("Error PersistenciaRubrosPresupuestales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
             em.merge(rubrospresupuestales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRubrosPresupuestales.editar: " + e);
+            System.out.println("Error PersistenciaRubrosPresupuestales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaRubrosPresupuestales implements PersistenciaRubrosPresu
             em.merge(rubrospresupuestales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRubrosPresupuestales.borrar: " + e);
+            System.out.println("Error PersistenciaRubrosPresupuestales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

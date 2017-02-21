@@ -40,7 +40,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             em.merge(jornadasLaborales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e);
+            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +58,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             tx.commit();
             System.out.println("Ya Modifico JornadasLaborales");
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e);
+            System.out.println("Error PersistenciaJornadasLaborales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,18 +71,13 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            System.out.println("Va a Borrar JornadasLaborales");
             em.remove(em.merge(jornadasLaborales));
             tx.commit();
-            System.out.println("Ya Borro JornadasLaborales");
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaJornadasLaborales.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaJornadasLaborales.borrar: " + e);
-            }
         }
     }
 
@@ -95,7 +90,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             List<JornadasLaborales> jornadasLaborales = (List<JornadasLaborales>) query.getResultList();
             return jornadasLaborales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadasLaborales PersistenciaJornadasLaborales");
+            System.out.println("Error buscarJornadasLaborales PersistenciaJornadasLaborales" + e.getMessage());
             return null;
         }
     }
@@ -110,7 +105,7 @@ public class PersistenciaJornadasLaborales implements PersistenciaJornadasLabora
             JornadasLaborales jornadasLaborales = (JornadasLaborales) query.getSingleResult();
             return jornadasLaborales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales");
+            System.out.println("Error buscarJornadaLaboralSecuencia PersistenciaJornadasLaborales" + e.getMessage());
             JornadasLaborales jornadasLaborales = null;
             return jornadasLaborales;
         }

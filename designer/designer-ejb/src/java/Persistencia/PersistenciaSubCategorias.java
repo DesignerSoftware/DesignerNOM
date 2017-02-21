@@ -13,21 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'SubCategorias' de la
- * base de datos.
- *
- * @author Andres Pineda
- */
 @Stateless
 public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-//    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-//    private EntityManager em;
 
     @Override
     public void crear(EntityManager em, SubCategorias subCategorias) {
@@ -38,7 +25,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSubCategorias.crear: " + e);
+            System.out.println("Error PersistenciaSubCategorias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.merge(subCategorias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSubCategorias.editar: " + e);
+            System.out.println("Error PersistenciaSubCategorias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             em.remove(em.merge(subCategorias));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSubCategorias.borrar: " + e);
+            System.out.println("Error PersistenciaSubCategorias.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +73,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             List<SubCategorias> listSubCategorias = query.getResultList();
             return listSubCategorias;
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaSubCategorias ConsultarSubCategorias ERROR :" + e);
+            System.err.println("ERROR PersistenciaSubCategorias ConsultarSubCategorias ERROR :" + e.getMessage());
             return null;
         }
 
@@ -102,6 +89,7 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             SubCategorias subCategorias = (SubCategorias) query.getSingleResult();
             return subCategorias;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaSubCategorias.consultarSubCategoria()" + e.getMessage());
             return null;
         }
     }
@@ -115,10 +103,9 @@ public class PersistenciaSubCategorias implements PersistenciaSubCategoriasInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaSubCategorias contarEscalafones persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaSubCategorias contarEscalafones. " + e);
+            System.err.println("Error PersistenciaSubCategorias contarEscalafones. " + e.getMessage());
             return retorno;
         }
     }

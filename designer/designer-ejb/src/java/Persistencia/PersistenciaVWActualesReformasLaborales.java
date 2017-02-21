@@ -10,12 +10,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-/**
- * Clase Stateless.<br> 
- * Clase encargada de realizar operaciones sobre la vista 'VWActualesReformasLaborales'
- * de la base de datos.
- * @author betelgeuse
- */
+
+
 @Stateless
 public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWActualesReformasLaboralesInterface{
     /**
@@ -33,8 +29,8 @@ public class PersistenciaVWActualesReformasLaborales implements PersistenciaVWAc
             VWActualesReformasLaborales vWActualesReformasLaborales = (VWActualesReformasLaborales) query.getSingleResult();
             return vWActualesReformasLaborales;
         } catch (Exception e) {
-            VWActualesReformasLaborales vWActualesReformasLaborales = null;
-            return vWActualesReformasLaborales;
+            System.out.println("Persistencia.PersistenciaVWActualesReformasLaborales.buscarReformaLaboral()" + e.getMessage());
+            return null;
         }
     }
 }

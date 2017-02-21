@@ -37,13 +37,9 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaMvrs.crear()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -57,13 +53,9 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.merge(mvrs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaMvrs.editar()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -77,27 +69,27 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             em.remove(em.merge(mvrs));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaMvrs.borrar()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
 
     @Override
     public List<Mvrs> buscarMvrs(EntityManager em) {
+        try{
         em.clear();
         List<Mvrs> mvrs = (List<Mvrs>) em.createQuery("SELECT m FROM Mvrs m").getResultList();
         return mvrs;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrs()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public Mvrs buscarMvrSecuencia(EntityManager em, BigInteger secuencia) {
-
         try {
             em.clear();
             Query query = em.createQuery("SELECT mvrs FROM Mvrs mvrs WHERE mvrs.secuencia = :secuencia");
@@ -106,6 +98,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             Mvrs mvrs = (Mvrs) query.getSingleResult();
             return mvrs;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrSecuencia()" + e.getMessage());
             Mvrs mvrs = null;
             return mvrs;
         }
@@ -121,6 +114,7 @@ public class PersistenciaMvrs implements PersistenciaMvrsInterface {
             List<Mvrs> mvrs = (List<Mvrs>) query.getResultList();
             return mvrs;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMvrs.buscarMvrsEmpleado()" + e.getMessage());
             List<Mvrs> mvrs = null;
             return mvrs;
         }

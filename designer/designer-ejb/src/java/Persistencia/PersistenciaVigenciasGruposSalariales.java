@@ -13,20 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br> 
- * Clase encargada de realizar operaciones sobre la tabla 'VigenciasGruposSalariales'
- * de la base de datos.
- * @author betelgeuse
- */
 @Stateless
-public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenciasGruposSalarialesInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
+public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenciasGruposSalarialesInterface {
 
     @Override
     public void crear(EntityManager em, VigenciasGruposSalariales vigenciasGruposSalariales) {
@@ -37,7 +25,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.merge(vigenciasGruposSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposSalariales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +41,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.merge(vigenciasGruposSalariales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposSalariales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +57,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             em.remove(em.merge(vigenciasGruposSalariales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposSalariales.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposSalariales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +73,7 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             List<VigenciasGruposSalariales> vigenciasGruposSalariales = (List<VigenciasGruposSalariales>) query.getResultList();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasGruposSalariales PersistenciaVigenciasGruposSalariales : " + e.toString());
+            System.out.println("Error buscarVigenciasGruposSalariales PersistenciaVigenciasGruposSalariales : " + e.getMessage());
             return null;
         }
     }
@@ -100,12 +88,11 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             VigenciasGruposSalariales vigenciasGruposSalariales = (VigenciasGruposSalariales) query.getSingleResult();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.toString());
-            VigenciasGruposSalariales vigenciasGruposSalariales = null;
-            return vigenciasGruposSalariales;
+            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
+            return null;
         }
     }
-    
+
     @Override
     public List<VigenciasGruposSalariales> buscarVigenciaGrupoSalarialSecuenciaGrupoSal(EntityManager em, BigInteger secuencia) {
         try {
@@ -116,9 +103,8 @@ public class PersistenciaVigenciasGruposSalariales implements PersistenciaVigenc
             List<VigenciasGruposSalariales> vigenciasGruposSalariales = (List<VigenciasGruposSalariales>) query.getResultList();
             return vigenciasGruposSalariales;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.toString());
-            List<VigenciasGruposSalariales> vigenciasGruposSalariales = null;
-            return vigenciasGruposSalariales;
+            System.out.println("Error buscarVigenciaGrupoSalarialSecuencia PersistenciaVigenciasGruposSalariales : " + e.getMessage());
+            return null;
         }
     }
 }

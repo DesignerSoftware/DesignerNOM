@@ -35,7 +35,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosReemplazos.crear: " + e);
+            System.out.println("Error PersistenciaMotivosReemplazos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -50,7 +50,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             em.merge(motivoReemplazo);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosReemplazos.editar: " + e);
+            System.out.println("Error PersistenciaMotivosReemplazos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,13 +66,10 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             tx.commit();
 
         } catch (Exception e) {
-            try {
+            System.out.println("Error PersistenciaMotivosReemplazos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaMotivosReemplazos.borrar: " + e);
-            }
         }
     }
 
@@ -85,6 +82,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             List<MotivosReemplazos> motivosReemplazos = query.getResultList();
             return motivosReemplazos;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosReemplazos.motivosReemplazos()" + e.getMessage());
             return null;
         }
     }
@@ -100,7 +98,7 @@ public class PersistenciaMotivosReemplazos implements PersistenciaMotivosReempla
             System.out.println("persistenciaMotivosReemplazos contarEncargaturasMotivoReemplazo retorno : " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e);
+            System.err.println("persistenciaMotivosReemplazos  contarEncargaturasMotivoReemplazo ERROR : " + e.getMessage());
             return retorno;
         }
     }

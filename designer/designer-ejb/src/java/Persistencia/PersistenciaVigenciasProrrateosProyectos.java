@@ -24,12 +24,6 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVigenciasProrrateosProyectosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, VigenciasProrrateosProyectos vigenciasProrrateosProyectos) {
         em.clear();
@@ -39,7 +33,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.merge(vigenciasProrrateosProyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.crear: " +  e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +49,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.merge(vigenciasProrrateosProyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.editar: " +  e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +65,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             em.remove(em.merge(vigenciasProrrateosProyectos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasProrrateosProyectos.borrar: " +  e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +80,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             cq.select(cq.from(VigenciasProrrateosProyectos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasProrrateosProyectos PersistenciaVigenciasProrrateosProyectos");
+            System.out.println("Error buscarVigenciasProrrateosProyectos PersistenciaVigenciasProrrateosProyectos" +  e.getMessage());
             return null;
         }
     }
@@ -101,7 +95,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             List<VigenciasProrrateosProyectos> prorrateosProyectos = query.getResultList();
             return prorrateosProyectos;
         } catch (Exception e) {
-            System.out.println("Error en buscarVigenciasProrrateosProyectosEmpleado PersistenciaVigenciasProrrateosProyectos " + e);
+            System.out.println("Error en buscarVigenciasProrrateosProyectosEmpleado PersistenciaVigenciasProrrateosProyectos " +  e.getMessage());
             return null;
         }
     }
@@ -115,7 +109,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             VigenciasProrrateosProyectos prorrateosProyectos = (VigenciasProrrateosProyectos) query.getSingleResult();
             return prorrateosProyectos;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasProrrateosProyectosSecuencia PersistenciaVigenciasProrrateosProyectos");
+            System.out.println("Error buscarVigenciasProrrateosProyectosSecuencia PersistenciaVigenciasProrrateosProyectos" +  e.getMessage());
             return null;
         }
     }
@@ -130,7 +124,7 @@ public class PersistenciaVigenciasProrrateosProyectos implements PersistenciaVig
             List<VigenciasProrrateosProyectos> prorrateosProyectos = query.getResultList();
             return prorrateosProyectos;
         } catch (Exception e) {
-            System.out.println("Error buscarVigenciasProrrateosProyectosVigenciaSecuencia PersistenciaVigenciasProrrateosProyectos");
+            System.out.println("Error buscarVigenciasProrrateosProyectosVigenciaSecuencia PersistenciaVigenciasProrrateosProyectos"+  e.getMessage());
             return null;
         }
     }

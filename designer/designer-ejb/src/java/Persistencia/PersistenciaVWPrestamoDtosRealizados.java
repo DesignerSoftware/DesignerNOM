@@ -22,12 +22,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWPrestamoDtosRealizados implements PersistenciaVWPrestamoDtosRealizadosInterface {
-/**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public List<VWPrestamoDtosRealizados> buscarPrestamosDtos(EntityManager em, BigInteger secuencia) {
@@ -39,8 +33,8 @@ public class PersistenciaVWPrestamoDtosRealizados implements PersistenciaVWPrest
             List<VWPrestamoDtosRealizados> listaPrestamos =  query.getResultList();
             return listaPrestamos;
         } catch (Exception e) {
-            List<VWPrestamoDtosRealizados> listaPrestamos = null;
-            return listaPrestamos;
+            System.out.println("Persistencia.PersistenciaVWPrestamoDtosRealizados.buscarPrestamosDtos()" + e.getMessage());
+            return null;
         }
     }
 }

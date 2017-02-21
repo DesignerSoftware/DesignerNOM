@@ -38,7 +38,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.crear: " + e);
+            System.out.println("Error PersistenciaNodos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.merge(nodos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.editar: " + e);
+            System.out.println("Error PersistenciaNodos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaNodos implements PersistenciaNodosInterface {
             em.remove(em.merge(nodos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaNodos.borrar: " + e);
+            System.out.println("Error PersistenciaNodos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

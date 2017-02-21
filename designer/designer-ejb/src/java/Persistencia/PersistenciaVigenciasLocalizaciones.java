@@ -14,13 +14,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla
- * 'VigenciasLocalizaciones' de la base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
 public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigenciasLocalizacionesInterface {
 
@@ -34,14 +27,10 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("PersistenciaVigenciasLocalizaciones La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasLocalizaciones.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
          return false;
       }
    }
@@ -55,14 +44,10 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          em.merge(vigenciasLocalizaciones);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasLocalizaciones.editar() " + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -94,7 +79,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          cq.select(cq.from(VigenciasLocalizaciones.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasLocalizaciones");
+         System.out.println("Error buscarVigenciasLocalizaciones" + e.getMessage());
          return null;
       }
    }
@@ -109,7 +94,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          List<VigenciasLocalizaciones> vigenciasLocalizaciones = query.getResultList();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia VigenciasLocalizaciones " + e);
+         System.out.println("Error en Persistencia VigenciasLocalizaciones " + e.getMessage());
          return null;
       }
    }
@@ -123,7 +108,7 @@ public class PersistenciaVigenciasLocalizaciones implements PersistenciaVigencia
          VigenciasLocalizaciones vigenciasLocalizaciones = (VigenciasLocalizaciones) query.getSingleResult();
          return vigenciasLocalizaciones;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones");
+         System.out.println("Error buscarVigenciasLocalizacionesSecuencia Persistencia VigenciasLocalizaciones" + e.getMessage());
          return null;
       }
    }

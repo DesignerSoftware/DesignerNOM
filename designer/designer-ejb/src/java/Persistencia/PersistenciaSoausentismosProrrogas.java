@@ -48,7 +48,7 @@ public class PersistenciaSoausentismosProrrogas implements PersistenciaSoausenti
             return prorrogas;
 
         } catch (Exception e) {
-            System.out.println("Error: (prorrogas)" + e);
+            System.out.println("Persistencia.PersistenciaSoausentismosProrrogas.prorrogas()"+ e.getMessage());
             return null;
         }
     }

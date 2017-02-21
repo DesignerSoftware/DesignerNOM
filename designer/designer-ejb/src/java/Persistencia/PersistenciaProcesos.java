@@ -37,7 +37,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.merge(procesos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaProcesos.crear: " + e);
+         System.out.println("Error PersistenciaProcesos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -53,7 +53,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.merge(procesos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaProcesos.editar: " + e);
+         System.out.println("Error PersistenciaProcesos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -69,7 +69,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          em.remove(em.merge(procesos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaProcesos.borrar: " + e);
+         System.out.println("Error PersistenciaProcesos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -88,7 +88,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
 //            System.out.println("procesos : " + procesos);
          return procesos;
       } catch (Exception e) {
-         System.out.println("Error buscarProcesos : " + e);
+         System.out.println("Error buscarProcesos : " + e.getMessage());
          return null;
       }
    }
@@ -103,7 +103,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          Procesos procesos = (Procesos) query.getSingleResult();
          return procesos;
       } catch (Exception e) {
-         System.out.println("Error buscarProcesosSecuencia : " + e);
+         System.out.println("Error buscarProcesosSecuencia : " + e.getMessage());
          Procesos procesos = null;
          return procesos;
       }
@@ -119,7 +119,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          Procesos procesos = (Procesos) query.getSingleResult();
          return procesos;
       } catch (Exception e) {
-         System.out.println("Error buscarProcesosSecuencia : " + e);
+         System.out.println("Error buscarProcesosSecuencia : " + e.getMessage());
          Procesos procesos = null;
          return procesos;
       }
@@ -134,7 +134,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          List<Procesos> listaProcesos = query.getResultList();
          return listaProcesos;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaProcesos.lovProcesos: " + e);
+         System.out.println("Error PersistenciaProcesos.lovProcesos: " + e.getMessage());
          return null;
       }
    }
@@ -156,7 +156,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          List<Procesos> listaProcesosParametros = query.getResultList();
          return listaProcesosParametros;
       } catch (Exception e) {
-         System.out.println("Error en PersistenciaProcesos.procesosParametros: " + e);
+         System.out.println("Error en PersistenciaProcesos.procesosParametros: " + e.getMessage());
          return null;
       }
    }

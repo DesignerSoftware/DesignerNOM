@@ -29,7 +29,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLiquidacionesLogs.crear: " + e);
+            System.out.println("Error PersistenciaLiquidacionesLogs.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -44,7 +44,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             em.merge(liquidacionesLogs);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaLiquidacionesLogs.editar: " + e);
+            System.out.println("Error PersistenciaLiquidacionesLogs.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -60,13 +60,10 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaLiquidacionesLogs.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaLiquidacionesLogs.borrar: " + e);
-            }
         }
     }
 
@@ -79,7 +76,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR : " + e);
+            System.err.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogs ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -93,7 +90,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e);
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorEmpleado ERROR " + e.getMessage());
             return null;
         }
     }
@@ -107,7 +104,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e);
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorOperando ERROR " + e.getMessage());
             return null;
         }
     }
@@ -121,7 +118,7 @@ public class PersistenciaLiquidacionesLogs implements PersistenciaLiquidacionesL
             List<LiquidacionesLogs> listaLiquidacionesLogsPorCiudad = query.getResultList();
             return listaLiquidacionesLogsPorCiudad;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e);
+            System.out.println("PERSISTENCIALIQUIDACIONESLOGS consultarLiquidacionesLogsPorProceso ERROR " + e.getMessage());
             return null;
         }
     }

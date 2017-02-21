@@ -16,23 +16,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'Operandos' de la base
- * de datos.
- *
- * @author Victor Algarin.
- */
 @Stateless
 public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
-    
+       
     @Override
     public void crear(EntityManager em, TiposFunciones tiposFunciones) {
         em.clear();
@@ -42,7 +29,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
             em.merge(tiposFunciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFunciones.crear: " + e);
+            System.out.println("Error PersistenciaTiposFunciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -58,7 +45,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
             em.merge(tiposFunciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFunciones.editar: " + e);
+            System.out.println("Error PersistenciaTiposFunciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -74,7 +61,7 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
             em.remove(em.merge(tiposFunciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFunciones.borrar: " + e);
+            System.out.println("Error PersistenciaTiposFunciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -91,11 +78,9 @@ public class PersistenciaTiposFunciones implements PersistenciaTiposFuncionesInt
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<TiposFunciones> tiposFunciones = query.getResultList();
             List<TiposFunciones> tiposFuncionesResult = new ArrayList<TiposFunciones>(tiposFunciones);
-
-            System.out.println("tiposFunciones" + tiposFuncionesResult);
             return tiposFuncionesResult;
         } catch (Exception e) {
-            System.out.println("Error: (tiposFunciones)" + e);
+            System.out.println("Persistencia.PersistenciaTiposFunciones.tiposFunciones()" + e.getMessage());
             return null;
         }
     }

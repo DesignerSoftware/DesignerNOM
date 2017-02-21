@@ -13,22 +13,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TiposEmbargos' de la
- * base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposEmbargos tiposEmbargos) {
         em.clear();
@@ -38,7 +25,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.crear: " + e);
+            System.out.println("Error PersistenciaTiposEmbargos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.editar: " + e);
+            System.out.println("Error PersistenciaTiposEmbargos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.merge(tiposEmbargos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEmbargos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposEmbargos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,17 +70,23 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             em.clear();
             return em.find(TiposEmbargos.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposEmbargos.buscarTipoEmbargo()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<TiposEmbargos> buscarTiposEmbargos(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT m FROM TiposEmbargos m ORDER BY m.codigo ASC");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<TiposEmbargos> listaMotivosPrestamos = query.getResultList();
-        return listaMotivosPrestamos;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT m FROM TiposEmbargos m ORDER BY m.codigo ASC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<TiposEmbargos> listaMotivosPrestamos = query.getResultList();
+            return listaMotivosPrestamos;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposEmbargos.buscarTiposEmbargos()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -105,10 +98,9 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSEMBARGOS CONTADOREERPRESTAMOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSEMBARGOS CONTADOREERPRESTAMOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposEmbargos.contadorEerPrestamos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }
@@ -123,10 +115,9 @@ public class PersistenciaTiposEmbargos implements PersistenciaTiposEmbargosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSEMBARGOS CONTADORFORMASDTOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSEMBARGOS CONTADORFORMASDTOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposEmbargos.contadorFormasDtos()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

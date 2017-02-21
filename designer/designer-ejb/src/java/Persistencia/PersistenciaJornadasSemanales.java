@@ -21,7 +21,7 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             em.persist(jornadasSemanales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasSemanales.crear: " + e);
+            System.out.println("Error PersistenciaJornadasSemanales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -37,7 +37,7 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             em.merge(jornadasSemanales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaJornadasSemanales.crear: " + e);
+            System.out.println("Error PersistenciaJornadasSemanales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,12 +54,9 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             tx.commit();
 
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaJornadasSemanales.borrar: " + e);
+            System.out.println("Error PersistenciaJornadasSemanales.borrar: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -73,7 +70,7 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             List<JornadasSemanales> jornadasSemanales = (List<JornadasSemanales>) query.getResultList();
             return jornadasSemanales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadasSemanales PersistenciaJornadasSemanales");
+            System.out.println("Error buscarJornadasSemanales PersistenciaJornadasSemanales" + e.getMessage());
             return null;
         }
     }
@@ -88,7 +85,7 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             JornadasSemanales jornadasSemanales = (JornadasSemanales) query.getSingleResult();
             return jornadasSemanales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadaSemanalSecuencia PersistenciaJornadasSemanales");
+            System.out.println("Error buscarJornadaSemanalSecuencia PersistenciaJornadasSemanales" + e.getMessage());
             JornadasSemanales jornadasSemanales = null;
             return jornadasSemanales;
         }
@@ -105,7 +102,7 @@ public class PersistenciaJornadasSemanales implements PersistenciaJornadasSemana
             List<JornadasSemanales> jornadasSemanales = query.getResultList();
             return jornadasSemanales;
         } catch (Exception e) {
-            System.out.println("Error buscarJornadasSemanalesPorJornadaLaboral PersistenciaJornadasSemanales");
+            System.out.println("Error buscarJornadasSemanalesPorJornadaLaboral PersistenciaJornadasSemanales" + e.getMessage());
             List<JornadasSemanales> jornadasSemanales = null;
             return jornadasSemanales;
         }

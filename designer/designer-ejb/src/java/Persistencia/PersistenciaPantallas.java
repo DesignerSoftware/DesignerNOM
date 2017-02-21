@@ -38,7 +38,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             Pantallas pantalla = (Pantallas) query.getSingleResult();
             return pantalla;
         } catch (Exception e) {
-           System.out.println("ERROR Persistencia.PersistenciaPantallas.buscarPantalla() return null;");
+            System.out.println("Persistencia.PersistenciaPantallas.buscarPantalla()" + e.getMessage());
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class PersistenciaPantallas implements PersistenciaPantallasInterface {
             List<Pantallas> todosPantallas = query.getResultList();
             return todosPantallas;
         } catch (Exception e) {
-            System.err.println("Error: PersistenciaPantallas consultarPantallas ERROR " + e);
+            System.err.println("Error: PersistenciaPantallas consultarPantallas ERROR " + e.getMessage());
             return null;
         }
     }

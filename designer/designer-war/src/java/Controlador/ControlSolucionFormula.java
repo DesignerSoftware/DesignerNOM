@@ -72,11 +72,11 @@ public class ControlSolucionFormula implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -126,30 +126,12 @@ public class ControlSolucionFormula implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-    public void recibirParametros(BigInteger codEmpleado, BigInteger secNovedad,String pagina) {
-         paginaAnterior = pagina;
+    public void recibirParametros(BigInteger codEmpleado, BigInteger secNovedad, String pagina) {
+        paginaAnterior = pagina;
         empleado = administrarSolucionesFormulas.empleadoActual(codEmpleado);
         listaSolucionesFormulas = administrarSolucionesFormulas.listaSolucionesFormulaParaEmpleadoYNovedad(empleado.getSecuencia(), secNovedad);
         novedad = administrarSolucionesFormulas.novedadActual(secNovedad);
-        if (novedad == null) {
-            informacionEmpleadoNovedad = empleado.getPersona().getNombreCompleto().toUpperCase() + " NOVEDAD POR VALOR DE : $ 0";
-        } else {
-            informacionEmpleadoNovedad = empleado.getPersona().getNombreCompleto().toUpperCase() + " NOVEDAD POR VALOR DE : $ " + novedad.getValortotal().toString();
-        }
-        int tamanio = informacionEmpleadoNovedad.length();
-        if (tamanio > 60) {
-            String aux = informacionEmpleadoNovedad;
-            informacionEmpleadoNovedad = "";
-            for (int i = 0; i < 56; i++) {
-                informacionEmpleadoNovedad = informacionEmpleadoNovedad + aux.charAt(i) + "";
-            }
-            informacionEmpleadoNovedad = informacionEmpleadoNovedad + "...";
-        }
-        if (listaSolucionesFormulas != null) {
-            infoRegistro = "Cantidad de registros : " + listaSolucionesFormulas.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
+        informacionEmpleadoNovedad = empleado.getPersona().getNombreCompleto().toUpperCase() + " NOVEDAD POR VALOR DE : $ " + novedad.getValortotal().toString();
     }
 
     public void posicionTabla() {

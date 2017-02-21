@@ -67,18 +67,9 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
                pruebaEmpleado = (PruebaEmpleados) query.getSingleResult();
             }
          }
-//            //Ahora el tipo:
-//            em.clear();
-//            Query queryT = em.createQuery("SELECT vw.tipoTrabajador.tipo FROM VWActualesTiposTrabajadores vw WHERE vw.empleado.secuencia= :secuencia");
-//            queryT.setParameter("secuencia", secEmpleado);
-//            queryT.setHint("javax.persistence.cache.storeMode", "REFRESH");
-//            String tipoEmpleado = (String) queryT.getSingleResult();
-//            pruebaEmpleado.setTipo(tipoEmpleado);
-
          return pruebaEmpleado;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPruebaEmpleados.empleadosAsignacion. " + e);
-         System.out.println("e.getCause() : " + e.getCause());
+          System.out.println("Persistencia.PersistenciaPruebaEmpleados.empleadosAsignacion()" + e.getMessage());
          e.printStackTrace();
          return null;
       }
@@ -108,7 +99,7 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e);
+         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
          System.out.println("e.getCause() : " + e.getCause());
          e.printStackTrace();
          return null;
@@ -127,19 +118,10 @@ public class PersistenciaPruebaEmpleados implements PersistenciaPruebaEmpleadosI
                  + " AND tt.secuencia = vwtt.tipotrabajador\n"
                  + " AND tt.tipo IN ('ACTIVO','PENSIONADO','RETIRADO')\n"
                  + " GROUP BY E.secuencia, E.codigoempleado, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE, tt.tipo\n", PruebaEmpleados.class);
-//                 + " UNION\n"
-//                 + " SELECT E.secuencia ID, E.codigoempleado CODIGO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBRE, SUM(VWP.valor) VALOR, tt.tipo TIPO\n"
-//                 + " FROM EMPLEADOS E, VWACTUALESPENSIONES VWP, PERSONAS P, VWActualesTiposTrabajadores vwtt, TiposTrabajadores tt\n"
-//                 + " WHERE E.persona = P.secuencia\n"
-//                 + " AND VWP.empleado = E.secuencia\n"
-//                 + " AND vwtt.empleado = E.secuencia\n"
-//                 + " AND tt.secuencia = vwtt.tipotrabajador\n"
-//                 + " AND tt.tipo IN ('ACTIVO','PENSIONADO','RETIRADO')\n"
-//                 + " GROUP BY E.secuencia, E.codigoempleado, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE, tt.tipo");
          List<PruebaEmpleados> pruebasEmpleados = query.getResultList();
          return pruebasEmpleados;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e);
+         System.out.println("Error PersistenciaPruebaEmpleados.empleadosNovedadesEmpl. " + e.getMessage());
          return null;
       }
    }

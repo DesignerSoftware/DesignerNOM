@@ -36,7 +36,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
             em.merge(sectoresEvaluaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEvaluaciones.crear: " + e);
+            System.out.println("Error PersistenciaSectoresEvaluaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
             em.merge(sectoresEvaluaciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEvaluaciones.editar: " + e);
+            System.out.println("Error PersistenciaSectoresEvaluaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
             em.remove(em.merge(sectoresEvaluaciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSectoresEvaluaciones.borrar: " + e);
+            System.out.println("Error PersistenciaSectoresEvaluaciones.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,7 +84,7 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
             List<SectoresEvaluaciones> listTiposViajeros = query.getResultList();
             return listTiposViajeros;
         } catch (Exception e) {
-            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e);
+            System.err.println("ERROR PersistenciaTiposViajeros ConsultarTiposViajeros ERROR :" + e.getMessage());
             return null;
         }
 
@@ -101,8 +101,8 @@ public class PersistenciaSectoresEvaluaciones implements PersistenciaSectoresEva
             SectoresEvaluaciones motivoR = (SectoresEvaluaciones) query.getSingleResult();
             return motivoR;
         } catch (Exception e) {
-            SectoresEvaluaciones motivoR = null;
-            return motivoR;
+            System.out.println("Persistencia.PersistenciaSectoresEvaluaciones.consultarSectorEvaluacion()" + e.getMessage());
+            return null;
         }
 
     }

@@ -36,7 +36,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e);
+            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.merge(lugaresOcurrencias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e);
+            System.out.println("Error PersistenciaHistoriasformulas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,13 +69,10 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             tx.commit();
 
         } catch (Exception e) {
-            try {
+        System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaHistoriasformulas.borrar: " + e);
-            }
         }
     }
 
@@ -85,6 +82,7 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             em.clear();
             return em.find(LugaresOcurrencias.class, secuenciaLO);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
             return null;
         }
     }
@@ -98,13 +96,11 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             List<LugaresOcurrencias> listMotivosDemandas = query.getResultList();
             return listMotivosDemandas;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR TIPOS CHEQUEOS  " + e);
+            System.out.println("Persistencia.PersistenciaLugaresOcurrencias.buscarLugaresOcurrencias()" + e.getMessage());
             return null;
         }
-
     }
 
-    // NATIVE QUERY
     @Override
     public BigInteger contadorSoAccidentes(EntityManager em, BigInteger secuencia) {
         BigInteger retorno = new BigInteger("-1");
@@ -114,10 +110,9 @@ public class PersistenciaLugaresOcurrencias implements PersistenciaLugaresOcurre
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.err.println("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES" + e);
+            System.out.println("PERSISTENCIA LUGARES OCURRENCIAS CONTADOR SO ACCIDENTES" + e.getMessage());
             return retorno;
         }
     }

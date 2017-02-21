@@ -33,7 +33,6 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
      */
     @Override
     public void crear(EntityManager em, InformacionesAdicionales informacionesAdicionales) {
-        System.out.println(this.getClass().getName() + ".crear()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -41,7 +40,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             em.merge(informacionesAdicionales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("error en crear");
+            System.out.println(this.getClass().getName() + ".crear()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -51,7 +50,6 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
 
     @Override
     public void editar(EntityManager em, InformacionesAdicionales informacionesAdicionales) {
-        System.out.println(this.getClass().getName() + ".editar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -59,7 +57,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             em.merge(informacionesAdicionales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("error en editar");
+            System.out.println(this.getClass().getName() + ".editar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -69,7 +67,6 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
 
     @Override
     public void borrar(EntityManager em, InformacionesAdicionales informacionesAdicionales) {
-        System.out.println(this.getClass().getName() + ".borrar()");
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -77,7 +74,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             em.remove(em.merge(informacionesAdicionales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("error en borrar");
+            System.out.println(this.getClass().getName() + ".borrar()" + e.getMessage());
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
@@ -87,27 +84,30 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
 
     @Override
     public InformacionesAdicionales buscarinformacionAdicional(EntityManager em, BigInteger secuencia) {
-        em.clear();
-        return em.find(InformacionesAdicionales.class, secuencia);
+        try {
+            em.clear();
+            return em.find(InformacionesAdicionales.class, secuencia);
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaInformacionesAdicionales.buscarinformacionAdicional()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public List<InformacionesAdicionales> buscarinformacionesAdicionales(EntityManager em) {
-        System.out.println(this.getClass().getName() + ".buscarinformacionesAdicionales()");
         try {
             em.clear();
             javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(InformacionesAdicionales.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("error buscando informacion adicional");
+            System.out.println(this.getClass().getName() + ".buscarinformacionesAdicionales()" + e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
 
     private Long conteoInformacionAdicionalPersona(EntityManager em, BigInteger secuenciaEmpleado) {
-        System.out.println(this.getClass().getName() + ".conteoInformacionAdicionalPersona()");
         Long resultado = null;
         try {
             em.clear();
@@ -117,7 +117,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             resultado = (Long) query.getSingleResult();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error en el conteo de informacion adicional");
+            System.out.println(this.getClass().getName() + ".conteoInformacionAdicionalPersona()" + e.getMessage());
             e.printStackTrace();
             return resultado;
         }
@@ -140,7 +140,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
                 List<InformacionesAdicionales> listaInformacionesAdicionales = queryFinal.getResultList();
                 return listaInformacionesAdicionales;
             } catch (Exception e) {
-                System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalPersona" + e);
+                System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalPersona" + e.getMessage());
                 return null;
             }
         } else {
@@ -159,7 +159,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             List<InformacionesAdicionales> resultado = (List<InformacionesAdicionales>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia : ");
+            System.out.println("Error PersistenciaInformacionesAdicionales.informacionAdicionalEmpleadoSecuencia : " + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -179,6 +179,7 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             infoAd = (String) query.getSingleResult();
             return infoAd;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaInformacionesAdicionales.primeraInformacionAdicional()" + e.getMessage());
             infoAd = "";
             return infoAd;
         }

@@ -37,7 +37,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetencionesMinimas.crear: " + e);
+            System.out.println("Error PersistenciaRetencionesMinimas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.merge(retenciones);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetencionesMinimas.editar: " + e);
+            System.out.println("Error PersistenciaRetencionesMinimas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             em.remove(em.merge(retenciones));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaRetencionesMinimas.borrar: " + e);
+            System.out.println("Error PersistenciaRetencionesMinimas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -84,10 +84,6 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             Query query = em.createQuery("SELECT u FROM RetencionesMinimas u ORDER BY u.retencion ASC");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<RetencionesMinimas> resultado = query.getResultList();
-            for (int i = 0; i < resultado.size(); i++) {
-                System.out.println("resultado : " + resultado.get(i).getSecuencia());
-            }
-
             return resultado;
 
         } catch (Exception e) {
@@ -106,7 +102,7 @@ public class PersistenciaRetencionesMinimas implements PersistenciaRetencionesMi
             List<RetencionesMinimas> retenciones = query.getResultList();
             return retenciones;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Retenciones Minimas " + e);
+            System.out.println("Error en Persistencia Retenciones Minimas " + e.getMessage());
             return null;
         }
     }

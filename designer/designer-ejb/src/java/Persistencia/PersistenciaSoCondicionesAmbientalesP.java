@@ -36,7 +36,7 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             em.merge(soCondicionesAmbientalesP);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.crear: " + e);
+            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             em.merge(soCondicionesAmbientalesP);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.editar: " + e);
+            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             em.remove(em.merge(soCondicionesAmbientalesP));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.borrar: " + e);
+            System.out.println("Error PersistenciaSoCondicionesAmbientalesP.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -81,6 +81,7 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             em.clear();
             return em.find(SoCondicionesAmbientalesP.class, secuencia);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaSoCondicionesAmbientalesP.buscarSoCondicionAmbientalP()" + e.getMessage());
             return null;
         }
     }
@@ -94,7 +95,7 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             List<SoCondicionesAmbientalesP> listSoCondicionesAmbientalesP = query.getResultList();
             return listSoCondicionesAmbientalesP;
         } catch (Exception e) {
-            System.err.println("ERROR BUSCAR CLASES SO CONDICIONES AMBIENTALES P :" + e);
+            System.err.println("ERROR BUSCAR CLASES SO CONDICIONES AMBIENTALES P :" + e.getMessage());
             return null;
         }
 
@@ -109,10 +110,9 @@ public class PersistenciaSoCondicionesAmbientalesP implements PersistenciaSoCond
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = (BigInteger) new BigInteger(query.getSingleResult().toString());
-            System.err.println("Contador PersistenciaSoCondicionesAmbientalesP contadorSoAccidentesMedicos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoCondicionesAmbientalesP contadorSoAccidentesMedicos. " + e);
+            System.out.println("Error PersistenciaSoCondicionesAmbientalesP contadorSoAccidentesMedicos. " + e.getMessage());
             return retorno;
         }
     }

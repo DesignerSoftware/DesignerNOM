@@ -38,7 +38,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.merge(papel);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPapeles.crear: " + e);
+            System.out.println("Error PersistenciaPapeles.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.merge(papel);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPapeles.editar: " + e);
+            System.out.println("Error PersistenciaPapeles.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             em.remove(em.merge(papel));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPapeles.borrar: " + e);
+            System.out.println("Error PersistenciaPapeles.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             List<Papeles> listaPapeles = (List<Papeles>) query.getResultList();
             return listaPapeles;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELES ERROR : " + e);
+            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELES ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             Papeles papel = (Papeles) query.getSingleResult();
             return papel;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPEL");
+            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPEL" + e.getMessage());
             Papeles papel = null;
             return papel;
         }
@@ -112,7 +112,7 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             List<Papeles> listPapeles = query.getResultList();
             return listPapeles;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELESEMPRESA ERROR " + e);
+            System.err.println("ERROR PERSISTENCIAPAPELES AL CONSULTARPAPELESEMPRESA ERROR " + e.getMessage());
             return null;
         }
     }
@@ -123,11 +123,10 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
             String sqlQuery = "SELECT COUNT(*)FROM vigenciascargos WHERE papel = ?";
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
-            System.out.println("PERSISTENCIAPAPELES CONTARVIGENCIASCARGOSPAPEL CONTARDOR" + query.getSingleResult());
             return new BigInteger(query.getSingleResult().toString());
 
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAPAPELES CONTARVIGENCIASCARGOSPAPEL ERROR : " + e);
+            System.err.println("ERROR PERSISTENCIAPAPELES CONTARVIGENCIASCARGOSPAPEL ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -145,9 +144,8 @@ public class PersistenciaPapeles implements PersistenciaPapelesInterface {
          query.setParameter(1, secPapel);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaPapelCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaPapelCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".adicionaPapelCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

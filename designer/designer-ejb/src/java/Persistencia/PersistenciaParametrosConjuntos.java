@@ -73,8 +73,6 @@ public class PersistenciaParametrosConjuntos implements PersistenciaParametrosCo
         try {
             em.clear();
             Query query = em.createNativeQuery("SELECT * FROM PARAMETROSCONJUNTOS p WHERE p.USUARIOBD = USER", ParametrosConjuntos.class);
-//            Query query = em.createQuery("SELECT p FROM ParametrosConjuntos p WHERE p.usuarioBD = USER", ParametrosConjuntos.class);
-//            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             ParametrosConjuntos pc = (ParametrosConjuntos) query.getSingleResult();
             System.out.println("PersistenciaParametrosConjuntos.consultarParametros pc : " + pc);
             return pc;

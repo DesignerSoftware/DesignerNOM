@@ -36,7 +36,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.persist(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposConceptos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.merge(vigenciasGruposConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposConceptos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             em.remove(em.merge(vigenciasGruposConceptos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasGruposConceptos.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasGruposConceptos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e);
+            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
             return false;
         }
     }
@@ -100,7 +100,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = (List<VigenciasGruposConceptos>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos: " + e.toString());
+            System.out.println("Exepcion listVigenciasGruposConceptosPorConcepto PersistenciaVigenciasGruposConceptos: " + e.getMessage());
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaVigenciasGruposConceptos implements PersistenciaVigenci
             List<VigenciasGruposConceptos> resultado = query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Error: (prorrogaMostrar)" + e);
+            System.out.println("Error: (prorrogaMostrar)" + e.getMessage());
             return null;
         }
     }

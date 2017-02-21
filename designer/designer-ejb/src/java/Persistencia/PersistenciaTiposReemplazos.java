@@ -15,19 +15,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
- * @author user
- */
 @Stateless
 public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public void crear(EntityManager em, TiposReemplazos tiposReemplazos) {
         em.clear();
@@ -37,7 +27,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.merge(tiposReemplazos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposReemplazos.crear: " + e);
+            System.out.println("Error PersistenciaTiposReemplazos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +43,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.merge(tiposReemplazos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposReemplazos.editar: " + e);
+            System.out.println("Error PersistenciaTiposReemplazos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +59,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.remove(em.merge(tiposReemplazos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposReemplazos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposReemplazos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -82,6 +72,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             em.clear();
             return em.find(TiposReemplazos.class, secuenciaTR);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposReemplazos.buscarTipoReemplazo()" + e.getMessage());
             return null;
         }
     }
@@ -95,6 +86,7 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             List<TiposReemplazos> tiposReemplazos = query.getResultList();
             return tiposReemplazos;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposReemplazos.buscarTiposReemplazos()" + e.getMessage());
             return null;
         }
     }
@@ -108,10 +100,9 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIA TIPOS REEMPLAZOS CONTADOR ENCARGATURAS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSREEMPLAZOS CONTADOR ENCARGATURAS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposReemplazos.contadorEncargaturas()" + e.getMessage());
             return retorno;
         }
     }
@@ -125,10 +116,9 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIA TIPOS REEMPLAZOS CONTADOR PROGRAMACIONES TIEMPOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSREEMPLAZOS CONTADOR PROGRAMACIONES TIEMPOS ERROR =" + e);
+            System.out.println("Persistencia.PersistenciaTiposReemplazos.contadorProgramacionesTiempos()" + e.getMessage());
             return retorno;
         }
     }
@@ -142,10 +132,9 @@ public class PersistenciaTiposReemplazos implements PersistenciaTiposReemplazosI
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSREEMPLAZOS CONTADOR REEMPLAZOS = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSREEMPLAZOS CONTADOR REEMPLAZOS ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposReemplazos.contadorReemplazos()" + e.getMessage());
             return retorno;
         }
     }

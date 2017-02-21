@@ -17,22 +17,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 //import org.primefaces.context.RequestContext;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'Usuarios' de la base
- * de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-     */
     @Override
     public List<Usuarios> buscarUsuarios(EntityManager em) {
         try {
@@ -42,7 +29,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             List<Usuarios> usuarios = (List<Usuarios>) query.getResultList();
             return usuarios;
         } catch (Exception e) {
-            System.out.println("Error buscarUsuarios PersistenciaUsuarios");
+            System.out.println("Error buscarUsuarios PersistenciaUsuarios" + e.getMessage());
             return null;
         }
     }
@@ -57,8 +44,8 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             Usuarios usuarios = (Usuarios) query.getSingleResult();
             return usuarios;
         } catch (Exception e) {
-            Usuarios usuarios = null;
-            return usuarios;
+            System.out.println("Persistencia.PersistenciaUsuarios.buscarUsuario()" + e.getMessage());
+            return null;
         }
     }
 
@@ -71,7 +58,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             em.merge(usuarios);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.crear: " + e);
+            System.out.println("Error PersistenciaUsuarios.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -92,7 +79,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return exeC;            
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.crearUsuario. " + e);
+            System.out.println("Error PersistenciaUsuarios.crearUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -115,7 +102,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             tx.commit();
             return exeC2;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.crearUsuarioPerfil. " + e);
+            System.out.println("Error PersistenciaUsuarios.crearUsuarioPerfil. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -132,7 +119,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             em.merge(usuarios);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.editar: " + e);
+            System.out.println("Error PersistenciaUsuarios.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -154,7 +141,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaUsuarios.borrar: " + e);
+                System.out.println("Error PersistenciaUsuarios.borrar: " + e.getMessage());
             }
         }
     }
@@ -174,7 +161,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             return exeE;
            
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.borrarUsuario. " + e);
+            System.out.println("Error PersistenciaUsuarios.borrarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -194,9 +181,8 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             exeE2 = query.executeUpdate();
             tx.commit();
             return exeE2;
-           
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.borrarUsuarioTotal. " + e);
+            System.out.println("Error PersistenciaUsuarios.borrarUsuarioTotal. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -220,7 +206,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             System.out.println("clonando o algo parecido");
             return exeA;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.clonarUsuario. " + e);
+            System.out.println("Error PersistenciaUsuarios.clonarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -244,7 +230,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             return exeD;
            
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.clonarUsuario. " + e);
+            System.out.println("Error PersistenciaUsuarios.clonarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -268,7 +254,7 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             System.out.println("restaurando o algo parecido");
             return exeR;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaUsuarios.restaurarUsuario. " + e);
+            System.out.println("Error PersistenciaUsuarios.restaurarUsuario. " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

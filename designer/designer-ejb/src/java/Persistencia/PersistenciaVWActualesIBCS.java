@@ -20,7 +20,7 @@ public class PersistenciaVWActualesIBCS implements PersistenciaVWActualesIBCSInt
             VWActualesIBCS actualIbc = (VWActualesIBCS) query.getSingleResult();
             return actualIbc;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e);
+            System.out.println("Error: (PersistenciaVWActualesIBCS.buscarIbcEmpleado)" + e.getMessage());
             return null;
         }
     }

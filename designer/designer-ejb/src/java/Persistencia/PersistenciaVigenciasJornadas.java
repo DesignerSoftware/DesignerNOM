@@ -14,24 +14,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'VigenciasJornadas' de
- * la base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
 public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJornadasInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos.
-    * @param em
-    * @return 
-    */
-   /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;
-    */
    @Override
    public boolean crear(EntityManager em, VigenciasJornadas vigenciasJornadas) {
       em.clear();
@@ -42,14 +27,10 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          tx.commit();
          return true;
       } catch (Exception e) {
-         System.out.println("PersistenciaVigenciasJornadas La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasJornadas.crear()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
          return false;
       }
    }
@@ -63,14 +44,10 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          em.merge(vigenciasJornadas);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasJornadas.editar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -83,14 +60,10 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          em.remove(em.merge(vigenciasJornadas));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-         try {
+          System.out.println("Persistencia.PersistenciaVigenciasJornadas.borrar()" + e.getMessage());
             if (tx.isActive()) {
                tx.rollback();
             }
-         } catch (Exception ex) {
-            System.out.println("No se puede hacer rollback porque no hay una transacción");
-         }
       }
    }
 
@@ -102,7 +75,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          cq.select(cq.from(VigenciasJornadas.class));
          return em.createQuery(cq).getResultList();
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasJornadas");
+         System.out.println("Error buscarVigenciasJornadas" + e.getMessage());
          return null;
       }
    }
@@ -117,7 +90,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          List<VigenciasJornadas> vigenciasJornadas = query.getResultList();
          return vigenciasJornadas;
       } catch (Exception e) {
-         System.out.println("Error en buscarVigenciasJornadasEmpleado " + e);
+         System.out.println("Error en buscarVigenciasJornadasEmpleado " + e.getMessage());
          return null;
       }
    }
@@ -131,7 +104,7 @@ public class PersistenciaVigenciasJornadas implements PersistenciaVigenciasJorna
          VigenciasJornadas vigenciasJornadas = (VigenciasJornadas) query.getSingleResult();
          return vigenciasJornadas;
       } catch (Exception e) {
-         System.out.println("Error buscarVigenciasJornadasSecuencia Persistencia VL");
+         System.out.println("Error buscarVigenciasJornadasSecuencia Persistencia VL" + e.getMessage());
          return null;
       }
    }

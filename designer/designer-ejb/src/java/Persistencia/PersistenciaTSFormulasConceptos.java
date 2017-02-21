@@ -13,22 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br>
- * Clase encargada de realizar operaciones sobre la tabla 'TSFormulasConceptos'
- * de la base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
 public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasConceptosInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public void crear(EntityManager em, TSFormulasConceptos tSFormulasConceptos) {
@@ -39,7 +25,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
             em.persist(tSFormulasConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSFormulasConceptos.crear: " + e);
+            System.out.println("Error PersistenciaTSFormulasConceptos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -55,7 +41,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
             em.merge(tSFormulasConceptos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSFormulasConceptos.editar: " + e);
+            System.out.println("Error PersistenciaTSFormulasConceptos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -71,7 +57,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
             em.remove(em.merge(tSFormulasConceptos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTSFormulasConceptos.borrar: " + e);
+            System.out.println("Error PersistenciaTSFormulasConceptos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -103,8 +89,7 @@ public class PersistenciaTSFormulasConceptos implements PersistenciaTSFormulasCo
             return tSFormulasConceptos;
         } catch (Exception e) {
             System.out.println("Error buscarTSFormulaConceptoSecuencia PersistenciaTSFormulasConceptos : " + e.toString());
-            TSFormulasConceptos tSFormulasConceptos = null;
-            return tSFormulasConceptos;
+            return null;
         }
     }
 

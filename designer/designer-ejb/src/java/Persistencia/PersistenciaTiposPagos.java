@@ -13,21 +13,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless. <br>
- * Clase encargada de realizar operaciones sobre la tabla 'Tipospagos' de la
- * base de datos.
- *
- * @author AndresPineda
- */
 @Stateless
 public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
 
     @Override
     public void crear(EntityManager em, Tipospagos tipospagos) {
@@ -38,7 +25,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.merge(tipospagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPagos.crear: " + e);
+            System.out.println("Error PersistenciaTiposPagos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +41,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.merge(tipospagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPagos.editar: " + e);
+            System.out.println("Error PersistenciaTiposPagos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +57,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             em.remove(em.merge(tipospagos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposPagos.borrar: " + e);
+            System.out.println("Error PersistenciaTiposPagos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +73,7 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             List<Tipospagos> tipospagos = query.getResultList();
             return tipospagos;
         } catch (Exception e) {
-            System.out.println("Error buscarTiposPagos ERROR" + e);
+            System.out.println("Persistencia.PersistenciaTiposPagos.consultarTiposPagos()" + e.getMessage());
             return null;
         }
     }
@@ -101,9 +88,8 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             Tipospagos tipospagos = (Tipospagos) query.getSingleResult();
             return tipospagos;
         } catch (Exception e) {
-            System.out.println("Error buscarTipoPagoSecuencia");
-            Tipospagos tipospagos = null;
-            return tipospagos;
+            System.out.println("Error buscarTipoPagoSecuencia" + e.getMessage());
+            return null;
         }
     }
 
@@ -115,10 +101,9 @@ public class PersistenciaTiposPagos implements PersistenciaTiposPagosInterface {
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("Contador PersistenciaProcesos contarProcesosTipoPago Retorno " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("Error PersistenciaProcesos contarProcesosTipoPago ERROR : " + e);
+            System.out.println("Persistencia.PersistenciaTiposPagos.contarProcesosTipoPago()"+ e.getMessage());
             return retorno;
         }
     }

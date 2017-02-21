@@ -38,7 +38,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.merge(plantasPersonales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantasPersonales.crear: " + e);
+            System.out.println("Error PersistenciaPlantasPersonales.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.merge(plantasPersonales);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantasPersonales.editar: " + e);
+            System.out.println("Error PersistenciaPlantasPersonales.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             em.remove(em.merge(plantasPersonales));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPlantasPersonales.borrar: " + e);
+            System.out.println("Error PersistenciaPlantasPersonales.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -101,7 +101,7 @@ public class PersistenciaPlantasPersonales implements PersistenciaPlantasPersona
             BigInteger total = (BigInteger) query.getSingleResult();
             return total;
         } catch (Exception e) {
-            System.out.println("Error consultarCantidadEstructuras PersistenciaPlantasPersonales: " + e);
+            System.out.println("Error consultarCantidadEstructuras PersistenciaPlantasPersonales: " + e.getMessage());
             BigInteger total = null;
             return total;
         }

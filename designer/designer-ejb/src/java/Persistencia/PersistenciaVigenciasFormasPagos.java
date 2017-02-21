@@ -44,13 +44,9 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             tx.commit();
             return true;
         } catch (Exception e) {
-            System.out.println("PersistenciaVigenciasFormasPagos La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
+            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.crear()" + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
             return false;
         }
@@ -65,14 +61,10 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.merge(vigenciasFormasPagos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.editar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -85,14 +77,10 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.remove(em.merge(vigenciasFormasPagos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaVigenciasFormasPagos.borrar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -102,7 +90,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             em.clear();
             return em.find(VigenciasFormasPagos.class, secuencia);
         } catch (Exception e) {
-            System.out.println("Error en la persistencia vigencias formas pagos ERROR :");
+            System.out.println("Error en la persistencia vigencias formas pagos ERROR :" + e.getMessage());
             return null;
         }
     }
@@ -117,7 +105,7 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
             List<VigenciasFormasPagos> vigenciasNormasEmpleados = query.getResultList();
             return vigenciasNormasEmpleados;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e);
+            System.out.println("Error en Persistencia Vigencias Formas Pagos Por Empleados " + e.getMessage());
             return null;
         }
     }
@@ -134,14 +122,14 @@ public class PersistenciaVigenciasFormasPagos implements PersistenciaVigenciasFo
     public BigDecimal buscarPeriodicidadPorEmpl(EntityManager em, BigInteger secEmpleado) {
         try {
             em.clear();
-            String sql = "SELECT FORMAPAGO FROM VIGENCIASFORMASPAGOS WHERE EMPLEADO = ?";
+            String sql = "SELECT FORMAPAGO FROM VIGENCIASFORMASPAGOS WHERE EMPLEADO = e.getMessage() ";
             Query query = em.createNativeQuery(sql);
             query.setParameter("1", secEmpleado);
             BigDecimal periodicidad = (BigDecimal) query.getSingleResult();
             System.out.println("buscarPeriodicidadPorEmpl: " + periodicidad);
             return periodicidad;
         } catch (Exception e) {
-            System.out.println("Error en Persistencia Vigencias Formas Pagos.buscarVigenciaFormaPagoPorEmpl() " + e);
+            System.out.println("Error en Persistencia Vigencias Formas Pagos.buscarVigenciaFormaPagoPorEmpl() " + e.getMessage());
             return null;
         }
     }

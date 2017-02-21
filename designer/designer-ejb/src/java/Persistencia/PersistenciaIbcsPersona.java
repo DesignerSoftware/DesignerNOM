@@ -24,7 +24,7 @@ public class PersistenciaIbcsPersona implements PersistenciaIbcsPersonaInterface
             IbcsPersona ibcPersona = (IbcsPersona) query.getSingleResult();
             return ibcPersona;
         } catch (Exception e) {
-            System.out.println("Error: (PersistenciaIbcsPersona.buscarIbcPersona)" + e);
+            System.out.println("Error: (PersistenciaIbcsPersona.buscarIbcPersona)" + e.getMessage());
             return null;
         }
     }

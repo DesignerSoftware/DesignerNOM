@@ -13,28 +13,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- * Clase Stateless.<br> Clase encargada de realizar operaciones sobre la tabla
- * 'UbicacionesGeograficas' de la base de datos.
- *
- * @author betelgeuse
- */
 @Stateless
 public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacionesGeograficasInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos.
-    */
-   /*
-     * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager
-     * em;
-    */
    @Override
    public void crear(EntityManager em, UbicacionesGeograficas ubicacionGeografica) {
       em.clear();
       EntityTransaction tx = em.getTransaction();
       try {
-
          if (ubicacionGeografica.getZona() != null) {
             if (ubicacionGeografica.getZona().isEmpty() || ubicacionGeografica.getZona().equals("") || ubicacionGeografica.getZona().equals(" ")) {
                ubicacionGeografica.setZona(null);
@@ -44,7 +30,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          em.merge(ubicacionGeografica);
          tx.commit();
       } catch (Exception e) {
-         System.err.println("Error crear PersistenciaUbicacionesGeograficas ERROR " + e);
+         System.err.println("Error crear PersistenciaUbicacionesGeograficas ERROR " + e.getMessage());
       }
    }
 
@@ -57,7 +43,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          em.merge(ubicacionGeografica);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaUbicacionesGeograficas.editar: " + e);
+         System.out.println("Error PersistenciaUbicacionesGeograficas.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -73,7 +59,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          em.remove(em.merge(ubicacionGeografica));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaUbicacionesGeograficas.borrar: " + e);
+         System.out.println("Error PersistenciaUbicacionesGeograficas.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -89,7 +75,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          List<UbicacionesGeograficas> ubicacionesGeograficas = query.getResultList();
          return ubicacionesGeograficas;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia Ubicaciones Geograficas " + e);
+         System.out.println("Error en Persistencia Ubicaciones Geograficas " + e.getMessage());
          return null;
       }
    }
@@ -104,9 +90,8 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          UbicacionesGeograficas ubicacionGeografica = (UbicacionesGeograficas) query.getSingleResult();
          return ubicacionGeografica;
       } catch (Exception e) {
-         System.out.println("Error consultarUbicacionGeografica PersistenciaUbicacionesGeograficas");
-         UbicacionesGeograficas ubicacionGeografica = null;
-         return ubicacionGeografica;
+          System.out.println("Persistencia.PersistenciaUbicacionesGeograficas.consultarUbicacionGeografica()" + e.getMessage());
+          return null;
       }
    }
 
@@ -120,7 +105,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          List<UbicacionesGeograficas> ubicacionGeografica = query.getResultList();
          return ubicacionGeografica;
       } catch (Exception e) {
-         System.out.println("Error en Persistencia PersistenciaUbicacionesGeograficas consultarUbicacionesGeograficasPorEmpresa ERROR : " + e);
+         System.out.println("Error en Persistencia PersistenciaUbicacionesGeograficas consultarUbicacionesGeograficasPorEmpresa ERROR : " + e.getMessage());
          return null;
       }
    }
@@ -136,7 +121,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARAFILIACIONESENTIDADESUBICACIONGEOGRAFICA ERROR : " + e);
+         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARAFILIACIONESENTIDADESUBICACIONGEOGRAFICA ERROR : " + e.getMessage());
          return retorno;
       }
    }
@@ -152,7 +137,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARINSPECCIONESUBICACIONGEOGRAFICA ERROR : " + e);
+         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARINSPECCIONESUBICACIONGEOGRAFICA ERROR : " + e.getMessage());
          return retorno;
       }
    }
@@ -168,7 +153,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARPARAMETROSINFORMESUBICACIONGEOGRAFICA ERROR : " + e);
+         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARPARAMETROSINFORMESUBICACIONGEOGRAFICA ERROR : " + e.getMessage());
          return retorno;
       }
    }
@@ -184,7 +169,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARREVICIONESUBICACIONGEOGRAFICA ERROR : " + e);
+         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARREVICIONESUBICACIONGEOGRAFICA ERROR : " + e.getMessage());
          return retorno;
       }
    }
@@ -200,7 +185,7 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          retorno = new BigInteger(query.getSingleResult().toString());
          return retorno;
       } catch (Exception e) {
-         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARVIGENCIASUBICACIONESUBICACIONGEOGRAFICA ERROR : " + e);
+         System.out.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS CONTARVIGENCIASUBICACIONESUBICACIONGEOGRAFICA ERROR : " + e.getMessage());
          return retorno;
       }
    }
@@ -237,10 +222,9 @@ public class PersistenciaUbicacionesGeograficas implements PersistenciaUbicacion
          Query query = em.createNativeQuery(sqlQuery);
          query.setParameter(1, secuenciaCiudad);
          retorno = Integer.parseInt(query.getSingleResult().toString());
-         System.out.println("PERSISTENCIAUBICACIONESGEOGRAFICAS existeCiudadporSecuencia() retorno : " + retorno);
          return retorno;
       } catch (Exception e) {
-         System.err.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS existeCiudadporSecuencia : " + e.toString());
+         System.err.println("ERROR PERSISTENCIAUBICACIONESGEOGRAFICAS existeCiudadporSecuencia : " + e.getMessage());
          return retorno;
       }
    }

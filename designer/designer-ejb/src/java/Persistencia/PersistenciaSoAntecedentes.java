@@ -30,7 +30,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
             em.merge(antecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentes.crear: " + e);
+            System.out.println("Error PersistenciaSoAntecedentes.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaSoAntecedentes.borrar: " + e);
+                System.out.println("Error PersistenciaSoAntecedentes.borrar: " + e.getMessage());
             }
         }
     }
@@ -66,7 +66,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
             em.merge(antecedente);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentes.editar: " + e);
+            System.out.println("Error PersistenciaSoAntecedentes.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -83,7 +83,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentes.lovAntecedentes: " + e);
+            System.out.println("Error PersistenciaSoAntecedentes.lovAntecedentes: " + e.getMessage());
             return null;
         }
     }
@@ -97,7 +97,7 @@ public class PersistenciaSoAntecedentes implements PersistenciaSoAntecedentesInt
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentes.listaTiposAntecedentes: " + e);
+            System.out.println("Error PersistenciaSoAntecedentes.listaTiposAntecedentes: " + e.getMessage());
             return null;
         }
     }

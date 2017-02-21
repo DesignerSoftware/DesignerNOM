@@ -18,11 +18,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesFormasPagos implements PersistenciaVWActualesFormasPagosInterface{
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-//    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-//    private EntityManager em;
 
     public VWActualesFormasPagos buscarFormaPago(EntityManager em, BigInteger secuencia) {
         try {
@@ -33,8 +28,8 @@ public class PersistenciaVWActualesFormasPagos implements PersistenciaVWActuales
             VWActualesFormasPagos actualesFormasPagos = (VWActualesFormasPagos) query.getSingleResult();
             return actualesFormasPagos;
         } catch (Exception e) {
-            VWActualesFormasPagos actualesFormasPagos = null;
-            return actualesFormasPagos;
+            System.out.println("Persistencia.PersistenciaVWActualesFormasPagos.buscarFormaPago()" + e.getMessage());
+            return null;
         }
     }
 }

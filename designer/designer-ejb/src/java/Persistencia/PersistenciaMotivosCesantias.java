@@ -37,7 +37,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCesantias.crear: " + e);
+            System.out.println("Error PersistenciaMotivosCesantias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.merge(motivosCesantias);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaMotivosCesantias.editar: " + e);
+            System.out.println("Error PersistenciaMotivosCesantias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +75,7 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaMotivosCesantias.borrar: " + e);
+                System.out.println("Error PersistenciaMotivosCesantias.borrar: " + e.getMessage());
             }
         }
     }
@@ -86,17 +86,23 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             em.clear();
             return em.find(MotivosCesantias.class, secuenciaME);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaMotivosCesantias.buscarMotivoCensantia()" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public List<MotivosCesantias> buscarMotivosCesantias(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT m FROM MotivosCesantias m ORDER BY m.codigo ASC");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<MotivosCesantias> listaMotivosEmbargos = query.getResultList();
         return listaMotivosEmbargos;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaMotivosCesantias.buscarMotivosCesantias()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -108,10 +114,9 @@ public class PersistenciaMotivosCesantias implements PersistenciaMotivosCesantia
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR = " + e);
+            System.err.println("ERROR PERSISTENCIAMOTIVOSCENSANTIAS CONTADORNOVEDADESSISTEMA  ERROR = " + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

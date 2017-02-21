@@ -27,11 +27,10 @@ import org.apache.log4j.PropertyConfigurator;
 @Stateless
 public class PersistenciaReformasLaborales implements PersistenciaReformasLaboralesInterface {
 
-    
     private final static Logger logger = Logger.getLogger("connectionSout");
     private Date fechaDia;
     private final SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-    
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -90,11 +89,16 @@ public class PersistenciaReformasLaborales implements PersistenciaReformasLabora
 
     @Override
     public List<ReformasLaborales> buscarReformasLaborales(EntityManager em) {
-        em.clear();
-        Query query = em.createQuery("SELECT e FROM ReformasLaborales e ORDER BY e.codigo ASC");
-        query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-        List<ReformasLaborales> reformaLista = (List<ReformasLaborales>) query.getResultList();
-        return reformaLista;
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT e FROM ReformasLaborales e ORDER BY e.codigo ASC");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<ReformasLaborales> reformaLista = (List<ReformasLaborales>) query.getResultList();
+            return reformaLista;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaReformasLaborales.buscarReformasLaborales()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override

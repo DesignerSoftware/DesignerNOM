@@ -18,11 +18,6 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesLocalizaciones implements PersistenciaVWActualesLocalizacionesInterface {
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-   /* @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
 
     public VWActualesLocalizaciones buscarLocalizacion(EntityManager em, BigInteger secuencia) {
         try {
@@ -33,8 +28,8 @@ public class PersistenciaVWActualesLocalizaciones implements PersistenciaVWActua
             VWActualesLocalizaciones vwActualesLocalizaciones = (VWActualesLocalizaciones) query.getSingleResult();
             return vwActualesLocalizaciones;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVWActualesLocalizaciones.buscarLocalizacion()" + e.getMessage());
+            return null;
         }
-        VWActualesLocalizaciones vwActualesLocalizaciones = null;
-        return vwActualesLocalizaciones;
     }
 }

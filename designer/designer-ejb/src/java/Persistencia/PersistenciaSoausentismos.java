@@ -42,7 +42,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.crear: " + e);
+         System.out.println("Error PersistenciaSoausentismos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -58,7 +58,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.merge(soausentismos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.editar: " + e);
+         System.out.println("Error PersistenciaSoausentismos.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -74,7 +74,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          em.remove(em.merge(soausentismos));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaSoausentismos.borrar: " + e);
+         System.out.println("Error PersistenciaSoausentismos.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -92,7 +92,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> todosAusentismos = query.getResultList();
          return todosAusentismos;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedades)" + e);
+          System.out.println("Persistencia.PersistenciaSoausentismos.ausentismosEmpleado()" + e.getMessage());
          return null;
       }
    }
@@ -109,7 +109,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          List<Soausentismos> prorrogas = query.getResultList();
          return prorrogas;
       } catch (Exception e) {
-         System.out.println("Error: (prorrogas)" + e);
+          System.out.println("Persistencia.PersistenciaSoausentismos.prorrogas()" + e.getMessage());
          return null;
       }
    }
@@ -126,7 +126,7 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          String resultado = (String) query.getSingleResult();
          return resultado;
       } catch (Exception e) {
-         System.out.println("Error: (prorrogaMostrar)" + e);
+          System.out.println("Persistencia.PersistenciaSoausentismos.prorrogaMostrar()" + e.getMessage());
          return null;
       }
    }
@@ -170,9 +170,8 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(12, baseliq);
          query.setParameter(13, forma);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".adicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();
@@ -206,9 +205,8 @@ public class PersistenciaSoausentismos implements PersistenciaSoausentismosInter
          query.setParameter(5, fechaIniAusen);
          query.setParameter(6, fechaFinAusen);
          query.execute();
-         System.out.println(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".undoAdicionaAusentismoCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

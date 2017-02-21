@@ -34,6 +34,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             List<Profesiones> profesiones = query.getResultList();
             return profesiones;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaProfesiones.profesiones()" + e.getMessage());
             return null;
         }
     }
@@ -47,7 +48,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             em.merge(profesion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProfesiones.crear: " + e);
+            System.out.println("Error PersistenciaProfesiones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +70,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaProfesiones.borrar: " + e);
+                System.out.println("Error PersistenciaProfesiones.borrar: " + e.getMessage());
             }
         }
     }
@@ -83,7 +84,7 @@ public class PersistenciaProfesiones implements PersistenciaProfesionesInterface
             em.merge(profesion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaProfesiones.editar: " + e);
+            System.out.println("Error PersistenciaProfesiones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

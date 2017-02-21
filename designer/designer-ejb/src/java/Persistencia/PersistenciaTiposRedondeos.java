@@ -14,19 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- *
- * @author user
- */
+
 @Stateless
 public class PersistenciaTiposRedondeos implements PersistenciaTiposRedondeosInterface {
-
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-*/
 
     @Override
     public List<TiposRedondeos> buscarTiposRedondeos(EntityManager em ) {
@@ -36,7 +26,7 @@ public class PersistenciaTiposRedondeos implements PersistenciaTiposRedondeosInt
             cq.select(cq.from(TiposRedondeos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error buscarTiposRedondeos PersistenciaTiposRedondeos : " + e.toString());
+            System.out.println("Error buscarTiposRedondeos PersistenciaTiposRedondeos : " + e.getMessage());
             return null;
         }
     }

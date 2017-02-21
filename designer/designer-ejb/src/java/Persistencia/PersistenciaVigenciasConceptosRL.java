@@ -36,7 +36,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.persist(vigenciasConceptosRL);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosRL.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosRL.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -52,7 +52,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.merge(vigenciasConceptosRL);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosRL.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosRL.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -68,7 +68,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             em.remove(em.merge(vigenciasConceptosRL));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasConceptosRL.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasConceptosRL.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e);
+            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
             return false;
         }
     }
@@ -101,7 +101,7 @@ public class PersistenciaVigenciasConceptosRL implements PersistenciaVigenciasCo
             List<VigenciasConceptosRL> resultado = (List<VigenciasConceptosRL>) query.getResultList();
             return resultado;
         } catch (Exception e) {
-            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e);
+            System.out.println("Exepcion PersistenciaVigenciasConceptosRL: " + e.getMessage());
             return null;
         }
     }

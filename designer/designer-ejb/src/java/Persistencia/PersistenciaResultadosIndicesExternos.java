@@ -30,7 +30,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaResultadosIndicesExternos.crear: " + e);
+            System.out.println("Error PersistenciaResultadosIndicesExternos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -46,7 +46,7 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             em.merge(resultados);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaResultadosIndicesExternos.editar: " + e);
+            System.out.println("Error PersistenciaResultadosIndicesExternos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -63,13 +63,10 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             tx.commit();
 
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaResultadosIndicesExternos.borrar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
             }
+            System.out.println("Error PersistenciaResultadosIndicesExternos.borrar: " + e.getMessage());
         }
     }
 
@@ -86,7 +83,6 @@ public class PersistenciaResultadosIndicesExternos implements PersistenciaResult
             return null;
         }
     }
-
 
     @Override
     public List<ResultadosIndicesExternos> buscarResultadosIndicesExternos(EntityManager em) {

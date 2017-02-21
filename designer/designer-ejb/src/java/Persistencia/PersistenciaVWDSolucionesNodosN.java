@@ -51,16 +51,9 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
                 Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
                 listaSN = query.getResultList();
             }
-
-            if (listaSN != null) {
-                System.out.println("tamanio listaSN : " + listaSN.size());
-            } else {
-                System.out.println("listaSN retornode la consulta null");
-            }
             return listaSN;
-
         } catch (Exception e) {
-            System.err.println(this.getClass().getName() + " consultarDSolucionesNodosN() catch() ERROR : " + e.toString());
+            System.err.println(this.getClass().getName() + " consultarDSolucionesNodosN() catch() ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -89,14 +82,9 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
                 Query query = em.createNativeQuery(sqlQuery, VWDSolucionesNodosN.class);
                 listaSNLB = query.getResultList();
             }
-            if (listaSNLB != null) {
-                System.out.println("tamanio listaSNLB : " + listaSNLB.size());
-            } else {
-                System.out.println("listaSNLB retornode la consulta null");
-            }
             return listaSNLB;
         } catch (Exception e) {
-            System.err.println(this.getClass().getName() + " consultarDSolucionesNodosNLB() catch() ERROR : " + e.toString());
+            System.err.println(this.getClass().getName() + " consultarDSolucionesNodosNLB() catch() ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -110,19 +98,13 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
             String q = "SELECT VW.*, E.CODIGOEMPLEADO, P.PRIMERAPELLIDO||' '||P.SEGUNDOAPELLIDO||' '||P.NOMBRE NOMBREEMPLEADO, C.DESCRIPCION NOMBRECONCEPTO FROM " + vista + " VW, EMPLEADOS E, "
                     + "PERSONAS P, CONCEPTOS C WHERE VW.Y = " + secDescripcion + " AND VW." + conjunto + "<>0 AND VW.EMPLEADO = E.SECUENCIA AND P.SECUENCIA = E.PERSONA AND C.SECUENCIA = VW.X";
 
-//            String q = "SELECT * FROM " + vista + " WHERE Y = " + secDescripcion + " AND " + conjunto + " <> 0";
             em.clear();
             Query query = em.createNativeQuery(q, VWDSolucionesNodosNDetalle.class);
             System.out.println("consultarDetalleN query q : " + q);
             List<VWDSolucionesNodosNDetalle> listaSNDetalle = query.getResultList();
-            if (listaSNDetalle != null) {
-                System.out.println("tamanio listaSNDetalle : " + listaSNDetalle.size());
-            } else {
-                System.out.println("listaSNDetalle retorno de la consulta null");
-            }
             return listaSNDetalle;
         } catch (Exception e) {
-            System.err.println(this.getClass().getName() + " consultarDetalleN() catch() ERROR : " + e.toString());
+            System.err.println(this.getClass().getName() + " consultarDetalleN() catch() ERROR : " + e.getMessage());
             return null;
         }
     }
@@ -140,18 +122,10 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
             System.out.println("consultarDetalleNLB q : " + q);
             System.out.println(this.getClass().getName() + " query : " + query.toString());
             List<VWDSolucionesNodosNDetalle> listaSNLBDetalle = query.getResultList();
-            if (listaSNLBDetalle != null) {
-                System.out.println("tamanio listaSNLBDetalle : " + listaSNLBDetalle.size());
-            } else {
-                System.out.println("listaSNLBDetalle retorno de la consulta null");
-            }
             return listaSNLBDetalle;
         } catch (Exception e) {
-            System.err.println(this.getClass().getName() + " consultarDetalleNLB() catch() ERROR : " + e.toString());
+            System.err.println(this.getClass().getName() + " consultarDetalleNLB() catch() ERROR : " + e.getMessage());
             return null;
         }
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

@@ -18,14 +18,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class PersistenciaVWActualesAfiliacionesPension implements PersistenciaVWActualesAfiliacionesPensionInterface {
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-/*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;*/
 
     public VWActualesAfiliacionesPension buscarAfiliacionPension(EntityManager em, BigInteger secuencia) {
-
         try {
             em.clear();
             Query query = em.createQuery("SELECT vw FROM VWActualesAfiliacionesPension vw WHERE vw.empleado.secuencia=:secuencia");
@@ -34,8 +28,8 @@ public class PersistenciaVWActualesAfiliacionesPension implements PersistenciaVW
             VWActualesAfiliacionesPension vwActualesAfiliacionesPension = (VWActualesAfiliacionesPension) query.getSingleResult();
             return vwActualesAfiliacionesPension;
         } catch (Exception e) {
-            VWActualesAfiliacionesPension vwActualesAfiliacionesPension = null;
-            return vwActualesAfiliacionesPension;
+            System.out.println("Persistencia.PersistenciaVWActualesAfiliacionesPension.buscarAfiliacionPension()" + e.getMessage());
+            return null;
         }
     }
 }

@@ -12,14 +12,17 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 /**
- * Clase Stateless. <br> 
- * Clase encargada de realizar operaciones sobre la tabla 'Rastros'
- * de la base de datos.
+ * Clase Stateless. <br>
+ * Clase encargada de realizar operaciones sobre la tabla 'Rastros' de la base
+ * de datos.
+ *
  * @author betelgeuse
  */
 @Stateless
 public class PersistenciaRastros implements PersistenciaRastrosInterface {
+
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos.
      */
@@ -38,7 +41,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            System.out.println("Exepcion en rastrosTabla " + e);
+            System.out.println("Persistencia.PersistenciaRastros.rastrosTabla()" + e.getMessage());
             return null;
         }
     }
@@ -52,9 +55,8 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Rastros> listaRastroTabla = query.getResultList();
             return listaRastroTabla;
-
         } catch (Exception e) {
-            System.out.println("Exepcion en rastrosTablaHistoricos " + e);
+            System.out.println("Persistencia.PersistenciaRastros.rastrosTablaHistoricos()" + e.getMessage());
             return null;
         }
     }
@@ -70,7 +72,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            System.out.println("Exepcion en rastrosTablaHistoricos " + e);
+            System.out.println("Exepcion en rastrosTablaHistoricos " + e.getMessage());
             return null;
         }
     }
@@ -79,7 +81,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
     public List<Rastros> rastrosTablaHistoricosEliminadosEmpleados(EntityManager em, String nombreTabla) {
         try {
             em.clear();
-                Query query = em.createQuery("SELECT r FROM Rastros r WHERE r.tabla = :nombreTabla AND r.manipulacion = 'D' AND EXISTS (SELECT r FROM RastrosValores rv where rv.nombrecolumna = 'EMPLEADO'AND EXISTS (SELECT t FROM "
+            Query query = em.createQuery("SELECT r FROM Rastros r WHERE r.tabla = :nombreTabla AND r.manipulacion = 'D' AND EXISTS (SELECT r FROM RastrosValores rv where rv.nombrecolumna = 'EMPLEADO'AND EXISTS (SELECT t FROM "
                     + nombreTabla + " t WHERE rv.valorprevio = t.empleado.secuencia)) ORDER BY r.fecharastro DESC");
             query.setParameter("nombreTabla", nombreTabla.toUpperCase());
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
@@ -87,11 +89,11 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            System.out.println("Exepcion en rastrosTablaHistoricos " + e);
+            System.out.println("Exepcion en rastrosTablaHistoricos " + e.getMessage());
             return null;
         }
     }
-    
+
     @Override
     public List<Rastros> rastrosTablaFecha(EntityManager em, Date fechaRegistro, String nombreTabla) {
         try {
@@ -104,7 +106,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             return listaRastroTabla;
 
         } catch (Exception e) {
-            System.out.println("Exepcion en rastrosTablaFecha " + e);
+            System.out.println("Exepcion en rastrosTablaFecha " + e.getMessage());
             return null;
         }
     }
@@ -120,7 +122,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Excepción en verificarRastroRegistroTabla " + e);
+            System.out.println("Excepción en verificarRastroRegistroTabla " + e.getMessage());
             return false;
         }
     }
@@ -135,11 +137,11 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > 0;
         } catch (Exception e) {
-            System.out.println("Exepcion en verificarRastroHistoricoTabla " + e);
+            System.out.println("Exepcion en verificarRastroHistoricoTabla " + e.getMessage());
             return false;
         }
     }
-    
+
     @Override
     public boolean verificarEmpleadoTabla(EntityManager em, String nombreTabla) {
         try {
@@ -151,6 +153,7 @@ public class PersistenciaRastros implements PersistenciaRastrosInterface {
             Long resultado = (Long) query.getSingleResult();
             return resultado > -1;
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaRastros.verificarEmpleadoTabla()" + e.getMessage());
             return false;
         }
     }

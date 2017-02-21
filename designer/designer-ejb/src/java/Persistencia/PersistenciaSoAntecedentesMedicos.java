@@ -32,7 +32,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.crear: " + e);
+            System.out.println("Error PersistenciaSoAntecedentesMedicos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaSoAntecedentesMedicos.borrar: " + e);
+                System.out.println("Error PersistenciaSoAntecedentesMedicos.borrar: " + e.getMessage());
             }
         }
     }
@@ -68,7 +68,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             em.merge(antecedenteM);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.editar: " + e);
+            System.out.println("Error PersistenciaSoAntecedentesMedicos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentes> antecedentes = query.getResultList();
             return antecedentes;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes: " + e);
+            System.out.println("Error PersistenciaSoAntecedentesMedicos.lovAntecedentes: " + e.getMessage());
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class PersistenciaSoAntecedentesMedicos implements PersistenciaSoAntecede
             List<SoAntecedentesMedicos> antecedentesM = query.getResultList();
             return antecedentesM;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e);
+            System.out.println("Error PersistenciaSoAntecedentesMedicos.listaAntecedentesMedicos: " + e.getMessage());
             return null;
         }
     }

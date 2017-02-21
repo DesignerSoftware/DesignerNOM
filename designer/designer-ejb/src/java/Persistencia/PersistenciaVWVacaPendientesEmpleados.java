@@ -21,36 +21,19 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVacaPendientesEmpleadosInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*
-     * @PersistenceContext(unitName = "DesignerRHN-ejbPU") private EntityManager
-     * em;
-     */
     @Override
     public void crear(EntityManager em, VWVacaPendientesEmpleados vacaP) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
-            System.out.println("getSecuencia: "+vacaP.getSecuencia());
-            System.out.println("getEstado: "+vacaP.getEstado());
-            System.out.println("getDiaspendientes: "+vacaP.getDiaspendientes());
-            System.out.println("getEmpleado: "+vacaP.getEmpleado());
-            System.out.println("getInicialcausacion: "+vacaP.getInicialcausacion());
-            System.out.println("getFinalcausacion: "+vacaP.getFinalcausacion());
             tx.begin();
             em.merge(vacaP);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaVWVacaPendientesEmpleados.crear()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -63,14 +46,10 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             em.merge(vacaP);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaVWVacaPendientesEmpleados.editar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -83,14 +62,10 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             em.remove(em.merge(vacaP));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("La vigencia no exite o esta reservada por lo cual no puede ser modificada: " + e);
-            try {
+            System.out.println("Persistencia.PersistenciaVWVacaPendientesEmpleados.borrar()" + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("No se puede hacer rollback porque no hay una transacción");
-            }
         }
     }
 
@@ -104,8 +79,7 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             listaVacaPendientesEmpleados = query.getResultList();
         } catch (Exception e) {
-            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados.");
-            System.out.println(e);
+            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados." + e.getMessage());
         } finally {
             return listaVacaPendientesEmpleados;
         }
@@ -121,7 +95,7 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             listaVacaPendientesEmpleados = query.getResultList();
         } catch (Exception e) {
-            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleadosDisfrutadas");
+            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleadosDisfrutadas" + e.getMessage());
             System.out.println(e);
         } finally {
             return listaVacaPendientesEmpleados;
@@ -135,7 +109,7 @@ public class PersistenciaVWVacaPendientesEmpleados implements PersistenciaVWVaca
             em.clear();
             listaVacaPendientesEmpleados = em.createQuery("SELECT v FROM VWVacaPendientesEmpleados v WHERE v.empleado = :empleado").setParameter("empleado", secuenciaEmpleado).getResultList();
         } catch (Exception e) {
-            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados.");
+            System.err.println("PersistenciaVWVacaPendientesEmpleados.buscarVacaPendientesEmpleados." + e.getMessage());
             System.out.println(e);
         } finally {
             return listaVacaPendientesEmpleados;

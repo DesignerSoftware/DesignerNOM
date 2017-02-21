@@ -38,7 +38,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
             em.merge(tiposAuxilios);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAuxilios.crear: " + e);
+            System.out.println("Error PersistenciaTiposAuxilios.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +54,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
             em.merge(tiposAuxilios);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAuxilios.editar: " + e);
+            System.out.println("Error PersistenciaTiposAuxilios.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -70,7 +70,7 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
             em.remove(em.merge(tiposAuxilios));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposAuxilios.borrar: " + e);
+            System.out.println("Error PersistenciaTiposAuxilios.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -89,11 +89,16 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
 
     @Override
     public List<TiposAuxilios> buscarTiposAuxilios(EntityManager em) {
+        try{
         em.clear();
         Query query = em.createQuery("SELECT m FROM TiposAuxilios m ORDER BY m.codigo ASC");
         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<TiposAuxilios> listaMotivosEmbargos = query.getResultList();
         return listaMotivosEmbargos;
+        }catch(Exception e){
+            System.out.println("Persistencia.PersistenciaTiposAuxilios.buscarTiposAuxilios()" + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -105,10 +110,9 @@ public class PersistenciaTiposAuxilios implements PersistenciaTiposAuxiliosInter
             Query query = em.createNativeQuery(sqlQuery);
             query.setParameter(1, secuencia);
             retorno = new BigInteger(query.getSingleResult().toString());
-            System.out.println("PERSISTENCIATIPOSAUXILIOS contadorTablasAuxilios = " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.err.println("ERROR PERSISTENCIATIPOSAUXILIOS contadorTablasAuxilios  ERROR = " + e);
+            System.out.println("Persistencia.PersistenciaTiposAuxilios.contadorTablasAuxilios()" + e.getMessage());
             retorno = new BigInteger("-1");
             return retorno;
         }

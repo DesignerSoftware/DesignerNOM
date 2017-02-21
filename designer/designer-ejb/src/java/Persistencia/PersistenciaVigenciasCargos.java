@@ -48,7 +48,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          em.merge(vigenciasCargos);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e.toString());
+         System.out.println("Error PersistenciaVigenciasCargos.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -67,7 +67,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          if (tx.isActive()) {
             tx.rollback();
          }
-         System.out.println("Error PersistenciaVigenciasCargos.editar: " + e);
+         System.out.println("Error PersistenciaVigenciasCargos.editar: " + e.getMessage());
       }
    }
 
@@ -86,7 +86,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
                tx.rollback();
             }
          } catch (Exception ex) {
-            System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e);
+            System.out.println("Error PersistenciaVigenciasCargos.borrar: " + e.getMessage());
          }
       }
    }
@@ -104,27 +104,17 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
    @Override
    public VigenciasCargos buscarVigenciaCargoXEmpleado(EntityManager em, BigInteger secuenciaEmpl, BigInteger secEmpresa) {
       try {
-         System.out.println("buscarVigenciaCargoXEmpleado() secuenciaEmpl : " + secuenciaEmpl);
-         System.out.println("buscarVigenciaCargoXEmpleado() secEmpresa : " + secEmpresa);
          em.clear();
          String sqlString = "SELECT v.* FROM Empleados e, VigenciasCargos v, Empresas em \n"
                  + "WHERE v.empleado = e.secuencia \n"
                  + "AND em.secuencia = " + secEmpresa + " \n"
                  + "AND e.secuencia = " + secuenciaEmpl + " \n"
                  + "AND e.empresa = em.secuencia";
-         System.out.println("sqlString : " + sqlString);
-//            String sqlString = "SELECT v FROM Empleados e, VigenciasCargos v, Empresas em WHERE v.empleado.secuencia = e.secuencia "
-//                    + "AND e.empresa.secuencia = em.secuencia AND e.secuencia = " + secuenciaEmpl + " AND em.secuencia =" + secEmpresa +"";
-//            Query query = em.createNativeQuery("SELECT VC.* FROM EMPLEADOS E, VIGENCIASCARGOS VC, EMPRESAS EM WHERE VC.EMPLEADO = E.SECUENCIA AND E.EMPRESA = EM.SECUENCIA AND E.SECUENCIA = ?  AND EM.SECUENCIA = ?");
          Query query = em.createNativeQuery(sqlString, VigenciasCargos.class);
-
-//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          VigenciasCargos vigCargo = (VigenciasCargos) query.getSingleResult();
-         System.out.println("buscarVigenciaCargoXEmpleado() secCargo : " + vigCargo);
-
          return vigCargo;
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR : " + e);
+         System.err.println(this.getClass().getName() + "buscarVigenciaCargoXEmpleado catch() ERROR : " + e.getMessage());
          return null;
       }
    }
@@ -140,7 +130,6 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
    @Override
    public List<VigenciasCargos> buscarVigenciasCargosEmpleado(EntityManager em, BigInteger secEmpleado) {
       try {
-          
          em.clear();
          String sql="SELECT * FROM VIGENCIASCARGOS WHERE EMPLEADO = ? ORDER BY FECHAVIGENCIA DESC";
          Query query2 = em.createNativeQuery(sql, VigenciasCargos.class);
@@ -148,7 +137,7 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          List<VigenciasCargos> vigenciasCargos = (List<VigenciasCargos>) query2.getResultList();
          return vigenciasCargos;
       } catch (Exception e) {
-          System.out.println("error en buscarVigenciasCargosEmpleado : " + e.toString());
+          System.out.println("error en buscarVigenciasCargosEmpleado : " + e.getMessage());
          List<VigenciasCargos> vigenciasCargos = null;
          return vigenciasCargos;
       }
@@ -167,9 +156,8 @@ public class PersistenciaVigenciasCargos implements PersistenciaVigenciasCargosI
          query.setParameter(1, secEmpl);
          query.setParameter(2, fechaCambio);
          query.execute();
-         System.out.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() Ya ejecuto");
       } catch (Exception e) {
-         System.err.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e);
+         System.err.println(this.getClass().getName() + ".adicionaEmplJefeCambiosMasivos() ERROR: " + e.getMessage());
          e.printStackTrace();
          if (tx.isActive()) {
             tx.rollback();

@@ -29,7 +29,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             em.merge(indice);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicesExternos.crear: " + e);
+            System.out.println("Error PersistenciaIndicesExternos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -45,7 +45,7 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             em.merge(indice);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaIndicesExternos.editar: " + e);
+            System.out.println("Error PersistenciaIndicesExternos.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -62,13 +62,10 @@ public class PersistenciaIndicesExternos implements PersistenciaIndicesExternosI
             tx.commit();
 
         } catch (Exception e) {
-            try {
+            System.out.println("Error PersistenciaIndicesExternos.borrar: " + e.getMessage());
                 if (tx.isActive()) {
                     tx.rollback();
                 }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaIndicesExternos.borrar: " + e);
-            }
         }
     }
 

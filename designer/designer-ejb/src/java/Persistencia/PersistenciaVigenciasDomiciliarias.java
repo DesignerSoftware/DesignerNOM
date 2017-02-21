@@ -23,12 +23,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigenciasDomiciliariasInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos.
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-    private EntityManager em;
-     */
     @Override
     public List<VigenciasDomiciliarias> visitasDomiciliariasPersona(EntityManager em, BigInteger secuenciaPersona) {
         try {
@@ -39,7 +33,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             List<VigenciasDomiciliarias> listVisitas = query.getResultList();
             return listVisitas;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona" + e);
+            System.out.println("Error PersistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona" + e.getMessage());
             return null;
         }
     }
@@ -53,7 +47,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             em.merge(visita);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDomiciliarias.crear: " + e);
+            System.out.println("Error PersistenciaVigenciasDomiciliarias.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -75,7 +69,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
                     tx.rollback();
                 }
             } catch (Exception ex) {
-                System.out.println("Error PersistenciaVigenciasDomiciliarias.borrar: " + e);
+                System.out.println("Error PersistenciaVigenciasDomiciliarias.borrar: " + e.getMessage());
             }
         }
     }
@@ -89,7 +83,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             em.merge(visita);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDomiciliarias.editar: " + e);
+            System.out.println("Error PersistenciaVigenciasDomiciliarias.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -108,7 +102,7 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             return vigenciaActual;
 
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona" + e);
+            System.out.println("Error PersistenciaVigenciasDomiciliarias.actualVisitaDomiciliariaPersona" + e.getMessage());
             return null;
         }
     }
@@ -127,8 +121,8 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             query.setParameter(1, secuencia);
             visita = (String) query.getSingleResult();
             return visita;
-
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria()" + e.getMessage());
             visita = "";
             return visita;
         }

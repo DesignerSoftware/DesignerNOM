@@ -14,19 +14,22 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import javax.persistence.Query;
+
 /**
- * Clase Stateless.<br> 
- * Clase encargada de realizar operaciones sobre la tabla 'TiposEducaciones'
- * de la base de datos.
+ * Clase Stateless.<br>
+ * Clase encargada de realizar operaciones sobre la tabla 'TiposEducaciones' de
+ * la base de datos.
+ *
  * @author betelgeuse
  */
 @Stateless
-public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacionesInterface{
+public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacionesInterface {
+
     @Override
     public List<TiposEducaciones> tiposEducaciones(EntityManager em) {
         try {
             em.clear();
-            String sql="SELECT * FROM TiposEducaciones  ORDER BY codigo";
+            String sql = "SELECT * FROM TiposEducaciones  ORDER BY codigo";
             Query query = em.createNativeQuery(sql, TiposEducaciones.class);
             List<TiposEducaciones> tiposEducaciones = query.getResultList();
             return tiposEducaciones;
@@ -34,7 +37,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             System.out.println("error en PersistenciaTiposEducaciones.tiposeducaciones " + e.getMessage());
             return null;
         }
-    }   
+    }
 
     @Override
     public void crear(EntityManager em, TiposEducaciones tipoEducacion) {
@@ -45,7 +48,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEducaciones.crear: " + e);
+            System.out.println("Error PersistenciaTiposEducaciones.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -54,7 +57,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
 
     @Override
     public void borrar(EntityManager em, TiposEducaciones tipoEducacion) {
-       em.clear();
+        em.clear();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -62,12 +65,9 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             tx.commit();
 
         } catch (Exception e) {
-            try {
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
-            } catch (Exception ex) {
-                System.out.println("Error PersistenciaTiposEducaciones.borrar: " + e);
+            System.out.println("Error PersistenciaTiposEducaciones.borrar: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
             }
         }
     }
@@ -81,7 +81,7 @@ public class PersistenciaTiposEducaciones implements PersistenciaTiposEducacione
             em.merge(tipoEducacion);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposEducaciones.editar: " + e);
+            System.out.println("Error PersistenciaTiposEducaciones.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }

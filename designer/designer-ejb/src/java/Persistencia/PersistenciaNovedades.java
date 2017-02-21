@@ -38,7 +38,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.crear: " + e);
+         System.out.println("Error PersistenciaNovedades.crear: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -54,7 +54,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.merge(novedades);
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.editar: " + e);
+         System.out.println("Error PersistenciaNovedades.editar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -70,7 +70,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          em.remove(em.merge(novedades));
          tx.commit();
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.borrar: " + e);
+         System.out.println("Error PersistenciaNovedades.borrar: " + e.getMessage());
          if (tx.isActive()) {
             tx.rollback();
          }
@@ -107,7 +107,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> listNovedades = query.getResultList();
          return listNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (novedadesParaReversar)" + e);
+         System.out.println("Error: (novedadesParaReversar)" + e.getMessage());
          return null;
       }
    }
@@ -124,7 +124,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedades)" + e);
+         System.out.println("Error: (todasNovedades)" + e.getMessage());
          return null;
       }
    }
@@ -139,7 +139,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedadesConcepto)" + e);
+         System.out.println("Error: (todasNovedadesConcepto)" + e.getMessage());
          return null;
       }
    }
@@ -154,7 +154,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          List<Novedades> todasNovedades = query.getResultList();
          return todasNovedades;
       } catch (Exception e) {
-         System.out.println("Error: (todasNovedadesTercero)" + e);
+         System.out.println("Error: (todasNovedadesTercero)" + e.getMessage());
          return null;
       }
    }
@@ -170,7 +170,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          int rows = query.executeUpdate();
          return rows;
       } catch (Exception e) {
-         System.out.println("No se pudo borrar el registro. (reversarNovedades)" + e);
+         System.out.println("No se pudo borrar el registro. (reversarNovedades)" + e.getMessage());
          return 0;
       }
    }
@@ -186,7 +186,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesEmpleado" + e);
+         System.out.println("Error PersistenciaNovedades.novedadesEmpleado" + e.getMessage());
          return null;
       }
    }
@@ -203,7 +203,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e);
+         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
          return null;
       }
    }
@@ -222,7 +222,7 @@ public class PersistenciaNovedades implements PersistenciaNovedadesInterface {
          listaNovedades = query.getResultList();
          return listaNovedades;
       } catch (Exception e) {
-         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e);
+         System.out.println("Error PersistenciaNovedades.novedadesConcepto" + e.getMessage());
          return null;
       }
    }

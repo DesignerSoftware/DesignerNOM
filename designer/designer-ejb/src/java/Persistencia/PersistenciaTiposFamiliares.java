@@ -23,11 +23,6 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresInterface {
 
-    /**
-     * Atributo EntityManager. Representa la comunicación con la base de datos
-     */
-    /*    @PersistenceContext(unitName = "DesignerRHN-ejbPU")
-     private EntityManager em;*/
     public void crear(EntityManager em, TiposFamiliares tiposFamiliares) {
         em.clear();
         EntityTransaction tx = em.getTransaction();
@@ -36,7 +31,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.merge(tiposFamiliares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e);
+            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -51,7 +46,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.merge(tiposFamiliares);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e);
+            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -66,7 +61,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.remove(em.merge(tiposFamiliares));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e);
+            System.out.println("Error PersistenciaTiposFamiliares.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,6 +73,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             em.clear();
             return em.find(TiposFamiliares.class, secuenciaTF);
         } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaTiposFamiliares.buscarTiposFamiliares()" + e.getMessage());
             return null;
         }
     }
@@ -107,7 +103,7 @@ public class PersistenciaTiposFamiliares implements PersistenciaTiposFamiliaresI
             System.err.println("Contador PERSISTENCIATIPOSFAMILIARES contadorHvReferencias  " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIATIPOSFAMILIARES  contadorHvReferencias. " + e);
+            System.out.println("Persistencia.PersistenciaTiposFamiliares.contadorHvReferencias()" + e.getMessage());
             return retorno;
         }
     }

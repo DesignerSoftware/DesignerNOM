@@ -37,7 +37,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.crear: " + e);
+            System.out.println("Error PersistenciaPryPlataformas.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -53,7 +53,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.merge(plataformas);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.editar: " + e);
+            System.out.println("Error PersistenciaPryPlataformas.editar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -69,7 +69,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             em.remove(em.merge(plataformas));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaPryPlataformas.borrar: " + e);
+            System.out.println("Error PersistenciaPryPlataformas.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -85,7 +85,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             List<PryPlataformas> plataformas = (List<PryPlataformas>) query.getResultList();
             return plataformas;
         } catch (Exception e) {
-            System.out.println("Error buscarPryPlataformas PersistenciaPryPlataformas : " + e.toString());
+            System.out.println("Error buscarPryPlataformas PersistenciaPryPlataformas : " + e.getMessage());
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class PersistenciaPryPlataformas implements PersistenciaPryPlataformasInt
             System.err.println("Contador contadorProyectos persistencia " + retorno);
             return retorno;
         } catch (Exception e) {
-            System.out.println("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e);
+            System.out.println("Error PERSISTENCIAPRYPLATAFORMAS contadorProyectos. " + e.getMessage());
             return retorno;
         }
     }
