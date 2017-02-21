@@ -3359,7 +3359,7 @@
    <navigation-rule>
       <from-view-id>/novedadempleado.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>acomuladoPorNovedad</from-outcome>
+         <from-outcome>solucionformula</from-outcome>
          <to-view-id>/solucionformula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -3367,7 +3367,7 @@
    <navigation-rule>
       <from-view-id>/solucionformula.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>emplnovedad</from-outcome>
+         <from-outcome>novedadempleado</from-outcome>
          <to-view-id>/novedadempleado.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7706,6 +7706,25 @@
          <redirect />
       </navigation-case>
    </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/emplnovedad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>solucionformula</from-outcome>
+         <to-view-id>/solucionformula.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/solucionformula.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplnovedad</from-outcome>
+         <to-view-id>/emplnovedad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   
    
 </faces-config>
 

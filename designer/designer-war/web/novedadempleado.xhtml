@@ -448,7 +448,7 @@
                   <p:tooltip  for="ACTUALES" value="#{msg['actuales']}" />
 
                   <p:commandButton style="position: absolute; left: 270px; top: 475px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
-                                   icon="ui-icon-extlink" id="ACUMULADOS" value="Acumulados" disabled="#{controlNovedadesEmpleados.activoBtnAcumulado}" action="acomuladoPorNovedad" actionListener="#{controlSolucionFormula.recibirParametros(controlNovedadesEmpleados.empleadoSeleccionado.codigo, controlNovedadesEmpleados.actualNovedadTabla.secuencia)}" process="@this" />
+                                   icon="ui-icon-extlink" id="ACUMULADOS" value="Acumulados" disabled="#{controlNovedadesEmpleados.activoBtnAcumulado}" action="solucionformula" actionListener="#{controlSolucionFormula.recibirParametros(controlNovedadesEmpleados.empleadoSeleccionado.codigo, controlNovedadesEmpleados.actualNovedadTabla.secuencia,'novedadempleado')}" process="@this" />
                   <p:tooltip  for="ACUMULADOS" value="#{msg['btnAcumuladoNovedad']}" />
 
                   <p:commandButton id="ACEPTAR" widgetVar="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();"

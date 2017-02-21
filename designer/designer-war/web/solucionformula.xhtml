@@ -15,8 +15,6 @@
                     <f:loadBundle basename="Recursos.solucionformula" var="msg" />
                     <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
 
-                        <h:outputText style="position: absolute; top: 40px; height: 12px;position: absolute; color: #14388B; font-weight: bold;text-align: right;width: 480px;left: 380px;" id="informacionEmpleadoNovedad"  value="#{controlSolucionFormula.informacionEmpleadoNovedad}"/>  
-
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left"> 
 
@@ -48,7 +46,7 @@
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " onclick="PF('errorOpcion').show()"  process="@this"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
@@ -59,22 +57,32 @@
                                 <p:tooltip for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                
+
                                 <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlSolucionFormula.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                                
+
                                 <p:separator style="position: relative; top: -9px"/>
-                                
-                                <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlVigenciasUbicaciones.cancelarModificacion()}" process="@this"/>  
+
+                                <p:commandButton id="refrescar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; "  process="@this"/>  
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
-                                
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlVigenciasUbicaciones.salir()}" action="nominaf" process="@this"/>  
+
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " process="@this">
+                                    <f:actionListener binding="#{controlSolucionFormula.salir()}" />
+                                    <f:actionListener binding="#{controlSolucionFormula.navegar('atras')}" />
+                                </p:commandButton>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
-                                
+
                             </p:toolbarGroup>  
                         </p:toolbar> 
 
-                        <fieldset style="position: absolute; left: 10px; top: 80px; width: 830px; height: 370px; border-radius: 10px; ">
+                        <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 830px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
+                             <h:outputText style="position: absolute; top: 10px; height: 12px;position: relative; color: #14388B; font-weight: bold;text-align: right;width: 480px;left: 10px;" id="informacionEmpleadoNovedad"  value="#{controlSolucionFormula.informacionEmpleadoNovedad}"/>  
+<!--                            <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                            <h:outputText id="nombreEmpleado" value="#{controlEmplNovedad.empleado.persona.nombreCompleto}" 
+                                          style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>-->
+                        </fieldset>
+                        
+                        <fieldset style="position: absolute; left: 10px; top: 110px; width: 830px; height: 370px; border-radius: 10px; ">
                             <legend style="color: blue"><strong>#{msg['informacion']}</strong></legend>
 
                             <p:dataTable id="datosSolucionFormula" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" 
@@ -103,13 +111,13 @@
                                 </p:column>
 
 
-                                <p:column headerText="#{msg['concepto']}"  sortBy="#{info.solucionnodo.concepto.descripcion}" filterBy="#{info.solucionnodo.concepto.descripcion}" filterMatchMode="contains"
+                                <p:column headerText="#{msg['concepto']}"  sortBy="#{info.novedad.concepto.descripcion}" filterBy="#{infonovedad.concepto.descripcion}" filterMatchMode="contains"
                                           id="concepto" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.concepto.descripcion}" >
+                                        <f:facet name="output"><h:outputText value="#{info.novedad.concepto.descripcion}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.novedad.concepto.descripcion}" onselect="posicionTabla([{name: 'n', value: '1'}, {name: 't', value: '#{indice}'}]);" readonly="true" id="editConcepto" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -171,12 +179,12 @@
                                 </p:column>
 
 
-                                <p:column headerText="#{msg['proceso']}"  sortBy="#{info.solucionnodo.proceso.descripcion}" filterBy="#{info.solucionnodo.proceso.descripcion}" filterMatchMode="contains" 
+                                <p:column headerText="#{msg['proceso']}"  sortBy="#{info.solucionnodo.nombreproceso}" filterBy="#{info.solucionnodo.nombreproceso}" filterMatchMode="contains" 
                                           id="proceso" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.proceso.descripcion}" /></f:facet>  
+                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.nombreproceso}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.proceso.descripcion}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.nombreproceso}" readonly="true" onselect="posicionTabla([{name: 'n', value: '5'}, {name: 't', value: '#{indice}'}]);" id="editProceso" style="border-radius: 0px; width: 93.5%;text-transform: uppercase"> 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -185,13 +193,13 @@
                                     </f:facet>
                                 </p:column>
 
-                                <p:column headerText="#{msg['formula']}"  sortBy="#{info.solucionnodo.formula.nombrelargo}" filterBy="#{info.solucionnodo.formula.nombrelargo}" filterMatchMode="contains"
+                                <p:column headerText="#{msg['formula']}"  sortBy="#{info.novedad.formula.nombrelargo}" filterBy="#{info.novedad.formula.nombrelargo}" filterMatchMode="contains"
                                           id="formula" width="133" filterStyle="display: none; visibility: hidden;" >                                  
                                     <p:cellEditor>  
-                                        <f:facet name="output"><h:outputText value="#{info.solucionnodo.formula.nombrelargo}" >
+                                        <f:facet name="output"><h:outputText value="#{info.novedad.formula.nombrelargo}" >
                                             </h:outputText></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{info.solucionnodo.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
+                                            <p:inputText  autocomplete="off"  value="#{info.novedad.formula.nombrelargo}" readonly="true" onselect="posicionTabla([{name: 'n', value: '6'}, {name: 't', value: '#{indice}'}]);" id="editFormula" style="border-radius: 0px; width: 93.5%;text-transform: uppercase" > 
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>
@@ -201,13 +209,12 @@
                                 </p:column>
                             </p:dataTable>  
                         </fieldset>  
-
-
                         <p:remoteCommand name="posicionTabla" actionListener="#{controlSolucionFormula.posicionTabla()}" process="@this"/>
 
-
-
-                        <p:commandButton style="position: absolute; left: 775px; top: 475px;" id="ATRAS" value="#{msg['cancelar']}" icon="ui-icon-closethick" actionListener="#{controlSolucionFormula.salir()}" action="emplnovedad" process="@this" />
+                        <p:commandButton  id="ATRAS" value="" class="cssBotonCancelar" process="@this" >
+                            <f:actionListener binding="#{controlSolucionFormula.salir()}" />
+                                    <f:actionListener binding="#{controlSolucionFormula.navegar('atras')}" />
+                                </p:commandButton>  
                         <h:outputText id="informacionRegistro" value="#{controlSolucionFormula.infoRegistro}" style="position: absolute; left: 15px; top: 475px; font-weight: bold"/>
 
                     </p:panel>
@@ -274,7 +281,7 @@
                     </p:dialog>
 
                     <p:dialog id="editarConceptoD" header="#{msg['conceptoE']}" widgetVar="editarConceptoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.concepto.descripcion}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.nombreconcepto}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarValorD" header="#{msg['valorE']}" widgetVar="editarValorD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
@@ -294,13 +301,13 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </p:inputTextarea>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarProcesoD" header="#{msg['procesoE']}" widgetVar="editarProcesoD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.proceso.descripcion}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.nombreproceso}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                     <p:dialog id="editarFormulaD" header="#{msg['formulaE']}" widgetVar="editarFormulaD" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.formula.nombrelargo}" style="overflow: auto;" readonly="true"/>
+                        <p:inputTextarea value="#{controlSolucionFormula.editarSolucionFormula.solucionnodo.nombreformula}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
                 </h:form>
@@ -319,7 +326,7 @@
 
                         <p:column headerText="#{msg['conceptoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.solucionnodo.concepto.descripcion}" />
+                            <h:outputText value="#{infoExp.solucionnodo.nombreconcepto}" />
                         </p:column>  
 
                         <p:column headerText="#{msg['valorXX']}">                                  
@@ -347,12 +354,12 @@
 
                         <p:column headerText="#{msg['procesoXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['procesoX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.solucionnodo.proceso.descripcion}" />
+                            <h:outputText value="#{infoExp.solucionnodo.nombreproceso}" />
                         </p:column>  
 
                         <p:column headerText="#{msg['formulaXX']}">                                  
                             <f:facet name="header"><h:outputText value="#{msg['formulaX']}"/> </f:facet> 
-                            <h:outputText value="#{infoExp.solucionnodo.formula.nombrelargo}" />
+                            <h:outputText value="#{infoExp.solucionnodo.nombreformula}" />
                         </p:column>
 
                     </p:dataTable>

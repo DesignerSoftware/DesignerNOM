@@ -4,8 +4,11 @@
  */
 package InterfaceAdministrar;
 
+import Entidades.Conceptos;
 import Entidades.Empleados;
 import Entidades.Novedades;
+import Entidades.Periodicidades;
+import Entidades.Terceros;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -26,4 +29,15 @@ public interface AdministrarEmplNovedadInterface {
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+
+    public List<Conceptos> lovConceptos();
+
+    public List<Periodicidades> lovPeriodicidades();
+
+    public List<Terceros> lovTerceros();
+    
+     public void editarNovedad(List<Novedades> listaModificar);
+
+    public void borrarNovedad(List<Novedades> listaBorrar);
+    
 }

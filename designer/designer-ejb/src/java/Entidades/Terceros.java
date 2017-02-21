@@ -121,6 +121,9 @@ public class Terceros implements Serializable {
     }
 
     public String getNombre() {
+        if (nombre == null) {
+            nombre = " ";
+        }
         return nombre;
     }
 
@@ -249,11 +252,11 @@ public class Terceros implements Serializable {
     public String getStrCodAlt() {
         getCodigoalternativo();
         if (codigoalternativo != null) {
-        if (codigoalternativo > 0) {
-            strCodAlt = String.valueOf(codigoalternativo);
-        }else{
-            strCodAlt = "";
-        }
+            if (codigoalternativo > 0) {
+                strCodAlt = String.valueOf(codigoalternativo);
+            } else {
+                strCodAlt = "";
+            }
         } else {
             strCodAlt = "";
         }

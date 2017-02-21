@@ -89,12 +89,13 @@ public class PersistenciaConceptos implements PersistenciaConceptosInterface {
    public List<Conceptos> buscarConceptos(EntityManager em) {
       em.clear();
       try {
-         javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-         cq.select(cq.from(Conceptos.class));
-         return em.createQuery(cq).getResultList();
+         String sql = "SELECT * FROM CONCEPTOS ORDER BY DESCRIPCION"; 
+         Query query = em.createNativeQuery(sql,Conceptos.class);
+         List<Conceptos> listaConceptos = query.getResultList();
+          return listaConceptos;
       } catch (Exception e) {
          System.out.println("Error en buscarConceptos() : " + e.getCause());
-         return new ArrayList<>();
+         return null;
       }
    }
 

@@ -14,11 +14,12 @@
                 <script type="text/javascript">
                     $(window).load(function () {
                         $(".loader").fadeOut("slow");
-                  foco('form:guardarRapido');
-               });
-               function foco(idElemento) {
-                  document.getElementById(idElemento).focus();
-                    };
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    }
+                    ;
                 </script>
                 <div class="loader"></div>
                 <div style="position: static;"></div>
@@ -128,15 +129,9 @@
                                         <h:outputText id="GenerarR" value="R"/>
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
-                                    <p:cellEditor>  
-                                        <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18" /></f:facet>  
-                                        <p:tooltip for="hacerReporte" value="#{msg['generarReporte']}"/>
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;" id="EdGenerarR">
-                                                <p:ajax event="select" process="@this" listener="#{controlNReportesSeguridad.generarReporte(info)}"/>
-                                            </p:inputText>
-                                        </f:facet>
-                                    </p:cellEditor>
+                                    <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
+                                                     actionListener="#{controlNReportesSeguridad.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
+                                    </p:commandButton>  
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
@@ -167,11 +162,11 @@
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="atrasnreportesseguridad" 
                                          actionListener="#{controlNReportesSeguridad.cancelarYSalir()}" process="@this" />
 
-                       <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                        background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlNReportesSeguridad.activarEnvio}"
-                                        action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreporteseguridad', controlNReportesSeguridad.reporteSeleccionado.secuencia)}" process="@this" />
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlNReportesSeguridad.activarEnvio}"
+                                         action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreporteseguridad', controlNReportesSeguridad.reporteSeleccionado.secuencia)}" process="@this" />
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
-                        
+
                         <p:hotkey bind="ctrl+f11" actionListener="#{controlNReportesSeguridad.activarCtrlF11()}" process="@this"/> 
                     </p:panel>
                 </h:form>   

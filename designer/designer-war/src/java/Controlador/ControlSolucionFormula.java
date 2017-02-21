@@ -126,7 +126,8 @@ public class ControlSolucionFormula implements Serializable {
         fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
-    public void recibirParametros(BigInteger codEmpleado, BigInteger secNovedad) {
+    public void recibirParametros(BigInteger codEmpleado, BigInteger secNovedad,String pagina) {
+         paginaAnterior = pagina;
         empleado = administrarSolucionesFormulas.empleadoActual(codEmpleado);
         listaSolucionesFormulas = administrarSolucionesFormulas.listaSolucionesFormulaParaEmpleadoYNovedad(empleado.getSecuencia(), secNovedad);
         novedad = administrarSolucionesFormulas.novedadActual(secNovedad);
