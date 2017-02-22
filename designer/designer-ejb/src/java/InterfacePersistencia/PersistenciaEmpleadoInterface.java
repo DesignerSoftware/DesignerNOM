@@ -185,7 +185,7 @@ public interface PersistenciaEmpleadoInterface {
 
     public List<Empleados> consultarEmpleadosParaProyecciones(EntityManager em);
 
-    public void eliminarEmpleadoNominaF(EntityManager em, BigInteger secuenciaEmpleado, BigInteger secuenciaPersona);
+    public boolean eliminarEmpleadoNominaF(EntityManager em, BigInteger secuenciaEmpleado, BigInteger secuenciaPersona);
 
     public void reingresarEmpleado(EntityManager em, BigInteger codigoEmpleado, BigInteger centroCosto, Date fechaReingreso, BigInteger empresa, Date fechaFinal);
 

@@ -307,7 +307,7 @@ public interface AdministrarCarpetaPersonalInterface {
 
    public BigDecimal borrarActivo(BigInteger secuencia);
 
-   public void borrarEmpleadoActivo(BigInteger secuenciaEmpleado, BigInteger secuenciaPersona);
+   public boolean borrarEmpleadoActivo(BigInteger secuenciaEmpleado, BigInteger secuenciaPersona);
 
    public VWActualesTiposTrabajadores consultarEmpleadosTipoTrabajadorPosicion(String tipo, int posicion);
 

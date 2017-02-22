@@ -218,6 +218,6 @@ public interface AdministrarPersonaIndividualInterface {
     
     public Date consultarFechaHastaCausado();
     
-    public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona);
+    public boolean eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona);
    
 }

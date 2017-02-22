@@ -1079,12 +1079,8 @@ public class AdministrarPersonaIndividual implements AdministrarPersonaIndividua
    }
 
    @Override
-   public void eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona) {
-      try {
-         persistenciaEmpleado.eliminarEmpleadoNominaF(em, secEmpleado, secPersona);
-      } catch (Exception e) {
-         System.out.println("ERROR eliminarEmpleadoCompleto() : " + e);
-      }
+   public boolean eliminarEmpleadoCompleto(BigInteger secEmpleado, BigInteger secPersona) {
+      return persistenciaEmpleado.eliminarEmpleadoNominaF(em, secEmpleado, secPersona);
    }
 
 }

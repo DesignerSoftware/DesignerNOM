@@ -63,7 +63,7 @@ public class ControlRemoto implements Serializable {
    private BigDecimal actualMVR;
    private VWActualesTiposTrabajadores vwActualesTiposTrabajadoresPosicion;
    private VWActualesTiposTrabajadores backup;
-   private List<VwTiposEmpleados> busquedaRapida;
+   private List<VwTiposEmpleados> lovBusquedaRapida;
    private List<VwTiposEmpleados> filterBusquedaRapida;
    private List<VwTiposEmpleados> filterBuscarEmpleado;
    private List<VwTiposEmpleados> buscarEmplTipo;
@@ -160,7 +160,7 @@ public class ControlRemoto implements Serializable {
       vwActualesVigenciasViajeros = new VWActualesVigenciasViajeros();
       vwActualesTiposTrabajadoresPosicion = new VWActualesTiposTrabajadores();
       administrarCarpetaPersonal = new AdministrarCarpetaPersonal();
-      busquedaRapida = null;
+      lovBusquedaRapida = null;
       Imagen = "personal1" + extension;
       styleActivos = "ui-state-highlight";
       acumulado = false;
@@ -722,7 +722,7 @@ public class ControlRemoto implements Serializable {
          accion = "reintegro";
       }
       buscarEmplTipo = null;
-      busquedaRapida = null;
+      lovBusquedaRapida = null;
    }
 
    public void paso2() {
@@ -737,9 +737,13 @@ public class ControlRemoto implements Serializable {
 
    public void paso4() {
       try {
-         administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia(), vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getSecuencia());
-         RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
-         RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
+         boolean b = administrarCarpetaPersonal.borrarEmpleadoActivo(vwActualesTiposTrabajadoresPosicion.getEmpleado().getSecuencia(), vwActualesTiposTrabajadoresPosicion.getEmpleado().getPersona().getSecuencia());
+         if (b) {
+            RequestContext.getCurrentInstance().update("formulariodialogos:activoeliminarpaso4");
+            RequestContext.getCurrentInstance().execute("PF('activoeliminarpaso4').show()");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorEmpleadoNoEliminado').show()");
+         }
 
          if (resultadoBusquedaAv) {
             totalRegistros = listaBusquedaAvanzada.size();
@@ -1109,9 +1113,9 @@ public class ControlRemoto implements Serializable {
    }
 
    public void requerirBusquedaRapida() {
-      if (busquedaRapida == null) {
+      if (lovBusquedaRapida == null) {
          filterBusquedaRapida = null;
-         busquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
+         lovBusquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
          contarRegistrosBR();
          RequestContext.getCurrentInstance().update("form:lvbr");
       }
@@ -1195,7 +1199,7 @@ public class ControlRemoto implements Serializable {
          totalRegistros = totalActual;
 //         primerTipoTrabajador();
          buscarEmplTipo = null;
-         busquedaRapida = null;
+         lovBusquedaRapida = null;
          actualizarInformacionTipoTrabajador();
       }
    }
@@ -1479,8 +1483,8 @@ public class ControlRemoto implements Serializable {
       this.pago = pago;
    }
 
-   public List<VwTiposEmpleados> getBusquedaRapida() {
-      return busquedaRapida;
+   public List<VwTiposEmpleados> getLovBusquedaRapida() {
+      return lovBusquedaRapida;
    }
 
    public List<VwTiposEmpleados> getFilterBusquedaRapida() {

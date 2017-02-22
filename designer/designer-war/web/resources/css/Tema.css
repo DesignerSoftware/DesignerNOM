@@ -418,11 +418,6 @@ button .ui-widget-header{
    padding-left: 5px;
    padding-right: 5px;
 }
-.bticon{
-   padding-left: 0px;
-   padding-right: 0px;
-   border: none;
-}
 
 .ui-datatable .cssFiltroLOV {
    width: 45% !important;
@@ -810,6 +805,16 @@ button .ui-widget-header{
    padding: 3px !important;
    width: 46px;
    height: 46px;
+}
+
+.cssBotonesNominafVigencias{
+   position: absolute !important;
+   width: 40px !important;
+   height: 40px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: outset !important;
+   border-width: 0px !important;
 }
 
 /*.ui-selectonemenu ui-widget ui-state-default ui-corner-all*/

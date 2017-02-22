@@ -8,7 +8,6 @@ package Persistencia;
 
 import Entidades.VwTiposEmpleados;
 import InterfacePersistencia.PersistenciaVwTiposEmpleadosInterface;
-import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +23,7 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
     public List<VwTiposEmpleados> buscarTiposEmpleadosPorTipo (EntityManager em, String tipo) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT vwte FROM VwTiposEmpleados vwte WHERE vwte.tipo = :vcTipo");
+            Query query = em.createQuery("SELECT vwte FROM VwTiposEmpleados vwte, Empleados e where vwte.rfEmpleado = e.secuencia and vwte.tipo = :vcTipo");
             query.setParameter("vcTipo", tipo);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VwTiposEmpleados> VwTiposEmpleadosPorTipo = query.getResultList();
@@ -34,10 +33,11 @@ public class PersistenciaVwTiposEmpleados implements PersistenciaVwTiposEmpleado
             return null;
         }
     }
+    
     public List<VwTiposEmpleados> buscarTiposEmpleados (EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT vwte FROM VwTiposEmpleados vwte");
+            Query query = em.createQuery("SELECT vwte FROM VwTiposEmpleados vwte, Empleados e where vwte.rfEmpleado = e.secuencia");
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<VwTiposEmpleados> VwTiposEmpleados = query.getResultList();
             return VwTiposEmpleados;

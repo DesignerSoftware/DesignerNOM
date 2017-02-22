@@ -49,12 +49,12 @@
                                          actionListener="#{controlPersonaIndividual.botonListaValores()}" onclick="PF('operacionEnProceso').show()" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  process="@this"/>
+                        <p:commandButton id="filtrar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" process="@this"/>
                         <p:tooltip style="font-size: 12px;" for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px;"/>
 
-                        <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false"  />
+                        <p:commandButton id="exportarXLS" disabled="true" value="" style="background-image: url(Imagenes/Iconos/excel.png);" ajax="false"/>
                         <p:tooltip style="font-size: 12px;" for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton id="exportarXML" disabled="true" value="" style="background-image: url(Imagenes/Iconos/xml.png);" ajax="false"/>
@@ -100,7 +100,7 @@
                      <legend style="font-size: 12px; color: blue"><strong>#{msg['informacionPersona']}</strong></legend>
 
                      <p:scrollPanel id="scrollPrincipal" style="position: relative; left: 3px; top: 0px; width: 850px; height: 380px; border: none;" mode="native">  
-                        <h:outputText value="#{msg['infoBasica']}" style="position: absolute;left: 10px; top: 2px; color: #14388B; font-weight: bold; font-size: 11px; width: 800px; text-align: center; margin-bottom: 10px;"/>
+                        <h:outputText value="#{msg['infoBasica']}" style="position: absolute; left: 10px; top: 2px; color: #14388B; font-weight: bold; font-size: 11px; width: 800px; text-align: center; margin-bottom: 10px;"/>
 
                         <fieldset style="position: absolute; font-size: 12px; top: 40px; width: 810px; height: 155px; border-radius: 10px; text-align: left;">
                            <legend style="font-size: 12px; color: blue"><strong>#{msg['modPersonal']}</strong></legend>
@@ -178,7 +178,7 @@
 
                            <h:outputText  value="*#{msg['fechaNacimiento']}:" style="position: absolute; top: 100px; left: 280px; font-weight: bold;"/>
                            <div id="divFechaNacimientoModPersonal" style="position: absolute; top: 95px; left: 400px;">
-                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaPersona.fechanacimiento}" id="fechaNacimientoModPersonal">
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaNacimientoInformacionPersonal(8)}" update="@this" process="@this"/>
                               </p:calendar>
@@ -197,7 +197,7 @@
 
                            <h:outputText  value="*#{msg['fechaIngreso']}:" style="position: absolute; top: 25px; left: 580px; font-weight: bold;"/>
                            <div id="divFechaIngresoModPersonal" style="position: absolute; top: 20px; left: 695px;">
-                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="fechaIngresoModPersonal" value="#{controlPersonaIndividual.fechaIngreso}">
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}" 
                                          update="fechaIngresoModPersonal" process="@this" onstart="PF('operacionEnProcesoListas').show()" oncomplete="PF('operacionEnProcesoListas').hide()"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaIngresoInformacionPersonal(10)}"
@@ -222,7 +222,7 @@
 
                            <h:outputText  value="#{msg['fechaUltimoPago']}:" style="position: absolute; top: 100px; left: 580px; font-weight: bold;"/>
                            <div id="divFechaUltimoPagoModPersonal" style="position: absolute; top: 95px; left: 695px;">
-                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.fechaCorte}" id="fechaUltimoPagoModPersonal">
                                  <p:ajax event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaUltimoPagoInformacionPersonal(13)}" update="@this" process="@this"/>
                               </p:calendar>
@@ -437,7 +437,7 @@
 
                            <h:outputText  value="#{msg['fechaFinalContrato']}:" style="position: absolute; top: 72px; left: 65px;font-weight: bold;"/>
                            <div id="divFechaFinalContratoModTipoContrato" style="position: absolute; top: 67px; left: 240px;">
-                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato" >
+                              <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" value="#{controlPersonaIndividual.nuevaVigenciaTipoContrato.fechavigencia}" id="fechaFinalContratoModTipoContrato">
                                  <p:ajax  event="dateSelect" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" process="@this"/>
                                  <p:ajax event="change" listener="#{controlPersonaIndividual.modificarFechaFechaVigenciaTipoContrato(2)}" update="@this" process="@this"/>
                               </p:calendar>
@@ -546,7 +546,7 @@
 
                            <h:outputText  value="#{msg['tipoCuenta']}:" style="position: absolute; top: 70px; left: 65px; font-weight: bold;"/>
                            <p:selectOneMenu id="tipoCuentaModFormaPago" value="#{controlPersonaIndividual.txt_tipoCuenta}"
-                                            style="position: absolute; top: 65px; left: 230px; font-weight: bold; width: 100px;" >  
+                                            style="position: absolute; top: 65px; left: 230px; font-weight: bold; width: 100px;">  
                               <f:selectItem itemLabel="" itemValue=""/>  
                               <f:selectItem itemLabel="#{msg['ahorros']}" itemValue="A"/>  
                               <f:selectItem itemLabel="#{msg['corriente']}" itemValue="C"/>
@@ -647,7 +647,7 @@
 
                               <h:outputText  value="#{msg['grupoSanguineo']}:" style="position: absolute; top: 20px; left: 65px; font-weight: bold;"/>
                               <p:selectOneMenu id="grupoSanguineoModFactorRH" widgetVar="grupoSanguineoModFactorRH" value="#{controlPersonaIndividual.txt_grupoS}" 
-                                               style="position: absolute; top: 15px; left: 190px; font-weight: bold; width: 60px;" >  
+                                               style="position: absolute; top: 15px; left: 190px; font-weight: bold; width: 60px;">  
                                  <f:selectItem itemLabel="" itemValue="#{null}"/>  
                                  <f:selectItem itemLabel="A" itemValue="A"/>  
                                  <f:selectItem itemLabel="AB" itemValue="AB"/>
@@ -658,7 +658,7 @@
 
                               <h:outputText  value="#{msg['factorRH']}:" style="position: absolute; top: 45px; left: 65px; font-weight: bold;"/>
                               <p:selectOneMenu id="factorRHModFactorRH" value="#{controlPersonaIndividual.txt_RH}" 
-                                               style="position: absolute; top: 40px; left: 190px; font-weight: bold;width: 60px;" >  
+                                               style="position: absolute; top: 40px; left: 190px; font-weight: bold;width: 60px;">  
                                  <f:selectItem itemLabel="" itemValue="#{null}"/>  
                                  <f:selectItem itemLabel="+" itemValue="P"/>  
                                  <f:selectItem itemLabel="-" itemValue="N"/>
@@ -774,7 +774,7 @@
                <h:form id="formDInformacionPersonal">
                   <h:form id="formEmpresa">
                      <p:dialog header="#{msg['empresaM']}" widgetVar="EmpresaInformacionPersonalDialogo" modal="true" draggable="true" resizable="false" closable="false" id="EmpresaInformacionPersonalDialogo"  
-                               showEffect="fade" hideEffect="fade" width="414" >
+                               showEffect="fade" hideEffect="fade" width="414">
                         <p:dataTable id="lovEmpresaInformacionPersonal" var="empresaIP" value="#{controlPersonaIndividual.lovEmpresas}" rowKey="#{empresaIP.secuencia}"
                                      selection="#{controlPersonaIndividual.empresaSeleccionada}" scrollWidth="390" selectionMode="single" widgetVar="lovEmpresaInformacionPersonal" scrollable="true" scrollHeight="200"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEmpresas}">
@@ -787,13 +787,13 @@
                               <h:outputText value="#{msg['buscarEIP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpresaInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{empresaIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreEmpresa']}"/>
                               </f:facet>
                               <h:outputText  value="#{empresaIP.nombre}"/>
                            </p:column>
-                           <p:column filterBy="#{empresaIP.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{empresaIP.nit}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText value="#{msg['nitEmpresa']}"/>
                               </f:facet>
@@ -816,17 +816,17 @@
 
                   <h:form id="infoP_tipoD">
                      <p:dialog header="#{msg['ingresetd']}" widgetVar="TipoDocumentoInformacionPersonalDialogo" draggable="true" resizable="false" closable="false" id="TipoDocumentoInformacionPersonalDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" >
+                               showEffect="fade" hideEffect="fade" width="410">
                         <p:dataTable id="lovTipoDocumentoInformacionPersonal" var="tipoDIP" value="#{controlPersonaIndividual.lovTiposDocumentos}" rowKey="#{tipoDIP.secuencia}"
                                      selection="#{controlPersonaIndividual.tipoDocumentoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoDocumentoInformacionPersonal" scrollable="true" scrollHeight="200"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposDocumentos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TipoDocInfoP()}" update=":formLovs:formDInformacionPersonal:infoP_tipoD:aceptarTDIP"/>
                            <p:ajax event="rowDblselect" immediate="true" listener="#{controlPersonaIndividual.actualizarParametroTipoDocumentoInformacionPersonal()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_tipoD:aceptarTDIP"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_tipoD:aceptarTDIP"/>
 
                            <f:facet name="header">  
-                              <h:outputText value="#{msg['buscarTDIP']}"  />  
+                              <h:outputText value="#{msg['buscarTDIP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
                            <p:column filterBy="#{tipoDIP.nombrecorto}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
@@ -874,13 +874,13 @@
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDocumentoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
 
-                           <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadDIP.nombre}"/>
                            </p:column>
-                           <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText value="#{msg['departamento']}"/>
                               </f:facet>
@@ -913,19 +913,19 @@
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_CiudadNacInfoP()}" update=":formLovs:formDInformacionPersonal:infoP_ciudadN:aceptarCNIP"/> 
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCiudadNacimientoInformacionPersonal()}" process="@this"
                                    oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:fechaIngresoModPersonal');});"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_ciudadN:aceptarCNIP"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDInformacionPersonal:infoP_ciudadN:aceptarCNIP"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarCNIP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadNacimientoInformacionPersonal').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadDIP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadDIP.nombre}"/>
                            </p:column>
-                           <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadDIP.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText value="#{msg['departamento']}"/>
                               </f:facet>
@@ -948,20 +948,20 @@
                <h:form id="formDCargoDesempenado">
                   <h:form id="formCargo">
                      <p:dialog header="#{msg['nombrecargo']}" widgetVar="CargoCargoDesempeñadoDialogo" draggable="true" resizable="false" closable="false" id="CargoCargoDesempeñadoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovCargoCargoDesempeñado" var="cargoCD" value="#{controlPersonaIndividual.lovCargos}" rowKey="#{cargoCD.secuencia}"
                                      selection="#{controlPersonaIndividual.cargoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovCargoCargoDesempeñado" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCargos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_CargoD()}" update=":formLovs:formDCargoDesempenado:formCargo:aceptarCCD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCargoCargoDesempeñado()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formCargo:aceptarCCD"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formCargo:aceptarCCD"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarCCD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{cargoCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreCargo']}"/>
                               </f:facet>
@@ -989,14 +989,14 @@
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosCambiosCargos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_MotivoCargoD()}" update=":formLovs:formDCargoDesempenado:formMotcargo:aceptarMCCCD"/>
-                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMotivoCambioCargoCargoDesempeñado()}"  process="@this"  />
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formMotcargo:aceptarMCCCD"/>
+                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMotivoCambioCargoCargoDesempeñado()}"  process="@this"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formMotcargo:aceptarMCCCD"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMCCCD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoCambioCargoCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{motivoCambioCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreMotivoCargo']}"/>
                               </f:facet>
@@ -1025,13 +1025,13 @@
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_EstrCargoD()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroEstructuraCargoDesempeñado()}"
                                    oncomplete="$(function(){PrimeFaces.focus('form:estructuraModCargoDesempeñado');});" process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formEstruCargo:aceptarECD"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarECD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuraCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{estructuraCD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreEstructura']}"/>
                               </f:facet>
@@ -1052,7 +1052,7 @@
 
                   <h:form id="formPapelD">
                      <p:dialog header="#{msg['papeldesem']}" widgetVar="PapelCargoDesempeñadoDialogo" draggable="true" resizable="false" closable="false" id="PapelCargoDesempeñadoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovPapelCargoDesempeñado" var="papelCD" value="#{controlPersonaIndividual.lovPapeles}" rowKey="#{papelCD.secuencia}"
                                      selection="#{controlPersonaIndividual.papelSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovPapelCargoDesempeñado" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovPapeles}">
@@ -1060,13 +1060,13 @@
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_PapelCargoD()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroPapelCargoDesempeñado()}" process="@this"
                                    oncomplete="$(function(){PrimeFaces.focus('form:papelModCargoDesempeñado');});"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formPapelD:aceptarPCD"/>
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarPCD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPapelCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{papelCD.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombrePapel']}"/>
                               </f:facet>
@@ -1087,7 +1087,7 @@
 
                   <h:form id="formjefe">
                      <p:dialog header="#{msg['empleadojefe']}" widgetVar="EmpleadoJefeCargoDesempeñadoDialogo" draggable="true" resizable="false" closable="false" id="EmpleadoJefeCargoDesempeñadoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovEmpleadoJefeCargoDesempeñado" var="jefeCD" value="#{controlPersonaIndividual.lovEmpleados}" rowKey="#{jefeCD.secuencia}"
                                      selection="#{controlPersonaIndividual.empleadoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovEmpleadoJefeCargoDesempeñado" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEmpleados}">
@@ -1095,13 +1095,13 @@
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_JefeCargoD()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroJefeCargoDesempeñado()}" process="@this"
                                    oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:empleadoJefeModCargoDesempeñado');});"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCargoDesempenado:formjefe:aceptarEJCD"/>
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarEJCD']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoJefeCargoDesempeñado').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{jefeCD.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['empleado']}"/>
                               </f:facet>
@@ -1131,13 +1131,13 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_MotivoCentroC()}" update=":formLovs:formDCentroCosto:formCentroC:aceptarMLCC"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMotivoCentroCosto()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formCentroC:aceptarMLCC"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formCentroC:aceptarMLCC"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMLCC']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoLocalizacionCentroCosto').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{motivoLCC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['descripcionMotivo']}"/>
                               </f:facet>
@@ -1165,26 +1165,26 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_EstrCentroC()}" update=":formLovs:formDCentroCosto:formEstrucCC:aceptarECC"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroEstructuraCentroCosto()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formEstrucCC:aceptarECC"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDCentroCosto:formEstrucCC:aceptarECC"/>
 
                            <f:facet name="header"> 
                               <h:outputText value="#{msg['buscarECC']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstructuraCentroCosto').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{estructuraCC.centrocosto.codigo}" width="80" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText id="codCCLOV" style="text-align: center;" value="#{msg['codigo']}"/>
                                  <p:tooltip for="codCCLOV" value="#{msg['codigoCentroCosto']}"/>
                               </f:facet>
                               <h:outputText  value="#{estructuraCC.centrocosto.codigo}"/>
                            </p:column>
-                           <p:column filterBy="#{estructuraCC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{estructuraCC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreEstructura']}"/>
                               </f:facet>
                               <h:outputText  value="#{estructuraCC.nombre}"/>
                            </p:column>
-                           <p:column filterBy="#{estructuraCC.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{estructuraCC.centrocosto.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreCentroCosto']}"/>
                               </f:facet>
@@ -1257,7 +1257,7 @@
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovReformaLaboralTipoSalario').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
 
-                        <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{reformaLTS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['nombreReformaLaboral']}"/>
                            </f:facet>
@@ -1286,13 +1286,13 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_MotivoSu()}" update=":formLovs:formDSueldo:formMotivoSu:aceptarMCSS"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMotivoCambioSueldoSueldo()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formMotivoSu:aceptarMCSS"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formMotivoSu:aceptarMCSS"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMCSS']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoCambioSueldoSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{motivoCambioSS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['motivoSueldo']}"/>
                               </f:facet>
@@ -1300,7 +1300,7 @@
                            </p:column>
                         </p:dataTable>
 
-                        <div class="cssBotonesLOV" >
+                        <div class="cssBotonesLOV">
                            <h:outputText id="infoRegistroMotivoSueldo" value="#{msg['infoRegistro']} #{controlPersonaIndividual.infoRegistroMotivoSueldo}" class="cssinfoRegistroLOV"/>
                            <p:commandButton id="aceptarMCSS" class="cssAceptarLOV" update="@this" value="#{msg['aceptar']}" disabled="#{controlPersonaIndividual.aceptar}" onclick="PF('operacionEnProceso').show()" 
                                             oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:motivoSueldoModSueldo');});"
@@ -1313,7 +1313,7 @@
 
                   <h:form id="formTipoSueldo">
                      <p:dialog header="#{msg['tipocompensacion']}" widgetVar="TipoSueldoSueldoDialogo" draggable="true" resizable="false" closable="false" id="TipoSueldoSueldoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovTipoSueldoSueldo" var="tipoSueldoS" value="#{controlPersonaIndividual.lovTiposSueldos}" rowKey="#{tipoSueldoS.secuencia}"
                                      selection="#{controlPersonaIndividual.tipoSueldoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoSueldoSueldo" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposSueldos}">
@@ -1326,7 +1326,7 @@
                               <h:outputText value="#{msg['buscarTSS']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoSueldoSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{tipoSueldoS.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['tipoSueldo']}"/>
                               </f:facet>
@@ -1350,17 +1350,17 @@
                                showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovUnidadSueldo" var="unidadS" value="#{controlPersonaIndividual.lovUnidades}" rowKey="#{unidadS.secuencia}"
                                      selection="#{controlPersonaIndividual.unidadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovUnidadSueldo" scrollable="true" scrollHeight="200"
-                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovUnidades}" >
+                                     emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovUnidades}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_UnidadSu()}" update=":formLovs:formDSueldo:formUnidadS:aceptarUS"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroUnidadSueldo()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formUnidadS:aceptarUS"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDSueldo:formUnidadS:aceptarUS"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarUS']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUnidadSueldo').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{unidadS.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombreUnidad']}"/>
                               </f:facet>
@@ -1383,20 +1383,20 @@
                <h:form id="formDTipoContrato">
                   <h:form id="formTipoContrat">
                      <p:dialog header="#{msg['motivocontrato']}" widgetVar="MotivoContratoTipoContratoDialogo" draggable="true" resizable="false" closable="false" id="MotivoContratoTipoContratoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovMotivoContratoTipoContrato" var="motivoContratoTC" value="#{controlPersonaIndividual.lovMotivosContratos}" rowKey="#{motivoContratoTC.secuencia}"
                                      selection="#{controlPersonaIndividual.motivoContratoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMotivoContratoTipoContrato" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMotivosContratos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_MotivoTipoCo()}" update=":formLovs:formDTipoContrato:formTipoContrat:aceptarMCTC"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMotivoContratoTipoContrato()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrat:aceptarMCTC"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrat:aceptarMCTC"/>
 
                            <f:facet name="header">  
-                              <h:outputText value="#{msg['buscarMCTC']}"  />  
+                              <h:outputText value="#{msg['buscarMCTC']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMotivoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{motivoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['motivoContrato']}"/>
                               </f:facet>
@@ -1417,20 +1417,20 @@
 
                   <h:form id="formTipoContrato">
                      <p:dialog header="#{msg['tipocontrato']}" widgetVar="TipoContratoTipoContratoDialogo" draggable="true" resizable="false" closable="false" id="TipoContratoTipoContratoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovTipoContratoTipoContrato" var="tipoContratoTC" value="#{controlPersonaIndividual.lovTiposContratos}" rowKey="#{tipoContratoTC.secuencia}"
                                      selection="#{controlPersonaIndividual.tipoContratoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoContratoTipoContrato" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposContratos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TipoContrato()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTipoContratoTipoContrato()}" process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTipoContrato:formTipoContrato:aceptarTCTC"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTCTC']}"/>
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoContratoTipoContrato').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{tipoContratoTC.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['tipoContrato']}"/>
                               </f:facet>
@@ -1452,7 +1452,7 @@
 
                <h:form id="formDNormaLaboral">
                   <p:dialog header="#{msg['normalaboral']}" widgetVar="NormaLaboralNormaLaboralDialogo" draggable="true" resizable="false" closable="false" id="NormaLaboralNormaLaboralDialogo"  
-                            showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            showEffect="fade" hideEffect="fade" width="410" modal="true">
                      <p:dataTable id="lovNormaLaboralNormaLaboral" var="normaLaboralNL" value="#{controlPersonaIndividual.lovNormasLaborales}" rowKey="#{normaLaboralNL.secuencia}"
                                   selection="#{controlPersonaIndividual.normaLaboralSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovNormaLaboralNormaLaboral" scrollable="true" scrollHeight="250"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovNormasLaborales}">
@@ -1460,13 +1460,13 @@
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_NormaL()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroNormaNormaLaboral()}" process="@this"
                                 oncomplete="PF('operacionEnProceso').hide(), $(function(){PrimeFaces.focus('form:normaLaboralModNormaLaboral');});"/>
-                        <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
+                        <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDNormaLaboral:aceptarNLNL"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarNLNL']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovNormaLaboralNormaLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{normaLaboralNL.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['normaLaboral']}"/>
                            </f:facet>
@@ -1495,13 +1495,13 @@
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_ContratoLL()}" update=":formLovs:formDLegislacionLaboral:aceptarCLL"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroContratoLegislacionLaboral()}"  process="@this"/>
-                        <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDLegislacionLaboral:aceptarCLL"/>
+                        <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDLegislacionLaboral:aceptarCLL"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarCLL']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovContratoLegislacionLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{contratoLL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['descripcionContrato']}"/>
                            </f:facet>
@@ -1522,7 +1522,7 @@
 
                <h:form id="formDUbicacion">
                   <p:dialog header="#{msg['ubgeografica']}" widgetVar="UbicacionUbicacionGeograficaDialogo" draggable="true" resizable="false" closable="false" id="UbicacionUbicacionGeograficaDialogo"  
-                            showEffect="fade" hideEffect="fade" width="810" modal="true" >
+                            showEffect="fade" hideEffect="fade" width="810" modal="true">
                      <p:dataTable id="lovUbicacionUbicacionGeografica"  var="ubicacionGUG" value="#{controlPersonaIndividual.lovUbicacionesGeograficas}" rowKey="#{ubicacionGUG.secuencia}"
                                   selection="#{controlPersonaIndividual.ubicacionGeograficaSeleccionada}" scrollWidth="788" selectionMode="single" widgetVar="lovUbicacionUbicacionGeografica" scrollable="true" scrollHeight="250"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovUbicacionesGeograficas}">
@@ -1533,40 +1533,40 @@
                         <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDUbicacion:aceptarUGUGL"/>
 
                         <f:facet name="header">  
-                           <h:outputText value="#{msg['buscarUGUGL']}"  />  
+                           <h:outputText value="#{msg['buscarUGUGL']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovUbicacionUbicacionGeografica').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.descripcion}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.descripcion}"/>
                         </p:column>
-                        <p:column filterBy="#{ubicacionGUG.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.ciudad.nombre}" width="140" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['ciudad']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.ciudad.nombre}"/>
                         </p:column>
-                        <p:column filterBy="#{ubicacionGUG.direccion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.direccion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['direccion']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.direccion}"/>
                         </p:column>
-                        <p:column filterBy="#{ubicacionGUG.telefono}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.telefono}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['telefono']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.telefono}"/>
                         </p:column>
-                        <p:column filterBy="#{ubicacionGUG.fax}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.fax}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['fax']}"/>
                            </f:facet>
                            <h:outputText  value="#{ubicacionGUG.fax}"/>
                         </p:column>
-                        <p:column filterBy="#{ubicacionGUG.zona}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ubicacionGUG.zona}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['zona']}"/>
                            </f:facet>
@@ -1589,24 +1589,24 @@
                <h:form id="formDJornadaLaboral">
 
                   <p:dialog header="#{msg['jornadala']}" widgetVar="JornadaJornadaLaboralDialogo" draggable="true" resizable="false" closable="false" id="JornadaJornadaLaboralDialogo"  
-                            showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            showEffect="fade" hideEffect="fade" width="410" modal="true">
                      <p:dataTable id="lovJornadaJornadaLaboral"  var="jornadaLJL" value="#{controlPersonaIndividual.lovJornadasLaborales}" rowKey="#{jornadaLJL.secuencia}"
                                   selection="#{controlPersonaIndividual.jornadaLaboralSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovJornadaJornadaLaboral" scrollable="true" scrollHeight="200"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovJornadasLaborales}">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_JornadaL()}" update=":formLovs:formDJornadaLaboral:aceptarJLJL"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroJornadaJornadaLaboral()}"  process="@this"/>
-                        <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDJornadaLaboral:aceptarJLJL"/>
+                        <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDJornadaLaboral:aceptarJLJL"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarJLJL']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovJornadaJornadaLaboral').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{jornadaLJL.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['jornadaLaboral']}"/>
                            </f:facet>
-                           <h:outputText  value="#{jornadaLJL.descripcion}"/>
+                           <h:outputText value="#{jornadaLJL.descripcion}"/>
                         </p:column>
                      </p:dataTable>
 
@@ -1625,20 +1625,20 @@
 
                   <h:form id="formPeriodicidad">
                      <p:dialog header="#{msg['formapago']}" widgetVar="PeriodicidadFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="PeriodicidadFormaPagoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true"  >
-                        <p:dataTable id="lovPeriodicidadFormaPago"  var="periodicidadFP" value="#{controlPersonaIndividual.lovPeriodicidades}" rowKey="#{periodicidadFP.secuencia}"
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
+                        <p:dataTable id="lovPeriodicidadFormaPago" var="periodicidadFP" value="#{controlPersonaIndividual.lovPeriodicidades}" rowKey="#{periodicidadFP.secuencia}"
                                      selection="#{controlPersonaIndividual.periodicidadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovPeriodicidadFormaPago" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovPeriodicidades}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_PeriodFormaPago()}" update=":formLovs:formDFormaPago:formPeriodicidad:aceptarPFP"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroPeriodicidadFormaPago()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formPeriodicidad:aceptarPFP"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formPeriodicidad:aceptarPFP"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarPFP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovPeriodicidadFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{periodicidadFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
@@ -1664,13 +1664,13 @@
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_SucursalFormaP()}" update=":formLovs:formDFormaPago:formSucursal:aceptarSFP"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroSucursalFormaPago()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formSucursal:aceptarSFP"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formSucursal:aceptarSFP"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarSFP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovSucursalPagoFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{sucursalFP.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
@@ -1689,20 +1689,20 @@
 
                   <h:form id="formMetodo">
                      <p:dialog header="#{msg['metodopago']}" widgetVar="MetodoPagoFormaPagoDialogo" draggable="true" resizable="false" closable="false" id="MetodoPagoFormaPagoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovMetodoPagoFormaPago"  var="metodoPFP" value="#{controlPersonaIndividual.lovMetodosPagos}" rowKey="#{metodoPFP.secuencia}"
                                      selection="#{controlPersonaIndividual.metodoPagoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovMetodoPagoFormaPago" scrollable="true" scrollHeight="200"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovMetodosPagos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_MetodoFormaP()}" update=":formLovs:formDFormaPago:formMetodo:aceptarMPFP"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroMetodoFormaPago()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formMetodo:aceptarMPFP"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDFormaPago:formMetodo:aceptarMPFP"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarMPFP']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovMetodoPagoFormaPago').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{metodoPFP.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                               </f:facet>
@@ -1724,32 +1724,32 @@
                <h:form id="formDAfiliacion">
 
                   <p:dialog header="#{msg['selecciontercero']} #{controlPersonaIndividual.tituloTercero}" widgetVar="TerceroAfiliacionDialogo" draggable="true" resizable="false" closable="false" id="TerceroAfiliacionDialogo"  
-                            showEffect="fade" hideEffect="fade" width="610" modal="true"  >
+                            showEffect="fade" hideEffect="fade" width="610" modal="true">
                      <p:dataTable id="lovTerceroAfiliacion" var="terceroSA" value="#{controlPersonaIndividual.lovTercerosSucursales}" rowKey="#{terceroSA.secuencia}"
                                   selection="#{controlPersonaIndividual.terceroSucursalSeleccionado}" scrollWidth="588" selectionMode="single" widgetVar="lovTerceroAfiliacion" scrollable="true" scrollHeight="250"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTercerosSucursales}">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TerceroAfSuc()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTerceroAfiliacion()}"  process="@this"/>
-                        <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
+                        <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDAfiliacion:aceptarTSA"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarTA']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTerceroAfiliacion').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{terceroSA.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['tercero']}"/>
                            </f:facet>
                            <h:outputText  value="#{terceroSA.descripcion}"/>
                         </p:column>
-                        <p:column filterBy="#{terceroSA.tercero.nit}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{terceroSA.tercero.nit}" width="100" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['nit']}"/>
                            </f:facet>
                            <h:outputText  value="#{terceroSA.tercero.nit}"/>
                         </p:column>
-                        <p:column filterBy="#{terceroSA.tercero.empresa.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{terceroSA.tercero.empresa.nombre}" width="200" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                            </f:facet>
@@ -1773,20 +1773,20 @@
 
                   <h:form id="formTel">
                      <p:dialog header="#{msg['tipotelefono']}" widgetVar="TipoTelefonoTelefonoDialogo" draggable="true" resizable="false" closable="false" id="TipoTelefonoTelefonoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovTipoTelefonoTelefono"  var="tipoTT" value="#{controlPersonaIndividual.lovTiposTelefonos}" rowKey="#{tipoTT.secuencia}"
                                      selection="#{controlPersonaIndividual.tipoTelefonoSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovTipoTelefonoTelefono" scrollable="true" scrollHeight="200"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovTiposTelefonos}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_TipoTelT()}" update=":formLovs:formDTelefono:formTel:aceptarTTT"/>
                            <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroTipoTelefonoTelefono()}"  process="@this"/>
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formTel:aceptarTTT"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formTel:aceptarTTT"/>
 
                            <f:facet name="header">  
                               <h:outputText value="#{msg['buscarTTT']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovTipoTelefonoTelefono').filter();" class="cssFiltroLOV"/>  
                            </f:facet>
-                           <p:column filterBy="#{tipoTT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{tipoTT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
@@ -1805,26 +1805,26 @@
 
                   <h:form id="formCiudadTel">
                      <p:dialog header="#{msg['ciudadtelefono']}" widgetVar="CiudadTelefonoDialogo" draggable="true" resizable="false" closable="false" id="CiudadTelefonoDialogo"  
-                               showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                               showEffect="fade" hideEffect="fade" width="410" modal="true">
                         <p:dataTable id="lovCiudadTelefono"  var="ciudadT" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadT.secuencia}"
                                      selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadTelefono" scrollable="true" scrollHeight="250"
                                      emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}">
 
                            <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_CiudadTel()}" update=":formLovs:formDTelefono:formCiudadTel:aceptarCT"/>
-                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCiudadTelefono()}"  process="@this"  />
-                           <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formCiudadTel:aceptarCT"/>
+                           <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCiudadTelefono()}"  process="@this"/>
+                           <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDTelefono:formCiudadTel:aceptarCT"/>
 
                            <f:facet name="header">  
-                              <h:outputText value="#{msg['buscarCT']}"  />  
+                              <h:outputText value="#{msg['buscarCT']}"/>  
                               <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadTelefono').filter();"/>  
                            </f:facet>
-                           <p:column filterBy="#{ciudadT.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadT.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                               </f:facet>
                               <h:outputText  value="#{ciudadT.nombre}"/>
                            </p:column>
-                           <p:column filterBy="#{ciudadT.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                           <p:column filterBy="#{ciudadT.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                               <f:facet name="header">
                                  <h:outputText value="#{msg['departamento']}"/>
                               </f:facet>
@@ -1846,27 +1846,27 @@
                <h:form id="formDDireccion">
 
                   <p:dialog header="#{msg['ciudadresidencia']}" widgetVar="CiudadDireccionDialogo" draggable="true" resizable="false" closable="false" id="CiudadDireccionDialogo"  
-                            showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            showEffect="fade" hideEffect="fade" width="410" modal="true">
                      <p:dataTable id="lovCiudadDireccion" var="ciudadD" value="#{controlPersonaIndividual.lovCiudades}" rowKey="#{ciudadD.secuencia}"
                                   selection="#{controlPersonaIndividual.ciudadSeleccionada}" scrollWidth="388" selectionMode="single" widgetVar="lovCiudadDireccion" scrollable="true" scrollHeight="250"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovCiudades}"
                                   liveScroll="true" scrollRows="50">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_CiudadDir()}" update=":formLovs:formDDireccion:aceptarCD"/>
-                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCiudadDireccion()}"  process="@this"  />
+                        <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroCiudadDireccion()}"  process="@this"/>
                         <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDDireccion:aceptarCD"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarCD']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovCiudadDireccion').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{ciudadD.nombre}"  filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ciudadD.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['nombre']}"/>
                            </f:facet>
                            <h:outputText  value="#{ciudadD.nombre}"/>
                         </p:column>
-                        <p:column filterBy="#{ciudadD.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{ciudadD.departamento.nombre}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText value="#{msg['departamento']}"/>
                            </f:facet>
@@ -1887,20 +1887,20 @@
                <h:form id="formDEstadoCivil">
 
                   <p:dialog header="#{msg['estadocivil']}" widgetVar="EstadoCivilEstadoCivilDialogo" draggable="true" resizable="false" closable="false" id="EstadoCivilEstadoCivilDialogo"  
-                            showEffect="fade" hideEffect="fade" width="410" modal="true" >
+                            showEffect="fade" hideEffect="fade" width="410" modal="true">
                      <p:dataTable id="lovEstadoCivilEstadoCivil" var="estadoCivilEC" value="#{controlPersonaIndividual.lovEstadosCiviles}" rowKey="#{estadoCivilEC.secuencia}"
                                   selection="#{controlPersonaIndividual.estadoCivilSeleccionado}" scrollWidth="388" selectionMode="single" widgetVar="lovEstadoCivilEstadoCivil" scrollable="true" scrollHeight="200"
                                   emptyMessage="#{msg['lovvacio']}" filteredValue="#{controlPersonaIndividual.filtrarLovEstadosCiviles}">
 
                         <p:ajax event="filter" listener="#{controlPersonaIndividual.contarRegistros_EstadoCivil()}" update=":formLovs:formDEstadoCivil:aceptarECEC"/>
                         <p:ajax event="rowDblselect" listener="#{controlPersonaIndividual.actualizarParametroEstadoEstadoCivil()}"  process="@this"/>
-                        <p:ajax event="rowSelect" process="@this" immediate="true"  listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDEstadoCivil:aceptarECEC"/>
+                        <p:ajax event="rowSelect" process="@this" immediate="true" listener="#{controlPersonaIndividual.activarAceptar()}" update=":formLovs:formDEstadoCivil:aceptarECEC"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarECEC']}"/>  
                            <p:inputText autocomplete="off" id="globalFilter" onkeyup="PF('lovEstadoCivilEstadoCivil').filter();" class="cssFiltroLOV"/>  
                         </f:facet>
-                        <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important" >
+                        <p:column filterBy="#{estadoCivilEC.descripcion}" filterMatchMode="contains" filterStyle="width: 85% !important">
                            <f:facet name="header">
                               <h:outputText style="text-align: center;" value="#{msg['descripcion']}"/>
                            </f:facet>
@@ -1922,34 +1922,34 @@
 
             <h:form id="formDialogos">
 
-               <p:dialog id="advertenciaFechaIngreso" header="#{msg['atencion']}" widgetVar="advertenciaFechaIngreso" resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['advertenciaFechaIngreso']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+               <p:dialog id="advertenciaFechaIngreso" header="#{msg['atencion']}" widgetVar="advertenciaFechaIngreso" resizable="false" draggable="true" modal="true" height="98" width="433" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['advertenciaFechaIngreso']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('advertenciaFechaIngreso').hide();" style="position: absolute; top: 65px; left: 325px;" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorEmailPersona" header="#{msg['error']}" widgetVar="errorEmailPersona" resizable="false" draggable="true" modal="true" height="60" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorEmailPersona']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
-               </p:dialog>
-
-               <p:dialog id="errorFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaIngreso" resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorEmailPersona" header="#{msg['error']}" widgetVar="errorEmailPersona" resizable="false" draggable="true" modal="true" height="60" width="308" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
-                  <h:outputText value="#{controlPersonaIndividual.fechaHastaCausado}" style="position: absolute; left: 70px; top: 60px; width: 185px; font-weight:bold;">
+                  <h:outputText value="#{msg['errorEmailPersona']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['error']}" widgetVar="errorFechas" resizable="false" draggable="true" modal="true" height="88" width="308" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaIngreso" resizable="false" draggable="true" modal="true" height="88" width="308" closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
+                  <h:outputText value="#{controlPersonaIndividual.fechaHastaCausado}" style="position: absolute; left: 70px; top: 60px; width: 185px; font-weight: bold;">
                      <f:convertDateTime pattern="dd/MM/yyyy"/>
                   </h:outputText>
                </p:dialog>
 
-               <p:dialog id="errorAlIngresar" header="#{msg['error']}" widgetVar="errorAlIngresar" resizable="false" draggable="true" modal="true" height="150" width="400" style="font-size: 12px;" closable="true">  
+               <p:dialog id="errorAlIngresar" header="#{msg['error']}" widgetVar="errorAlIngresar" resizable="false" draggable="true" modal="true" height="150" width="400" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorAlIngresar']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
-                  <h:outputText value="#{controlPersonaIndividual.error}" style="position: absolute; left: 80px; top: 40px; width: 285px; font-weight:bold;"/>
+                  <h:outputText value="#{msg['errorAlIngresar']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
+                  <h:outputText value="#{controlPersonaIndividual.error}" style="position: absolute; left: 80px; top: 40px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['eliminarDatos']}" onclick="PF('errorAlIngresar').hide();" style="position: absolute; top: 130px; left: 60px;" process="@this">
                      <f:actionListener binding="#{controlPersonaIndividual.eliminarDatosCreados()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
@@ -1962,131 +1962,131 @@
                </p:dialog>
 
                <p:dialog id="errorFechaContratoFechaIngreso" header="#{msg['error']}" widgetVar="errorFechaContratoFechaIngreso"  resizable="false" draggable="true" modal="true" height="98" width="358" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorFechaContratoFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 275px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFechaContratoFechaIngreso']}" style="position: absolute; left: 70px; top: 15px; width: 275px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFechasEmpleado" header="#{msg['error']}" widgetVar="errorFechasEmpleado"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{controlPersonaIndividual.mensajeErrorFechasEmpleado}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlPersonaIndividual.mensajeErrorFechasEmpleado}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorValorSueldo" header="#{msg['error']}" widgetVar="errorValorSueldo"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorValorSueldo']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorValorSueldo']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorFormatoValorSueldo" header="#{msg['error']}" widgetVar="errorFormatoValorSueldo"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorFormatoValorSueldo']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorFormatoValorSueldo']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="errorNumeroTelefonico" header="#{msg['error']}" widgetVar="errorNumeroTelefonico"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorNumeroTelefonico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorNumeroTelefonico']}" style="position: absolute; left: 70px; top: 15px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="advertenciaEPS" header="#{msg['atencion']}" widgetVar="advertenciaEPS"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['advertenciaEPS']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['advertenciaEPS']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('advertenciaEPS').hide();" style="position: absolute; top: 57px; left: 205px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="advertenciaAFP" header="#{msg['atencion']}" widgetVar="advertenciaAFP"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['advertenciaAFP']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['advertenciaAFP']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('advertenciaAFP').hide();" style="position: absolute; top: 57px; left: 205px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="advertenciaARP" header="#{msg['atencion']}" widgetVar="advertenciaARP"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['advertenciaARP']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['advertenciaARP']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('advertenciaARP').hide();" style="position: absolute; top: 57px; left: 205px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorTopeEmpleadosEmpresa" header="#{msg['atencion']}" widgetVar="errorTopeEmpleadosEmpresa"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorTopeEmpleadosEmpresa']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorTopeEmpleadosEmpresa']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorTopeEmpleadosEmpresa').hide();" style="position: absolute; top: 65px; left: 320px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorEmpleadoRegistrado" header="#{msg['atencion']}" widgetVar="errorEmpleadoRegistrado"  resizable="false" draggable="true" modal="true" height="88" width="308" style="font-size: 12px; z-index: 999; " closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorEmpleadoRegistrado']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorEmpleadoRegistrado']}" style="position: absolute; left: 80px; top: 10px; width: 185px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorEmpleadoRegistrado').hide();" style="position: absolute; top: 55px; left: 200px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorPersonaRepetida" header="#{msg['atencion']}" widgetVar="errorPersonaRepetida"  resizable="false" draggable="true" modal="true" height="100" width="350" style="font-size: 12px; z-index: 9999;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorPersonaRepetida']}" style="position: absolute; left: 80px; top: 10px; width: 250px; font-weight:bold;"/>
+                  <h:outputText value="#{msg['errorPersonaRepetida']}" style="position: absolute; left: 80px; top: 10px; width: 250px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorPersonaRepetida').hide();" style="position: absolute; top: 70px; left: 230px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorCodigoTerceroPersona" header="#{msg['atencion']}" widgetVar="errorCodigoTerceroPersona"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorCodigoTerceroPersona']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:outputText value="#{msg['errorCodigoTerceroPersona']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorCodigoTerceroPersona').hide();" style="position: absolute; top: 67px; left: 325px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorIngresoTotalRegistro" header="#{msg['error']}" widgetVar="errorIngresoTotalRegistro"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
-                  <h:outputText value="#{msg['errorIngresoTotalRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:outputText value="#{msg['errorIngresoTotalRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" 
                                    onclick="PF('errorIngresoTotalRegistro').hide();" style="position: absolute; top: 67px; left: 320" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorEmpleadoDuplicado" header="#{msg['atencion']}" widgetVar="errorEmpleadoDuplicado"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorEmpleadoDuplicado']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorEmpleadoDuplicado']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorEmpleadoDuplicado').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>                    
 
                <p:dialog id="aletarTiposTrabajadoresRL" header="#{msg['atencion']}" widgetVar="aletarTiposTrabajadoresRL"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['aletarTiposTrabajadoresRL']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['aletarTiposTrabajadoresRL']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('aletarTiposTrabajadoresRL').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>   
 
                <p:dialog id="aletarTiposTrabajadoresTS" header="#{msg['atencion']}" widgetVar="aletarTiposTrabajadoresTS"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['aletarTiposTrabajadoresTS']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="60" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['aletarTiposTrabajadoresTS']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('aletarTiposTrabajadoresTS').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>  
 
                <p:dialog id="aletarTiposTrabajadoresTC" header="#{msg['atencion']}" widgetVar="aletarTiposTrabajadoresTC"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['aletarTiposTrabajadoresTC']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['aletarTiposTrabajadoresTC']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('aletarTiposTrabajadoresTC').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>  
 
                <p:dialog id="aletarTiposTrabajadoresNL" header="#{msg['atencion']}" widgetVar="aletarTiposTrabajadoresNL"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['aletarTiposTrabajadoresNL']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['aletarTiposTrabajadoresNL']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('aletarTiposTrabajadoresNL').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>  
 
                <p:dialog id="aletarTiposTrabajadoresC" header="#{msg['atencion']}" widgetVar="aletarTiposTrabajadoresC"  resizable="false" draggable="true" modal="true" height="98" width="433" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['aletarTiposTrabajadoresC']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['aletarTiposTrabajadoresC']}" style="position: absolute; left: 80px; top: 10px; width: 285px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('aletarTiposTrabajadoresC').hide();" style="position: absolute; top: 67px; left: 320px;" process="@this"/>
                </p:dialog>  
 
                <p:dialog id="errorCamposObligatorios" header="#{msg['atencion']}" widgetVar="errorCamposObligatorios"  resizable="false" draggable="true" modal="true" height="98" width="388" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorCamposObligatorios']}" style="position: absolute; left: 80px; top: 10px; width: 235px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorCamposObligatorios']}" style="position: absolute; left: 80px; top: 10px; width: 235px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorCamposObligatorios').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="errorCamposAlternativos" header="#{msg['atencion']}" widgetVar="errorCamposAlternativos"  resizable="false" draggable="true" modal="true" height="98" width="388" style="font-size: 12px;" closable="true">  
-                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"  />
-                  <h:outputText value="#{msg['errorCamposAlternativos']}" style="position: absolute; left: 80px; top: 10px; width: 235px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 5px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorCamposAlternativos']}" style="position: absolute; left: 80px; top: 10px; width: 235px; font-weight: bold;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('errorCamposAlternativos').hide();" style="position: absolute; top: 60px; left: 280px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="procesoGuardadoOK" header="#{msg['informacion']}" widgetVar="procesoGuardadoOK"   resizable="false" draggable="true" modal="true" height="98" width="388" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/bien.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                  <h:outputText value="#{msg['procesoGuardadoOK']}" style="position: absolute; left: 70px; top: 10px; width: 235px; font-weight:bold;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" style="position: absolute; top: 57px; left: 275px;" process="@this" >
+                  <h:graphicImage value="Imagenes/Iconos/bien.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['procesoGuardadoOK']}" style="position: absolute; left: 70px; top: 10px; width: 235px; font-weight: bold;"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['aceptar']}" onclick="PF('procesoGuardadoOK').hide();" action="nominaf" actionListener="#{controlPersonaIndividual.cancelarModificaciones()}" style="position: absolute; top: 57px; left: 275px;" process="@this">
                      <f:actionListener binding="#{controlPersonaIndividual.cancelarModificaciones()}"/>
                      <f:actionListener binding="#{controlRemoto.validarEstadoNominaF()}"/>
                   </p:commandButton>
@@ -2327,13 +2327,13 @@
                </p:dialog>
 
                <p:dialog id="operacionEnProceso" header="#{msg['informacion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
                <p:dialog id="operacionEnProcesoListas" header="#{msg['informacion']}" widgetVar="operacionEnProcesoListas"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px;" closable="false">  
-                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                  <h:outputText value="#{msg['operacionEnProcesoListas']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;"/>
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"/>
+                  <h:outputText value="#{msg['operacionEnProcesoListas']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight: bold;"/>
                </p:dialog>
 
             </h:form>

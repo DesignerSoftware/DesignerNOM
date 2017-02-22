@@ -724,9 +724,8 @@ public class AdministrarCarpetaPersonal implements AdministrarCarpetaPersonalInt
    }
 
    @Override
-   public void borrarEmpleadoActivo(BigInteger secuenciaEmpleado, BigInteger secuenciaPersona) {
-      persistenciaEmpleado.eliminarEmpleadoNominaF(em, secuenciaEmpleado, secuenciaPersona);
-
+   public boolean borrarEmpleadoActivo(BigInteger secuenciaEmpleado, BigInteger secuenciaPersona) {
+      return persistenciaEmpleado.eliminarEmpleadoNominaF(em, secuenciaEmpleado, secuenciaPersona);
    }
 
 }
