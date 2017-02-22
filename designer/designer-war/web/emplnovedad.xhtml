@@ -30,7 +30,7 @@
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="#{controlEmplNovedad.activarLov}"  actionListener="#{controlEmplNovedad.listaValoresBoton()}" process="@this"/>
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplNovedad.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"  actionListener="#{controlEmplNovedad.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/> 
@@ -109,7 +109,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="concepto" process="@this" value=" " style="width: 100px" />
                                     </f:facet>
                                 </p:column>
 
@@ -126,7 +126,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                      <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="concepto" process="@this" value=" " style="width: 185px" />
                                     </f:facet>
                                 </p:column>
 
@@ -168,8 +168,6 @@
                                             </f:facet>  
                                         </f:facet>  
                                     </p:cellEditor>
-
-
                                     <f:facet name="footer">
                                         <h:outputText value="" />
                                     </f:facet>
@@ -232,7 +230,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="periodicidad" process="@this" value=" " style="width: 100px" />
                                     </f:facet>
                                 </p:column>
 
@@ -249,7 +247,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                       <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="periodicidad" process="@this" value=" " style="width: 195px" />
                                     </f:facet>
                                 </p:column>
 
@@ -266,7 +264,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <h:outputText value="" />
+                                        <p:commandButton actionListener="#{controlTercero.recibirPaginaEntrante('emplnovedad')}" action="tercero" process="@this" value=" " style="width: 195px" />
                                     </f:facet>
                                 </p:column>
 

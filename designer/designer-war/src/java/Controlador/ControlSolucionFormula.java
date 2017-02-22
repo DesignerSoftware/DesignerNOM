@@ -15,8 +15,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -40,20 +42,19 @@ public class ControlSolucionFormula implements Serializable {
     AdministrarRastrosInterface administrarRastros;
     private List<SolucionesFormulas> listaSolucionesFormulas;
     private List<SolucionesFormulas> filtrarListaSolucionesFormulas;
+    private List<SolucionesFormulas> listaSolucionesFormulasBorrar;
     private SolucionesFormulas solucionTablaSeleccionada;
     private Empleados empleado;
     private Novedades novedad;
     private int bandera;
     private Column fechaHasta, concepto, valor, saldo, fechaPago, proceso, formula;
     private boolean aceptar;
-    private int index;
     private SolucionesFormulas editarSolucionFormula;
     private int cualCelda, tipoLista;
-    private BigInteger secRegistro;
     private BigInteger backUpSecRegistro;
     private String informacionEmpleadoNovedad;
     private String algoTabla;
-    //
+    private boolean guardado;
     private String infoRegistro;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
@@ -64,11 +65,13 @@ public class ControlSolucionFormula implements Serializable {
         novedad = new Novedades();
         backUpSecRegistro = null;
         listaSolucionesFormulas = null;
+        listaSolucionesFormulasBorrar = new ArrayList<SolucionesFormulas>();
         aceptar = true;
         editarSolucionFormula = new SolucionesFormulas();
         cualCelda = -1;
         tipoLista = 0;
-        secRegistro = null;
+        guardado = true;
+        solucionTablaSeleccionada = null;
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
@@ -141,29 +144,34 @@ public class ControlSolucionFormula implements Serializable {
         String cass = map.get("n"); // type attribute of node
         int ind = Integer.parseInt(type);
         int cassi = Integer.parseInt(cass);
-        cambiarIndice(ind, cassi);
+        solucionTablaSeleccionada = listaSolucionesFormulas.get(ind);
+        cambiarIndice(solucionTablaSeleccionada, cassi);
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        index = indice;
+    public void cambiarIndice(SolucionesFormulas solucionf, int celda) {
+        solucionTablaSeleccionada = solucionf;
         cualCelda = celda;
-        if (tipoLista == 0) {
-            secRegistro = listaSolucionesFormulas.get(index).getSecuencia();
+        solucionTablaSeleccionada.getSecuencia();
+        if (cualCelda == 0) {
+            solucionTablaSeleccionada.getNovedad().getFechafinal();
+        } else if (cualCelda == 1) {
+            solucionTablaSeleccionada.getNovedad().getConcepto().getDescripcion();
+        } else if (cualCelda == 2) {
+            solucionTablaSeleccionada.getNovedad().getValortotal();
+        } else if (cualCelda == 3) {
+            solucionTablaSeleccionada.getNovedad().getSaldo();
+        } else if (cualCelda == 4) {
+            solucionTablaSeleccionada.getNovedad().getFechareporte();
+        } else if (cualCelda == 5) {
+            solucionTablaSeleccionada.getSolucionnodo().getNombreproceso();
+        } else if (cualCelda == 6) {
+            solucionTablaSeleccionada.getSolucionnodo().getNombreformula();
         }
-        if (tipoLista == 1) {
-            secRegistro = filtrarListaSolucionesFormulas.get(index).getSecuencia();
-        }
-        System.out.println("Index : " + index + "// Celda: " + cualCelda);
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarSolucionFormula = listaSolucionesFormulas.get(index);
-            }
-            if (tipoLista == 1) {
-                editarSolucionFormula = filtrarListaSolucionesFormulas.get(index);
-            }
+        if (solucionTablaSeleccionada != null) {
+            editarSolucionFormula = solucionTablaSeleccionada;
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHastaD");
@@ -194,9 +202,9 @@ public class ControlSolucionFormula implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarFormulaD').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     public void activarCtrlF11() {
@@ -239,8 +247,7 @@ public class ControlSolucionFormula implements Serializable {
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
         }
-        index = -1;
-        secRegistro = null;
+        solucionTablaSeleccionada = null;
     }
 
     public void salir() {
@@ -265,11 +272,99 @@ public class ControlSolucionFormula implements Serializable {
             filtrarListaSolucionesFormulas = null;
             tipoLista = 0;
         }
-        index = -1;
-        secRegistro = null;
+        solucionTablaSeleccionada = null;
         listaSolucionesFormulas = null;
     }
-    //EXPORTAR
+
+    public void borrarSolucionFormula() {
+
+        if (solucionTablaSeleccionada != null) {
+            listaSolucionesFormulasBorrar.add(solucionTablaSeleccionada);
+            listaSolucionesFormulas.remove(solucionTablaSeleccionada);
+            if (tipoLista == 1) {
+                filtrarListaSolucionesFormulas.remove(solucionTablaSeleccionada);
+            }
+            contarRegistros();
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+            solucionTablaSeleccionada = null;
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        }
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void guardarCambios() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        try {
+            if (guardado == false) {
+                if (!listaSolucionesFormulasBorrar.isEmpty()) {
+                    administrarSolucionesFormulas.borrarSolucionesFormulas(listaSolucionesFormulasBorrar);
+                    listaSolucionesFormulasBorrar.clear();
+                }
+                listaSolucionesFormulas = null;
+                getListaSolucionesFormulas();
+                FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
+                contarRegistros();
+                solucionTablaSeleccionada = null;
+            }
+            guardado = true;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+        } catch (Exception e) {
+            System.out.println("Error guardarCambios : " + e.getMessage());
+            FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
+        }
+    }
+
+    public void guardarSalir() {
+        guardarCambios();
+        salir();
+    }
+
+    public void cancelarSalir() {
+        refrescar();
+        salir();
+    }
+
+    public void refrescar() {
+        if (bandera == 1) {
+            algoTabla = "300";
+            fechaHasta = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:fechaHasta");
+            fechaHasta.setFilterStyle("display: none; visibility: hidden;");
+            concepto = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:concepto");
+            concepto.setFilterStyle("display: none; visibility: hidden;");
+            fechaPago = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:fechaPago");
+            fechaPago.setFilterStyle("display: none; visibility: hidden;");
+            valor = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:valor");
+            valor.setFilterStyle("display: none; visibility: hidden;");
+            saldo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:saldo");
+            saldo.setFilterStyle("display: none; visibility: hidden;");
+            proceso = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:proceso");
+            proceso.setFilterStyle("display: none; visibility: hidden;");
+            formula = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:formula");
+            formula.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+            bandera = 0;
+            filtrarListaSolucionesFormulas = null;
+            tipoLista = 0;
+        }
+        listaSolucionesFormulas = null;
+        solucionTablaSeleccionada = null;
+        guardado = true;
+        getListaSolucionesFormulas();
+        contarRegistros();
+        RequestContext.getCurrentInstance().update("form:datosSolucionFormula");
+    }
 
     /**
      * Metodo que exporta datos a PDF
@@ -282,8 +377,6 @@ public class ControlSolucionFormula implements Serializable {
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "SolucionesFormulas_PDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     /**
@@ -297,8 +390,6 @@ public class ControlSolucionFormula implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "SolucionesFormulas_XLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
     //EVENTO FILTRAR
 
@@ -309,51 +400,38 @@ public class ControlSolucionFormula implements Serializable {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        infoRegistro = "Cantidad de registros : " + filtrarListaSolucionesFormulas.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
     //RASTRO - COMPROBAR SI LA TABLA TIENE RASTRO ACTIVO
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        if (listaSolucionesFormulas != null) {
-            if (secRegistro != null) {
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "SOLUCIONESFORMULAS");
-                backUpSecRegistro = secRegistro;
-                secRegistro = null;
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (solucionTablaSeleccionada != null) {
+            int resultado = administrarRastros.obtenerTabla(solucionTablaSeleccionada.getSecuencia(), "SOLUCIONESFORMULAS");
+            backUpSecRegistro = solucionTablaSeleccionada.getSecuencia();
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("SOLUCIONESFORMULAS")) {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
     public List<SolucionesFormulas> getListaSolucionesFormulas() {
-        try {
-            if (listaSolucionesFormulas == null) {
-                return listaSolucionesFormulas = administrarSolucionesFormulas.listaSolucionesFormulaParaEmpleadoYNovedad(empleado.getSecuencia(), novedad.getSecuencia());
-            }
-            return listaSolucionesFormulas;
-
-        } catch (Exception e) {
-            System.out.println("Error...!! getListaSolucionesFormulas : " + e.toString());
-            return null;
+        if (listaSolucionesFormulas == null) {
+            listaSolucionesFormulas = administrarSolucionesFormulas.listaSolucionesFormulaParaEmpleadoYNovedad(empleado.getSecuencia(), novedad.getSecuencia());
         }
+        return listaSolucionesFormulas;
     }
 
     public void setListaSolucionesFormulas(List<SolucionesFormulas> setListaSolucionesFormulas) {
@@ -382,14 +460,6 @@ public class ControlSolucionFormula implements Serializable {
 
     public void setEditarSolucionFormula(SolucionesFormulas setEditarSolucionFormula) {
         this.editarSolucionFormula = setEditarSolucionFormula;
-    }
-
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
     }
 
     public BigInteger getBackUpSecRegistro() {
@@ -440,12 +510,9 @@ public class ControlSolucionFormula implements Serializable {
     }
 
     public String getInfoRegistro() {
-        getListaSolucionesFormulas();
-        if (listaSolucionesFormulas != null) {
-            infoRegistro = "Cantidad de registros : " + listaSolucionesFormulas.size();
-        } else {
-            infoRegistro = "Cantidad de registros : 0";
-        }
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosSolucionFormula");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -453,4 +520,11 @@ public class ControlSolucionFormula implements Serializable {
         this.infoRegistro = infoRegistro;
     }
 
+    public boolean isGuardado() {
+        return guardado;
+    }
+
+    public void setGuardado(boolean guardado) {
+        this.guardado = guardado;
+    }
 }

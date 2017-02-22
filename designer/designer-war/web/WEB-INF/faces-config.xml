@@ -7724,7 +7724,73 @@
       </navigation-case>
    </navigation-rule>
    
+     <navigation-rule>
+      <from-view-id>/emplnovedad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>concepto</from-outcome>
+         <to-view-id>/concepto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/concepto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplnovedad</from-outcome>
+         <to-view-id>/emplnovedad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    
+   <navigation-rule>
+      <from-view-id>/emplnovedad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>periodicidad</from-outcome>
+         <to-view-id>/periodicidad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/periodicidad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplnovedad</from-outcome>
+         <to-view-id>/emplnovedad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/emplnovedad.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>tercero</from-outcome>
+         <to-view-id>/tercero.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/tercero.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>emplnovedad</from-outcome>
+         <to-view-id>/emplnovedad.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+    <navigation-rule>
+      <from-view-id>/solucionformula.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>concepto</from-outcome>
+         <to-view-id>/concepto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/concepto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>solucionformula</from-outcome>
+         <to-view-id>/solucionformula.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
    
 </faces-config>
 

@@ -58,14 +58,14 @@ public class AdministrarSolucionesFormulas implements AdministrarSolucionesFormu
      */
     @EJB
     AdministrarSesionesInterface administrarSesiones;
-    
+
     private EntityManager em;
 
     @Override
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
     public List<SolucionesFormulas> listaSolucionesFormulaParaEmpleadoYNovedad(BigInteger secEmpleado, BigInteger secNovedad) {
         try {
@@ -96,6 +96,13 @@ public class AdministrarSolucionesFormulas implements AdministrarSolucionesFormu
         } catch (Exception e) {
             System.out.println("Error novedadActual Admi : " + e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public void borrarSolucionesFormulas(List<SolucionesFormulas> listaBorrar) {
+        for (int i = 0; i < listaBorrar.size(); i++) {
+            persistenciaSolucionesFormulas.borrar(em, listaBorrar.get(i));
         }
     }
 

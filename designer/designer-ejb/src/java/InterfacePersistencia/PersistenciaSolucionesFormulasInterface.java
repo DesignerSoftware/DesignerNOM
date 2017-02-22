@@ -36,4 +36,7 @@ public interface PersistenciaSolucionesFormulasInterface {
      * referenciado.
      */
     public List<SolucionesFormulas> listaSolucionesFormulasParaEmpleadoYNovedad(EntityManager em, BigInteger secEmpleado, BigInteger secNovedad);
+    
+    public void borrar(EntityManager em, SolucionesFormulas solucionf);
+    
 }

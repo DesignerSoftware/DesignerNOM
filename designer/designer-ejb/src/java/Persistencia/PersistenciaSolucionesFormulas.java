@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -82,5 +83,21 @@ public class PersistenciaSolucionesFormulas implements PersistenciaSolucionesFor
             System.out.println("Error listaSolucionesFormulasParaEmpleadoYNovedad PersistenciaSolucionhesFormulas : " + e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public void borrar(EntityManager em, SolucionesFormulas solucionf) {
+       em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         em.remove(em.merge(solucionf));
+         tx.commit();
+      } catch (Exception e) {
+          System.out.println("Persistencia.PersistenciaSolucionesFormulas.borrar()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+      }
     }
 }

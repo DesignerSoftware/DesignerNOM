@@ -52,4 +52,6 @@ public interface AdministrarSolucionesFormulasInterface {
      * @return Retorna la Novedad referenciado por la secuencia.
      */
     public Novedades novedadActual(BigInteger secNovedad);
+    
+    public void borrarSolucionesFormulas(List<SolucionesFormulas> listaBorrar);
 }
