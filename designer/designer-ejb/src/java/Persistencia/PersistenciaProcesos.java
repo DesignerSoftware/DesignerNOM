@@ -10,8 +10,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless. <br>
@@ -178,6 +180,40 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
       } catch (Exception e) {
          System.out.println("Error  PersistenciaProcesos  obtenerDescripcionProcesoPorSecuencia : " + e.toString());
          return null;
+      }
+   }
+
+   public String clonarProceso(EntityManager em, String descripcionNu, short codigoNu, short codigoOri) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         System.out.println("descripcionNu : " + descripcionNu);
+         System.out.println("codigoNu : " + codigoNu);
+         System.out.println("codigoOri : " + codigoOri);
+         StoredProcedureQuery query = em.createStoredProcedureQuery("PROCESOS_PKG.CLONARPROCESO");
+         query.registerStoredProcedureParameter(1, String.class, ParameterMode.INOUT);
+         query.registerStoredProcedureParameter(2, short.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, short.class, ParameterMode.IN);
+
+         query.setParameter(1, descripcionNu);
+         query.setParameter(2, codigoNu);
+         query.setParameter(3, codigoOri);
+
+         query.execute();
+         query.hasMoreResults();
+         String strRetorno = (String) query.getOutputParameterValue(1);
+         System.out.println("Persistencia.PersistenciaProcesos.clonarProceso() Ya clono strRetorno:_" + strRetorno + "_");
+         return strRetorno;
+      } catch (Exception e) {
+         System.err.println("ERROR: " + this.getClass().getName() + ".clonarProceso()");
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
+      } finally {
+         tx.commit();
       }
    }
 }

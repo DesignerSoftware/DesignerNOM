@@ -12,14 +12,12 @@
          <ui:define name="body">    
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
                };
             </script>
-            <!--<!--<div class="loader"></div>-->-->
             <div style="position: static;"></div>
             <h:form id="form">
                <p:growl id="growl" showDetail="true"/> 
@@ -36,7 +34,7 @@
                                          actionListener="#{controlBetaCentrosCostos.editarCelda()}" process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}" />
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          disabled="#{controlBetaCentrosCostos.activarLOV}" actionListener="#{controlBetaCentrosCostos.listaValoresBoton()}" process="@this"/>
@@ -46,7 +44,7 @@
                                          actionListener="#{controlBetaCentrosCostos.activarCtrlF11()}" process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}" />
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
 
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" 
                                          ajax="false" actionListener="#{controlBetaCentrosCostos.exportXLS()}" />
@@ -62,7 +60,7 @@
                                          actionListener="#{controlBetaCentrosCostos.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}" />
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px;"/>
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          actionListener="#{controlBetaCentrosCostos.mostrarDialogoNuevoTiposCentrosCostos()}" process="@this"/> 
                         <p:tooltip style="" for="insertar" value="#{msg['nuevo']}" />
@@ -74,18 +72,18 @@
                         <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" 
                                          actionListener="#{controlBetaCentrosCostos.duplicandoCentroCostos()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}" />
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative;"/>
 
                         <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" 
                                          actionListener="#{controlBetaCentrosCostos.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative;"/>
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
                                          actionListener="#{controlBetaCentrosCostos.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative;"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"  
                                          actionListener="#{controlBetaCentrosCostos.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
@@ -160,7 +158,6 @@
                               <h:outputText value=""/>
                            </f:facet>
                         </p:column>
-
 
                         <p:column headerText="#{msg['tipocentrocosto']}" sortBy="#{info.tipocentrocosto.nombre}" filterBy="#{info.tipocentrocosto.nombre}" 
                                   filterMatchMode="contains" id="tipoCentroCosto" width="120" filterStyle="display: none; visibility: hidden;" >                                  
@@ -274,7 +271,6 @@
                                     <f:selectItem itemLabel="3" itemValue="3" />  
                                     <f:selectItem itemLabel="4" itemValue="4" />  
                                     <f:selectItem itemLabel="5" itemValue="5" />  
-                                    <!--                                                <p:ajax event="change" listener="#/{controlBetaCentrosCostos.mostrarInfo(info, 7)}" update="codigoCTT"/>-->
                                     <p:ajax event="click" listener="#{controlBetaCentrosCostos.cambiarIndice(info, 7)}" update="codigoCTT"/>
                                  </p:selectOneMenu>                                          
                               </f:facet>
@@ -289,19 +285,15 @@
                      <p:remoteCommand name="posicionOtro" actionListener="#{controlBetaCentrosCostos.posicionOtro()}"/>
                   </fieldset>
 
-                  <p:commandButton style="position: relative; left: 664px; top: 437px; width: 90px; height: 29px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
+                  <p:commandButton style="position: relative; left: 670px; top: 437px; width: 90px; height: 29px; background-image: url(Imagenes/Iconos/buscardb.png); background-size: 100% 100%; 
                                    background-repeat: no-repeat; border: none;" id="BUSCARCENTROCOSTO" disabled="#{controlBetaCentrosCostos.buscarCentrocosto}" value="" actionListener="#{controlBetaCentrosCostos.llamadoDialogoBuscarCentrosCostos()}" process="@this" />
                   <p:tooltip for="BUSCARCENTROCOSTO" value="#{msg['buscar']}" />
-                  <p:commandButton style="position: relative; left: 664px; top: 437px; width: 90px; height: 29px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
+                  <p:commandButton style="position: relative; left: 670px; top: 437px; width: 90px; height: 29px; background-image: url(Imagenes/Iconos/todosdb.png); background-size: 100% 100%; 
                                    background-repeat: no-repeat; border: none;" id="MOSTRARTODOS" disabled="#{controlBetaCentrosCostos.mostrartodos}" value="" actionListener="#{controlBetaCentrosCostos.cancelarModificacion()}" process="@this"/>
                   <p:tooltip for="MOSTRARTODOS" value="#{msg['mostrar']}" />
 
-                  <p:commandButton style=" position: absolute; left: 680px; top: 503px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none;" id="ACEPTAR" value="" disabled="#{controlBetaCentrosCostos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosCentrosCostos" process="@this" />
-                  <p:commandButton style=" position: absolute; left: 770px; top: 503px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlBetaCentrosCostos.salir()}" process="@this" />
-
-
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" disabled="#{controlBetaCentrosCostos.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosCentrosCostos" process="@this" />
+                                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlBetaCentrosCostos.salir()}" process="@this" />
 
                   <!-- DIALOGO L.O.V ESTATICO UBICACIONES -->
                   <p:dialog header="#{msg['tiposcentrocostoTCC']}" widgetVar="tiposCentrosCostosDialogo" draggable="true" resizable="false" closable="false" id="tiposCentrosCostosDialogo"  

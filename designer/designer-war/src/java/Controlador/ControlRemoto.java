@@ -861,12 +861,12 @@ public class ControlRemoto implements Serializable {
          hv2 = true;
          tipo = "DISPONIBLE";
       }
-      RequestContext.getCurrentInstance().reset("form:lvbusquedarapida:globalFilter");
+      RequestContext.getCurrentInstance().reset("form:formlovempleadosR:lvbusquedarapida:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('lvbr').hide()");
-      RequestContext.getCurrentInstance().update("form:lvbusquedarapida");
-      RequestContext.getCurrentInstance().update("form:lvbr");
-      RequestContext.getCurrentInstance().update("form:buscarrap");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbusquedarapida");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbr");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:buscarrap");
 
       vwActualesTiposTrabajadoresPosicion = empleadoSeleccionado;
       emplSeleccionado = null;
@@ -899,16 +899,24 @@ public class ControlRemoto implements Serializable {
       buscar = true;
       filterBusquedaRapida = null;
       emplSeleccionado = null;
-      RequestContext.getCurrentInstance().reset("form:lvbusquedarapida:globalFilter");
+      RequestContext.getCurrentInstance().reset("form:formlovempleadosR:lvbusquedarapida:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('lvbr').hide()");
-      RequestContext.getCurrentInstance().update("form:lvbusquedarapida");
-      RequestContext.getCurrentInstance().update("form:lvbr");
-      RequestContext.getCurrentInstance().update("form:buscarrap");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbusquedarapida");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbr");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:buscarrap");
    }
 
    public void activarBuscar() {
       buscar = false;
+   }
+
+   public void buscarEmpleadoDefault() {
+      if (emplSeleccionadoBE != null) {
+         buscarEmpleado();
+      } else if (emplSeleccionado != null) {
+         busquedaRapida();
+      }
    }
 
    public void buscarEmpleado() {
@@ -928,20 +936,17 @@ public class ControlRemoto implements Serializable {
 
       RequestContext.getCurrentInstance().update("form:tabmenu");
       RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodos");
-
-      RequestContext.getCurrentInstance().reset("form:lvbuscarempleado:globalFilter");
+      RequestContext.getCurrentInstance().reset("form:formlovempleados:lvbuscarempleado:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('lvbe').hide()");
-      RequestContext.getCurrentInstance().update("form:lvbuscarempleado");
-      RequestContext.getCurrentInstance().update("form:lvbe");
-      RequestContext.getCurrentInstance().update("form:buscarempl");
-
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbuscarempleado");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:buscarempl");
       try {
          valorInputText();
 
       } catch (ParseException ex) {
-         System.out.println(ControlRemoto.class
-                 .getName() + " error en la entrada");
+         System.out.println(ControlRemoto.class.getName() + " error en la entrada");
       }
       actualizarInformacionTipoTrabajador();
       actualizarNavegacion();
@@ -952,12 +957,12 @@ public class ControlRemoto implements Serializable {
       filterBuscarEmpleado = null;
       emplSeleccionadoBE = null;
       RequestContext context = RequestContext.getCurrentInstance();
-      context.reset("form:lvbuscarempleado:globalFilter");
+      context.reset("form:formlovempleados:lvbuscarempleado:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('lvbe').hide()");
-      RequestContext.getCurrentInstance().update("form:lvbuscarempleado");
-      RequestContext.getCurrentInstance().update("form:lvbe");
-      RequestContext.getCurrentInstance().update("form:buscarempl");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbuscarempleado");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:buscarempl");
    }
 
    public void mostrarTodos() {
@@ -1117,7 +1122,7 @@ public class ControlRemoto implements Serializable {
          filterBusquedaRapida = null;
          lovBusquedaRapida = administrarCarpetaPersonal.consultarRapidaEmpleados();
          contarRegistrosBR();
-         RequestContext.getCurrentInstance().update("form:lvbr");
+         RequestContext.getCurrentInstance().update("form:formlovempleadosR:lvbr");
       }
       RequestContext.getCurrentInstance().execute("PF('lvbr').show();");
    }
@@ -1127,7 +1132,7 @@ public class ControlRemoto implements Serializable {
          filterBuscarEmpleado = null;
          buscarEmplTipo = administrarCarpetaPersonal.consultarEmpleadosTipoTrabajador(tipo);
          contarRegistrosBE();
-         RequestContext.getCurrentInstance().update("form:lvbe");
+         RequestContext.getCurrentInstance().update("form:formlovempleados:lvbe");
       }
       RequestContext.getCurrentInstance().execute("PF('lvbe').show()");
    }
@@ -1825,7 +1830,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void contarRegistrosBR() {
-      RequestContext.getCurrentInstance().update("form:inforegistrobusquedarapida");
+      RequestContext.getCurrentInstance().update("form:formlovempleadosR:inforegistrobusquedarapida");
    }
 
    public void contarRegistrosBT() {
@@ -1833,7 +1838,7 @@ public class ControlRemoto implements Serializable {
    }
 
    public void contarRegistrosBE() {
-      RequestContext.getCurrentInstance().update("form:inforegistrobuscarempleados");
+      RequestContext.getCurrentInstance().update("form:formlovempleados:inforegistrobuscarempleados");
    }
 
    public void activarAceptarEmp() {
@@ -1909,14 +1914,40 @@ public class ControlRemoto implements Serializable {
 
    public String getInfoRegistroBuscarEmpleados() {
       FacesContext c = FacesContext.getCurrentInstance();
-      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvbuscarempleado");
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:formlovempleados:lvbuscarempleado");
+      if (filterBuscarEmpleado != null) {
+         if (filterBuscarEmpleado.size() == 1) {
+            emplSeleccionadoBE = filterBuscarEmpleado.get(0);
+            buscar = false;
+            RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').unselectAllRows(); PF('lvbuscarempleado').selectRow(0);");
+         } else {
+            emplSeleccionadoBE = null;
+            RequestContext.getCurrentInstance().execute("PF('lvbuscarempleado').unselectAllRows();");
+         }
+      } else {
+         emplSeleccionadoBE = null;
+         buscar = true;
+      }
       infoRegistroBuscarEmpleados = String.valueOf(tabla.getRowCount());
       return infoRegistroBuscarEmpleados;
    }
 
    public String getInfoRegistroBusquedaRapida() {
       FacesContext c = FacesContext.getCurrentInstance();
-      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lvbusquedarapida");
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:formlovempleadosR:lvbusquedarapida");
+      if (filterBusquedaRapida != null) {
+         if (filterBusquedaRapida.size() == 1) {
+            emplSeleccionado = filterBusquedaRapida.get(0);
+            buscar = false;
+            RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').unselectAllRows(); PF('lvbusquedarapida').selectRow(0);");
+         } else {
+            emplSeleccionado = null;
+            RequestContext.getCurrentInstance().execute("PF('lvbusquedarapida').unselectAllRows();");
+         }
+      } else {
+         emplSeleccionado = null;
+         buscar = true;
+      }
       infoRegistroBusquedaRapida = String.valueOf(tabla.getRowCount());
       return infoRegistroBusquedaRapida;
    }

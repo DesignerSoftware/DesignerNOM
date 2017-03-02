@@ -8,7 +8,6 @@ import InterfacePersistencia.PersistenciaVWActualesLocalizacionesInterface;
 import java.math.BigInteger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
  * Clase Stateless.<br> 

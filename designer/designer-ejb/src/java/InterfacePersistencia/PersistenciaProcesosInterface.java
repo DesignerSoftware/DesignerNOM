@@ -80,4 +80,6 @@ public interface PersistenciaProcesosInterface {
    public Procesos buscarProcesosPorCodigo(EntityManager em, short codigo);
 
    public String obtenerDescripcionProcesoPorSecuencia(EntityManager em, BigInteger proceso);
+   
+   public String clonarProceso(EntityManager em, String descripcionNu, short codigoNu, short codigoOri);
 }

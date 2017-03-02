@@ -168,6 +168,7 @@ public class ControlFormula implements Serializable {
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
+         cancelarModificaciones();
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "formula";
@@ -456,7 +457,7 @@ public class ControlFormula implements Serializable {
    }
 
    public void cancelarSalir() {
-      refrescar();
+      cancelarModificaciones();
       salir();
    }
 
@@ -742,7 +743,7 @@ public class ControlFormula implements Serializable {
       navegar("atras");
    }
 
-   public void refrescar() {
+   public void cancelarModificaciones() {
       RequestContext context = RequestContext.getCurrentInstance();
       unaVez = true;
       tipoLista = 0;

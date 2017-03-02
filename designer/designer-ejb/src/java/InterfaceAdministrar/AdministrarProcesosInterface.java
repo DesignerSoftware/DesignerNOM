@@ -133,5 +133,7 @@ public interface AdministrarProcesosInterface {
      * @return Retorna una lista de Operandos.
      */
     public List<Operandos> lovOperandos();
+    
+    public String clonarProceso(String descripcionN, short codigoN, short codigoO);
 
 }
