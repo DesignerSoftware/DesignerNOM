@@ -20,7 +20,7 @@ public interface AdministrarUsuariosClonInterface {
     public void borrarUsuarios(List<Usuarios> listaUsuarios);
     public void crearUsuarios(List<Usuarios> listaUsuarios);
     public void eliminarUsuariosBD(String alias);
-    public void clonarUsuariosBD(String alias, String aliasclonado, BigInteger secuencia);
+    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino);
     public void desbloquearUsuariosBD(String alias);
     public void restaurarUsuariosBD(String alias, String fecha);
     

@@ -157,7 +157,7 @@
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoPA.tipotrabajador.nombre}" /></f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off" onselect="PF('operacionEnProceso').show()"  value="#{infoPA.tipotrabajador.nombre}" id="editarTipoTrabajador" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
                                                 <p:ajax event="change" listener="#{controlParametroAutoliq.modificarParametroAutoliq(infoPA, 'TIPOTRABAJADOR', info.tipotrabajador.nombre)}"/>
                                                 <p:ajax event="select" listener="#{controlParametroAutoliq.cambiarIndice(infoPA, 2)}"  process="@this"
                                                          onstart="PF('datosParametroAuto').unselectAllRows();PF('datosParametroAuto').selectRow(#{indice});" />
@@ -1401,9 +1401,6 @@
                                          value="#{msg['novAuto']}" process="@this" icon="ui-icon-extlink" />
                         <p:tooltip value="#{msg['btn2']}" for="novedadauto"/>
 
-<!--                        <p:commandButton id="incaPag"  style="position: absolute; left: 110px; top: 460px;"   value="#{msg['incaPag']}" action="odiscabeceras" actionListener="#{controlOdiCabecera.recibirPag('odicabecera')}" oncomplete="PF('#{controlOdiCabecera.recibirParametros(controlParametroAutoliq.parametroTablaSeleccionado.ano,controlParametroAutoliq.parametroTablaSeleccionado.mes,controlParametroAutoliq.parametroTablaSeleccionado.empresa.secuencia)}" process="@this"/>
-                        <p:tooltip value="#{msg['btn3']}" for="incaPag"/>-->
-
                         <p:commandButton id="eliminarToda" style="position: absolute; left: 155px; top: 450px;height: 30px; width: 180px; background-image: url(Imagenes/Iconos/botonL.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  icon="ui-icon-extlink"  value="#{msg['eliminarToda']}" onclick="PF('confirmarBorrarTodoAuto').show()" process="@this" />
                         <p:tooltip value="#{msg['btn4']}" for="eliminarToda"/>
@@ -1425,8 +1422,8 @@
 
                         <p:commandButton id="mostrarTodos" style="position: absolute; left: 200px; top: 490px;  width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametroAutoliq.mostrarTodosAporteEntidad()}" value="" process="@this" />
 
-                        <p:commandButton style="position: relative; left: 675px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlParametroAutoliq.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value="" actionListener="#{controlParametroAutoliq.salir()}" action="#{controlParametroAutoliq.redirigir()}" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" disabled="#{controlParametroAutoliq.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlParametroAutoliq.salir()}" action="#{controlParametroAutoliq.redirigir()}" process="@this" />
 
                         <p:remoteCommand name="posicionAporteEntidad" actionListener="#{controlParametroAutoliq.posicionAporteEntidad()}"/>
                         <p:remoteCommand name="posicionParametro" actionListener="#{controlParametroAutoliq.posicionParametro()}"/>

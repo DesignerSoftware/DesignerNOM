@@ -5,6 +5,7 @@ package Persistencia;
 
 import Entidades.Ciudades;
 import InterfacePersistencia.PersistenciaCiudadesInterface;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -106,5 +107,20 @@ public class PersistenciaCiudades implements PersistenciaCiudadesInterface {
          return null;
       }
    }
+
+    @Override
+    public List<Ciudades> consultarCiudadesPorDepto(EntityManager em, BigInteger secDepto) {
+          try {
+         em.clear();
+         String sql = "SELECT * FROM CIUDADES WHERE DEPARTAMENTO = ? ORDER BY NOMBRE";
+         Query query = em.createNativeQuery(sql, Ciudades.class);
+         query.setParameter(1, secDepto);
+         List<Ciudades> ciudades = query.getResultList();
+         return ciudades;
+      } catch (Exception e) {
+              System.out.println("Persistencia.PersistenciaCiudades.consultarCiudadesPorDepto()" + e.getMessage());
+         return null;
+      }
+    }
 
 }

@@ -5,15 +5,19 @@
  */
 package Administrar;
 
+import Entidades.Ciudades;
 import Entidades.Pantallas;
 import Entidades.Perfiles;
 import Entidades.Personas;
+import Entidades.TiposDocumentos;
 import Entidades.Usuarios;
 import InterfaceAdministrar.AdministrarSesionesInterface;
 import InterfaceAdministrar.AdministrarUsuariosInterface;
+import InterfacePersistencia.PersistenciaCiudadesInterface;
 import InterfacePersistencia.PersistenciaPantallasInterface;
 import InterfacePersistencia.PersistenciaPerfilesInterface;
 import InterfacePersistencia.PersistenciaPersonasInterface;
+import InterfacePersistencia.PersistenciaTiposDocumentosInterface;
 import InterfacePersistencia.PersistenciaUsuariosInterface;
 import java.math.BigInteger;
 import java.util.List;
@@ -39,6 +43,10 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
     PersistenciaPantallasInterface persistenciaPantallas;
     @EJB
     AdministrarSesionesInterface administrarSesiones;
+    @EJB
+    PersistenciaCiudadesInterface persistenciaCiudades;
+    @EJB
+    PersistenciaTiposDocumentosInterface persistenciaTipoDocumento;
 
     private EntityManager em;
 
@@ -54,91 +62,54 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
         return listaUsuarios;
     }
 
-    public Integer crearUsuariosBD(String alias) {
-        Integer exeC = null;
-        try {
-            exeC = persistenciaUsuarios.crearUsuario(em, alias);
-            return exeC;
-        } catch (Exception e) {
-            System.out.println("Error crearUsuarioDB Admi : " + e.toString());
-            return null;
-        }
+    @Override
+    public void crearUsuariosBD(String alias) {
+        persistenciaUsuarios.crearUsuario(em, alias);
     }
 
     @Override
-    public Integer CrearUsuarioPerfilBD(String alias, String perfil) {
-        Integer exeC2 = null;
-        try {
-        exeC2 = persistenciaUsuarios.crearUsuarioPerfil(em, alias, perfil);
-        return exeC2;
-        } catch (Exception e){
-            System.out.println("Error crearUsuarioPerfilDB Admi : " + e.toString());
-            return null;
-        } 
+    public void CrearUsuarioPerfilBD(String alias, String perfil) {
+        persistenciaUsuarios.crearUsuarioPerfil(em, alias, perfil);
     }
 
     @Override
     public Integer eliminarUsuariosBD(String alias) {
         Integer exeE = null;
         try {
-        persistenciaUsuarios.borrarUsuario(em, alias);
-        return exeE;
-        } catch (Exception e){
+            persistenciaUsuarios.borrarUsuario(em, alias);
+            return exeE;
+        } catch (Exception e) {
             System.out.println("Error eliminarUsuariosBD Admi : " + e.toString());
             return null;
-        }      
-        
+        }
+
     }
-    
-    @Override 
-    public Integer eliminarUsuarioTotalBD(String alias){
+
+    @Override
+    public Integer eliminarUsuarioTotalBD(String alias) {
         Integer exeE2 = null;
         try {
-        exeE2 = persistenciaUsuarios.borrarUsuarioTotal(em, alias);
-        return exeE2;
-        } catch (Exception e){
+            exeE2 = persistenciaUsuarios.borrarUsuarioTotal(em, alias);
+            return exeE2;
+        } catch (Exception e) {
             System.out.println("Error eliminarUsuarioTotalBD Admi : " + e.toString());
             return null;
         }
     }
 
     @Override
-    public Integer clonarUsuariosBD(String alias, String aliasclonado, BigInteger secuencia) {
-        Integer exeA = null;
-        try {
-        exeA = persistenciaUsuarios.clonarUsuario(em, alias, aliasclonado, secuencia);
-        System.out.println("está haciendo algo de clonar");
-        return exeA;
-        } catch (Exception e){
-            System.out.println("Error clonarUsuariosBD Admi : " + e.toString());
-            return null;
-        }
+    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {
+        persistenciaUsuarios.clonarUsuario(em, usuarioOrigen, usuarioDestino);
     }
 
     @Override
-    public Integer desbloquearUsuariosBD(String alias) {
-        Integer exeD = null;
-        try {
-        exeD = persistenciaUsuarios.desbloquearUsuario(em, alias);
-        System.out.println("está haciendo algo de desbloquear");
-        return exeD;
-        } catch (Exception e){
-            System.out.println("Error desbloquearUsuariosBD Admi : " + e.toString());
-            return null;
-        }
+    public void desbloquearUsuariosBD(String alias) {
+        persistenciaUsuarios.desbloquearUsuario(em, alias);
     }
 
     @Override
-    public Integer restaurarUsuariosBD(String alias, String fecha) {
-        Integer exeR = null;
-        try {
-        exeR = persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
-        System.out.println("está haciendo algo de restaurar");
-        return exeR;
-        } catch (Exception e){
-            System.out.println("Error restaurarUsuariosBD Admi : " + e.toString());
-            return null;
-        }
+    public void restaurarUsuariosBD(String alias, String fecha) {
+        persistenciaUsuarios.restaurarUsuario(em, alias, fecha);
     }
 
     public List<Personas> consultarPersonas() {
@@ -213,6 +184,24 @@ public class AdministrarUsuarios implements AdministrarUsuariosInterface {
                 persistenciaUsuarios.crear(em, listaUsuarios.get(i));
             }
         }
+    }
+
+    @Override
+    public List<Ciudades> lovCiudades() {
+        List<Ciudades> lovCiudades = persistenciaCiudades.lovCiudades(em);
+        return lovCiudades;
+    }
+
+    @Override
+    public List<TiposDocumentos> consultarTiposDocumentos() {
+        List<TiposDocumentos> listTiposDocumentos;
+        listTiposDocumentos = persistenciaTipoDocumento.consultarTiposDocumentos(em);
+        return listTiposDocumentos;
+    }
+
+    @Override
+    public void crearPersona(Personas persona) {
+        persistenciaPersonas.crear(em, persona);
     }
 
 }

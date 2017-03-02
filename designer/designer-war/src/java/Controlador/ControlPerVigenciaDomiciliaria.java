@@ -941,7 +941,6 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
             administrarVigDomiciliarias.crearPersona(nuevaPersona);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
             RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");
-            RequestContext.getCurrentInstance().execute("PF('confirmarPersona').show()");
             RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
             lovPersonas = null;
         } catch (Exception e) {
@@ -1224,7 +1223,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
 
-        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        context.reset("formularioDialogos:lovTipoDocumento:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
     }
@@ -1240,7 +1239,7 @@ public class ControlPerVigenciaDomiciliaria implements Serializable {
         RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
         RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
 
-        context.reset("formularioDialogos:lovFamiliares:globalFilter");
+        context.reset("formularioDialogos:lovTipoDocumento:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
     }

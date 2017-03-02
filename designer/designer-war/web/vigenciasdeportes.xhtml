@@ -86,8 +86,8 @@
                                          action="vigDepEmplInd" process="@this" />  
                         <p:tooltip  for="salir" value="Salir"/>
 
-                        <p:commandButton style=" position: absolute; left: 675px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ACEPTAR"  value=" " disabled="#{controlVigenciaDeporte.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasDeportes" process="@this" />
-                        <p:commandButton style=" position: absolute; left: 765px; top: 462px; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="ATRAS" value=" "  actionListener="#{controlVigenciaDeporte.salir()}" action="vigDepEmplInd" process="@this" />
+                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value=" " disabled="#{controlVigenciaDeporte.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasDeportes" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlVigenciaDeporte.salir()}" action="vigDepEmplInd" process="@this" />
                      </p:toolbarGroup>    
                   </p:toolbar>
 

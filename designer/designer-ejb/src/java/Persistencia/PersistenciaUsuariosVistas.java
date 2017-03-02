@@ -33,9 +33,11 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
     public List<UsuariosVistas> buscarUsuariosVistas(EntityManager em) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT u FROM UsuariosVistas u");
-            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<UsuariosVistas> usuariosvistas = (List<UsuariosVistas>) query.getResultList();
+            String sql = "SELECT UV.*\n"
+                    + "FROM USUARIOSVISTAS UV, OBJETOSDB O\n"
+                    + "WHERE UV.OBJETODB=O.SECUENCIA";
+            Query query = em.createNativeQuery(sql,UsuariosVistas.class);
+            List<UsuariosVistas> usuariosvistas = query.getResultList();
             return usuariosvistas;
         } catch (Exception e) {
             System.out.println("Error buscarUsuarios PersistenciaUsuariosVista" + e.getMessage());
@@ -111,7 +113,7 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
         } catch (Exception e) {
             System.out.println("Error PersistenciaUsuarios.crearUsuarioVista. " + e.getMessage());
             if (tx.isActive()) {
-                tx.rollback();               
+                tx.rollback();
             }
             return null;
         }

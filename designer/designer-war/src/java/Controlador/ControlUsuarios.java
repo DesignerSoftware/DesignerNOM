@@ -21,13 +21,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
+import Entidades.Ciudades;
+import Entidades.TiposDocumentos;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
@@ -74,31 +78,39 @@ public class ControlUsuarios implements Serializable {
     private Usuarios clonarUsuarios;
     private Usuarios editarUsuarios;
     private Usuarios usuariosSeleccionado;
-    private BigInteger secRegistro;
     public String altoTabla;
     public String infoRegistroPersonas, infoRegistroPerfiles, infoRegistroPantallas;
     //CLON
     private List<Usuarios> lovUsuarioAlias;
     private List<Usuarios> lovfiltrarUsuarioAlias;
-    private String auxClon;
+    private Usuarios usuarioAliasSeleccionado;
+    private Usuarios auxClon;
     //AutoCompletar
     private boolean permitirIndex;
-    private String persona, perfil, pantalla;
     //Tabla a Imprimir
     private String tablaImprimir, nombreArchivo;
     private Column usuarioPersona, usuarioPerfil, usuarioAlias, usuarioPantallaInicio, usuarioActivo;
-    public String infoRegistro;
-    ///////////////////////////////////////////////
-    //////////PRUEBAS UNITARIAS COMPONENTES////////
-    ///////////////////////////////////////////////
+    public String infoRegistro, infoRegistroAlias;
+    public String infoRegistroCiudadDocumento, infoRegistroCiudadNacimiento, infoRegistroTipoDocumento;
     public boolean buscador;
     private Map<String, Object> mapParametros;
     private String paginaAnterior;
-    public String alisin;
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
-    private boolean aceptar, guardado;
+    private boolean aceptar, guardado, activarLov;
+    private Personas nuevaPersona;
+
+    private List<Ciudades> lovCiudades;
+    private List<Ciudades> lovCiudadesFiltrar;
+    private Ciudades ciudadSeleccionada;
+
+    private List<Ciudades> lovCiudadDocumento;
+    private List<Ciudades> lovCiudadDocumentoFiltrar;
+    private Ciudades ciudadDocumentoSeleccionada;
+    private List<TiposDocumentos> lovTiposDocumentos;
+    private List<TiposDocumentos> lovTiposDocumentosFiltrar;
+    private TiposDocumentos tipoDocumentoSeleccionado;
 
     public ControlUsuarios() {
 
@@ -127,10 +139,10 @@ public class ControlUsuarios implements Serializable {
         duplicarUsuarios.setPersona(new Personas());
         duplicarUsuarios.setPerfil(new Perfiles());
         duplicarUsuarios.setPantallainicio(new Pantallas());
-        secRegistro = null;
+        usuariosSeleccionado = null;
         k = 0;
-        auxClon = "";
-        altoTabla = "270";
+        auxClon = new Usuarios();
+        altoTabla = "315";
         guardado = true;
         buscador = false;
         tablaImprimir = ":formExportar:datosUsuariosExportar";
@@ -138,69 +150,70 @@ public class ControlUsuarios implements Serializable {
         paginaAnterior = "nominaf";
         mapParametros = new LinkedHashMap<String, Object>();
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
+        nuevaPersona = new Personas();
 
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarUsuario.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
-            getListaUsuarios();
-            if (listaUsuarios != null) {
-                infoRegistro = "Cantidad de registros : " + listaUsuarios.size();
-            } else {
-                infoRegistro = "Cantidad de registros : 0";
-            }
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
         }
     }
 
-   public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirPaginaEntrante(String pagina) {
+        paginaAnterior = pagina;
+        listaUsuarios = null;
+        getListaUsuarios();
+        if (listaUsuarios != null) {
+            if (!listaUsuarios.isEmpty()) {
+                usuariosSeleccionado = listaUsuarios.get(0);
+            }
+        }
+    }
 
-     public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+        //inicializarCosas(); Inicializar cosas de ser necesario
+    }
 
-     public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "usuario";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-        // mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+    public void navegar(String pag) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "usuario";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            // mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
-     
-     
+
     public void activarAceptar() {
         aceptar = false;
     }
@@ -210,7 +223,6 @@ public class ControlUsuarios implements Serializable {
         System.out.println("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            System.out.println("Activar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("width: 85% !important");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -219,147 +231,133 @@ public class ControlUsuarios implements Serializable {
             usuarioAlias.setFilterStyle("width: 85% !important");
             usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
             usuarioPantallaInicio.setFilterStyle("width: 85% !important");
-            altoTabla = "250";
+            altoTabla = "295";
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             bandera = 1;
             tipoLista = 1;
-            System.out.println("TipoLista= " + tipoLista);
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
-            System.out.println("persona");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
             usuarioPerfil.setFilterStyle("display: none; visibility: hidden;");
-            System.out.println("perfil");
             usuarioAlias = (Column) c.getViewRoot().findComponent("form:datosUsuarios:alias");
             usuarioAlias.setFilterStyle("display: none; visibility: hidden;");
-            System.out.println("alias");
             usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantalla");
-            System.out.println("pantalla1");
             usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
-            System.out.println("pantalla2");
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            altoTabla = "270";
+            altoTabla = "315";
             bandera = 0;
             filtrarUsuarios = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
-
         }
     }
 
-    //EVENTO FILTRAR
     public void eventofiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        infoRegistro = "Cantidad de registros: " + filtrarUsuarios.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
 
-    //UBICACION CELDA
-    public void cambiarIndice(int indice, int celda) {
-        if (permitirIndex == true) {
-            index = indice;
-            usuariosSeleccionado = listaUsuarios.get(index);
-            cualCelda = celda;
-            tablaImprimir = ":formExportar:datosUsuarioExportar";
-            nombreArchivo = "UsuariosXML";
-            if (tipoLista == 0) {
-                alisin = listaUsuarios.get(index).getAlias();
-                secRegistro = listaUsuarios.get(index).getSecuencia();
-                if (cualCelda == 0) {
-                    persona = listaUsuarios.get(index).getPersona().getNombreCompleto();
-                }
-                if (cualCelda == 1) {
-                    perfil = listaUsuarios.get(index).getPerfil().getDescripcion();
-                }
-                if (cualCelda == 3) {
-                    pantalla = listaUsuarios.get(index).getPantallainicio().getNombre();
-                }
-            } else {
-                secRegistro = filtrarUsuarios.get(index).getSecuencia();
-                alisin = filtrarUsuarios.get(index).getAlias();
-                if (cualCelda == 0) {
-                    persona = filtrarUsuarios.get(index).getPersona().getNombreCompleto();
-                }
-                if (cualCelda == 1) {
-                    perfil = filtrarUsuarios.get(index).getPerfil().getDescripcion();
-                }
-                if (cualCelda == 3) {
-                    pantalla = filtrarUsuarios.get(index).getPantallainicio().getNombre();
-                }
-            }
+    public void cambiarIndice(Usuarios usuario, int celda) {
+        usuariosSeleccionado = usuario;
+        cualCelda = celda;
+        tablaImprimir = ":formExportar:datosUsuarioExportar";
+        nombreArchivo = "UsuariosXML";
+        usuariosSeleccionado.getSecuencia();
+        if (cualCelda == 0) {
+            habilitarBotonLov();
+            usuariosSeleccionado.getPersona().getNombreCompleto();
+        } else if (cualCelda == 1) {
+            habilitarBotonLov();
+            usuariosSeleccionado.getPerfil().getDescripcion();
+        } else if (cualCelda == 2) {
+            deshabilitarBotonLov();
+            usuariosSeleccionado.getAlias();
+        } else if (cualCelda == 3) {
+            habilitarBotonLov();
+            usuariosSeleccionado.getPantallainicio().getNombre();
         }
     }
 
-    //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarUsuarios = listaUsuarios.get(index);
-            }
-            if (tipoLista == 1) {
-                editarUsuarios = filtrarUsuarios.get(index);
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+        if (usuariosSeleccionado != null) {
+            editarUsuarios = usuariosSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPersona");
                 RequestContext.getCurrentInstance().execute("PF('editarPersona').show()");
                 cualCelda = -1;
-            }
-            if (cualCelda == 1) {
+            } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPerfil");
-                RequestContext.getCurrentInstance().execute("PF('editarPerfil').show()");
+            RequestContext.getCurrentInstance().execute("PF('editarPerfil').show()");
                 cualCelda = -1;
-            }
-            if (cualCelda == 2) {
+            } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAlias");
                 RequestContext.getCurrentInstance().execute("PF('editarAlias').show()");
                 cualCelda = -1;
-            }
-            if (cualCelda == 3) {
+            } else if (cualCelda == 3) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPantalla");
                 RequestContext.getCurrentInstance().execute("PF('editarPantalla').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
-    //MOSTRAR L.O.V PERSONAS
+     public void asignarIndex(Usuarios usuario, int dlg, int LND) {
+        usuariosSeleccionado = usuario;
+        tipoActualizacion = LND;
+        if (dlg == 0) {
+            lovPersonas = null;
+            contarRegistrosPersonas();
+            RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
+            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
+        } else if (dlg == 1) {
+            lovPerfiles = null;
+            contarRegistrosPerfiles();
+            RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
+            RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
+        } else if (dlg == 2) {
+            lovPantallas = null;
+            contarRegistrosPantallas();
+            RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
+            RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
+        } else if (dlg == 3) {
+            lovTiposDocumentos = null;
+            cargarLovTiposDocumentos();
+            contarRegistrosTipoDocumento();
+            RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').show()");
+        } else if (dlg == 4) {
+            lovCiudadDocumento = null;
+            cargarLovCiudadesDocumento();
+            contarRegistroCiudades();
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').show()");
+        } else if (dlg == 5) {
+            lovCiudades = null;
+            cargarLovCiudades();
+            contarRegistroCiudadNacimiento();
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+            RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
+        }
+    } 
+    
+    
     public void actualizarPersonas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaUsuarios.get(index).setPersona(personasSeleccionado);
-                if (!listaUsuariosCrear.contains(listaUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(listaUsuarios.get(index))) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    }
-                }
-            } else {
-                filtrarUsuarios.get(index).setPersona(personasSeleccionado);
-                if (!listaUsuariosCrear.contains(filtrarUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(filtrarUsuarios.get(index))) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    }
+            usuariosSeleccionado.setPersona(personasSeleccionado);
+            if (!listaUsuariosCrear.contains(usuariosSeleccionado)) {
+                if (listaUsuariosModificar.isEmpty()) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
+                } else if (!listaUsuariosModificar.contains(usuariosSeleccionado)) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
                 }
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
@@ -372,84 +370,46 @@ public class ControlUsuarios implements Serializable {
         lovFiltradoPersonas = null;
         personasSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPersonas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPS");
         context.reset("formularioDialogos:LOVPersonas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPersonas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
-        infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
-
     }
 
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LND = LISTA - NUEVO - DUPLICADO)
-    public void asignarIndexPersona(Integer indice, int dlg, int LND) {
-        index = indice;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
-        if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-            infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPersonas");
-        }
-    }
-
-    public void cancelarCambioPersona() {
+      public void cancelarCambioPersona() {
         lovFiltradoPersonas = null;
         personasSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPersonas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPS");
         context.reset("formularioDialogos:LOVPersonas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPersonas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
     }
 
-    //MOSTRAR L.O.V PERFILES
     public void actualizarPerfiles() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaUsuarios.get(index).setPerfil(perfilesSeleccionado);
-                if (!listaUsuariosCrear.contains(listaUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(listaUsuarios.get(index))) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    }
-                }
-            } else {
-                filtrarUsuarios.get(index).setPerfil(perfilesSeleccionado);
-                if (!listaUsuariosCrear.contains(filtrarUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(filtrarUsuarios.get(index))) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    }
+            usuariosSeleccionado.setPerfil(perfilesSeleccionado);
+            if (!listaUsuariosCrear.contains(usuariosSeleccionado)) {
+                if (listaUsuariosModificar.isEmpty()) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
+                } else if (!listaUsuariosModificar.contains(usuariosSeleccionado)) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
                 }
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
@@ -462,51 +422,31 @@ public class ControlUsuarios implements Serializable {
         lovFiltradoPerfiles = null;
         perfilesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPerfiles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPF");
         context.reset("formularioDialogos:LOVPerfiles:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPerfiles').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').hide()");
-        infoRegistroPerfiles = "Cantidad de registros: " + lovPerfiles.size();
-    }
-
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LND = LISTA - NUEVO - DUPLICADO)
-    public void asignarIndexPerfil(Integer indice, int dlg, int LND) {
-        index = indice;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
-        if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
-            infoRegistroPerfiles = "Cantidad de registros: " + lovPerfiles.size();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPerfiles");
-        }
     }
 
     public void lovUsuarios() {
-        RequestContext context = RequestContext.getCurrentInstance();
+        lovUsuarioAlias = null;
         getLovUsuarioAlias();
+        contarRegistros();
         RequestContext.getCurrentInstance().update("formularioDialogos:aliasDialogo");
         RequestContext.getCurrentInstance().execute("PF('aliasDialogo').show()");
     }
 
     public void cancelarCambioAlias() {
         lovFiltradoPantallas = null;
-        usuariosSeleccionado = null;
+        usuarioAliasSeleccionado = null;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:aliasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVUsuariosAlias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAU");
         context.reset("formularioDialogos:LOVUsuariosAlias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVUsuariosAlias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('aliasDialogo').hide()");
@@ -516,12 +456,13 @@ public class ControlUsuarios implements Serializable {
         lovFiltradoPerfiles = null;
         perfilesSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPerfiles");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPF");
         context.reset("formularioDialogos:LOVPerfiles:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPerfiles').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').hide()");
@@ -531,30 +472,16 @@ public class ControlUsuarios implements Serializable {
     public void actualizarPantallas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaUsuarios.get(index).setPantallainicio(pantallasSeleccionado);
-                if (!listaUsuariosCrear.contains(listaUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(listaUsuarios.get(index))) {
-                        listaUsuariosModificar.add(listaUsuarios.get(index));
-                    }
-                }
-            } else {
-                filtrarUsuarios.get(index).setPantallainicio(pantallasSeleccionado);
-                if (!listaUsuariosCrear.contains(filtrarUsuarios.get(index))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    } else if (!listaUsuariosModificar.contains(filtrarUsuarios.get(index))) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(index));
-                    }
+            usuariosSeleccionado.setPantallainicio(pantallasSeleccionado);
+            if (!listaUsuariosCrear.contains(usuariosSeleccionado)) {
+                if (listaUsuariosModificar.isEmpty()) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
+                } else if (!listaUsuariosModificar.contains(usuariosSeleccionado)) {
+                    listaUsuariosModificar.add(usuariosSeleccionado);
                 }
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
         } else if (tipoActualizacion == 1) {
@@ -567,68 +494,50 @@ public class ControlUsuarios implements Serializable {
         lovFiltradoPantallas = null;
         pantallasSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+        RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPantallas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPT");
         context.reset("formularioDialogos:LOVPantallas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPantallas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').hide()");
-        infoRegistroPantallas = "Cantidad de registros: " + lovPantallas.size();
-    }
-
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LND = LISTA - NUEVO - DUPLICADO)
-    public void asignarIndexPantalla(Integer indice, int dlg, int LND) {
-        index = indice;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
-        if (dlg == 0) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
-            infoRegistroPantallas = "Cantidad de registros: " + lovPantallas.size();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPantallas");
-        }
     }
 
     public void cancelarCambioPantalla() {
         lovFiltradoPantallas = null;
         pantallasSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVPantallas");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarPT");
         context.reset("formularioDialogos:LOVPantallas:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVPantallas').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').hide()");
     }
 
-    //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (usuariosSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 0) {
+                lovPersonas = null;
+                getLovPersonas();
                 RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 1) {
+                lovPerfiles = null;
+                getLovPerfiles();
                 RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
                 RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
                 tipoActualizacion = 0;
             } else if (cualCelda == 3) {
+                lovPantallas = null;
+                getLovPantallas();
                 RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
                 RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
                 tipoActualizacion = 0;
@@ -636,200 +545,26 @@ public class ControlUsuarios implements Serializable {
         }
     }
 
-    //AUTOCOMPLETAR
-    public void modificarUsuarios(int indice, String confirmarCambio, String valorConfirmar) {
-        index = indice;
-        int pasa = 0;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-
-            if (tipoLista == 0) {
-
-                if (!listaUsuariosCrear.contains(listaUsuarios.get(indice))) {
-                    if (listaUsuarios.get(indice).getAlias() == null || listaUsuarios.get(indice).getAlias().equals("")) {
-                        System.out.println("entra2");
-                        pasa++;
-                    }
-                    if (pasa == 0) {
-                        if (listaUsuariosModificar.isEmpty()) {
-                            listaUsuariosModificar.add(listaUsuarios.get(indice));
-                        } else if (!listaUsuariosModificar.contains(listaUsuarios.get(indice))) {
-                            listaUsuariosModificar.add(listaUsuarios.get(indice));
-                        }
-
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-                    } else if (pasa != 0) {
-                        listaUsuarios.get(indice).setAlias(alisin);
-                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionAlias");
-                        RequestContext.getCurrentInstance().execute("PF('validacionAlias').show()");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaUsuariosCrear.contains(filtrarUsuarios.get(indice))) {
-                    if (filtrarUsuarios.get(indice).getAlias() == null || filtrarUsuarios.get(indice).getAlias().equals("")) {
-                        System.out.println("entra2");
-                        pasa++;
-                    }
-                    if (pasa == 0) {
-
-                        if (listaUsuariosCrear.isEmpty()) {
-                            listaUsuariosCrear.add(filtrarUsuarios.get(indice));
-                        } else if (!listaUsuariosCrear.contains(filtrarUsuarios.get(indice))) {
-                            listaUsuariosCrear.add(filtrarUsuarios.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        } else if (pasa > 1) {
-                            filtrarUsuarios.get(indice).setAlias(alisin);
-                            RequestContext.getCurrentInstance().update("formularioDialogos:validacionAlias");
-                            RequestContext.getCurrentInstance().execute("PF('validacionAlias').show()");
-                        }
-                    }
-                }
-                index = -1;
-                secRegistro = null;
+    public void modificarUsuarios(Usuarios usuario) {
+        usuariosSeleccionado = usuario;
+        if (!listaUsuariosCrear.contains(usuariosSeleccionado)) {
+            if (listaUsuariosModificar.isEmpty()) {
+                listaUsuariosModificar.add(usuariosSeleccionado);
+            } else if (!listaUsuariosModificar.contains(usuariosSeleccionado)) {
+                listaUsuariosModificar.add(usuariosSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosUsuarios");
-
-        } else if (confirmarCambio.equalsIgnoreCase("PERSONAS")) {
-            System.out.println("si está entrando personas");
-            if (tipoLista == 0) {
-                listaUsuarios.get(indice).getPersona().setNombreCompleto(persona);
-                System.out.println("persona antes de colocar vacio: " + persona);
-            } else {
-                filtrarUsuarios.get(indice).getPersona().setNombreCompleto(persona);
-            }
-            for (int i = 0; i < lovPersonas.size(); i++) {
-                if (lovPersonas.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listaUsuarios.get(indice).setPersona(lovPersonas.get(indiceUnicoElemento));
-                } else {
-                    filtrarUsuarios.get(indice).setPersona(lovPersonas.get(indiceUnicoElemento));
-                }
-                lovPersonas.clear();
-                getLovPersonas();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        } else if (confirmarCambio.equalsIgnoreCase("PERFILES")) {
-            System.out.println("si está entrando perfiles");
-            if (tipoLista == 0) {
-                listaUsuarios.get(indice).getPerfil().setDescripcion(perfil);
-                System.out.println("perfil antes de colocar vacio: " + perfil);
-            } else {
-                filtrarUsuarios.get(indice).getPerfil().setDescripcion(perfil);
-            }
-            for (int i = 0; i < lovPerfiles.size(); i++) {
-                if (lovPerfiles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listaUsuarios.get(indice).setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                } else {
-                    filtrarUsuarios.get(indice).setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                }
-                lovPersonas.clear();
-                getLovPersonas();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        } else if (confirmarCambio.equalsIgnoreCase("PANTALLAS")) {
-            System.out.println("si està entrando pantallas");
-            if (tipoLista == 0) {
-                listaUsuarios.get(indice).getPantallainicio().setNombre(pantalla);
-                System.out.println("pantalla antes de colocar vacio: " + pantalla);
-            } else {
-                filtrarUsuarios.get(indice).getPantallainicio().setNombre(pantalla);
-            }
-            for (int i = 0; i < lovPantallas.size(); i++) {
-                if (lovPantallas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listaUsuarios.get(indice).setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                } else {
-                    filtrarUsuarios.get(indice).setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                }
-                lovPantallas.clear();
-                getLovPantallas();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaUsuariosCrear.contains(listaUsuarios.get(indice))) {
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(listaUsuarios.get(indice));
-                    } else if (!listaUsuariosModificar.contains(listaUsuarios.get(indice))) {
-                        listaUsuariosModificar.add(listaUsuarios.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaUsuariosCrear.contains(filtrarUsuarios.get(indice))) {
-
-                    if (listaUsuariosModificar.isEmpty()) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(indice));
-                    } else if (!listaUsuariosModificar.contains(filtrarUsuarios.get(indice))) {
-                        listaUsuariosModificar.add(filtrarUsuarios.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosUsuarios");
     }
 
-    //EXPORTAR
     public void exportPDF() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "UsuariosPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -838,11 +573,8 @@ public class ControlUsuarios implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "UsuariosXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
-    //LIMPIAR NUEVO REGISTRO USUARIO
     public void limpiarNuevaUsuario() {
         nuevaUsuarios = new Usuarios();
         nuevaUsuarios.setPersona(new Personas());
@@ -851,24 +583,23 @@ public class ControlUsuarios implements Serializable {
         nuevaUsuarios.getPerfil().setDescripcion(" ");
         nuevaUsuarios.setPantallainicio(new Pantallas());
         nuevaUsuarios.getPantallainicio().setNombre(" ");
-        index = -1;
-        secRegistro = null;
     }
 
-    //LIMPIAR DUPLICAR
     public void limpiarDuplicarUsuario() {
         duplicarUsuarios = new Usuarios();
+        duplicarUsuarios.setPersona(new Personas());
+        duplicarUsuarios.getPersona().setNombreCompleto(" ");
+        duplicarUsuarios.setPerfil(new Perfiles());
+        duplicarUsuarios.getPerfil().setDescripcion(" ");
+        duplicarUsuarios.setPantallainicio(new Pantallas());
+        duplicarUsuarios.getPantallainicio().setNombre(" ");
     }
 
-    //GUARDAR
     public void guardarCambiosUsuario() {
-        RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
-                System.out.println("Realizando Operaciones Usuarios");
                 if (!listaUsuariosBorrar.isEmpty()) {
                     administrarUsuario.borrarUsuarios(listaUsuariosBorrar);
-                    System.out.println("Entra");
                     listaUsuariosBorrar.clear();
                 }
                 if (!listaUsuariosCrear.isEmpty()) {
@@ -879,26 +610,18 @@ public class ControlUsuarios implements Serializable {
                     administrarUsuario.modificarUsuarios(listaUsuariosModificar);
                     listaUsuariosModificar.clear();
                 }
-                System.out.println("Se guardaron los datos con exito");
                 listaUsuarios = null;
                 getListaUsuarios();
-                if (listaUsuarios != null && !listaUsuarios.isEmpty()) {
-                    usuariosSeleccionado = listaUsuarios.get(0);
-                    infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-                } else {
-                    infoRegistro = "Cantidad de registros: 0";
-                }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 guardado = true;
                 permitirIndex = true;
                 FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
+//                RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
-                index = -1;
-                secRegistro = null;
+                usuariosSeleccionado = null;
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -907,276 +630,64 @@ public class ControlUsuarios implements Serializable {
         }
     }
 
-    //BORRAR USUARIO 
     public void borrarUsuario() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listaUsuariosModificar.isEmpty() && listaUsuariosModificar.contains(listaUsuarios.get(index))) {
-                    int modIndex = listaUsuariosModificar.indexOf(listaUsuarios.get(index));
-                    listaUsuariosModificar.remove(modIndex);
-                    listaUsuariosBorrar.add(listaUsuarios.get(index));
-                } else if (!listaUsuariosCrear.isEmpty() && listaUsuariosCrear.contains(listaUsuarios.get(index))) {
-                    int crearIndex = listaUsuariosCrear.indexOf(listaUsuarios.get(index));
-                    listaUsuariosCrear.remove(crearIndex);
-                } else {
-                    listaUsuariosBorrar.add(listaUsuarios.get(index));
-                }
-                listaUsuarios.remove(index);
-                infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
+        if (usuariosSeleccionado != null) {
+            if (!listaUsuariosModificar.isEmpty() && listaUsuariosModificar.contains(usuariosSeleccionado)) {
+                int modIndex = listaUsuariosModificar.indexOf(usuariosSeleccionado);
+                listaUsuariosModificar.remove(modIndex);
+                listaUsuariosBorrar.add(usuariosSeleccionado);
+            } else if (!listaUsuariosCrear.isEmpty() && listaUsuariosCrear.contains(usuariosSeleccionado)) {
+                int crearIndex = listaUsuariosCrear.indexOf(usuariosSeleccionado);
+                listaUsuariosCrear.remove(crearIndex);
+            } else {
+                listaUsuariosBorrar.add(usuariosSeleccionado);
             }
+            listaUsuarios.remove(usuariosSeleccionado);
 
             if (tipoLista == 1) {
-                if (!listaUsuariosModificar.isEmpty() && listaUsuariosModificar.contains(filtrarUsuarios.get(index))) {
-                    int modIndex = listaUsuariosModificar.indexOf(filtrarUsuarios.get(index));
-                    listaUsuariosModificar.remove(modIndex);
-                    listaUsuariosBorrar.add(filtrarUsuarios.get(index));
-                } else if (!listaUsuariosCrear.isEmpty() && listaUsuariosCrear.contains(filtrarUsuarios.get(index))) {
-                    int crearIndex = listaUsuariosCrear.indexOf(filtrarUsuarios.get(index));
-                    listaUsuariosCrear.remove(crearIndex);
-                } else {
-                    listaUsuariosBorrar.add(filtrarUsuarios.get(index));
-                }
-                int CIndex = listaUsuarios.indexOf(filtrarUsuarios.get(index));
-                listaUsuarios.remove(CIndex);
-                filtrarUsuarios.remove(index);
-                infoRegistro = "Cantidad de registros: " + filtrarUsuarios.size();
+                filtrarUsuarios.remove(usuariosSeleccionado);
             }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            usuariosSeleccionado = null;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            secRegistro = null;
-
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
     }
 
-    //AUTOCOMPLETAR LISTAS DE VALORES PERSONAS
-    public void valoresBackupAutocompletarPersonas(int tipoNuevo) {
-        if (tipoNuevo == 1) {
-            persona = nuevaUsuarios.getPersona().getNombreCompleto();
-        } else if (tipoNuevo == 2) {
-            persona = duplicarUsuarios.getPersona().getNombreCompleto();
-        }
-    }
-
-    public void llamarLovPersonas(int tipoN) {
-        if (tipoN == 1) {
-            tipoActualizacion = 1;
-        } else if (tipoN == 2) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:personasDialogo");
-        RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-    }
-
-    //AUTOCOMPLETAR NUEVO Y DUPLICADO PERSONAS
-    public void autocompletarNuevoyDuplicadoPersona(String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoNuevo == 1) {
-            nuevaUsuarios.getPersona().setNombreCompleto(persona);
-        } else if (tipoNuevo == 2) {
-            duplicarUsuarios.getPersona().setNombreCompleto(persona);
-        }
-        for (int i = 0; i < lovPersonas.size(); i++) {
-            if (lovPersonas.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
-                indiceUnicoElemento = i;
-                coincidencias++;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-                nuevaUsuarios.setPersona(lovPersonas.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
-            } else if (tipoNuevo == 2) {
-                duplicarUsuarios.setPersona(lovPersonas.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
-            }
-            lovPersonas.clear();
-            getLovPersonas();
-        } else {
-            RequestContext.getCurrentInstance().update("form:personasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('personasDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPersona");
-            } else if (tipoNuevo == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPersona");
-            }
-        }
-    }
-
-    //AUTOCOMPLETAR LISTAS DE VALORES PERFILES
-    public void valoresBackupAutocompletarPerfiles(int tipoNuevo) {
-        if (tipoNuevo == 1) {
-            perfil = nuevaUsuarios.getPerfil().getDescripcion();
-        } else if (tipoNuevo == 2) {
-            perfil = duplicarUsuarios.getPerfil().getDescripcion();
-        }
-    }
-
-    public void llamarLovPerfiles(int tipoN) {
-        if (tipoN == 1) {
-            tipoActualizacion = 1;
-        } else if (tipoN == 2) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:perfilesDialogo");
-        RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
-    }
-
-    //AUTOCOMPLETAR NUEVO Y DUPLICADO PERFILES
-    public void autocompletarNuevoyDuplicadoPerfil(String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoNuevo == 1) {
-            nuevaUsuarios.getPerfil().setDescripcion(perfil);
-        } else if (tipoNuevo == 2) {
-            duplicarUsuarios.getPerfil().setDescripcion(perfil);
-        }
-        for (int i = 0; i < lovPerfiles.size(); i++) {
-            if (lovPerfiles.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                indiceUnicoElemento = i;
-                coincidencias++;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-                nuevaUsuarios.setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPerfil");
-            } else if (tipoNuevo == 2) {
-                duplicarUsuarios.setPerfil(lovPerfiles.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPerfil");
-            }
-            lovPerfiles.clear();
-            getLovPerfiles();
-        } else {
-            RequestContext.getCurrentInstance().update("form:perfilesDialogo");
-            RequestContext.getCurrentInstance().execute("PF('perfilesDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPerfil");
-            } else if (tipoNuevo == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPerfil");
-            }
-        }
-    }
-
-    //AUTOCOMPLETAR LISTAS DE VALORES PANTALLAS
-    public void valoresBackupAutocompletarPantallas(int tipoNuevo) {
-        if (tipoNuevo == 1) {
-            pantalla = nuevaUsuarios.getPantallainicio().getNombre();
-        } else if (tipoNuevo == 2) {
-            pantalla = duplicarUsuarios.getPantallainicio().getNombre();
-        }
-    }
-
-    public void llamarLovPantallas(int tipoN) {
-        if (tipoN == 1) {
-            tipoActualizacion = 1;
-        } else if (tipoN == 2) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:pantallasDialogo");
-        RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
-    }
-
-    //AUTOCOMPLETAR NUEVO Y DUPLICADO PANTALLAS
-    public void autocompletarNuevoyDuplicadoPantalla(String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoNuevo == 1) {
-            nuevaUsuarios.getPantallainicio().setNombre(pantalla);
-        } else if (tipoNuevo == 2) {
-            duplicarUsuarios.getPantallainicio().setNombre(pantalla);
-        }
-        for (int i = 0; i < lovPantallas.size(); i++) {
-            if (lovPantallas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                indiceUnicoElemento = i;
-                coincidencias++;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-                nuevaUsuarios.setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPantalla");
-            } else if (tipoNuevo == 2) {
-                duplicarUsuarios.setPantallainicio(lovPantallas.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPantalla");
-            }
-            lovPerfiles.clear();
-            getLovPerfiles();
-        } else {
-            RequestContext.getCurrentInstance().update("form:pantallasDialogo");
-            RequestContext.getCurrentInstance().execute("PF('pantallasDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoPantalla");
-            } else if (tipoNuevo == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarPantalla");
-            }
-        }
-    }
-
-    // Agregar Nueva Usuario
     public void agregarNuevaUsuario() {
-
         RequestContext context = RequestContext.getCurrentInstance();
         int pasa = 0;
         int pasas = 0;
         mensajeValidacion = " ";
-
         if (nuevaUsuarios.getAlias() == null) {
-            System.out.println("entra2");
-            mensajeValidacion = mensajeValidacion + "   * Alias\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevaUsuarios.getPersona().getNombreCompleto() == null || nuevaUsuarios.getPersona().getNombreCompleto().equals("")) {
-            System.out.println("entra3");
-            mensajeValidacion = mensajeValidacion + "   * persona\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevaUsuarios.getPerfil().getDescripcion() == null || nuevaUsuarios.getPerfil().getDescripcion().equals("")) {
-            System.out.println("entra4");
-            mensajeValidacion = mensajeValidacion + "   * perfil\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevaUsuarios.getPantallainicio().getNombre() == null || nuevaUsuarios.getPantallainicio().getNombre().equals("")) {
-            System.out.println("entra5");
-            mensajeValidacion = mensajeValidacion + "   * pantalla\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevaUsuarios.getPersona().getNombreCompleto() != null) {
-            System.out.println("entra1");
             for (int i = 0; i < listaUsuarios.size(); i++) {
-                // if (listaUsuarios.get(i).getPersona().getNombreCompleto() != null){
                 if (nuevaUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
                     pasas++;
-                    System.out.println("i= " + i);
                     RequestContext.getCurrentInstance().update("formularioDialogos:validacionPersona");
                     RequestContext.getCurrentInstance().execute("PF('validacionPersona').show()");
                 }
-
             }
         }
         if (pasa == 0 && pasas == 0) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-
-                System.out.println("Desactivar");
-                System.out.println("TipoLista= " + tipoLista);
                 usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
                 usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
                 usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1190,79 +701,53 @@ public class ControlUsuarios implements Serializable {
                 bandera = 0;
                 filtrarUsuarios = null;
                 tipoLista = 0;
-
             }
-            //AGREGAR REGISTRO A LA LISTA USUARIOS
             k++;
             l = BigInteger.valueOf(k);
             nuevaUsuarios.setSecuencia(l);
-
             if (nuevaUsuarios.isEstadoActivo() == true) {
                 nuevaUsuarios.setActivo("S");
             } else if (nuevaUsuarios.isEstadoActivo() == false) {
                 nuevaUsuarios.setActivo("N");
             }
-
             listaUsuariosCrear.add(nuevaUsuarios);
             listaUsuarios.add(nuevaUsuarios);
-            infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
+            usuariosSeleccionado = nuevaUsuarios;
+            contarRegistros();
             nuevaUsuarios = new Usuarios();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            System.out.println("SE ESTÀ CERRANDO? YA VEREMOS");
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').hide()");
-            index = -1;
-            secRegistro = null;
-        } else if (pasa > 0) {
+        } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");
         }
     }
 
     public void duplicarUsuario() {
-        if (index >= 0) {
+        if (usuariosSeleccionado != null) {
             duplicarUsuarios = new Usuarios();
-
-            if (tipoLista == 0) {
-                duplicarUsuarios.setPersona(listaUsuarios.get(index).getPersona());
-                duplicarUsuarios.setPerfil(listaUsuarios.get(index).getPerfil());
-                duplicarUsuarios.setAlias(listaUsuarios.get(index).getAlias());
-                duplicarUsuarios.setPantallainicio(listaUsuarios.get(index).getPantallainicio());
-                duplicarUsuarios.setActivo(listaUsuarios.get(index).getActivo());
-            }
-            if (tipoLista == 1) {
-                duplicarUsuarios.setPersona(filtrarUsuarios.get(index).getPersona());
-                duplicarUsuarios.setPerfil(filtrarUsuarios.get(index).getPerfil());
-                duplicarUsuarios.setAlias(filtrarUsuarios.get(index).getAlias());
-                duplicarUsuarios.setPantallainicio(filtrarUsuarios.get(index).getPantallainicio());
-                duplicarUsuarios.setActivo(filtrarUsuarios.get(index).getActivo());
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarUsuarios.setPersona(usuariosSeleccionado.getPersona());
+            duplicarUsuarios.setPerfil(usuariosSeleccionado.getPerfil());
+            duplicarUsuarios.setAlias(usuariosSeleccionado.getAlias());
+            duplicarUsuarios.setPantallainicio(usuariosSeleccionado.getPantallainicio());
+            duplicarUsuarios.setActivo(usuariosSeleccionado.getActivo());
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-
-        //int pasaA = 0;
         int pasa = 0;
         int pasas = 0;
         k++;
         l = BigInteger.valueOf(k);
         duplicarUsuarios.setSecuencia(l);
-        RequestContext context = RequestContext.getCurrentInstance();
-
         if (duplicarUsuarios.getPersona().getNombreCompleto() != null) {
-            System.out.println("entra1");
             for (int i = 0; i < listaUsuarios.size(); i++) {
                 if (duplicarUsuarios.getPersona().getNombreCompleto() != null) {
                     if (duplicarUsuarios.getPersona().getNombreCompleto().equals(listaUsuarios.get(i).getPersona().getNombreCompleto())) {
@@ -1274,36 +759,27 @@ public class ControlUsuarios implements Serializable {
             }
         }
         if (duplicarUsuarios.getAlias() == null) {
-            System.out.println("entra2");
-            mensajeValidacion = mensajeValidacion + "   * Alias\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (duplicarUsuarios.getPersona().getNombreCompleto() == null || duplicarUsuarios.getPersona().getNombreCompleto().equals("")) {
-            System.out.println("entra3");
-            mensajeValidacion = mensajeValidacion + "   * persona\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (duplicarUsuarios.getPerfil().getDescripcion() == null || duplicarUsuarios.getPerfil().getDescripcion().equals("")) {
-            System.out.println("entra4");
-            mensajeValidacion = mensajeValidacion + "   * perfil\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (duplicarUsuarios.getPantallainicio().getNombre() == null || duplicarUsuarios.getPantallainicio().getNombre().equals("")) {
-            System.out.println("entra5");
-            mensajeValidacion = mensajeValidacion + "   * pantalla\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
 
         if (pasa == 0 && pasas == 1) {
-            index = -1;
-            secRegistro = null;
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+//            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                //CERRAR FILTRADO
                 System.out.println("Desactivar");
                 usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
                 usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
@@ -1314,67 +790,51 @@ public class ControlUsuarios implements Serializable {
                 usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantallainicio");
                 usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
-                altoTabla = "270";
+                altoTabla = "315";
                 bandera = 0;
                 filtrarUsuarios = null;
                 System.out.println("TipoLista= " + tipoLista);
                 tipoLista = 0;
             }
-
             listaUsuarios.add(duplicarUsuarios);
             listaUsuariosCrear.add(duplicarUsuarios);
+            usuariosSeleccionado = duplicarUsuarios;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
             duplicarUsuarios = new Usuarios();
-            infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuario");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuario').hide()");
-
-        } else if (pasa > 0) {
+        } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuario");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuario').show()");
         }
-
     }
 
-    //VERIFICAR RASTRO
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listaUsuarios.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "USUARIOS");
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (usuariosSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(usuariosSeleccionado.getSecuencia(), "USUARIOS");
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("USUARIOS")) {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
-    //REFRESCAR LA PAGINA, CANCELAR MODIFICACION SI NO SE A GUARDADO
     public void cancelarModificacion() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1386,44 +846,30 @@ public class ControlUsuarios implements Serializable {
             usuarioActivo = (Column) c.getViewRoot().findComponent("form:datosUsuarios:activo");
             usuarioActivo.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            altoTabla = "270";
+            altoTabla = "315";
             bandera = 0;
             filtrarUsuarios = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
         }
         listaUsuariosBorrar.clear();
         listaUsuariosCrear.clear();
         listaUsuariosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        usuariosSeleccionado = null;
         k = 0;
         listaUsuarios = null;
-        lovUsuarioAlias = new ArrayList<Usuarios>();
-        auxClon = "";
-
+        lovUsuarioAlias = null;
+        auxClon = new Usuarios();
         getListaUsuarios();
-        if (listaUsuarios != null && !listaUsuarios.isEmpty()) {
-            usuariosSeleccionado = listaUsuarios.get(0);
-            infoRegistro = "Cantidad de registros: " + listaUsuarios.size();
-        } else {
-            infoRegistro = "Cantidad de registros: 0";
-        }
+        contarRegistros();
         guardado = true;
         permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosUsuarios");
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:aliasNombreClon");
-        RequestContext.getCurrentInstance().execute("PF('aliasNombreClon').show()");
     }
 
-    //MÉTODO SALIR DE LA PAGINA ACTUAL
     public void salir() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");
             usuarioPersona.setFilterStyle("display: none; visibility: hidden;");
             usuarioPerfil = (Column) c.getViewRoot().findComponent("form:datosUsuarios:perfil");
@@ -1435,306 +881,110 @@ public class ControlUsuarios implements Serializable {
             usuarioActivo = (Column) c.getViewRoot().findComponent("form:datosUsuarios:activo");
             usuarioActivo.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosUsuarios");
-            altoTabla = "270";
+            altoTabla = "315";
             bandera = 0;
             filtrarUsuarios = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
         }
         listaUsuariosBorrar.clear();
         listaUsuariosCrear.clear();
         listaUsuariosModificar.clear();
-        index = -1;
-        secRegistro = null;
+        usuariosSeleccionado = null;
         k = 0;
         listaUsuarios = null;
-        auxClon = "";
+        auxClon = new Usuarios();
         guardado = true;
         permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosUsuarios");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         RequestContext.getCurrentInstance().update("form:aliasNombreClon");
-        RequestContext.getCurrentInstance().execute("PF('aliasNombreClon').show()");
         navegar("atras");
     }
 
     public void crearUsuario() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        String mensaje = "";
-        String mensaje2 = "";
-        Integer exeC = null;
-        Integer exeC2 = null;
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("alias: " + usuariosSeleccionado.getAlias());
-                System.out.println("perfil1: " + usuariosSeleccionado.getPerfil().getDescripcion());
-                System.out.println("perfil2: " + usuariosSeleccionado.getPerfil());
-                exeC = administrarUsuario.crearUsuariosBD(usuariosSeleccionado.getAlias());
-                exeC2 = administrarUsuario.CrearUsuarioPerfilBD(usuariosSeleccionado.getAlias(), usuariosSeleccionado.getPerfil().getDescripcion());
-
-                if (exeC != null) {
-                    mensaje = "Creando el nuevo Usuario...";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    exeC = null;
-                    if (exeC2 != null) {
-                        mensaje2 = "Creando el nuevo Perfil...";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                        exeC2 = null;
-                    } else {
-                        mensaje2 = "Excepción no tratada... "
-                                + "Error al crear el Perfil";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    }
-                } else {
-                    mensaje = "Excepción no tratada... "
-                            + "Error al crear el Usuario";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    if (exeC2 == null) {
-                        mensaje2 = "Excepción no tratada... "
-                                + "Error al crear el Perfil";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    }
-                }
-
+        try {
+            if (usuariosSeleccionado != null) {
+                administrarUsuario.crearUsuariosBD(usuariosSeleccionado.getAlias());
+                administrarUsuario.CrearUsuarioPerfilBD(usuariosSeleccionado.getAlias(), usuariosSeleccionado.getPerfil().getDescripcion());
+                RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+                RequestContext.getCurrentInstance().execute("PF('usuarioCreado').show()");
             }
-            if (tipoLista == 1) {
-                exeC = administrarUsuario.crearUsuariosBD(usuariosSeleccionado.getAlias());
-                exeC2 = administrarUsuario.CrearUsuarioPerfilBD(usuariosSeleccionado.getAlias(), usuariosSeleccionado.getPerfil().getDescripcion());
-
-                if (exeC != null) {
-                    mensaje = "Creando el nuevo Usuario...";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    exeC = null;
-                    if (exeC2 != null) {
-                        mensaje2 = "Creando el nuevo Perfil...";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                        exeC2 = null;
-                    } else {
-                        mensaje2 = "Excepción no tratada... "
-                                + "Error al crear el Perfil";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    }
-                } else {
-                    mensaje = "Excepción no tratada... "
-                            + "Error al crear el Usuario";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    if (exeC2 == null) {
-                        mensaje2 = "Excepción no tratada... "
-                                + "Error al crear el Perfil";
-                        FacesMessage msg2 = new FacesMessage("Información", mensaje);
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                        exeC2 = null;
-                    }
-                }
-            }
-            index = -1;
-            secRegistro = null;
+        } catch (PersistenceException e) {
+            System.out.println("Controlador.ControlUsuarios.crearUsuario()" + e.getCause());
+            System.out.println("Controlador.ControlUsuarios.crearUsuario()" + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorCrearUsuario').show()");
         }
-
     }
 
     public void eliminarUsuarioValidacion() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                eliminarUsuarios.setPersona(usuariosSeleccionado.getPersona());
-                eliminarUsuarios.setPerfil(usuariosSeleccionado.getPerfil());
-                eliminarUsuarios.setAlias(usuariosSeleccionado.getAlias());
-                eliminarUsuarios.setPantallainicio(usuariosSeleccionado.getPantallainicio());
-                eliminarUsuarios.setActivo(usuariosSeleccionado.getActivo());
-                mensajeV = usuariosSeleccionado.getAlias();
-            }
-            if (tipoLista == 1) {
-                eliminarUsuarios.setPersona(usuariosSeleccionado.getPersona());
-                eliminarUsuarios.setPerfil(usuariosSeleccionado.getPerfil());
-                eliminarUsuarios.setAlias(usuariosSeleccionado.getAlias());
-                eliminarUsuarios.setPantallainicio(usuariosSeleccionado.getPantallainicio());
-                eliminarUsuarios.setActivo(usuariosSeleccionado.getActivo());
-                mensajeV = usuariosSeleccionado.getAlias();
-            }
+        if (usuariosSeleccionado != null) {
+            eliminarUsuarios.setPersona(usuariosSeleccionado.getPersona());
+            eliminarUsuarios.setPerfil(usuariosSeleccionado.getPerfil());
+            eliminarUsuarios.setAlias(usuariosSeleccionado.getAlias());
+            eliminarUsuarios.setPantallainicio(usuariosSeleccionado.getPantallainicio());
+            eliminarUsuarios.setActivo(usuariosSeleccionado.getActivo());
+            mensajeV = usuariosSeleccionado.getAlias();
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("entro aqui");
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionEliminar");
             RequestContext.getCurrentInstance().execute("PF('validacionEliminar').show()");
-            index = -1;
-            secRegistro = null;
         }
     }
 
     public void eliminarUsuarioBD() {
-        System.out.println("aksjdhaksjbdkas");
-        RequestContext context = RequestContext.getCurrentInstance();
-        String mensaje = "";
-        String mensaje2 = "";
-        Integer exeE = null;
-        Integer exeE2 = null;
-        /*eliminarUsuarios.getPersona().getNombreCompleto();
-         eliminarUsuarios.getPerfil().getDescripcion();
-         eliminarUsuarios.getAlias();
-         eliminarUsuarios.getPantallainicio().getNombre();
-         eliminarUsuarios.getActivo();*/
-        System.out.println("alias: " + eliminarUsuarios.getAlias());
-        exeE = administrarUsuario.eliminarUsuariosBD(eliminarUsuarios.getAlias());
-        exeE2 = administrarUsuario.eliminarUsuarioTotalBD(eliminarUsuarios.getAlias());
-        System.out.println("si está haciendo algo");
-        if (exeE != null) {
-            mensaje = "Borrando el Usuario...";
-            FacesMessage msg = new FacesMessage("Información", mensaje);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            exeE = null;
-        } else {
-            mensaje = "Excepción no tratada... Error al borrar el Usuario";
-            FacesMessage msg = new FacesMessage("Información", mensaje);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
+        try {
+            administrarUsuario.eliminarUsuariosBD(eliminarUsuarios.getAlias());
+            RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
+            RequestContext.getCurrentInstance().execute("PF('usuarioEliminado').show()");
+        } catch (PersistenceException pe) {
+            System.out.println("Controlador.ControlUsuarios.eliminarUsuarioBD()" + pe.getCause());
+            System.out.println("Controlador.ControlUsuarios.eliminarUsuarioBD()" + pe.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorEliminarUsuario').show()");
         }
-        if (exeE2 != null) {
-            mensaje2 = "Usuario Borrado";
-            FacesMessage msg = new FacesMessage("Información", mensaje);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-            exeE2 = null;
-        } else {
-            mensaje2 = "Excepción no tratada... "
-                    + "No se puedo suprimir el registro maestro al existir registros detalle coincidentes";
-            FacesMessage msg = new FacesMessage("Información", mensaje);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            RequestContext.getCurrentInstance().update("form:growl");
-        }
-
-        index = -1;
-        secRegistro = null;
-
     }
 
     public void asignarAliasClon() {
-        auxClon = usuariosSeleccionado.getAlias();
-        System.out.println("esto es: " + auxClon);
-        System.out.println("estos es2: " + getAuxClon());
+        auxClon = usuarioAliasSeleccionado;
+        RequestContext.getCurrentInstance().update("form:aliasNombreClon");
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:aliasDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVUsuariosAlias");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarAU");
         context.reset("formularioDialogos:LOVUsuariosAlias:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVUsuariosAlias').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('aliasDialogo').hide()");
-        RequestContext.getCurrentInstance().update("form:aliasNombreClon");
-    }
-
-    public void dfghjkl() {
-        System.out.println("asgAJSG");
     }
 
     public void usuarioClonarBD() {
-        Integer exeA = null;
-        System.out.println("prueba 1 auxclon: " + getAuxClon());
-        System.out.println("esto deberia cogerlo pero no: " + auxClon);
-        //getAuxClon();
-        System.out.println("En usaurio clonar auxclon es: " + auxClon);
-
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (auxClon.equals("")) {
-
-            RequestContext.getCurrentInstance().update("formularioDialogos:validacionClon");
-            RequestContext.getCurrentInstance().execute("PF('validacionClon').show()");
-
-        } else if (!auxClon.equals("")) {
-            System.out.println("alias a clonar: " + auxClon);
-            if (index >= 0) {
-                if (tipoLista == 0) {
-                    System.out.println("alias: " + usuariosSeleccionado.getAlias());
-                    System.out.println("aliasclon: " + auxClon);
-                    exeA = administrarUsuario.clonarUsuariosBD(usuariosSeleccionado.getAlias(), auxClon, usuariosSeleccionado.getSecuencia());
-                    if (exeA != null) {
-                        FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                        exeA = null;
-                    } else {
-                        FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    }
+        try {
+            if (auxClon.getAlias().equals("")) {
+                RequestContext.getCurrentInstance().update("formularioDialogos:validacionClon");
+                RequestContext.getCurrentInstance().execute("PF('validacionClon').show()");
+            } else if (!auxClon.getAlias().equals("")) {
+                if (usuariosSeleccionado != null) {
+                    administrarUsuario.clonarUsuariosBD(usuariosSeleccionado.getSecuencia(), auxClon.getSecuencia());
                 }
-                if (tipoLista == 1) {
-                    exeA = administrarUsuario.clonarUsuariosBD(usuariosSeleccionado.getAlias(), auxClon, usuariosSeleccionado.getSecuencia());
-                    if (exeA != null) {
-                        FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    } else {
-                        FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        RequestContext.getCurrentInstance().update("form:growl");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-
+                RequestContext.getCurrentInstance().execute("PF('usuarioClonado').show()");
             }
+        } catch (Exception e) {
+            System.out.println("Controlador.ControlUsuarios.usuarioClonarBD()" + e.getCause());
+            System.out.println("Controlador.ControlUsuarios.usuarioClonarBD()" + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorClonarUsuario').show()");
         }
     }
 
     public void desbloquearUsuario() {
-        Integer exeD = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("alias para desbloquear: " + usuariosSeleccionado.getAlias());
-                exeD = administrarUsuario.desbloquearUsuariosBD(usuariosSeleccionado.getAlias());
-                if (exeD != null) {
-                    FacesMessage msg = new FacesMessage("Información", "Usuario Desbloqueado");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    exeD = null;
-                } else {
-                    FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
-            }
-            if (tipoLista == 1) {
-                exeD = administrarUsuario.desbloquearUsuariosBD(usuariosSeleccionado.getAlias());
-                if (exeD != null) {
-                    FacesMessage msg = new FacesMessage("Información", "Usuario Desbloqueado");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    exeD = null;
-                } else {
-                    FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
-            }
-            index = -1;
-            secRegistro = null;
-
+        try {
+            administrarUsuario.desbloquearUsuariosBD(usuariosSeleccionado.getAlias());
+            RequestContext.getCurrentInstance().execute("PF('usuarioDesbloqueado').show()");
+        } catch (Exception e) {
+            System.out.println("Controlador.ControlUsuarios.desbloquearUsuario()" + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorDesbloquearUsuario').show()");
         }
-
     }
 
     public void resetearUsuario() {
         String fecha = "";
         String ayuda = "";
-        Integer exeR = null;
         Calendar cal = Calendar.getInstance();
         if (cal.get(cal.MONTH) == 0) {
             ayuda = "01";
@@ -1772,48 +1022,225 @@ public class ControlUsuarios implements Serializable {
         if (cal.get(cal.MONTH) == 11) {
             ayuda = "12";
         }
-        RequestContext context = RequestContext.getCurrentInstance();
         if (cal.get(cal.DATE) < 10) {
             fecha = "0" + cal.get(cal.DATE) + ayuda + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
-            System.out.println("esta es la fecha de hoy1: " + fecha);
         } else if (cal.get(cal.DATE) > 10) {
             fecha = cal.get(cal.DATE) + ayuda + cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE);
-            System.out.println("esta es la fecha de hoy2: " + fecha);
         }
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("alias para desbloquear: " + usuariosSeleccionado.getAlias());
-                System.out.println("esta es la fecha de hoy22222: " + fecha);
-                exeR = administrarUsuario.restaurarUsuariosBD(usuariosSeleccionado.getAlias(), fecha);
-                if (exeR != null) {
-                    mensajeContra = usuariosSeleccionado.getAlias() + "_" + fecha;
-                    RequestContext.getCurrentInstance().update("formularioDialogos:contrasenaNueva");
-                    RequestContext.getCurrentInstance().execute("PF('contrasenaNueva').show()");
-                    exeR = null;
-                } else {
-                    FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
+        if (usuariosSeleccionado != null) {
+            try {
+                administrarUsuario.restaurarUsuariosBD(usuariosSeleccionado.getAlias(), fecha);
+                mensajeContra = usuariosSeleccionado.getAlias() + "_" + fecha;
+                RequestContext.getCurrentInstance().update("formularioDialogos:contrasenaNueva");
+                RequestContext.getCurrentInstance().execute("PF('contrasenaNueva').show()");
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Información", "El usuario no pudo ser Restaurado");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                RequestContext.getCurrentInstance().update("form:growl");
             }
-            if (tipoLista == 1) {
-                exeR = administrarUsuario.restaurarUsuariosBD(usuariosSeleccionado.getAlias(), fecha);
-                if (exeR != null) {
-                    mensajeContra = usuariosSeleccionado.getAlias() + "_" + fecha;
-                    RequestContext.getCurrentInstance().update("formularioDialogos:contrasenaNueva");
-                    RequestContext.getCurrentInstance().execute("PF('contrasenaNueva').show()");
-                    exeR = null;
-                } else {
-                    FacesMessage msg = new FacesMessage("Información", "Excepción no tratada");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
-            }
-            index = -1;
-            secRegistro = null;
+        }
+    }
 
+    public void actualizarTipoDocumento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setTipodocumento(tipoDocumentoSeleccionado);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
+        }
+        lovTiposDocumentosFiltrar = null;
+        tipoDocumentoSeleccionado = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
+
+        context.reset("formularioDialogos:lovTipoDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
+    }
+
+    public void cancelarCambioTipoDocumento() {
+        lovTiposDocumentosFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        tipoDocumentoSeleccionado = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:tipoDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovTipoDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarTD");
+
+        context.reset("formularioDialogos:lovTipoDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovTipoDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('tipoDocumentoDialogo').hide()");
+    }
+
+    public void actualizarCiudadDocumento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setCiudaddocumento(ciudadDocumentoSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoModPersonal");
+        }
+        lovCiudadDocumentoFiltrar = null;
+        ciudadDocumentoSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').hide()");
+    }
+
+    public void cancelarCambioCiudadDocumento() {
+        lovCiudadDocumentoFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        ciudadDocumentoSeleccionada = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadDocumentoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadDocumento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCD");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadDocumento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadDocumentoDialogo').hide()");
+    }
+
+    public void actualizarCiudadNacimiento() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (tipoActualizacion == 1) {
+            nuevaPersona.setCiudadnacimiento(ciudadSeleccionada);
+            RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoModPersonal");
         }
 
+        lovCiudadesFiltrar = null;
+        ciudadSeleccionada = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadNacimiento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCN");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimiento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').hide()");
+    }
+
+    public void cancelarCambioCiudadNacimiento() {
+        lovCiudadesFiltrar = null;
+        aceptar = true;
+        tipoActualizacion = -1;
+        permitirIndex = true;
+        ciudadSeleccionada = null;
+        RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:lovCiudadNacimiento");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarCN");
+
+        context.reset("formularioDialogos:lovCiudadDocumento:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovCiudadNacimiento').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').hide()");
+    }
+
+    public void limpiarPersona() {
+        nuevaPersona = new Personas();
+        nuevaPersona.setTipodocumento(new TiposDocumentos());
+        nuevaPersona.setCiudaddocumento(new Ciudades());
+        nuevaPersona.setCiudadnacimiento(new Ciudades());
+    }
+
+    public void crearNuevaPersona() {
+//        crearPersonas.add(personas);
+        try {
+            k++;
+            l = BigInteger.valueOf(k);
+            nuevaPersona.setSecuencia(l);
+            administrarUsuario.crearPersona(nuevaPersona);
+            RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarP");
+            RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').hide()");
+            RequestContext.getCurrentInstance().update("formularioDialogos:lovPersonasFamiliares");
+            lovPersonas = null;
+        } catch (Exception e) {
+            System.out.println("error crear persona " + e.getMessage());
+        }
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void contarRegistrosPerfiles() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPerfiles");
+    }
+
+    public void contarRegistrosPersonas() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPersonas");
+    }
+
+    public void contarRegistrosPantallas() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPantallas");
+    }
+
+    public void contarRegistrosAlias() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAlias");
+    }
+
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void cargarLovCiudades() {
+        if (lovCiudades == null) {
+            lovCiudades = administrarUsuario.lovCiudades();
+        }
+    }
+
+    public void cargarLovTiposDocumentos() {
+        if (lovTiposDocumentos == null) {
+            lovTiposDocumentos = administrarUsuario.consultarTiposDocumentos();
+        }
+    }
+
+    public void cargarLovCiudadesDocumento() {
+        if (lovCiudadDocumento == null) {
+            lovCiudadDocumento = administrarUsuario.lovCiudades();
+        }
+    }
+
+    public void contarRegistrosTipoDocumento() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroTipoDocumento");
+    }
+
+    public void contarRegistroCiudades() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudades");
+    }
+
+    public void contarRegistroCiudadNacimiento() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCiudadNacimiento");
+    }
+
+    public void mostrarDialogoInsertarPersona() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:nuevoFamiliarPersona");
+        RequestContext.getCurrentInstance().execute("PF('nuevoFamiliarPersona').show()");
+    }
+
+    public void mostrarDialogoInsertarUsuario() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuario");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').show()");
     }
 
     //GETTER AND SETTER
@@ -1854,15 +1281,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public List<Personas> getLovPersonas() {
-        lovPersonas = administrarUsuario.consultarPersonas();
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (lovPersonas == null || lovPersonas.isEmpty()) {
-            infoRegistroPersonas = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistroPersonas = "Cantidad de registros: " + lovPersonas.size();
+        if (lovPersonas == null) {
+            lovPersonas = administrarUsuario.consultarPersonas();
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPersonas");
         return lovPersonas;
     }
 
@@ -1879,15 +1300,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public List<Perfiles> getLovPerfiles() {
-        lovPerfiles = administrarUsuario.consultarPerfiles();
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (lovPerfiles == null || lovPerfiles.isEmpty()) {
-            infoRegistroPerfiles = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistroPerfiles = "Cantidad de registros: " + lovPerfiles.size();
+        if (lovPerfiles == null) {
+            lovPerfiles = administrarUsuario.consultarPerfiles();
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPerfiles");
         return lovPerfiles;
     }
 
@@ -1904,15 +1319,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public List<Pantallas> getLovPantallas() {
-        lovPantallas = administrarUsuario.consultarPantallas();
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (lovPantallas == null || lovPantallas.isEmpty()) {
-            infoRegistroPantallas = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistroPantallas = "Cantidad de registros: " + lovPantallas.size();
+        if (lovPantallas == null) {
+            lovPantallas = administrarUsuario.consultarPantallas();
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroPantallas");
         return lovPantallas;
     }
 
@@ -1937,11 +1346,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public List<Usuarios> getLovUsuarioAlias() {
-        lovUsuarioAlias = administrarUsuario.consultarUsuarios();
-        if (lovUsuarioAlias == null || lovUsuarioAlias.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + lovUsuarioAlias.size();
+
+        if (lovUsuarioAlias == null) {
+            lovUsuarioAlias = administrarUsuario.consultarUsuarios();
         }
         return lovUsuarioAlias;
     }
@@ -1958,11 +1365,11 @@ public class ControlUsuarios implements Serializable {
         this.lovfiltrarUsuarioAlias = lovfiltrarUsuarioAlias;
     }
 
-    public String getAuxClon() {
+    public Usuarios getAuxClon() {
         return auxClon;
     }
 
-    public void setAuxClon(String auxClon) {
+    public void setAuxClon(Usuarios auxClon) {
         this.auxClon = auxClon;
     }
 
@@ -2071,6 +1478,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public String getInfoRegistroPersonas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPersonas");
+        infoRegistroPersonas = String.valueOf(tabla.getRowCount());
         return infoRegistroPersonas;
     }
 
@@ -2079,6 +1489,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public String getInfoRegistroPerfiles() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPerfiles");
+        infoRegistroPerfiles = String.valueOf(tabla.getRowCount());
         return infoRegistroPerfiles;
     }
 
@@ -2087,6 +1500,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public String getInfoRegistroPantallas() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVPantallas");
+        infoRegistroPantallas = String.valueOf(tabla.getRowCount());
         return infoRegistroPantallas;
     }
 
@@ -2111,6 +1527,9 @@ public class ControlUsuarios implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosUsuarios");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -2158,12 +1577,141 @@ public class ControlUsuarios implements Serializable {
         this.editarUsuarios = editarUsuarios;
     }
 
-    public BigInteger getSecRegistro() {
-        return secRegistro;
+    public String getInfoRegistroAlias() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVUsuariosAlias");
+        infoRegistroAlias = String.valueOf(tabla.getRowCount());
+        return infoRegistroAlias;
     }
 
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
+    public void setInfoRegistroAlias(String infoRegistroAlias) {
+        this.infoRegistroAlias = infoRegistroAlias;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public Usuarios getUsuarioAliasSeleccionado() {
+        return usuarioAliasSeleccionado;
+    }
+
+    public void setUsuarioAliasSeleccionado(Usuarios usuarioAliasSeleccionado) {
+        this.usuarioAliasSeleccionado = usuarioAliasSeleccionado;
+    }
+
+    public Personas getNuevaPersona() {
+        return nuevaPersona;
+    }
+
+    public void setNuevaPersona(Personas nuevaPersona) {
+        this.nuevaPersona = nuevaPersona;
+    }
+
+    public List<Ciudades> getLovCiudades() {
+        return lovCiudades;
+    }
+
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
+    }
+
+    public List<Ciudades> getLovCiudadesFiltrar() {
+        return lovCiudadesFiltrar;
+    }
+
+    public void setLovCiudadesFiltrar(List<Ciudades> lovCiudadesFiltrar) {
+        this.lovCiudadesFiltrar = lovCiudadesFiltrar;
+    }
+
+    public Ciudades getCiudadSeleccionada() {
+        return ciudadSeleccionada;
+    }
+
+    public void setCiudadSeleccionada(Ciudades ciudadSeleccionada) {
+        this.ciudadSeleccionada = ciudadSeleccionada;
+    }
+
+    public List<Ciudades> getLovCiudadDocumento() {
+        return lovCiudadDocumento;
+    }
+
+    public void setLovCiudadDocumento(List<Ciudades> lovCiudadDocumento) {
+        this.lovCiudadDocumento = lovCiudadDocumento;
+    }
+
+    public List<Ciudades> getLovCiudadDocumentoFiltrar() {
+        return lovCiudadDocumentoFiltrar;
+    }
+
+    public void setLovCiudadDocumentoFiltrar(List<Ciudades> lovCiudadDocumentoFiltrar) {
+        this.lovCiudadDocumentoFiltrar = lovCiudadDocumentoFiltrar;
+    }
+
+    public Ciudades getCiudadDocumentoSeleccionada() {
+        return ciudadDocumentoSeleccionada;
+    }
+
+    public void setCiudadDocumentoSeleccionada(Ciudades ciudadDocumentoSeleccionada) {
+        this.ciudadDocumentoSeleccionada = ciudadDocumentoSeleccionada;
+    }
+
+    public String getInfoRegistroCiudadDocumento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadDocumento");
+        infoRegistroCiudadDocumento = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudadDocumento;
+    }
+
+    public void setInfoRegistroCiudadDocumento(String infoRegistroCiudadDocumento) {
+        this.infoRegistroCiudadDocumento = infoRegistroCiudadDocumento;
+    }
+
+    public String getInfoRegistroCiudadNacimiento() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:lovCiudadNacimiento");
+        infoRegistroCiudadNacimiento = String.valueOf(tabla.getRowCount());
+        return infoRegistroCiudadNacimiento;
+    }
+
+    public void setInfoRegistroCiudadNacimiento(String infoRegistroCiudadNacimiento) {
+        this.infoRegistroCiudadNacimiento = infoRegistroCiudadNacimiento;
+    }
+
+    public List<TiposDocumentos> getLovTiposDocumentos() {
+        return lovTiposDocumentos;
+    }
+
+    public void setLovTiposDocumentos(List<TiposDocumentos> lovTiposDocumentos) {
+        this.lovTiposDocumentos = lovTiposDocumentos;
+    }
+
+    public List<TiposDocumentos> getLovTiposDocumentosFiltrar() {
+        return lovTiposDocumentosFiltrar;
+    }
+
+    public void setLovTiposDocumentosFiltrar(List<TiposDocumentos> lovTiposDocumentosFiltrar) {
+        this.lovTiposDocumentosFiltrar = lovTiposDocumentosFiltrar;
+    }
+
+    public TiposDocumentos getTipoDocumentoSeleccionado() {
+        return tipoDocumentoSeleccionado;
+    }
+
+    public void setTipoDocumentoSeleccionado(TiposDocumentos tipoDocumentoSeleccionado) {
+        this.tipoDocumentoSeleccionado = tipoDocumentoSeleccionado;
+    }
+
+    public String getInfoRegistroTipoDocumento() {
+        return infoRegistroTipoDocumento;
+    }
+
+    public void setInfoRegistroTipoDocumento(String infoRegistroTipoDocumento) {
+        this.infoRegistroTipoDocumento = infoRegistroTipoDocumento;
     }
 
 }

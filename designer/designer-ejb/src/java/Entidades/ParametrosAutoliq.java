@@ -86,6 +86,9 @@ public class ParametrosAutoliq implements Serializable {
     }
 
     public TiposTrabajadores getTipotrabajador() {
+        if(tipotrabajador == null){
+            tipotrabajador = new TiposTrabajadores();
+        }
         return tipotrabajador;
     }
 

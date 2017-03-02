@@ -23,146 +23,158 @@ import javax.persistence.Query;
 @Stateless
 public class PersistenciaDepartamentos implements PersistenciaDepartamentosInterface {
 
-   /**
-    * Atributo EntityManager. Representa la comunicación con la base de datos
-    */
-   /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
+    /**
+     * Atributo EntityManager. Representa la comunicación con la base de datos
+     */
+    /*@PersistenceContext(unitName = "DesignerRHN-ejbPU")
      private EntityManager em;*/
-   public void crear(EntityManager em, Departamentos departamentos) {
-      em.clear();
-      EntityTransaction tx = em.getTransaction();
-      try {
-         tx.begin();
-         em.merge(departamentos);
-         tx.commit();
-      } catch (Exception e) {
-         System.out.println("Error PersistenciaDepartamentos.crear: " + e);
-         if (tx.isActive()) {
-            tx.rollback();
-         }
-      }
-   }
+    public void crear(EntityManager em, Departamentos departamentos) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(departamentos);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaDepartamentos.crear: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 
-   public void editar(EntityManager em, Departamentos departamentos) {
-      em.clear();
-      EntityTransaction tx = em.getTransaction();
-      try {
-         tx.begin();
-         em.merge(departamentos);
-         tx.commit();
-      } catch (Exception e) {
-         System.out.println("Error PersistenciaDepartamentos.editar: " + e);
-         if (tx.isActive()) {
-            tx.rollback();
-         }
-      }
-   }
+    public void editar(EntityManager em, Departamentos departamentos) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(departamentos);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaDepartamentos.editar: " + e);
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
+    }
 
-   public void borrar(EntityManager em, Departamentos departamentos) {
-      em.clear();
-      EntityTransaction tx = em.getTransaction();
-      try {
-         tx.begin();
-         em.remove(em.merge(departamentos));
-         tx.commit();
+    public void borrar(EntityManager em, Departamentos departamentos) {
+        em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(em.merge(departamentos));
+            tx.commit();
 
-      } catch (Exception e) {
-         if (tx.isActive()) {
-            tx.rollback();
-         }
-         System.out.println("Error PersistenciaDepartamentos.borrar: " + e);
-      }
-   }
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            System.out.println("Error PersistenciaDepartamentos.borrar: " + e);
+        }
+    }
 
-   public Departamentos consultarDepartamento(EntityManager em, BigInteger secuencia) {
-      try {
-         em.clear();
-         return em.find(Departamentos.class, secuencia);
-      } catch (Exception e) {
-         System.out.println("Error buscarDeporte PersistenciaDepartamentos : " + e.toString());
-         return null;
-      }
-   }
+    public Departamentos consultarDepartamento(EntityManager em, BigInteger secuencia) {
+        try {
+            em.clear();
+            return em.find(Departamentos.class, secuencia);
+        } catch (Exception e) {
+            System.out.println("Error buscarDeporte PersistenciaDepartamentos : " + e.toString());
+            return null;
+        }
+    }
 
-   @Override
-   public List<Departamentos> consultarDepartamentos(EntityManager em) {
-      try {
-         em.clear();
-         Query query = em.createQuery("SELECT d FROM Departamentos d ORDER BY d.nombre");
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-         List<Departamentos> departamentos = query.getResultList();
-         return departamentos;
-      } catch (Exception e) {
-         return null;
-      }
-   }
+    @Override
+    public List<Departamentos> consultarDepartamentos(EntityManager em) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT d FROM Departamentos d ORDER BY d.nombre");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Departamentos> departamentos = query.getResultList();
+            return departamentos;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaDepartamentos.consultarDepartamentos()" + e.getMessage());
+            return null;
+        }
+    }
 
-   public BigInteger contarSoAccidentesMedicosDepartamento(EntityManager em, BigInteger secuencia) {
-      BigInteger retorno;
-      try {
-         em.clear();
-         String sqlQuery = "select COUNT(*)from soaccidentesmedicos WHERE departamento = ?";
-         Query query = em.createNativeQuery(sqlQuery);
-         query.setParameter(1, secuencia);
-         retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("PersistenciaDepartamentos contarSoAccidentesMedicosDepartamento = " + retorno);
-         return retorno;
-      } catch (Exception e) {
-         System.err.println("ERROR PersistenciaDepartamentos contarSoAccidentesMedicosDepartamento  ERROR = " + e);
-         retorno = new BigInteger("-1");
-         return retorno;
-      }
-   }
+    public BigInteger contarSoAccidentesMedicosDepartamento(EntityManager em, BigInteger secuencia) {
+        BigInteger retorno;
+        try {
+            em.clear();
+            String sqlQuery = "select COUNT(*)from soaccidentesmedicos WHERE departamento = ?";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secuencia);
+            retorno = new BigInteger(query.getSingleResult().toString());
+            return retorno;
+        } catch (Exception e) {
+            System.err.println("ERROR PersistenciaDepartamentos contarSoAccidentesMedicosDepartamento  ERROR = " + e);
+            retorno = new BigInteger("-1");
+            return retorno;
+        }
+    }
 
-   public BigInteger contarCiudadesDepartamento(EntityManager em, BigInteger secuencia) {
-      BigInteger retorno;
-      try {
-         em.clear();
-         String sqlQuery = "SELECT COUNT(*)FROM ciudades WHERE departamento = ?";
-         Query query = em.createNativeQuery(sqlQuery);
-         query.setParameter(1, secuencia);
-         retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("PersistenciaDepartamentos contarCiudadesDepartamento = " + retorno);
-         return retorno;
-      } catch (Exception e) {
-         System.err.println("ERROR PersistenciaDepartamentos contarCiudadesDepartamento  ERROR = " + e);
-         retorno = new BigInteger("-1");
-         return retorno;
-      }
-   }
+    public BigInteger contarCiudadesDepartamento(EntityManager em, BigInteger secuencia) {
+        BigInteger retorno;
+        try {
+            em.clear();
+            String sqlQuery = "SELECT COUNT(*)FROM ciudades WHERE departamento = ?";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secuencia);
+            retorno = new BigInteger(query.getSingleResult().toString());
+            return retorno;
+        } catch (Exception e) {
+            System.err.println("ERROR PersistenciaDepartamentos contarCiudadesDepartamento  ERROR = " + e);
+            retorno = new BigInteger("-1");
+            return retorno;
+        }
+    }
 
-   public BigInteger contarCapModulosDepartamento(EntityManager em, BigInteger secuencia) {
-      BigInteger retorno;
-      try {
-         em.clear();
-         String sqlQuery = "SELECT COUNT(*)FROM capmodulos WHERE departamento = ?";
-         Query query = em.createNativeQuery(sqlQuery);
-         query.setParameter(1, secuencia);
-         retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("PersistenciaDepartamentos contarCapModulosDepartamento = " + retorno);
-         return retorno;
-      } catch (Exception e) {
-         System.err.println("ERROR PersistenciaDepartamentos contarCapModulosDepartamento  ERROR = " + e);
-         retorno = new BigInteger("-1");
-         return retorno;
-      }
+    public BigInteger contarCapModulosDepartamento(EntityManager em, BigInteger secuencia) {
+        BigInteger retorno;
+        try {
+            em.clear();
+            String sqlQuery = "SELECT COUNT(*)FROM capmodulos WHERE departamento = ?";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secuencia);
+            retorno = new BigInteger(query.getSingleResult().toString());
+            return retorno;
+        } catch (Exception e) {
+            System.err.println("ERROR PersistenciaDepartamentos contarCapModulosDepartamento  ERROR = " + e);
+            retorno = new BigInteger("-1");
+            return retorno;
+        }
 
-   }
+    }
 
-   public BigInteger contarBienProgramacionesDepartamento(EntityManager em, BigInteger secuencia) {
-      BigInteger retorno;
-      try {
-         em.clear();
-         String sqlQuery = "SELECT COUNT(*)FROM bienprogramaciones WHERE departamento = ?";
-         Query query = em.createNativeQuery(sqlQuery);
-         query.setParameter(1, secuencia);
-         retorno = new BigInteger(query.getSingleResult().toString());
-         System.out.println("PersistenciaDepartamentos contarBienProgramacionesDepartamento = " + retorno);
-         return retorno;
-      } catch (Exception e) {
-         System.err.println("ERROR PersistenciaDepartamentos contarBienProgramacionesDepartamento  ERROR = " + e);
-         retorno = new BigInteger("-1");
-         return retorno;
-      }
-   }
+    public BigInteger contarBienProgramacionesDepartamento(EntityManager em, BigInteger secuencia) {
+        BigInteger retorno;
+        try {
+            em.clear();
+            String sqlQuery = "SELECT COUNT(*)FROM bienprogramaciones WHERE departamento = ?";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secuencia);
+            retorno = new BigInteger(query.getSingleResult().toString());
+            return retorno;
+        } catch (Exception e) {
+            System.err.println("ERROR PersistenciaDepartamentos contarBienProgramacionesDepartamento  ERROR = " + e);
+            retorno = new BigInteger("-1");
+            return retorno;
+        }
+    }
+
+    @Override
+    public List<Departamentos> consultarDepartamentosPorPais(EntityManager em, BigInteger secPais) {
+        try {
+            em.clear();
+            String sql = "SELECT * FROM DEPARTAMENTOS WHERE PAIS = ? ORDER BY NOMBRE";
+            Query query = em.createNativeQuery(sql, Departamentos.class);
+            query.setParameter(1, secPais);
+            List<Departamentos> departamentos = query.getResultList();
+            return departamentos;
+        } catch (Exception e) {
+            System.out.println("Persistencia.PersistenciaDepartamentos.consultarDepartamentosPorPais()" + e.getMessage());
+            return null;
+        }
+    }
 }

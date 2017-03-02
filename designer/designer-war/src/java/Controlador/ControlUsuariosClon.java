@@ -1630,7 +1630,7 @@ public class ControlUsuariosClon implements Serializable {
                     listaUsuarios.get(index).getActivo();
                     System.out.println("alias: " + listaUsuarios.get(index).getAlias());
                     System.out.println("aliasclon: " + auxClon);
-                    administrarUsuarioClon.clonarUsuariosBD(listaUsuarios.get(index).getAlias(), auxClon, listaUsuarios.get(index).getSecuencia());
+                    administrarUsuarioClon.clonarUsuariosBD(listaUsuarios.get(index).getSecuencia(), usuariosSeleccionado.getSecuencia());
                     FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");
@@ -1641,7 +1641,7 @@ public class ControlUsuariosClon implements Serializable {
                     filtrarUsuarios.get(index).getAlias();
                     filtrarUsuarios.get(index).getPantallainicio();
                     filtrarUsuarios.get(index).getActivo();
-                    administrarUsuarioClon.clonarUsuariosBD(filtrarUsuarios.get(index).getAlias(), auxClon, filtrarUsuarios.get(index).getSecuencia());
+                    administrarUsuarioClon.clonarUsuariosBD(listaUsuarios.get(index).getSecuencia(), usuariosSeleccionado.getSecuencia());
                     FacesMessage msg = new FacesMessage("Información", "Reportes Clonados");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     RequestContext.getCurrentInstance().update("form:growl");

@@ -5,9 +5,15 @@
  */
 package Administrar;
 
+import Entidades.Ciudades;
+import Entidades.Departamentos;
+import Entidades.Festivos;
 import InterfaceAdministrar.AdministrarPaisesInterface;
 import Entidades.Paises;
 import InterfaceAdministrar.AdministrarSesionesInterface;
+import InterfacePersistencia.PersistenciaCiudadesInterface;
+import InterfacePersistencia.PersistenciaDepartamentosInterface;
+import InterfacePersistencia.PersistenciaFestivosInterface;
 import InterfacePersistencia.PersistenciaPaisesInterface;
 import java.math.BigInteger;
 import java.util.List;
@@ -24,6 +30,12 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
 
     @EJB
     PersistenciaPaisesInterface persistenciaPaises;
+    @EJB
+    PersistenciaFestivosInterface persistenciaFestivos;
+    @EJB
+    PersistenciaCiudadesInterface persistenciaCiudades;
+    @EJB
+    PersistenciaDepartamentosInterface persistenciaDepartamentos;
     /**
      * Enterprise JavaBean.<br>
      * Atributo que representa todo lo referente a la conexión del usuario que
@@ -38,7 +50,7 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
     public void obtenerConexion(String idSesion) {
         em = administrarSesiones.obtenerConexionSesion(idSesion);
     }
-    
+
     @Override
     public void modificarPaises(List<Paises> listaPaises) {
         for (int i = 0; i < listaPaises.size(); i++) {
@@ -98,5 +110,23 @@ public class AdministrarPaises implements AdministrarPaisesInterface {
             System.err.println("ERROR AdministrarPaises contarFestivosPais ERROR : " + e);
             return null;
         }
+    }
+
+    @Override
+    public List<Festivos> consultarFestivosPorPais(BigInteger secPais) {
+        List<Festivos> festivos = persistenciaFestivos.consultarFestivosPais(em, secPais);
+        return festivos;
+    }
+
+    @Override
+    public List<Ciudades> consultarCiudadesPorDepto(BigInteger secDepto) {
+        List<Ciudades> ciudades = persistenciaCiudades.consultarCiudadesPorDepto(em, secDepto);
+        return ciudades;
+    }
+
+    @Override
+    public List<Departamentos> consultarDeptosPorPais(BigInteger secPais) {
+        List<Departamentos> deptos = persistenciaDepartamentos.consultarDepartamentosPorPais(em, secPais);
+        return deptos;
     }
 }

@@ -257,14 +257,14 @@ public class ControlParametroAutoliq implements Serializable {
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
         listaParametrosAutoliq = null;
-        listaAportesEntidades = null;
         getListaParametrosAutoliq();
-        getListaAportesEntidades();
         if (listaParametrosAutoliq != null) {
             if (!listaParametrosAutoliq.isEmpty()) {
                 parametroTablaSeleccionado = listaParametrosAutoliq.get(0);
             }
         }
+        listaAportesEntidades = null;
+        getListaAportesEntidades();
         if (listaAportesEntidades != null) {
             if (!listaAportesEntidades.isEmpty()) {
                 aporteTablaSeleccionado = listaAportesEntidades.get(0);
@@ -784,7 +784,7 @@ public class ControlParametroAutoliq implements Serializable {
             RequestContext.getCurrentInstance().update("form:tablaAportesEntidades");
             RequestContext.getCurrentInstance().execute("PF('operacionEnProceso').hide()");
         } catch (Exception e) {
-            System.out.println("Error cargarDatosNuevos Controlador : " + e.toString());
+            System.out.println("Error cargarDatosNuevos Controlador : " + e.getMessage());
         }
         contarRegistrosAporte();
     }
@@ -3258,18 +3258,10 @@ public class ControlParametroAutoliq implements Serializable {
         try {
             if (listaParametrosAutoliq == null) {
                 listaParametrosAutoliq = administrarParametroAutoliq.consultarParametrosAutoliq();
-                if (listaParametrosAutoliq != null) {
-
-                    for (int i = 0; i < listaParametrosAutoliq.size(); i++) {
-                        if (listaParametrosAutoliq.get(i).getTipotrabajador() == null) {
-                            listaParametrosAutoliq.get(i).setTipotrabajador(new TiposTrabajadores());
-                        }
-                    }
-                }
             }
             return listaParametrosAutoliq;
         } catch (Exception e) {
-            System.out.println("Error !!!!!!!!! getListaParametrosAutoliq : " + e.toString());
+            System.out.println("Error !!!!!!!!! getListaParametrosAutoliq : " + e.getMessage());
             return null;
         }
     }
@@ -3429,7 +3421,7 @@ public class ControlParametroAutoliq implements Serializable {
             }
             return listaAportesEntidades;
         } catch (Exception e) {
-            System.out.println("Error !!!!!!!!!!! getListaAportesEntidades : " + e.toString());
+            System.out.println("Error !!!!!!!!!!! getListaAportesEntidades : " + e.getMessage());
             return null;
         }
     }

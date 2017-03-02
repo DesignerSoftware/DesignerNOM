@@ -67,9 +67,8 @@ public class AdministrarUsuariosClon implements AdministrarUsuariosClonInterface
         System.out.println("algo estará haciendo de eliminar");          
     }
     @Override
-    public void clonarUsuariosBD(String alias, String aliasclonado, BigInteger secuencia) {        
-        persistenciaUsuarios.clonarUsuario(em, alias, aliasclonado, secuencia);
-        System.out.println("está haciendo algo de clonar");          
+    public void clonarUsuariosBD(BigInteger usuarioOrigen, BigInteger usuarioDestino) {        
+        persistenciaUsuarios.clonarUsuario(em, usuarioOrigen, usuarioDestino);
     }
     @Override
     public void desbloquearUsuariosBD(String alias) {        

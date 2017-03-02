@@ -7742,5 +7742,22 @@
       </navigation-case>
    </navigation-rule>
    
+         <navigation-rule>
+      <from-view-id>/usuario.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioestructura</from-outcome>
+         <to-view-id>/usuarioestructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/usuarioestructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuario</from-outcome>
+         <to-view-id>/usuario.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
 </faces-config>
 

@@ -16,21 +16,23 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaDepartamentosInterface {
 
-    public void crear(EntityManager em,Departamentos departamentos);
+    public void crear(EntityManager em, Departamentos departamentos);
 
-    public void editar(EntityManager em,Departamentos departamentos);
+    public void editar(EntityManager em, Departamentos departamentos);
 
-    public void borrar(EntityManager em,Departamentos departamentos);
+    public void borrar(EntityManager em, Departamentos departamentos);
 
-    public Departamentos consultarDepartamento(EntityManager em,BigInteger secuencia);
+    public Departamentos consultarDepartamento(EntityManager em, BigInteger secuencia);
 
     public List<Departamentos> consultarDepartamentos(EntityManager em);
 
-    public BigInteger contarSoAccidentesMedicosDepartamento(EntityManager em,BigInteger secuencia);
+    public BigInteger contarSoAccidentesMedicosDepartamento(EntityManager em, BigInteger secuencia);
 
-    public BigInteger contarCiudadesDepartamento(EntityManager em,BigInteger secuencia);
+    public BigInteger contarCiudadesDepartamento(EntityManager em, BigInteger secuencia);
 
-    public BigInteger contarCapModulosDepartamento(EntityManager em,BigInteger secuencia);
+    public BigInteger contarCapModulosDepartamento(EntityManager em, BigInteger secuencia);
 
-    public BigInteger contarBienProgramacionesDepartamento(EntityManager em,BigInteger secuencia);
+    public BigInteger contarBienProgramacionesDepartamento(EntityManager em, BigInteger secuencia);
+
+    public List<Departamentos> consultarDepartamentosPorPais(EntityManager em, BigInteger secPais);
 }

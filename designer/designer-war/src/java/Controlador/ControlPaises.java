@@ -17,6 +17,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
+import Entidades.Ciudades;
+import Entidades.Departamentos;
+import Entidades.Festivos;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -51,24 +54,37 @@ public class ControlPaises implements Serializable {
     private Paises duplicarPaises;
     private Paises editarPaises;
     private Paises paisSeleccionado;
+    //LOVS
+    private List<Festivos> lovFestivos;
+    private List<Festivos> lovFestivosFiltrar;
+    private Festivos festivoSeleccionado;
+
+    private List<Departamentos> lovDeptos;
+    private List<Departamentos> lovDeptosFiltrar;
+    private Departamentos deptoSeleccionado;
+    private Departamentos deptoaux;
+
+    private List<Ciudades> lovCiudades;
+    private List<Ciudades> lovCiudadesFiltrar;
+    private Ciudades ciudadSeleccionada;
+
     //otros
-    private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
     //AutoCompletar
     private boolean permitirIndex;
     //RASTRO
-    private BigInteger secRegistro;
     private Column codigo, descripcion;
     //borrado
     private int registrosBorrados;
     private String mensajeValidacion;
     //filtrado table
     private int tamano;
-    private Integer backUpCodigo;
-    private String backUpDescripcion;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+    private boolean activarLov;
+    private String infoRegistro, infoRegistroFestivos, infoRegistrosCiudades, infoRegistroDepartamentos;
 
     public ControlPaises() {
         listPaises = null;
@@ -80,19 +96,23 @@ public class ControlPaises implements Serializable {
         nuevoPaises = new Paises();
         duplicarPaises = new Paises();
         guardado = true;
-        tamano = 270;
+        tamano = 320;
         mapParametros.put("paginaAnterior", paginaAnterior);
-        System.out.println("controlPaises Constructor");
+        activarLov = true;
+        lovCiudades = null;
+        lovDeptos = null;
+        lovFestivos = null;
+        ciudadSeleccionada = null;
+        festivoSeleccionado = null;
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
-            System.out.println("ControlPaises PostConstruct ");
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarPaises.obtenerConexion(ses.getId());
@@ -105,7 +125,13 @@ public class ControlPaises implements Serializable {
 
     public void recibirPaginaEntrante(String pagina) {
         paginaAnterior = pagina;
-        //inicializarCosas(); Inicializar cosas de ser necesario
+        listPaises = null;
+        getListPaises();
+        if (listPaises != null) {
+            if (!listPaises.isEmpty()) {
+                paisSeleccionado = listPaises.get(0);
+            }
+        }
     }
 
     public void recibirParametros(Map<String, Object> map) {
@@ -142,79 +168,32 @@ public class ControlPaises implements Serializable {
 
     public void eventoFiltrar() {
         try {
-            System.out.println("\n ENTRE A ControlPaises.eventoFiltrar \n");
             if (tipoLista == 0) {
                 tipoLista = 1;
             }
-            RequestContext context = RequestContext.getCurrentInstance();
-            infoRegistro = "Cantidad de registros: " + filtrarPaises.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
+            contarRegistros();
         } catch (Exception e) {
             System.out.println("ERROR ControlPaises eventoFiltrar ERROR===" + e.getMessage());
         }
     }
 
-    public void cambiarIndice(int indice, int celda) {
-        System.err.println("TIPO LISTA = " + tipoLista);
-
-        if (permitirIndex == true) {
-            index = indice;
-            cualCelda = celda;
-            if (tipoLista == 0) {
-                if (cualCelda == 0) {
-                    backUpCodigo = listPaises.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = listPaises.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
-                }
-                secRegistro = listPaises.get(index).getSecuencia();
-            } else {
-                if (cualCelda == 0) {
-                    backUpCodigo = filtrarPaises.get(index).getCodigo();
-                    System.out.println(" backUpCodigo : " + backUpCodigo);
-
-                } else if (cualCelda == 1) {
-                    backUpDescripcion = filtrarPaises.get(index).getNombre();
-                    System.out.println(" backUpDescripcion : " + backUpDescripcion);
-
-                }
-                secRegistro = filtrarPaises.get(index).getSecuencia();
-            }
-
+    public void cambiarIndice(Paises pais, int celda) {
+        paisSeleccionado = pais;
+        cualCelda = celda;
+        if (cualCelda == 0) {
+            paisSeleccionado.getCodigo();
+        } else if (cualCelda == 1) {
+            paisSeleccionado.getNombre();
         }
-        System.out.println("Indice: " + index + " Celda: " + cualCelda);
-    }
-
-    public void asignarIndex(Integer indice, int LND, int dig) {
-        try {
-            System.out.println("\n ENTRE A ControlPaises.asignarIndex \n");
-            index = indice;
-            if (LND == 0) {
-                tipoActualizacion = 0;
-            } else if (LND == 1) {
-                tipoActualizacion = 1;
-                System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-            } else if (LND == 2) {
-                tipoActualizacion = 2;
-            }
-
-        } catch (Exception e) {
-            System.out.println("ERROR ControlPaises.asignarIndex ERROR======" + e.getMessage());
-        }
+        paisSeleccionado.getSecuencia();
     }
 
     public void activarAceptar() {
         aceptar = false;
     }
 
-    public void listaValoresBoton() {
-    }
-    private String infoRegistro;
-
     public void cancelarModificacion() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -224,33 +203,25 @@ public class ControlPaises implements Serializable {
             bandera = 0;
             filtrarPaises = null;
             tipoLista = 0;
-            tamano = 270;
+            tamano = 320;
         }
 
         borrarPaises.clear();
         crearPaises.clear();
         modificarPaises.clear();
-        index = -1;
-        secRegistro = null;
+        paisSeleccionado = null;
         k = 0;
         listPaises = null;
         guardado = true;
         permitirIndex = true;
         getListPaises();
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listPaises == null || listPaises.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listPaises.size();
-        }
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
         RequestContext.getCurrentInstance().update("form:datosPaises");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
     public void salir() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
             codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
@@ -260,38 +231,32 @@ public class ControlPaises implements Serializable {
             bandera = 0;
             filtrarPaises = null;
             tipoLista = 0;
-            tamano = 270;
+            tamano = 320;
         }
-
         borrarPaises.clear();
         crearPaises.clear();
         modificarPaises.clear();
-        index = -1;
-        secRegistro = null;
+        paisSeleccionado = null;
         k = 0;
         listPaises = null;
         guardado = true;
         permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosPaises");
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-        navegar("atras");
     }
 
     public void activarCtrlF11() {
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
-            tamano = 250;
+            tamano = 300;
             codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
             codigo.setFilterStyle("width: 85% !important;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosPaises:descripcion");
             descripcion.setFilterStyle("width: 85% !important;");
             RequestContext.getCurrentInstance().update("form:datosPaises");
-            System.out.println("Activar");
             bandera = 1;
         } else if (bandera == 1) {
-            System.out.println("Desactivar");
-            tamano = 270;
+            tamano = 320;
             codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
             codigo.setFilterStyle("display: none; visibility: hidden;");
             descripcion = (Column) c.getViewRoot().findComponent("form:datosPaises:descripcion");
@@ -303,297 +268,63 @@ public class ControlPaises implements Serializable {
         }
     }
 
-    public void modificarPaises(int indice, String confirmarCambio, String valorConfirmar) {
-        System.err.println("ENTRE A MODIFICAR SUB CATEGORIA");
-        index = indice;
-
-        int contador = 0;
-        boolean banderita = false;
-        Integer a;
-        a = null;
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.err.println("TIPO LISTA = " + tipoLista);
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            System.err.println("ENTRE A MODIFICAR EMPRESAS, CONFIRMAR CAMBIO ES N");
-            if (tipoLista == 0) {
-                if (!crearPaises.contains(listPaises.get(indice))) {
-                    if (listPaises.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPaises.size(); j++) {
-                            if (j != indice) {
-                                if (listPaises.get(indice).getCodigo() == listPaises.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            listPaises.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (listPaises.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setNombre(backUpDescripcion);
-                    }
-                    if (listPaises.get(indice).getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-                        if (modificarPaises.isEmpty()) {
-                            modificarPaises.add(listPaises.get(indice));
-                        } else if (!modificarPaises.contains(listPaises.get(indice))) {
-                            modificarPaises.add(listPaises.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                } else {
-                    if (listPaises.get(indice).getCodigo() == a) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setCodigo(backUpCodigo);
-                    } else {
-                        for (int j = 0; j < listPaises.size(); j++) {
-                            if (j != indice) {
-                                if (listPaises.get(indice).getCodigo() == listPaises.get(j).getCodigo()) {
-                                    contador++;
-                                }
-                            }
-                        }
-                        if (contador > 0) {
-                            mensajeValidacion = "CODIGOS REPETIDOS";
-                            listPaises.get(indice).setCodigo(backUpCodigo);
-                            banderita = false;
-                        } else {
-                            banderita = true;
-                        }
-
-                    }
-                    if (listPaises.get(indice).getNombre().isEmpty()) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setNombre(backUpDescripcion);
-                    }
-                    if (listPaises.get(indice).getNombre().equals(" ")) {
-                        mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                        banderita = false;
-                        listPaises.get(indice).setNombre(backUpDescripcion);
-                    }
-
-                    if (banderita == true) {
-
-                        if (guardado == true) {
-                            guardado = false;
-                        }
-
-                    } else {
-                        RequestContext.getCurrentInstance().update("form:validacionModificar");
-                        RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                    }
-                    index = -1;
-                    secRegistro = null;
-                }
-            } else if (!crearPaises.contains(filtrarPaises.get(indice))) {
-                if (filtrarPaises.get(indice).getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    filtrarPaises.get(indice).setCodigo(backUpCodigo);
-                    banderita = false;
-                } else {
-
-                    for (int j = 0; j < listPaises.size(); j++) {
-                        if (j != indice) {
-                            if (filtrarPaises.get(indice).getCodigo() == listPaises.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        filtrarPaises.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                }
-
-                if (filtrarPaises.get(indice).getNombre().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    filtrarPaises.get(indice).setNombre(backUpDescripcion);
-                }
-                if (filtrarPaises.get(indice).getNombre().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    filtrarPaises.get(indice).setNombre(backUpDescripcion);
-                }
-
-                if (banderita == true) {
-                    if (modificarPaises.isEmpty()) {
-                        modificarPaises.add(filtrarPaises.get(indice));
-                    } else if (!modificarPaises.contains(filtrarPaises.get(indice))) {
-                        modificarPaises.add(filtrarPaises.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (filtrarPaises.get(indice).getCodigo() == a) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    filtrarPaises.get(indice).setCodigo(backUpCodigo);
-                    banderita = false;
-                } else {
-
-                    for (int j = 0; j < listPaises.size(); j++) {
-                        if (j != indice) {
-                            if (filtrarPaises.get(indice).getCodigo() == listPaises.get(j).getCodigo()) {
-                                contador++;
-                            }
-                        }
-                    }
-                    if (contador > 0) {
-                        mensajeValidacion = "CODIGOS REPETIDOS";
-                        filtrarPaises.get(indice).setCodigo(backUpCodigo);
-                        banderita = false;
-                    } else {
-                        banderita = true;
-                    }
-
-                }
-
-                if (filtrarPaises.get(indice).getNombre().isEmpty()) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    filtrarPaises.get(indice).setNombre(backUpDescripcion);
-                }
-                if (filtrarPaises.get(indice).getNombre().equals(" ")) {
-                    mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                    banderita = false;
-                    filtrarPaises.get(indice).setNombre(backUpDescripcion);
-                }
-
-                if (banderita == true) {
-
-                    if (guardado == true) {
-                        guardado = false;
-                    }
-
-                } else {
-                    RequestContext.getCurrentInstance().update("form:validacionModificar");
-                    RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-                }
-                index = -1;
-                secRegistro = null;
+    public void modificarPaises(Paises pais) {
+        paisSeleccionado = pais;
+        if (!crearPaises.contains(paisSeleccionado)) {
+            if (modificarPaises.isEmpty()) {
+                modificarPaises.add(paisSeleccionado);
+            } else if (!modificarPaises.contains(paisSeleccionado)) {
+                modificarPaises.add(paisSeleccionado);
             }
-            RequestContext.getCurrentInstance().update("form:datosPaises");
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
-
+        RequestContext.getCurrentInstance().update("form:datosPaises");
     }
 
     public void borrandoPaises() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("Entro a borrandoPaises");
-                if (!modificarPaises.isEmpty() && modificarPaises.contains(listPaises.get(index))) {
-                    int modIndex = modificarPaises.indexOf(listPaises.get(index));
-                    modificarPaises.remove(modIndex);
-                    borrarPaises.add(listPaises.get(index));
-                } else if (!crearPaises.isEmpty() && crearPaises.contains(listPaises.get(index))) {
-                    int crearIndex = crearPaises.indexOf(listPaises.get(index));
-                    crearPaises.remove(crearIndex);
-                } else {
-                    borrarPaises.add(listPaises.get(index));
-                }
-                listPaises.remove(index);
+        if (paisSeleccionado != null) {
+            if (!modificarPaises.isEmpty() && modificarPaises.contains(paisSeleccionado)) {
+                int modIndex = modificarPaises.indexOf(paisSeleccionado);
+                modificarPaises.remove(modIndex);
+                borrarPaises.add(paisSeleccionado);
+            } else if (!crearPaises.isEmpty() && crearPaises.contains(paisSeleccionado)) {
+                int crearIndex = crearPaises.indexOf(paisSeleccionado);
+                crearPaises.remove(crearIndex);
+            } else {
+                borrarPaises.add(paisSeleccionado);
             }
+            listPaises.remove(paisSeleccionado);
             if (tipoLista == 1) {
-                System.out.println("borrandoPaises ");
-                if (!modificarPaises.isEmpty() && modificarPaises.contains(filtrarPaises.get(index))) {
-                    int modIndex = modificarPaises.indexOf(filtrarPaises.get(index));
-                    modificarPaises.remove(modIndex);
-                    borrarPaises.add(filtrarPaises.get(index));
-                } else if (!crearPaises.isEmpty() && crearPaises.contains(filtrarPaises.get(index))) {
-                    int crearIndex = crearPaises.indexOf(filtrarPaises.get(index));
-                    crearPaises.remove(crearIndex);
-                } else {
-                    borrarPaises.add(filtrarPaises.get(index));
-                }
-                int VCIndex = listPaises.indexOf(filtrarPaises.get(index));
-                listPaises.remove(VCIndex);
-                filtrarPaises.remove(index);
+                filtrarPaises.remove(paisSeleccionado);
 
             }
             RequestContext context = RequestContext.getCurrentInstance();
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosPaises");
-            infoRegistro = "Cantidad de registros: " + listPaises.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
-            index = -1;
-            secRegistro = null;
-
-            if (guardado == true) {
-                guardado = false;
-            }
+            paisSeleccionado = null;
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-
     }
 
     public void verificarBorrado() {
-        System.out.println("Estoy en verificarBorrado");
         BigInteger contarDepartamentosPais;
         BigInteger contarFestivosPais;
-
         try {
-            System.err.println("Control Secuencia de ControlPaises ");
-            if (tipoLista == 0) {
-                contarDepartamentosPais = administrarPaises.contarDepartamentosPais(listPaises.get(index).getSecuencia());
-                contarFestivosPais = administrarPaises.contarFestivosPais(listPaises.get(index).getSecuencia());
-            } else {
-                contarDepartamentosPais = administrarPaises.contarDepartamentosPais(filtrarPaises.get(index).getSecuencia());
-                contarFestivosPais = administrarPaises.contarFestivosPais(filtrarPaises.get(index).getSecuencia());
-            }
+            contarDepartamentosPais = administrarPaises.contarDepartamentosPais(paisSeleccionado.getSecuencia());
+            contarFestivosPais = administrarPaises.contarFestivosPais(paisSeleccionado.getSecuencia());
             if (contarDepartamentosPais.equals(new BigInteger("0"))
                     && contarFestivosPais.equals(new BigInteger("0"))) {
-                System.out.println("Borrado==0");
                 borrandoPaises();
             } else {
-                System.out.println("Borrado>0");
-
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("form:validacionBorrar");
                 RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-                index = -1;
                 contarDepartamentosPais = new BigInteger("-1");
                 contarFestivosPais = new BigInteger("-1");
-
             }
         } catch (Exception e) {
             System.err.println("ERROR ControlPaises verificarBorrado ERROR " + e);
@@ -601,18 +332,15 @@ public class ControlPaises implements Serializable {
     }
 
     public void revisarDialogoGuardar() {
-
         if (!borrarPaises.isEmpty() || !crearPaises.isEmpty() || !modificarPaises.isEmpty()) {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:confirmarGuardar");
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
         }
-
     }
 
     public void guardarPaises() {
         RequestContext context = RequestContext.getCurrentInstance();
-
         if (guardado == false) {
             System.out.println("Realizando guardarPaises");
             if (!borrarPaises.isEmpty()) {
@@ -631,8 +359,9 @@ public class ControlPaises implements Serializable {
                 administrarPaises.crearPaises(crearPaises);
                 crearPaises.clear();
             }
-            System.out.println("Se guardaron los datos con exito");
             listPaises = null;
+            getListPaises();
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosPaises");
             k = 0;
             guardado = true;
@@ -640,22 +369,12 @@ public class ControlPaises implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             RequestContext.getCurrentInstance().update("form:growl");
         }
-        index = -1;
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
     }
 
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarPaises = listPaises.get(index);
-            }
-            if (tipoLista == 1) {
-                editarPaises = filtrarPaises.get(index);
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
+        if (paisSeleccionado != null) {
+            editarPaises = paisSeleccionado;
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
                 RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -665,58 +384,50 @@ public class ControlPaises implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
                 cualCelda = -1;
             }
-
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
+    }
+
+    public void guardarSalir() {
+        guardarPaises();
+        salir();
+    }
+
+    public void cancelarSalir() {
+        cancelarModificacion();
+        salir();
     }
 
     public void agregarNuevoPaises() {
-        System.out.println("agregarNuevoPaises");
         int contador = 0;
         int duplicados = 0;
-
         Integer a = 0;
         a = null;
         mensajeValidacion = " ";
         RequestContext context = RequestContext.getCurrentInstance();
         if (nuevoPaises.getCodigo() == a) {
-            mensajeValidacion = " *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
         } else {
-            System.out.println("codigo en Motivo Cambio Cargo: " + nuevoPaises.getCodigo());
-
             for (int x = 0; x < listPaises.size(); x++) {
                 if (listPaises.get(x).getCodigo() == nuevoPaises.getCodigo()) {
                     duplicados++;
                 }
             }
-            System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado está en uso. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
             }
         }
         if (nuevoPaises.getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else if (nuevoPaises.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
 
         } else {
-            System.out.println("bandera");
             contador++;
-
         }
-
-        System.out.println("contador " + contador);
-
         if (contador == 2) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
@@ -731,85 +442,52 @@ public class ControlPaises implements Serializable {
                 filtrarPaises = null;
                 tipoLista = 0;
             }
-            System.out.println("Despues de la bandera");
-
             k++;
             l = BigInteger.valueOf(k);
             nuevoPaises.setSecuencia(l);
-
             crearPaises.add(nuevoPaises);
-
             listPaises.add(nuevoPaises);
-            nuevoPaises = new Paises();
+            paisSeleccionado = nuevoPaises;
             RequestContext.getCurrentInstance().update("form:datosPaises");
-            infoRegistro = "Cantidad de registros: " + listPaises.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-
+            contarRegistros();
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+            nuevoPaises = new Paises();
             RequestContext.getCurrentInstance().execute("PF('nuevoRegistroPaises').hide()");
-            index = -1;
-            secRegistro = null;
-
         } else {
-            RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
-            RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
-            contador = 0;
+            RequestContext.getCurrentInstance().update("form:validacionNuevoPais");
+            RequestContext.getCurrentInstance().execute("PF('validacionNuevoPais').show()");
         }
     }
 
     public void limpiarNuevoPaises() {
-        System.out.println("limpiarNuevoPaises");
         nuevoPaises = new Paises();
-        secRegistro = null;
-        index = -1;
-
     }
 
-    //------------------------------------------------------------------------------
     public void duplicandoPaises() {
-        System.out.println("duplicandoPaises");
-        if (index >= 0) {
+        if (paisSeleccionado != null) {
             duplicarPaises = new Paises();
             k++;
             l = BigInteger.valueOf(k);
-
-            if (tipoLista == 0) {
-                duplicarPaises.setSecuencia(l);
-                duplicarPaises.setCodigo(listPaises.get(index).getCodigo());
-                duplicarPaises.setNombre(listPaises.get(index).getNombre());
-            }
-            if (tipoLista == 1) {
-                duplicarPaises.setSecuencia(l);
-                duplicarPaises.setCodigo(filtrarPaises.get(index).getCodigo());
-                duplicarPaises.setNombre(filtrarPaises.get(index).getNombre());
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarPaises.setSecuencia(l);
+            duplicarPaises.setCodigo(paisSeleccionado.getCodigo());
+            duplicarPaises.setNombre(paisSeleccionado.getNombre());
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTE");
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPaises').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-        System.err.println("ESTOY EN CONFIRMAR DUPLICAR TIPOS EMPRESAS");
         int contador = 0;
         mensajeValidacion = " ";
         int duplicados = 0;
         RequestContext context = RequestContext.getCurrentInstance();
         Integer a = 0;
         a = null;
-        System.err.println("ConfirmarDuplicar codigo " + duplicarPaises.getCodigo());
-        System.err.println("ConfirmarDuplicar Descripcion " + duplicarPaises.getNombre());
-
         if (duplicarPaises.getCodigo() == a) {
-            mensajeValidacion = mensajeValidacion + "   *Codigo \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             for (int x = 0; x < listPaises.size(); x++) {
                 if (listPaises.get(x).getCodigo() == duplicarPaises.getCodigo()) {
@@ -817,49 +495,30 @@ public class ControlPaises implements Serializable {
                 }
             }
             if (duplicados > 0) {
-                mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-                System.out.println("Mensaje validacion : " + mensajeValidacion);
+                mensajeValidacion = "El código ingresado está en uso. Por favor ingrese un código válido";
             } else {
-                System.out.println("bandera");
                 contador++;
                 duplicados = 0;
             }
         }
         if (duplicarPaises.getNombre() == null) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else if (duplicarPaises.getNombre().isEmpty()) {
-            mensajeValidacion = mensajeValidacion + " *Nombre \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
-
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
         } else {
             System.out.println("bandera");
             contador++;
-
         }
-
         if (contador == 2) {
-
-            System.out.println("Datos Duplicando: " + duplicarPaises.getSecuencia() + "  " + duplicarPaises.getCodigo());
-            if (crearPaises.contains(duplicarPaises)) {
-                System.out.println("Ya lo contengo.");
-            }
             listPaises.add(duplicarPaises);
             crearPaises.add(duplicarPaises);
+            paisSeleccionado = duplicarPaises;
             RequestContext.getCurrentInstance().update("form:datosPaises");
-            index = -1;
-            secRegistro = null;
-            if (guardado == true) {
-                guardado = false;
-            }
+            guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            infoRegistro = "Cantidad de registros: " + listPaises.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
+            contarRegistros();
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-                //CERRAR FILTRADO
                 codigo = (Column) c.getViewRoot().findComponent("form:datosPaises:codigo");
                 codigo.setFilterStyle("display: none; visibility: hidden;");
                 descripcion = (Column) c.getViewRoot().findComponent("form:datosPaises:descripcion");
@@ -871,9 +530,7 @@ public class ControlPaises implements Serializable {
             }
             duplicarPaises = new Paises();
             RequestContext.getCurrentInstance().execute("PF('duplicarRegistroPaises').hide()");
-
         } else {
-            contador = 0;
             RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
             RequestContext.getCurrentInstance().execute("PF('validacionDuplicarVigencia').show()");
         }
@@ -887,63 +544,110 @@ public class ControlPaises implements Serializable {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosPaisesExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
-        exporter.export(context, tabla, "PAISES", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "Paises", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosPaisesExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarXLS();
-        exporter.export(context, tabla, "PAISES", false, false, "UTF-8", null, null);
+        exporter.export(context, tabla, "Paises", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listPaises.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "PAISES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (paisSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(paisSeleccionado.getSecuencia(), "PAISES"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("PAISES")) { // igual acá
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
-    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void contarRegistrosFestivos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroFestivos");
+    }
+
+    public void contarRegistrosCiudades() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroCiudades");
+    }
+
+    public void contarRegistrosDepartamentos() {
+        RequestContext.getCurrentInstance().update("form:infoRegistroDepartamentos");
+    }
+
+    public void cargarLovFestivos() {
+        if (lovFestivos == null) {
+            if (paisSeleccionado != null) {
+                lovFestivos = administrarPaises.consultarFestivosPorPais(paisSeleccionado.getSecuencia());
+            }
+        }
+    }
+
+    public void cargarLovDeptos() {
+        if (lovDeptos == null) {
+            if (paisSeleccionado != null) {
+                lovDeptos = administrarPaises.consultarDeptosPorPais(paisSeleccionado.getSecuencia());
+            }
+        }
+    }
+
+    public void cargarLovCiudades() {
+        if (lovCiudades == null) {
+            if (deptoSeleccionado != null) {
+                lovCiudades = administrarPaises.consultarCiudadesPorDepto(deptoaux.getSecuencia());
+            }
+        }
+    }
+
+    public void mostrarDialogoFestivos() {
+        lovFestivos = null;
+        cargarLovFestivos();
+        RequestContext.getCurrentInstance().update("form:festivosDialogo");
+        RequestContext.getCurrentInstance().execute("PF('festivosDialogo').show()");
+    }
+
+    public void mostrarDialogoDeptos() {
+        lovDeptos = null;
+        cargarLovDeptos();
+        RequestContext.getCurrentInstance().update("form:departamentosDialogo");
+        RequestContext.getCurrentInstance().execute("PF('departamentosDialogo').show()");
+    }
+
+    public void mostrarDialogoCiudades() {
+        lovCiudades = null;
+        cargarLovCiudades();
+        RequestContext.getCurrentInstance().update("form:ciudadesDialogo");
+        RequestContext.getCurrentInstance().execute("PF('ciudadesDialogo').show()");
+    }
+
+    public void seleccionarDepartamento(){
+        deptoaux = deptoSeleccionado;
+        System.out.println("Departamento seleccionado " + deptoaux.getNombre());
+    }
+    
+    //*/*/*/*/*/*/*/*/GETS Y SETS*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
     public List<Paises> getListPaises() {
         if (listPaises == null) {
-            System.out.println("ControlPaises getListPaises");
             listPaises = administrarPaises.consultarPaises();
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (listPaises == null || listPaises.isEmpty()) {
-            infoRegistro = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistro = "Cantidad de registros: " + listPaises.size();
         }
         return listPaises;
     }
@@ -982,14 +686,6 @@ public class ControlPaises implements Serializable {
 
     public void setEditarPaises(Paises editarPaises) {
         this.editarPaises = editarPaises;
-    }
-
-    public BigInteger getSecRegistro() {
-        return secRegistro;
-    }
-
-    public void setSecRegistro(BigInteger secRegistro) {
-        this.secRegistro = secRegistro;
     }
 
     public int getRegistrosBorrados() {
@@ -1033,11 +729,135 @@ public class ControlPaises implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosPaises");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
     public void setInfoRegistro(String infoRegistro) {
         this.infoRegistro = infoRegistro;
+    }
+
+    public boolean isAceptar() {
+        return aceptar;
+    }
+
+    public void setAceptar(boolean aceptar) {
+        this.aceptar = aceptar;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
+
+    public List<Festivos> getLovFestivos() {
+        return lovFestivos;
+    }
+
+    public void setLovFestivos(List<Festivos> lovFestivos) {
+        this.lovFestivos = lovFestivos;
+    }
+
+    public List<Festivos> getLovFestivosFiltrar() {
+        return lovFestivosFiltrar;
+    }
+
+    public void setLovFestivosFiltrar(List<Festivos> lovFestivosFiltrar) {
+        this.lovFestivosFiltrar = lovFestivosFiltrar;
+    }
+
+    public Festivos getFestivoSeleccionado() {
+        return festivoSeleccionado;
+    }
+
+    public void setFestivoSeleccionado(Festivos festivoSeleccionado) {
+        this.festivoSeleccionado = festivoSeleccionado;
+    }
+
+    public List<Departamentos> getLovDeptos() {
+        return lovDeptos;
+    }
+
+    public void setLovDeptos(List<Departamentos> lovDeptos) {
+        this.lovDeptos = lovDeptos;
+    }
+
+    public List<Departamentos> getLovDeptosFiltrar() {
+        return lovDeptosFiltrar;
+    }
+
+    public void setLovDeptosFiltrar(List<Departamentos> lovDeptosFiltrar) {
+        this.lovDeptosFiltrar = lovDeptosFiltrar;
+    }
+
+    public Departamentos getDeptoSeleccionado() {
+        return deptoSeleccionado;
+    }
+
+    public void setDeptoSeleccionado(Departamentos deptoSeleccionado) {
+        this.deptoSeleccionado = deptoSeleccionado;
+    }
+
+    public List<Ciudades> getLovCiudades() {
+        return lovCiudades;
+    }
+
+    public void setLovCiudades(List<Ciudades> lovCiudades) {
+        this.lovCiudades = lovCiudades;
+    }
+
+    public List<Ciudades> getLovCiudadesFiltrar() {
+        return lovCiudadesFiltrar;
+    }
+
+    public void setLovCiudadesFiltrar(List<Ciudades> lovCiudadesFiltrar) {
+        this.lovCiudadesFiltrar = lovCiudadesFiltrar;
+    }
+
+    public Ciudades getCiudadSeleccionada() {
+        return ciudadSeleccionada;
+    }
+
+    public void setCiudadSeleccionada(Ciudades ciudadSeleccionada) {
+        this.ciudadSeleccionada = ciudadSeleccionada;
+    }
+
+    public String getInfoRegistroFestivos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovFestivos");
+        infoRegistroFestivos = String.valueOf(tabla.getRowCount());
+        return infoRegistroFestivos;
+    }
+
+    public void setInfoRegistroFestivos(String infoRegistroFestivos) {
+        this.infoRegistroFestivos = infoRegistroFestivos;
+    }
+
+    public String getInfoRegistrosCiudades() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovCiudades");
+        infoRegistrosCiudades = String.valueOf(tabla.getRowCount());
+        return infoRegistrosCiudades;
+    }
+
+    public void setInfoRegistrosCiudades(String infoRegistrosCiudades) {
+        this.infoRegistrosCiudades = infoRegistrosCiudades;
+    }
+
+    public String getInfoRegistroDepartamentos() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:lovDepartamentos");
+        infoRegistroDepartamentos = String.valueOf(tabla.getRowCount());
+        return infoRegistroDepartamentos;
+    }
+
+    public void setInfoRegistroDepartamentos(String infoRegistroDepartamentos) {
+        this.infoRegistroDepartamentos = infoRegistroDepartamentos;
     }
 
 }

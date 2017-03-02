@@ -5,6 +5,9 @@
  */
 package InterfaceAdministrar;
 
+import Entidades.Ciudades;
+import Entidades.Departamentos;
+import Entidades.Festivos;
 import Entidades.Paises;
 import java.math.BigInteger;
 import java.util.List;
@@ -16,12 +19,15 @@ import javax.ejb.Local;
  */
 @Local
 public interface AdministrarPaisesInterface {
-	/**
-     * Método encargado de obtener el Entity Manager el cual tiene
-     * asociado la sesion del usuario que utiliza el aplicativo.
+
+    /**
+     * Método encargado de obtener el Entity Manager el cual tiene asociado la
+     * sesion del usuario que utiliza el aplicativo.
+     *
      * @param idSesion Identificador se la sesion.
      */
     public void obtenerConexion(String idSesion);
+
     public void modificarPaises(List<Paises> listaPaises);
 
     public void borrarPaises(List<Paises> listaPaises);
@@ -35,4 +41,10 @@ public interface AdministrarPaisesInterface {
     public BigInteger contarDepartamentosPais(BigInteger secPaises);
 
     public BigInteger contarFestivosPais(BigInteger secPaises);
+
+    public List<Festivos> consultarFestivosPorPais(BigInteger secPais);
+
+    public List<Ciudades> consultarCiudadesPorDepto(BigInteger secDepto);
+
+    public List<Departamentos> consultarDeptosPorPais(BigInteger secPais);
 }

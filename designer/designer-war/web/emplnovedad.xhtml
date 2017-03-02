@@ -67,7 +67,10 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplNovedad.salir()}" action="nominaf" process="@this"/>  
+                                <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" action="nominaf" process="@this">
+                                    <f:actionListener binding="#{controlEmplNovedad.salir()}" />
+                                    <f:actionListener binding="#{controlEmplNovedad.navegar('atras')}" />
+                                </p:commandButton>    
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -126,7 +129,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                      <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="concepto" process="@this" value=" " style="width: 185px" />
+                                        <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="concepto" process="@this" value=" " style="width: 185px" />
                                     </f:facet>
                                 </p:column>
 
@@ -247,7 +250,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                       <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="periodicidad" process="@this" value=" " style="width: 195px" />
+                                        <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="periodicidad" process="@this" value=" " style="width: 195px" />
                                     </f:facet>
                                 </p:column>
 
@@ -325,17 +328,26 @@
                         <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplNovedad.infoRegistro}" style="position: absolute; left: 20px; top: 475px; font-weight: bold"/>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value=" " disabled="#{controlEmplNovedad.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosNovedadesEmpleado" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlEmplNovedad.salir()}" action="nominaf" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" process="@this" >
+                            <f:actionListener binding="#{controlEmplNovedad.salir()}" />
+                            <f:actionListener binding="#{controlEmplNovedad.navegar('atras')}" />
+                        </p:commandButton>  
 
                     </p:panel>
 
                     <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" action="nominaf" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplNovedad.guardarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" action="nominaf" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplNovedad.cancelarSalir()}" 
-                                         style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
+                        <p:commandButton value="#{msg['si']}" action="nominaf" onclick="PF('confirmarGuardar').hide();"
+                                         style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check" >
+                            <f:actionListener binding="#{controlEmplNovedad.guardarSalir()}" />
+                            <f:actionListener binding="#{controlEmplNovedad.navegar('atras')}" />
+                        </p:commandButton>  
+                        <p:commandButton value="#{msg['no']}" action="nominaf" onclick="PF('confirmarGuardar').hide();" 
+                                         style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" >
+                            <f:actionListener binding="#{controlEmplNovedad.cancelarSalir()}" />
+                            <f:actionListener binding="#{controlEmplNovedad.navegar('atras')}" />
+                        </p:commandButton>  
                         <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this"
                                          icon="ui-icon-arrowreturnthick-1-w" />
                     </p:dialog>
