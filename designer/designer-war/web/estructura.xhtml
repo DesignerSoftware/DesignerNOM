@@ -481,7 +481,7 @@
                </p:dialog>
 
 
-               <p:dialog  id="verReportePDF" header="#{controlEstructura.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" onHide="reiniciarStreamedContent();">
+               <p:dialog  id="verReportePDF" header="#{controlEstructura.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" >
                   <p:media value="#{controlEstructura.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlEstructura.reporte != null}"/>
                </p:dialog>
                <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlEstructura.reiniciarStreamedContent()}"/>

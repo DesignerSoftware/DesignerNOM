@@ -6,6 +6,7 @@
 package InterfacePersistencia;
 
 import Entidades.UsuariosEstructuras;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,4 +24,9 @@ public interface PersistenciaUsuariosEstructurasInterface {
     public void borrar(EntityManager em, UsuariosEstructuras usuarioEstructura);
     
     public List<UsuariosEstructuras> consultarUsuariosEstructuras(EntityManager em ,BigInteger secUsuario);
+    
+    public BigDecimal contarUsuariosEstructuras(EntityManager em ,BigInteger secUsuario);
+    
+    public void crearVistaUsuarioEstructura(EntityManager em, BigInteger secUsuarioEstructura, BigInteger secUsuario);
+    
 }

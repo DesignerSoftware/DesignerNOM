@@ -24,7 +24,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ControlNavegacion.ControlListaNavegacion;
 import Entidades.Ciudades;
+import Entidades.Inforeportes;
 import Entidades.TiposDocumentos;
+import InterfaceAdministrar.AdministarReportesInterface;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -32,11 +40,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.PersistenceException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.fill.AsynchronousFilllListener;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.component.export.Exporter;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -50,6 +64,8 @@ public class ControlUsuarios implements Serializable {
     AdministrarUsuariosInterface administrarUsuario;
     @EJB
     AdministrarRastrosInterface administrarRastros;
+    @EJB
+    AdministarReportesInterface administarReportes;
 
     private List<Usuarios> listaUsuarios;
     private List<Usuarios> filtrarUsuarios;
@@ -90,8 +106,8 @@ public class ControlUsuarios implements Serializable {
     //Tabla a Imprimir
     private String tablaImprimir, nombreArchivo;
     private Column usuarioPersona, usuarioPerfil, usuarioAlias, usuarioPantallaInicio, usuarioActivo;
-    public String infoRegistro, infoRegistroAlias;
-    public String infoRegistroCiudadDocumento, infoRegistroCiudadNacimiento, infoRegistroTipoDocumento;
+    private String infoRegistro, infoRegistroAlias;
+    private String infoRegistroCiudadDocumento, infoRegistroCiudadNacimiento, infoRegistroTipoDocumento;
     public boolean buscador;
     private Map<String, Object> mapParametros;
     private String paginaAnterior;
@@ -111,6 +127,14 @@ public class ControlUsuarios implements Serializable {
     private List<TiposDocumentos> lovTiposDocumentos;
     private List<TiposDocumentos> lovTiposDocumentosFiltrar;
     private TiposDocumentos tipoDocumentoSeleccionado;
+
+    private StreamedContent reporte;
+    private String pathReporteGenerado = null;
+    private String nombreReporte, tipoReporte;
+    private Inforeportes segUsuarios;
+    private String cabezeraVisor;
+    private boolean estadoReporte;
+    private String resultadoReporte;
 
     public ControlUsuarios() {
 
@@ -152,6 +176,9 @@ public class ControlUsuarios implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
         activarLov = true;
         nuevaPersona = new Personas();
+        nombreReporte = "segusuarios";
+        tipoReporte = "PDF";
+        estadoReporte = false;
 
     }
 
@@ -166,6 +193,7 @@ public class ControlUsuarios implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarUsuario.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            administarReportes.obtenerConexion(ses.getId());
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -289,7 +317,7 @@ public class ControlUsuarios implements Serializable {
                 cualCelda = -1;
             } else if (cualCelda == 1) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarPerfil");
-            RequestContext.getCurrentInstance().execute("PF('editarPerfil').show()");
+                RequestContext.getCurrentInstance().execute("PF('editarPerfil').show()");
                 cualCelda = -1;
             } else if (cualCelda == 2) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarAlias");
@@ -305,7 +333,7 @@ public class ControlUsuarios implements Serializable {
         }
     }
 
-     public void asignarIndex(Usuarios usuario, int dlg, int LND) {
+    public void asignarIndex(Usuarios usuario, int dlg, int LND) {
         usuariosSeleccionado = usuario;
         tipoActualizacion = LND;
         if (dlg == 0) {
@@ -342,9 +370,8 @@ public class ControlUsuarios implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:ciudadNacimientoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ciudadNacimientoDialogo').show()");
         }
-    } 
-    
-    
+    }
+
     public void actualizarPersonas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
@@ -381,7 +408,7 @@ public class ControlUsuarios implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('personasDialogo').hide()");
     }
 
-      public void cancelarCambioPersona() {
+    public void cancelarCambioPersona() {
         lovFiltradoPersonas = null;
         personasSeleccionado = null;
         aceptar = true;
@@ -696,7 +723,7 @@ public class ControlUsuarios implements Serializable {
                 usuarioAlias.setFilterStyle("display: none; visibility: hidden;");
                 usuarioPantallaInicio = (Column) c.getViewRoot().findComponent("form:datosUsuarios:pantallainicio");
                 usuarioPantallaInicio.setFilterStyle("display: none; visibility: hidden;");
-                altoTabla = "115";
+                altoTabla = "315";
                 RequestContext.getCurrentInstance().update("form:datosUsuarios");
                 bandera = 0;
                 filtrarUsuarios = null;
@@ -1243,6 +1270,128 @@ public class ControlUsuarios implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuario').show()");
     }
 
+       public AsynchronousFilllListener listener() {
+      System.out.println(this.getClass().getName() + ".listener()");
+      return new AsynchronousFilllListener() {
+         //RequestContext context = c;
+
+         @Override
+         public void reportFinished(JasperPrint jp) {
+            System.out.println(this.getClass().getName() + ".listener().reportFinished()");
+            try {
+               estadoReporte = true;
+               resultadoReporte = "Exito";
+               //  RequestContext.getCurrentInstance().execute("PF('formularioDialogos:generandoReporte");
+//                    generarArchivoReporte(jp);
+            } catch (Exception e) {
+               System.out.println("ControlNReporteNomina reportFinished ERROR: " + e.toString());
+            }
+         }
+
+         @Override
+         public void reportCancelled() {
+            System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
+            estadoReporte = true;
+            resultadoReporte = "Cancelación";
+         }
+
+         @Override
+         public void reportFillError(Throwable e) {
+            System.out.println(this.getClass().getName() + ".listener().reportFillError()");
+            if (e.getCause() != null) {
+               pathReporteGenerado = "ControlUsuarios reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
+            } else {
+               pathReporteGenerado = "ControlUsuarios reportFillError Error: " + e.toString();
+            }
+            estadoReporte = true;
+            resultadoReporte = "Se estallo";
+         }
+      };
+   }
+
+   public void validarDescargaReporte() {
+      try {
+         System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
+         RequestContext context = RequestContext.getCurrentInstance();
+         nombreReporte = "segusuarios";
+         tipoReporte = "PDF";
+         System.out.println("nombre reporte : " + nombreReporte);
+         System.out.println("tipo reporte: " + tipoReporte);
+
+         pathReporteGenerado = administarReportes.generarReporteSegUsuarios(nombreReporte, tipoReporte);
+         RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+            System.out.println("validar descarga reporte - ingreso al if 1");
+            if (tipoReporte.equals("PDF")) {
+
+               System.out.println("validar descarga reporte - ingreso al if 2 else");
+               FileInputStream fis;
+               try {
+                  System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                  fis = new FileInputStream(new File(pathReporteGenerado));
+                  System.out.println("fis : " + fis);
+                  reporte = new DefaultStreamedContent(fis, "application/pdf");
+                  System.out.println("reporte despues de esto : " + reporte);
+                  cabezeraVisor = "Reporte - " + nombreReporte;
+                  RequestContext.getCurrentInstance().update("formularioDialogos:verReportePDF");
+                  RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                  pathReporteGenerado = null;
+               } catch (FileNotFoundException ex) {
+                  System.out.println("validar descarga reporte - ingreso al catch 1");
+                  System.out.println(ex);
+                  reporte = null;
+               }
+            }
+         } else {
+            System.out.println("validar descarga reporte - ingreso al if 1 else");
+            RequestContext.getCurrentInstance().update("formularioDialogos:errorGenerandoReporte");
+            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+         }
+      } catch (Exception e) {
+         System.out.println("Error en validar descargar Reporte " + e.toString());
+      }
+   }
+
+   public void reiniciarStreamedContent() {
+      System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+      reporte = null;
+   }
+
+   public void cancelarReporte() {
+      System.out.println(this.getClass().getName() + ".cancelarReporte()");
+      administarReportes.cancelarReporte();
+   }
+
+   public void exportarReporte() throws IOException {
+      System.out.println(this.getClass().getName() + ".exportarReporte()");
+      if (pathReporteGenerado != null) {
+
+         File reporteF = new File(pathReporteGenerado);
+         System.out.println("reporteF:  " + reporteF);
+         FacesContext ctx = FacesContext.getCurrentInstance();
+         System.out.println("ctx:  " + ctx);
+         FileInputStream fis = new FileInputStream(reporteF);
+         System.out.println("fis:   " + fis);
+         byte[] bytes = new byte[1024];
+         int read;
+         if (!ctx.getResponseComplete()) {
+            String fileName = reporteF.getName();
+            HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+            response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+            ServletOutputStream out = response.getOutputStream();
+
+            while ((read = fis.read(bytes)) != -1) {
+               out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+            ctx.responseComplete();
+         }
+      }
+   }
+
+
     //GETTER AND SETTER
     public List<Usuarios> getListaUsuarios() {
         if (listaUsuarios == null) {
@@ -1714,4 +1863,54 @@ public class ControlUsuarios implements Serializable {
         this.infoRegistroTipoDocumento = infoRegistroTipoDocumento;
     }
 
+    public StreamedContent getReporte() {
+        return reporte;
+    }
+
+    public void setReporte(StreamedContent reporte) {
+        this.reporte = reporte;
+    }
+
+    public String getPathReporteGenerado() {
+        return pathReporteGenerado;
+    }
+
+    public void setPathReporteGenerado(String pathReporteGenerado) {
+        this.pathReporteGenerado = pathReporteGenerado;
+    }
+
+    public String getNombreReporte() {
+        return nombreReporte;
+    }
+
+    public void setNombreReporte(String nombreReporte) {
+        this.nombreReporte = nombreReporte;
+    }
+
+    public String getCabezeraVisor() {
+        return cabezeraVisor;
+    }
+
+    public void setCabezeraVisor(String cabezeraVisor) {
+        this.cabezeraVisor = cabezeraVisor;
+    }
+
+    public boolean isEstadoReporte() {
+        return estadoReporte;
+    }
+
+    public void setEstadoReporte(boolean estadoReporte) {
+        this.estadoReporte = estadoReporte;
+    }
+
+    public String getResultadoReporte() {
+        return resultadoReporte;
+    }
+
+    public void setResultadoReporte(String resultadoReporte) {
+        this.resultadoReporte = resultadoReporte;
+    }
+
+    
+    
 }

@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;import ControlNavegacion.ControlListaNavegacion;
+import javax.ejb.EJB;
+import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
@@ -51,38 +52,29 @@ public class ControlUsuariosVistas implements Serializable {
     private List<UsuariosVistas> listaUsuariosVistasCrear;
     private List<UsuariosVistas> listaUsuariosVistasModificar;
     private List<UsuariosVistas> listaUsuariosVistasBorrar;
-    //LISTA DE VALORES DE OBJETODB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private List<ObjetosDB> lovObjetosDB;
     private List<ObjetosDB> lovFiltradoObjetosDB;
     private ObjetosDB objetosDBSeleccionado;
-    //NUEVO, DUPLICADO EDITAR Y SELECCIONADA
     private UsuariosVistas nuevaUsuariosVistas;
     private UsuariosVistas duplicarUsuariosVistas;
     private UsuariosVistas eliminarUsuariosVistas;
     private UsuariosVistas editarUsuariosVistas;
     private UsuariosVistas usuariosVistasSeleccionado;
-    private BigInteger secRegistro;
     public String altoTabla;
     public String infoRegistroObjetosDB;
-    //AutoCompletar
     private boolean permitirIndex;
-    private String objeto;
-    //Tabla a Imprimir
     private String tablaImprimir, nombreArchivo;
-    private Column usuariovistaDescripcion, usuariovistaNombreVista, usuariovistaObjetoDB, usuariovistaAlias,
+    private Column usuariovistaDescripcion, usuariovistaNombreVista, usuariovistaObjetoDB, usuariovistaAlias, baseestructura,
             usuariovistaBaseEstructura, usuariovistaEstructuraJOIN, usuariovistaCondicion, usuariovistaHINTPrincipal;
     public String infoRegistro;
-    ///////////////////////////////////////////////
-    //////////PRUEBAS UNITARIAS COMPONENTES////////
-    ///////////////////////////////////////////////
     public boolean buscador;
-    public String alisin;
     //otros
-    private int cualCelda, tipoLista, index, indiceAux, tipoActualizacion, k, bandera;
+    private int cualCelda, tipoLista, indiceAux, tipoActualizacion, k, bandera;
     private BigInteger l;
     private boolean aceptar, guardado;
     public String paginaAnterior;
     private Map<String, Object> mapParametros;
+    private boolean activarLov;
 
     public ControlUsuariosVistas() {
 
@@ -90,12 +82,10 @@ public class ControlUsuariosVistas implements Serializable {
         aceptar = true;
         tipoLista = 0;
         listaUsuariosVistas = null;
-
         listaUsuariosVistasCrear = new ArrayList<UsuariosVistas>();
         listaUsuariosVistasModificar = new ArrayList<UsuariosVistas>();
         listaUsuariosVistasBorrar = new ArrayList<UsuariosVistas>();
         lovObjetosDB = null;
-
         cualCelda = -1;
         tipoLista = 0;
         nuevaUsuariosVistas = new UsuariosVistas();
@@ -103,37 +93,30 @@ public class ControlUsuariosVistas implements Serializable {
         duplicarUsuariosVistas = new UsuariosVistas();
         eliminarUsuariosVistas = new UsuariosVistas();
         duplicarUsuariosVistas.setObjetodb(new ObjetosDB());
-        secRegistro = null;
+        usuariosVistasSeleccionado = null;
         k = 0;
-        altoTabla = "270";
+        altoTabla = "330";
         guardado = true;
         buscador = false;
         tablaImprimir = ":formExportar:datosUsuariosVistasExportar";
         nombreArchivo = "UsuariosVistasXML";
-
         paginaAnterior = "nominaf";
         mapParametros = new LinkedHashMap<String, Object>();
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
+    }
+
+    public void limpiarListasValor() {
 
     }
 
-   public void limpiarListasValor() {
-
-   }
-
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarUsuarioVistas.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
-            getListaUsuariosVistas();
-            if (listaUsuariosVistas != null) {
-                infoRegistro = "Cantidad de registros : " + listaUsuariosVistas.size();
-            } else {
-                infoRegistro = "Cantidad de registros : 0";
-            }
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -141,39 +124,44 @@ public class ControlUsuariosVistas implements Serializable {
     }
 
     public void recibirPaginaEntrante(String pagina) {
-      paginaAnterior = pagina;
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   }
-    
-   public void recibirParametros(Map<String, Object> map) {
-      mapParametros = map;
-      paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
-   } 
+        paginaAnterior = pagina;
+        listaUsuariosVistas = null;
+        getListaUsuariosVistas();
+        if (listaUsuariosVistas != null) {
+            if (!listaUsuariosVistas.isEmpty()) {
+                usuariosVistasSeleccionado = listaUsuariosVistas.get(0);
+            }
+        }
+    }
+
+    public void recibirParametros(Map<String, Object> map) {
+        mapParametros = map;
+        paginaAnterior = (String) mapParametros.get("paginaAnterior");
+    }
 
     public void navegar(String pag) {
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-      if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-         controlListaNavegacion.quitarPagina();
-      } else {
-         String pagActual = "usuariovista";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-        // mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+        if (pag.equals("atras")) {
+            pag = paginaAnterior;
+            paginaAnterior = "nominaf";
+            controlListaNavegacion.quitarPagina();
+        } else {
+            String pagActual = "usuariovista";
+            //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            // mapParametros.put("paginaAnterior", pagActual);
+            //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
- //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-   //      } else if (pag.equals("rastrotablaH")) {
-     //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-       //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-   //}
-         controlListaNavegacion.adicionarPagina(pagActual);
-      }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+            //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+            //      } else if (pag.equals("rastrotablaH")) {
+            //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+            //     controlRastro.historicosTabla("Conceptos", pagActual);
+            //   pag = "rastrotabla";
+            //}
+            controlListaNavegacion.adicionarPagina(pagActual);
+        }
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -181,44 +169,44 @@ public class ControlUsuariosVistas implements Serializable {
     }
 
     //UBICACION CELDA
-    public void cambiarIndice(int indice, int celda) {
+    public void cambiarIndice(UsuariosVistas usuariov, int celda) {
         if (permitirIndex == true) {
-            index = indice;
-            usuariosVistasSeleccionado = listaUsuariosVistas.get(index);
+            usuariosVistasSeleccionado = usuariov;
             cualCelda = celda;
             tablaImprimir = ":formExportar:datosUsuariosVistasExportar";
             nombreArchivo = "UsuariosVistasXML";
-            if (tipoLista == 0) {
-                alisin = listaUsuariosVistas.get(index).getAlias();
-                secRegistro = listaUsuariosVistas.get(index).getSecuencia();
-                if (cualCelda == 2) {
-                    objeto = listaUsuariosVistas.get(index).getObjetodb().getNombre();
-                }
+            usuariosVistasSeleccionado.getSecuencia();
 
-            } else {
-                alisin = filtrarUsuariosVistas.get(index).getAlias();
-                secRegistro = filtrarUsuariosVistas.get(index).getSecuencia();
-                if (cualCelda == 2) {
-                    objeto = filtrarUsuariosVistas.get(index).getObjetodb().getNombre();
-                }
+            if (cualCelda == 0) {
+                usuariosVistasSeleccionado.getDescripcion();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 1) {
+                usuariosVistasSeleccionado.getNombrevista();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 2) {
+                usuariosVistasSeleccionado.getObjetodb().getNombre();
+                habilitarBotonLov();
+            } else if (cualCelda == 3) {
+                usuariosVistasSeleccionado.getAlias();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 5) {
+                usuariosVistasSeleccionado.getEstructurajoin();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 6) {
+                usuariosVistasSeleccionado.getCondicion();
+                deshabilitarBotonLov();
+            } else if (cualCelda == 7) {
+                usuariosVistasSeleccionado.getHintprincipal();
+                deshabilitarBotonLov();
             }
         }
     }
 
     //MOSTRAR DATOS CELDA
     public void editarCelda() {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                editarUsuariosVistas = listaUsuariosVistas.get(index);
-            }
-            if (tipoLista == 1) {
-                editarUsuariosVistas = filtrarUsuariosVistas.get(index);
-            }
-
-            indiceAux = index;
-
+        if (usuariosVistasSeleccionado != null) {
+            editarUsuariosVistas = usuariosVistasSeleccionado;
             RequestContext context = RequestContext.getCurrentInstance();
-            System.out.println("Entro a editar... valor celda: " + cualCelda);
             if (cualCelda == 0) {
                 RequestContext.getCurrentInstance().update("formularioDialogos:editarDescripcion");
                 RequestContext.getCurrentInstance().execute("PF('editarDescripcion').show()");
@@ -254,39 +242,25 @@ public class ControlUsuariosVistas implements Serializable {
                 RequestContext.getCurrentInstance().execute("PF('editarHINTPrincipal').show()");
                 cualCelda = -1;
             }
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
-        index = -1;
-        secRegistro = null;
     }
 
     //MOSTRAR L.O.V OBJETOSDB
     public void actualizarObjetosDB() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
-            if (tipoLista == 0) {
-                listaUsuariosVistas.get(index).setObjetodb(objetosDBSeleccionado);
-                if (!listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(index))) {
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(index));
-                    } else if (!listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(index))) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(index));
-                    }
-                }
-            } else {
-                filtrarUsuariosVistas.get(index).setObjetodb(objetosDBSeleccionado);
-                if (!listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(index))) {
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(index));
-                    } else if (!listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(index))) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(index));
-                    }
+            usuariosVistasSeleccionado.setObjetodb(objetosDBSeleccionado);
+            if (!listaUsuariosVistasCrear.contains(usuariosVistasSeleccionado)) {
+                if (listaUsuariosVistasModificar.isEmpty()) {
+                    listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
+                } else if (!listaUsuariosVistasModificar.contains(usuariosVistasSeleccionado)) {
+                    listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
                 }
             }
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             permitirIndex = true;
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
         } else if (tipoActualizacion == 1) {
@@ -299,37 +273,27 @@ public class ControlUsuariosVistas implements Serializable {
         lovFiltradoObjetosDB = null;
         objetosDBSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
+
+        RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVObjetosDB");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarOB");
         context.reset("formularioDialogos:LOVObjetosDB:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVObjetosDB').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').hide()");
-        infoRegistroObjetosDB = "Cantidad de registros: " + lovObjetosDB.size();
     }
 
-    //ASIGNAR INDEX PARA DIALOGOS COMUNES (LND = LISTA - NUEVO - DUPLICADO)
-    public void asignarIndexObjeto(Integer indice, int dlg, int LND) {
-        index = indice;
+    public void asignarIndexObjeto(UsuariosVistas usuariov, int dlg, int LND) {
+        usuariosVistasSeleccionado = usuariov;
         RequestContext context = RequestContext.getCurrentInstance();
-        if (LND == 0) {
-            tipoActualizacion = 0;
-        } else if (LND == 1) {
-            tipoActualizacion = 1;
-            index = -1;
-            secRegistro = null;
-            System.out.println("Tipo Actualizacion: " + tipoActualizacion);
-        } else if (LND == 2) {
-            index = -1;
-            secRegistro = null;
-            tipoActualizacion = 2;
-        }
+        tipoActualizacion = LND;
         if (dlg == 0) {
+            lovObjetosDB = null;
+            getLovObjetosDB();
+            contarRegistrosLOV();
             RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
             RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
-            infoRegistroObjetosDB = "Cantidad de registros: " + lovObjetosDB.size();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroObjetosDB");
         }
     }
 
@@ -337,12 +301,13 @@ public class ControlUsuariosVistas implements Serializable {
         lovFiltradoObjetosDB = null;
         objetosDBSeleccionado = null;
         aceptar = true;
-        index = -1;
-        secRegistro = null;
         tipoActualizacion = -1;
         cualCelda = -1;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
+        RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
+        RequestContext.getCurrentInstance().update("formularioDialogos:LOVObjetosDB");
+        RequestContext.getCurrentInstance().update("formularioDialogos:aceptarOB");
         context.reset("formularioDialogos:LOVObjetosDB:globalFilter");
         RequestContext.getCurrentInstance().execute("PF('LOVObjetosDB').clearFilters()");
         RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').hide()");
@@ -350,9 +315,12 @@ public class ControlUsuariosVistas implements Serializable {
 
     //LISTA DE VALORES DINAMICA
     public void listaValoresBoton() {
-        if (index >= 0) {
+        if (usuariosVistasSeleccionado != null) {
             RequestContext context = RequestContext.getCurrentInstance();
             if (cualCelda == 2) {
+                lovObjetosDB = null;
+                getLovObjetosDB();
+                contarRegistrosLOV();
                 RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
                 RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
                 tipoActualizacion = 0;
@@ -360,43 +328,22 @@ public class ControlUsuariosVistas implements Serializable {
         }
     }
 
-    //SELECCIONAR BASE ESTRUCTURA
-    public void seleccionarBaseEstructura(String estadoBaseEstructura, int indice, int celda) {
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (tipoLista == 0) {
-            if (estadoBaseEstructura != null) {
-                if (estadoBaseEstructura.equals("SI")) {
-                    listaUsuariosVistas.get(indice).setBaseestructura("S");
-                } else if (estadoBaseEstructura.equals("NO")) {
-                    listaUsuariosVistas.get(indice).setBaseestructura("N");
-                }
-            } else {
-                listaUsuariosVistas.get(indice).setBaseestructura(null);
-            }
-            if (!listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(indice))) {
-                if (listaUsuariosVistasModificar.isEmpty()) {
-                    listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                } else if (!listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(indice))) {
-                    listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                }
+    public void seleccionarBaseEstructura(String estadoBaseEstructura, UsuariosVistas usuariov) {
+        usuariosVistasSeleccionado = usuariov;
+        if (estadoBaseEstructura != null) {
+            if (estadoBaseEstructura.equals("SI")) {
+                usuariosVistasSeleccionado.setBaseestructura("S");
+            } else if (estadoBaseEstructura.equals("NO")) {
+                usuariosVistasSeleccionado.setBaseestructura("N");
             }
         } else {
-            if (estadoBaseEstructura != null) {
-                if (estadoBaseEstructura.equals("SI")) {
-                    filtrarUsuariosVistas.get(indice).setBaseestructura("S");
-                } else if (estadoBaseEstructura.equals("NO")) {
-                    filtrarUsuariosVistas.get(indice).setBaseestructura("N");
-                }
-            } else {
-                filtrarUsuariosVistas.get(indice).setBaseestructura(null);
-            }
-            if (!listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(indice))) {
-                if (listaUsuariosVistasModificar.isEmpty()) {
-                    listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                } else if (!listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(indice))) {
-                    listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                }
+            usuariosVistasSeleccionado.setBaseestructura(null);
+        }
+        if (!listaUsuariosVistasCrear.contains(usuariosVistasSeleccionado)) {
+            if (listaUsuariosVistasModificar.isEmpty()) {
+                listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
+            } else if (!listaUsuariosVistasModificar.contains(usuariosVistasSeleccionado)) {
+                listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
             }
         }
         if (guardado == true) {
@@ -404,10 +351,9 @@ public class ControlUsuariosVistas implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-        System.out.println("Subtipo: " + listaUsuariosVistas.get(indice).getBaseestructura());
+        System.out.println("Subtipo: " + usuariosVistasSeleccionado.getBaseestructura());
     }
 
-    //NUEVO Y DUPLICADO, REGISTRO DE BASE ESTRUCTURA
     public void seleccionarNuevoBaseEstructura(String estadoBaseEstructura, int tipoNuevo) {
 
         if (tipoNuevo == 1) {
@@ -417,20 +363,16 @@ public class ControlUsuariosVistas implements Serializable {
                 } else if (estadoBaseEstructura.equals("NO")) {
                     nuevaUsuariosVistas.setBaseestructura("N");
                 }
-            } else {
-                nuevaUsuariosVistas.setBaseestructura(null);
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevoBaseEstructura");
 
-        } else {
+        } else if (tipoNuevo == 2) {
             if (estadoBaseEstructura != null) {
                 if (estadoBaseEstructura.equals("SI")) {
                     duplicarUsuariosVistas.setBaseestructura("S");
                 } else if (estadoBaseEstructura.equals("NO")) {
                     duplicarUsuariosVistas.setBaseestructura("N");
                 }
-            } else {
-                duplicarUsuariosVistas.setBaseestructura(null);
             }
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicadoBaseEstructura");
         }
@@ -439,7 +381,6 @@ public class ControlUsuariosVistas implements Serializable {
 
     //ACTIVAR F11
     public void activarCtrlF11() {
-        System.out.println("TipoLista= " + tipoLista);
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 0) {
             System.out.println("Activar");
@@ -451,13 +392,15 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaObjetoDB.setFilterStyle("width: 85% !important");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
             usuariovistaAlias.setFilterStyle("width: 85% !important");
+            baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+            baseestructura.setFilterStyle("width: 85% !important");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
             usuariovistaEstructuraJOIN.setFilterStyle("width: 85% !important;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
             usuariovistaCondicion.setFilterStyle("width: 85% !important;");
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
             usuariovistaHINTPrincipal.setFilterStyle("width: 85% !important;");
-            altoTabla = "250";
+            altoTabla = "310";
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
             bandera = 1;
             tipoLista = 1;
@@ -472,6 +415,8 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaObjetoDB.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
             usuariovistaAlias.setFilterStyle("display: none; visibility: hidden;");
+            baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+            baseestructura.setFilterStyle("display: none; visibility: hidden");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
             usuariovistaEstructuraJOIN.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
@@ -479,198 +424,40 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
             usuariovistaHINTPrincipal.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-            altoTabla = "270";
+            altoTabla = "330";
             bandera = 0;
             filtrarUsuariosVistas = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
-
         }
     }
 
-    //EVENTO FILTRAR
     public void eventofiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        infoRegistro = "Cantidad de registros: " + filtrarUsuariosVistas.size();
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+        contarRegistros();
     }
 
-    public void entreAqui(String valor) {
-        modificarUsuariosVistas(indiceAux, "N", valor);
-        indiceAux = -1;
-    }
-
-    //AUTOCOMPLETAR
-    public void modificarUsuariosVistas(int indice, String confirmarCambio, String valorConfirmar) {
-
-        index = indice;
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("N")) {
-            if (tipoLista == 0) {
-                if (!listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(indice))) {
-
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                    } else if (!listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(indice))) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-
-            } else {
-                if (!listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(indice))) {
-
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                    } else if (!listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(indice))) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
+    public void modificarUsuariosVistas(UsuariosVistas usuarioVista) {
+        usuariosVistasSeleccionado = usuarioVista;
+        if (!listaUsuariosVistasCrear.contains(usuariosVistasSeleccionado)) {
+            if (listaUsuariosVistasModificar.isEmpty()) {
+                listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
+            } else if (!listaUsuariosVistasModificar.contains(usuariosVistasSeleccionado)) {
+                listaUsuariosVistasModificar.add(usuariosVistasSeleccionado);
             }
-
-            RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-        }
-        if (confirmarCambio.equalsIgnoreCase("A")) {
-            System.out.println("Está entrando al modificar para Alias");
-            int pasa = 0;
-            if (tipoLista == 0) {
-                if (!listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(indice))) {
-                    if (listaUsuariosVistas.get(indice).getAlias() == null || listaUsuariosVistas.get(indice).getAlias().equals("")) {
-                        mensajeValidacion = mensajeValidacion + "   * Alias\n";
-                        pasa++;
-                    }
-                    if (pasa == 0) {
-                        if (listaUsuariosVistasModificar.isEmpty()) {
-                            listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                        } else if (!listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(indice))) {
-                            listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-                    } else if (pasa > 0) {
-                        listaUsuariosVistas.get(indice).setAlias(alisin);
-                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionVacio");
-                        RequestContext.getCurrentInstance().execute("PF('validacionVacio').show()");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-
-            } else {
-                if (!listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(indice))) {
-                    if (filtrarUsuariosVistas.get(indice).getAlias() == null || filtrarUsuariosVistas.get(indice).getAlias().equals("")) {
-                        mensajeValidacion = mensajeValidacion + "   * Alias\n";
-                        pasa++;
-                    }
-                    if (pasa == 0) {
-                        if (listaUsuariosVistasModificar.isEmpty()) {
-                            listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                        } else if (!listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(indice))) {
-                            listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                        }
-                        if (guardado == true) {
-                            guardado = false;
-                            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                        }
-                    } else if (pasa > 0) {
-                        RequestContext.getCurrentInstance().update("formularioDialogos:validacionVacio");
-                        RequestContext.getCurrentInstance().execute("PF('validacionVacio').show()");
-                    }
-                }
-                index = -1;
-            }
-
-            RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-        } else if (confirmarCambio.equalsIgnoreCase("OBJETOSDB")) {
-            System.out.println("Está entrando al modificar para lista de valores");
-            if (tipoLista == 0) {
-                listaUsuariosVistas.get(indice).getObjetodb().setNombre(objeto);
-            } else {
-                filtrarUsuariosVistas.get(indice).getObjetodb().setNombre(objeto);
-            }
-
-            for (int i = 0; i < lovObjetosDB.size(); i++) {
-                if (lovObjetosDB.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoLista == 0) {
-                    listaUsuariosVistas.get(indice).setObjetodb(lovObjetosDB.get(indiceUnicoElemento));
-                } else {
-                    filtrarUsuariosVistas.get(indice).setObjetodb(lovObjetosDB.get(indiceUnicoElemento));
-                }
-                lovObjetosDB.clear();
-                getLovObjetosDB();
-            } else {
-                permitirIndex = false;
-                RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-                RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
-                tipoActualizacion = 0;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoLista == 0) {
-                if (!listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(indice))) {
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                    } else if (!listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(indice))) {
-                        listaUsuariosVistasModificar.add(listaUsuariosVistas.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            } else {
-                if (!listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(indice))) {
-
-                    if (listaUsuariosVistasModificar.isEmpty()) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                    } else if (!listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(indice))) {
-                        listaUsuariosVistasModificar.add(filtrarUsuariosVistas.get(indice));
-                    }
-                    if (guardado == true) {
-                        guardado = false;
-                        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                    }
-                }
-                index = -1;
-                secRegistro = null;
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
         }
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
     }
 
-    //EXPORTAR
     public void exportPDF() throws IOException {
         DataTable tabla = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("formExportar:datosUsuariosVistasExportar");
         FacesContext context = FacesContext.getCurrentInstance();
         Exporter exporter = new ExportarPDF();
         exporter.export(context, tabla, "UsuariosVistasPDF", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
     public void exportXLS() throws IOException {
@@ -679,110 +466,33 @@ public class ControlUsuariosVistas implements Serializable {
         Exporter exporter = new ExportarXLS();
         exporter.export(context, tabla, "UsuariosVistasXLS", false, false, "UTF-8", null, null);
         context.responseComplete();
-        index = -1;
-        secRegistro = null;
     }
 
-    //LIMPIAR NUEVO REGISTRO USUARIO
     public void limpiarNuevaUsuarioVista() {
         nuevaUsuariosVistas = new UsuariosVistas();
         nuevaUsuariosVistas.setObjetodb(new ObjetosDB());
-        nuevaUsuariosVistas.getObjetodb().setNombre(" ");
-        index = -1;
-        secRegistro = null;
     }
 
-    //LIMPIAR DUPLICAR
     public void limpiarDuplicarUsuarioVista() {
         duplicarUsuariosVistas = new UsuariosVistas();
+        duplicarUsuariosVistas.setObjetodb(new ObjetosDB());
     }
 
-    //AUTOCOMPLETAR LISTAS DE VALORES OBJETOSDB
-    public void valoresBackupAutocompletarObjetosDB(int tipoNuevo) {
-        if (tipoNuevo == 1) {
-            objeto = nuevaUsuariosVistas.getObjetodb().getNombre();
-        } else if (tipoNuevo == 2) {
-            objeto = duplicarUsuariosVistas.getObjetodb().getNombre();
-        }
-    }
-
-    public void llamarLovObjetosDB(int tipoN) {
-        if (tipoN == 1) {
-            tipoActualizacion = 1;
-        } else if (tipoN == 2) {
-            tipoActualizacion = 2;
-        }
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().update("formularioDialogos:objetosDBDialogo");
-        RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
-    }
-
-    //AUTOCOMPLETAR NUEVO Y DUPLICADO OBJETOSdb
-    public void autocompletarNuevoyDuplicadoObjetoDB(String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (tipoNuevo == 1) {
-            nuevaUsuariosVistas.getObjetodb().setNombre(objeto);
-        } else if (tipoNuevo == 2) {
-            duplicarUsuariosVistas.getObjetodb().setNombre(objeto);
-        }
-        for (int i = 0; i < lovObjetosDB.size(); i++) {
-            if (lovObjetosDB.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                indiceUnicoElemento = i;
-                coincidencias++;
-            }
-        }
-        if (coincidencias == 1) {
-            if (tipoNuevo == 1) {
-                nuevaUsuariosVistas.setObjetodb(lovObjetosDB.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoObjetoDB");
-            } else if (tipoNuevo == 2) {
-                duplicarUsuariosVistas.setObjetodb(lovObjetosDB.get(indiceUnicoElemento));
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarObjetoDB");
-            }
-            lovObjetosDB.clear();
-            getLovObjetosDB();
-        } else {
-            RequestContext.getCurrentInstance().update("form:objetosDBDialogo");
-            RequestContext.getCurrentInstance().execute("PF('objetosDBDialogo').show()");
-            tipoActualizacion = tipoNuevo;
-            if (tipoNuevo == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:nuevoObjetoDB");
-            } else if (tipoNuevo == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarObjetoDB");
-            }
-        }
-    }
-
-    // Agregar Nueva Usuario Vista
     public void agregarNuevaUsuarioVista() {
-
         RequestContext context = RequestContext.getCurrentInstance();
         int pasa = 0;
         mensajeValidacion = " ";
-
         if (nuevaUsuariosVistas.getAlias() == null || nuevaUsuariosVistas.getAlias().equals("")) {
-            System.out.println("entra2");
-            mensajeValidacion = mensajeValidacion + "   * Alias\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (nuevaUsuariosVistas.getObjetodb().getNombre() == null || nuevaUsuariosVistas.getObjetodb().getNombre().equals("")) {
-            System.out.println("entra3");
-            mensajeValidacion = mensajeValidacion + "   * Objeto DB\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-        /*if (nuevaUsuariosVistas.getBaseestructura() == null || nuevaUsuariosVistas.getBaseestructura().equals("")) {
-         System.out.println("entra4");
-         mensajeValidacion = mensajeValidacion + "   * perfil\n";
-         pasa++;
-         }*/
-
         if (pasa == 0) {
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
-
-                System.out.println("Desactivar");
                 usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
                 usuariovistaDescripcion.setFilterStyle("display: none; visibility: hidden;");
                 usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -791,6 +501,8 @@ public class ControlUsuariosVistas implements Serializable {
                 usuariovistaObjetoDB.setFilterStyle("display: none; visibility: hidden;");
                 usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
                 usuariovistaAlias.setFilterStyle("display: none; visibility: hidden;");
+                baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+                baseestructura.setFilterStyle("display: none; visibility: hidden");
                 usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
                 usuariovistaEstructuraJOIN.setFilterStyle("display: none; visibility: hidden;");
                 usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
@@ -798,147 +510,88 @@ public class ControlUsuariosVistas implements Serializable {
                 usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
                 usuariovistaHINTPrincipal.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-                altoTabla = "270";
+                altoTabla = "330";
                 bandera = 0;
                 filtrarUsuariosVistas = null;
                 tipoLista = 0;
-
             }
-            //AGREGAR REGISTRO A LA LISTA USUARIOS VISTAS
             k++;
             l = BigInteger.valueOf(k);
             nuevaUsuariosVistas.setSecuencia(l);
-
             listaUsuariosVistasCrear.add(nuevaUsuariosVistas);
             listaUsuariosVistas.add(nuevaUsuariosVistas);
-            infoRegistro = "Cantidad de registros: " + listaUsuariosVistas.size();
-            RequestContext.getCurrentInstance().update("form:infoRegistro");
-            nuevaUsuariosVistas = new UsuariosVistas();
+            usuariosVistasSeleccionado = nuevaUsuariosVistas;
+            contarRegistros();
+            limpiarNuevaUsuarioVista();
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
-            System.out.println("SE ESTÁ CERRANDO? YA VEREMOS");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioVista");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioVista').hide()");
-            index = -1;
-            secRegistro = null;
-        } else if (pasa > 0) {
+        } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuarioVista");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuarioVista').show()");
         }
     }
 
-    //BORRAR USUARIO VISTA
     public void borrarUsuarioVista() {
-
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                if (!listaUsuariosVistasModificar.isEmpty() && listaUsuariosVistasModificar.contains(listaUsuariosVistas.get(index))) {
-                    int modIndex = listaUsuariosVistasModificar.indexOf(listaUsuariosVistas.get(index));
-                    listaUsuariosVistasModificar.remove(modIndex);
-                    listaUsuariosVistasBorrar.add(listaUsuariosVistas.get(index));
-                } else if (!listaUsuariosVistasCrear.isEmpty() && listaUsuariosVistasCrear.contains(listaUsuariosVistas.get(index))) {
-                    int crearIndex = listaUsuariosVistasCrear.indexOf(listaUsuariosVistas.get(index));
-                    listaUsuariosVistasCrear.remove(crearIndex);
-                } else {
-                    listaUsuariosVistasBorrar.add(listaUsuariosVistas.get(index));
-                }
-                listaUsuariosVistas.remove(index);
-                infoRegistro = "Cantidad de registros: " + listaUsuariosVistas.size();
+        if (usuariosVistasSeleccionado != null) {
+            if (!listaUsuariosVistasModificar.isEmpty() && listaUsuariosVistasModificar.contains(usuariosVistasSeleccionado)) {
+                int modIndex = listaUsuariosVistasModificar.indexOf(usuariosVistasSeleccionado);
+                listaUsuariosVistasModificar.remove(modIndex);
+                listaUsuariosVistasBorrar.add(usuariosVistasSeleccionado);
+            } else if (!listaUsuariosVistasCrear.isEmpty() && listaUsuariosVistasCrear.contains(usuariosVistasSeleccionado)) {
+                int crearIndex = listaUsuariosVistasCrear.indexOf(usuariosVistasSeleccionado);
+                listaUsuariosVistasCrear.remove(crearIndex);
+            } else {
+                listaUsuariosVistasBorrar.add(usuariosVistasSeleccionado);
             }
-
+            listaUsuariosVistas.remove(usuariosVistasSeleccionado);
             if (tipoLista == 1) {
-                if (!listaUsuariosVistasModificar.isEmpty() && listaUsuariosVistasModificar.contains(filtrarUsuariosVistas.get(index))) {
-                    int modIndex = listaUsuariosVistasModificar.indexOf(filtrarUsuariosVistas.get(index));
-                    listaUsuariosVistasModificar.remove(modIndex);
-                    listaUsuariosVistasBorrar.add(filtrarUsuariosVistas.get(index));
-                } else if (!listaUsuariosVistasCrear.isEmpty() && listaUsuariosVistasCrear.contains(filtrarUsuariosVistas.get(index))) {
-                    int crearIndex = listaUsuariosVistasCrear.indexOf(filtrarUsuariosVistas.get(index));
-                    listaUsuariosVistasCrear.remove(crearIndex);
-                } else {
-                    listaUsuariosVistasBorrar.add(filtrarUsuariosVistas.get(index));
-                }
-                int CIndex = listaUsuariosVistas.indexOf(filtrarUsuariosVistas.get(index));
-                listaUsuariosVistas.remove(CIndex);
-                filtrarUsuariosVistas.remove(index);
-                infoRegistro = "Cantidad de registros: " + filtrarUsuariosVistas.size();
+                filtrarUsuariosVistas.remove(usuariosVistasSeleccionado);
             }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            usuariosVistasSeleccionado = null;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-            index = -1;
-            secRegistro = null;
-
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
+        }else{
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
-    //DUPLICAR USUARIO VISTA
     public void duplicarUsuarioVista() {
-        if (index >= 0) {
+        if (usuariosVistasSeleccionado != null) {
             duplicarUsuariosVistas = new UsuariosVistas();
-
-            if (tipoLista == 0) {
-                duplicarUsuariosVistas.setDescripcion(listaUsuariosVistas.get(index).getDescripcion());
-                duplicarUsuariosVistas.setNombrevista(listaUsuariosVistas.get(index).getNombrevista());
-                duplicarUsuariosVistas.setObjetodb(listaUsuariosVistas.get(index).getObjetodb());
-                duplicarUsuariosVistas.setAlias(listaUsuariosVistas.get(index).getAlias());
-                duplicarUsuariosVistas.setBaseestructura(listaUsuariosVistas.get(index).getBaseestructura());
-                duplicarUsuariosVistas.setEstructurajoin(listaUsuariosVistas.get(index).getEstructurajoin());
-                duplicarUsuariosVistas.setCondicion(listaUsuariosVistas.get(index).getEstructurajoin());
-                duplicarUsuariosVistas.setHintprincipal(listaUsuariosVistas.get(index).getHintprincipal());
-            }
-            if (tipoLista == 1) {
-                duplicarUsuariosVistas.setDescripcion(filtrarUsuariosVistas.get(index).getDescripcion());
-                duplicarUsuariosVistas.setNombrevista(filtrarUsuariosVistas.get(index).getNombrevista());
-                duplicarUsuariosVistas.setObjetodb(filtrarUsuariosVistas.get(index).getObjetodb());
-                duplicarUsuariosVistas.setAlias(filtrarUsuariosVistas.get(index).getAlias());
-                duplicarUsuariosVistas.setBaseestructura(filtrarUsuariosVistas.get(index).getBaseestructura());
-                duplicarUsuariosVistas.setEstructurajoin(filtrarUsuariosVistas.get(index).getEstructurajoin());
-                duplicarUsuariosVistas.setCondicion(filtrarUsuariosVistas.get(index).getEstructurajoin());
-                duplicarUsuariosVistas.setHintprincipal(filtrarUsuariosVistas.get(index).getHintprincipal());
-            }
-
-            RequestContext context = RequestContext.getCurrentInstance();
+            duplicarUsuariosVistas.setDescripcion(usuariosVistasSeleccionado.getDescripcion());
+            duplicarUsuariosVistas.setNombrevista(usuariosVistasSeleccionado.getNombrevista());
+            duplicarUsuariosVistas.setObjetodb(usuariosVistasSeleccionado.getObjetodb());
+            duplicarUsuariosVistas.setAlias(usuariosVistasSeleccionado.getAlias());
+            duplicarUsuariosVistas.setBaseestructura(usuariosVistasSeleccionado.getBaseestructura());
+            duplicarUsuariosVistas.setEstructurajoin(usuariosVistasSeleccionado.getEstructurajoin());
+            duplicarUsuariosVistas.setCondicion(usuariosVistasSeleccionado.getEstructurajoin());
+            duplicarUsuariosVistas.setHintprincipal(usuariosVistasSeleccionado.getHintprincipal());
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuarioVista");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuarioVistas').show()");
-            index = -1;
-            secRegistro = null;
+        } else {
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
         }
     }
 
     public void confirmarDuplicar() {
-
         int pasa = 0;
-        k++;
-        l = BigInteger.valueOf(k);
-        duplicarUsuariosVistas.setSecuencia(l);
-        RequestContext context = RequestContext.getCurrentInstance();
 
         if (duplicarUsuariosVistas.getAlias() == null || duplicarUsuariosVistas.getAlias().equals("")) {
-            System.out.println("entra2");
-            mensajeValidacion = mensajeValidacion + "   * Alias\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
         if (duplicarUsuariosVistas.getObjetodb().getNombre() == null || duplicarUsuariosVistas.getObjetodb().getNombre().equals("")) {
-            System.out.println("entra3");
-            mensajeValidacion = mensajeValidacion + "   * Objeto DB\n";
+            mensajeValidacion = "Los campos marcados con asterisco son obligatorios";
             pasa++;
         }
-
         if (pasa == 0) {
-            index = -1;
-            secRegistro = null;
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             if (bandera == 1) {
                 FacesContext c = FacesContext.getCurrentInstance();
                 //CERRAR FILTRADO
@@ -951,6 +604,8 @@ public class ControlUsuariosVistas implements Serializable {
                 usuariovistaObjetoDB.setFilterStyle("display: none; visibility: hidden;");
                 usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
                 usuariovistaAlias.setFilterStyle("display: none; visibility: hidden;");
+                baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+                baseestructura.setFilterStyle("display: none; visibility: hidden");
                 usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
                 usuariovistaEstructuraJOIN.setFilterStyle("display: none; visibility: hidden;");
                 usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
@@ -958,37 +613,31 @@ public class ControlUsuariosVistas implements Serializable {
                 usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
                 usuariovistaHINTPrincipal.setFilterStyle("display: none; visibility: hidden;");
                 RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-                altoTabla = "270";
+                altoTabla = "330";
                 bandera = 0;
                 filtrarUsuariosVistas = null;
-                System.out.println("TipoLista= " + tipoLista);
                 tipoLista = 0;
             }
-
+            k++;
+            l = BigInteger.valueOf(k);
+            duplicarUsuariosVistas.setSecuencia(l);
             listaUsuariosVistas.add(duplicarUsuariosVistas);
             listaUsuariosVistasCrear.add(duplicarUsuariosVistas);
+            usuariosVistasSeleccionado = duplicarUsuariosVistas;
+            contarRegistros();
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
             duplicarUsuariosVistas = new UsuariosVistas();
-            infoRegistro = "Cantidad de registros: " + listaUsuariosVistas.size();
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
-
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarUsuarioVista");
             RequestContext.getCurrentInstance().execute("PF('DuplicarRegistroUsuarioVistas').hide()");
-
-        } else if (pasa > 0) {
+        } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaUsuarioVista");
             RequestContext.getCurrentInstance().execute("PF('validacionNuevaUsuarioVista').show()");
         }
-
     }
 
-    //REFRESCAR LA PAGINA, CANCELAR MODIFICACION SI NO SE A GUARDADO
     public void cancelarModificacion() {
         if (bandera == 1) {
-            //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
-            System.out.println("TipoLista= " + tipoLista);
             usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
             usuariovistaDescripcion.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -997,6 +646,8 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaObjetoDB.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
             usuariovistaAlias.setFilterStyle("display: none; visibility: hidden;");
+            baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+            baseestructura.setFilterStyle("display: none; visibility: hidden");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
             usuariovistaEstructuraJOIN.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
@@ -1004,40 +655,29 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
             usuariovistaHINTPrincipal.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-            altoTabla = "270";
+            altoTabla = "330";
             bandera = 0;
             filtrarUsuariosVistas = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
         }
         listaUsuariosVistasBorrar.clear();
         listaUsuariosVistasCrear.clear();
         listaUsuariosVistasModificar.clear();
-        index = -1;
-        secRegistro = null;
+        usuariosVistasSeleccionado = null;
         k = 0;
         listaUsuariosVistas = null;
-
         getListaUsuariosVistas();
-        if (listaUsuariosVistas != null && !listaUsuariosVistas.isEmpty()) {
-            usuariosVistasSeleccionado = listaUsuariosVistas.get(0);
-            infoRegistro = "Cantidad de registros: " + listaUsuariosVistas.size();
-        } else {
-            infoRegistro = "Cantidad de registros: 0";
-        }
+        contarRegistros();
         guardado = true;
         permitirIndex = true;
         RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-        RequestContext.getCurrentInstance().update("form:informacionRegistro");
     }
 
-    //MÉTODO SALIR DE LA PAGINA ACTUAL
     public void salir() {
         if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();
-            System.out.println("Desactivar");
             usuariovistaDescripcion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:descripcion");
             usuariovistaDescripcion.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaNombreVista = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:nombrevista");
@@ -1046,6 +686,8 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaObjetoDB.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaAlias = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:alias");
             usuariovistaAlias.setFilterStyle("display: none; visibility: hidden;");
+            baseestructura = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:baseestructura");
+            baseestructura.setFilterStyle("display: none; visibility: hidden");
             usuariovistaEstructuraJOIN = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:estructurajoin");
             usuariovistaEstructuraJOIN.setFilterStyle("display: none; visibility: hidden;");
             usuariovistaCondicion = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:condicion");
@@ -1053,67 +695,52 @@ public class ControlUsuariosVistas implements Serializable {
             usuariovistaHINTPrincipal = (Column) c.getViewRoot().findComponent("form:datosUsuariosVistas:hintprincipal");
             usuariovistaHINTPrincipal.setFilterStyle("display: none; visibility: hidden;");
             RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
-            altoTabla = "270";
+            altoTabla = "330";
             bandera = 0;
             filtrarUsuariosVistas = null;
             tipoLista = 0;
-            System.out.println("TipoLista= " + tipoLista);
         }
         listaUsuariosVistasBorrar.clear();
         listaUsuariosVistasCrear.clear();
         listaUsuariosVistasModificar.clear();
-        index = -1;
-        secRegistro = null;
+        usuariosVistasSeleccionado = null;
         k = 0;
         listaUsuariosVistas = null;
         guardado = true;
         permitirIndex = true;
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
         RequestContext.getCurrentInstance().update("form:informacionRegistro");
         navegar("atras");
     }
 
-    //VERIFICAR RASTRO
     public void verificarRastro() {
         RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("lol");
-        if (!listaUsuariosVistas.isEmpty()) {
-            if (secRegistro != null) {
-                System.out.println("lol 2");
-                int resultado = administrarRastros.obtenerTabla(secRegistro, "USUARIOSVISTAS");
-                System.out.println("resultado: " + resultado);
-                if (resultado == 1) {
-                    RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-                } else if (resultado == 2) {
-                    RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-                } else if (resultado == 3) {
-                    RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-                } else if (resultado == 4) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-                } else if (resultado == 5) {
-                    RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-                }
-            } else {
-                RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+        if (usuariosVistasSeleccionado != null) {
+            int resultado = administrarRastros.obtenerTabla(usuariosVistasSeleccionado.getSecuencia(), "USUARIOSVISTAS");
+            if (resultado == 1) {
+                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+            } else if (resultado == 2) {
+                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+            } else if (resultado == 3) {
+                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+            } else if (resultado == 4) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+            } else if (resultado == 5) {
+                RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
             }
         } else if (administrarRastros.verificarHistoricosTabla("USUARIOSVISTAS")) {
             RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
         } else {
             RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
         }
-        index = -1;
     }
 
-    //GUARDAR
     public void guardarCambiosUsuarioVista() {
         RequestContext context = RequestContext.getCurrentInstance();
         try {
             if (guardado == false) {
-                System.out.println("Realizando Operaciones UsuariosVistas");
                 if (!listaUsuariosVistasBorrar.isEmpty()) {
                     administrarUsuarioVistas.borrarUsuariosVistas(listaUsuariosVistasBorrar);
-                    System.out.println("Entra");
                     listaUsuariosVistasBorrar.clear();
                 }
                 if (!listaUsuariosVistasCrear.isEmpty()) {
@@ -1124,16 +751,9 @@ public class ControlUsuariosVistas implements Serializable {
                     administrarUsuarioVistas.modificarUsuariosVistas(listaUsuariosVistasModificar);
                     listaUsuariosVistasModificar.clear();
                 }
-                System.out.println("Se guardaron los datos con exito");
                 listaUsuariosVistas = null;
                 getListaUsuariosVistas();
-                if (listaUsuariosVistas != null && !listaUsuariosVistas.isEmpty()) {
-                    usuariosVistasSeleccionado = listaUsuariosVistas.get(0);
-                    infoRegistro = "Cantidad de registros: " + listaUsuariosVistas.size();
-                } else {
-                    infoRegistro = "Cantidad de registros: 0";
-                }
-                RequestContext.getCurrentInstance().update("form:informacionRegistro");
+                contarRegistros();
                 RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
                 guardado = true;
                 permitirIndex = true;
@@ -1142,8 +762,7 @@ public class ControlUsuariosVistas implements Serializable {
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
                 k = 0;
-                index = -1;
-                secRegistro = null;
+                usuariosVistasSeleccionado = null;
             }
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage("Información", "Ha ocurrido un error en el guardado, intente nuevamente.");
@@ -1152,49 +771,34 @@ public class ControlUsuariosVistas implements Serializable {
         }
     }
 
-    //  BOTON CREAR DERECHA
     public void crearUsuarioVista() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        String mensaje = "";
-        Integer exe = null;
-        //try {
-        if (index >= 0) {
-            if (tipoLista == 0) {
-                System.out.println("objeto: " + usuariosVistasSeleccionado.getObjetodb().getSecuencia());
-                exe = administrarUsuarioVistas.crearUsuarioVistaDB(usuariosVistasSeleccionado.getObjetodb().getSecuencia());
-                System.out.println("Esto trae: " + exe);
-                if (exe != null) {
-                    mensaje = "Creando la nueva Vista Usuario...";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                    exe = null;
-                } else {
-                    mensaje = "Excepción no tratada";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
+        try {
+            if (usuariosVistasSeleccionado != null) {
+                administrarUsuarioVistas.crearUsuarioVistaDB(usuariosVistasSeleccionado.getObjetodb().getSecuencia());
+                RequestContext.getCurrentInstance().execute("PF('crearVistaUsuario').show()");
             }
-            if (tipoLista == 1) {
-
-                System.out.println("objeto: " + filtrarUsuariosVistas.get(index).getObjetodb().getNombre());
-                exe = administrarUsuarioVistas.crearUsuarioVistaDB(filtrarUsuariosVistas.get(index).getObjetodb().getSecuencia());
-                if (exe != null) {
-                    mensaje = "Creando la nueva Vista Usuario...";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                } else {
-                    mensaje = "Excepción no tratada";
-                    FacesMessage msg = new FacesMessage("Información", mensaje);
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    RequestContext.getCurrentInstance().update("form:growl");
-                }
-            }
-            index = -1;
-            secRegistro = null;
+        } catch (Exception e) {
+            System.out.println("error ControlUsuariosEstructuras.crearVistaUsuario() : " + e.getMessage());
+            RequestContext.getCurrentInstance().execute("PF('errorCrearVistaUsuario').show()");
         }
+    }
+
+    public void contarRegistrosLOV() {
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroObjetosDB");
+    }
+
+    public void contarRegistros() {
+        RequestContext.getCurrentInstance().update("form:informacionRegistro");
+    }
+
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //GETTER AND SETTER
@@ -1250,19 +854,16 @@ public class ControlUsuariosVistas implements Serializable {
     }
 
     public List<ObjetosDB> getLovObjetosDB() {
-        lovObjetosDB = administrarUsuarioVistas.consultarObjetosDB();
-        RequestContext context = RequestContext.getCurrentInstance();
-
-        if (lovObjetosDB == null || lovObjetosDB.isEmpty()) {
-            infoRegistroObjetosDB = "Cantidad de registros: 0 ";
-        } else {
-            infoRegistroObjetosDB = "Cantidad de registros: " + lovObjetosDB.size();
+        if (lovObjetosDB == null) {
+            lovObjetosDB = administrarUsuarioVistas.consultarObjetosDB();
         }
-        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroObjetosDB");
         return lovObjetosDB;
     }
 
     public String getInfoRegistroObjetosDB() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVObjetosDB");
+        infoRegistroObjetosDB = String.valueOf(tabla.getRowCount());
         return infoRegistroObjetosDB;
     }
 
@@ -1339,6 +940,9 @@ public class ControlUsuariosVistas implements Serializable {
     }
 
     public String getInfoRegistro() {
+        FacesContext c = FacesContext.getCurrentInstance();
+        DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosUsuariosVistas");
+        infoRegistro = String.valueOf(tabla.getRowCount());
         return infoRegistro;
     }
 
@@ -1384,6 +988,14 @@ public class ControlUsuariosVistas implements Serializable {
 
     public void setAceptar(boolean aceptar) {
         this.aceptar = aceptar;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
     }
 
 }

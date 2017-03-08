@@ -58,4 +58,7 @@ public interface AdministarReportesInterface {
    
    public String generarReportePlanta1(String nombreReporte,String tipoReporte);
      
+   public String generarReporteSegUsuarios(String nombreReporte,String tipoReporte);  
+   
+   public String generarReporteHistoricosUsuarios(String nombreReporte,String tipoReporte,Map parametros);
 }

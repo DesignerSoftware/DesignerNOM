@@ -10,6 +10,7 @@ import InterfacePersistencia.PersistenciaEmpresasInterface;
 import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaUsuariosEstructurasInterface;
 import InterfacePersistencia.PersistenciaUsuariosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -87,6 +88,42 @@ public class PersistenciaUsuariosEstructuras implements PersistenciaUsuariosEstr
             return null;
         }
 
+    }
+
+    @Override
+    public BigDecimal contarUsuariosEstructuras(EntityManager em, BigInteger secUsuario) {
+        em.clear();
+        try {
+            String sqlQuery = "SELECT COUNT(*)  FROM USUARIOSESTRUCTURAS WHERE USUARIO = ? ";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secUsuario);
+            BigDecimal count = (BigDecimal)query.getSingleResult();
+            return count;
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaUsuariosEstructuras.contarUsuariosEstructuras: " + e.getMessage());
+            return null;
+        }
+
+    }
+
+    @Override
+    public void crearVistaUsuarioEstructura(EntityManager em, BigInteger secUsuarioEstructura, BigInteger secUsuario) {
+         em.clear();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            String sqlQuery = "call USUARIOS_PKG.CrearVistaUsuarioEstructura(?, ?)";
+            Query query = em.createNativeQuery(sqlQuery);
+            query.setParameter(1, secUsuarioEstructura);
+            query.setParameter(2, secUsuario);
+            query.executeUpdate();
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println("Error PersistenciaUsuariosEstructuras.crearVistaUsuarioEstructura: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        }
     }
 
 }

@@ -10,6 +10,7 @@ import Entidades.Estructuras;
 import Entidades.Usuarios;
 import Entidades.UsuariosEstructuras;
 import Entidades.UsuariosVistas;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public interface AdministrarUsuariosEstructurasInterface {
     public List<Estructuras> lovEstructuras();
 
     public List<Empresas> lovEmpresas();
-    
+
     public List<UsuariosVistas> listaUsuariosVistas();
 
     public void crearUsuarioVista(List<UsuariosVistas> listCrear);
@@ -42,4 +43,8 @@ public interface AdministrarUsuariosEstructurasInterface {
     public void modificarUsuarioVista(List<UsuariosVistas> listModificar);
 
     public void borrarUsuarioVista(List<UsuariosVistas> listBorrar);
+
+    public BigDecimal contarUsuariosEstructuras(BigInteger secUsuario);
+
+    public void crearVistaUsuarioEstructura(BigInteger secUsuarioEstructura, BigInteger secUsuario);
 }

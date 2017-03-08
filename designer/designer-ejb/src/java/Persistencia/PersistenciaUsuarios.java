@@ -239,4 +239,19 @@ public class PersistenciaUsuarios implements PersistenciaUsuariosInterface {
             }
         }
     }
+
+    @Override
+    public List<Usuarios> buscarUsuariosXSecuencia(EntityManager em, BigInteger secUsuario) {
+       try {
+            em.clear();
+            String sql = "SELECT * FROM USUARIOS WHERE SECUENCIA = ? ";
+            Query query = em.createNativeQuery(sql, Usuarios.class);
+            query.setParameter(1, secUsuario);
+            List<Usuarios> usuarios = (List<Usuarios>) query.getResultList();
+            return usuarios;
+        } catch (Exception e) {
+            System.out.println("Error buscarUsuarios PersistenciaUsuarios" + e.getMessage());
+            return null;
+        }
+    }
 }

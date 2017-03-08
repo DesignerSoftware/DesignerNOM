@@ -6,6 +6,7 @@
 package InterfacePersistencia;
 
 import Entidades.UsuariosFiltros;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,4 +24,9 @@ public interface PersistenciaUsuariosFiltrosInterface {
     public void borrar(EntityManager em, UsuariosFiltros usuarioF);
 
     public List<UsuariosFiltros> consultarUsuariosFiltros(EntityManager em, BigInteger secUsuarioEstructura);
+    
+    public BigDecimal contarUsuariosFiltros(EntityManager em, BigInteger secUsuarioEstructura);
+    
+    public void crearFiltroUsuario(EntityManager em, BigInteger secUsuarioVista);
+    
 }

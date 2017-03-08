@@ -863,11 +863,6 @@
          <redirect />
       </navigation-case>
       
-      <navigation-case>
-         <from-outcome>atrasinterfasecontableconcepto</from-outcome>
-         <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
    </navigation-rule>
 
    <!--NAVEGACION DESDE FORMULAS-->
@@ -6630,7 +6625,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>interfasecontabletercero</from-outcome>
+         <from-outcome>tercero</from-outcome>
          <to-view-id>/tercero.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6639,7 +6634,7 @@
    <navigation-rule>
       <from-view-id>/tercero.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasinterfasecontabletercero</from-outcome>
+         <from-outcome>interfasecontabletotal</from-outcome>
          <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6648,8 +6643,16 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>interfasecontableconcepto</from-outcome>
+         <from-outcome>concepto</from-outcome>
          <to-view-id>/concepto.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/concepto.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>interfasecontabletotal</from-outcome>
+         <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>
@@ -6657,7 +6660,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>interfasecontablecentrocosto</from-outcome>
+         <from-outcome>centrocosto</from-outcome>
          <to-view-id>/centrocosto.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6666,7 +6669,7 @@
    <navigation-rule>
       <from-view-id>/centrocosto.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasinterfasecontablecentrocosto</from-outcome>
+         <from-outcome>interfasecontabletotal</from-outcome>
          <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6675,7 +6678,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>interfasecontablecuenta</from-outcome>
+         <from-outcome>cuenta</from-outcome>
          <to-view-id>/cuenta.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6683,7 +6686,7 @@
    <navigation-rule>
       <from-view-id>/cuenta.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasinterfasecontablecuenta</from-outcome>
+         <from-outcome>interfasecontabletotal</from-outcome>
          <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6692,7 +6695,7 @@
    <navigation-rule>
       <from-view-id>/interfasecontabletotal.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>interfasecontableempleado</from-outcome>
+         <from-outcome>empleado</from-outcome>
          <to-view-id>/empleado.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -6700,7 +6703,7 @@
    <navigation-rule>
       <from-view-id>/empleado.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasinterfasecontableempleado</from-outcome>
+         <from-outcome>interfasecontabletotal</from-outcome>
          <to-view-id>/interfasecontabletotal.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -7752,6 +7755,74 @@
    </navigation-rule>
    <navigation-rule>
       <from-view-id>/usuarioestructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuario</from-outcome>
+         <to-view-id>/usuario.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/usuarioestructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>empresa</from-outcome>
+         <to-view-id>/empresa.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/empresa.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioestructura</from-outcome>
+         <to-view-id>/usuarioestructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/usuarioestructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>estructura</from-outcome>
+         <to-view-id>/estructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/estructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioestructura</from-outcome>
+         <to-view-id>/usuarioestructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   <navigation-rule>
+      <from-view-id>/usuarioestructura.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuariovista</from-outcome>
+         <to-view-id>/usuariovista.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/usuariovista.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>usuarioestructura</from-outcome>
+         <to-view-id>/usuarioestructura.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+       <navigation-rule>
+      <from-view-id>/usuario.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>historicosusuarios</from-outcome>
+         <to-view-id>/historicosusuarios.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/historicosusuarios.xhtml</from-view-id>
       <navigation-case>
          <from-outcome>usuario</from-outcome>
          <to-view-id>/usuario.xhtml</to-view-id>

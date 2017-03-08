@@ -165,8 +165,8 @@ public class ControlEmpleadoIndividual implements Serializable {
     private Inforeportes hojaVidaR;
     private String cabezeraVisor;
     private boolean estadoReporte;
-    private boolean deshabilitarBotones;
     private String resultadoReporte;
+    private boolean deshabilitarBotones;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 

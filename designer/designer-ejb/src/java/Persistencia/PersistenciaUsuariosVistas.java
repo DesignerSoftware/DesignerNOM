@@ -104,10 +104,10 @@ public class PersistenciaUsuariosVistas implements PersistenciaUsuariosVistasInt
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            String sqlQuery = "call usuarios_pkg.crearvistafiltro(?)";
-            Query query = em.createNativeQuery(sqlQuery);
-            query.setParameter(1, objeto);
-            exe = query.executeUpdate();
+            String sqlQuery = "call USUARIOS_PKG.CrearVistaFiltro(?)";
+            Query query2 = em.createNativeQuery(sqlQuery);
+            query2.setParameter(1, objeto);
+            query2.executeUpdate();
             tx.commit();
             return exe;
         } catch (Exception e) {

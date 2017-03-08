@@ -55,10 +55,8 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
     public void modificarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
             if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
-                System.out.println("Modificando...UsuariosVistas.");
                 listaUsuariosVistas.get(i).setObjetodb(null);
-                persistenciaUsuariosVistas.editar(em, listaUsuariosVistas.get(i));
-            } else if (listaUsuariosVistas.get(i).getAlias().equals(null)) {
+            } else if (listaUsuariosVistas.get(i).getAlias() == null) {
                 listaUsuariosVistas.get(i).setAlias(null);
             } else {
                 persistenciaUsuariosVistas.editar(em, listaUsuariosVistas.get(i));
@@ -69,14 +67,12 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
     @Override
     public void borrarUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
-            System.out.println("Borrando...UsuariosVistas.");
             if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
                 listaUsuariosVistas.get(i).setObjetodb(null);
-                persistenciaUsuariosVistas.borrar(em, listaUsuariosVistas.get(i));
-            } else if (listaUsuariosVistas.get(i).getAlias().equals(null)) {
+            } else if (listaUsuariosVistas.get(i).getAlias() == null) {
                 listaUsuariosVistas.get(i).setAlias(null);
             } else {
-                persistenciaUsuariosVistas.editar(em, listaUsuariosVistas.get(i));
+                persistenciaUsuariosVistas.borrar(em, listaUsuariosVistas.get(i));
             }
         }
     }
@@ -84,14 +80,12 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
     @Override
     public void crearUsuariosVistas(List<UsuariosVistas> listaUsuariosVistas) {
         for (int i = 0; i < listaUsuariosVistas.size(); i++) {
-            System.out.println("Creando... UsuariosVistas..");
             if (listaUsuariosVistas.get(i).getObjetodb().getSecuencia() == null) {
                 listaUsuariosVistas.get(i).setObjetodb(null);
-                persistenciaUsuariosVistas.crear(em, listaUsuariosVistas.get(i));
             } else if (listaUsuariosVistas.get(i).getAlias() == null) {
                 listaUsuariosVistas.get(i).setAlias(null);
             } else {
-                persistenciaUsuariosVistas.editar(em, listaUsuariosVistas.get(i));
+                persistenciaUsuariosVistas.crear(em, listaUsuariosVistas.get(i));
             }
         }
     }
@@ -100,8 +94,8 @@ public class AdministrarUsuariosVistas implements AdministrarUsuariosVistasInter
     public Integer crearUsuarioVistaDB(BigInteger objeto) {
         Integer exe = null;
         try {
-           exe = persistenciaUsuariosVistas.crearUsuarioVista(em, objeto);
-           return exe;
+            exe = persistenciaUsuariosVistas.crearUsuarioVista(em, objeto);
+            return exe;
         } catch (Exception e) {
             System.out.println("Error crearUsuarioVistaDB Admi : " + e.toString());
             return null;

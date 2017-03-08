@@ -88,7 +88,7 @@
 
                                 </p:column>
                                 <p:column width="10">
-                                    <p:commandButton id="historico"  value=""  actionListener="#{controlRemoto.infoTablas(tablas)}"
+                                    <p:commandButton id="historico"  value="" action="historicosusuarios" actionListener="#{controlHistoricosUsuarios.recibirUsuario('usuario', controlUsuarios.usuariosSeleccionado)}"
                                                      style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  />
                                     <p:tooltip for="historico" value="#{msg['historicott']}"/>
 
@@ -187,7 +187,7 @@
                                         <h:outputText id="headeractivo" value="#{msg['activo']}" />
                                         <p:tooltip  for="headeractivo" value="#{msg['activott']}" />
                                     </f:facet>  
-                                    <p:selectBooleanCheckbox value="#{usuario.estadoActivo}" style="height :12px; position: relative;top: -3px; left:-3px">  
+                                    <p:selectBooleanCheckbox value="#{usuario.estadoActivo}" style="height :12px; position: relative;top: 2px; left:-3px">  
                                         <p:ajax event="change" listener="#{controlUsuarios.modificarUsuarios(usuario)}" update="@this"/>  
                                     </p:selectBooleanCheckbox> 
                                 </p:column> 
@@ -225,7 +225,7 @@
                         </fieldset>
                         <p:commandButton style="position: relative; left: 10px; top: 465px;height: 30px; width: 111px; background-image: url(Imagenes/Iconos/boton.png); color: white; text-align: center;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" icon="ui-icon-arrowreturnthick-1-s"
-                                         id="REPORTE" value="#{msg['reporte']}" update=":form:datosUsuarios" process="@this" />
+                                         id="REPORTE" value="#{msg['reporte']}" update=":form:datosUsuarios" process="@this" actionListener="#{controlUsuarios.validarDescargaReporte()}" />
 
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlUsuarios.salir()}" process="@this" />
 
@@ -821,6 +821,21 @@
                     <p:dialog id="editarPantalla" header="#{msg['pantallae']}" widgetVar="editarPantalla" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
                         <p:inputTextarea value="#{controlUsuarios.editarUsuarios.pantallainicio.nombre}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
+                    
+                    <p:dialog  id="verReportePDF" header="#{controlUsuarios.cabezeraVisor}" widgetVar="verReportePDF" width="1024px" height="530px" resizable="false" draggable="true" modal="true" >
+                  <p:media value="#{controlUsuarios.reporte}" width="100%" height="500px" player="pdf" rendered="#{controlUsuarios.reporte != null}"/>
+               </p:dialog>
+               <p:remoteCommand name="reiniciarStreamedContent" actionListener="#{controlUsuarios.reiniciarStreamedContent()}"/>
+
+               <p:dialog id="errorGenerandoReporte" header="#{msg['errorReporte']}" widgetVar="errorGenerandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="350" style="font-size: 12px">  
+                  <p:inputTextarea value="#{controlUsuarios.pathReporteGenerado}" style="position: absolute; left: 10px; top: 20px; width: 300px; height: 70px; overflow: auto;" readonly="true" />
+               </p:dialog>
+
+               <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
+                  <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
+                  <p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlUsuarios.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px" process="@this" />
+               </p:dialog>
                 </h:form>
 
                 <h:form id="formExportar">

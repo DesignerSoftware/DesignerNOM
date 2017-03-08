@@ -7,6 +7,7 @@ package InterfaceAdministrar;
 
 import Entidades.UsuariosFiltros;
 import InterfacePersistencia.PersistenciaUsuariosFiltrosInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -27,4 +28,8 @@ public interface AdministrarUsuariosFiltrosInterface {
     public void modificarUsuarioFiltro(List<UsuariosFiltros> listModificar);
 
     public void borrarUsuarioFiltro(List<UsuariosFiltros> listBorrar);   
+    
+    public BigDecimal contarUsuariosFiltros(BigInteger secUsuarioEstructura);
+    
+    public void crearFiltroUsuario(BigInteger secuenciaUsuarioVista);
 }

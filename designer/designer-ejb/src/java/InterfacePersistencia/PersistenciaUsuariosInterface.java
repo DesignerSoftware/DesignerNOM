@@ -30,4 +30,5 @@ public interface PersistenciaUsuariosInterface {
     public void clonarUsuario(EntityManager em, BigInteger usuarioOrigen , BigInteger usuarioDestino);
     public void desbloquearUsuario(EntityManager em, String alias);
     public void restaurarUsuario(EntityManager em, String alias, String fecha);
+    public List<Usuarios> buscarUsuariosXSecuencia(EntityManager em, BigInteger secUsuario);
 }

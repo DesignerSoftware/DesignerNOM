@@ -85,7 +85,6 @@ public class UsuariosVistas implements Serializable {
     }
 
     public void setBaseestructura(String baseestructura) {
-        
         this.baseestructura = baseestructura;
     }
 

@@ -16,6 +16,7 @@ import InterfacePersistencia.PersistenciaEstructurasInterface;
 import InterfacePersistencia.PersistenciaUsuariosEstructurasInterface;
 import InterfacePersistencia.PersistenciaUsuariosInterface;
 import InterfacePersistencia.PersistenciaUsuariosVistasInterface;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
@@ -119,6 +120,17 @@ public class AdministrarUsuariosEstructuras implements AdministrarUsuariosEstruc
        for (int i = 0; i < listBorrar.size(); i++) {
            persistenciaUsuariosVistas.borrar(em, listBorrar.get(i));
         }
+    }
+
+    @Override
+    public BigDecimal contarUsuariosEstructuras(BigInteger secUsuario) {
+       BigDecimal count = persistenciaUsuariosEstructuras.contarUsuariosEstructuras(em, secUsuario);
+       return count;
+    }
+
+    @Override
+    public void crearVistaUsuarioEstructura(BigInteger secUsuarioEstructura, BigInteger secUsuario) {
+       persistenciaUsuariosEstructuras.crearVistaUsuarioEstructura(em, secUsuarioEstructura, secUsuario);
     }
 
 }

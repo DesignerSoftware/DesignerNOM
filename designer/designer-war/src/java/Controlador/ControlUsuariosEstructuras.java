@@ -22,6 +22,7 @@ import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -159,6 +160,7 @@ public class ControlUsuariosEstructuras implements Serializable {
             HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
             administrarUsuariosEstructuras.obtenerConexion(ses.getId());
             administrarRastros.obtenerConexion(ses.getId());
+            administrarUsuariosFiltros.obtenerConexion(ses.getId());
         } catch (Exception e) {
             System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
             System.out.println("Causa: " + e.getCause());
@@ -258,6 +260,14 @@ public class ControlUsuariosEstructuras implements Serializable {
         }
     }
 
+    public void cargarInfo(UsuariosEstructuras usuarioE){
+        usuarioEstructuraSeleccionado = usuarioE;
+        listaUsuariosFiltros = null;
+        getListaUsuariosFiltros();
+        contarRegistrosVistas();
+        RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
+    }
+    
     public void eventofiltrar() {
         if (tipoLista == 0) {
             tipoLista = 1;
@@ -287,8 +297,7 @@ public class ControlUsuariosEstructuras implements Serializable {
             habilitarBotonLov();
             usuarioEstructuraSeleccionado.getEstructura().getNombre();
         }
-        listaUsuariosFiltros = null;
-        getListaUsuariosFiltros();
+        cargarInfo(usuarioEstructuraSeleccionado);
     }
 
     public void cambiarIndiceVista(UsuariosFiltros usuariov, int celda) {
@@ -560,36 +569,41 @@ public class ControlUsuariosEstructuras implements Serializable {
     }
 
     public void listaValoresBoton() {
-        if (usuarioEstructuraSeleccionado != null) {
-            RequestContext context = RequestContext.getCurrentInstance();
-            if (cualCelda == 0) {
-                lovUsuarios = null;
-                getLovUsuarios();
-                RequestContext.getCurrentInstance().update("formularioDialogos:usuariosDialogo");
-                RequestContext.getCurrentInstance().execute("PF('usuariosDialogo').show()");
-                tipoActualizacion = 0;
-            } else if (cualCelda == 1) {
-                lovEmpresas = null;
-                getLovEmpresas();
-                RequestContext.getCurrentInstance().update("formularioDialogos:empresasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('empresasDialogo').show()");
-                tipoActualizacion = 0;
-            } else if (cualCelda == 3) {
-                lovEstructuras = null;
-                getLovEstructuras();
-                RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
-                tipoActualizacion = 0;
+        if (cualtabla == 0) {
+            if (usuarioEstructuraSeleccionado != null) {
+                RequestContext context = RequestContext.getCurrentInstance();
+                if (cualCelda == 0) {
+                    lovUsuarios = null;
+                    getLovUsuarios();
+                    RequestContext.getCurrentInstance().update("formularioDialogos:usuariosDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('usuariosDialogo').show()");
+                    tipoActualizacion = 0;
+                } else if (cualCelda == 1) {
+                    lovEmpresas = null;
+                    getLovEmpresas();
+                    RequestContext.getCurrentInstance().update("formularioDialogos:empresasDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('empresasDialogo').show()");
+                    tipoActualizacion = 0;
+                } else if (cualCelda == 3) {
+                    lovEstructuras = null;
+                    getLovEstructuras();
+                    RequestContext.getCurrentInstance().update("formularioDialogos:estructurasDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('estructurasDialogo').show()");
+                    tipoActualizacion = 0;
+                }
             }
-        } else if (usuariosFiltroSeleccionado != null) {
-            if (cualCelda == 0) {
-                lovUsuariosVistas = null;
-                getLovUsuariosVistas();
-                RequestContext.getCurrentInstance().update("formularioDialogos:vistasDialogo");
-                RequestContext.getCurrentInstance().execute("PF('vistasDialogo').show()");
-                tipoActualizacion = 0;
+        } else if (cualtabla == 1) {
+            if (usuariosFiltroSeleccionado != null) {
+                if (cualCelda == 0) {
+                    lovUsuariosVistas = null;
+                    getLovUsuariosVistas();
+                    RequestContext.getCurrentInstance().update("formularioDialogos:vistasDialogo");
+                    RequestContext.getCurrentInstance().execute("PF('vistasDialogo').show()");
+                    tipoActualizacion = 0;
+                }
             }
         }
+
     }
 
     public void modificarUsuarios(UsuariosEstructuras usuario) {
@@ -759,6 +773,37 @@ public class ControlUsuariosEstructuras implements Serializable {
         }
     }
 
+    public void verificarBorrado(){
+        BigDecimal contarUsuariosEstructuras;
+        BigDecimal contarUsuariosFiltros;
+          try {
+            contarUsuariosEstructuras = administrarUsuariosEstructuras.contarUsuariosEstructuras(usuarioEstructuraSeleccionado.getSecuencia());
+            contarUsuariosFiltros = administrarUsuariosFiltros.contarUsuariosFiltros(usuarioEstructuraSeleccionado.getSecuencia());
+         if (contarUsuariosEstructuras.equals(new BigInteger("0")) && contarUsuariosFiltros.equals(new BigInteger("0"))) {
+            borrarUsuarioEstructura();
+         } else {
+            RequestContext.getCurrentInstance().update("formularioDialogos:validacionBorrar");
+            RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
+            usuarioEstructuraSeleccionado = null;
+            contarUsuariosEstructuras = new BigDecimal("-1");
+            contarUsuariosFiltros = new BigDecimal("-1");
+         }
+      } catch (Exception e) {
+         System.err.println("ERROR ControlTiposFamiliares verificarBorrado ERROR " + e);
+      }
+        
+    }
+    
+    public void borrarRegistro(){
+        if(cualtabla == 0){
+          verificarBorrado();
+        }else if(cualtabla == 1){
+            borrarUsuarioFiltro();
+        }else{
+            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show");
+        }
+    }
+    
     public void borrarUsuarioEstructura() {
         if (usuarioEstructuraSeleccionado != null) {
             if (!listaUsuariosEstructurasModificar.isEmpty() && listaUsuariosEstructurasModificar.contains(usuarioEstructuraSeleccionado)) {
@@ -830,6 +875,10 @@ public class ControlUsuariosEstructuras implements Serializable {
             if (listaUsuariosEstructuras.get(i).getEstructura().getSecuencia() == nuevoUsuarioEstructura.getEstructura().getSecuencia()) {
                 duplicados++;
             }
+            if(listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == nuevoUsuarioEstructura.getEmpresa().getSecuencia()){
+                duplicados ++;
+            }
+            
         }
         if (pasa == 0) {
             if (duplicados == 0) {
@@ -902,16 +951,20 @@ public class ControlUsuariosEstructuras implements Serializable {
                 k++;
                 l = BigInteger.valueOf(k);
                 nuevoUsuarioFiltro.setSecuencia(l);
+                nuevoUsuarioFiltro.setUsuarioestructura(usuarioEstructuraSeleccionado);
+//                nuevoUsuarioFiltro.setUsuariovista(new UsuariosVistas());
                 listaUsuariosFiltrosCrear.add(nuevoUsuarioFiltro);
                 listaUsuariosFiltros.add(nuevoUsuarioFiltro);
                 usuariosFiltroSeleccionado = nuevoUsuarioFiltro;
                 contarRegistrosVistas();
                 nuevoUsuarioFiltro = new UsuariosFiltros();
+                nuevoUsuarioFiltro.setUsuarioestructura(new UsuariosEstructuras());
+                nuevoUsuarioFiltro.setUsuariovista(new UsuariosVistas());
                 RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
                 guardado = false;
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
-                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioFiltro");
-                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioFiltro').hide()");
+                RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioVista");
+                RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioVista').hide()");
             } else {
                 RequestContext.getCurrentInstance().update("formularioDialogos:existeVista");
                 RequestContext.getCurrentInstance().execute("PF('existeVista').show()");
@@ -956,6 +1009,9 @@ public class ControlUsuariosEstructuras implements Serializable {
             }
             if (listaUsuariosEstructuras.get(i).getEstructura().getSecuencia() == duplicarUsuarioEstructura.getEstructura().getSecuencia()) {
                 duplicados++;
+            }
+            if(listaUsuariosEstructuras.get(i).getEmpresa().getSecuencia() == duplicarUsuarioEstructura.getEmpresa().getSecuencia()){
+                duplicados ++;
             }
         }
         if (pasa == 0) {
@@ -1196,6 +1252,26 @@ public class ControlUsuariosEstructuras implements Serializable {
         navegar("atras");
     }
 
+    public void crearVistaUsuarioEstructura(){
+        try{
+          administrarUsuariosEstructuras.crearVistaUsuarioEstructura(usuarioEstructuraSeleccionado.getSecuencia(), usuarioEstructuraSeleccionado.getUsuario().getSecuencia());
+            RequestContext.getCurrentInstance().execute("PF('crearVistaUsuarioEstructura').show()");
+        }catch(Exception e){
+            System.out.println("error Controlador.ControlUsuariosEstructuras.crearVistaUsuarioEstructura()" + e.getMessage() );
+            RequestContext.getCurrentInstance().execute("PF('errorCrearVistaUsuarioEstructura').show()");
+        }
+    }
+    
+    public void crearFiltroUsuario(){
+        try{
+           administrarUsuariosFiltros.crearFiltroUsuario(usuariosFiltroSeleccionado.getUsuariovista().getSecuencia());
+            RequestContext.getCurrentInstance().execute("PF('crearFiltroUsuario').show()");
+        }catch(Exception e){
+            System.out.println("error ControlUsuariosEstructuras.crearFiltroUsuario() : " + e.getMessage()); 
+            RequestContext.getCurrentInstance().execute("PF('errorCrearFiltroUsuario').show()");
+        }
+    }
+    
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:infoRegistro");
     }
@@ -1205,7 +1281,7 @@ public class ControlUsuariosEstructuras implements Serializable {
     }
 
     public void contarRegistrosLovVistas() {
-        RequestContext.getCurrentInstance().update("form:infoRegistroLovVista");
+        RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovVista");
     }
 
     public void contarRegistrosEmpresas() {
@@ -1236,8 +1312,8 @@ public class ControlUsuariosEstructuras implements Serializable {
     }
 
     public void mostrarDialogoInsertarVista() {
-        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioFiltro");
-        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioFiltro').show()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroUsuarioVista");
+        RequestContext.getCurrentInstance().execute("PF('NuevoRegistroUsuarioVista').show()");
     }
 
     ///////////////GETTERS Y SETTERS/////////////
@@ -1473,7 +1549,9 @@ public class ControlUsuariosEstructuras implements Serializable {
 
     public List<UsuariosFiltros> getListaUsuariosFiltros() {
         if (listaUsuariosFiltros == null) {
+            if(usuarioEstructuraSeleccionado != null){
             listaUsuariosFiltros = administrarUsuariosFiltros.consultarUsuariosFiltros(usuarioEstructuraSeleccionado.getSecuencia());
+            }
         }
         return listaUsuariosFiltros;
     }
@@ -1491,6 +1569,9 @@ public class ControlUsuariosEstructuras implements Serializable {
     }
 
     public List<UsuariosVistas> getLovUsuariosVistas() {
+        if (lovUsuariosVistas == null) {
+            lovUsuariosVistas = administrarUsuariosEstructuras.listaUsuariosVistas();
+        }
         return lovUsuariosVistas;
     }
 
@@ -1575,5 +1656,5 @@ public class ControlUsuariosEstructuras implements Serializable {
     public void setUsuariosFiltroSeleccionado(UsuariosFiltros usuariosFiltroSeleccionado) {
         this.usuariosFiltroSeleccionado = usuariosFiltroSeleccionado;
     }
-    
+
 }
