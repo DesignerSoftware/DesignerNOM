@@ -115,11 +115,14 @@ public class PersistenciaVigenciasDomiciliarias implements PersistenciaVigencias
             String sql = "SELECT DECODE(AUX.NOMBRE,NULL,'','VISITADO EL'||' '||TO_CHAR(AUX.FECHA,'DD-MM-YYYY'))\n"
                     + "	 FROM (SELECT V.persona NOMBRE,MAX(V.fecha)FECHA\n"
                     + "	 FROM PERSONAS P,VIGENCIASDOMICILIARIAS V\n"
-                    + "	 WHERE  P.SECUENCIA =V.persona(+) AND P.secuencia= ? \n"
+                    + "	 WHERE  P.SECUENCIA =V.persona(+) AND P.secuencia= ? AND ROWNUM = 1 \n"
                     + "	 GROUP BY V.persona) AUX";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuencia);
             visita = (String) query.getSingleResult();
+            if (visita == null) {
+                visita = "";
+            }
             return visita;
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria()" + e.getMessage());

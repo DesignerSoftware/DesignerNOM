@@ -124,6 +124,7 @@ public class ControlNReporteContabilidad implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
 private ExternalContext externalContext;
     private String userAgent;
+    private boolean activarLov;
     
     public ControlNReporteContabilidad() {
         activoMostrarTodos = true;
@@ -158,8 +159,8 @@ private ExternalContext externalContext;
         //
         permitirIndex = true;
         cabezeraVisor = null;
-        System.out.println(this.getClass().getName() + " fin del Constructor()");
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -260,39 +261,39 @@ private ExternalContext externalContext;
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla >= 1) {
             if (casilla == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesde");
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
             }
             if (casilla == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empleadoDesde");
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
                 RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
             }
 
             if (casilla == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
             }
             if (casilla == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empleadoHasta");
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
                 RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
             }
             if (casilla == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:proceso");
+                RequestContext.getCurrentInstance().update("formDialogos:proceso");
                 RequestContext.getCurrentInstance().execute("PF('proceso').show()");
             }
             if (casilla == 6) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empresa");
+                RequestContext.getCurrentInstance().update("formDialogos:empresa");
                 RequestContext.getCurrentInstance().execute("PF('empresa').show()");
             }
             casilla = -1;
         }
         if (casillaInforReporte >= 1) {
             if (casillaInforReporte == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:infoReporteCodigoD");
+                RequestContext.getCurrentInstance().update("formDialogos:infoReporteCodigoD");
                 RequestContext.getCurrentInstance().execute("PF('infoReporteCodigoD').show()");
             }
             if (casillaInforReporte == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:infoReporteNombreD");
+                RequestContext.getCurrentInstance().update("formDialogos:infoReporteNombreD");
                 RequestContext.getCurrentInstance().execute("PF('infoReporteNombreD').show()");
             }
             casillaInforReporte = -1;
@@ -320,27 +321,28 @@ private ExternalContext externalContext;
     public void mostrarDialogosListas() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
+            listEmpleados = null;
             cargarEmpleados();
             contarRegistrosEmpeladoD();
-            if ((listEmpleados == null) || listEmpleados.isEmpty()) {
-                listEmpleados = null;
-            }
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (casilla == 4) {
+            listEmpleados = null;
             cargarEmpleados();
             contarRegistrosEmpeladoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (casilla == 5) {
+            listProcesos = null;
             cargarProcesos();
             contarRegistrosProceso();
             RequestContext.getCurrentInstance().update("formDialogos:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
         if (casilla == 6) {
+            listEmpresas = null;
             cargarEmpresas();
             contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
@@ -727,7 +729,7 @@ private ExternalContext externalContext;
                 listaIR.add(listInforeportes.get(i));
             }
             contarRegistros();
-            RequestContext context = RequestContext.getCurrentInstance();
+            inforreporteSeleccionado = null;
             activoBuscarReporte = false;
             activoMostrarTodos = true;
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
@@ -879,7 +881,7 @@ private ExternalContext externalContext;
         aceptar = true;
         activoBuscarReporte = true;
         activoMostrarTodos = false;
-        inforreporteSeleccionado = null;
+        inforreporteSeleccionado = reporteLovSeleccionado;
         reporteLovSeleccionado = null;
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
@@ -990,18 +992,23 @@ private ExternalContext externalContext;
             casilla = i;
             switch (casilla) {
                 case 1:
+                    deshabilitarBotonLov();
                     fechaDesde = parametroDeReporte.getFechadesde();
                     break;
                 case 2:
+                    habilitarBotonLov();
                     emplDesde = parametroDeReporte.getCodigoempleadodesde();
                     break;
                 case 3:
+                    deshabilitarBotonLov();
                     fechaHasta = parametroDeReporte.getFechahasta();
                     break;
                 case 4:
+                    habilitarBotonLov();
                     emplHasta = parametroDeReporte.getCodigoempleadohasta();
                     break;
                 case 5:
+                    habilitarBotonLov();
                     proceso = parametroDeReporte.getProceso().getDescripcion();
                     break;
                 default:
@@ -1059,6 +1066,16 @@ private ExternalContext externalContext;
         RequestContext.getCurrentInstance().update("formDialogos:infoRegistroEmpresa");
     }
 
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
 //******************GETTER AND SETTER***************************
     public ParametrosReportes getParametroDeReporte() {
         try {
@@ -1405,4 +1422,11 @@ private ExternalContext externalContext;
         this.activarEnvio = activarEnvio;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
 }

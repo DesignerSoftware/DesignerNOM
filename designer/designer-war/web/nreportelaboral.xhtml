@@ -36,7 +36,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png)" 
-                                                 id="listaValores" value="" process="@this" actionListener="#{controlNReporteLaboral.listaValoresBoton()}" />
+                                                 id="listaValores" value="" process="@this" actionListener="#{controlNReporteLaboral.listaValoresBoton()}" disabled="#{controlNReporteLaboral.activarLov}" />
                                 <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" 
@@ -187,7 +187,7 @@
                                                      style="position: absolute; width: 100px; left: 110px; top: 32px;" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(2)}" process="@this"/> 
                                             <p:ajax event="change" listener="#{controlNReporteLaboral.autocompletarGeneral('DESDE',controlNReporteLaboral.parametroDeReporte.codigoempleadodesde)}" update="empleadoDesdeParametroL"  process="@this"/>
-                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
+                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(2)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                         </p:inputText>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                                                      style="position: absolute; left: 45px; width: 100px; top: 32px;" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(4)}" process="@this"/> 
                                             <p:ajax event="change" listener="#{controlNReporteLaboral.autocompletarGeneral('HASTA',controlNReporteLaboral.parametroDeReporte.codigoempleadohasta)}" update="empleadoHastaParametroL" process="@this"/>
-                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
+                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(4)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                         </p:inputText>
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@
                                                  style="position: absolute; width: 250px; left: 60px; top: 0px;" onclick="select()">
                                         <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(5)}" process="@this"/> 
                                         <p:ajax event="change" update="cargoParametroL" listener="#{controlNReporteLaboral.autocompletarGeneral('CARGO',controlNReporteLaboral.parametroDeReporte.cargo.nombre)}"  process="@this"/>
-                                        <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
+                                        <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(5)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                     </p:inputText>
                                 </div>
                                 <div style="display: block;">
@@ -242,7 +242,7 @@
                                         <p:inputText  autocomplete="off"  value="#{controlNReporteLaboral.parametroDeReporte.empresa.nombre}" 
                                                       id="empresaParametroL" style="position: absolute; width: 100px; left: 65px; top: 2px;" onclick="select();">
                                             <p:ajax event="click" listener="#{controlNReporteLaboral.posicionCelda(6)}" process="@this"/> 
-                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
+                                            <p:ajax event="dblclick" listener="#{controlNReporteLaboral.mostrarDialogosListas(6)}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this"/>
                                             <p:ajax event="change" update="empresaParametroL" listener="#{controlNReporteLaboral.autocompletarGeneral('EMPRESA',controlNReporteLaboral.parametroDeReporte.empresa.nombre)}" process="@this"/>
                                         </p:inputText>
                                     </div>
@@ -344,15 +344,15 @@
                                 <h:outputText value="#{msg['buscarEMP']}"/>  
                                 <p:inputText id="globalFilter" autocomplete="off" onkeyup="PF('lovEmpleadoDesde').filter();"/>  
                             </f:facet>
-                            <p:column filterBy="#{empleadoDesde.codigoempleado}" width="40" filterMatchMode="contains" filterStyle="width: 50px">
+                            <p:column filterBy="#{empleadoDesde.codigoempleado}" width="55" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMP']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText  value="#{empleadoDesde.codigoempleado}" />
                             </p:column>
-                            <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" width="180" filterStyle="width: 120px;" filterMatchMode="contains">
+                            <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" width="180" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMP']}" />
+                                    <h:outputText value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
                             </p:column>
@@ -380,13 +380,13 @@
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMPH']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}" />
                             </p:column>
                             <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" width="180" filterStyle="width: 80% !important" filterMatchMode="contains">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMPH']}" />
+                                    <h:outputText value="Empleado" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
                             </p:column>

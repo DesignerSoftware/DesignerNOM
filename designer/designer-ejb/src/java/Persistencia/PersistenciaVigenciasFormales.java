@@ -158,11 +158,14 @@ public class PersistenciaVigenciasFormales implements PersistenciaVigenciasForma
                     + "   FROM vigenciasformales V,TIPOSEDUCACIONES TE\n"
                     + "   WHERE V.persona = ? \n"
                     + "   AND   V.tipoeducacion = TE.secuencia\n"
-                    + "   AND V.FECHAVIGENCIA=(SELECT MAX(A.FECHAVIGENCIA) FROM vigenciasformales A WHERE A.PERSONA = V.PERSONA)\n"
+                    + "   AND V.FECHAVIGENCIA=(SELECT MAX(A.FECHAVIGENCIA) FROM vigenciasformales A WHERE A.PERSONA = V.PERSONA) AND ROWNUM = 1 \n"
                     + "   and rownum=1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuencia);
             educacion = (String) query.getSingleResult();
+            if(educacion == null){
+            educacion = "";
+            }
             return educacion;
         } catch (Exception e) {
             educacion = "";

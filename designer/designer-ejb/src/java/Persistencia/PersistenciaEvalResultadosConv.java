@@ -102,10 +102,10 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
     }
 
     @Override
-    public List<EvalResultadosConv> consultarEvalResultadosConvocatorias(EntityManager em,BigInteger secuenciaEmpleado) {
+    public List<EvalResultadosConv> consultarEvalResultadosConvocatorias(EntityManager em, BigInteger secuenciaEmpleado) {
         try {
             em.clear();
-            String sql = "SELECT * FROM EvalResultadosConv WHERE empleado = ? \n" ;
+            String sql = "SELECT * FROM EvalResultadosConv WHERE empleado = ? \n";
             Query query = em.createNativeQuery(sql, EvalResultadosConv.class);
             query.setParameter(1, secuenciaEmpleado);
             List<EvalResultadosConv> evalresconv = query.getResultList();
@@ -118,17 +118,20 @@ public class PersistenciaEvalResultadosConv implements PersistenciaEvalResultado
 
     @Override
     public String primerPruebaAplicada(EntityManager em, BigInteger secuenciaEmpleado) {
-       String pruebas;
+        String pruebas;
         try {
             em.clear();
-            String sql = "SELECT * FROM EvalResultadosConv WHERE empleado = ? \n" ;
+            String sql = "SELECT * FROM EvalResultadosConv WHERE empleado = ? AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaEmpleado);
             pruebas = (String) query.getSingleResult();
+            if (pruebas == null) {
+                pruebas = "";
+            }
             return pruebas;
         } catch (Exception e) {
-           System.out.println("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada()");
-           pruebas="";
+            System.out.println("Persistencia.PersistenciaEvalResultadosConv.primerPruebaAplicada()");
+            pruebas = "";
             return pruebas;
         }
     }

@@ -116,10 +116,13 @@ public class PersistenciaVigenciasEventos implements PersistenciaVigenciasEvento
                     + "    FROM vigenciaseventos A, EVENTOS B\n"
                     + "    WHERE A.empleado = (select secuencia from empleados where persona=?) \n"
                     + "    AND A.evento = B.secuencia\n"
-                    + "    AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM vigenciaseventos  V WHERE V.EMPLEADO = A.EMPLEADO)";
+                    + "    AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM vigenciaseventos  V WHERE V.EMPLEADO = A.EMPLEADO) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secPersona);
             evento = (String) query.getSingleResult();
+            if(evento == null){
+            evento = "";
+            }
             return evento;
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaVigenciasEventos.primerEvento()" + e.getMessage());

@@ -40,7 +40,7 @@
                                 <p:separator style="position: relative; top: -9px"/> 
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png)" 
-                                                 id="listaValores" value="" process="@this" actionListener="#{controlNReportesSeguridad.listaValoresBoton()}" />
+                                                 id="listaValores" value="" process="@this" actionListener="#{controlNReportesSeguridad.listaValoresBoton()}" disabled="=#{controlNReportesSeguridad.activarLov}" />
                                 <p:tooltip style="font-size: 12px;" for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png)" 
@@ -293,14 +293,14 @@
                                 <h:outputText value="#{msg['buscarR']}"/>  
                                 <p:inputText  autocomplete="off"  id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}"/>  
                             </f:facet>
-                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 94%">
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" width="40" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText  value="#{msg['codigoR']}" />
                                 </f:facet>
                                 <h:outputText style="text-align: center" value="#{reportes.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%">
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>
@@ -334,13 +334,13 @@
                             </f:facet>
                             <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMP']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoDesde.codigoempleado}" />
                             </p:column>
                             <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMP']}" />
+                                    <h:outputText value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
                             </p:column>
@@ -372,13 +372,13 @@
                             </f:facet>
                             <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMPH']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}" />
                             </p:column>
                             <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMPH']}" />
+                                    <h:outputText value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
                             </p:column>

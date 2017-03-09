@@ -34,7 +34,7 @@
 
                                 <p:separator style="position: relative; top: -9px"/> 
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" actionListener="#{controlNReportePersonal.listaValoresBoton()}" />
+                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" process="@this" disabled="#{controlNReportePersonal.activarLov}" actionListener="#{controlNReportePersonal.listaValoresBoton()}" />
                                 <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
                                 <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none;" actionListener="#{controlNReportePersonal.activarCtrlF11()}" process="@this"/>
@@ -79,8 +79,6 @@
                         </p:toolbar>
 
                         <fieldset style="position: absolute; left: 150px; top: 267px; width: 690px; height: 198px; border-radius: 10px">
-                           <!-- <legend style=" color: blue; text-align:left"><strong>#{msg['titulo']}</strong></legend> -->
-
                             <p:dataTable id="reportesPersonal" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 675px;"                           
                                          value="#{controlNReportePersonal.listaIR}" scrollable="true" scrollHeight="#{controlNReportePersonal.altoTabla}" scrollWidth="696"
                                          filteredValue="#{controlNReportePersonal.filtrarListInforeportesUsuario}" selectionMode="single" emptyMessage="#{msg['vacio']}" widgetVar="reportesPersonal"
@@ -117,19 +115,11 @@
                                     </p:cellEditor>
                                 </p:column>
 
-                                <p:column id="columnaGenerarR" width="19" style="padding-left: 5px; padding: 0px; text-align: center;" >                                                              
+                                <p:column id="columnaGenerarR" width="19" style="padding-left: 5px;padding: 0px; text-align: center" >                                                              
                                     <f:facet name="header">
                                         <h:outputText id="GenerarR" value="R"/>
                                         <p:tooltip for="GenerarR" value="#{msg['generarReporte']}"/>
                                     </f:facet>
-                                    <!--                                    <p:cellEditor>  
-                                                                            <f:facet id="hacerReporte" name="output"><img src="Imagenes/Iconos/generarReporte.png" width="18" height="18" "/></f:facet>  
-                                                                            <p:tooltip for="hacerReporte" value="#/{msg['generarReporte']}"/>
-                                                                            <f:facet name="input">
-                                                                                <p:inputText id="EdGenerarR" autocomplete="off" value="G" maxlength="1" style="background-color: blue; width: 6px; height: 6px;">
-                                                                                </p:inputText>
-                                                                            </f:facet>
-                                                                        </p:cellEditor>-->
                                     <p:commandButton id="EdGenerarR" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/generarReporte.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; " value=" " 
                                                      actionListener="#{controlNReportePersonal.generarReporte(info)}" onstart="PF('generandoReporte').show()">                
                                     </p:commandButton>  
@@ -137,6 +127,7 @@
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </p:column>
+                                
                             </p:dataTable>
 
                             <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReportePersonal.infoRegistro}" style="position: relative; left: 15px; top: -3px; font-weight: bold"/>
@@ -203,14 +194,14 @@
                                 <h:outputText value="#{msg['buscarR']}"/>   
                                 <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovReportesDialogo').filter();" value="#{filtrado}" />  
                             </f:facet>
-                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 94%" width="50px;" sortBy="#{reportes.codigo}">
+                            <p:column style="text-align: center" filterBy="#{reportes.codigo}" filterMatchMode="contains" filterStyle="width: 80% !important" width="50px;" sortBy="#{reportes.codigo}">
                                 <f:facet name="header" >
                                     <h:outputText  value="#{msg['codigoR']}" />
                                 </f:facet>
                                 <h:outputText style="text-align: center" value="#{reportes.codigo}" />
                             </p:column>
 
-                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 94%" sortBy="#{reportes.nombre}">
+                            <p:column filterBy="#{reportes.nombre}" filterMatchMode="contains" filterStyle="width: 80% !important" sortBy="#{reportes.nombre}">
                                 <f:facet name="header">
                                     <h:outputText value="#{msg['nombreR']}" />
                                 </f:facet>
@@ -242,16 +233,16 @@
                                 <p:inputText  autocomplete="off" class="cssFiltroLOV" id="globalFilter" onkeyup="PF('lovEmpleadoDesde').filter();" value="#{filtrado}"/>  
                             </f:facet>
 
-                            <p:column filterBy="#{empleadoDesde.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{empleadoDesde.codigoempleado}" width="55" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMP']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoDesde.codigoempleado}" />
                             </p:column>
 
                             <p:column filterBy="#{empleadoDesde.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMP']}" />
+                                    <h:outputText value="Nombre" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoDesde.persona.nombreCompleto}" />
                             </p:column>
@@ -282,15 +273,15 @@
                                 <h:outputText value="#{msg['buscarEMPH']}"/>  
                                 <p:inputText class="cssFiltroLOV" autocomplete="off" id="globalFilter" onkeyup="PF('lovEmpleadoHasta').filter();" value="#{filtrado}"/>  
                             </f:facet>
-                            <p:column filterBy="#{empleadoHasta.codigoempleado}" width="60" filterMatchMode="contains" filterStyle="width: 80% !important">
+                            <p:column filterBy="#{empleadoHasta.codigoempleado}" width="55" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText style="text-align: center" value="#{msg['codigooEMPH']}" />
+                                    <h:outputText style="text-align: center" value="Código" />
                                 </f:facet>
                                 <h:outputText  value="#{empleadoHasta.codigoempleado}" />
                             </p:column>
                             <p:column filterBy="#{empleadoHasta.persona.nombreCompleto}" filterMatchMode="contains" filterStyle="width: 80% !important">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msg['nombreEMPH']}" />
+                                    <h:outputText value="Empleado" />
                                 </f:facet>
                                 <h:outputText value="#{empleadoHasta.persona.nombreCompleto}" />
                             </p:column>

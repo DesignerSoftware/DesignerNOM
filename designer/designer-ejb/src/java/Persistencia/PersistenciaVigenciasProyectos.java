@@ -44,7 +44,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             em.merge(vigenciasProyectos);
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProyectos.crear: " +  e.getMessage());
+            System.out.println("Error PersistenciaVigenciasProyectos.crear: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -78,7 +78,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             em.remove(em.merge(vigenciasProyectos));
             tx.commit();
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProyectos.borrar: " +  e.getMessage());
+            System.out.println("Error PersistenciaVigenciasProyectos.borrar: " + e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
@@ -94,7 +94,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             cq.select(cq.from(VigenciasProyectos.class));
             return em.createQuery(cq).getResultList();
         } catch (Exception e) {
-            System.out.println("Error en buscarVigenciasProyectos" +  e.getMessage());
+            System.out.println("Error en buscarVigenciasProyectos" + e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -117,7 +117,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             List<VigenciasProyectos> listaVigenciasProyectos = queryFinal.getResultList();
             return listaVigenciasProyectos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProyectos.proyectosPersona" +  e.getMessage());
+            System.out.println("Error PersistenciaVigenciasProyectos.proyectosPersona" + e.getMessage());
             return null;
         }
     }
@@ -133,7 +133,7 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
             List<VigenciasProyectos> listaVigenciasProyectos = query.getResultList();
             return listaVigenciasProyectos;
         } catch (Exception e) {
-            System.out.println("Error PersistenciaVigenciasProyectos.vigenciasProyectosEmpleado" +  e.getMessage());
+            System.out.println("Error PersistenciaVigenciasProyectos.vigenciasProyectosEmpleado" + e.getMessage());
             return null;
         }
     }
@@ -147,10 +147,13 @@ public class PersistenciaVigenciasProyectos implements PersistenciaVigenciasProy
                     + "   FROM vigenciasproyectos V,proyectos p\n"
                     + "   WHERE V.empleado = (select secuencia from empleados where persona=?) \n"
                     + "   AND   V.proyecto = p.secuencia \n"
-                    + "   AND   V.FECHAINICIAL=(SELECT MAX(A.FECHAINICIAL) FROM VIGENCIASPROYECTOS A WHERE A.EMPLEADO = V.EMPLEADO)";
+                    + "   AND   V.FECHAINICIAL=(SELECT MAX(A.FECHAINICIAL) FROM VIGENCIASPROYECTOS A WHERE A.EMPLEADO = V.EMPLEADO) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaPersona);
             proyecto = (String) query.getSingleResult();
+            if (proyecto == null) {
+                proyecto = "";
+            }
             return proyecto;
         } catch (Exception e) {
             proyecto = "";

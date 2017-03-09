@@ -161,6 +161,7 @@ public class ControlNReporteNomina implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<>();
     private ExternalContext externalContext;
     private String userAgent;
+    private boolean activarLov;
 
     public ControlNReporteNomina() {
         System.out.println(this.getClass().getName() + ".Constructor()");
@@ -215,8 +216,8 @@ public class ControlNReporteNomina implements Serializable {
         //reporte = new DefaultStreamedContent();
         cabezeraVisor = null;
         estadoReporte = false;
-        System.out.println(this.getClass().getName() + " fin del Constructor()");
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -439,59 +440,78 @@ public class ControlNReporteNomina implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                listValEmpleados = null;
-            }
+            listValEmpleados = null;
+            cargarListaEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpeladoD();
         }
         if (casilla == 4) {
+            listValGruposConceptos = null;
+            cargarListaGruposConcepto();
             RequestContext.getCurrentInstance().update("form:GruposConceptosDialogo");
             RequestContext.getCurrentInstance().execute("PF('GruposConceptosDialogo').show()");
             contarRegistrosGrupo();
         }
         if (casilla == 5) {
+            listValUbicacionesGeograficas = null;
+            cargarListaUbicacionesGeograficas();
             RequestContext.getCurrentInstance().update("form:UbiGeograficaDialogo");
             RequestContext.getCurrentInstance().execute("PF('UbiGeograficaDialogo').show()");
             contarRegistrosUbicacion();
         }
         if (casilla == 6) {
+            listValTiposAsociaciones = null;
+            getListValTiposAsociaciones();
             RequestContext.getCurrentInstance().update("form:TipoAsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoAsociacionDialogo').show()");
             contarRegistrosTipoAsociacion();
         }
         if (casilla == 8) {
+            listValEmpleados = null;
+            cargarListaEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpeladoH();
         }
         if (casilla == 10) {
+            listValEmpresas = null;
+            getListValEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (casilla == 11) {
+            listValEstructuras = null;
+            cargarListaEstructuras();
             RequestContext.getCurrentInstance().update("form:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (casilla == 12) {
+            listValTiposTrabajadores = null;
+            cargarListaTiposTrabajadores();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (casilla == 13) {
+            listValTerceros = null;
+            cargarListaTerceros();
             RequestContext.getCurrentInstance().update("form:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (casilla == 14) {
+            listValProcesos = null;
+            cargarListaProcesos();
             RequestContext.getCurrentInstance().update("form:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
             contarRegistrosProceso();
         }
         if (casilla == 16) {
+            listValAsociaciones = null;
+            cargarListaAsociaciones();
             RequestContext.getCurrentInstance().update("form:AsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('AsociacionDialogo').show()");
             contarRegistrosAsociacion();
@@ -991,13 +1011,13 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public void mostrarTodos() {
-        System.out.println(this.getClass().getName() + ".mostrarTodos()");
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
             for (int i = 0; i < listValInforeportes.size(); i++) {
                 listaIR.add(listValInforeportes.get(i));
             }
+            reporteSeleccionado = null;
             contarRegistros();
             RequestContext context = RequestContext.getCurrentInstance();
             activoBuscarReporte = false;
@@ -1005,7 +1025,6 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
             RequestContext.getCurrentInstance().update("form:reportesNomina");
-            RequestContext.getCurrentInstance().update("form:informacionRegistro");
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
@@ -1393,7 +1412,7 @@ public class ControlNReporteNomina implements Serializable {
         aceptar = true;
         activoBuscarReporte = true;
         activoMostrarTodos = false;
-        reporteSeleccionado = null;
+        reporteSeleccionado = reporteSeleccionadoLOV;
         reporteSeleccionadoLOV = null;
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
@@ -1559,7 +1578,7 @@ public class ControlNReporteNomina implements Serializable {
             }
         }
         if (campoConfirmar.equalsIgnoreCase("TIPOTRABAJADOR")) {
-     if (!valorConfirmar.isEmpty()) {
+            if (!valorConfirmar.isEmpty()) {
                 parametroDeReporte.getTipotrabajador().setNombre(tipoTrabajador);
                 for (int i = 0; i < listValTiposTrabajadores.size(); i++) {
                     if (listValTiposTrabajadores.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -1768,24 +1787,52 @@ public class ControlNReporteNomina implements Serializable {
 
     //POSICION CELDA
     public void posicionCelda(int i) {
-        System.out.println(this.getClass().getName() + ".posicionCelda()");
         casilla = i;
         if (permitirIndex == true) {
-            casillaInforReporte = -1;
-            emplDesde = parametroDeReporte.getCodigoempleadodesde();
-            fechaDesde = parametroDeReporte.getFechadesde();
-            emplHasta = parametroDeReporte.getCodigoempleadohasta();
-            fechaHasta = parametroDeReporte.getFechahasta();
-            ubiGeo = parametroDeReporte.getUbicaciongeografica().getDescripcion();
-            tipoAso = parametroDeReporte.getTipoasociacion().getDescripcion();
-            empresa = parametroDeReporte.getEmpresa().getNombre();
-            proceso = parametroDeReporte.getProceso().getDescripcion();
-            asociacion = parametroDeReporte.getAsociacion().getDescripcion();
-            grupo = parametroDeReporte.getGrupo().getDescripcion();
-            estructura = parametroDeReporte.getLocalizacion().getNombre();
-            tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
-            tercero = parametroDeReporte.getTercero().getNombre();
-            estado = parametroDeReporte.getEstadosolucionnodo();
+            if (casilla == 1) {
+                deshabilitarBotonLov();
+                fechaDesde = parametroDeReporte.getFechadesde();
+            } else if (casilla == 2) {
+                habilitarBotonLov();
+                emplDesde = parametroDeReporte.getCodigoempleadodesde();
+            } else if (casilla == 4) {
+                habilitarBotonLov();
+                grupo = parametroDeReporte.getGrupo().getDescripcion();
+            } else if (casilla == 5) {
+                habilitarBotonLov();
+                ubiGeo = parametroDeReporte.getUbicaciongeografica().getDescripcion();
+            } else if (casilla == 6) {
+                habilitarBotonLov();
+                tipoAso = parametroDeReporte.getTipoasociacion().getDescripcion();
+            } else if (casilla == 7) {
+                deshabilitarBotonLov();
+                fechaHasta = parametroDeReporte.getFechahasta();
+            } else if (casilla == 8) {
+                habilitarBotonLov();
+                emplHasta = parametroDeReporte.getCodigoempleadohasta();
+            } else if (casilla == 10) {
+                habilitarBotonLov();
+                empresa = parametroDeReporte.getEmpresa().getNombre();
+            } else if (casilla == 11) {
+                habilitarBotonLov();
+                estructura = parametroDeReporte.getLocalizacion().getNombre();
+            } else if (casilla == 12) {
+                habilitarBotonLov();
+                tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
+            } else if (casilla == 13) {
+                habilitarBotonLov();
+                tercero = parametroDeReporte.getTercero().getNombre();
+            } else if (casilla == 14) {
+                habilitarBotonLov();
+                proceso = parametroDeReporte.getProceso().getDescripcion();
+            } else if (casilla == 15) {
+                deshabilitarBotonLov();
+                parametroDeReporte.getMensajedesprendible();
+            } else if (casilla == 16) {
+                habilitarBotonLov();
+                asociacion = parametroDeReporte.getAsociacion().getDescripcion();
+            }
+
         }
     }
 
@@ -1815,6 +1862,8 @@ public class ControlNReporteNomina implements Serializable {
             contarRegistrosUbicacion();
         }
         if (pos == 6) {
+            listValTiposAsociaciones = null;
+            getListValTiposAsociaciones();
             RequestContext.getCurrentInstance().update("form:TipoAsociacionDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoAsociacionDialogo').show()");
             contarRegistrosTipoAsociacion();
@@ -1827,6 +1876,8 @@ public class ControlNReporteNomina implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (pos == 10) {
+            listValEmpresas = null;
+            getListValEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
@@ -2014,6 +2065,16 @@ public class ControlNReporteNomina implements Serializable {
         }
     }
 
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
     //GETTER AND SETTER
     public ParametrosReportes getParametroDeInforme() {
         try {
@@ -2136,7 +2197,7 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public List<Empresas> getListValEmpresas() {
-        if (listValEmpresas == null || listValEmpresas.isEmpty()) {
+        if (listValEmpresas == null) {
             listValEmpresas = administrarNReportesNomina.listEmpresas();
         }
         return listValEmpresas;
@@ -2163,7 +2224,7 @@ public class ControlNReporteNomina implements Serializable {
     }
 
     public List<TiposAsociaciones> getListValTiposAsociaciones() {
-        if (listValTiposAsociaciones == null || listValTiposAsociaciones.isEmpty()) {
+        if (listValTiposAsociaciones == null) {
             listValTiposAsociaciones = administrarNReportesNomina.listTiposAsociaciones();
         }
         return listValTiposAsociaciones;
@@ -2585,6 +2646,14 @@ public class ControlNReporteNomina implements Serializable {
 
     public void setActivarEnvio(boolean activarEnvio) {
         this.activarEnvio = activarEnvio;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
     }
 
 }

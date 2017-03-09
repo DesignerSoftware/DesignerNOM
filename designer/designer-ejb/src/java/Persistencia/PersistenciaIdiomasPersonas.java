@@ -73,10 +73,10 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
             tx.commit();
 
         } catch (Exception e) {
-        System.out.println("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
-                if (tx.isActive()) {
-                    tx.rollback();
-                }
+            System.out.println("Error PersistenciaIdiomasPersonas.borrar: " + e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
         }
     }
 
@@ -125,7 +125,7 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
     }
 
     @Override
-    public String primerIdioma(EntityManager em,BigInteger secuenciaPersona) {
+    public String primerIdioma(EntityManager em, BigInteger secuenciaPersona) {
         String idioma;
         try {
             em.clear();
@@ -133,10 +133,13 @@ public class PersistenciaIdiomasPersonas implements PersistenciaIdiomasPersonasI
                     + "   FROM  VWIDIOMASPERSONAS A, IDIOMAS B\n"
                     + "   WHERE A.PERSONA = ? AND\n"
                     + "   A.IDIOMA = B.SECUENCIA\n"
-                    + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM VWIDIOMASPERSONAS V WHERE V.PERSONA = A.PERSONA) ";
+                    + "   AND A.SECUENCIA = (SELECT MAX(V.SECUENCIA) FROM VWIDIOMASPERSONAS V WHERE V.PERSONA = A.PERSONA) AND ROWNUM = 1 ";
             Query query = em.createNativeQuery(sql);
-            query.setParameter(1,secuenciaPersona);
+            query.setParameter(1, secuenciaPersona);
             idioma = (String) query.getSingleResult();
+            if (idioma == null) {
+                idioma = "";
+            }
             return idioma;
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaIdiomasPersonas.primerIdioma()" + e.getMessage());

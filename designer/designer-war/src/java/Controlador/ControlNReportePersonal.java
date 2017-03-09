@@ -161,6 +161,7 @@ public class ControlNReportePersonal implements Serializable {
     private Map<BigInteger, Object> mapTipos = new LinkedHashMap<>();
     private ExternalContext externalContext;
     private String userAgent;
+    private boolean activarLov;
 
     public ControlNReportePersonal() {
         System.out.println("Controlador.ControlNReportePersonal.<init>()");
@@ -213,6 +214,7 @@ public class ControlNReportePersonal implements Serializable {
         permitirIndex = true;
         cabezeraVisor = null;
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -329,7 +331,7 @@ public class ControlNReportePersonal implements Serializable {
                     administrarNReportePersonal.modificarParametrosReportes(parametroDeReporte);
                 }
                 cambiosReporte = true;
-                FacesMessage msg = new FacesMessage("Información", "Los datos se guardarón con Éxito.");
+                FacesMessage msg = new FacesMessage("Información", "Los datos se guardaron con Éxito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 RequestContext.getCurrentInstance().update("form:growl");
                 RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -408,67 +410,67 @@ public class ControlNReportePersonal implements Serializable {
     public void editarCelda() {
         if (casilla >= 1) {
             if (casilla == 1) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaDesde");
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaDesde");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaDesde').show()");
             }
             if (casilla == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empleadoDesde");
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoDesde");
                 RequestContext.getCurrentInstance().execute("PF('empleadoDesde').show()");
             }
             if (casilla == 3) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:solicitud");
+                RequestContext.getCurrentInstance().update("formDialogos:solicitud");
                 RequestContext.getCurrentInstance().execute("PF('solicitud').show()");
             }
             if (casilla == 4) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:estadoCivil");
+                RequestContext.getCurrentInstance().update("formDialogos:estadoCivil");
                 RequestContext.getCurrentInstance().execute("PF('estadoCivil').show()");
             }
             if (casilla == 5) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:tipoTelefono");
+                RequestContext.getCurrentInstance().update("formDialogos:tipoTelefono");
                 RequestContext.getCurrentInstance().execute("PF('tipoTelefono').show()");
             }
             if (casilla == 6) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:jefeDivision");
+                RequestContext.getCurrentInstance().update("formDialogos:jefeDivision");
                 RequestContext.getCurrentInstance().execute("PF('jefeDivision').show()");
             }
             if (casilla == 7) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:rodamiento");
+                RequestContext.getCurrentInstance().update("formDialogos:rodamiento");
                 RequestContext.getCurrentInstance().execute("PF('rodamiento').show()");
             }
             if (casilla == 8) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:editarFechaHasta");
+                RequestContext.getCurrentInstance().update("formDialogos:editarFechaHasta");
                 RequestContext.getCurrentInstance().execute("PF('editarFechaHasta').show()");
             }
             if (casilla == 9) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empleadoHasta");
+                RequestContext.getCurrentInstance().update("formDialogos:empleadoHasta");
                 RequestContext.getCurrentInstance().execute("PF('empleadoHasta').show()");
             }
             if (casilla == 10) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:estructura");
+                RequestContext.getCurrentInstance().update("formDialogos:estructura");
                 RequestContext.getCurrentInstance().execute("PF('estructura').show()");
             }
             if (casilla == 11) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:tipoTrabajador");
+                RequestContext.getCurrentInstance().update("formDialogos:tipoTrabajador");
                 RequestContext.getCurrentInstance().execute("PF('tipoTrabajador').show()");
             }
             if (casilla == 12) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:ciudad");
+                RequestContext.getCurrentInstance().update("formDialogos:ciudad");
                 RequestContext.getCurrentInstance().execute("PF('ciudad').show()");
             }
             if (casilla == 13) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:deporte");
+                RequestContext.getCurrentInstance().update("formDialogos:deporte");
                 RequestContext.getCurrentInstance().execute("PF('deporte').show()");
             }
             if (casilla == 14) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:aficion");
+                RequestContext.getCurrentInstance().update("formDialogos:aficion");
                 RequestContext.getCurrentInstance().execute("PF('aficion').show()");
             }
             if (casilla == 15) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:idioma");
+                RequestContext.getCurrentInstance().update("formDialogos:idioma");
                 RequestContext.getCurrentInstance().execute("PF('idioma').show()");
             }
             if (casilla == 16) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:empresa");
+                RequestContext.getCurrentInstance().update("formDialogos:empresa");
                 RequestContext.getCurrentInstance().execute("PF('empresa').show()");
             }
             casilla = -1;
@@ -489,64 +491,85 @@ public class ControlNReportePersonal implements Serializable {
     public void listaValoresBoton() {
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            if ((listEmpleados == null) || listEmpleados.isEmpty()) {
-                listEmpleados = null;
-            }
+            listEmpleados = null;
+            cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (casilla == 4) {
+            listEstadosCiviles = null;
+            cargarEstadosCiviles();
             RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
             contarRegistrosEstadoCivil();
         }
         if (casilla == 5) {
+            listTiposTelefonos = null;
+            cargarTiposTelefonos();
             RequestContext.getCurrentInstance().update("form:TipoTelefonoDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTelefonoDialogo').show()");
             contarRegistrosTipoTelefono();
         }
         if (casilla == 6) {
+            listEmpleados = null;
+            cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:JefeDivisionDialogo");
             RequestContext.getCurrentInstance().execute("PF('JefeDivisionDialogo').show()");
             contarRegistrosJefe();
         }
         if (casilla == 9) {
+            listEmpleados = null;
+            cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (casilla == 10) {
+            listEstructuras = null;
+            cargarEstructuras();
             RequestContext.getCurrentInstance().update("form:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (casilla == 11) {
+            listTiposTrabajadores = null;
+            cargarTiposTrabajadores();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (casilla == 12) {
+            listCiudades = null;
+            cargarCiudades();
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
             contarRegistrosCiudad();
         }
         if (casilla == 13) {
+            listDeportes = null;
+            cargarDeporte();
             RequestContext.getCurrentInstance().update("form:DeportesDialogo");
             RequestContext.getCurrentInstance().execute("PF('DeportesDialogo').show()");
             contarRegistrosDeporte();
         }
         if (casilla == 14) {
+            listAficiones = null;
+            cargarAficion();
             RequestContext.getCurrentInstance().update("form:AficionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
             contarRegistrosAficion();
         }
         if (casilla == 15) {
+            listIdiomas = null;
+            cargarIdioma();
             RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
             RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
             contarRegistrosIdioma();
         }
         if (casilla == 16) {
+            listEmpresas = null;
+            cargarEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
@@ -838,51 +861,67 @@ public class ControlNReportePersonal implements Serializable {
 //            casillaInforReporte = -1;
             switch (casilla) {
                 case 1:
+                    deshabilitarBotonLov();
                     fechaDesde = parametroDeReporte.getFechadesde();
                     break;
                 case 2:
+                    habilitarBotonLov();
                     emplDesde = parametroDeReporte.getCodigoempleadodesde();
                     break;
                 case 3:
+                    deshabilitarBotonLov();
                     solicitud = parametroDeReporte.getObservaciones();
                     break;
                 case 4:
+                    habilitarBotonLov();
                     estadocivil = parametroDeReporte.getEstadocivil().getDescripcion();
                     break;
                 case 5:
+                    habilitarBotonLov();
                     tipotelefono = parametroDeReporte.getTipotelefono().getNombre();
                     break;
                 case 6:
+                    habilitarBotonLov();
                     jefediv = parametroDeReporte.getNombregerente().getPersona().getNombreCompleto();
                     break;
                 case 7:
+                    deshabilitarBotonLov();
                     rodamiento = parametroDeReporte.getRodamineto();
                     break;
                 case 8:
+                    deshabilitarBotonLov();
                     fechaHasta = parametroDeReporte.getFechahasta();
                     break;
                 case 9:
+                    habilitarBotonLov();
                     emplHasta = parametroDeReporte.getCodigoempleadohasta();
                     break;
                 case 10:
+                    habilitarBotonLov();
                     estructura = parametroDeReporte.getLocalizacion().getNombre();
                     break;
                 case 11:
+                    habilitarBotonLov();
                     tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
                     break;
                 case 12:
+                    habilitarBotonLov();
                     ciudad = parametroDeReporte.getCiudad().getNombre();
                     break;
                 case 13:
+                    habilitarBotonLov();
                     deporte = parametroDeReporte.getDeporte().getNombre();
                     break;
                 case 14:
+                    habilitarBotonLov();
                     aficiones = parametroDeReporte.getAficion().getDescripcion();
                     break;
                 case 15:
+                    habilitarBotonLov();
                     idioma = parametroDeReporte.getIdioma().getNombre();
                     break;
                 case 16:
+                    habilitarBotonLov();
                     empresa = parametroDeReporte.getEmpresa().getNombre();
                     break;
                 default:
@@ -1219,61 +1258,61 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void cargarEmpleados() {
-        if (listEmpleados == null || listEmpleados.isEmpty()) {
+        if (listEmpleados == null ) {
             listEmpleados = administrarNReportePersonal.listEmpleados();
         }
     }
 
     public void cargarEmpresas() {
-        if (listEmpresas == null || listEmpresas.isEmpty()) {
+        if (listEmpresas == null) {
             listEmpresas = administrarNReportePersonal.listEmpresas();
         }
     }
 
     public void cargarEstructuras() {
-        if (listEstructuras == null || listEstructuras.isEmpty()) {
+        if (listEstructuras == null ) {
             listEstructuras = administrarNReportePersonal.listEstructuras();
         }
     }
 
     public void cargarTiposTrabajadores() {
-        if (listTiposTrabajadores == null || listTiposTrabajadores.isEmpty()) {
+        if (listTiposTrabajadores == null ) {
             listTiposTrabajadores = administrarNReportePersonal.listTiposTrabajadores();
         }
     }
 
     public void cargarEstadosCiviles() {
-        if (listEstadosCiviles == null || listEstadosCiviles.isEmpty()) {
+        if (listEstadosCiviles == null ) {
             listEstadosCiviles = administrarNReportePersonal.listEstadosCiviles();
         }
     }
 
     public void cargarTiposTelefonos() {
-        if (listTiposTelefonos == null || listTiposTelefonos.isEmpty()) {
+        if (listTiposTelefonos == null ) {
             listTiposTelefonos = administrarNReportePersonal.listTiposTelefonos();
         }
     }
 
     public void cargarCiudades() {
-        if (listCiudades == null || listCiudades.isEmpty()) {
+        if (listCiudades == null ) {
             listCiudades = administrarNReportePersonal.listCiudades();
         }
     }
 
     public void cargarDeporte() {
-        if (listDeportes == null || listDeportes.isEmpty()) {
+        if (listDeportes == null ) {
             listDeportes = administrarNReportePersonal.listDeportes();
         }
     }
 
     public void cargarAficion() {
-        if (listAficiones == null || listAficiones.isEmpty()) {
+        if (listAficiones == null ) {
             listAficiones = administrarNReportePersonal.listAficiones();
         }
     }
 
     public void cargarIdioma() {
-        if (listIdiomas == null || listIdiomas.isEmpty()) {
+        if (listIdiomas == null ) {
             listIdiomas = administrarNReportePersonal.listIdiomas();
         }
     }
@@ -1281,75 +1320,84 @@ public class ControlNReportePersonal implements Serializable {
     public void dialogosParametros(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            if ((listEmpleados == null) || listEmpleados.isEmpty()) {
-                listEmpleados = null;
-            }
+            listEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (pos == 4) {
+            listEstadosCiviles = null;
             cargarEstadosCiviles();
             RequestContext.getCurrentInstance().update("form:EstadoCivilDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstadoCivilDialogo').show()");
             contarRegistrosEstadoCivil();
         }
         if (pos == 5) {
+            listTiposTelefonos = null;
             cargarTiposTelefonos();
             RequestContext.getCurrentInstance().update("form:TipoTelefonoDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTelefonoDialogo').show()");
             contarRegistrosTipoTelefono();
         }
         if (pos == 6) {
+            listEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:JefeDivisionDialogo");
             RequestContext.getCurrentInstance().execute("PF('JefeDivisionDialogo').show()");
             contarRegistrosJefe();
         }
         if (pos == 9) {
+            listEmpleados = null;
             cargarEmpleados();
             RequestContext.getCurrentInstance().update("form:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (pos == 10) {
+            listEstructuras = null;
             cargarEstructuras();
             RequestContext.getCurrentInstance().update("form:EstructuraDialogo");
             RequestContext.getCurrentInstance().execute("PF('EstructuraDialogo').show()");
             contarRegistrosEstructura();
         }
         if (pos == 11) {
+            listTiposTrabajadores = null;
             cargarTiposTrabajadores();
             RequestContext.getCurrentInstance().update("form:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
             contarRegistrosTipoTrabajador();
         }
         if (pos == 12) {
+            listCiudades = null;
             cargarCiudades();
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
             contarRegistrosCiudad();
         }
         if (pos == 13) {
+            listDeportes = null;
             cargarDeporte();
             RequestContext.getCurrentInstance().update("form:DeportesDialogo");
             RequestContext.getCurrentInstance().execute("PF('DeportesDialogo').show()");
             contarRegistrosDeporte();
         }
         if (pos == 14) {
+            listAficiones = null;
             cargarAficion();
             RequestContext.getCurrentInstance().update("form:AficionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('AficionesDialogo').show()");
             contarRegistrosAficion();
         }
         if (pos == 15) {
+            listIdiomas = null;
             cargarIdioma();
             RequestContext.getCurrentInstance().update("form:IdiomasDialogo");
             RequestContext.getCurrentInstance().execute("PF('IdiomasDialogo').show()");
             contarRegistrosIdioma();
         }
         if (pos == 16) {
+            listEmpresas = null;
             cargarEmpresas();
             RequestContext.getCurrentInstance().update("form:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
@@ -1358,75 +1406,6 @@ public class ControlNReportePersonal implements Serializable {
 
     }
 
-//    public void refrescarParametros() {
-//        defaultPropiedadesParametrosReporte();
-//        parametroDeInforme = null;
-//        parametroModificacion = null;
-//        listEstructuras = null;
-//        listCiudades = null;
-//        listEmpleados = null;
-//        listEmpresas = null;
-//        listTiposTrabajadores = null;
-//        listAficiones = null;
-//        listDeportes = null;
-//        listEstadosCiviles = null;
-//        listIdiomas = null;
-//        listTiposTelefonos = null;
-//        parametroDeInforme = null;
-//
-//        parametroDeInforme = administrarNReportePersonal.parametrosDeReporte();
-//
-//        if (parametroDeInforme.getEstadocivil() == null) {
-//            parametroDeInforme.setEstadocivil(new EstadosCiviles());
-//        }
-//        if (parametroDeInforme.getTipotelefono() == null) {
-//            parametroDeInforme.setTipotelefono(new TiposTelefonos());
-//        }
-//        if (parametroDeInforme.getLocalizacion() == null) {
-//            parametroDeInforme.setLocalizacion(new Estructuras());
-//        }
-//        if (parametroDeInforme.getTipotrabajador() == null) {
-//            parametroDeInforme.setTipotrabajador(new TiposTrabajadores());
-//        }
-//        if (parametroDeInforme.getCiudad() == null) {
-//            parametroDeInforme.setCiudad(new Ciudades());
-//        }
-//        if (parametroDeInforme.getDeporte() == null) {
-//            parametroDeInforme.setDeporte(new Deportes());
-//        }
-//        if (parametroDeInforme.getAficion() == null) {
-//            parametroDeInforme.setAficion(new Aficiones());
-//        }
-//        if (parametroDeInforme.getIdioma() == null) {
-//            parametroDeInforme.setIdioma(new Idiomas());
-//        }
-//        if (parametroDeInforme.getEmpresa() == null) {
-//            parametroDeInforme.setEmpresa(new Empresas());
-//        }
-//
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        RequestContext.getCurrentInstance().update("formParametros:fechaDesdeParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:empleadoDesdeParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:solicitudParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:estadoCivilParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:tipoTelefonoParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:jefeDivisionParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:rodamientoParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:fondoCumpleParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:fechaHastaParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:estructuraParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:tipoTrabajadorParametro");
-//
-//        RequestContext.getCurrentInstance().update("formParametros:ciudadParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:deporteParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:aficionParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:idiomaParametro");
-//
-//        RequestContext.getCurrentInstance().update("formParametros:personalParametro");
-//        RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
-//
-//    }
     public void activarAceptar() {
         aceptar = false;
     }
@@ -1794,7 +1773,6 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void actualizarSeleccionInforeporte() {
-        System.out.println(this.getClass().getName() + ".actualizarSeleccionInforeporte()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (bandera == 1) {
             cerrarFiltrado();
@@ -1807,7 +1785,7 @@ public class ControlNReportePersonal implements Serializable {
         aceptar = true;
         activoBuscarReporte = true;
         activoMostrarTodos = false;
-        reporteSeleccionado = null;
+        reporteSeleccionado = reporteSeleccionadoLov;
         reporteSeleccionadoLov = null;
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
@@ -1835,8 +1813,8 @@ public class ControlNReportePersonal implements Serializable {
             for (int i = 0; i < lovInforeportes.size(); i++) {
                 listaIR.add(lovInforeportes.get(i));
             }
+            reporteSeleccionado = null;
             contarRegistros();
-            RequestContext context = RequestContext.getCurrentInstance();
             activoBuscarReporte = false;
             activoMostrarTodos = true;
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
@@ -2098,9 +2076,19 @@ public class ControlNReportePersonal implements Serializable {
     }
 
     public void contarRegistrosLovReportes() {
-        System.out.println("Controlador.ControlNReportePersonal.contarRegistrosLovReportes()");
         RequestContext.getCurrentInstance().update("form:infoRegistroReportes");
     }
+    
+    public void habilitarBotonLov(){
+    activarLov = false; 
+    RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void deshabilitarBotonLov(){
+    activarLov = true; 
+    RequestContext.getCurrentInstance().update("form:listaValores");    
+    }
+    
 
     ///////////////////////////////SETS Y GETS/////////////////////////////
     public ParametrosReportes getParametroDeReporte() {
@@ -2700,6 +2688,14 @@ public class ControlNReportePersonal implements Serializable {
 
     public void setActivarEnvio(boolean activarEnvio) {
         this.activarEnvio = activarEnvio;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
     }
 
 }

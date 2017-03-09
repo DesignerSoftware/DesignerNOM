@@ -135,10 +135,13 @@ public class PersistenciaVigenciasAficiones implements PersistenciaVigenciasAfic
                     + "   FROM VIGENCIASAFICIONES A,AFICIONES B\n"
                     + "   WHERE A.PERSONA = ?\n"
                     + "   AND A.AFICION = B.SECUENCIA\n"
-                    + "   AND A.FECHAINICIAL = (SELECT MAX(AI.FECHAINICIAL) FROM VIGENCIASAFICIONES AI WHERE AI.PERSONA =A.PERSONA)";
+                    + "   AND A.FECHAINICIAL = (SELECT MAX(AI.FECHAINICIAL) FROM VIGENCIASAFICIONES AI WHERE AI.PERSONA =A.PERSONA) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuencia);
             aficion = (String) query.getSingleResult();
+            if (aficion == null) {
+                aficion = "";
+            }
             return aficion;
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaVigenciasAficiones.primeraAficion()" + e.getMessage());

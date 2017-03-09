@@ -131,10 +131,13 @@ public class PersistenciaHvExperienciasLaborales implements PersistenciaHvExperi
          String sql = "SELECT SUBSTR(E.empresa||' '||TO_CHAR(E.fechadesde,'DD-MM-YYYY'),1,30)\n"
                  + "     FROM  HVEXPERIENCIASLABORALES E \n"
                  + "     WHERE E.HOJADEVIDA = ? \n"
-                 + "     AND   E.fechadesde = (SELECT MAX(EI.FECHADESDE) FROM HVEXPERIENCIASLABORALES EI WHERE EI.hojadevida = E.HOJADEVIDA)";
+                 + "     AND   E.fechadesde = (SELECT MAX(EI.FECHADESDE) FROM HVEXPERIENCIASLABORALES EI WHERE EI.hojadevida = E.HOJADEVIDA) AND ROWNUM = 1";
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, secuenciaHv);
          experiencia = (String) query.getSingleResult();
+         if(experiencia == null){
+         experiencia = "";
+         }
       } catch (Exception e) {
          System.out.println("Persistencia.PersistenciaHvExperienciasLaborales.primeraExpLaboral() e: " + e);
          experiencia = "";

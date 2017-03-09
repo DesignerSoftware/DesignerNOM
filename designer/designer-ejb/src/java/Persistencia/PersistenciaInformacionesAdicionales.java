@@ -173,10 +173,13 @@ public class PersistenciaInformacionesAdicionales implements PersistenciaInforma
             String sql = "SELECT SUBSTR(I.DESCRIPCION||' '||TO_CHAR(FECHAINICIAL,'DD-MM-YYYY'),1,30) \n"
                     + "   FROM INFORMACIONESADICIONALES I \n"
                     + "   WHERE I.EMPLEADO = (select secuencia from empleados where persona=?) \n"
-                    + "   AND I.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM INFORMACIONESADICIONALES V WHERE V.EMPLEADO = I.EMPLEADO)";
+                    + "   AND I.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM INFORMACIONESADICIONALES V WHERE V.EMPLEADO = I.EMPLEADO) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaEmpleado);
             infoAd = (String) query.getSingleResult();
+            if (infoAd == null) {
+                infoAd = "";
+            }
             return infoAd;
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaInformacionesAdicionales.primeraInformacionAdicional()" + e.getMessage());

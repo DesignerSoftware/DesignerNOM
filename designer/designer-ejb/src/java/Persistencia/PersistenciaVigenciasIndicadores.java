@@ -138,12 +138,14 @@ public class PersistenciaVigenciasIndicadores implements PersistenciaVigenciasIn
                     + "   FROM VIGENCIASINDICADORES A, INDICADORES B\n"
                     + "   WHERE A.EMPLEADO = (select secuencia from empleados where persona=?) AND\n"
                     + "   A.INDICADOR = B.SECUENCIA \n"
-                    + "   AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM VIGENCIASINDICADORES V WHERE V.EMPLEADO = A.EMPLEADO)";
+                    + "   AND A.FECHAINICIAL = (SELECT MAX(V.FECHAINICIAL) FROM VIGENCIASINDICADORES V WHERE V.EMPLEADO = A.EMPLEADO) AND ROWNUM = 1";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuencia);
             indicador = (String) query.getSingleResult();
+            if(indicador == null){
+            indicador = "";
+            }
             return indicador;
-
         } catch (Exception e) {
             System.out.println("Persistencia.PersistenciaVigenciasIndicadores.primeraVigenciaIndicador()" + e.getMessage());
             indicador = "";

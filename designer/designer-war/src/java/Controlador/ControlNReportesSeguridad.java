@@ -132,6 +132,7 @@ public class ControlNReportesSeguridad implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private ExternalContext externalContext;
     private String userAgent;
+    private boolean activarLov;
 
     /**
      * Creates a new instance of controlNReportesPila
@@ -181,6 +182,7 @@ public class ControlNReportesSeguridad implements Serializable {
         cabezeraVisor = null;
         estadoReporte = false;
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -421,18 +423,25 @@ public class ControlNReportesSeguridad implements Serializable {
         casilla = i;
         if (permitirIndex == true) {
             if (casilla == 0) {
+                deshabilitarBotonLov();
                 fechaDesde = parametroDeReporte.getFechadesde();
             } else if (casilla == 1) {
+                deshabilitarBotonLov();
                 fechaHasta = parametroDeReporte.getFechahasta();
             } else if (casilla == 2) {
+                habilitarBotonLov();
                 emplDesde = parametroDeReporte.getCodigoempleadodesde();
             } else if (casilla == 3) {
+                habilitarBotonLov();
                 emplHasta = parametroDeReporte.getCodigoempleadohasta();
             } else if (casilla == 4) {
+                habilitarBotonLov();
                 tercero = parametroDeReporte.getTercero().getNombre();
             } else if (casilla == 5) {
+                habilitarBotonLov();
                 empresa = parametroDeReporte.getEmpresa().getNombre();
             } else if (casilla == 7) {
+                habilitarBotonLov();
                 sucursal = parametroDeReporte.getSucursalPila().getDescripcion();
             }
         }
@@ -604,29 +613,36 @@ public class ControlNReportesSeguridad implements Serializable {
         System.out.println(this.getClass().getName() + ".listaValoresBoton()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (casilla == 2) {
-            if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                listValEmpleados = null;
-            }
+            listValEmpleados = null;
+            getListValEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (casilla == 3) {
+            listValEmpleados = null;
+            getListValEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (casilla == 4) {
+            listValTerceros = null;
+            getListValTerceros();
             RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (casilla == 6) {
+            listValEmpresas = null;
+            getListValEmpresas();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (casilla == 7) {
+            listValSucursales = null;
+            getListValSucursales();
             RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
             contarRegistrosSucursales();
@@ -636,29 +652,36 @@ public class ControlNReportesSeguridad implements Serializable {
     public void dialogosParametros(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            if ((listValEmpleados == null) || listValEmpleados.isEmpty()) {
-                listValEmpleados = null;
-            }
+            listValEmpleados = null;
+            getListValEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
             contarRegistrosEmpleadoD();
         }
         if (pos == 3) {
+            listValEmpleados = null;
+            getListValEmpleados();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
             contarRegistrosEmpleadoH();
         }
         if (pos == 4) {
+            listValTerceros = null;
+            getListValTerceros();
             RequestContext.getCurrentInstance().update("formDialogos:TerceroDialogo");
             RequestContext.getCurrentInstance().execute("PF('TerceroDialogo').show()");
             contarRegistrosTercero();
         }
         if (pos == 5) {
+            listValEmpresas = null;
+            getListValEmpresas();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             contarRegistrosEmpresa();
         }
         if (pos == 7) {
+            listValSucursales = null;
+            getListValSucursales();
             RequestContext.getCurrentInstance().update("formDialogos:sucursalDialogo");
             RequestContext.getCurrentInstance().execute("PF('sucursalDialogo').show()");
             contarRegistrosSucursales();
@@ -683,7 +706,7 @@ public class ControlNReportesSeguridad implements Serializable {
         aceptar = true;
         activoBuscarReporte = true;
         activoMostrarTodos = false;
-        reporteSeleccionado = null;
+        reporteSeleccionado = reporteSeleccionadoLOV;
         reporteSeleccionadoLOV = null;
         RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
         RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
@@ -915,7 +938,7 @@ public class ControlNReportesSeguridad implements Serializable {
             for (int i = 0; i < listValInforeportes.size(); i++) {
                 listaIR.add(listValInforeportes.get(i));
             }
-            RequestContext context = RequestContext.getCurrentInstance();
+            reporteSeleccionado = null;
             activoBuscarReporte = false;
             activoMostrarTodos = true;
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
@@ -1218,6 +1241,16 @@ public class ControlNReportesSeguridad implements Serializable {
         RequestContext.getCurrentInstance().update("formDialogos:infoRegistroSucursal");
     }
 
+    public void habilitarBotonLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
+    public void deshabilitarBotonLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+
 ////sets y gets
     public ParametrosReportes getParametroDeReporte() {
         try {
@@ -1310,7 +1343,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public List<TiposTrabajadores> getListValTiposTrabajadores() {
-        if (listValTiposTrabajadores == null || listValTiposTrabajadores.isEmpty()) {
+        if (listValTiposTrabajadores == null) {
             listValTiposTrabajadores = administrarNReportesSeguridad.listTiposTrabajadores();
         }
         return listValTiposTrabajadores;
@@ -1321,7 +1354,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public List<Estructuras> getListValEstructuras() {
-        if (listValEstructuras == null || listValEstructuras.isEmpty()) {
+        if (listValEstructuras == null) {
             listValEstructuras = administrarNReportesSeguridad.listEstructuras();
         }
         return listValEstructuras;
@@ -1332,7 +1365,7 @@ public class ControlNReportesSeguridad implements Serializable {
     }
 
     public List<SucursalesPila> getListValSucursales() {
-        if (listValSucursales == null || listValSucursales.isEmpty()) {
+        if (listValSucursales == null) {
             listValSucursales = administrarNReportesSeguridad.listSucursales(auxiliar);
         }
         return listValSucursales;
@@ -1693,6 +1726,14 @@ public class ControlNReportesSeguridad implements Serializable {
 
     public void setActivarEnvio(boolean activarEnvio) {
         this.activarEnvio = activarEnvio;
+    }
+
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
     }
 
 }

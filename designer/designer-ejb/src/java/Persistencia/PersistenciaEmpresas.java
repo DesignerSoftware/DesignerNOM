@@ -198,8 +198,8 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
    public List<Empresas> consultarEmpresas(EntityManager em) {
       try {
          em.clear();
-         Query query = em.createQuery("SELECT e FROM Empresas e");
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         String sql = "SELECT * FROM EMPRESAS";
+         Query query = em.createNativeQuery(sql, Empresas.class);
          List<Empresas> empresas = query.getResultList();
          return empresas;
       } catch (Exception e) {
