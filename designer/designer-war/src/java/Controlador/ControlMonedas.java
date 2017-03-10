@@ -51,19 +51,19 @@ public class ControlMonedas implements Serializable {
    private Monedas editarMoneda;
    private Monedas monedaSeleccionada;
    //otros
-   private int cualCelda, tipoLista, index, tipoActualizacion, k, bandera;
+   private int cualCelda, tipoLista, tipoActualizacion, k, bandera;
    private BigInteger l;
    private boolean aceptar, guardado;
    //AutoCompletar
    private boolean permitirIndex;
    //RASTRO
-   private BigInteger secRegistro;
    private Column codigo, descripcion;
    //borrado
    private int registrosBorrados;
    private String mensajeValidacion;
    private BigInteger proyectos;
    private String a;
+   private String infoRegistro;
    private String backUpCodigo;
    private String backUpMoneda;
    private int tamano;
@@ -80,7 +80,7 @@ public class ControlMonedas implements Serializable {
       nuevoMoneda = new Monedas();
       duplicarMoneda = new Monedas();
       a = null;
-      tamano = 270;
+      tamano = 220;
       guardado = true;
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -122,7 +122,7 @@ public class ControlMonedas implements Serializable {
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -145,44 +145,34 @@ public class ControlMonedas implements Serializable {
          if (tipoLista == 0) {
             tipoLista = 1;
          }
-         RequestContext context = RequestContext.getCurrentInstance();
-         infoRegistro = "Cantidad de registros: " + filtrarMonedas.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         contarRegistros();
       } catch (Exception e) {
          System.out.println("ERROR ControlMonedas eventoFiltrar ERROR===" + e.getMessage());
       }
    }
 
-   public void cambiarIndice(int indice, int celda) {
-      System.err.println("TIPO LISTA = " + tipoLista);
-
-      if (permitirIndex == true) {
-         index = indice;
-         cualCelda = celda;
-         if (cualCelda == 0) {
-            if (tipoLista == 0) {
-               backUpCodigo = listMonedas.get(index).getCodigo();
-            } else {
-               backUpCodigo = filtrarMonedas.get(index).getCodigo();
-            }
-         }
-         if (cualCelda == 1) {
-            if (tipoLista == 0) {
-               backUpMoneda = listMonedas.get(index).getNombre();
-            } else {
-               backUpMoneda = filtrarMonedas.get(index).getNombre();
-            }
-         }
-         secRegistro = listMonedas.get(index).getSecuencia();
-
-      }
-      System.out.println("Indice: " + index + " Celda: " + cualCelda);
+   public void contarRegistros() {
+      RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
-   public void asignarIndex(Integer indice, int LND, int dig) {
+   public void cambiarIndice(Monedas moneda, int celda) {
+      System.err.println("TIPO LISTA = " + tipoLista);
+      monedaSeleccionada = moneda;
+      if (permitirIndex == true) {
+         cualCelda = celda;
+         if (cualCelda == 0) {
+            backUpCodigo = monedaSeleccionada.getCodigo();
+         }
+         if (cualCelda == 1) {
+            backUpMoneda = monedaSeleccionada.getNombre();
+         }
+      }
+   }
+
+   public void asignarIndex(Monedas moneda, int LND, int dig) {
+      monedaSeleccionada = moneda;
       try {
          System.out.println("\n ENTRE A ControlMonedas.asignarIndex \n");
-         index = indice;
          if (LND == 0) {
             tipoActualizacion = 0;
          } else if (LND == 1) {
@@ -199,9 +189,6 @@ public class ControlMonedas implements Serializable {
 
    public void activarAceptar() {
       aceptar = false;
-   }
-
-   public void listaValoresBoton() {
    }
 
    public void cancelarModificacion() {
@@ -221,21 +208,15 @@ public class ControlMonedas implements Serializable {
       borrarMonedas.clear();
       crearMonedas.clear();
       modificarMonedas.clear();
-      index = -1;
-      secRegistro = null;
+      monedaSeleccionada = null;
       k = 0;
       listMonedas = null;
       guardado = true;
       permitirIndex = true;
       RequestContext context = RequestContext.getCurrentInstance();
       getListMonedas();
-      if (listMonedas == null || listMonedas.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
       RequestContext.getCurrentInstance().update("form:datosMoneda");
+      contarRegistros();
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
@@ -256,28 +237,19 @@ public class ControlMonedas implements Serializable {
       borrarMonedas.clear();
       crearMonedas.clear();
       modificarMonedas.clear();
-      index = -1;
-      secRegistro = null;
+      monedaSeleccionada = null;
       k = 0;
       listMonedas = null;
       guardado = true;
       permitirIndex = true;
-      RequestContext context = RequestContext.getCurrentInstance();
-      getListMonedas();
-      if (listMonedas == null || listMonedas.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
-      RequestContext.getCurrentInstance().update("form:datosMoneda");
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
+      contarRegistros();
+      navegar("atras");
    }
 
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         tamano = 250;
+         tamano = 200;
          codigo = (Column) c.getViewRoot().findComponent("form:datosMoneda:codigo");
          codigo.setFilterStyle("width: 85% !important;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosMoneda:descripcion");
@@ -286,8 +258,7 @@ public class ControlMonedas implements Serializable {
          System.out.println("Activar");
          bandera = 1;
       } else if (bandera == 1) {
-         tamano = 270;
-         System.out.println("Desactivar");
+         tamano = 220;
          codigo = (Column) c.getViewRoot().findComponent("form:datosMoneda:codigo");
          codigo.setFilterStyle("display: none; visibility: hidden;");
          descripcion = (Column) c.getViewRoot().findComponent("form:datosMoneda:descripcion");
@@ -299,291 +270,148 @@ public class ControlMonedas implements Serializable {
       }
    }
 
-   public void modificarMoneda(int indice, String confirmarCambio, String valorConfirmar) {
-      System.err.println("ENTRE A MODIFICAR MONEDA");
-      index = indice;
-
+   public void modificarMoneda(Monedas moneda, String campo, String valor) {
+      monedaSeleccionada = moneda;
       int contador = 0, pass = 0;
-
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.err.println("TIPO LISTA = " + tipoLista);
-      if (confirmarCambio.equalsIgnoreCase("N")) {
+      if (campo.equalsIgnoreCase("N")) {
          System.err.println("ENTRE A MODIFICAR IDIOMA, CONFIRMAR CAMBIO ES N");
-         if (tipoLista == 0) {
-            if (!crearMonedas.contains(listMonedas.get(indice))) {
-               if (listMonedas.get(indice).getCodigo() == null || listMonedas.get(indice).getCodigo().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listMonedas.get(indice).setCodigo(backUpCodigo);
-               } else {
-                  for (int j = 0; j < listMonedas.size(); j++) {
-                     if (j != indice) {
-                        if (listMonedas.get(indice).getCodigo().equals(listMonedas.get(j).getCodigo())) {
-                           contador++;
-                        }
-                     }
-                  }
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     listMonedas.get(indice).setCodigo(backUpCodigo);
-                  } else {
-                     pass++;
-                  }
-
-               }
-               if (listMonedas.get(indice).getNombre() == null) {
-                  listMonedas.get(indice).setNombre(backUpMoneda);
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               } else if (listMonedas.get(indice).getNombre().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listMonedas.get(indice).setNombre(backUpMoneda);
-
-               } else {
-                  pass++;
-               }
-
-               if (pass == 2) {
-                  if (modificarMonedas.isEmpty()) {
-                     modificarMonedas.add(listMonedas.get(indice));
-                  } else if (!modificarMonedas.contains(listMonedas.get(indice))) {
-                     modificarMonedas.add(listMonedas.get(indice));
-                  }
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-               }
-               index = -1;
-               secRegistro = null;
-            } else {
-               if (listMonedas.get(indice).getCodigo() == null || listMonedas.get(indice).getCodigo().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listMonedas.get(indice).setCodigo(backUpCodigo);
-               } else {
-                  for (int j = 0; j < listMonedas.size(); j++) {
-                     if (j != indice) {
-                        if (listMonedas.get(indice).getCodigo().equals(listMonedas.get(j).getCodigo())) {
-                           contador++;
-                        }
-                     }
-                  }
-                  if (contador > 0) {
-                     mensajeValidacion = "CODIGOS REPETIDOS";
-                     listMonedas.get(indice).setCodigo(backUpCodigo);
-                  } else {
-                     pass++;
-                  }
-
-               }
-               if (listMonedas.get(indice).getNombre() == null) {
-                  listMonedas.get(indice).setNombre(backUpMoneda);
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               } else if (listMonedas.get(indice).getNombre().isEmpty()) {
-                  mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-                  listMonedas.get(indice).setNombre(backUpMoneda);
-
-               } else {
-                  pass++;
-               }
-
-               if (pass == 2) {
-
-                  if (guardado == true) {
-                     guardado = false;
-                  }
-
-               } else {
-                  RequestContext.getCurrentInstance().update("form:validacionModificar");
-                  RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
-               }
-               index = -1;
-               secRegistro = null;
-            }
-         } else if (!crearMonedas.contains(filtrarMonedas.get(indice))) {
-            if (filtrarMonedas.get(indice).getCodigo() == null || filtrarMonedas.get(indice).getCodigo().isEmpty()) {
+         if (!crearMonedas.contains(monedaSeleccionada)) {
+            if (monedaSeleccionada.getCodigo() == null || monedaSeleccionada.getCodigo().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               filtrarMonedas.get(indice).setCodigo(backUpCodigo);
+               monedaSeleccionada.setCodigo(backUpCodigo);
             } else {
                for (int j = 0; j < listMonedas.size(); j++) {
-                  if (j != indice) {
-                     if (filtrarMonedas.get(indice).getCodigo() == listMonedas.get(j).getCodigo()) {
+                  if (listMonedas.get(j).getSecuencia() != monedaSeleccionada.getSecuencia()) {
+                     if (monedaSeleccionada.getCodigo().equals(listMonedas.get(j).getCodigo())) {
                         contador++;
                      }
                   }
                }
-
                if (contador > 0) {
-                  filtrarMonedas.get(indice).setCodigo(backUpCodigo);
                   mensajeValidacion = "CODIGOS REPETIDOS";
+                  monedaSeleccionada.setCodigo(backUpCodigo);
                } else {
                   pass++;
                }
-
             }
-
-            if (filtrarMonedas.get(indice).getNombre() == null) {
-               filtrarMonedas.get(indice).setNombre(backUpMoneda);
+            if (monedaSeleccionada.getNombre() == null) {
+               monedaSeleccionada.setNombre(backUpMoneda);
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-            } else if (filtrarMonedas.get(indice).getNombre().isEmpty()) {
-               filtrarMonedas.get(indice).setNombre(backUpMoneda);
+            } else if (monedaSeleccionada.getNombre().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               monedaSeleccionada.setNombre(backUpMoneda);
             } else {
                pass++;
             }
-
             if (pass == 2) {
                if (modificarMonedas.isEmpty()) {
-                  modificarMonedas.add(filtrarMonedas.get(indice));
-               } else if (!modificarMonedas.contains(filtrarMonedas.get(indice))) {
-                  modificarMonedas.add(filtrarMonedas.get(indice));
+                  modificarMonedas.add(monedaSeleccionada);
+               } else if (!modificarMonedas.contains(monedaSeleccionada)) {
+                  modificarMonedas.add(monedaSeleccionada);
                }
                if (guardado == true) {
                   guardado = false;
                }
-
             } else {
                RequestContext.getCurrentInstance().update("form:validacionModificar");
                RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
             }
-            index = -1;
-            secRegistro = null;
          } else {
-            if (filtrarMonedas.get(indice).getCodigo() == null || filtrarMonedas.get(indice).getCodigo().isEmpty()) {
+            if (monedaSeleccionada.getCodigo() == null || monedaSeleccionada.getCodigo().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-               filtrarMonedas.get(indice).setCodigo(backUpCodigo);
+               monedaSeleccionada.setCodigo(backUpCodigo);
             } else {
                for (int j = 0; j < listMonedas.size(); j++) {
-                  if (j != indice) {
-                     if (listMonedas.get(indice).getCodigo() == listMonedas.get(j).getCodigo()) {
+                  if (listMonedas.get(j).getSecuencia() != monedaSeleccionada.getSecuencia()) {
+                     if (monedaSeleccionada.getCodigo().equals(listMonedas.get(j).getCodigo())) {
                         contador++;
                      }
                   }
                }
-
                if (contador > 0) {
-                  filtrarMonedas.get(indice).setCodigo(backUpCodigo);
                   mensajeValidacion = "CODIGOS REPETIDOS";
+                  monedaSeleccionada.setCodigo(backUpCodigo);
                } else {
                   pass++;
                }
-
             }
-            if (filtrarMonedas.get(indice).getNombre() == null) {
-               filtrarMonedas.get(indice).setNombre(backUpMoneda);
+            if (monedaSeleccionada.getNombre() == null) {
+               monedaSeleccionada.setNombre(backUpMoneda);
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
-            } else if (filtrarMonedas.get(indice).getNombre().isEmpty()) {
-               filtrarMonedas.get(indice).setNombre(backUpMoneda);
+            } else if (monedaSeleccionada.getNombre().isEmpty()) {
                mensajeValidacion = "NO PUEDEN HABER CAMPOS VACIOS";
+               monedaSeleccionada.setNombre(backUpMoneda);
             } else {
                pass++;
             }
-
             if (pass == 2) {
-
                if (guardado == true) {
                   guardado = false;
                }
-
             } else {
                RequestContext.getCurrentInstance().update("form:validacionModificar");
                RequestContext.getCurrentInstance().execute("PF('validacionModificar').show()");
             }
-            index = -1;
-            secRegistro = null;
          }
-         RequestContext.getCurrentInstance().update("form:datosMoneda");
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
-
+      RequestContext.getCurrentInstance().update("form:datosMoneda");
+      RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
    public void borrandoMonedas() {
-
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            System.out.println("Entro a borrarandoMonedas");
-            if (!modificarMonedas.isEmpty() && modificarMonedas.contains(listMonedas.get(index))) {
-               int modIndex = modificarMonedas.indexOf(listMonedas.get(index));
-               modificarMonedas.remove(modIndex);
-               borrarMonedas.add(listMonedas.get(index));
-            } else if (!crearMonedas.isEmpty() && crearMonedas.contains(listMonedas.get(index))) {
-               int crearIndex = crearMonedas.indexOf(listMonedas.get(index));
-               crearMonedas.remove(crearIndex);
-            } else {
-               borrarMonedas.add(listMonedas.get(index));
-            }
-            listMonedas.remove(index);
+      if (monedaSeleccionada != null) {
+         if (!modificarMonedas.isEmpty() && modificarMonedas.contains(monedaSeleccionada)) {
+            modificarMonedas.remove(monedaSeleccionada);
+            borrarMonedas.add(monedaSeleccionada);
+         } else if (!crearMonedas.isEmpty() && crearMonedas.contains(monedaSeleccionada)) {
+            crearMonedas.remove(monedaSeleccionada);
+         } else {
+            borrarMonedas.add(monedaSeleccionada);
          }
+         listMonedas.remove(monedaSeleccionada);
          if (tipoLista == 1) {
-            System.out.println("borrarandoMonedas ");
-            if (!modificarMonedas.isEmpty() && modificarMonedas.contains(filtrarMonedas.get(index))) {
-               int modIndex = modificarMonedas.indexOf(filtrarMonedas.get(index));
-               modificarMonedas.remove(modIndex);
-               borrarMonedas.add(filtrarMonedas.get(index));
-            } else if (!crearMonedas.isEmpty() && crearMonedas.contains(filtrarMonedas.get(index))) {
-               int crearIndex = crearMonedas.indexOf(filtrarMonedas.get(index));
-               crearMonedas.remove(crearIndex);
-            } else {
-               borrarMonedas.add(filtrarMonedas.get(index));
-            }
-            int VCIndex = listMonedas.indexOf(filtrarMonedas.get(index));
-            listMonedas.remove(VCIndex);
-            filtrarMonedas.remove(index);
-
+            filtrarMonedas.remove(monedaSeleccionada);
          }
-         RequestContext context = RequestContext.getCurrentInstance();
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
          RequestContext.getCurrentInstance().update("form:datosMoneda");
-         index = -1;
-         secRegistro = null;
-
+         contarRegistros();
+         monedaSeleccionada = null;
          if (guardado == true) {
             guardado = false;
          }
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
       }
-
    }
 
    public void verificarBorrado() {
-      System.out.println("Estoy en verificarBorrado");
-      try {
-         System.err.println("Control Secuencia de ControlMonedas ");
-         if (tipoLista == 0) {
-            proyectos = administrarMonedas.verificarMonedasProyecto(listMonedas.get(index).getSecuencia());
-         } else {
-            proyectos = administrarMonedas.verificarMonedasProyecto(filtrarMonedas.get(index).getSecuencia());
-         }
+      if (monedaSeleccionada != null) {
+         proyectos = administrarMonedas.verificarMonedasProyecto(monedaSeleccionada.getSecuencia());
          if (proyectos.equals(new BigInteger("0"))) {
-            System.out.println("Borrado==0");
             borrandoMonedas();
          } else {
-            System.out.println("Borrado>0");
-
-            RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().update("form:validacionBorrar");
             RequestContext.getCurrentInstance().execute("PF('validacionBorrar').show()");
-            index = -1;
-
             proyectos = new BigInteger("-1");
-
          }
-      } catch (Exception e) {
-         System.err.println("ERROR ControlIdiomas verificarBorrado ERROR " + e);
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
    public void revisarDialogoGuardar() {
-
       if (!borrarMonedas.isEmpty() || !crearMonedas.isEmpty() || !modificarMonedas.isEmpty()) {
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("form:confirmarGuardar");
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
       }
+   }
 
+   public void guardarYSalir() {
+      guardarMonedas();
+      salir();
+   }
+
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
    }
 
    public void guardarMonedas() {
@@ -596,10 +424,7 @@ public class ControlMonedas implements Serializable {
                System.out.println("Borrando...");
                administrarMonedas.borrarMonedas(borrarMonedas.get(i));
             }
-            //mostrarBorrados
             registrosBorrados = borrarMonedas.size();
-            RequestContext.getCurrentInstance().update("form:mostrarBorrados");
-            RequestContext.getCurrentInstance().execute("PF('mostrarBorrados').show()");
             borrarMonedas.clear();
          }
          if (!crearMonedas.isEmpty()) {
@@ -615,31 +440,22 @@ public class ControlMonedas implements Serializable {
             administrarMonedas.modificarMonedas(modificarMonedas);
             modificarMonedas.clear();
          }
-         System.out.println("Se guardaron los datos con exito");
+         monedaSeleccionada = null;
          listMonedas = null;
          RequestContext.getCurrentInstance().update("form:datosMoneda");
+         contarRegistros();
          k = 0;
          FacesMessage msg = new FacesMessage("Información", "Se guardaron los datos con éxito");
          FacesContext.getCurrentInstance().addMessage(null, msg);
          RequestContext.getCurrentInstance().update("form:growl");
          guardado = true;
       }
-      index = -1;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
-
    }
 
    public void editarCelda() {
-      if (index >= 0) {
-         if (tipoLista == 0) {
-            editarMoneda = listMonedas.get(index);
-         }
-         if (tipoLista == 1) {
-            editarMoneda = filtrarMonedas.get(index);
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
-         System.out.println("Entro a editar... valor celda: " + cualCelda);
+      if (monedaSeleccionada != null) {
+         editarMoneda = monedaSeleccionada;
          if (cualCelda == 0) {
             RequestContext.getCurrentInstance().update("formularioDialogos:editCodigo");
             RequestContext.getCurrentInstance().execute("PF('editCodigo').show()");
@@ -649,52 +465,34 @@ public class ControlMonedas implements Serializable {
             RequestContext.getCurrentInstance().execute("PF('editDescripcion').show()");
             cualCelda = -1;
          }
-
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
-      index = -1;
-      secRegistro = null;
    }
 
    public void agregarNuevoMonedas() {
-      System.out.println("agregarNuevoMonedas");
       int contador = 0;
       int duplicados = 0;
-
       mensajeValidacion = " ";
-      RequestContext context = RequestContext.getCurrentInstance();
       if (nuevoMoneda.getCodigo() == null || nuevoMoneda.getCodigo().isEmpty()) {
          mensajeValidacion = " *Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
-         System.out.println("codigo en Motivo Cambio Cargo: " + nuevoMoneda.getCodigo());
-
          for (int x = 0; x < listMonedas.size(); x++) {
             if (listMonedas.get(x).getCodigo().equals(nuevoMoneda.getCodigo())) {
                duplicados++;
             }
          }
-         System.out.println("Antes del if Duplicados eses igual  : " + duplicados);
-
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Hayan Codigos Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
             contador++;
          }
       }
       if (nuevoMoneda.getNombre() == null || nuevoMoneda.getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + " *Moneda \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
       } else {
-         System.out.println("bandera");
          contador++;
-
       }
-
-      System.out.println("contador " + contador);
-
       if (contador == 2) {
          if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -709,28 +507,20 @@ public class ControlMonedas implements Serializable {
             filtrarMonedas = null;
             tipoLista = 0;
          }
-         System.out.println("Despues de la bandera");
-
          k++;
          l = BigInteger.valueOf(k);
          nuevoMoneda.setSecuencia(l);
-
          crearMonedas.add(nuevoMoneda);
-
          listMonedas.add(nuevoMoneda);
+         monedaSeleccionada = listMonedas.get(listMonedas.indexOf(nuevoMoneda));
          nuevoMoneda = new Monedas();
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
          RequestContext.getCurrentInstance().update("form:datosMoneda");
+         contarRegistros();
          if (guardado == true) {
             guardado = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-
          RequestContext.getCurrentInstance().execute("PF('nuevoRegistroMoneda').hide()");
-         index = -1;
-         secRegistro = null;
-
       } else {
          RequestContext.getCurrentInstance().update("form:validacionNuevaCentroCosto");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevaCentroCosto').show()");
@@ -739,53 +529,32 @@ public class ControlMonedas implements Serializable {
    }
 
    public void limpiarNuevoMonedas() {
-      System.out.println("limpiarNuevoMonedas");
       nuevoMoneda = new Monedas();
-      secRegistro = null;
-      index = -1;
-
    }
 
    //------------------------------------------------------------------------------
    public void duplicandoMonedas() {
-      System.out.println("duplicandoMonedas");
-      if (index >= 0) {
+      if (monedaSeleccionada != null) {
          duplicarMoneda = new Monedas();
          k++;
          l = BigInteger.valueOf(k);
+         duplicarMoneda.setSecuencia(l);
+         duplicarMoneda.setCodigo(monedaSeleccionada.getCodigo());
+         duplicarMoneda.setNombre(monedaSeleccionada.getNombre());
 
-         if (tipoLista == 0) {
-            duplicarMoneda.setSecuencia(l);
-            duplicarMoneda.setCodigo(listMonedas.get(index).getCodigo());
-            duplicarMoneda.setNombre(listMonedas.get(index).getNombre());
-         }
-         if (tipoLista == 1) {
-            duplicarMoneda.setSecuencia(l);
-            duplicarMoneda.setCodigo(filtrarMonedas.get(index).getCodigo());
-            duplicarMoneda.setNombre(filtrarMonedas.get(index).getNombre());
-         }
-
-         RequestContext context = RequestContext.getCurrentInstance();
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarMO");
          RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMoneda').show()");
-         index = -1;
-         secRegistro = null;
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
    public void confirmarDuplicar() {
-      System.err.println("ESTOY EN CONFIRMAR DUPLICAR MONEDAS");
       int contador = 0;
       mensajeValidacion = " ";
       int duplicados = 0;
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      System.err.println("ConfirmarDuplicar codigo " + duplicarMoneda.getCodigo());
-      System.err.println("ConfirmarDuplicar Descripcion " + duplicarMoneda.getNombre());
-
       if (duplicarMoneda.getCodigo() == null || duplicarMoneda.getCodigo().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   * Codigo \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
       } else {
          for (int x = 0; x < listMonedas.size(); x++) {
             if (listMonedas.get(x).getCodigo().equals(duplicarMoneda.getCodigo())) {
@@ -794,33 +563,21 @@ public class ControlMonedas implements Serializable {
          }
          if (duplicados > 0) {
             mensajeValidacion = " *Que NO Existan Codigo Repetidos \n";
-            System.out.println("Mensaje validacion : " + mensajeValidacion);
          } else {
-            System.out.println("bandera");
             contador++;
             duplicados = 0;
          }
       }
       if (duplicarMoneda.getNombre() == null || duplicarMoneda.getNombre().isEmpty()) {
          mensajeValidacion = mensajeValidacion + "   * Un Moneda \n";
-         System.out.println("Mensaje validacion : " + mensajeValidacion);
-
       } else {
-         System.out.println("Bandera : ");
          contador++;
       }
-
       if (contador == 2) {
-
-         System.out.println("Datos Duplicando: " + duplicarMoneda.getSecuencia() + "  " + duplicarMoneda.getCodigo());
-         if (crearMonedas.contains(duplicarMoneda)) {
-            System.out.println("Ya lo contengo.");
-         }
          listMonedas.add(duplicarMoneda);
          crearMonedas.add(duplicarMoneda);
+         monedaSeleccionada = listMonedas.get(listMonedas.indexOf(duplicarMoneda));
          RequestContext.getCurrentInstance().update("form:datosMoneda");
-         index = -1;
-         secRegistro = null;
          if (guardado == true) {
             guardado = false;
          }
@@ -838,10 +595,8 @@ public class ControlMonedas implements Serializable {
             tipoLista = 0;
          }
          duplicarMoneda = new Monedas();
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-         RequestContext.getCurrentInstance().update("form:informacionRegistro");
+         contarRegistros();
          RequestContext.getCurrentInstance().execute("PF('duplicarRegistroMoneda').hide()");
-
       } else {
          contador = 0;
          RequestContext.getCurrentInstance().update("form:validacionDuplicarVigencia");
@@ -859,8 +614,6 @@ public class ControlMonedas implements Serializable {
       Exporter exporter = new ExportarPDF();
       exporter.export(context, tabla, "MONEDAS", false, false, "UTF-8", null, null);
       context.responseComplete();
-      index = -1;
-      secRegistro = null;
    }
 
    public void exportXLS() throws IOException {
@@ -869,54 +622,34 @@ public class ControlMonedas implements Serializable {
       Exporter exporter = new ExportarXLS();
       exporter.export(context, tabla, "MONEDAS", false, false, "UTF-8", null, null);
       context.responseComplete();
-      index = -1;
-      secRegistro = null;
    }
 
    public void verificarRastro() {
-      RequestContext context = RequestContext.getCurrentInstance();
-      System.out.println("lol");
-      if (!listMonedas.isEmpty()) {
-         if (secRegistro != null) {
-            System.out.println("lol 2");
-            int resultado = administrarRastros.obtenerTabla(secRegistro, "MONEDAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
-            System.out.println("resultado: " + resultado);
-            if (resultado == 1) {
-               RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
-            } else if (resultado == 2) {
-               RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
-            } else if (resultado == 3) {
-               RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
-            } else if (resultado == 4) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
-            } else if (resultado == 5) {
-               RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
-            }
-         } else {
-            RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
+      if (monedaSeleccionada != null) {
+         int resultado = administrarRastros.obtenerTabla(monedaSeleccionada.getSecuencia(), "MONEDAS"); //En ENCARGATURAS lo cambia por el nombre de su tabla
+         if (resultado == 1) {
+            RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
+         } else if (resultado == 2) {
+            RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+         } else if (resultado == 3) {
+            RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");
+         } else if (resultado == 4) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaConRastro').show()");
+         } else if (resultado == 5) {
+            RequestContext.getCurrentInstance().execute("PF('errorTablaSinRastro').show()");
          }
       } else if (administrarRastros.verificarHistoricosTabla("MONEDAS")) { // igual acá
          RequestContext.getCurrentInstance().execute("PF('confirmarRastroHistorico').show()");
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorRastroHistorico').show()");
       }
-      index = -1;
    }
-   private String infoRegistro;
 
    //*/*/*/*/*/*/*/*/*/*-/-*//-*/-*/*/*-*/-*/-*/*/*/*/*/---/*/*/*/*/-*/-*/-*/-*/-*/
    public List<Monedas> getListMonedas() {
       if (listMonedas == null) {
          listMonedas = administrarMonedas.consultarMonedas();
       }
-      RequestContext context = RequestContext.getCurrentInstance();
-
-      if (listMonedas == null || listMonedas.isEmpty()) {
-         infoRegistro = "Cantidad de registros: 0 ";
-      } else {
-         infoRegistro = "Cantidad de registros: " + listMonedas.size();
-      }
-      RequestContext.getCurrentInstance().update("form:informacionRegistro");
       return listMonedas;
    }
 
@@ -938,14 +671,6 @@ public class ControlMonedas implements Serializable {
 
    public void setNuevoMoneda(Monedas nuevoMoneda) {
       this.nuevoMoneda = nuevoMoneda;
-   }
-
-   public BigInteger getSecRegistro() {
-      return secRegistro;
-   }
-
-   public void setSecRegistro(BigInteger secRegistro) {
-      this.secRegistro = secRegistro;
    }
 
    public int getRegistrosBorrados() {
@@ -1005,6 +730,9 @@ public class ControlMonedas implements Serializable {
    }
 
    public String getInfoRegistro() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("form:datosMoneda");
+      infoRegistro = String.valueOf(tabla.getRowCount());
       return infoRegistro;
    }
 

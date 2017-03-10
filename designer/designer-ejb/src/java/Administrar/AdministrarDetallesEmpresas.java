@@ -34,248 +34,255 @@ import javax.persistence.EntityManager;
 @Stateful
 public class AdministrarDetallesEmpresas implements AdministrarDetallesEmpresasInterface {
 
-    //--------------------------------------------------------------------------
-    //ATRIBUTOS
-    //--------------------------------------------------------------------------    
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaDetallesEmpresas'.
-     */
-    @EJB
-    PersistenciaDetallesEmpresasInterface persistenciaDetallesEmpresas;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaCiudades'.
-     */
-    @EJB
-    PersistenciaCiudadesInterface persistenciaCiudades;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaPersonas'.
-     */
-    @EJB
-    PersistenciaPersonasInterface persistenciaPersonas;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaCargos'.
-     */
-    @EJB
-    PersistenciaCargosInterface persistenciaCargos;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaEmpleados'.
-     */
-    @EJB
-    PersistenciaEmpleadoInterface persistenciaEmpleados;
-    /**
-     * Enterprise JavaBeans.<br>
-     * Atributo que representa la comunicación con la persistencia
-     * 'persistenciaEmpresas'.
-     */
-    @EJB
-    PersistenciaEmpresasInterface persistenciaEmpresas;
-    /**
-     * Enterprise JavaBean.<br>
-     * Atributo que representa todo lo referente a la conexión del usuario que
-     * está usando el aplicativo.
-     */
-    @EJB
-    AdministrarSesionesInterface administrarSesiones;
+   //--------------------------------------------------------------------------
+   //ATRIBUTOS
+   //--------------------------------------------------------------------------    
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaDetallesEmpresas'.
+    */
+   @EJB
+   PersistenciaDetallesEmpresasInterface persistenciaDetallesEmpresas;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaCiudades'.
+    */
+   @EJB
+   PersistenciaCiudadesInterface persistenciaCiudades;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaPersonas'.
+    */
+   @EJB
+   PersistenciaPersonasInterface persistenciaPersonas;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaCargos'.
+    */
+   @EJB
+   PersistenciaCargosInterface persistenciaCargos;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaEmpleados'.
+    */
+   @EJB
+   PersistenciaEmpleadoInterface persistenciaEmpleados;
+   /**
+    * Enterprise JavaBeans.<br>
+    * Atributo que representa la comunicación con la persistencia
+    * 'persistenciaEmpresas'.
+    */
+   @EJB
+   PersistenciaEmpresasInterface persistenciaEmpresas;
+   /**
+    * Enterprise JavaBean.<br>
+    * Atributo que representa todo lo referente a la conexión del usuario que
+    * está usando el aplicativo.
+    */
+   @EJB
+   AdministrarSesionesInterface administrarSesiones;
 
-    private EntityManager em;
+   private EntityManager em;
 
-    //--------------------------------------------------------------------------
-    //MÉTODOS
-    //--------------------------------------------------------------------------
-    @Override
-    public void obtenerConexion(String idSesion) {
-        em = administrarSesiones.obtenerConexionSesion(idSesion);
-    }
+   //--------------------------------------------------------------------------
+   //MÉTODOS
+   //--------------------------------------------------------------------------
+   @Override
+   public void obtenerConexion(String idSesion) {
+      em = administrarSesiones.obtenerConexionSesion(idSesion);
+   }
 
-    @Override
-    public List<DetallesEmpresas> listaDetallesEmpresasPorSecuencia(BigInteger secEmpresa) {
-        try {
-            List<DetallesEmpresas> lista = null;
-            if (secEmpresa == null) {
-                lista = persistenciaDetallesEmpresas.buscarDetallesEmpresas(em);
-            } else {
-                DetallesEmpresas detalle = persistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia(em,secEmpresa);
-                lista = new ArrayList<DetallesEmpresas>();
-                lista.add(detalle);
+   @Override
+   public List<DetallesEmpresas> listaDetallesEmpresasPorSecuencia(BigInteger secEmpresa) {
+      try {
+         List<DetallesEmpresas> lista = null;
+         if (secEmpresa != null) {
+            DetallesEmpresas detalle = persistenciaDetallesEmpresas.buscarDetalleEmpresaPorSecuencia(em, secEmpresa);
+            lista = new ArrayList<DetallesEmpresas>();
+            lista.add(detalle);
+         }
+         return lista;
+
+      } catch (Exception e) {
+         System.out.println("Error listaDetallesEmpresasPorSecuencia Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   public List<DetallesEmpresas> listaDetallesEmpresas() {
+      try {
+         return persistenciaDetallesEmpresas.buscarDetallesEmpresas(em);
+      } catch (Exception e) {
+         System.out.println("Error listaDetallesEmpresas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public void crearDetalleEmpresa(List<DetallesEmpresas> listaDE) {
+      try {
+         for (int i = 0; i < listaDE.size(); i++) {
+            if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
+               listaDE.get(i).setCiudaddocumentorepresentante(null);
             }
-            return lista;
-
-        } catch (Exception e) {
-            System.out.println("Error listaDetallesEmpresasPorSecuencia Admi : " + e.toString());
-            return null;
-        }
-    }
-
-    @Override
-    public void crearDetalleEmpresa(List<DetallesEmpresas> listaDE) {
-        try {
-            for (int i = 0; i < listaDE.size(); i++) {
-                if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
-                    listaDE.get(i).setCiudaddocumentorepresentante(null);
-                }
-                if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setCargofirmaconstancia(null);
-                }
-                if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
-                    listaDE.get(i).setGerentegeneral(null);
-                }
-                if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setPersonafirmaconstancia(null);
-                }
-                if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
-                    listaDE.get(i).setRepresentantecir(null);
-                }
-                if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
-                    listaDE.get(i).setSubgerente(null);
-                }
-                if (listaDE.get(i).getCiudad().getSecuencia() == null) {
-                    listaDE.get(i).setCiudad(null);
-                }
-                persistenciaDetallesEmpresas.crear(em,listaDE.get(i));
+            if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setCargofirmaconstancia(null);
             }
-        } catch (Exception e) {
-            System.out.println("Error crearDetalleEmpresa Admi : " + e.toString());
-        }
-    }
-
-    @Override
-    public void editarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
-        try {
-            for (int i = 0; i < listaDE.size(); i++) {
-                if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
-                    listaDE.get(i).setCiudaddocumentorepresentante(null);
-                }
-                if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setCargofirmaconstancia(null);
-                }
-                if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
-                    listaDE.get(i).setGerentegeneral(null);
-                }
-                if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setPersonafirmaconstancia(null);
-                }
-                if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
-                    listaDE.get(i).setRepresentantecir(null);
-                }
-                if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
-                    listaDE.get(i).setSubgerente(null);
-                }
-                if (listaDE.get(i).getCiudad().getSecuencia() == null) {
-                    listaDE.get(i).setCiudad(null);
-                }
-                persistenciaDetallesEmpresas.editar(em,listaDE.get(i));
+            if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
+               listaDE.get(i).setGerentegeneral(null);
             }
-        } catch (Exception e) {
-            System.out.println("Error editarDetalleEmpresa Admi : " + e.toString());
-        }
-    }
-
-    @Override
-    public void borrarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
-        try {
-            for (int i = 0; i < listaDE.size(); i++) {
-                if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
-                    listaDE.get(i).setCiudaddocumentorepresentante(null);
-                }
-                if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setCargofirmaconstancia(null);
-                }
-                if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
-                    listaDE.get(i).setGerentegeneral(null);
-                }
-                if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
-                    listaDE.get(i).setPersonafirmaconstancia(null);
-                }
-                if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
-                    listaDE.get(i).setRepresentantecir(null);
-                }
-                if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
-                    listaDE.get(i).setSubgerente(null);
-                }
-                if (listaDE.get(i).getCiudad().getSecuencia() == null) {
-                    listaDE.get(i).setCiudad(null);
-                }
-                persistenciaDetallesEmpresas.borrar(em,listaDE.get(i));
+            if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setPersonafirmaconstancia(null);
             }
-        } catch (Exception e) {
-            System.out.println("Error borrarDetalleEmpresa Admi : " + e.toString());
-        }
-    }
+            if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
+               listaDE.get(i).setRepresentantecir(null);
+            }
+            if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
+               listaDE.get(i).setSubgerente(null);
+            }
+            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
+               listaDE.get(i).setCiudad(null);
+            }
+            persistenciaDetallesEmpresas.crear(em, listaDE.get(i));
+         }
+      } catch (Exception e) {
+         System.out.println("Error crearDetalleEmpresa Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Ciudades> lovCiudades() {
-        try {
-            List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
-            return lista;
-        } catch (Exception e) {
-            System.out.println("Error lovCiudades Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void editarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
+      try {
+         for (int i = 0; i < listaDE.size(); i++) {
+            if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
+               listaDE.get(i).setCiudaddocumentorepresentante(null);
+            }
+            if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setCargofirmaconstancia(null);
+            }
+            if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
+               listaDE.get(i).setGerentegeneral(null);
+            }
+            if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setPersonafirmaconstancia(null);
+            }
+            if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
+               listaDE.get(i).setRepresentantecir(null);
+            }
+            if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
+               listaDE.get(i).setSubgerente(null);
+            }
+            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
+               listaDE.get(i).setCiudad(null);
+            }
+            persistenciaDetallesEmpresas.editar(em, listaDE.get(i));
+         }
+      } catch (Exception e) {
+         System.out.println("Error editarDetalleEmpresa Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Empleados> lovEmpleados() {
-        try {
-            List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
-            return lista;
-        } catch (Exception e) {
-            System.out.println("Error lovEmpleados Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public void borrarDetalleEmpresa(List<DetallesEmpresas> listaDE) {
+      try {
+         for (int i = 0; i < listaDE.size(); i++) {
+            if (listaDE.get(i).getCiudaddocumentorepresentante().getSecuencia() == null) {
+               listaDE.get(i).setCiudaddocumentorepresentante(null);
+            }
+            if (listaDE.get(i).getCargofirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setCargofirmaconstancia(null);
+            }
+            if (listaDE.get(i).getGerentegeneral().getSecuencia() == null) {
+               listaDE.get(i).setGerentegeneral(null);
+            }
+            if (listaDE.get(i).getPersonafirmaconstancia().getSecuencia() == null) {
+               listaDE.get(i).setPersonafirmaconstancia(null);
+            }
+            if (listaDE.get(i).getRepresentantecir().getSecuencia() == null) {
+               listaDE.get(i).setRepresentantecir(null);
+            }
+            if (listaDE.get(i).getSubgerente().getSecuencia() == null) {
+               listaDE.get(i).setSubgerente(null);
+            }
+            if (listaDE.get(i).getCiudad().getSecuencia() == null) {
+               listaDE.get(i).setCiudad(null);
+            }
+            persistenciaDetallesEmpresas.borrar(em, listaDE.get(i));
+         }
+      } catch (Exception e) {
+         System.out.println("Error borrarDetalleEmpresa Admi : " + e.toString());
+      }
+   }
 
-    @Override
-    public List<Personas> lovPersonas() {
-        try {
-            List<Personas> lista = persistenciaPersonas.consultarPersonas(em);
-            return lista;
-        } catch (Exception e) {
-            System.out.println("Error lovPersonas Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<Ciudades> lovCiudades() {
+      try {
+         List<Ciudades> lista = persistenciaCiudades.consultarCiudades(em);
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error lovCiudades Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<Cargos> lovCargos() {
-        try {
-            List<Cargos> lista = persistenciaCargos.consultarCargos(em);
-            return lista;
-        } catch (Exception e) {
-            System.out.println("Error lovCargos Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<Empleados> lovEmpleados() {
+      try {
+         List<Empleados> lista = persistenciaEmpleados.buscarEmpleados(em);
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error lovEmpleados Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public List<Empresas> lovEmpresas() {
-        try {
-            List<Empresas> lista = persistenciaEmpresas.consultarEmpresas(em);
-            return lista;
-        } catch (Exception e) {
-            System.out.println("Error lovPersonas Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<Personas> lovPersonas() {
+      try {
+         List<Personas> lista = persistenciaPersonas.consultarPersonas(em);
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error lovPersonas Admi : " + e.toString());
+         return null;
+      }
+   }
 
-    @Override
-    public Empresas empresaActual(BigInteger secEmpresa) {
-        try {
-            Empresas empr = persistenciaEmpresas.buscarEmpresasSecuencia(em,secEmpresa);
-            return empr;
-        } catch (Exception e) {
-            System.out.println("Error empresaActual Admi : " + e.toString());
-            return null;
-        }
-    }
+   @Override
+   public List<Cargos> lovCargos() {
+      try {
+         List<Cargos> lista = persistenciaCargos.consultarCargos(em);
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error lovCargos Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public List<Empresas> lovEmpresas() {
+      try {
+         List<Empresas> lista = persistenciaEmpresas.consultarEmpresas(em);
+         return lista;
+      } catch (Exception e) {
+         System.out.println("Error lovPersonas Admi : " + e.toString());
+         return null;
+      }
+   }
+
+   @Override
+   public Empresas empresaActual(BigInteger secEmpresa) {
+      try {
+         Empresas empr = persistenciaEmpresas.buscarEmpresasSecuencia(em, secEmpresa);
+         return empr;
+      } catch (Exception e) {
+         System.out.println("Error empresaActual Admi : " + e.toString());
+         return null;
+      }
+   }
 
 }

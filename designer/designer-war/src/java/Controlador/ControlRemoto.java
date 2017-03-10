@@ -1047,25 +1047,28 @@ public class ControlRemoto implements Serializable {
 
    public void cambiarTablas() {
 //      secuenciaMod = moduloSeleccionado.getSecuencia();
-      listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
-      buscarTablasLOV = (listaTablas == null || listaTablas.isEmpty());
-      if (tablaExportar.equals("tablas")) {
-         tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
-         tablasNombre.setFilterStyle("display: none; visibility: hidden;");
-         tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
-         tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
-         RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
-         altoTablas = "202";
-         RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
-         filtrosActivos = false;
+      System.out.println("ControlRemoto.cambiarTablas() moduloSeleccionado : " + moduloSeleccionado);
+      if (moduloSeleccionado != null) {
+         listaTablas = administrarCarpetaDesigner.consultarTablas(moduloSeleccionado.getSecuencia());
+         buscarTablasLOV = (listaTablas == null || listaTablas.isEmpty());
+         if (tablaExportar.equals("tablas")) {
+            tablasNombre = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasnombre");
+            tablasNombre.setFilterStyle("display: none; visibility: hidden;");
+            tablasDescripcion = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:tabmenu:tablas:tablasdescripcion");
+            tablasDescripcion.setFilterStyle("display: none; visibility: hidden;");
+            RequestContext.getCurrentInstance().execute("PF('tablas').clearFilters()");
+            altoTablas = "202";
+            RequestContext.getCurrentInstance().update("form:tabmenu:tablas");
+            filtrosActivos = false;
+         }
+         mostrarTodasTablas = true;
+         RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
+         RequestContext.getCurrentInstance().update("form:tabmenu:buscartablas");
+         tablaExportar = "data1";
+         nombreArchivo = "modulos";
+         filterListTablas = null;
+         RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroTablas");
       }
-      mostrarTodasTablas = true;
-      RequestContext.getCurrentInstance().update("form:tabmenu:mostrartodastablas");
-      RequestContext.getCurrentInstance().update("form:tabmenu:buscartablas");
-      tablaExportar = "data1";
-      nombreArchivo = "modulos";
-      filterListTablas = null;
-      RequestContext.getCurrentInstance().update("form:tabmenu:infoRegistroTablas");
    }
 
    public void exportarTabla() {

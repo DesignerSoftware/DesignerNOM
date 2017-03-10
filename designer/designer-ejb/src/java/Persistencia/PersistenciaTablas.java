@@ -17,6 +17,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
 
     @Override
     public List<Tablas> buscarTablas(EntityManager em, BigInteger secuenciaMod) {
+       System.out.println("Persistencia.PersistenciaTablas.buscarTablas() : " + secuenciaMod);
         try {
             em.clear();
             Query query = em.createQuery("select t from Tablas t where t.modulo.secuencia = :secuenciaMod "
@@ -28,7 +29,7 @@ public class PersistenciaTablas implements PersistenciaTablasInterface {
             List<Tablas> tablas = (List<Tablas>) query.getResultList();
             return tablas;
         } catch (Exception e) {
-            System.out.println("Persistencia.PersistenciaTablas.buscarTablas()" + e.getMessage());
+            System.out.println("Persistencia.PersistenciaTablas.buscarTablas(): " + e);
             return null;
         }
     }

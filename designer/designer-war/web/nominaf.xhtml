@@ -676,7 +676,7 @@
                         <fieldset id="contmodulos" style="position: absolute; width: 660px; border-radius: 10px; left: 160px; top: 52px; height: 122px;">
                            <h:outputText value="#{msg['modulos']}" styleClass="outputTextFielset"/>
                            <div style="position: absolute; top: 10px;">
-                              <p:dataTable id="data1" widgetVar="data1" var="modulo"  value="#{controlRemoto.listModulos}" style="width: 600px"
+                              <p:dataTable id="data1" widgetVar="data1" var="modulo" value="#{controlRemoto.listModulos}" style="width: 600px"
                                            rowKey="#{modulo.secuencia}" selection="#{controlRemoto.moduloSeleccionado}" selectionMode="single"
                                            scrollable="true" scrollHeight="#{controlRemoto.altoModulos}" scrollWidth="618"
                                            filteredValue="#{controlRemoto.filtradolistModulos}" emptyMessage="#{msg['noseencontraroncoincidencias']}">   
@@ -800,7 +800,7 @@
                         <h:outputText id="inforegistrobusquedarapida" value="#{msg['infoRegistro']} #{controlRemoto.infoRegistroBusquedaRapida}"
                                       class="cssinfoRegistroLOV"/>
                         <p:commandButton id="buscarrap" value="#{msg['aceptar']}" process="@this" actionListener="#{controlRemoto.busquedaRapida()}"
-                                         icon="ui-icon-check"  class="cssAceptarLOV" disabled="#{controlRemoto.buscar}"
+                                         icon="ui-icon-check" class="cssAceptarLOV" disabled="#{controlRemoto.buscar}"
                                          onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
                         <p:commandButton value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w"  class="cssAtrasLOV" onclick="PF('lvbr').hide()"/>
                      </div>
@@ -809,6 +809,9 @@
                </h:form>
 
                <h:form id="formlovempleados">
+                  <p:commandButton id="m" widgetVar="m" style="position: absolute; top: -2px; left: -2px; border: none; height: 1px; width: 1px; margin: 0px !important; padding: 0px !important;"
+                                   value="" actionListener="#{controlRemoto.buscarEmpleadoDefault()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide(); foco('form:n');" process="@this"/>
+                  
                   <p:dialog id="lvbe" widgetVar="lvbe" header="#{msg['empleadosE']}" resizable="false" draggable="true" modal="true" width="750" closable="false">  
                      <p:dataTable id="lvbuscarempleado" widgetVar="lvbuscarempleado" var="item" value="#{controlRemoto.buscarEmplTipo}"
                                   scrollable="true" scrollHeight="162" scrollWidth="725" 
@@ -816,13 +819,12 @@
                                   rowKey="#{item.rfEmpleado}" selection="#{controlRemoto.emplSeleccionadoBE}" selectionMode="single">
 
                         <p:ajax event="rowSelect" listener="#{controlRemoto.activarBuscar()}" update=":form:formlovempleados:buscarempl"/>
-                        <p:ajax event="rowDblselect" listener="#{controlRemoto.buscarEmpleado()}"
-                                onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
+                        <p:ajax event="rowDblselect" listener="#{controlRemoto.buscarEmpleado()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide();"/>
                         <p:ajax event="filter" listener="#{controlRemoto.contarRegistrosBE()}"/>
 
                         <f:facet name="header">  
                            <h:outputText value="#{msg['buscarE']}"/>  
-                           <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lvbuscarempleado').filter()" class="cssFiltroLOV"/>
+                           <p:inputText  autocomplete="off" id="globalFilter" onkeyup="PF('lvbuscarempleado').filter()" value="#{filtrado}" class="cssFiltroLOV"/>
                            <p:watermark for="globalFilter" value="#{msg['ingresarvalor']}"/>
                         </f:facet>
 

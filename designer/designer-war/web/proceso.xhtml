@@ -451,7 +451,7 @@
                                    style="position: absolute; top: 50px; left: 285px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>
 
-               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+               <p:dialog id="confirmarGuardarSalida" header="#{msg['atencion']}" widgetVar="confirmarGuardarSalida" resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"/>
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 10px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardarSalida').hide();" actionListener="#{controlProceso.guardarYSalir()}"
@@ -482,7 +482,7 @@
                                    style="position: absolute; left: 60px; top: 110px; width: 300px; height: 27px;" actionListener="#{controlProceso.verificarRastroOperandoLogH()}" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlProceso.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}"
@@ -491,7 +491,7 @@
                                    style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlProceso.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlProceso.nombreTablaRastro , 'rastroProceso')}"
@@ -500,17 +500,17 @@
                                    style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight: bold; text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProceso.backUp, controlProceso.nombreTablaRastro , 'rastroProceso')}"
@@ -519,57 +519,57 @@
                                    style="position: absolute; top: 70px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
-               <p:dialog id="errorSeleccionProceso" header="#{msg['atencion']}" widgetVar="errorSeleccionProceso"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+               <p:dialog id="errorSeleccionProceso" header="#{msg['error']}" widgetVar="errorSeleccionProceso"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorSeleccionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight: bold;text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;text-align: center"/>
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorClonado" header="#{msg['atencion']}" widgetVar="errorClonado"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
+               <p:dialog id="errorClonado" header="#{msg['error']}" widgetVar="errorClonado"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlProceso.errorClonado}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorDatosNullProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullProceso" header="#{msg['error']}" widgetVar="errorDatosNullProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorDescripcionProceso" header="#{msg['atencion']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDescripcionProceso" header="#{msg['error']}" widgetVar="errorDescripcionProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDescripcionProceso']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['atencion']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullFormulaProceso" header="#{msg['error']}" widgetVar="errorDatosNullFormulaProceso"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullFormulaProceso']}" style="position: absolute; left: 74px; top: 14px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorDatosNullOperando" header="#{msg['atencion']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosNullOperando" header="#{msg['error']}" widgetVar="errorDatosNullOperando"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosNullOperando']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorCodigoClon" header="#{msg['atencion']}" widgetVar="errorCodigoClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorCodigoClon" header="#{msg['error']}" widgetVar="errorCodigoClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorCodigoClon']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight: bold;"/>
                </p:dialog>
 
-               <p:dialog id="errorDatosClonado" header="#{msg['atencion']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorDatosClonado" header="#{msg['error']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorDatosClonado']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight: bold;"/>
                </p:dialog>
@@ -735,7 +735,7 @@
             </h:form>
             <h:form id="formularioDialogos">
 
-               <p:dialog id="errorBorrarRegistro" header="#{msg['atencion']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
+               <p:dialog id="errorBorrarRegistro" header="#{msg['error']}" widgetVar="errorBorrarRegistro"  resizable="false" draggable="true" modal="true" height="80" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorBorrarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 190px; font-weight: bold;"/>
                </p:dialog>
