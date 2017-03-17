@@ -153,7 +153,7 @@ public class ControlParametroAutoliq implements Serializable {
     //
     private boolean activoBtnsPaginas;
     //
-    private int numero, cualTabla;
+    private int cualTabla;
     //
     private String visibilidadMostrarTodos;
     private boolean activarLov;
@@ -163,7 +163,6 @@ public class ControlParametroAutoliq implements Serializable {
 
     public ControlParametroAutoliq() {
         visibilidadMostrarTodos = "hidden";
-        numero = 7;
         activoBtnsPaginas = false;
         disabledBuscar = true;
         altoTabla = "50";
@@ -3679,14 +3678,6 @@ public class ControlParametroAutoliq implements Serializable {
 
     public void setActivoBtnsPaginas(boolean activoBtnsPaginas) {
         this.activoBtnsPaginas = activoBtnsPaginas;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public String getVisibilidadMostrarTodos() {

@@ -12,7 +12,18 @@
     </h:head>
     <h:body>
         <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
+            <ui:define name="body">  
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        //$(".loader").fadeOut("slow");
+                        foco('form:guardarRapido');
+                    });
+                    function foco(idElemento) {
+                        document.getElementById(idElemento).focus();
+                    };
+                </script>
+                <!--<div class="loader"></div>-->
+                <div style="position: static;"></div>                     
                 <h:form id="form"> 
                     <f:loadBundle basename="Recursos.novedadvacaciones" var="msg" />
                     <p:growl id="growl" showDetail="true"/>
@@ -369,7 +380,7 @@
                         </div>
                     </p:dialog>  
                 </h:form>
-                
+
                 <h:form id="formLovEmpleado">
 
                     <p:dialog header="Buscar Empleado." widgetVar="empleadosDialogo" draggable="true" resizable="false" id="empleadosDialogo" closable="false"  
@@ -573,12 +584,12 @@
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlNovedadesVacaciones.cancelarModificacion()}" style="position: absolute; top: 50px; left: 190px;" process="@this" />
                         <p:commandButton  icon="ui-icon-arrowreturnthick-1-w" value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 260px;" process="@this" />
                     </p:dialog>
-                    
+
                     <p:dialog id="operacionEnProceso" header="#{msg['atencion']}" widgetVar="operacionEnProceso"  resizable="false" draggable="true" modal="true" height="65" width="350" style="font-size: 12px" closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 30px; top: 10px;"  />
                         <h:outputText value="#{msg['operacionEnProceso']}" style="font-size: 12px; position: absolute; left: 95px; top: 20px; width: 240px; font-weight:bold;" />
                     </p:dialog>
-                    
+
                     <p:dialog id="editFechaInicial" header="Fecha Inicial de Disfrute" widgetVar="editFechaInicial" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
                         <p:inputTextarea value="#{controlNovedadesVacaciones.editarNovedades.fechainicialdisfrute}" style="overflow: auto;" readonly="true">                       
                             <f:convertDateTime pattern="dd/MM/yyyy"/>

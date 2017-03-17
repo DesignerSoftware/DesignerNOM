@@ -7830,5 +7830,23 @@
       </navigation-case>
    </navigation-rule>
    
+    <navigation-rule>
+      <from-view-id>/parametroautoliq.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>aporteentidadxdia</from-outcome>
+         <to-view-id>/aporteentidadxdia.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/aporteentidadxdia.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>parametroautoliq</from-outcome>
+         <to-view-id>/parametroautoliq.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   
+   
 </faces-config>
 

@@ -62,7 +62,7 @@
                            </div>
                            <div style="height: 50px;">
                               <p:commandButton style="width: 40px; height: 40px; background-image: url(Imagenes/Iconos/novedad06.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; vertical-align: top;" value="" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}" action="vacaciones" ></p:commandButton>
-                              <h:commandLink style="font-weight: bold; color: #14388B;" value="Vacaciones" action="vacaciones"/>
+                              <h:commandLink style="font-weight: bold; color: #14388B;" value="Vacaciones" action="vacaciones" actionListener="#{controlNovedadesVacaciones.recibirPag('novedad')}"/>
                               <div style="position: relative; left: 46px; top: -26px; width: 177px; height: 34px;">
                                  <h:outputText style="color: #000;" value="Novedades manuales y semiautomáticas por empleado"/>
                               </div>
