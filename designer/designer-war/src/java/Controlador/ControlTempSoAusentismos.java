@@ -1046,7 +1046,7 @@ public class ControlTempSoAusentismos implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('duplicarTempNDialogo').hide()");
     }
 
-    public void nuevaTempNovedad() {
+    public void agregarNuevaTempAusentismo() {
         k++;
         l = BigInteger.valueOf(k);
         nuevaTempSoAusentismos.setSecuencia(l);

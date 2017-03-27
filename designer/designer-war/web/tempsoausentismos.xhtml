@@ -23,13 +23,14 @@
                 <!--<div class="loader"></div>-->
                 <div style="position: static;"></div>
                 <h:form id="form">
+                    <p:growl id="growl" showDetail="true"/>
                     <f:loadBundle basename="Recursos.tempsoausentismos" var="msg" />
                     <p:panel id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >
 
                         <p:toolbar styleClass="cssToolbar">
                             <p:toolbarGroup align="left"> 
 
-                                <p:commandButton disabled="true" id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this" />
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" process="@this" actionListener="#{controlTempSoAusentismos.guardar()}" />
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlTempSoAusentismos.editarCelda()}" process="@this"/>
@@ -57,13 +58,13 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton disabled="true" id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  process="@this"/> 
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"  process="@this" onclick="PF('nuevaTempNDialogo').show()"/> 
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
                                 <p:commandButton disabled="true" id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                <p:commandButton disabled="true" id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"   process="@this"/>  
+                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"  actionListener="#{controlTempSoAusentismos.duplicar()}"  process="@this"/>  
                                 <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -422,7 +423,7 @@
                         <p:commandButton id="borrarNoCargado" value="#{msg['borrarnocargado']}" actionListener="#{controlTempSoAusentismos.borrarRegistrosNoCargados()}"
                                          process="@this" style="position: absolute; top: 495px; height: 32px;" icon="ui-icon-extlink" class="cssBotonLargo" />
 
-                        <p:commandButton id="ACEPTAR" value="" disabled="#{cargarArchivoPlano.guardado}" onclick="PF('confirmarGuardar').show()" process="@this" class="cssBotonAceptar"/>
+                        <p:commandButton id="ACEPTAR" value="" disabled="#{controlTempSoAusentismos.guardado}" onclick="PF('confirmarGuardar').show()" process="@this" class="cssBotonAceptar"/>
                         <p:commandButton id="ATRAS" value="" actionListener="#{controlTempSoAusentismos.revisarNovedad(tNovedades.secuencia)}" process="@this" class="cssBotonCancelar" action="tempsoausentismos"/>
                         <p:remoteCommand name="posicionTablaNovedad" actionListener="#{controlTempSoAusentismos.posicionTablaNovedad()}"/>
 
@@ -552,15 +553,15 @@
                     <p:dialog id="editarTipo" header="Tipo Ausentismo" widgetVar="editarTipo" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >
                         <p:inputTextarea value="#{controlTempSoAusentismos.editarNovedad.tipo}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarClase" header="Tipo Ausentismo" widgetVar="editarClase" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >
                         <p:inputTextarea value="#{controlTempSoAusentismos.editarNovedad.clase}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarCausa" header="Tipo Ausentismo" widgetVar="editarCausa" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >
                         <p:inputTextarea value="#{controlTempSoAusentismos.editarNovedad.causa}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
-                    
+
                     <p:dialog id="editarDias" header="Tipo Ausentismo" widgetVar="editarDias" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >
                         <p:inputTextarea value="#{controlTempSoAusentismos.editarNovedad.dias}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
@@ -612,13 +613,181 @@
                         <p:inputTextarea value="#{controlTempSoAusentismos.editarNovedad.documentosoporte}" style="overflow: auto;" readonly="true"/>
                     </p:dialog>
 
+
+                    <p:dialog id="nuevaTempNDialogo" header="Nuevo Registro" widgetVar="nuevaTempNDialogo" closable="false" resizable="false"  draggable="true" modal="true" height="310" width="710">  
+                        <center><strong><h:outputText value="Ingresar  nuevo Temp Ausentismo" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="nuevaNovedad" style="border: none;">
+
+                            <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoEmpl" widgetVar="nuevoEmpl" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.empleado}"
+                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase">
+                                <p:keyFilter for="nuevoEmpl" mask="9999999999"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="Tipo:" style=" position: absolute; top: 85px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.tipo}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevoTipo" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Clase:" style=" position: absolute; top: 115px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.clase}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevaClase" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Causa:" style=" position: absolute; top: 145px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"   value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.causa}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevaCausa" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Días" style=" position: absolute; top: 175px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.dias}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevoDia" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
+                            <fielset style=" position: absolute; top: 200px; left: 200px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.fecha}"/>
+                            </fielset>
+
+                            <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
+                            <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.fechafinaus}"/>
+
+
+                            <strong><h:outputText value="Expedición:" style=" position: absolute; top: 55px; left: 410px;"/></strong>
+                            <fielset style=" position: absolute; top: 50px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.fechaexpedicion}"/>
+                            </fielset>
+
+                            <strong><h:outputText value="Fecha Ini Pago:" style="position: absolute; top: 85px; left: 410px;"/></strong>
+                            <div style="position: absolute; top: 80px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.fechainipago}"/>
+                            </div>
+                            <strong><h:outputText value="Fecha Fin Pago:" style="position: absolute; top: 115px; left: 410px;"/></strong>
+                            <div style="position: absolute; top: 110px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.fechafinpago}"/>
+                            </div>
+
+                            <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
+                            <p:inputNumber autocomplete="off" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.porcentajeindividual}" 
+                                           style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
+
+                            <strong><h:outputText value="Base Liq. :" style=" position: absolute; top: 175px; left: 410px;"/></strong>
+                            <p:inputNumber autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
+                                           style=" width: 122px; position: absolute; left: 550px; top: 170px; text-transform: uppercase;"/>
+
+                            <strong><h:outputText value="Forma Liq. :" style=" position: absolute; top: 205px; left: 410px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.formaliquidacion}"
+                                         style=" width: 122px; position: absolute; left: 550px; top: 200px; text-transform: uppercase;"/>
+
+
+                            <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 235px; left: 410px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplDocumento" value="#{controlTempSoAusentismos.nuevaTempSoAusentismos.documentosoporte}" 
+                                         style=" width: 122px; position: absolute; left: 550px; top: 230px; text-transform: uppercase; text-align: right;"/>
+
+                            <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                             actionListener="#{controlTempSoAusentismos.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                            <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                             actionListener="#{controlTempSoAusentismos.agregarNuevaTempAusentismo()}" process="@this"/>
+                            <p:commandButton value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                             actionListener="#{controlTempSoAusentismos.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('nuevaTempNDialogo').hide();" process="@this"/>
+                        </p:panel>
+                    </p:dialog>
+
+                    <p:dialog id="duplicarTempNDialogo" header="#{msg['nuevoregistro']}" widgetVar="duplicarTempNDialogo" closable="false" resizable="false"  draggable="true" height="310" width="710">  
+                        <center><strong><h:outputText value="#{msg['ingresarnueva']}" style="font-size: 14px; color: blue; position: relative; top: 10px;"/></strong></center> 
+                        <p:panel id="duplicaNovedad" style="border: none;">
+
+                            <strong><h:outputText value="Empleado:" style=" position: absolute; top: 55px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="duplEmpleado" widgetVar="duplEmpleado" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.empleado}"
+                                          style=" width: 122px; position: absolute; left: 200px; top: 50px; text-transform: uppercase">
+                                <p:keyFilter for="duplEmpleado" mask="9999999999"/>
+                            </p:inputText>
+
+                            <strong><h:outputText value="Tipo:" style=" position: absolute; top: 85px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoTipo" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.tipo}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 80px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevoTipo" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Clase:" style=" position: absolute; top: 115px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaClase" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.clase}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 110px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevaClase" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Causa:" style=" position: absolute; top: 145px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevaCausa" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.causa}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 140px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevaCausa" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Días" style=" position: absolute; top: 175px; left: 40px;"/></strong>
+                            <p:inputText  autocomplete="off"  id="nuevoDia" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.dias}" 
+                                          style=" width: 122px; position: absolute; left: 200px; top: 170px; text-transform: uppercase;">
+                                <!--<p:keyFilter for="nuevoDia" mask="9999999999"/>-->
+                            </p:inputText>
+
+                            <strong><h:outputText value="Fecha Inicial:" style=" position: absolute; top: 205px; left: 40px;"/></strong>
+                            <fielset style=" position: absolute; top: 200px; left: 200px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.fecha}"/>
+                            </fielset>
+
+                            <strong><h:outputText value="Fecha Final:" style="position: absolute; top: 235px; left: 40px;"/></strong>
+                            <p:calendar style="position: absolute; top: 230px; left: 200px;" autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.fechafinaus}"/>
+
+
+                            <strong><h:outputText value="Expedición:" style=" position: absolute; top: 55px; left: 410px;"/></strong>
+                            <fielset style=" position: absolute; top: 50px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.fechaexpedicion}"/>
+                            </fielset>
+
+                            <strong><h:outputText value="Fecha Ini Pago:" style="position: absolute; top: 85px; left: 410px;"/></strong>
+                            <div style="position: absolute; top: 80px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.fechainipago}"/>
+                            </div>
+                            <strong><h:outputText value="Fecha Fin Pago:" style="position: absolute; top: 115px; left: 410px;"/></strong>
+                            <div style="position: absolute; top: 110px; left: 550px;">
+                                <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.fechafinpago}"/>
+                            </div>
+
+                            <strong><h:outputText value="Porcentaje:" style=" position: absolute; top: 145px; left: 410px;"/></strong>
+                            <p:inputNumber autocomplete="off" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.porcentajeindividual}" 
+                                           style=" width: 122px; position: absolute; left: 550px; top: 140px; text-transform: uppercase;"/>
+
+                            <strong><h:outputText value="Base Liq. :" style=" position: absolute; top: 175px; left: 410px;"/></strong>
+                            <p:inputNumber autocomplete="off"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.baseliquidacion}" decimalPlaces="0"
+                                           style=" width: 122px; position: absolute; left: 550px; top: 170px; text-transform: uppercase;"/>
+
+                            <strong><h:outputText value="Forma Liq. :" style=" position: absolute; top: 205px; left: 410px;"/></strong>
+                            <p:inputText autocomplete="off"  value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.formaliquidacion}"
+                                         style=" width: 122px; position: absolute; left: 550px; top: 200px; text-transform: uppercase;"/>
+
+                            <strong><h:outputText value="#{msg['documentosoporteN']}:" style=" position: absolute; top: 235px; left: 410px;"/></strong>
+                            <p:inputText autocomplete="off" id="duplicaDocumento" value="#{controlTempSoAusentismos.duplicarTempSoAusentismos.documentosoporte}" 
+                                         style=" width: 122px; position: absolute; left: 550px; top: 230px; text-transform: uppercase; text-align: right;"/>
+
+                            <p:commandButton value="#{msg['limpiar']}" style=" position: absolute; left: 30px; top: 280px; width: 128px;" icon="ui-icon-trash"
+                                             actionListener="#{controlTempSoAusentismos.limpiarNuevo()}" update="nuevaNovedad" process="@this"/>
+                            <p:commandButton value="#{msg['agregar']}" style=" position: absolute; left: 490px; top: 280px;" icon="ui-icon-circle-check"
+                                             onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"
+                                             actionListener="#{controlTempSoAusentismos.confirmarDuplicar()}" process="@this"/>
+                            <p:commandButton id="cancelarDE" value="#{msg['cancelar']}" style=" position: absolute; left: 590px; top: 280px;" icon="ui-icon-circle-close"
+                                             actionListener="#{controlTempSoAusentismos.limpiarNuevo()}" update="nuevaNovedad" onclick="PF('duplicarTempNDialogo').hide();" process="@this"/>
+                        </p:panel>-->
+                    </p:dialog>
+
                 </h:form>
 
                 <h:form id="formExportar">
                     <p:dataTable id="exportarTempNovedades"  var="tNovedadesExp"   style="visibility: hidden; display: none" 
                                  value="#{controlTempSoAusentismos.listTempSoAusentismos}">
 
-                        <p:column headerText="#{msg['conceptoX']}">      
+<!--                        <p:column headerText="#{msg['conceptoX']}">      
                             <f:facet name="header"><h:outputText value="#{msg['conceptoX']}"/></f:facet>
                             <h:outputText value="#{tNovedadesExp.concepto}" />
                         </p:column>
@@ -692,7 +861,7 @@
                         <p:column headerText="#{msg['unidadesFraccionXX']}">      
                             <f:facet name="header"><h:outputText value="#{msg['unidadesFraccionX']}"/></f:facet>
                             <h:outputText value="#{tNovedadesExp.unidadespartefraccion}" />
-                        </p:column>
+                        </p:column>-->
 
                     </p:dataTable>
                 </h:form>
