@@ -1264,7 +1264,7 @@ public class ControlEmpresa implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       boolean respueta = validarCamposNulosEmpresa(2);
       if (respueta == true) {
-         if (nuevoEmpresa.getNombre().length() >= 1 && nuevoEmpresa.getNombre().length() <= 50) {
+         if (duplicarEmpresa.getNombre().length() >= 1 && duplicarEmpresa.getNombre().length() <= 50) {
             if (bandera == 1) {
                restaurarFiltroTablas();
             }
@@ -2473,21 +2473,25 @@ public class ControlEmpresa implements Serializable {
       }
    }
 
-   public void clonarProceso() {
+   public void clonarEmpresa() {
+      System.out.println("ControlEmpresa.clonarEmpresa() 1");
       if (!empresaDestinoClonado.getNombre().isEmpty() && empresaDestinoClonado.getCodigo() >= 1 && empresaOrigenClonado.getCodigo() >= 1) {
-         if (validarNuevaEmpresaClon() == true) {
-//            errorClonado = administrarProcesos.clonarProceso(empresaDestinoClonado.getDescripcion(), empresaDestinoClonado.getCodigo(), empresaOrigenClonado.getCodigo());
-            if (errorClonado.equals("BIEN")) {
-               FacesMessage msg = new FacesMessage("Información", "El registro fue clonado con Éxito.");
-               FacesContext.getCurrentInstance().addMessage(null, msg);
-               RequestContext.getCurrentInstance().update("form:growl");
-            } else {
-               RequestContext.getCurrentInstance().update("form:errorClonado");
-               RequestContext.getCurrentInstance().execute("PF('errorClonado').show()");
-            }
+         System.out.println("ControlEmpresa.clonarEmpresa() 2");
+//         if (validarNuevaEmpresaClon() == true) {
+         System.out.println("ControlEmpresa.clonarEmpresa() 3");
+         errorClonado = administrarEmpresa.clonarEmpresa(empresaOrigenClonado.getCodigo(), empresaDestinoClonado.getCodigo());
+         System.out.println("ControlEmpresa.clonarEmpresa() 4");
+         if (errorClonado.equals("SI")) {
+            FacesMessage msg = new FacesMessage("Información", "El registro fue clonado con Éxito.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            RequestContext.getCurrentInstance().update("form:growl");
          } else {
-            RequestContext.getCurrentInstance().execute("PF('errorRepetidosClon').show()");
+            RequestContext.getCurrentInstance().update("form:errorClonado");
+            RequestContext.getCurrentInstance().execute("PF('errorClonado').show()");
          }
+//         } else {
+//            RequestContext.getCurrentInstance().execute("PF('errorRepetidosClon').show()");
+//         }
       } else {
          RequestContext.getCurrentInstance().execute("PF('errorDatosClonado').show()");
       }

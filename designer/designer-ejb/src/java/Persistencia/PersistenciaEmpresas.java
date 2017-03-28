@@ -11,7 +11,9 @@ import javax.persistence.EntityManager;
 import InterfacePersistencia.PersistenciaEmpresasInterface;
 import java.math.BigInteger;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  * Clase Stateless. <br>
@@ -340,6 +342,49 @@ public class PersistenciaEmpresas implements PersistenciaEmpresasInterface {
       } catch (Exception e) {
          System.out.println("Error en consultarEmpresaPorEmpleado : " + e.toString());
          return null;
+      }
+   }
+
+   public String clonarEmpresa(EntityManager em, short codOrigen, short codDestino) {
+      try {
+         em.clear();
+         StoredProcedureQuery procedimiento = em.createStoredProcedureQuery("EMPRESAS_PKG.CLONAREMPRESA");
+         procedimiento.registerStoredProcedureParameter(0, BigInteger.class, ParameterMode.IN);
+         procedimiento.registerStoredProcedureParameter(1, BigInteger.class, ParameterMode.IN);
+         procedimiento.setParameter(0, codOrigen);
+         procedimiento.setParameter(1, codDestino);
+         procedimiento.execute();
+         em.clear();
+         Query query = em.createNativeQuery("SELECT SUM(CONTEO) FROM\n"
+                 + " (SELECT COUNT(*) CONTEO FROM CENTROSCOSTOS C1 WHERE C1.EMPRESA = ? AND C1.CODIGO NOT IN\n"
+                 + " (SELECT C2.CODIGO FROM CENTROSCOSTOS C2 WHERE C2.EMPRESA = ?)\n"
+                 + " UNION\n"
+                 + " SELECT COUNT(*) CONTEO FROM TERCEROS T1 WHERE T1.EMPRESA = ? AND T1.NIT NOT IN\n"
+                 + " (SELECT T2.NIT FROM TERCEROS T2 WHERE T2.EMPRESA = ?)\n"
+                 + " UNION\n"
+                 + " SELECT COUNT(*) CONTEO FROM CUENTAS C1 WHERE C1.EMPRESA = ? AND C1.CODIGO NOT IN\n"
+                 + " (SELECT C2.CODIGO FROM CUENTAS C2 WHERE C2.EMPRESA = ?)\n"
+                 + " UNION\n"
+                 + " SELECT COUNT(*) CONTEO FROM CONCEPTOS C1 WHERE C1.EMPRESA = ? AND C1.CODIGO NOT IN\n"
+                 + " (SELECT C2.CODIGO FROM CONCEPTOS C2 WHERE C2.EMPRESA = ?))");
+         query.setParameter(0, codOrigen);
+         query.setParameter(1, codDestino);
+         query.setParameter(2, codOrigen);
+         query.setParameter(3, codDestino);
+         query.setParameter(4, codOrigen);
+         query.setParameter(5, codDestino);
+         query.setParameter(6, codOrigen);
+         query.setParameter(7, codDestino);
+         BigInteger num = (BigInteger) query.getSingleResult();
+         System.out.println("Persistencia.PersistenciaEmpresas.clonarEmpresa() Confirmo Conteo : " + num.intValue());
+         if (num.intValue() > 0) {
+            return "NO";
+         } else {
+            return "SI";
+         }
+      } catch (Exception e) {
+         System.out.println("PersistenciaEmpresas.clonarEmpresa() ERROR : " + e);
+         return e.toString();
       }
    }
 }

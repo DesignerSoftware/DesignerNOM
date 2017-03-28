@@ -23,7 +23,7 @@
             </script>
             <h:form id="form"> 
 
-               <f:loadBundle basename="Recursos.empresa" var="msg" />
+               <f:loadBundle basename="Recursos.empresa" var="msg"/>
                <p:growl id="growl" showDetail="true"/>
 
                <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal" >  
@@ -381,7 +381,7 @@
                         </div>
                         <div style="display: block;">
                            <p:inputText autocomplete="off" id="CodigoNuevoClonado" value="#{controlEmpresa.empresaOrigenClonado.codigo}" onclick="select();"
-                                        style="position: relative; width: 70px; height: 14px; margin: 1px; left: 0px; text-align: center; top: 0px">
+                                        style="position: relative; width: 70px; height: 14px; margin: 1px; left: 0px; top: 0px">
                               <p:ajax event="click" process="@this" listener="#{controlEmpresa.posicionProcesoClonadoOrigen()}"/>
                               <p:ajax event="change" process="@this" listener="#{controlEmpresa.autoCompletarEmpresaOrigenClonado(controlEmpresa.empresaOrigenClonado.codigo,0)}" update="CodigoNuevoClonado"/>
                               <p:ajax event="dblclick" process="@this" listener="#{controlEmpresa.dispararDialogoEmpresaOrigenClonado()}"/>
@@ -403,9 +403,9 @@
                            <p:inputText autocomplete="off" id="CodigoBaseClonado" value="#{controlEmpresa.empresaDestinoClonado.codigo}"
                                         style="position: relative; width: 70px; height: 14px; margin: 1px; left: 36px; top: 0px; display: inline;">
                                <!--disabled="#/{controlEmpresa.activoCasillaClonado}"-->
-                              <p:ajax event="click" process="@this" listener="#{controlEmpresa.posicionProcesoClonadoOrigen()}"/>
-                              <p:ajax event="change" process="@this" listener="#{controlEmpresa.autoCompletarEmpresaOrigenClonado(controlEmpresa.empresaDestinoClonado.codigo,0)}" update="CodigoNuevoClonado"/>
-                              <p:ajax event="dblclick" process="@this" listener="#{controlEmpresa.dispararDialogoEmpresaOrigenClonado()}"/>
+                              <p:ajax event="click" process="@this" listener="#{controlEmpresa.posicionProcesoClonadoDestino()}"/>
+                              <p:ajax event="change" process="@this" listener="#{controlEmpresa.autoCompletarEmpresaDestinoClonado(controlEmpresa.empresaDestinoClonado.codigo,0)}" update="CodigoNuevoClonado"/>
+                              <p:ajax event="dblclick" process="@this" listener="#{controlEmpresa.dispararDialogoEmpresaDestinoClonado()}"/>
                            </p:inputText>
                            <p:inputText autocomplete="off" id="DescripcionBaseClonado" value="#{controlEmpresa.empresaDestinoClonado.nombre}" onclick="select();"
                                         style="position: relative; width: 240px; height: 14px; margin: 1px; left: 36px; top: 0px; display: inline;">
@@ -418,7 +418,7 @@
                      </div>
                   </fieldset>
 
-                  <p:commandButton id="botonclonar" style="position: absolute; top: 420px; left: 790px;" class="cssBotonClonar" value="">
+                  <p:commandButton id="botonclonar" style="position: absolute; top: 420px; left: 790px;" actionListener="#{controlEmpresa.clonarEmpresa()}" class="cssBotonClonar" value="">
                      <p:tooltip for="botonclonar" value="#{msg['clonar']}"/>
                   </p:commandButton>
 
@@ -638,7 +638,7 @@
 
                      <p:ajax event="filter" listener="#{controlEmpresa.contarRegistrosLovCentrosC()}"/>
                      <p:ajax event="rowSelect" listener="#{controlEmpresa.activarAceptar()}" update=":form:aceptarCC"/>
-                     <p:ajax event="rowDblselect" listener="#{controlEmpresa.actualizarCentroCosto()}"  process="@this"  />
+                     <p:ajax event="rowDblselect" listener="#{controlEmpresa.actualizarCentroCosto()}"  process="@this"/>
 
                      <f:facet name="header">  
                         <h:outputText value="#{msg['buscarCC']}"/>  

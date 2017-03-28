@@ -133,4 +133,6 @@ public interface AdministrarEmpresasInterface {
     public Empresas consultarEmpresaSecuencia(BigInteger secEmpresa);
 
     public List<Empresas> listasEmpresasPorSecuenciaEmpresa(BigInteger secuencia);
+    
+    public String clonarEmpresa(short codOrigen, short codDestino);
 }
