@@ -112,7 +112,7 @@ public class PersistenciaAportesEntidadesXDia implements PersistenciaAportesEnti
                     + "      AND AE.MES = ? \n"
                     + "      AND AE.ANO = ? \n"
                     + "      AND AE.EMPLEADO = ? \n"
-                    + "      AND TE.CODIGO IN (1,2,3,14 )\n"
+                    + "      AND TE.CODIGO IN (1,2,3,11,13,14)\n"
                     + "      AND TE.SECUENCIA = ?";
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secEmpresa);

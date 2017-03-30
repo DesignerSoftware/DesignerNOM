@@ -207,6 +207,15 @@
                                   currentPageReportTemplate="{totalPages}">
 
                         <p:ajax event="filter" listener="#{controlParametroAutoliq.contarRegistroAportesEntidades()}"/>
+                        
+                        <p:column id="columnaAporteXDia" width="8" >                                                              
+                                    <p:commandButton action="aporteentidadxdia" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                                     value=""  actionListener="#{controlAportesEntidadesXDia.recibirAporteEntidad('parametroautoliq', controlParametroAutoliq.aporteTablaSeleccionado)}">
+                                    </p:commandButton>   
+                                    <f:facet name="footer">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                </p:column>
 
                         <p:column id="aporteCodigoEmpleado" sortBy="#{infoAE.empleado.codigoempleado}" width="40" filterBy="#{infoAEempleado.empleado.codigoempleado}" 
                                   filterMatchMode="contains" filterStyle="display: none; visibility: hidden;">                                  
@@ -1396,7 +1405,7 @@
 
                      </p:dataTable>
                      <!--</p:scrollPanel>-->
-                     <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: relative; left: 5px; top: 222px; font-weight: bold"/>
+                     <h:outputText id="infoRegistroAporte" value="#{msg['infoRegistro']} #{controlParametroAutoliq.infoRegistroAporte}" style="position: relative; left: 5px; top: 230px; font-weight: bold"/>
                   </fieldset>
 
                   <p:commandButton id="novedadauto" style="position: absolute; left: 10px; top: 462px;" class="cssBoton"
@@ -1416,9 +1425,8 @@
                                    icon="ui-icon-extlink" value="#{msg['generacionArch']}" process="@this" action="nreportesseguridad" />
                   <p:tooltip value="#{msg['btn6']}" for="generacionArch" />
 
-                  <p:commandButton id="acumDif"  style="position: absolute; left: 612px; top: 467px; width: 6px; height: 20px; color: #1a22a4; background-color: #1a22a4;"  actionListener="#{controlParametroAutoliq.procesoAcumularDiferenciaAporteEntidad()}" value=" " process="@this" />
-                  <p:tooltip value="#{msg['btn7']}" for="acumDif"/>
-                  <!--disabled="#/{controlParametroAutoliq.activoBtnsPaginas}"-->
+<!--                  <p:commandButton id="acumDif"  style="position: absolute; left: 612px; top: 467px; width: 6px; height: 20px; color: #1a22a4; background-color: #1a22a4;"  actionListener="#{controlParametroAutoliq.procesoAcumularDiferenciaAporteEntidad()}" value=" " process="@this" />
+                  <p:tooltip value="#{msg['btn7']}" for="acumDif"/>-->
 
                   <p:commandButton id="buscar" style="position: absolute; left: 685px; top: 464px;" class="cssBotonBuscar"
                                    actionListener="#{controlParametroAutoliq.dispararDialogoBuscar()}" onclick="PF('operacionEnProceso').show()"  value="" process="@this" />

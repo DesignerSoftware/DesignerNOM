@@ -179,13 +179,15 @@
                                     </f:facet>
                                     <p:cellEditor>  
                                         <f:facet name="output"><h:outputText value="#{infoAE.ibcaux}">
-                                                <f:convertNumber pattern="#0.00" maxFractionDigits="3" />
+                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
                                             </h:outputText>
                                         </f:facet>  
                                         <f:facet name="input">
-                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase"> 
+                                            <p:inputText  autocomplete="off"   value="#{infoAE.ibcaux}" style="border-radius: 0px; width: 98.5%;text-transform: uppercase" > 
                                                 <p:ajax event="change" listener="#{controlAportesEntidadesXDia.modificarAporteEntidadXDia(infoAE)}" update="@this"/>
-                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" />
+                                                <p:ajax event="select" listener="#{controlAportesEntidadesXDia.cambiarIndice(infoAE, 3)}" onstart="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});" >
+                                                <!--<f:convertNumber pattern="#0.00" maxFractionDigits="3" />-->
+                                                </p:ajax>
                                             </p:inputText>
                                         </f:facet>  
                                     </p:cellEditor>

@@ -162,6 +162,20 @@ public class ControlAportesEntidadesXDia implements Serializable {
                 listAportesEntidadesModificar.get(i).setTarifapensionsobrante(listAportesEntidadesModificar.get(i).getTarifa2aux());
                 listAportesEntidadesModificar.get(i).setIbcpensionsobrante(listAportesEntidadesModificar.get(i).getIbcespaux());
                 listAportesEntidadesModificar.get(i).setAportepensionsobrante(listAportesEntidadesModificar.get(i).getAporteentaux());
+            } else if (aporteEntidad.getTipoentidad().getCodigo() == 11) {
+                listAportesEntidadesModificar.get(i).setTarifasena(listAportesEntidadesModificar.get(i).getTarifaaux());
+                listAportesEntidadesModificar.get(i).setAportesena(listAportesEntidadesModificar.get(i).getAporteaux());
+                listAportesEntidadesModificar.get(i).setIbcsena(listAportesEntidadesModificar.get(i).getIbcaux());
+                listAportesEntidadesModificar.get(i).setTarifasenasobrante(listAportesEntidadesModificar.get(i).getTarifa2aux());
+                listAportesEntidadesModificar.get(i).setIbcsenasobrante(listAportesEntidadesModificar.get(i).getIbcespaux());
+                listAportesEntidadesModificar.get(i).setAportesenasobrante(listAportesEntidadesModificar.get(i).getAporteentaux());
+            } else if (aporteEntidad.getTipoentidad().getCodigo() == 13) {
+                listAportesEntidadesModificar.get(i).setTarifaicbf(listAportesEntidadesModificar.get(i).getTarifaaux());
+                listAportesEntidadesModificar.get(i).setAporteicbf(listAportesEntidadesModificar.get(i).getAporteaux());
+                listAportesEntidadesModificar.get(i).setIbcicbf(listAportesEntidadesModificar.get(i).getIbcaux());
+                listAportesEntidadesModificar.get(i).setTarifaicbfsobrante(listAportesEntidadesModificar.get(i).getTarifa2aux());
+                listAportesEntidadesModificar.get(i).setIbcicbfsobrante(listAportesEntidadesModificar.get(i).getIbcespaux());
+                listAportesEntidadesModificar.get(i).setAporteicbfsobrante(listAportesEntidadesModificar.get(i).getAporteentaux());
             } else if (aporteEntidad.getTipoentidad().getCodigo() == 14) {
                 listAportesEntidadesModificar.get(i).setTarifacaja(listAportesEntidadesModificar.get(i).getTarifaaux());
                 listAportesEntidadesModificar.get(i).setAportecaja(listAportesEntidadesModificar.get(i).getAporteaux());
@@ -318,7 +332,7 @@ public class ControlAportesEntidadesXDia implements Serializable {
             nuevoAporte.setTarifasaludsobrante(nuevoAporte.getTarifa2aux());
             nuevoAporte.setIbcsaludsobrante(nuevoAporte.getIbcespaux());
             nuevoAporte.setAportesaludsobrante(nuevoAporte.getAporteentaux());
-        } else if (aporteEntidad.getTipoentidad().getCodigo() == 3) {
+        } else if (aporteEntidad.getTipoentidad().getCodigo() == 2) {
             nuevoAporte.setTarifariesgo(nuevoAporte.getTarifaaux());
             nuevoAporte.setAporteriesgo(nuevoAporte.getAporteaux());
             nuevoAporte.setIbcriesgo(nuevoAporte.getIbcaux());
@@ -332,6 +346,20 @@ public class ControlAportesEntidadesXDia implements Serializable {
             nuevoAporte.setTarifapensionsobrante(nuevoAporte.getTarifa2aux());
             nuevoAporte.setIbcpensionsobrante(nuevoAporte.getIbcespaux());
             nuevoAporte.setAportepensionsobrante(nuevoAporte.getAporteentaux());
+        } else if (aporteEntidad.getTipoentidad().getCodigo() == 11) {
+            nuevoAporte.setTarifasena(nuevoAporte.getTarifaaux());
+            nuevoAporte.setAportesena(nuevoAporte.getAporteaux());
+            nuevoAporte.setIbcsena(nuevoAporte.getIbcaux());
+            nuevoAporte.setTarifasenasobrante(nuevoAporte.getTarifa2aux());
+            nuevoAporte.setIbcsenasobrante(nuevoAporte.getIbcespaux());
+            nuevoAporte.setAportesenasobrante(nuevoAporte.getAporteentaux());
+        } else if (aporteEntidad.getTipoentidad().getCodigo() == 13) {
+            nuevoAporte.setTarifaicbf(nuevoAporte.getTarifaaux());
+            nuevoAporte.setAporteicbf(nuevoAporte.getAporteaux());
+            nuevoAporte.setIbcicbf(nuevoAporte.getIbcaux());
+            nuevoAporte.setTarifaicbfsobrante(nuevoAporte.getTarifa2aux());
+            nuevoAporte.setIbcicbfsobrante(nuevoAporte.getIbcespaux());
+            nuevoAporte.setAporteicbfsobrante(nuevoAporte.getAporteentaux());
         } else if (aporteEntidad.getTipoentidad().getCodigo() == 14) {
             nuevoAporte.setTarifacaja(nuevoAporte.getTarifaaux());
             nuevoAporte.setAportecaja(nuevoAporte.getAporteaux());
@@ -377,7 +405,7 @@ public class ControlAportesEntidadesXDia implements Serializable {
                 duplicarAporte.setTarifasaludsobrante(aporteSeleccionado.getTarifa2aux());
                 duplicarAporte.setIbcsaludsobrante(aporteSeleccionado.getIbcespaux());
                 duplicarAporte.setAportesaludsobrante(aporteSeleccionado.getAporteentaux());
-            } else if (aporteEntidad.getTipoentidad().getCodigo() == 3) {
+            } else if (aporteEntidad.getTipoentidad().getCodigo() == 2) {
                 duplicarAporte.setTarifariesgo(aporteSeleccionado.getTarifaaux());
                 duplicarAporte.setAporteriesgo(aporteSeleccionado.getAporteaux());
                 duplicarAporte.setIbcriesgo(aporteSeleccionado.getIbcaux());
@@ -391,6 +419,20 @@ public class ControlAportesEntidadesXDia implements Serializable {
                 duplicarAporte.setTarifapensionsobrante(aporteSeleccionado.getTarifa2aux());
                 duplicarAporte.setIbcpensionsobrante(aporteSeleccionado.getIbcespaux());
                 duplicarAporte.setAportepensionsobrante(aporteSeleccionado.getAporteentaux());
+            } else if (aporteEntidad.getTipoentidad().getCodigo() == 11) {
+                duplicarAporte.setTarifasena(aporteSeleccionado.getTarifaaux());
+                duplicarAporte.setAportesena(aporteSeleccionado.getAporteaux());
+                duplicarAporte.setIbcsena(aporteSeleccionado.getIbcaux());
+                duplicarAporte.setTarifasenasobrante(aporteSeleccionado.getTarifa2aux());
+                duplicarAporte.setIbcsenasobrante(aporteSeleccionado.getIbcespaux());
+                duplicarAporte.setAportesenasobrante(aporteSeleccionado.getAporteentaux());
+            } else if (aporteEntidad.getTipoentidad().getCodigo() == 13) {
+                duplicarAporte.setTarifaicbf(aporteSeleccionado.getTarifaaux());
+                duplicarAporte.setAporteicbf(aporteSeleccionado.getAporteaux());
+                duplicarAporte.setIbcicbf(aporteSeleccionado.getIbcaux());
+                duplicarAporte.setTarifaicbfsobrante(aporteSeleccionado.getTarifa2aux());
+                duplicarAporte.setIbcicbfsobrante(aporteSeleccionado.getIbcespaux());
+                duplicarAporte.setAporteicbfsobrante(aporteSeleccionado.getAporteentaux());
             } else if (aporteEntidad.getTipoentidad().getCodigo() == 14) {
                 duplicarAporte.setTarifacaja(aporteSeleccionado.getTarifaaux());
                 duplicarAporte.setAportecaja(aporteSeleccionado.getAporteaux());
@@ -754,6 +796,20 @@ public class ControlAportesEntidadesXDia implements Serializable {
                             listAportesEntidades.get(i).setTarifa2aux(listAportesEntidades.get(i).getTarifapensionsobrante());
                             listAportesEntidades.get(i).setIbcespaux(listAportesEntidades.get(i).getIbcpensionsobrante());
                             listAportesEntidades.get(i).setAporteentaux(listAportesEntidades.get(i).getAportepensionsobrante());
+                        } else if (aux.equals(BigDecimal.valueOf(11))) {
+                            listAportesEntidades.get(i).setTarifaaux(listAportesEntidades.get(i).getTarifasena());
+                            listAportesEntidades.get(i).setAporteaux(listAportesEntidades.get(i).getAportesena());
+                            listAportesEntidades.get(i).setIbcaux(listAportesEntidades.get(i).getIbcsena());
+                            listAportesEntidades.get(i).setTarifa2aux(listAportesEntidades.get(i).getTarifasenasobrante());
+                            listAportesEntidades.get(i).setIbcespaux(listAportesEntidades.get(i).getIbcsenasobrante());
+                            listAportesEntidades.get(i).setAporteentaux(listAportesEntidades.get(i).getAportesenasobrante());
+                        } else if (aux.equals(BigDecimal.valueOf(13))) {
+                            listAportesEntidades.get(i).setTarifaaux(listAportesEntidades.get(i).getTarifaicbf());
+                            listAportesEntidades.get(i).setAporteaux(listAportesEntidades.get(i).getAporteicbf());
+                            listAportesEntidades.get(i).setIbcaux(listAportesEntidades.get(i).getIbcicbf());
+                            listAportesEntidades.get(i).setTarifa2aux(listAportesEntidades.get(i).getTarifaicbfsobrante());
+                            listAportesEntidades.get(i).setIbcespaux(listAportesEntidades.get(i).getIbcicbfsobrante());
+                            listAportesEntidades.get(i).setAporteentaux(listAportesEntidades.get(i).getAporteicbfsobrante());
                         } else if (aux.equals(BigDecimal.valueOf(14))) {
                             listAportesEntidades.get(i).setTarifaaux(listAportesEntidades.get(i).getTarifacaja());
                             listAportesEntidades.get(i).setAporteaux(listAportesEntidades.get(i).getAportecaja());
