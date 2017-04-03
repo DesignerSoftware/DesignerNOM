@@ -85,7 +85,7 @@
                                          editable="true" editMode="cell" selection="#{controlNReportePersonal.reporteSeleccionado}"  liveScroll="true" scrollRows="8">
 
                                 <p:ajax event="filter" listener="#{controlNReportePersonal.eventoFiltrar()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlNReportePersonal.seleccionRegistro()}" process="@this" />
+                                <p:ajax event="rowSelect" listener="#{controlNReportePersonal.seleccionRegistro(info)}" process="@this" />
                                 <!--p:ajax event="rowSelect" listener="# {controlNReportePersonal.seleccionRegistro()}" onstart="PF('reportesPersonal').unselectAllRows();PF('reportesPersonal').selectRow(#/{indice});" process="@this" /-->
                                 <p:ajax event="rowDblselect" listener="#{controlNReportePersonal.requisitosParaReporte()}" process="@this" />
 
@@ -967,7 +967,7 @@
                         <p:commandButton id="cancelarRequisitoReporte" value="#{msg['atras']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('requisitosReporte').hide();" actionListener="#{controlNReportePersonal.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" height="90" width="355" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte"  resizable="false" draggable="true" modal="true" closable="true" height="90" width="355" style="font-size: 12px;">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                         <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReportePersonal.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />-->

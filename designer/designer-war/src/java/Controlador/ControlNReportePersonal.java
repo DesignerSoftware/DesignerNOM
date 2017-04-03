@@ -679,7 +679,8 @@ public class ControlNReportePersonal implements Serializable {
         RequestContext.getCurrentInstance().update("formParametros:empresaParametro");
     }
 
-    public void seleccionRegistro() {
+    public void seleccionRegistro(Inforeportes infor) {
+        reporteSeleccionado = infor;
         activarEnvioCorreo();
         RequestContext context = RequestContext.getCurrentInstance();
         // Resalto Parametros Para Reporte
@@ -1872,7 +1873,7 @@ public class ControlNReportePersonal implements Serializable {
         System.out.println(this.getClass().getName() + ".generarReporte()");
         reporteSeleccionado = reporte;
         System.out.println("inforreporteSeleccionado: " + reporteSeleccionado.getTipo());
-        seleccionRegistro();
+        seleccionRegistro(reporteSeleccionado);
         generarDocumentoReporte();
     }
 

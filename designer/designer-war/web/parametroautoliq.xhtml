@@ -1267,10 +1267,10 @@
                               <f:facet name ="output"><h:outputText id="outsubtipocontizante" value="#{infoAE.subtipocotizanteSTR}" style="text-transform: uppercase;"/> </f:facet>
                               <f:facet name="input">
 
-                                 <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte" style="width: 215px;"
+                                 <p:selectOneMenu value="#{infoAE.subtipocotizante}" id="editarSubTipoCotizanteAporte" style="width: 215px; text-transform: uppercase"
                                                   onblur="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});"
                                                   onfocus="PF('tablaAportesEntidades').unselectAllRows();PF('tablaAportesEntidades').selectRow(#{indiceAE});">
-                                    <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1" />  
+                                    <f:selectItem itemLabel="#{msg['subTipoCotizante1']}" itemValue="1"  />  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante2']}" itemValue="2" />  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante3']}" itemValue="3" />  
                                     <f:selectItem itemLabel="#{msg['subTipoCotizante4']}" itemValue="4" />  

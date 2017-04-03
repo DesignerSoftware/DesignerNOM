@@ -1078,7 +1078,12 @@ public class ControlNReporteLaboral implements Serializable {
         System.out.println(this.getClass().getName() + ".cancelarReporte()");
         administarReportes.cancelarReporte();
     }
-
+    
+    public void reiniciarStreamedContent() {
+        System.out.println(this.getClass().getName() + ".reiniciarStreamedContent()");
+        reporte = null;
+    }
+    
     //CONTAR REGISTROS
     public void contarRegistros() {
         RequestContext.getCurrentInstance().update("form:informacionRegistro");

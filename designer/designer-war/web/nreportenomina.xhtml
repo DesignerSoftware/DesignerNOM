@@ -115,7 +115,7 @@
                                                 <f:selectItem itemLabel="#{msg['xls']}" itemValue="XLS" />  
                                                 <f:selectItem itemLabel="#{msg['xlsx']}" itemValue="XLSX" />  
                                                 <f:selectItem itemLabel="#{msg['csv']}" itemValue="CSV" />
-                                                <p:ajax event="change" listener="#{controlNReporteNomina.modificacionTipoReporte(info)}" update=":form:reportesNomina" />
+                                                <p:ajax listener="#{controlNReporteNomina.modificacionTipoReporte(info)}" update=":form:reportesNomina" />
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -957,7 +957,7 @@
                         <p:commandButton id="cancelarRequisitoReporte" icon="ui-icon-arrowreturnthick-1-w" value="#{msg['atras']}" onclick="PF('requisitosReporte').hide();" actionListener="#{controlNReporteNomina.cancelarRequisitosReporte()}" style="position: absolute; top: 60px; left: 148px; font-size: 11px;" process="@this"/>
                     </p:dialog>
 
-                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte" resizable="false" draggable="true" modal="true" height="85" width="350" style="font-size: 12px;" closable="false">  
+                    <p:dialog id="generandoReporte" header="#{msg['informacion']}" widgetVar="generandoReporte" resizable="false" closable="true" draggable="true" modal="true" height="85" width="350" style="font-size: 12px;">  
                         <h:graphicImage value="Imagenes/Iconos/cargando.gif" width="50" height="50" style="position: absolute; left: 15px; top: 20px;"  />
                         <h:outputText value="#{msg['generandoReporte']}" style="position: absolute; left: 80px; top: 20px; width: 240px; text-align: justify" />
                         <!--<p:commandButton value="#{msg['cancelar']}" icon="ui-icon-arrowreturnthick-1-w" onclick="PF('generandoReporte').hide();" actionListener="#{controlNReporteNomina.cancelarReporte()}" style="position: absolute; top: 55px; left: 242px;" process="@this" />-->
