@@ -267,7 +267,7 @@ public class ControlCambiosMasivos {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -2159,7 +2159,7 @@ public class ControlCambiosMasivos {
       RequestContext.getCurrentInstance().update("form:scrollPanelPrincipal");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       listaParametros = null;
       listaCambiosMasivos = null;
       cambioMasivoSeleccionado = null;

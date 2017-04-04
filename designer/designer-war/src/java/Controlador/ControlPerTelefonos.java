@@ -169,7 +169,7 @@ public class ControlPerTelefonos implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
@@ -937,7 +937,7 @@ public class ControlPerTelefonos implements Serializable {
         telefonoSeleccionado = null;
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             tFecha = (Column) c.getViewRoot().findComponent("form:datosTelefonosPersona:tFecha");

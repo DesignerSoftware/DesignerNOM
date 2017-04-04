@@ -126,7 +126,7 @@ public class ControlSolucionFormula implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirParametros(BigInteger codEmpleado, BigInteger secNovedad, String pagina) {
@@ -250,7 +250,7 @@ public class ControlSolucionFormula implements Serializable {
         solucionTablaSeleccionada = null;
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             algoTabla = "300";
             fechaHasta = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosSolucionFormula:fechaHasta");

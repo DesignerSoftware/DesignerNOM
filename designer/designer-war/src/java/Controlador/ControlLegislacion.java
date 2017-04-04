@@ -159,7 +159,7 @@ public class ControlLegislacion implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -235,7 +235,7 @@ public class ControlLegislacion implements Serializable {
    }
 
    public String redirigirSalir() {
-      Salir();
+      salir();
       return paginaAnterior;
    }
    //TipoCotizante-----------------------------------------------------------
@@ -866,7 +866,7 @@ public class ControlLegislacion implements Serializable {
       //refrescar();
    }
 
-   public void Salir() {
+   public void salir() {  limpiarListasValor();
       restaurarTabla();
       listaContratosBorrar.clear();
       listaContratosCrear.clear();

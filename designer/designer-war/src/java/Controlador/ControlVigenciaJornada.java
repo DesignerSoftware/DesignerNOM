@@ -271,7 +271,7 @@ public class ControlVigenciaJornada implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     //EMPLEADO DE LA VIGENCIA
@@ -1983,7 +1983,7 @@ public class ControlVigenciaJornada implements Serializable {
     /**
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         RequestContext context = RequestContext.getCurrentInstance();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();

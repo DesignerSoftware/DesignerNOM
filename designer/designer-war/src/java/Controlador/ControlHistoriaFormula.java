@@ -286,7 +286,7 @@ public class ControlHistoriaFormula implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -978,7 +978,7 @@ public class ControlHistoriaFormula implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (banderaHistoriasFormulas == 1) {
          historiaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosHistoriaFormula:historiaFechaInicial");
          historiaFechaInicial.setFilterStyle("display: none; visibility: hidden;");

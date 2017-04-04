@@ -189,7 +189,7 @@ public class ControlHistoricosUsuarios implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirUsuario(String pagina, Usuarios Usuarioparam) {
@@ -759,7 +759,7 @@ public class ControlHistoricosUsuarios implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosHistoricosUsuarios");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             fechainicial = (Column) c.getViewRoot().findComponent("form:datosHistoricosUsuarios:persona");

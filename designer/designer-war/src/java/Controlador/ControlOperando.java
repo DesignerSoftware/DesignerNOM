@@ -184,7 +184,7 @@ public class ControlOperando implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       limpiarListasValor();
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+ fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void seleccionarTipo(String estadoTipo, int indice, int celda) {
@@ -798,7 +798,7 @@ public class ControlOperando implements Serializable {
       cambiarIndice(listaOperandos.get(pos), cualCelda);
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }

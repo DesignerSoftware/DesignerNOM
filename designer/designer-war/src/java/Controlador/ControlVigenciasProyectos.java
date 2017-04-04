@@ -182,7 +182,7 @@ public class ControlVigenciasProyectos implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void recibirEmpleado(BigInteger secEmpleado) {
@@ -959,7 +959,7 @@ public class ControlVigenciasProyectos implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosVigenciasProyectosPersona");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
 
       if (bandera == 1) {
          System.out.println("Desactivar");

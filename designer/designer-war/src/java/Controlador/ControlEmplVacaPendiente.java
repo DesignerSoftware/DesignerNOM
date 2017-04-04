@@ -158,7 +158,7 @@ public class ControlEmplVacaPendiente implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -884,7 +884,7 @@ public class ControlEmplVacaPendiente implements Serializable {
       RequestContext.getCurrentInstance().update("form:informacionRegistroP");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (tipoListaDisfrutadas == 1) {
          vacacionesDPD = (Column) c.getViewRoot().findComponent("form:datosVacacionesDEmpleado:vacacionesDPD");

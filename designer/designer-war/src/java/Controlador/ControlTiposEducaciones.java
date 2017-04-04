@@ -129,7 +129,7 @@ public class ControlTiposEducaciones implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirPaginaEntrante(String pagina) {
@@ -206,7 +206,7 @@ public class ControlTiposEducaciones implements Serializable {
         }
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             System.out.println("Desactivar");
             FacesContext c = FacesContext.getCurrentInstance();

@@ -211,7 +211,7 @@ public class ControlUsuariosEstructuras implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -1212,7 +1212,7 @@ public class ControlUsuariosEstructuras implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             usuario = (Column) c.getViewRoot().findComponent("form:datosUsuarios:usuario");

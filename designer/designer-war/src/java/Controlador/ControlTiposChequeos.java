@@ -137,7 +137,7 @@ public class ControlTiposChequeos implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String redirigirPaginaAnterior() {
@@ -252,7 +252,7 @@ public class ControlTiposChequeos implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();

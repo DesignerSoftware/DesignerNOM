@@ -169,7 +169,7 @@ public class ControlRegistroEnvios implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
 //    public void recibirPaginaEntrante(String pagina, Inforeportes secReporte) {
@@ -391,7 +391,7 @@ public class ControlRegistroEnvios implements Serializable {
         context.update("form:ACEPTAR");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         System.out.println("Controlador.ControlRegistroEnvios.salir()");
         cerrarFiltrado();
         listECBorrar.clear();

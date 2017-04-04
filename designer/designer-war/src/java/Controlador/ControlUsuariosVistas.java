@@ -161,7 +161,7 @@ public class ControlUsuariosVistas implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -674,7 +674,7 @@ public class ControlUsuariosVistas implements Serializable {
         RequestContext.getCurrentInstance().update("form:datosUsuariosVistas");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             //CERRAR FILTRADO
             FacesContext c = FacesContext.getCurrentInstance();

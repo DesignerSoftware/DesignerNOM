@@ -194,7 +194,7 @@ public class ControlNReporteCapacitacion implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void limpiarListasValor() {
@@ -372,7 +372,7 @@ public class ControlNReporteCapacitacion implements Serializable {
         salir();
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         System.out.println(this.getClass().getName() + ".salir()");
         if (bandera == 1) {
             cerrarFiltrado();

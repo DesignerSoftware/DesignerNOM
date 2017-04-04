@@ -210,7 +210,7 @@ public class ControlATCuadrilla implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -1988,7 +1988,7 @@ public class ControlATCuadrilla implements Serializable {
    }
 
    //SALIR
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       RequestContext context = RequestContext.getCurrentInstance();
       if (banderaCuadrilla == 1) {
          //CERRAR FILTRADO

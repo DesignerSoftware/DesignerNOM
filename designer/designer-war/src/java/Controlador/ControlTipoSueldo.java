@@ -257,7 +257,7 @@ public class ControlTipoSueldo implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String valorPaginaAnterior() {
@@ -2002,7 +2002,7 @@ public class ControlTipoSueldo implements Serializable {
     /**
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             altoTablaTiposSueldos = "60";
             tipoSueldoCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosTipoSueldo:tipoSueldoCodigo");

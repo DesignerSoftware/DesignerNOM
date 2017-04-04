@@ -669,7 +669,7 @@ public class ControlGrupoConcepto implements Serializable {
       deshabilitarBotonLov();
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarTablas();
       }
@@ -1482,7 +1482,7 @@ public class ControlGrupoConcepto implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void recibirParametros(Map<String, Object> map) {

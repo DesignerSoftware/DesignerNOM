@@ -239,7 +239,7 @@ public class ControlUsuarios implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void activarAceptar() {
@@ -894,7 +894,7 @@ public class ControlUsuarios implements Serializable {
         RequestContext.getCurrentInstance().update("form:aliasNombreClon");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             usuarioPersona = (Column) c.getViewRoot().findComponent("form:datosUsuarios:persona");

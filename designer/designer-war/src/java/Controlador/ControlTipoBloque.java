@@ -175,7 +175,7 @@ public class ControlTipoBloque implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void guardarVariables() {
@@ -302,7 +302,7 @@ public class ControlTipoBloque implements Serializable {
       tipoLista = 0;
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }

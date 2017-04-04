@@ -144,7 +144,7 @@ public class ControlBarra implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void contarLiquidados() {
@@ -220,7 +220,7 @@ public class ControlBarra implements Serializable {
       empezar = false;
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       totalEmpleadosParaLiquidar = 0;
       totalEmpleadosLiquidados = 0;
       barra = 0;

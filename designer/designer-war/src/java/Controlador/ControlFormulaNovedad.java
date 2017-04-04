@@ -149,7 +149,7 @@ public class ControlFormulaNovedad implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -569,7 +569,7 @@ public class ControlFormulaNovedad implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          restablecerTabla();

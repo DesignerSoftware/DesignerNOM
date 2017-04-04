@@ -157,7 +157,7 @@ public class ControlLiquidacionesLogs implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void eventoFiltrar() {
@@ -302,7 +302,7 @@ public class ControlLiquidacionesLogs implements Serializable {
       tamano = 290;
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }

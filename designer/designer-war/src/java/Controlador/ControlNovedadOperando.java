@@ -144,7 +144,7 @@ public class ControlNovedadOperando implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -743,7 +743,7 @@ public class ControlNovedadOperando implements Serializable {
       }
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          //CERRAR FILTRADO
          altoTabla = "245";

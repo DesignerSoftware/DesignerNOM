@@ -164,7 +164,7 @@ public class ControlPerDirecciones implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirEmpleado(BigInteger secuencia, String pagina) {
@@ -686,7 +686,7 @@ public class ControlPerDirecciones implements Serializable {
         direccionSeleccionada = null;
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
             dFecha = (Column) c.getViewRoot().findComponent("form:datosDireccionesPersona:dFecha");

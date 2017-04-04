@@ -134,7 +134,7 @@ private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
   public void limpiarListasValor() {
@@ -387,7 +387,7 @@ private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
         //}
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         try {
             System.out.println("entre a CONTROLBETAPROYECCIONES.Salir");
             FacesContext c = FacesContext.getCurrentInstance();

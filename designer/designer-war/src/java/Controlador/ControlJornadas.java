@@ -119,7 +119,7 @@ public class ControlJornadas implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -199,7 +199,7 @@ public class ControlJornadas implements Serializable {
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 1) {
          codigo = (Column) c.getViewRoot().findComponent("form:datosJornadas:codigo");

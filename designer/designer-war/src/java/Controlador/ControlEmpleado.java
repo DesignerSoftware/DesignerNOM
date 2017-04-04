@@ -128,7 +128,7 @@ public class ControlEmpleado implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -305,7 +305,7 @@ public class ControlEmpleado implements Serializable {
       }
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          altoTabla = "315";
          codigoEmpl = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEmpleados:codigoEmpl");

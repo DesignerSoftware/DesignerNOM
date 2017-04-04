@@ -240,7 +240,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void iniciarPagina() {
@@ -434,7 +434,7 @@ public class controlNReporteEvalCompetencia implements Serializable {
         filtrarListIRU = null;
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         System.out.println(this.getClass().getName() + ".salir()");
         if (bandera == 1) {
             cerrarFiltrado();

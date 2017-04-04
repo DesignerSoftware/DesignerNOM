@@ -191,7 +191,7 @@ public class ControlEscalafonSalarial implements Serializable {
    //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
   public void limpiarListasValor() {
@@ -1281,7 +1281,7 @@ public class ControlEscalafonSalarial implements Serializable {
     /**
      * Metodo que cierra la sesion y limpia los datos en la pagina
      */
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             altoTablaEscalafon = "170";
             escalafonCodigo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosEscalafonSalarial:escalafonCodigo");

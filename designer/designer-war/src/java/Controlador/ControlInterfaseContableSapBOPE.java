@@ -220,7 +220,7 @@ public class ControlInterfaseContableSapBOPE implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -1243,7 +1243,7 @@ public class ControlInterfaseContableSapBOPE implements Serializable {
       }
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       RequestContext context = RequestContext.getCurrentInstance();
       listParametrosContablesBorrar.clear();
       modificacionParametro = false;

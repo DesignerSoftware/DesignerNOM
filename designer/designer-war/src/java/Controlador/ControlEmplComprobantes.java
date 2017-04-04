@@ -254,7 +254,7 @@ public class ControlEmplComprobantes implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -1961,7 +1961,7 @@ public class ControlEmplComprobantes implements Serializable {
    }
 
    //SALIR Y REFRESCAR
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (banderaCortesProcesos == 1) {
          restaurarTablaCortesProcesos();
       }

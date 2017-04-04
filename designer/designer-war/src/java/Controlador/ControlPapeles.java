@@ -159,7 +159,7 @@ public class ControlPapeles implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void eventoFiltrar() {
@@ -403,7 +403,7 @@ public class ControlPapeles implements Serializable {
         }
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         try {
             System.out.println("entre a CONTROLPAPELES.cancelarModificacion");
             FacesContext c = FacesContext.getCurrentInstance();

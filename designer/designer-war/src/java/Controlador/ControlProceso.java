@@ -268,7 +268,7 @@ public class ControlProceso implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void inicializarPagina(String paginaLlamado) {
@@ -1366,7 +1366,7 @@ public class ControlProceso implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarFiltroTablas();
       }

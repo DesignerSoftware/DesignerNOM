@@ -167,7 +167,7 @@ public class ControlPeriodicidades implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String redirigir() {
@@ -297,7 +297,7 @@ public class ControlPeriodicidades implements Serializable {
         }
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         try {
             System.out.println("entre a CONTROLPERIODICIDADES.cancelarModificacion");
             if (bandera == 1) {

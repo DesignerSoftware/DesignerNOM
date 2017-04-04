@@ -186,7 +186,7 @@ public class ControlFormula implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       System.out.println("ControlFormula.navegar() pag:_" + pag + "_");
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public boolean activarSelec() {
@@ -717,7 +717,7 @@ public class ControlFormula implements Serializable {
       duplicarFormula = new Formulas();
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          cargarTablaDefault();
       }

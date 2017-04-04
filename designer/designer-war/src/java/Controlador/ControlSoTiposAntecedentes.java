@@ -141,7 +141,7 @@ public class ControlSoTiposAntecedentes implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public String retornarPaginaAnterior() {
@@ -458,7 +458,7 @@ public class ControlSoTiposAntecedentes implements Serializable {
         }
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
 
         if (bandera == 1) {

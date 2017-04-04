@@ -192,7 +192,7 @@ public class ControlDetalleEmpresa implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public boolean validarFechaCamaraComercio(int i) {
@@ -1619,7 +1619,7 @@ public class ControlDetalleEmpresa implements Serializable {
       tipoLista = 0;
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }

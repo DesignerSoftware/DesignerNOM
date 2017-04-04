@@ -217,7 +217,7 @@ public class ControlOdiCabecera implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirParametros(Short anio, Short mes, BigInteger secuenciaEmpresa) {
@@ -2036,7 +2036,7 @@ public class ControlOdiCabecera implements Serializable {
         salir();
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             altotabla = 85;

@@ -186,7 +186,7 @@ public class ControlNReporteBienestar implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void limpiarListasValor() {
@@ -642,7 +642,7 @@ public class ControlNReporteBienestar implements Serializable {
         RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (bandera == 1) {
             cerrarFiltrado();
         }

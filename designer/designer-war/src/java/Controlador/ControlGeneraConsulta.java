@@ -72,7 +72,7 @@ public class ControlGeneraConsulta implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -112,7 +112,7 @@ public class ControlGeneraConsulta implements Serializable {
    }
 
    @PreDestroy
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       administrarGeneraConsulta.salir();
    }
 

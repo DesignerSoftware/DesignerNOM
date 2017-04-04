@@ -191,7 +191,7 @@ public class ControlCuenta implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -972,7 +972,7 @@ public class ControlCuenta implements Serializable {
 
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          altoTabla = "265";
          FacesContext c = FacesContext.getCurrentInstance();

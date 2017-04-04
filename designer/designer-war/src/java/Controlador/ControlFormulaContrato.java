@@ -168,7 +168,7 @@ public class ControlFormulaContrato implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -894,7 +894,7 @@ public class ControlFormulaContrato implements Serializable {
       }
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       restaurarTabla();
       listFormulasContratosBorrar.clear();
       listFormulasContratosCrear.clear();

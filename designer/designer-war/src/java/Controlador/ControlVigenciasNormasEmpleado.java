@@ -157,7 +157,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void recibirEmpleado(BigInteger sec) {
@@ -469,7 +469,7 @@ public class ControlVigenciasNormasEmpleado implements Serializable {
    }
 
    //SALIR
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       if (bandera == 1) {
          vneFecha = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosVNEmpleados:vneFecha");
          vneFecha.setFilterStyle("display: none; visibility: hidden;");

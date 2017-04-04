@@ -221,7 +221,7 @@ public class ControlNovedadesEmpleados implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
   public void limpiarListasValor() {
@@ -275,7 +275,7 @@ public class ControlNovedadesEmpleados implements Serializable {
       RequestContext.getCurrentInstance().update("form:datosNovedadesEmpleado");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       anularBotonLOV();
       cerrarFiltrado();
       listaNovedadesBorrar.clear();

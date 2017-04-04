@@ -217,7 +217,7 @@ public class ControlBetaCentrosCostos implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void cambiarIndice(CentrosCostos centroCosto, int celda) {
@@ -428,7 +428,7 @@ public class ControlBetaCentrosCostos implements Serializable {
       }
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       try {
          System.out.println("entre a CONTROLBETACENTROSCOSTOS.Salir");
          FacesContext c = FacesContext.getCurrentInstance();

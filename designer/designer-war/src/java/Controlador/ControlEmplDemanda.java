@@ -140,7 +140,7 @@ public class ControlEmplDemanda implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
    public void limpiarListasValor() {
@@ -666,7 +666,7 @@ public class ControlEmplDemanda implements Serializable {
 
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         if (banderaD == 1) {
             altoTabla = "280";
             dMotivo = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosDemanda:dMotivo");

@@ -164,7 +164,7 @@ public class ControlParametro implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void activarAceptar() {
@@ -1034,7 +1034,7 @@ public class ControlParametro implements Serializable {
       RequestContext.getCurrentInstance().update("form:proceso");
    }
 
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       cerrarFiltrado();
       parametroLiquidacion = null;
       listEmpleadosParametros = null;

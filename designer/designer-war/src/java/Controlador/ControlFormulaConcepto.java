@@ -189,7 +189,7 @@ public class ControlFormulaConcepto implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public String retornarPagina() {
@@ -1071,7 +1071,7 @@ public class ControlFormulaConcepto implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {
+   public void salir() {  limpiarListasValor();
       restablecerTabla();
       listFormulasConceptosBorrar.clear();
       listFormulasConceptosCrear.clear();

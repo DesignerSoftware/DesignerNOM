@@ -152,7 +152,7 @@ public class ControlTiposCentrosCostos implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirPaginaAnterior(String pagina) {
@@ -294,7 +294,7 @@ public class ControlTiposCentrosCostos implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             codigo = (Column) c.getViewRoot().findComponent("form:datosTipoCentroCosto:codigo");

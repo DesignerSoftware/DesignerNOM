@@ -116,7 +116,7 @@ public class ControlReingresarEmpleado implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void cancelarModificaciones() {
@@ -132,7 +132,7 @@ public class ControlReingresarEmpleado implements Serializable {
         RequestContext.getCurrentInstance().update("form:divFechaFinContrato");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         RequestContext context = RequestContext.getCurrentInstance();
         empleado = new Empleados();
         estructura = new Estructuras();

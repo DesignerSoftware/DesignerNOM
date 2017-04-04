@@ -154,7 +154,7 @@ public class ControlVigenciasTallas implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirEmpleado(Empleados empleado, String pagina) {
@@ -279,7 +279,7 @@ public class ControlVigenciasTallas implements Serializable {
         RequestContext.getCurrentInstance().update("form:ACEPTAR");
     }
 
-    public void salir() {
+    public void salir() {  limpiarListasValor();
         FacesContext c = FacesContext.getCurrentInstance();
         if (bandera == 1) {
             fecha = (Column) c.getViewRoot().findComponent("form:datosVigenciasTallas:fecha");

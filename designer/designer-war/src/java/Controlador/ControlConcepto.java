@@ -261,7 +261,7 @@ public class ControlConcepto implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
 //         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
-      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void inicializarCosas() {
