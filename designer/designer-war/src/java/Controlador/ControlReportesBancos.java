@@ -149,7 +149,7 @@ public class ControlReportesBancos implements Serializable {
         casillaInforReporte = -1;
         cambiosReporte = true;
         listaInfoReportesModificados = new ArrayList<>();
-        altoTabla = "160";
+        altoTabla = "180";
         parametroDeReporte = null;
         listaIR = null;
         listaIRRespaldo = new ArrayList<>();
@@ -643,33 +643,55 @@ public class ControlReportesBancos implements Serializable {
     public void listaValoresBoton(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
-            if ((listEmpleados == null) || listEmpleados.isEmpty()) {
-                listEmpleados = null;
-            }
+            listEmpleados = null;
+            empleadoSeleccionado = null;
+            cargarLovEmpleados();
+            contarRegistrosEmpeladoD();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (pos == 3) {
+            listEmpresas = null;
+            cargarLovEmpresas();
+            contarRegistrosEmpresa();
+            RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
+            RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
         }
         if (pos == 4) {
+            listProcesos = null;
+            cargarLovProcesos();
+            contarRegistrosProceso();
             RequestContext.getCurrentInstance().update("formDialogos:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
         if (pos == 6) {
+            listEmpleados = null;
+            empleadoSeleccionado = null;
+            cargarLovEmpleados();
+            contarRegistrosEmpeladoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
         if (pos == 8) {
+            listBancos = null;
+            cargarLovBancos();
+            contarRegistrosBanco();
             RequestContext.getCurrentInstance().update("formDialogos:BancoDialogo");
             RequestContext.getCurrentInstance().execute("PF('BancoDialogo').show()");
         }
         if (pos == 9) {
+            listTiposTrabajadores = null;
+            cargarLovTiposTrabajadores();
+            contarRegistrosTipoTrabajador();
             RequestContext.getCurrentInstance().update("formDialogos:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
         }
         if (pos == 11) {
+            listCiudades = null;
+            cargarLovCiudades();
+            contarRegistrosCiudades();
             RequestContext.getCurrentInstance().update("formDialogos:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
         }
@@ -679,31 +701,54 @@ public class ControlReportesBancos implements Serializable {
     public void listasValores(int pos) {
         RequestContext context = RequestContext.getCurrentInstance();
         if (pos == 2) {
+            listEmpleados = null;
+            empleadoSeleccionado = null;
+            cargarLovEmpleados();
+            contarRegistrosEmpeladoD();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoDesdeDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoDesdeDialogo').show()");
         }
         if (pos == 3) {
+            listEmpresas = null;
+            cargarLovEmpresas();
+            contarRegistrosEmpresa();
             RequestContext.getCurrentInstance().update("formDialogos:EmpresaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpresaDialogo').show()");
         }
         if (pos == 4) {
+            listProcesos = null;
+            cargarLovProcesos();
+            contarRegistrosProceso();
             RequestContext.getCurrentInstance().update("formDialogos:ProcesoDialogo");
             RequestContext.getCurrentInstance().execute("PF('ProcesoDialogo').show()");
         }
         if (pos == 6) {
+            listEmpleados = null;
+            empleadoSeleccionado = null;
+            cargarLovEmpleados();
+            contarRegistrosEmpeladoH();
             RequestContext.getCurrentInstance().update("formDialogos:EmpleadoHastaDialogo");
             RequestContext.getCurrentInstance().execute("PF('EmpleadoHastaDialogo').show()");
         }
 
         if (pos == 8) {
+            listBancos = null;
+            cargarLovBancos();
+            contarRegistrosBanco();
             RequestContext.getCurrentInstance().update("formDialogos:BancoDialogo");
             RequestContext.getCurrentInstance().execute("PF('BancoDialogo').show()");
         }
         if (pos == 9) {
+            listTiposTrabajadores = null;
+            cargarLovTiposTrabajadores();
+            contarRegistrosTipoTrabajador();
             RequestContext.getCurrentInstance().update("formDialogos:TipoTrabajadorDialogo");
             RequestContext.getCurrentInstance().execute("PF('TipoTrabajadorDialogo').show()");
         }
         if (pos == 11) {
+            listCiudades = null;
+            cargarLovCiudades();
+            contarRegistrosCiudades();
             RequestContext.getCurrentInstance().update("formDialogos:CiudadDialogo");
             RequestContext.getCurrentInstance().execute("PF('CiudadDialogo').show()");
         }
@@ -1078,7 +1123,7 @@ public class ControlReportesBancos implements Serializable {
 //    }
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "140";
+            altoTabla = "160";
             codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:codigoIR");
             codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:reporteIR");
@@ -1093,7 +1138,7 @@ public class ControlReportesBancos implements Serializable {
     }
 
     private void cerrarFiltrado() {
-        altoTabla = "160";
+        altoTabla = "180";
         codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:codigoIR");
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesBancos:reporteIR");
@@ -1243,6 +1288,8 @@ public class ControlReportesBancos implements Serializable {
         System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
         try {
             if (cambiosReporte == true) {
+                listValInforeportes = null;
+                cargarLovInfoReportes();
                 contarRegistrosLovReportes();
                 RequestContext context = RequestContext.getCurrentInstance();
                 RequestContext.getCurrentInstance().update("formDialogos:ReportesDialogo");
@@ -1254,6 +1301,40 @@ public class ControlReportesBancos implements Serializable {
         } catch (Exception e) {
             System.out.println("Error mostrarDialogoBuscarReporte : " + e.toString());
         }
+    }
+
+    public void actualizarSeleccionInforeporte() {
+        RequestContext context = RequestContext.getCurrentInstance();
+        if (bandera == 1) {
+            cerrarFiltrado();
+        }
+        defaultPropiedadesParametrosReporte();
+        listaIR.clear();
+        listaIR.add(reporteSeleccionadoLOV);
+        filtrarListInforeportesUsuario = null;
+        filtrarLovInforeportes = null;
+        aceptar = true;
+        activoBuscarReporte = true;
+        activoMostrarTodos = false;
+        inforreporteSeleccionado = reporteSeleccionadoLOV;
+        reporteSeleccionadoLOV = null;
+        RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
+        RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
+        context.reset("formDialogos:lovReportesDialogo:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
+        RequestContext.getCurrentInstance().update("form:reportesBancos");
+        contarRegistros();
+    }
+
+    public void cancelarSeleccionInforeporte() {
+        filtrarListInforeportesUsuario = null;
+        reporteSeleccionadoLOV = null;
+        aceptar = true;
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.reset("formDialogos:lovReportesDialogo:globalFilter");
+        RequestContext.getCurrentInstance().execute("PF('lovReportesDialogo').clearFilters()");
+        RequestContext.getCurrentInstance().execute("PF('ReportesDialogo').hide()");
     }
 
     public void mostrarTodos() {
@@ -1270,6 +1351,7 @@ public class ControlReportesBancos implements Serializable {
             RequestContext.getCurrentInstance().update("form:MOSTRARTODOS");
             RequestContext.getCurrentInstance().update("form:BUSCARREPORTE");
             RequestContext.getCurrentInstance().update("form:reportesBancos");
+            contarRegistros();
         } else {
             RequestContext context = RequestContext.getCurrentInstance();
             RequestContext.getCurrentInstance().execute("PF('confirmarGuardarSinSalida').show()");
@@ -1311,6 +1393,48 @@ public class ControlReportesBancos implements Serializable {
 
     public void contarRegistrosCiudades() {
         RequestContext.getCurrentInstance().update("formDialogos:infoRegistroCiudad");
+    }
+
+    public void cargarLovEmpleados() {
+        if (listEmpleados == null) {
+            listEmpleados = administrarReportesBancos.listEmpleados();
+        }
+    }
+
+    public void cargarLovEmpresas() {
+        if (listEmpresas == null) {
+            listEmpresas = administrarReportesBancos.listEmpresas();
+        }
+    }
+
+    public void cargarLovTiposTrabajadores() {
+        if (listTiposTrabajadores == null) {
+            listTiposTrabajadores = administrarReportesBancos.listTiposTrabajadores();
+        }
+    }
+
+    public void cargarLovProcesos() {
+        if (listProcesos == null) {
+            listProcesos = administrarReportesBancos.listProcesos();
+        }
+    }
+
+    public void cargarLovBancos() {
+        if (listBancos == null) {
+            listBancos = administrarReportesBancos.listBancos();
+        }
+    }
+
+    public void cargarLovCiudades() {
+        if (listCiudades == null) {
+            listCiudades = administrarReportesBancos.listCiudades();
+        }
+    }
+
+    public void cargarLovInfoReportes() {
+        if (listValInforeportes == null) {
+            listValInforeportes = administrarReportesBancos.listInforeportesUsuario();
+        }
     }
 
     //GETTER && SETTER
@@ -1428,9 +1552,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Empleados> getListEmpleados() {
-        if (listEmpleados == null || listEmpleados.isEmpty()) {
-            listEmpleados = administrarReportesBancos.listEmpleados();
-        }
         return listEmpleados;
     }
 
@@ -1439,9 +1560,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Empresas> getListEmpresas() {
-        if (listEmpresas == null || listEmpresas.isEmpty()) {
-            listEmpresas = administrarReportesBancos.listEmpresas();
-        }
         return listEmpresas;
     }
 
@@ -1450,9 +1568,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<TiposTrabajadores> getListTiposTrabajadores() {
-        if (listTiposTrabajadores == null || listTiposTrabajadores.isEmpty()) {
-            listTiposTrabajadores = administrarReportesBancos.listTiposTrabajadores();
-        }
         return listTiposTrabajadores;
     }
 
@@ -1461,9 +1576,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Procesos> getListProcesos() {
-        if (listProcesos == null || listProcesos.isEmpty()) {
-            listProcesos = administrarReportesBancos.listProcesos();
-        }
         return listProcesos;
     }
 
@@ -1536,9 +1648,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Bancos> getListBancos() {
-        if (listBancos == null || listBancos.isEmpty()) {
-            listBancos = administrarReportesBancos.listBancos();
-        }
         return listBancos;
     }
 
@@ -1563,17 +1672,11 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Ciudades> getListCiudades() {
-        if (listCiudades == null || listCiudades.isEmpty()) {
-            listCiudades = administrarReportesBancos.listCiudades();
-        }
         return listCiudades;
 
     }
 
     public List<Inforeportes> getListValInforeportes() {
-        if (listValInforeportes == null || listValInforeportes.isEmpty()) {
-            listValInforeportes = administrarReportesBancos.listInforeportesUsuario();
-        }
         return listValInforeportes;
     }
 
@@ -1682,7 +1785,7 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroEmpresa() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovEmpresa");
-        infoRegistroEmpleadoDesde = String.valueOf(tabla.getRowCount());
+        infoRegistroEmpresa = String.valueOf(tabla.getRowCount());
         return infoRegistroEmpresa;
     }
 
@@ -1724,7 +1827,7 @@ public class ControlReportesBancos implements Serializable {
     public String getInfoRegistroReportes() {
         FacesContext c = FacesContext.getCurrentInstance();
         tabla = (DataTable) c.getViewRoot().findComponent("formDialogos:lovReportesDialogo");
-        infoRegistro = String.valueOf(tabla.getRowCount());
+        infoRegistroReportes = String.valueOf(tabla.getRowCount());
         return infoRegistroReportes;
     }
 
