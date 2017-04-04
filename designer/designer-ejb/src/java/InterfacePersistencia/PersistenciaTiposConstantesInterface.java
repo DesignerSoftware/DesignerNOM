@@ -22,6 +22,6 @@ public interface PersistenciaTiposConstantesInterface {
 
     public void borrar(EntityManager em, TiposConstantes tiposConstantes);
 
-    public List<TiposConstantes> tiposConstantes(EntityManager em, BigInteger secuenciaOperando, String tipo);
+    public List<TiposConstantes> tiposConstantes(EntityManager em, BigInteger secuenciaOperando);
     
 }

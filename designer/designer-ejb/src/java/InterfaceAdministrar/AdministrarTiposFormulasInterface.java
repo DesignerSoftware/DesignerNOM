@@ -23,7 +23,7 @@ public interface AdministrarTiposFormulasInterface {
      */
     public void obtenerConexion(String idSesion);
     
-    public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando, String tipoOperando);
+    public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando);
 
     public void borrarTiposFormulas(TiposFormulas tiposFormulas);
 

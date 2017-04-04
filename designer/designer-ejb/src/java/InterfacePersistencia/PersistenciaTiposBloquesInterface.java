@@ -22,6 +22,6 @@ public interface PersistenciaTiposBloquesInterface {
 
     public void borrar(EntityManager em, TiposBloques tiposBloques);
 
-    public List<TiposBloques> tiposBloques(EntityManager em, BigInteger secuenciaOperando, String tipo);
+    public List<TiposBloques> tiposBloques(EntityManager em, BigInteger secuenciaOperando);
     
 }

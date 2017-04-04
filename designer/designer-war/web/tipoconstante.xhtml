@@ -7,468 +7,498 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
 
-    <h:head>
-        <title></title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form">
-                    <p:growl id="growl" showDetail="true"/>
-                    <f:loadBundle basename="Recursos.tipoconstante" var="msg" />
+   <h:head>
+      <title></title>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form">
+               <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.tipoconstante" var="msg" />
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <p:commandButton style="position: absolute; left: 15px; top: 470px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlTipoConstante.cancelarModificacion()}" process="@this" />
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: #14388B"><strong>#{msg['constantes']}</strong></legend>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
-                            <p:dataTable id="datosTiposConstantes" var="tc" rowKey="#{tc.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px;"                         
-                                         value="#{controlTipoConstante.listaTiposConstantes}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoConstante.altoTabla}"
-                                         filteredValue="#{controlTipoConstante.filtradosListaTiposConstantes}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell"
-                                         selectionMode="single" selection="#{controlTipoConstante.tipoConstanteSeleccionado}">
-                                <p:ajax listener="#{controlTipoConstante.eventoFiltrar()}" event="filter"/>
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
 
-                                <p:column headerText="#{msg['tipo']}" style="padding: 0px;" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="operandosTipos" width="150" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.estadoTipo}"  style="text-transform: uppercase; margin-left:10px">
-                                            </h:outputText>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:selectOneMenu  id="editarTipos" value="#{tc.estadoTipo}" style="width: 99.9%; height: 22px">  
-                                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                                <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />      
-                                                <p:ajax listener="#{controlTipoConstante.seleccionarTipo(tc.estadoTipo, indice, celda)}" event="change" update="editarTipos" />
-                                            </p:selectOneMenu>
-                                        </f:facet>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlTipoConstante.guardarCambiosTiposConstantes()}" process="@this" />
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlTipoConstante.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" />
 
-                                        <f:facet name="footer">
-                                            <h:outputText value="#{msg['tipo']}" />
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{tc.fechainicial}" filterBy="#{tc.fechainicial}" filterMatchMode="contains"  width="20%" id="tiposConstantesIniciales" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
-                                                <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this"/>
-                                                <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechainicial)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 1)}" process="@this" />
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);"
+                                         disabled="true" actionListener="#{controlTipoConstante.listaValoresBoton()}" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['fechainicial']}"/>
-                                    </f:facet>
-                                </p:column>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlTipoConstante.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{tc.fechafinal}" filterBy="#{tc.fechafinal}" filterMatchMode="contains"  width="20%" id="tiposConstantesFinales" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
-                                                <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this"/>
-                                                <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.fechafinal)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 2)}" process="@this" />
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlTipoConstante.exportXLS()}" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['fechafinal']}" />
-                                    </f:facet>
-                                </p:column>
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosTiposConstantesExportar" fileName="TiposConstantesXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:column headerText="#{msg['valorreal']}" width="50" sortBy="#{tc.valorreal}" filterBy="#{tc.valorreal}"  filterMatchMode="contains" id="tiposConstantesReales" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.valorreal}"  style="text-transform: uppercase;">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase;height:12px"> 
-                                                <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 3)}" />
-                                                <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valorreal)}" update="@this" />
-                                            </p:inputText> 
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlTipoConstante.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['valorreal']}" />
-                                    </f:facet>
-                                </p:column>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         oncomplete="PF('NuevoTipoConstante').show()" update=":formularioDialogos:nuevoTipoConstante" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
 
-                                <p:column headerText="#{msg['valordate']}" sortBy="#{tc.valordate}" filterBy="#{tc.valordate}" filterMatchMode="contains"  width="50" id="tiposConstantesDates" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.valordate}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editValores" value="#{tc.fechafinal}">
-                                                <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this"/>
-                                                <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valordate)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 4)}" process="@this" />
-                                            </p:calendar>
-                                        </f:facet> 
-                                    </p:cellEditor>
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlTipoConstante.borrarTipoConstante()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['valordate']}" />
-                                    </f:facet>
-                                </p:column>
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlTipoConstante.duplicarTC()}"  process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
 
-                                <p:column headerText="#{msg['valorcadena']}" width="50" sortBy="#{tc.valorstring}" filterBy="#{tc.valorstring}"  filterMatchMode="contains" id="tiposConstantesCadenas" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.valorstring}"  style="text-transform: uppercase;">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipo(indice)}" readonly="#{controlTipoConstante.cadenaB}" value="#{tc.valorstring}" id="editarValoresCadenas" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase"> 
-                                                <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(indice, 5)}" />
-                                                <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(indice, 'N', tc.valorstring)}" update="@this" />
-                                            </p:inputText> 
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlTipoConstante.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['valorcadena']}" />
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
-                        </fieldset>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlTipoConstante.cancelarModificacion()}" oncomplete="window.location.reload" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlTipoConstante.guardarCambiosTiposConstantes()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlTipoConstante.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlTipoConstante.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>
+                  </p:toolbar>
 
-                                <p:separator style="position: relative; top: -9px"/>
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="true" actionListener="#{controlTipoFormula.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                     <h:outputText value="#{msg['Operando']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText id="nombreEmpleadot" value="#{controlTipoConstante.operando.nombre}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlTipoConstante.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-                                <p:separator style="position: relative; top: -9px"/>
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText id="docEmpleado" value="#{controlTipoConstante.operando.codigo}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                  </fieldset>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlTipoConstante.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                  <fieldset style="position: absolute; top: 107px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="color: #14388B;"><strong>#{msg['constantes']}</strong></legend>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposConstantesExportar" fileName="TiposConstantesXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                     <p:dataTable id="datosTiposConstantes" var="tc" rowKey="#{tc.secuencia}" rowIndexVar="indice" style="width: 830px;"                         
+                                  value="#{controlTipoConstante.listaTiposConstantes}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoConstante.altoTabla}"
+                                  filteredValue="#{controlTipoConstante.filtradosListaTiposConstantes}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell"
+                                  selectionMode="single" selection="#{controlTipoConstante.tipoConstanteSeleccionada}">
+                        <p:ajax listener="#{controlTipoConstante.eventoFiltrar()}" event="filter"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlTipoConstante.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:column headerText="#{msg['tipo']}" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="operandosTipos" width="150" filterStyle="display: none; visibility: hidden;">                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.estadoTipo}">
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:selectOneMenu  id="editarTipos" value="#{tc.estadoTipo}">  
+                                    <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                                    <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                                    <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />      
+                                    <p:ajax listener="#{controlTipoConstante.seleccionarTipo(tc.estadoTipo, indice, celda)}" event="change" update="editarTipos" />
+                                 </p:selectOneMenu>
+                              </f:facet>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:cellEditor>
+                        </p:column>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoTipoConstante').show()" update=":formularioDialogos:nuevoTipoConstante" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{tc.fechainicial}" filterBy="#{tc.fechainicial}" filterMatchMode="contains"  width="20%" id="tiposConstantesIniciales" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.fechainicial}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
+                                    <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechainicial)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechainicial)}" update="@this" />
+                                    <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 1)}" process="@this" />
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlTipoConstante.borrarTipoConstante()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{tc.fechafinal}" filterBy="#{tc.fechafinal}" filterMatchMode="contains"  width="20%" id="tiposConstantesFinales" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.fechafinal}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
+                                    <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechafinal)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.fechafinal)}" update="@this" />
+                                    <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 2)}" process="@this" />
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
+                        </p:column>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlTipoConstante.duplicarTC()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicar']}" />
+                        <p:column headerText="#{msg['valorreal']}" width="50" sortBy="#{tc.valorreal}" filterBy="#{tc.valorreal}"  filterMatchMode="contains" id="tiposConstantesReales" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.valorreal}">
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipo(tc)}" readonly="#{controlTipoConstante.numericoB}" value="#{tc.valorreal}" id="editarValoresReales"> 
+                                    <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 3)}" />
+                                    <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.valorreal)}" update="@this" />
+                                 </p:inputText> 
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
+                        </p:column>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlTipoConstante.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                            </p:toolbarGroup>
-                        </p:toolbar>
-                        <p:commandButton style="position: absolute; left: 688px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoConstante.cambiosPagina}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposConstantes" process="@this" />
-                        <p:commandButton style="position: absolute; left: 785px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlTipoConstante.salir()}" action="operando" process="@this" />
-                    </p:panel>
-                </h:form>
+                        <p:column headerText="#{msg['valordate']}" sortBy="#{tc.valordate}" filterBy="#{tc.valordate}" filterMatchMode="contains"  width="50" id="tiposConstantesDates" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.valordate}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar autocomplete="off" mask="true" pattern="dd/MM/yyyy" id="editValores" value="#{tc.fechafinal}">
+                                    <p:ajax event="dateSelect" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.valordate)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.valordate)}" update="@this"/>
+                                    <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 4)}" process="@this"/>
+                                 </p:calendar>
+                              </f:facet> 
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
+                        </p:column>
 
-                <h:form id="formularioDialogos">
+                        <p:column headerText="#{msg['valorcadena']}" width="50" sortBy="#{tc.valorstring}" filterBy="#{tc.valorstring}"  filterMatchMode="contains" id="tiposConstantesCadenas" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.valorstring}">
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText autocomplete="off" onclick="#{controlTipoConstante.revisarTipo(tc)}" readonly="#{controlTipoConstante.cadenaB}" value="#{tc.valorstring}" id="editarValoresCadenas"> 
+                                    <p:ajax event="select" listener="#{controlTipoConstante.cambiarIndice(tc, 5)}" />
+                                    <p:ajax event="change" listener="#{controlTipoConstante.modificarTiposConstantes(tc, 'N', tc.valorstring)}" update="@this" />
+                                 </p:inputText> 
+                              </f:facet>   
+                           </p:cellEditor>
 
-                    <!--HotKey-->
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTipoConstante.activarCtrlF11()}" process="@this"/> 
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
+                     </p:dataTable>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTipoConstante.infoRegistro}" style="display: table; position: relative; left: 5px; top: 0px; font-weight: bold;"/>
+                  </fieldset>
 
-                    <!-- DIALOGOS EDITAR -->
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlTipoConstante.cambiosPagina}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposConstantes" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoConstante.salir()}" process="@this" />
+               </p:panel>
+            </h:form>
 
-                    <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.tipo}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+            <h:form id="formularioDialogos">
 
-                    <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechainicial}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
+               <!--HotKey-->
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlTipoConstante.activarCtrlF11()}" process="@this"/> 
 
-                    <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechafinal}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
+               <!-- DIALOGOS EDITAR -->
 
-                    <p:dialog id="editarValoresReales" header="#{msg['editarValoresReales']}" widgetVar="editarValoresReales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorreal}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+               <p:dialog id="editarTipos" header="#{msg['editarTipos']}" widgetVar="editarTipos" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.tipo}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
 
-                    <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
-                                      navigator="true" showButtonPanel="true" pattern="dd/MM/yyyy">
+               <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechainicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.fechafinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarValoresReales" header="#{msg['editarValoresReales']}" widgetVar="editarValoresReales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorreal}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="editarValoresDates" header="#{msg['editarValoresDates']}" widgetVar="editarValoresDates" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy"   value="#{controlTipoConstante.editarTiposConstantes.valordate}" id="editarValoresD"  styleClass="ui-datepicker, myClass"  
+                               navigator="true" showButtonPanel="true">
+                  </p:calendar>
+               </p:dialog>
+
+               <p:dialog id="editarValoresCadenas" header="#{msg['editarValoresCadenas']}" widgetVar="editarValoresCadenas" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorstring}" style="overflow: auto;" readonly="true"/>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoConstante.guardarYSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoConstante.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <!-- Nuevo Registro --> 
+
+               <p:dialog id="NuevoTipoConstante" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoConstante" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="370" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="nuevoTipoConstante" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 85px;" /></strong>
+                     <p:selectOneMenu  id="nuevoTipo" value="#{controlTipoConstante.nuevoTipoConstante.estadoTipo}" style="position:absolute; top:80px; left:150px;width: 145px; height: 22px">  
+                        <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                        <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                        <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />    
+                        <p:ajax listener="#{controlTipoConstante.seleccionarTipoNuevoTipoConstante(controlTipoConstante.nuevoTipoConstante.estadoTipo, 1)}" event="change" update="nuevoTipo" />
+                     </p:selectOneMenu>
+
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
+                     <div style=" position: absolute; top: 120px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
                         </p:calendar>
-                    </p:dialog>
+                     </div>
 
-                    <p:dialog id="editarValoresCadenas" header="#{msg['editarValoresCadenas']}" widgetVar="editarValoresCadenas" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlTipoConstante.editarTiposConstantes.valorstring}" style="overflow: auto;" readonly="true"/>
-                    </p:dialog>
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <div style=" position: absolute; top: 160px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
 
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoFormula.guardarCambiosTiposFormulas()}" action="operando" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoFormula.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
+                     <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
 
-                    <!-- Nuevo Registro --> 
+                     <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
+                     <div style=" position: absolute; top: 240px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                           <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoN()}" update="@this"/>
+                        </p:calendar>
+                     </div>
 
-                    <p:dialog id="NuevoTipoConstante" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoConstante" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="370" style=" padding: 0px">  
+                     <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
+                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 280px; text-transform: uppercase">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 320px;" actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" update="nuevoTipoConstante" process="@this"/>
+                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 320px;"  actionListener="#{controlTipoConstante.agregarNuevoTipoConstante()}" process="@this"/>
+                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 320px;" actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" update="nuevoTipoConstante" onclick="PF('NuevoTipoConstante').hide();" process="@this"/>
+                  </p:panel>
+               </p:dialog>
 
-                        <p:panel id="nuevoTipoConstante" style="border: none;">
+               <!-- Duplicar Registro --> 
 
-                            <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:selectOneMenu  id="nuevoTipo" value="#{controlTipoConstante.nuevoTipoConstante.estadoTipo}" style="position:absolute; top:80px; left:150px;width: 145px; height: 22px">  
-                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />    
-                                <p:ajax listener="#{controlTipoConstante.seleccionarTipoNuevoTipoConstante(controlTipoConstante.nuevoTipoConstante.estadoTipo, 1)}" event="change" update="nuevoTipo" />
-                            </p:selectOneMenu>
+               <p:dialog id="DuplicarTipoConstante" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoConstante" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="370" style=" padding: 0px">  
 
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoConstante.nuevoTipoConstante.fechainicial}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
 
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <div style=" position: absolute; top: 160px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoConstante.nuevoTipoConstante.fechafinal}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
+                  <p:panel id="duplicarTipoConstante" style="border: none;">
 
-                            <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.numericoBN}" id="nuevoValorReal" value="#{controlTipoConstante.nuevoTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
+                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 85px;" /></strong>
+                     <p:selectOneMenu  id="duplicarTipo" value="#{controlTipoConstante.duplicarTipoConstante.estadoTipo}" style="position:absolute; top:80px; left:150px;width: 145px; height: 22px">  
+                        <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                        <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                        <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />    
+                        <p:ajax listener="#{controlTipoConstante.seleccionarTipoNuevoTipoConstante(controlTipoConstante.duplicarTipoConstante.estadoTipo, 2)}" event="change" update="duplicarTipo" />
+                     </p:selectOneMenu>
 
-                            <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <div style=" position: absolute; top: 240px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevoValorDate" value="#{controlTipoConstante.nuevoTipoConstante.valordate}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                    <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoN()}" update="@this"/>
-                                </p:calendar>
-                            </div>
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
+                     <div style=" position: absolute; top: 120px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
 
-                            <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoN()}" readonly="#{controlTipoConstante.cadenaBN}" id="nuevoValorCadena" value="#{controlTipoConstante.nuevoTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 280px; text-transform: uppercase">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <div style=" position: absolute; top: 160px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
 
-                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 320px;" actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" update="nuevoTipoConstante" process="@this"/>
-                            <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 320px;"  actionListener="#{controlTipoConstante.agregarNuevoTipoConstante()}" process="@this"/>
-                            <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 320px;" actionListener="#{controlTipoConstante.limpiarNuevoTiposConstantes()}" update="nuevoTipoConstante" onclick="PF('NuevoTipoConstante').hide();" process="@this"/>
-                        </p:panel>
-                    </p:dialog>
+                     <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.numericoBD}" id="duplicarValorReal" value="#{controlTipoConstante.duplicarTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
 
-                    <!-- Duplicar Registro --> 
+                     <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
+                     <div style=" position: absolute; top: 240px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                           <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoD()}" update="@this"/>
+                        </p:calendar>
+                     </div>
 
-                    <p:dialog id="DuplicarTipoConstante" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoConstante" closable="false" resizable="false"  draggable="true" modal="true" height="350" width="370" style=" padding: 0px">  
+                     <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
+                     <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 265px; text-transform: uppercase">
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
 
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+                     <p:commandButton id="limpiarD" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 320px;" actionListener="#{controlTipoConstante.limpiarDuplicarTiposConstantes()}" update="duplicarTipoConstante" process="@this"/>
+                     <p:commandButton id="agregarD" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 320px;"  actionListener="#{controlTipoConstante.confirmarDuplicar()}" process="@this"/>
+                     <p:commandButton id="cancelarD" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 320px;" actionListener="#{controlTipoConstante.limpiarDuplicarTiposConstantes()}" update="duplicarTipoConstante" onclick="PF('DuplicarTipoConstante').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
 
-                        <p:panel id="duplicarTipoConstante" style="border: none;">
+               <p:dialog id="validacionNuevoTipoConstante" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoConstante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoConstante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoConstante').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+               </p:dialog>
 
-                            <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <p:selectOneMenu  id="duplicarTipo" value="#{controlTipoConstante.duplicarTipoConstante.estadoTipo}" style="position:absolute; top:80px; left:150px;width: 145px; height: 22px">  
-                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />    
-                                <p:ajax listener="#{controlTipoConstante.seleccionarTipoNuevoTipoConstante(controlTipoConstante.duplicarTipoConstante.estadoTipo, 2)}" event="change" update="duplicarTipo" />
-                            </p:selectOneMenu>
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               </p:dialog>
 
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoConstante.duplicarTipoConstante.fechainicial}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
+               <!-- DIALOGOS RASTROS -->
 
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <div style=" position: absolute; top: 160px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoConstante.duplicarTipoConstante.fechafinal}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoConstante.tipoConstanteSeleccionada.secuencia, 'TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               </p:dialog>
 
-                            <strong><h:outputText value="#{msg['valorrealN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.numericoBD}" id="duplicarValorReal" value="#{controlTipoConstante.duplicarTipoConstante.valorreal}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
 
-                            <strong><h:outputText value="#{msg['valordateN']}" style=" position: absolute; top: 245px;" /></strong>
-                            <div style=" position: absolute; top: 240px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarValorDate" value="#{controlTipoConstante.duplicarTipoConstante.valordate}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                    <p:ajax event="click" listener="#{controlTipoConstante.revisarTipoD()}" update="@this"/>
-                                </p:calendar>
-                            </div>
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                            <strong><h:outputText value="#{msg['valorcadenaN']}" style=" position: absolute; top: 285px;" /></strong>
-                            <p:inputText  autocomplete="off"  onclick="#{controlTipoConstante.revisarTipoD()}" readonly="#{controlTipoConstante.cadenaBD}" id="duplicarValorCadena" value="#{controlTipoConstante.duplicarTipoConstante.valorstring}" style=" width: 122px; position: absolute; left: 150px; top: 265px; text-transform: uppercase">
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                            <p:commandButton id="limpiarD" value="#{msg['limpiar']}" icon="ui-icon-trash" style="position: absolute; left: 20px; top: 320px;" actionListener="#{controlTipoConstante.limpiarDuplicarTiposConstantes()}" update="duplicarTipoConstante" process="@this"/>
-                            <p:commandButton id="agregarD" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 320px;"  actionListener="#{controlTipoConstante.confirmarDuplicar()}" process="@this"/>
-                            <p:commandButton id="cancelarD" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 320px;" actionListener="#{controlTipoConstante.limpiarDuplicarTiposConstantes()}" update="duplicarTipoConstante" onclick="PF('DuplicarTipoConstante').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoConstante.tipoConstanteSeleccionada.secuencia, 'TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
 
-                    <p:dialog id="validacionNuevoTipoConstante" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoConstante"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoConstante.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoConstante').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+               </p:dialog>
 
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 10px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
 
-                    <!-- DIALOGOS RASTROS -->
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+            </h:form>
+            <h:form id="formExportar">
+               <p:dataTable id="datosTiposConstantesExportar" var="tc" style="visibility: hidden; display: none;"                           
+                            value="#{controlTipoConstante.listaTiposConstantes}"> 
+                  <!--COLUMNAS TABLA Inforeportes--> 
+                  <p:column headerText="#{msg['tipoX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/></f:facet>
+                     <h:outputText value="#{tc.estadoTipo}" />
+                  </p:column>
 
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoConstante.secRegistro, 'TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-                    </p:dialog>
+                  <p:column headerText="#{msg['fechainicialXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechainicialX']}" />
+                     </f:facet>
+                     <h:outputText value="#{tc.fechainicial}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
 
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
+                  <p:column headerText="#{msg['fechafinalXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechafinalX']}" />
+                     </f:facet>
+                     <h:outputText value="#{tc.fechafinal}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
 
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+                  <p:column headerText="#{msg['valorrealXX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['valorrealX']}"/></f:facet>
+                     <h:outputText value="#{tc.valorreal}" />
+                  </p:column>
 
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
+                  <p:column headerText="#{msg['valordateXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['valordateX']}" />
+                     </f:facet>
+                     <h:outputText value="#{tc.valordate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
 
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoConstante.secRegistro, 'TiposConstantes', 'tiposconstantes')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
+                  <p:column headerText="#{msg['valorcadenaXX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['valorcadenaX']}"/></f:facet>
+                     <h:outputText value="#{tc.valorstring}" />
+                  </p:column>
 
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-                </h:form>
-                <h:form id="formExportar">
-                    <p:dataTable id="datosTiposConstantesExportar" var="tc" style="visibility: hidden; display: none;"                           
-                                 value="#{controlTipoConstante.listaTiposConstantes}"> 
-                        <!--COLUMNAS TABLA Inforeportes--> 
-                        <p:column headerText="#{msg['tipoX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/></f:facet>
-                            <h:outputText value="#{tc.estadoTipo}" />
-                        </p:column>
-
-                        <p:column headerText="#{msg['fechainicialXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialX']}" />
-                            </f:facet>
-                            <h:outputText value="#{tc.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="#{msg['fechafinalXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalX']}" />
-                            </f:facet>
-                            <h:outputText value="#{tc.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="#{msg['valorrealXX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['valorrealX']}"/></f:facet>
-                            <h:outputText value="#{tc.valorreal}" />
-                        </p:column>
-
-                        <p:column headerText="#{msg['valordateXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['valordateX']}" />
-                            </f:facet>
-                            <h:outputText value="#{tc.valordate}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
-                        </p:column>
-
-                        <p:column headerText="#{msg['valorcadenaXX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['valorcadenaX']}"/></f:facet>
-                            <h:outputText value="#{tc.valorstring}" />
-                        </p:column>
-
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>            
-    </h:body>
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>            
+   </h:body>
 </html>

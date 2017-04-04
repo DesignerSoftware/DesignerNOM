@@ -16,12 +16,12 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaTiposFormulasInterface {
 
-    public void crear(EntityManager em, TiposFormulas tiposFormulas);
+   public void crear(EntityManager em, TiposFormulas tiposFormulas);
 
-    public void editar(EntityManager em, TiposFormulas tiposFormulas);
+   public void editar(EntityManager em, TiposFormulas tiposFormulas);
 
-    public void borrar(EntityManager em, TiposFormulas tiposFormulas);
+   public void borrar(EntityManager em, TiposFormulas tiposFormulas);
 
-    public List<TiposFormulas> tiposFormulas(EntityManager em, BigInteger secuenciaOperando, String tipo);
-    
+   public List<TiposFormulas> tiposFormulas(EntityManager em, BigInteger secuenciaOperando);
+
 }

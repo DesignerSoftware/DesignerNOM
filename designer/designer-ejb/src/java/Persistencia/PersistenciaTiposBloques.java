@@ -80,12 +80,11 @@ public class PersistenciaTiposBloques implements PersistenciaTiposBloquesInterfa
     }
 
     @Override
-    public List<TiposBloques> tiposBloques(EntityManager em, BigInteger secuenciaOperando, String tipo) {
+    public List<TiposBloques> tiposBloques(EntityManager em, BigInteger secuenciaOperando) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT tf FROM TiposBloques tf, Operandos op WHERE tf.operando.secuencia = op.secuencia AND tf.operando.secuencia =:secuenciaOperando AND op.tipo=:tipo ORDER BY tf.fechafinal DESC");
+            Query query = em.createQuery("SELECT tf FROM TiposBloques tf, Operandos op WHERE tf.operando.secuencia = op.secuencia AND tf.operando.secuencia =:secuenciaOperando AND op.tipo='BLOQUE PL/SQL' ORDER BY tf.fechafinal DESC");
             query.setParameter("secuenciaOperando", secuenciaOperando);
-            query.setParameter("tipo", tipo);
             query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<TiposBloques> tiposBloquesResult = new ArrayList<TiposBloques>();
             tiposBloquesResult = query.getResultList();

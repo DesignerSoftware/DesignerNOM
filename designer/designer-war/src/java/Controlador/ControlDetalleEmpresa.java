@@ -119,7 +119,7 @@ public class ControlDetalleEmpresa implements Serializable {
       guardado = true;
       bandera = 0;
       aceptar = true;
-      cualCelda = -1;
+      cualCelda = 0;
       detalleSeleccionado = null;
       cambiosPagina = true;
       //Lista BMC
@@ -136,17 +136,6 @@ public class ControlDetalleEmpresa implements Serializable {
       lovPersonas = null;
       //Nuevo
       nuevaDetalleEmpresa = new DetallesEmpresas();
-      nuevaDetalleEmpresa.setCiudad(new Ciudades());
-      nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      nuevaDetalleEmpresa.setEmpresa(new Empresas());
-      nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-      nuevaDetalleEmpresa.getGerentegeneral().setPersona(new Personas());
-      nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-      nuevaDetalleEmpresa.getRepresentantecir().setPersona(new Personas());
-      nuevaDetalleEmpresa.setSubgerente(new Empleados());
-      nuevaDetalleEmpresa.getSubgerente().setPersona(new Personas());
-      nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
       //Duplicar
       duplicarDetalleEmpresa = new DetallesEmpresas();
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -255,7 +244,7 @@ public class ControlDetalleEmpresa implements Serializable {
       if (i == 0) {
          DetallesEmpresas detalle = new DetallesEmpresas();
          detalle = detalleSeleccionado;
-         if (detalle.getEmpresa().getSecuencia() == null) {
+         if (detalle.getRef_empresa() == null) {
             retorno = false;
          }
          if (detalle.getDireccion() == null) {
@@ -263,7 +252,7 @@ public class ControlDetalleEmpresa implements Serializable {
          } else if (detalle.getDireccion().isEmpty()) {
             retorno = false;
          }
-         if (detalle.getCiudad().getSecuencia() == null) {
+         if (detalle.getRef_ciudad() == null) {
             retorno = false;
          }
          if (detalle.getTelefono() == null) {
@@ -288,7 +277,7 @@ public class ControlDetalleEmpresa implements Serializable {
          }
       }
       if (i == 1) {
-         if (nuevaDetalleEmpresa.getEmpresa().getSecuencia() == null) {
+         if (nuevaDetalleEmpresa.getRef_empresa() == null) {
             retorno = false;
          }
          if (nuevaDetalleEmpresa.getDireccion() == null) {
@@ -296,7 +285,7 @@ public class ControlDetalleEmpresa implements Serializable {
          } else if (nuevaDetalleEmpresa.getDireccion().isEmpty()) {
             retorno = false;
          }
-         if (nuevaDetalleEmpresa.getCiudad().getSecuencia() == null) {
+         if (nuevaDetalleEmpresa.getRef_ciudad() == null) {
             retorno = false;
          }
          if (nuevaDetalleEmpresa.getTelefono() == null) {
@@ -321,7 +310,7 @@ public class ControlDetalleEmpresa implements Serializable {
          }
       }
       if (i == 2) {
-         if (duplicarDetalleEmpresa.getEmpresa().getSecuencia() == null) {
+         if (duplicarDetalleEmpresa.getRef_empresa() == null) {
             retorno = false;
          }
          if (duplicarDetalleEmpresa.getDireccion() == null) {
@@ -329,7 +318,7 @@ public class ControlDetalleEmpresa implements Serializable {
          } else if (duplicarDetalleEmpresa.getDireccion().isEmpty()) {
             retorno = false;
          }
-         if (duplicarDetalleEmpresa.getCiudad().getSecuencia() == null) {
+         if (duplicarDetalleEmpresa.getRef_ciudad() == null) {
             retorno = false;
          }
          if (duplicarDetalleEmpresa.getTelefono() == null) {
@@ -417,7 +406,7 @@ public class ControlDetalleEmpresa implements Serializable {
       int coincidencias = 0;
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
-         detalleSeleccionado.getCiudad().setNombre(ciudad);
+         detalleSeleccionado.setNombre_ciudad(ciudad);
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -425,7 +414,8 @@ public class ControlDetalleEmpresa implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            detalleSeleccionado.setCiudad(lovCiudades.get(indiceUnicoElemento));
+            detalleSeleccionado.setRef_ciudad(lovCiudades.get(indiceUnicoElemento).getSecuencia());
+            detalleSeleccionado.setNombre_ciudad(lovCiudades.get(indiceUnicoElemento).getNombre());
             cambiosPagina = false;
          } else {
             RequestContext.getCurrentInstance().update("form:CiudadDialogo");
@@ -433,7 +423,7 @@ public class ControlDetalleEmpresa implements Serializable {
             tipoActualizacion = 0;
          }
       } else if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
-         detalleSeleccionado.getEmpresa().setNombre(empresa);
+         detalleSeleccionado.setNombre_empresa(empresa);
          for (int i = 0; i < lovEmpresas.size(); i++) {
             if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
@@ -441,7 +431,8 @@ public class ControlDetalleEmpresa implements Serializable {
             }
          }
          if (coincidencias == 1) {
-            detalleSeleccionado.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+            detalleSeleccionado.setRef_empresa(lovEmpresas.get(indiceUnicoElemento).getSecuencia());
+            detalleSeleccionado.setNombre_empresa(lovEmpresas.get(indiceUnicoElemento).getNombre());
             cambiosPagina = false;
          } else {
             RequestContext.getCurrentInstance().update("form:EmpresasDialogo");
@@ -450,7 +441,7 @@ public class ControlDetalleEmpresa implements Serializable {
          }
       } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getGerentegeneral().getPersona().setNombreCompleto(gerente);
+            detalleSeleccionado.setNombre_gerentegeneral(gerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -458,7 +449,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setGerentegeneral(lovEmpleados.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:GerenteDialogo");
@@ -468,11 +460,12 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             cambiosPagina = false;
             coincidencias = 1;
-            detalleSeleccionado.setGerentegeneral(new Empleados());
+            detalleSeleccionado.setNombre_gerentegeneral(null);
+            detalleSeleccionado.setRef_gerentegeneral(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("REPRESENTANTE")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getRepresentantecir().getPersona().setNombreCompleto(representante);
+            detalleSeleccionado.setNombre_representantecir(representante);
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -480,7 +473,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setRepresentantecir(lovEmpleados.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:RepresentanteDialogo");
@@ -490,11 +484,12 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             coincidencias = 1;
             cambiosPagina = false;
-            detalleSeleccionado.setRepresentantecir(new Empleados());
+            detalleSeleccionado.setNombre_representantecir(null);
+            detalleSeleccionado.setRef_representantecir(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getCargofirmaconstancia().setNombre(cargo);
+            detalleSeleccionado.setNombre_cargofirmaconstancia(cargo);
             for (int i = 0; i < lovCargos.size(); i++) {
                if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -502,7 +497,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setCargofirmaconstancia(lovCargos.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getNombre());
+               detalleSeleccionado.setRef_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:CargoFirmaDialogo");
@@ -512,11 +508,12 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             coincidencias = 1;
             cambiosPagina = false;
-            detalleSeleccionado.setCargofirmaconstancia(new Cargos());
+            detalleSeleccionado.setRef_cargofirmaconstancia(null);
+            detalleSeleccionado.setNombre_cargofirmaconstancia(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("SUBGERENTE")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getSubgerente().getPersona().setNombreCompleto(subGerente);
+            detalleSeleccionado.setNombre_subgerente(subGerente);
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -524,7 +521,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setSubgerente(lovEmpleados.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+               detalleSeleccionado.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:SubGerenteDialogo");
@@ -534,11 +532,12 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             coincidencias = 1;
             cambiosPagina = false;
-            detalleSeleccionado.setSubgerente(new Empleados());
+            detalleSeleccionado.setRef_subgerente(null);
+            detalleSeleccionado.setNombre_subgerente(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getPersonafirmaconstancia().setNombreCompleto(persona);
+            detalleSeleccionado.setNombre_personafirmaconstancia(persona);
             for (int i = 0; i < lovPersonas.size(); i++) {
                if (lovPersonas.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -546,7 +545,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setPersonafirmaconstancia(lovPersonas.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getNombreCompleto());
+               detalleSeleccionado.setRef_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:PersonaFirmaDialogo");
@@ -556,11 +556,12 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             coincidencias = 1;
             cambiosPagina = false;
-            detalleSeleccionado.setPersonafirmaconstancia(new Personas());
+            detalleSeleccionado.setNombre_personafirmaconstancia(null);
+            detalleSeleccionado.setRef_personafirmaconstancia(null);
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
          if (!valorConfirmar.isEmpty()) {
-            detalleSeleccionado.getCiudaddocumentorepresentante().setNombre(ciudadDocumento);
+            detalleSeleccionado.setNombre_ciudaddocumentorepresentante(ciudadDocumento);
             for (int i = 0; i < lovCiudades.size(); i++) {
                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
                   indiceUnicoElemento = i;
@@ -568,7 +569,8 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
             if (coincidencias == 1) {
-               detalleSeleccionado.setCiudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento));
+               detalleSeleccionado.setNombre_ciudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento).getNombre());
+               detalleSeleccionado.setRef_ciudaddocrepresentante(lovCiudades.get(indiceUnicoElemento).getSecuencia());
                cambiosPagina = false;
             } else {
                RequestContext.getCurrentInstance().update("form:CiudadDocumentoDialogo");
@@ -578,7 +580,8 @@ public class ControlDetalleEmpresa implements Serializable {
          } else {
             coincidencias = 1;
             cambiosPagina = false;
-            detalleSeleccionado.setCiudaddocumentorepresentante(new Ciudades());
+            detalleSeleccionado.setNombre_ciudaddocumentorepresentante(null);
+            detalleSeleccionado.setRef_ciudaddocrepresentante(null);
          }
       }
       if (coincidencias == 1) {
@@ -603,51 +606,51 @@ public class ControlDetalleEmpresa implements Serializable {
 
       if (Campo.equals("CIUDAD")) {
          if (tipoNuevo == 1) {
-            ciudad = nuevaDetalleEmpresa.getCiudad().getNombre();
+            ciudad = nuevaDetalleEmpresa.getNombre_ciudad();
          } else if (tipoNuevo == 2) {
-            ciudad = duplicarDetalleEmpresa.getCiudad().getNombre();
+            ciudad = duplicarDetalleEmpresa.getNombre_ciudad();
          }
       } else if (Campo.equals("CIUDADDOCUMENTO")) {
          if (tipoNuevo == 1) {
-            ciudadDocumento = nuevaDetalleEmpresa.getCiudaddocumentorepresentante().getNombre();
+            ciudadDocumento = nuevaDetalleEmpresa.getNombre_ciudaddocumentorepresentante();
          } else if (tipoNuevo == 2) {
-            ciudadDocumento = duplicarDetalleEmpresa.getCiudaddocumentorepresentante().getNombre();
+            ciudadDocumento = duplicarDetalleEmpresa.getNombre_ciudaddocumentorepresentante();
          }
       } else if (Campo.equals("PERSONA")) {
          if (tipoNuevo == 1) {
-            persona = nuevaDetalleEmpresa.getPersonafirmaconstancia().getNombreCompleto();
+            persona = nuevaDetalleEmpresa.getNombre_personafirmaconstancia();
          } else if (tipoNuevo == 2) {
-            persona = duplicarDetalleEmpresa.getPersonafirmaconstancia().getNombreCompleto();
+            persona = duplicarDetalleEmpresa.getNombre_personafirmaconstancia();
          }
       } else if (Campo.equals("CARGO")) {
          if (tipoNuevo == 1) {
-            cargo = nuevaDetalleEmpresa.getCargofirmaconstancia().getNombre();
+            cargo = nuevaDetalleEmpresa.getNombre_cargofirmaconstancia();
          } else if (tipoNuevo == 2) {
-            cargo = duplicarDetalleEmpresa.getCargofirmaconstancia().getNombre();
+            cargo = duplicarDetalleEmpresa.getNombre_cargofirmaconstancia();
          }
       } else if (Campo.equals("REPRESENTANTE")) {
          if (tipoNuevo == 1) {
-            representante = nuevaDetalleEmpresa.getRepresentantecir().getPersona().getNombreCompleto();
+            representante = nuevaDetalleEmpresa.getNombre_representantecir();
          } else if (tipoNuevo == 2) {
-            representante = duplicarDetalleEmpresa.getRepresentantecir().getPersona().getNombreCompleto();
+            representante = duplicarDetalleEmpresa.getNombre_representantecir();
          }
       } else if (Campo.equals("GERENTE")) {
          if (tipoNuevo == 1) {
-            gerente = nuevaDetalleEmpresa.getGerentegeneral().getPersona().getNombreCompleto();
+            gerente = nuevaDetalleEmpresa.getNombre_gerentegeneral();
          } else if (tipoNuevo == 2) {
-            gerente = duplicarDetalleEmpresa.getGerentegeneral().getPersona().getNombreCompleto();
+            gerente = duplicarDetalleEmpresa.getNombre_gerentegeneral();
          }
       } else if (Campo.equals("EMPRESA")) {
          if (tipoNuevo == 1) {
-            empresa = nuevaDetalleEmpresa.getEmpresa().getNombre();
+            empresa = nuevaDetalleEmpresa.getNombre_empresa();
          } else if (tipoNuevo == 2) {
-            empresa = duplicarDetalleEmpresa.getEmpresa().getNombre();
+            empresa = duplicarDetalleEmpresa.getNombre_empresa();
          }
       } else if (Campo.equals("SUBGERENTE")) {
          if (tipoNuevo == 1) {
-            subGerente = nuevaDetalleEmpresa.getSubgerente().getPersona().getNombreCompleto();
+            subGerente = nuevaDetalleEmpresa.getNombre_subgerente();
          } else if (tipoNuevo == 2) {
-            subGerente = duplicarDetalleEmpresa.getSubgerente().getPersona().getNombreCompleto();
+            subGerente = duplicarDetalleEmpresa.getNombre_subgerente();
          }
       }
    }
@@ -657,9 +660,9 @@ public class ControlDetalleEmpresa implements Serializable {
       int indiceUnicoElemento = 0;
       if (confirmarCambio.equalsIgnoreCase("EMPRESA")) {
          if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.getEmpresa().setNombre(empresa);
+            nuevaDetalleEmpresa.setNombre_empresa(empresa);
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.getEmpresa().setNombre(empresa);
+            duplicarDetalleEmpresa.setNombre_empresa(empresa);
          }
          for (int i = 0; i < lovEmpresas.size(); i++) {
             if (lovEmpresas.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -669,10 +672,12 @@ public class ControlDetalleEmpresa implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+               nuevaDetalleEmpresa.setNombre_empresa(lovEmpresas.get(indiceUnicoElemento).getNombre());
+               nuevaDetalleEmpresa.setRef_empresa(lovEmpresas.get(indiceUnicoElemento).getSecuencia());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.setEmpresa(lovEmpresas.get(indiceUnicoElemento));
+               duplicarDetalleEmpresa.setNombre_empresa(lovEmpresas.get(indiceUnicoElemento).getNombre());
+               duplicarDetalleEmpresa.setRef_empresa(lovEmpresas.get(indiceUnicoElemento).getSecuencia());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
             }
          } else {
@@ -688,9 +693,9 @@ public class ControlDetalleEmpresa implements Serializable {
       } else if (confirmarCambio.equalsIgnoreCase("GERENTE")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getGerentegeneral().getPersona().setNombreCompleto(gerente);
+               nuevaDetalleEmpresa.setNombre_gerentegeneral(gerente);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getGerentegeneral().getPersona().setNombreCompleto(gerente);
+               duplicarDetalleEmpresa.setNombre_gerentegeneral(gerente);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
@@ -700,10 +705,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setGerentegeneral(lovEmpleados.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setGerentegeneral(lovEmpleados.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setRef_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
+                  duplicarDetalleEmpresa.setNombre_gerentegeneral(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
                }
             } else {
@@ -717,18 +724,20 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
+            nuevaDetalleEmpresa.setNombre_gerentegeneral(null);
+            nuevaDetalleEmpresa.setRef_gerentegeneral(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.setGerentegeneral(new Empleados());
+            duplicarDetalleEmpresa.setNombre_gerentegeneral(null);
+            duplicarDetalleEmpresa.setRef_gerentegeneral(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("SUBGERENTE")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getSubgerente().getPersona().setNombreCompleto(subGerente);
+               nuevaDetalleEmpresa.setNombre_subgerente(subGerente);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getSubgerente().getPersona().setNombreCompleto(subGerente);
+               duplicarDetalleEmpresa.setNombre_subgerente(subGerente);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
@@ -738,10 +747,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setSubgerente(lovEmpleados.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setSubgerente(lovEmpleados.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setNombre_subgerente(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  duplicarDetalleEmpresa.setRef_subgerente(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
                }
             } else {
@@ -755,18 +766,20 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setSubgerente(new Empleados());
+            nuevaDetalleEmpresa.setRef_subgerente(null);
+            nuevaDetalleEmpresa.setNombre_subgerente(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.setSubgerente(new Empleados());
+            duplicarDetalleEmpresa.setRef_subgerente(null);
+            duplicarDetalleEmpresa.setNombre_subgerente(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("REPRESENTANTE")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getRepresentantecir().getPersona().setNombreCompleto(representante);
+               nuevaDetalleEmpresa.setNombre_representantecir(representante);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getRepresentantecir().getPersona().setNombreCompleto(representante);
+               duplicarDetalleEmpresa.setNombre_representantecir(representante);
             }
             for (int i = 0; i < lovEmpleados.size(); i++) {
                if (lovEmpleados.get(i).getPersona().getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
@@ -776,10 +789,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setRepresentantecir(lovEmpleados.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  nuevaDetalleEmpresa.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
                } else {
-                  duplicarDetalleEmpresa.setRepresentantecir(lovEmpleados.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setNombre_representantecir(lovEmpleados.get(indiceUnicoElemento).getPersona().getNombreCompleto());
+                  duplicarDetalleEmpresa.setRef_representantecir(lovEmpleados.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
                }
             } else {
@@ -793,18 +808,20 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
+            nuevaDetalleEmpresa.setRef_representantecir(null);
+            nuevaDetalleEmpresa.setNombre_representantecir(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
          } else {
-            duplicarDetalleEmpresa.setRepresentantecir(new Empleados());
+            duplicarDetalleEmpresa.setRef_representantecir(null);
+            duplicarDetalleEmpresa.setNombre_representantecir(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CARGO")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getCargofirmaconstancia().setNombre(cargo);
+               nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(cargo);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getCargofirmaconstancia().setNombre(cargo);
+               duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(cargo);
             }
             for (int i = 0; i < lovCargos.size(); i++) {
                if (lovCargos.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -814,10 +831,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setCargofirmaconstancia(lovCargos.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getNombre());
+                  nuevaDetalleEmpresa.setRef_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setCargofirmaconstancia(lovCargos.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getNombre());
+                  duplicarDetalleEmpresa.setRef_cargofirmaconstancia(lovCargos.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
                }
             } else {
@@ -831,18 +850,20 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
+            nuevaDetalleEmpresa.setRef_cargofirmaconstancia(null);
+            nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.setCargofirmaconstancia(new Cargos());
+            duplicarDetalleEmpresa.setRef_cargofirmaconstancia(null);
+            duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("PERSONA")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getPersonafirmaconstancia().setNombreCompleto(persona);
+               nuevaDetalleEmpresa.setNombre_personafirmaconstancia(persona);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getPersonafirmaconstancia().setNombreCompleto(persona);
+               duplicarDetalleEmpresa.setNombre_personafirmaconstancia(persona);
             }
             for (int i = 0; i < lovPersonas.size(); i++) {
                if (lovPersonas.get(i).getNombreCompleto().startsWith(valorConfirmar.toUpperCase())) {
@@ -852,10 +873,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setPersonafirmaconstancia(lovPersonas.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getNombreCompleto());
+                  nuevaDetalleEmpresa.setRef_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setPersonafirmaconstancia(lovPersonas.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setNombre_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getNombreCompleto());
+                  duplicarDetalleEmpresa.setRef_personafirmaconstancia(lovPersonas.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
                }
             } else {
@@ -869,18 +892,20 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+            nuevaDetalleEmpresa.setNombre_personafirmaconstancia(null);
+            nuevaDetalleEmpresa.setRef_personafirmaconstancia(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+            duplicarDetalleEmpresa.setNombre_personafirmaconstancia(null);
+            duplicarDetalleEmpresa.setRef_personafirmaconstancia(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDADDOCUMENTO")) {
          if (!valorConfirmar.isEmpty()) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.getCiudaddocumentorepresentante().setNombre(ciudadDocumento);
+               nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(ciudadDocumento);
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.getCiudaddocumentorepresentante().setNombre(ciudadDocumento);
+               duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(ciudadDocumento);
             }
             for (int i = 0; i < lovCiudades.size(); i++) {
                if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -890,10 +915,12 @@ public class ControlDetalleEmpresa implements Serializable {
             }
             if (coincidencias == 1) {
                if (tipoNuevo == 1) {
-                  nuevaDetalleEmpresa.setCiudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento));
+                  nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento).getNombre());
+                  nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(lovCiudades.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
                } else if (tipoNuevo == 2) {
-                  duplicarDetalleEmpresa.setCiudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento));
+                  duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(lovCiudades.get(indiceUnicoElemento).getNombre());
+                  duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(lovCiudades.get(indiceUnicoElemento).getSecuencia());
                   RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
                }
             } else {
@@ -907,17 +934,19 @@ public class ControlDetalleEmpresa implements Serializable {
                }
             }
          } else if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
+            nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+            nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
+            duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+            duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(null);
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
          }
       } else if (confirmarCambio.equalsIgnoreCase("CIUDAD")) {
          if (tipoNuevo == 1) {
-            nuevaDetalleEmpresa.getCiudad().setNombre(ciudad);
+            nuevaDetalleEmpresa.setNombre_ciudad(ciudad);
          } else if (tipoNuevo == 2) {
-            duplicarDetalleEmpresa.getCiudad().setNombre(ciudad);
+            duplicarDetalleEmpresa.setNombre_ciudad(ciudad);
          }
          for (int i = 0; i < lovCiudades.size(); i++) {
             if (lovCiudades.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
@@ -927,10 +956,12 @@ public class ControlDetalleEmpresa implements Serializable {
          }
          if (coincidencias == 1) {
             if (tipoNuevo == 1) {
-               nuevaDetalleEmpresa.setCiudad(lovCiudades.get(indiceUnicoElemento));
+               nuevaDetalleEmpresa.setNombre_ciudad(lovCiudades.get(indiceUnicoElemento).getNombre());
+               nuevaDetalleEmpresa.setRef_ciudad(lovCiudades.get(indiceUnicoElemento).getSecuencia());
                RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
             } else if (tipoNuevo == 2) {
-               duplicarDetalleEmpresa.setCiudad(lovCiudades.get(indiceUnicoElemento));
+               duplicarDetalleEmpresa.setNombre_ciudad(lovCiudades.get(indiceUnicoElemento).getNombre());
+               duplicarDetalleEmpresa.setRef_ciudad(lovCiudades.get(indiceUnicoElemento).getSecuencia());
                RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa::duplicarCiudadDetalle");
             }
          } else {
@@ -949,14 +980,14 @@ public class ControlDetalleEmpresa implements Serializable {
    public void cambiarIndice(DetallesEmpresas detalle, int celda) {
       detalleSeleccionado = detalle;
       cualCelda = celda;
-      empresa = detalleSeleccionado.getEmpresa().getNombre();
-      ciudad = detalleSeleccionado.getCiudad().getNombre();
-      ciudadDocumento = detalleSeleccionado.getCiudaddocumentorepresentante().getNombre();
-      gerente = detalleSeleccionado.getGerentegeneral().getPersona().getNombreCompleto();
-      subGerente = detalleSeleccionado.getSubgerente().getPersona().getNombreCompleto();
-      persona = detalleSeleccionado.getPersonafirmaconstancia().getNombreCompleto();
-      cargo = detalleSeleccionado.getCargofirmaconstancia().getNombre();
-      representante = detalleSeleccionado.getRepresentantecir().getPersona().getNombreCompleto();
+      empresa = detalleSeleccionado.getNombre_empresa();
+      ciudad = detalleSeleccionado.getNombre_ciudad();
+      ciudadDocumento = detalleSeleccionado.getNombre_ciudaddocumentorepresentante();
+      gerente = detalleSeleccionado.getNombre_gerentegeneral();
+      subGerente = detalleSeleccionado.getNombre_subgerente();
+      persona = detalleSeleccionado.getNombre_personafirmaconstancia();
+      cargo = detalleSeleccionado.getNombre_cargofirmaconstancia();
+      representante = detalleSeleccionado.getNombre_representantecir();
       auxTipo = detalleSeleccionado.getTipo();
       auxDireccion = detalleSeleccionado.getDireccion();
       auxTelefono = detalleSeleccionado.getTelefono();
@@ -1032,14 +1063,22 @@ public class ControlDetalleEmpresa implements Serializable {
       contarRegistros();
       guardado = true;
       nuevaDetalleEmpresa = new DetallesEmpresas();
-      nuevaDetalleEmpresa.setCiudad(new Ciudades());
-      nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      nuevaDetalleEmpresa.setEmpresa(new Empresas());
-      nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-      nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-      nuevaDetalleEmpresa.setArquitecto(new Empleados());
-      nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+      nuevaDetalleEmpresa.setRef_ciudad(null);
+      nuevaDetalleEmpresa.setNombre_ciudad(null);
+      nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+      nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+      nuevaDetalleEmpresa.setRef_empresa(null);
+      nuevaDetalleEmpresa.setNombre_empresa(null);
+      nuevaDetalleEmpresa.setRef_gerentegeneral(null);
+      nuevaDetalleEmpresa.setNombre_gerentegeneral(null);
+      nuevaDetalleEmpresa.setRef_representantecir(null);
+      nuevaDetalleEmpresa.setNombre_representantecir(null);
+      nuevaDetalleEmpresa.setRef_arquitecto(null);
+      nuevaDetalleEmpresa.setNombre_arquitecto(null);
+      nuevaDetalleEmpresa.setRef_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setRef_personafirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_personafirmaconstancia(null);
       cambiosPagina = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
       RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
@@ -1166,17 +1205,22 @@ public class ControlDetalleEmpresa implements Serializable {
             detalleSeleccionado = listaDetallesEmpresas.get(listaDetallesEmpresas.indexOf(nuevaDetalleEmpresa));
             //
             nuevaDetalleEmpresa = new DetallesEmpresas();
-            nuevaDetalleEmpresa.setCiudad(new Ciudades());
-            nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-            nuevaDetalleEmpresa.setEmpresa(new Empresas());
-            nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-            nuevaDetalleEmpresa.getGerentegeneral().setPersona(new Personas());
-            nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-            nuevaDetalleEmpresa.getRepresentantecir().setPersona(new Personas());
-            nuevaDetalleEmpresa.setSubgerente(new Empleados());
-            nuevaDetalleEmpresa.getSubgerente().setPersona(new Personas());
-            nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-            nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+            nuevaDetalleEmpresa.setRef_ciudad(null);
+            nuevaDetalleEmpresa.setNombre_ciudad(null);
+            nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+            nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+            nuevaDetalleEmpresa.setRef_empresa(null);
+            nuevaDetalleEmpresa.setNombre_empresa(null);
+            nuevaDetalleEmpresa.setRef_gerentegeneral(null);
+            nuevaDetalleEmpresa.setNombre_gerentegeneral(null);
+            nuevaDetalleEmpresa.setRef_representantecir(null);
+            nuevaDetalleEmpresa.setNombre_representantecir(null);
+            nuevaDetalleEmpresa.setRef_arquitecto(null);
+            nuevaDetalleEmpresa.setNombre_arquitecto(null);
+            nuevaDetalleEmpresa.setRef_cargofirmaconstancia(null);
+            nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+            nuevaDetalleEmpresa.setRef_personafirmaconstancia(null);
+            nuevaDetalleEmpresa.setNombre_personafirmaconstancia(null);
             //
             if (guardado == true) {
                guardado = false;
@@ -1195,32 +1239,42 @@ public class ControlDetalleEmpresa implements Serializable {
 
    public void limpiarNuevaDetalleEmpresa() {
       nuevaDetalleEmpresa = new DetallesEmpresas();
-      nuevaDetalleEmpresa.setCiudad(new Ciudades());
-      nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      nuevaDetalleEmpresa.setEmpresa(new Empresas());
-      nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-      nuevaDetalleEmpresa.getGerentegeneral().setPersona(new Personas());
-      nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-      nuevaDetalleEmpresa.getRepresentantecir().setPersona(new Personas());
-      nuevaDetalleEmpresa.setSubgerente(new Empleados());
-      nuevaDetalleEmpresa.getSubgerente().setPersona(new Personas());
-      nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+      nuevaDetalleEmpresa.setRef_ciudad(null);
+      nuevaDetalleEmpresa.setNombre_ciudad(null);
+      nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+      nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+      nuevaDetalleEmpresa.setRef_empresa(null);
+      nuevaDetalleEmpresa.setNombre_empresa(null);
+      nuevaDetalleEmpresa.setRef_gerentegeneral(null);
+      nuevaDetalleEmpresa.setNombre_gerentegeneral(null);
+      nuevaDetalleEmpresa.setRef_representantecir(null);
+      nuevaDetalleEmpresa.setNombre_representantecir(null);
+      nuevaDetalleEmpresa.setRef_arquitecto(null);
+      nuevaDetalleEmpresa.setNombre_arquitecto(null);
+      nuevaDetalleEmpresa.setRef_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setRef_personafirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_personafirmaconstancia(null);
    }
 
    public void cancelarNuevaDetalleEmpresa() {
       nuevaDetalleEmpresa = new DetallesEmpresas();
-      nuevaDetalleEmpresa.setCiudad(new Ciudades());
-      nuevaDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      nuevaDetalleEmpresa.setEmpresa(new Empresas());
-      nuevaDetalleEmpresa.setGerentegeneral(new Empleados());
-      nuevaDetalleEmpresa.getGerentegeneral().setPersona(new Personas());
-      nuevaDetalleEmpresa.setRepresentantecir(new Empleados());
-      nuevaDetalleEmpresa.getRepresentantecir().setPersona(new Personas());
-      nuevaDetalleEmpresa.setSubgerente(new Empleados());
-      nuevaDetalleEmpresa.getSubgerente().setPersona(new Personas());
-      nuevaDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      nuevaDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+      nuevaDetalleEmpresa.setRef_ciudad(null);
+      nuevaDetalleEmpresa.setNombre_ciudad(null);
+      nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+      nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+      nuevaDetalleEmpresa.setRef_empresa(null);
+      nuevaDetalleEmpresa.setNombre_empresa(null);
+      nuevaDetalleEmpresa.setRef_gerentegeneral(null);
+      nuevaDetalleEmpresa.setNombre_gerentegeneral(null);
+      nuevaDetalleEmpresa.setRef_representantecir(null);
+      nuevaDetalleEmpresa.setNombre_representantecir(null);
+      nuevaDetalleEmpresa.setRef_arquitecto(null);
+      nuevaDetalleEmpresa.setNombre_arquitecto(null);
+      nuevaDetalleEmpresa.setRef_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+      nuevaDetalleEmpresa.setRef_personafirmaconstancia(null);
+      nuevaDetalleEmpresa.setNombre_personafirmaconstancia(null);
    }
 
    public void verificarDuplicarDetalleEmpresa() {
@@ -1234,29 +1288,38 @@ public class ControlDetalleEmpresa implements Serializable {
    public void duplicarDetalleEmpresaD() {
       if (detalleSeleccionado != null) {
          duplicarDetalleEmpresa = new DetallesEmpresas();
-         duplicarDetalleEmpresa.setEmpresa(detalleSeleccionado.getEmpresa());
+         duplicarDetalleEmpresa.setRef_empresa(detalleSeleccionado.getRef_empresa());
+         duplicarDetalleEmpresa.setNombre_empresa(detalleSeleccionado.getNombre_empresa());
          duplicarDetalleEmpresa.setTipodocumento(detalleSeleccionado.getTipodocumento());
          duplicarDetalleEmpresa.setTipo(detalleSeleccionado.getTipo());
          duplicarDetalleEmpresa.setDireccion(detalleSeleccionado.getDireccion());
-         duplicarDetalleEmpresa.setCiudad(detalleSeleccionado.getCiudad());
+         duplicarDetalleEmpresa.setRef_ciudad(detalleSeleccionado.getRef_ciudad());
+         duplicarDetalleEmpresa.setNombre_ciudad(detalleSeleccionado.getNombre_ciudad());
          duplicarDetalleEmpresa.setTelefono(detalleSeleccionado.getTelefono());
          duplicarDetalleEmpresa.setFax(detalleSeleccionado.getFax());
          duplicarDetalleEmpresa.setNombrerepresentante(detalleSeleccionado.getNombrerepresentante());
          duplicarDetalleEmpresa.setDocumentorepresentante(detalleSeleccionado.getDocumentorepresentante());
-         duplicarDetalleEmpresa.setCiudaddocumentorepresentante(detalleSeleccionado.getCiudaddocumentorepresentante());
+         duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(detalleSeleccionado.getRef_ciudaddocrepresentante());
+         duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(detalleSeleccionado.getNombre_ciudaddocumentorepresentante());
          duplicarDetalleEmpresa.setTiponit(detalleSeleccionado.getTiponit());
          duplicarDetalleEmpresa.setDigitoverificacion(detalleSeleccionado.getDigitoverificacion());
-         duplicarDetalleEmpresa.setGerentegeneral(detalleSeleccionado.getGerentegeneral());
-         duplicarDetalleEmpresa.setPersonafirmaconstancia(detalleSeleccionado.getPersonafirmaconstancia());
-         duplicarDetalleEmpresa.setCargofirmaconstancia(detalleSeleccionado.getCargofirmaconstancia());
+         duplicarDetalleEmpresa.setRef_gerentegeneral(detalleSeleccionado.getRef_gerentegeneral());
+         duplicarDetalleEmpresa.setNombre_gerentegeneral(detalleSeleccionado.getNombre_gerentegeneral());
+         duplicarDetalleEmpresa.setRef_personafirmaconstancia(detalleSeleccionado.getRef_personafirmaconstancia());
+         duplicarDetalleEmpresa.setNombre_personafirmaconstancia(detalleSeleccionado.getNombre_personafirmaconstancia());
+         duplicarDetalleEmpresa.setRef_cargofirmaconstancia(detalleSeleccionado.getRef_cargofirmaconstancia());
+         duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(detalleSeleccionado.getNombre_cargofirmaconstancia());
          duplicarDetalleEmpresa.setEmail(detalleSeleccionado.getEmail());
          duplicarDetalleEmpresa.setZona(detalleSeleccionado.getZona());
          duplicarDetalleEmpresa.setCiiu(detalleSeleccionado.getCiiu());
          duplicarDetalleEmpresa.setActividadeconomica(detalleSeleccionado.getActividadeconomica());
-         duplicarDetalleEmpresa.setSubgerente(detalleSeleccionado.getSubgerente());
-         duplicarDetalleEmpresa.setArquitecto(detalleSeleccionado.getArquitecto());
+         duplicarDetalleEmpresa.setRef_subgerente(detalleSeleccionado.getRef_subgerente());
+         duplicarDetalleEmpresa.setNombre_subgerente(detalleSeleccionado.getNombre_subgerente());
+         duplicarDetalleEmpresa.setRef_arquitecto(detalleSeleccionado.getRef_arquitecto());
+         duplicarDetalleEmpresa.setNombre_arquitecto(detalleSeleccionado.getNombre_arquitecto());
          duplicarDetalleEmpresa.setCargoarquitecto(detalleSeleccionado.getCargoarquitecto());
-         duplicarDetalleEmpresa.setRepresentantecir(detalleSeleccionado.getRepresentantecir());
+         duplicarDetalleEmpresa.setRef_representantecir(detalleSeleccionado.getRef_representantecir());
+         duplicarDetalleEmpresa.setNombre_representantecir(detalleSeleccionado.getNombre_representantecir());
          duplicarDetalleEmpresa.setPilaultimaplanilla(detalleSeleccionado.getPilaultimaplanilla());
          duplicarDetalleEmpresa.setTipopersona(detalleSeleccionado.getTipopersona());
          duplicarDetalleEmpresa.setNaturalezajuridica(detalleSeleccionado.getNaturalezajuridica());
@@ -1314,26 +1377,42 @@ public class ControlDetalleEmpresa implements Serializable {
 
    public void cancelarDuplicadoDetalleEmpresa() {
       duplicarDetalleEmpresa = new DetallesEmpresas();
-      duplicarDetalleEmpresa.setCiudad(new Ciudades());
-      duplicarDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      duplicarDetalleEmpresa.setEmpresa(new Empresas());
-      duplicarDetalleEmpresa.setGerentegeneral(new Empleados());
-      duplicarDetalleEmpresa.setRepresentantecir(new Empleados());
-      duplicarDetalleEmpresa.setArquitecto(new Empleados());
-      duplicarDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      duplicarDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+      duplicarDetalleEmpresa.setRef_ciudad(null);
+      duplicarDetalleEmpresa.setNombre_ciudad(null);
+      duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+      duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+      duplicarDetalleEmpresa.setRef_empresa(null);
+      duplicarDetalleEmpresa.setNombre_empresa(null);
+      duplicarDetalleEmpresa.setRef_gerentegeneral(null);
+      duplicarDetalleEmpresa.setNombre_gerentegeneral(null);
+      duplicarDetalleEmpresa.setRef_representantecir(null);
+      duplicarDetalleEmpresa.setNombre_representantecir(null);
+      duplicarDetalleEmpresa.setRef_arquitecto(null);
+      duplicarDetalleEmpresa.setNombre_arquitecto(null);
+      duplicarDetalleEmpresa.setRef_cargofirmaconstancia(null);
+      duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+      duplicarDetalleEmpresa.setRef_personafirmaconstancia(null);
+      duplicarDetalleEmpresa.setNombre_personafirmaconstancia(null);
    }
 
    public void limpiarDuplicadoDetalleEmpresa() {
       duplicarDetalleEmpresa = new DetallesEmpresas();
-      duplicarDetalleEmpresa.setCiudad(new Ciudades());
-      duplicarDetalleEmpresa.setCiudaddocumentorepresentante(new Ciudades());
-      duplicarDetalleEmpresa.setEmpresa(new Empresas());
-      duplicarDetalleEmpresa.setGerentegeneral(new Empleados());
-      duplicarDetalleEmpresa.setRepresentantecir(new Empleados());
-      duplicarDetalleEmpresa.setArquitecto(new Empleados());
-      duplicarDetalleEmpresa.setCargofirmaconstancia(new Cargos());
-      duplicarDetalleEmpresa.setPersonafirmaconstancia(new Personas());
+      duplicarDetalleEmpresa.setRef_ciudad(null);
+      duplicarDetalleEmpresa.setNombre_ciudad(null);
+      duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(null);
+      duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(null);
+      duplicarDetalleEmpresa.setRef_empresa(null);
+      duplicarDetalleEmpresa.setNombre_empresa(null);
+      duplicarDetalleEmpresa.setRef_gerentegeneral(null);
+      duplicarDetalleEmpresa.setNombre_gerentegeneral(null);
+      duplicarDetalleEmpresa.setRef_representantecir(null);
+      duplicarDetalleEmpresa.setNombre_representantecir(null);
+      duplicarDetalleEmpresa.setRef_arquitecto(null);
+      duplicarDetalleEmpresa.setNombre_arquitecto(null);
+      duplicarDetalleEmpresa.setRef_cargofirmaconstancia(null);
+      duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(null);
+      duplicarDetalleEmpresa.setRef_personafirmaconstancia(null);
+      duplicarDetalleEmpresa.setNombre_personafirmaconstancia(null);
    }
 
    public void validarBorradoDetalleEmpresa() {
@@ -1596,7 +1675,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarEmpresa() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setEmpresa(empresaSeleccionada);
+         detalleSeleccionado.setNombre_empresa(empresaSeleccionada.getNombre());
+         detalleSeleccionado.setRef_empresa(empresaSeleccionada.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1611,10 +1691,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setEmpresa(empresaSeleccionada);
+         nuevaDetalleEmpresa.setNombre_empresa(empresaSeleccionada.getNombre());
+         nuevaDetalleEmpresa.setRef_empresa(empresaSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaEmpresaDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setEmpresa(empresaSeleccionada);
+         duplicarDetalleEmpresa.setNombre_empresa(empresaSeleccionada.getNombre());
+         duplicarDetalleEmpresa.setRef_empresa(empresaSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarEmpresaDetalle");
       }
       filtrarLovEmpresas = null;
@@ -1646,7 +1728,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarCiudad() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setCiudad(ciudadSeleccionada);
+         detalleSeleccionado.setNombre_ciudad(ciudadSeleccionada.getNombre());
+         detalleSeleccionado.setRef_ciudad(ciudadSeleccionada.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1661,10 +1744,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setCiudad(ciudadSeleccionada);
+         nuevaDetalleEmpresa.setNombre_ciudad(ciudadSeleccionada.getNombre());
+         nuevaDetalleEmpresa.setRef_ciudad(ciudadSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setCiudad(ciudadSeleccionada);
+         duplicarDetalleEmpresa.setNombre_ciudad(ciudadSeleccionada.getNombre());
+         duplicarDetalleEmpresa.setRef_ciudad(ciudadSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDetalle");
       }
       filtrarLovCiudades = null;
@@ -1696,7 +1781,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarCiudadDocumento() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setCiudaddocumentorepresentante(ciudadSeleccionada);
+         detalleSeleccionado.setNombre_ciudaddocumentorepresentante(ciudadSeleccionada.getNombre());
+         detalleSeleccionado.setRef_ciudaddocrepresentante(ciudadSeleccionada.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1712,10 +1798,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setCiudaddocumentorepresentante(ciudadSeleccionada);
+         nuevaDetalleEmpresa.setNombre_ciudaddocumentorepresentante(ciudadSeleccionada.getNombre());
+         nuevaDetalleEmpresa.setRef_ciudaddocrepresentante(ciudadSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCiudadDocumentoDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setCiudaddocumentorepresentante(ciudadSeleccionada);
+         duplicarDetalleEmpresa.setNombre_ciudaddocumentorepresentante(ciudadSeleccionada.getNombre());
+         duplicarDetalleEmpresa.setRef_ciudaddocrepresentante(ciudadSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCiudadDocumentoDetalle");
       }
       filtrarLovCiudades = null;
@@ -1747,7 +1835,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarGerente() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setGerentegeneral(empleadoSeleccionado);
+         detalleSeleccionado.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1762,10 +1851,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setGerentegeneral(empleadoSeleccionado);
+         nuevaDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaGerenteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setGerentegeneral(empleadoSeleccionado);
+         duplicarDetalleEmpresa.setNombre_gerentegeneral(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setRef_gerentegeneral(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarGerenteDetalle");
       }
       filtrarLovEmpleados = null;
@@ -1797,7 +1888,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarSubGerente() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setSubgerente(empleadoSeleccionado);
+         detalleSeleccionado.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1812,10 +1904,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setSubgerente(empleadoSeleccionado);
+         nuevaDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaSubGerenteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setSubgerente(empleadoSeleccionado);
+         duplicarDetalleEmpresa.setNombre_subgerente(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setRef_subgerente(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarSubGerenteDetalle");
       }
       filtrarLovEmpleados = null;
@@ -1847,7 +1941,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarRepresentante() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setRepresentantecir(empleadoSeleccionado);
+         detalleSeleccionado.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         detalleSeleccionado.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1862,10 +1957,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setRepresentantecir(empleadoSeleccionado);
+         nuevaDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         nuevaDetalleEmpresa.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaRepresentanteDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setRepresentantecir(empleadoSeleccionado);
+         duplicarDetalleEmpresa.setNombre_representantecir(empleadoSeleccionado.getPersona().getNombreCompleto());
+         duplicarDetalleEmpresa.setRef_representantecir(empleadoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarRepresentanteDetalle");
       }
       filtrarLovEmpleados = null;
@@ -1897,7 +1994,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarPersona() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setPersonafirmaconstancia(personaSeleccionada);
+         detalleSeleccionado.setNombre_personafirmaconstancia(personaSeleccionada.getNombreCompleto());
+         detalleSeleccionado.setRef_personafirmaconstancia(personaSeleccionada.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1912,10 +2010,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setPersonafirmaconstancia(personaSeleccionada);
+         nuevaDetalleEmpresa.setNombre_personafirmaconstancia(personaSeleccionada.getNombreCompleto());
+         nuevaDetalleEmpresa.setRef_personafirmaconstancia(personaSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaPersonaFirmaDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setPersonafirmaconstancia(personaSeleccionada);
+         duplicarDetalleEmpresa.setNombre_personafirmaconstancia(personaSeleccionada.getNombreCompleto());
+         duplicarDetalleEmpresa.setRef_personafirmaconstancia(personaSeleccionada.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarPersonaFirmaDetalle");
       }
       filtrarLovPersonas = null;
@@ -1947,7 +2047,8 @@ public class ControlDetalleEmpresa implements Serializable {
    public void actualizarCargo() {
       RequestContext context = RequestContext.getCurrentInstance();
       if (tipoActualizacion == 0) {
-         detalleSeleccionado.setCargofirmaconstancia(cargoSeleccionado);
+         detalleSeleccionado.setNombre_cargofirmaconstancia(cargoSeleccionado.getNombre());
+         detalleSeleccionado.setRef_cargofirmaconstancia(cargoSeleccionado.getSecuencia());
          if (!listDetallesEmpresasCrear.contains(detalleSeleccionado)) {
             if (listDetallesEmpresasModificar.isEmpty()) {
                listDetallesEmpresasModificar.add(detalleSeleccionado);
@@ -1962,10 +2063,12 @@ public class ControlDetalleEmpresa implements Serializable {
          RequestContext.getCurrentInstance().update("form:ACEPTAR");
          RequestContext.getCurrentInstance().update("form:datosDetalleEmpresa");
       } else if (tipoActualizacion == 1) {
-         nuevaDetalleEmpresa.setCargofirmaconstancia(cargoSeleccionado);
+         nuevaDetalleEmpresa.setNombre_cargofirmaconstancia(cargoSeleccionado.getNombre());
+         nuevaDetalleEmpresa.setRef_cargofirmaconstancia(cargoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:nuevaDetalleEmpresa:nuevaCargoFirmaDetalle");
       } else if (tipoActualizacion == 2) {
-         duplicarDetalleEmpresa.setCargofirmaconstancia(cargoSeleccionado);
+         duplicarDetalleEmpresa.setNombre_cargofirmaconstancia(cargoSeleccionado.getNombre());
+         duplicarDetalleEmpresa.setRef_cargofirmaconstancia(cargoSeleccionado.getSecuencia());
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarDetalleEmpresa:duplicarCargoFirmaDetalle");
       }
       filtrarLovCargos = null;
@@ -1992,6 +2095,17 @@ public class ControlDetalleEmpresa implements Serializable {
       context.reset("form:lovCargoFirma:globalFilter");
       RequestContext.getCurrentInstance().execute("PF('lovCargoFirma').clearFilters()");
       RequestContext.getCurrentInstance().execute("PF('CargoFirmaDialogo').hide()");
+   }
+
+   public void posicionOtro() {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Map<String, String> map = context.getExternalContext().getRequestParameterMap();
+      String name = map.get("n"); // name attribute of node 
+      String type = map.get("t"); // type attribute of node 
+      int indice = Integer.parseInt(type);
+      int columna = Integer.parseInt(name);
+      detalleSeleccionado = listaDetallesEmpresas.get(indice);
+      cambiarIndice(detalleSeleccionado, columna);
    }
 
    public void listaValoresBoton() {
@@ -2104,43 +2218,12 @@ public class ControlDetalleEmpresa implements Serializable {
 
    //GET - SET 
    public List<DetallesEmpresas> getListaDetallesEmpresas() {
-      try {
-         if (listaDetallesEmpresas == null) {
-            System.out.println("ControlDetalleEmpresa.getListaDetallesEmpresas() Va a consultar");
-            listaDetallesEmpresas = administrarDetalleEmpresa.listaDetallesEmpresas();
-            for (int i = 0; i < listaDetallesEmpresas.size(); i++) {
-               if (listaDetallesEmpresas.get(i).getCiudaddocumentorepresentante() == null) {
-                  listaDetallesEmpresas.get(i).setCiudaddocumentorepresentante(new Ciudades());
-               }
-               if (listaDetallesEmpresas.get(i).getCiudad() == null) {
-                  listaDetallesEmpresas.get(i).setCiudad(new Ciudades());
-               }
-               if (listaDetallesEmpresas.get(i).getGerentegeneral() == null) {
-                  listaDetallesEmpresas.get(i).setGerentegeneral(new Empleados());
-                  listaDetallesEmpresas.get(i).getGerentegeneral().setPersona(new Personas());
-               }
-               if (listaDetallesEmpresas.get(i).getPersonafirmaconstancia() == null) {
-                  listaDetallesEmpresas.get(i).setPersonafirmaconstancia(new Personas());
-               }
-               if (listaDetallesEmpresas.get(i).getCargofirmaconstancia() == null) {
-                  listaDetallesEmpresas.get(i).setCargofirmaconstancia(new Cargos());
-               }
-               if (listaDetallesEmpresas.get(i).getRepresentantecir() == null) {
-                  listaDetallesEmpresas.get(i).setRepresentantecir(new Empleados());
-                  listaDetallesEmpresas.get(i).getRepresentantecir().setPersona(new Personas());
-               }
-               if (listaDetallesEmpresas.get(i).getSubgerente() == null) {
-                  listaDetallesEmpresas.get(i).setSubgerente(new Empleados());
-                  listaDetallesEmpresas.get(i).getSubgerente().setPersona(new Personas());
-               }
-            }
-            System.out.println("ControlDetalleEmpresa.getListaDetallesEmpresas() Ya consulto");
-         }
-         return listaDetallesEmpresas;
-      } catch (Exception e) {
-         System.out.println("Error en getListaDetallesEmpresas : " + e.toString());
-         return null;
+      if (listaDetallesEmpresas == null) {
+         System.out.println("ControlDetalleEmpresa.getListaDetallesEmpresas() Va a consultar");
+         listaDetallesEmpresas = administrarDetalleEmpresa.listaDetallesEmpresas();
+         System.out.println("ControlDetalleEmpresa.getListaDetallesEmpresas() Ya consulto");
       }
+      return listaDetallesEmpresas;
    }
 
    public void setListaDetallesEmpresas(List<DetallesEmpresas> setListaDetallesEmpresas) {
@@ -2156,13 +2239,10 @@ public class ControlDetalleEmpresa implements Serializable {
    }
 
    public List<Empresas> getLovEmpresas() {
-      try {
+      if (lovEmpresas == null) {
          lovEmpresas = administrarDetalleEmpresa.lovEmpresas();
-         return lovEmpresas;
-      } catch (Exception e) {
-         System.out.println("Error getLovEmpresas " + e.toString());
-         return null;
       }
+      return lovEmpresas;
    }
 
    public void setLovEmpresas(List<Empresas> setLovEmpresas) {
@@ -2186,13 +2266,10 @@ public class ControlDetalleEmpresa implements Serializable {
    }
 
    public List<Ciudades> getLovCiudades() {
-      try {
+      if (lovCiudades == null) {
          lovCiudades = administrarDetalleEmpresa.lovCiudades();
-         return lovCiudades;
-      } catch (Exception e) {
-         System.out.println("Error getLovCiudades " + e.toString());
-         return null;
       }
+      return lovCiudades;
    }
 
    public void setLovCiudades(List<Ciudades> setLovCiudades) {
@@ -2272,13 +2349,10 @@ public class ControlDetalleEmpresa implements Serializable {
    }
 
    public List<Empleados> getLovEmpleados() {
-      try {
+      if (lovEmpleados == null) {
          lovEmpleados = administrarDetalleEmpresa.lovEmpleados();
-         return lovEmpleados;
-      } catch (Exception e) {
-         System.out.println("Error en getLovEmpleados ... " + e.toString());
-         return null;
       }
+      return lovEmpleados;
    }
 
    public void setLovEmpleados(List<Empleados> setLovEmpleados) {

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -21,6 +22,7 @@ public class DetallesReformasLaborales implements Serializable {
     @Column(name = "SECUENCIA")
     private BigInteger secuencia;
     @Column(name = "TIPOPAGO")
+    @Size(max = 20)
     private String tipopago;
     @Column(name = "FACTOR")
     private BigDecimal factor;

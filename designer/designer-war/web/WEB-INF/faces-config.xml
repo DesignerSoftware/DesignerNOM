@@ -2300,23 +2300,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>historiaFormulaRastro</from-outcome>
-         <to-view-id>/historiaformula.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/historiaformula.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>rastrotabla</from-outcome>
-         <to-view-id>/rastro.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule>
-   <navigation-rule>
-      <from-view-id>/rastro.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>historiaFormulaRastro</from-outcome>
+         <from-outcome>historiaformula</from-outcome>
          <to-view-id>/historiaformula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4013,7 +3997,7 @@
    <navigation-rule>
       <from-view-id>/rastro.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>operandos</from-outcome>
+         <from-outcome>operando</from-outcome>
          <to-view-id>/operando.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4029,15 +4013,23 @@
    <navigation-rule>
       <from-view-id>/operando.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>funcion</from-outcome>
+         <from-outcome>tipofuncion</from-outcome>
          <to-view-id>/tipofuncion.xhtml</to-view-id>
          <redirect />
       </navigation-case>
    </navigation-rule>   
    <navigation-rule>
+      <from-view-id>/tipofuncion.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>operando</from-outcome>
+         <to-view-id>/operando.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule> 
+   <navigation-rule>
       <from-view-id>/operando.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>formula</from-outcome>
+         <from-outcome>tipoformula</from-outcome>
          <to-view-id>/tipoformula.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4050,19 +4042,11 @@
          <redirect />
       </navigation-case>
    </navigation-rule> 
-   <navigation-rule>
-      <from-view-id>/tipofuncion.xhtml</from-view-id>
-      <navigation-case>
-         <from-outcome>operando</from-outcome>
-         <to-view-id>/operando.xhtml</to-view-id>
-         <redirect />
-      </navigation-case>
-   </navigation-rule> 
     
    <navigation-rule>
       <from-view-id>/operando.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>constante</from-outcome>
+         <from-outcome>tipoconstante</from-outcome>
          <to-view-id>/tipoconstante.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -4080,7 +4064,7 @@
    <navigation-rule>
       <from-view-id>/operando.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>bloque</from-outcome>
+         <from-outcome>tipobloque</from-outcome>
          <to-view-id>/tipobloque.xhtml</to-view-id>
          <redirect />
       </navigation-case>
@@ -5557,7 +5541,24 @@
    <navigation-rule>
       <from-view-id>/valoresconceptos.xhtml</from-view-id>
       <navigation-case>
-         <from-outcome>atrasvaloresconceptos</from-outcome>
+         <from-outcome>historiaformula</from-outcome>
+         <to-view-id>/historiaformula.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+    
+   <navigation-rule>
+      <from-view-id>/historiaformula.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>operando</from-outcome>
+         <to-view-id>/operando.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+   </navigation-rule>
+   <navigation-rule>
+      <from-view-id>/operando.xhtml</from-view-id>
+      <navigation-case>
+         <from-outcome>historiaformula</from-outcome>
          <to-view-id>/historiaformula.xhtml</to-view-id>
          <redirect />
       </navigation-case>

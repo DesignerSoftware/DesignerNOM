@@ -239,6 +239,19 @@ public class ControlHistoriaFormula implements Serializable {
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
 
+   @PostConstruct
+   public void inicializarAdministrador() {
+      try {
+         FacesContext x = FacesContext.getCurrentInstance();
+         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
+         administrarHistoriaFormula.obtenerConexion(ses.getId());
+         administrarRastros.obtenerConexion(ses.getId());
+      } catch (Exception e) {
+         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
+         System.out.println("Causa: " + e.getCause());
+      }
+   }
+
    public void recibirPaginaEntrante(String pagina) {
       paginaAnterior = pagina;
       //inicializarCosas(); Inicializar cosas de ser necesario
@@ -278,19 +291,6 @@ public class ControlHistoriaFormula implements Serializable {
 
   public void limpiarListasValor() {
 
-   }
-
-   @PostConstruct
-   public void inicializarAdministrador() {
-      try {
-         FacesContext x = FacesContext.getCurrentInstance();
-         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
-         administrarHistoriaFormula.obtenerConexion(ses.getId());
-         administrarRastros.obtenerConexion(ses.getId());
-      } catch (Exception e) {
-         System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
-         System.out.println("Causa: " + e.getCause());
-      }
    }
 
    public boolean validarSolapamientoFechas(int i) {

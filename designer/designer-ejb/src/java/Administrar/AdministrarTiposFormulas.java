@@ -44,9 +44,9 @@ public class AdministrarTiposFormulas implements AdministrarTiposFormulasInterfa
     }    
 
     @Override
-    public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando, String tipoOperando) {
+    public List<TiposFormulas> buscarTiposFormulas(BigInteger secuenciaOperando) {
         List<TiposFormulas> listaTiposFormulas;
-        listaTiposFormulas = persistenciaTiposFormulas.tiposFormulas(em, secuenciaOperando, tipoOperando);
+        listaTiposFormulas = persistenciaTiposFormulas.tiposFormulas(em, secuenciaOperando);
         return listaTiposFormulas;
     }
 

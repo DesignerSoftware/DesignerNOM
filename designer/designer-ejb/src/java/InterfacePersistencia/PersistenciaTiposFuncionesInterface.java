@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
  */
 public interface PersistenciaTiposFuncionesInterface {
     
-    public List<TiposFunciones> tiposFunciones(EntityManager em, BigInteger secuenciaOperando, String tipo);
+    public List<TiposFunciones> tiposFunciones(EntityManager em, BigInteger secuenciaOperando);
     
     public void crear(EntityManager em, TiposFunciones tiposFunciones);
 

@@ -7,382 +7,412 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:lnk="http://java.sun.com/jsf/composite/linkare">
 
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/template.xhtml">
-            <ui:define name="body">                  
-                <h:form id="form">
-                    <p:growl id="growl" showDetail="true"/>
-                    <f:loadBundle basename="Recursos.tipobloque" var="msg" />
+   <h:head>
+      <title>Facelet Title</title>
+   </h:head>
+   <h:body>
+      <ui:composition template="/template.xhtml">
+         <ui:define name="body">                  
+            <h:form id="form">
+               <p:growl id="growl" showDetail="true"/>
+               <f:loadBundle basename="Recursos.tipobloque" var="msg" />
 
-                    <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
-                        <p:commandButton style="position: absolute; left: 15px; top: 470px;" icon="ui-icon-refresh" id="REFRESCAR" value="#{msg['refrescar']}" actionListener="#{controlTipoBloque.cancelarModificacion()}" process="@this" />
-                        <fieldset style="position: absolute;top: 80px;left: 10px;height: 350px;width: 830px; border-radius: 10px; text-align: left">
-                            <legend style="font-size: 14px; color: #14388B"><strong>#{msg['bloque']}</strong></legend>
+               <p:panel  id="PanelTotal" header="#{msg['titulo']}" styleClass="panelTotal">  
 
-                            <p:dataTable id="datosTiposBloques" var="tc" rowKey="#{tc.secuencia}" rowIndexVar="indice" style=" border: 1px;width: 830px;"                         
-                                         value="#{controlTipoBloque.listaTiposBloques}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoBloque.altoTabla}"
-                                         filteredValue="#{controlTipoBloque.filtradosListaTiposBloques}" emptyMessage="#{msg['vacio']}"
-                                         editable="true" editMode="cell" 
-                                         selectionMode="single" selection="#{controlTipoBloque.tipoBloqueSeleccionado}">
-                                <p:ajax listener="#{controlTipoBloque.eventoFiltrar()}" event="filter"/>
+                  <p:toolbar styleClass="cssToolbar">  
+                     <p:toolbarGroup align="left"> 
 
-                                <p:column headerText="#{msg['fechainicial']}" sortBy="#{tc.fechainicial}" filterBy="#{tc.fechainicial}" filterMatchMode="contains"  width="15%" id="tiposBloquesIniciales" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.fechainicial}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
-                                                <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechainicial)}" update="@this"/>
-                                                <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechainicial)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(indice, 0)}" process="@this" />
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);"
+                                         actionListener="#{controlTipoBloque.guardarCambiosTiposBloques()}" process="@this" />
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);"
+                                         actionListener="#{controlTipoBloque.editarCelda()}" process="@this"/>
+                        <p:tooltip  for="editar" value="#{msg['editar']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['fechainicial']}" />
-                                    </f:facet>
-                                </p:column>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:column headerText="#{msg['fechafinal']}" sortBy="#{tc.fechafinal}" filterBy="#{tc.fechafinal}" filterMatchMode="contains"  width="15%" id="tiposBloquesFinales" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.fechafinal}" >
-                                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
-                                                <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechafinal)}" update="@this"/>
-                                                <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.fechafinal)}" update="@this" />
-                                                <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(indice, 1)}" process="@this" />
-                                            </p:calendar>
-                                        </f:facet>   
-                                    </p:cellEditor>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" disabled="true" process="@this"/>
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
 
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['fechafinal']}" />
-                                    </f:facet>
-                                </p:column>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);"
+                                         actionListener="#{controlTipoBloque.activarCtrlF11()}" process="@this"/>
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:column headerText="#{msg['tipo']}" style="padding: 0px;" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="tiposBloquesTipos" width="20%" filterStyle="display: none; visibility: hidden;" >                                  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.estadoTipo}"  style="text-transform: uppercase; margin-left:10px">
-                                            </h:outputText>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:selectOneMenu  id="editarTipos" value="#{tc.estadoTipo}" style="width: 99.9%; height: 22px">  
-                                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                                <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />      
-                                                <p:ajax listener="#{controlTipoConstante.seleccionarTipo(tc.estadoTipo, indice, celda)}" event="change" update="editarTipos" />
-                                            </p:selectOneMenu>
-                                        </f:facet>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);"
+                                         ajax="false" actionListener="#{controlTipoBloque.exportXLS()}" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
 
-                                        <f:facet name="footer">
-                                            <h:outputText value="#{msg['tipo']}" />
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);"
+                                         actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" ajax="false">
+                           <p:dataExporter type="xml"  target=":formExportar:datosTiposBloquesExportar" fileName="TiposBloquesXML" encoding="UTF-8"/> 
+                        </p:commandButton> 
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
 
-                                <p:column headerText="#{msg['codigoplsql']}" width="50%" sortBy="#{tc.bloqueplsql}" filterBy="#{tc.bloqueplsql}"  filterMatchMode="contains" id="tiposBloquesSQL" filterStyle="display: none; visibility: hidden;"  >  
-                                    <p:cellEditor>  
-                                        <f:facet name="output">
-                                            <h:outputText value="#{tc.bloqueplsql}"  style="text-transform: uppercase;">
-                                            </h:outputText>
-                                        </f:facet>  
-                                        <f:facet name="input">
-                                            <p:inputText  autocomplete="off"  value="#{tc.bloqueplsql}" id="editarPLSQL" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
-                                                <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(indice, 3)}" process="@this" />
-                                                <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', tc.bloqueplsql)}" update="@this" />
-                                            </p:inputText> 
-                                        </f:facet>   
-                                    </p:cellEditor>
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{msg['codigoplsql']}" />
-                                    </f:facet>
-                                </p:column>
-                            </p:dataTable>
-                        </fieldset>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);"
+                                         actionListener="#{controlTipoBloque.exportPDF()}" ajax="false"/>
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
 
-                        <p:toolbar styleClass="cssToolbar">  
-                            <p:toolbarGroup align="left"> 
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
+                                         oncomplete="PF('NuevoTipoBloque').show()" update=":formularioDialogos:nuevoTipoBloque" process="@this"/> 
+                        <p:tooltip  for="insertar" value="#{msg['nuevoregistro']}" />
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); " actionListener="#{controlTipoBloque.guardarCambiosTiposBloques()}" process="@this" />
-                                <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png) " actionListener="#{controlTipoBloque.editarCelda()}" process="@this"/>
-                                <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);"
+                                         actionListener="#{controlTipoBloque.borrarTipoBloque()}" process="@this"/>  
+                        <p:tooltip  for="eliminar" value="#{msg['eliminarregistro']}" />
 
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);"
+                                         actionListener="#{controlTipoBloque.duplicarTC()}"  process="@this"/>  
+                        <p:tooltip  for="duplicar" value="#{msg['duplicarregistro']}" />
 
-                                <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png) " disabled="true" actionListener="#{controlTipoFormula.listaValoresBoton()}" process="@this"/>
-                                <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);"
+                                         actionListener="#{controlTipoBloque.verificarRastro()}" process="@this"/>  
+                        <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png) " actionListener="#{controlTipoBloque.activarCtrlF11()}" process="@this"/>
-                                <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
-                                <p:separator style="position: relative; top: -9px"/>
+                        <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png) " ajax="false" actionListener="#{controlTipoBloque.exportXLS()}" />
-                                <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                                         actionListener="#{controlTipoBloque.cancelarModificacion()}" oncomplete="window.location.reload" process="@this"/>  
+                        <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/XML.png) " actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" ajax="false">
-                                    <p:dataExporter type="xml"  target=":formExportar:datosTiposBloquesExportar" fileName="TiposBloquesXML" encoding="UTF-8"/> 
-                                </p:commandButton> 
-                                <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:separator style="position: relative; top: -9px"/>
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);"
+                                         actionListener="#{controlTipoBloque.salir()}" process="@this"/>  
+                        <p:tooltip  for="salir" value="#{msg['salir']}"/>
+                     </p:toolbarGroup>
+                  </p:toolbar>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png) " actionListener="#{controlTipoBloque.exportPDF()}" ajax="false"/>
-                                <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                  <fieldset style="position: absolute; top: 70px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px;">
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png) " oncomplete="PF('NuevoTipoBloque').show()" update=":formularioDialogos:nuevoTipoBloque" process="@this"/> 
-                                <p:tooltip  for="insertar" value="#{msg['nuevoregistro']}" />
+                     <h:outputText value="#{msg['Operando']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />
+                     <h:outputText id="nombreEmpleadot" value="#{controlTipoBloque.operando.nombre}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 10px; top: 5px;"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png) " actionListener="#{controlTipoBloque.borrarTipoBloque()}" process="@this"/>  
-                                <p:tooltip  for="eliminar" value="#{msg['eliminarregistro']}" />
+                     <h:outputText value="#{msg['codigo']}" style="font-weight: bold; color: #14388B; position: relative; left: 120px; top: 5px;" />
+                     <h:outputText id="docEmpleado" value="#{controlTipoBloque.operando.codigo}" 
+                                   style="font-weight: bold; color: #BF1A1A; position: relative; left: 130px; top: 5px;" />
+                  </fieldset>
 
-                                <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png) " actionListener="#{controlTipoBloque.duplicarTC()}"  process="@this"/>  
-                                <p:tooltip  for="duplicar" value="#{msg['duplicarregistro']}" />
+                  <fieldset style="position: absolute; top: 107px; left: 10px; height: 370px; width: 830px; border-radius: 10px; text-align: left;">
+                     <legend style="color: #14388B;"><strong>#{msg['bloque']}</strong></legend>
 
-                                <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png) " actionListener="#{controlTipoBloque.verificarRastro()}" process="@this"/>  
-                                <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
-                            </p:toolbarGroup>
-                        </p:toolbar>
+                     <p:dataTable id="datosTiposBloques" var="tc" rowKey="#{tc.secuencia}" rowIndexVar="indice" style="width: 830px;"                         
+                                  value="#{controlTipoBloque.listaTiposBloques}" scrollable="true" scrollWidth="830" scrollHeight="#{controlTipoBloque.altoTabla}"
+                                  filteredValue="#{controlTipoBloque.filtradosListaTiposBloques}" emptyMessage="#{msg['vacio']}"
+                                  editable="true" editMode="cell" 
+                                  selectionMode="single" selection="#{controlTipoBloque.tipoBloqueSeleccionado}">
+                        <p:ajax listener="#{controlTipoBloque.eventoFiltrar()}" event="filter"/>
 
-                        <p:remoteCommand name="dirigirDependencia" actionListener="#{controlDependenciaOperando.recibirDatosOperando(controlTipoBloque.secOperando2 ,controlTipoBloque.operando2)}" action="dependencia" process="@this"/>
-
-                        <p:commandButton style="position: absolute; left: 517px; top: 470px;" icon="ui-icon-check" id="DEPENDENCIA" value="#{msg['dependencia']}" actionListener="#{controlTipoBloque.guardarVariables(controlTipoBloque.index, controlTipoBloque.secuenciaOperando)}" process="@this" />
-                        <p:commandButton style="position: absolute; left: 700px; top: 470px;" icon="ui-icon-check" id="ACEPTAR" disabled="#{controlTipoBloque.cambiosPagina}" value="#{msg['aceptar']}" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposBloques" process="@this" />
-                        <p:commandButton style="position: absolute; left: 783px; top: 470px;" icon="ui-icon-arrowreturnthick-1-w" id="ATRAS" value="#{msg['atras']}" actionListener="#{controlTipoBloque.salir()}" action="operando" process="@this" />
-                    </p:panel>
-                </h:form>
-
-                <h:form id="formularioDialogos">
-
-                    <!--HotKey-->
-                    <p:hotkey bind="ctrl+f11" actionListener="#{controlTipoBloque.activarCtrlF11()}" process="@this"/> 
-
-                    <!-- DIALOGOS EDITAR -->
-
-                    <p:dialog id="editarSQL" header="#{msg['editarSQL']}" widgetVar="editarSQL" resizable="false" draggable="true" modal="true" height="510" width="650" >  
-                        <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.bloqueplsql}" style="overflow: auto; width: 605px; height: 450px">
-                            <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(indice, 'N', controlTipoBloque.editarTiposBloques.bloqueplsql)}" update="@this" />
-                        </p:inputTextarea>
-                        <p:commandButton id="aceptarSQL" value="#{msg['aceptar']}" actionListener="#{controlTipoBloque.cambiarEditor()}" onclick="PF('editarSQL').hide();" style="position: absolute; top: 470px; left: 450px; " process="@this"/>
-                        <p:commandButton id="cancelarSQL" value="#{msg['atras']}" onclick="PF('editarSQL').hide();" style="position: absolute; top: 470px; left: 533px; " process="@this"/>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
-                        <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.fechainicial}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-
-                    <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
-                        <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.fechafinal}" style="overflow: auto;" readonly="true">                        
-                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                        </p:inputTextarea>
-                    </p:dialog>
-                              
-                    <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoBloque.guardarCambiosTiposBloques()}" action="operando" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoBloque.cancelarModificacion()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
-                        <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
-                    </p:dialog>
-
-                    <!-- Nuevo Registro -->
-
-                    <p:dialog id="NuevoTipoBloque" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoBloque" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="350" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="nuevoTipoBloque" style="border: none;">
-
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
-                            <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
-                           
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:selectOneMenu  id="nuevoTipo" value="#{controlTipoBloque.nuevoTipoBloque.estadoTipo}" style="position:absolute; top:160px; left:150px;width: 145px; height: 22px">  
-                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                <f:selectItem itemLabel="#{msg['caracter']}" itemValue="CARACTER" />  
-                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                <p:ajax listener="#{controlTipoBloque.seleccionarTipoNuevoTipoBloque(controlTipoBloque.nuevoTipoBloque.estadoTipo, 1)}" event="change" update="nuevoTipo" />
-                            </p:selectOneMenu>
-
-                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="nuevoCodigoPLSQL" value="#{controlTipoBloque.nuevoTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-
-                            <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" process="@this"/>
-                            <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 240px;"  actionListener="#{controlTipoBloque.agregarNuevoTipoBloque()}" process="@this"/>
-                            <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" onclick="PF('NuevoTipoBloque').hide();" process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <!-- Duplicar Registro --> 
-
-                    <p:dialog id="DuplicarTipoBloque" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoBloque" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="350" style=" padding: 0px">  
-
-                        <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
-
-                        <p:panel id="duplicarTipoBloque" style="border: none;">
-
-                            <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
-                            
-                            <div style=" position: absolute; top: 80px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
-                           
-                            <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
-                            <div style=" position: absolute; top: 120px; left: 150px;">
-                                <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
-                                    <p:ajax event="dateSelect" update="@this"/>
-                                    <p:ajax event="change" update="@this"/>
-                                </p:calendar>
-                            </div>
-
-                            <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px;" /></strong>
-                            <p:selectOneMenu  id="duplicarTipo" value="#{controlTipoBloque.duplicarTipoBloque.estadoTipo}" style="position:absolute; top:160px; left:150px;width: 160px; height: 22px">  
-                                <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
-                                <f:selectItem itemLabel="#{msg['caracter']}" itemValue="CARACTER" />  
-                                <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
-                                <p:ajax listener="#{controlTipoBloque.seleccionarTipoNuevoTipoBloque(controlTipoBloque.duplicarTipoBloque.estadoTipo, 2)}" event="change" update="duplicarTipo" />
-                            </p:selectOneMenu>
-
-                            <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 205px;" /></strong>
-                            <p:inputText  autocomplete="off"  id="duplicarCodigoPLSQL" value="#{controlTipoBloque.duplicarTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
-                                <p:ajax event="change" update="@this"/>
-                            </p:inputText>
-
-                            <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlTipoBloque.limpiarDuplicarTiposBloques()}" update="duplicarTipoBloque" process="@this"/>
-                            <p:commandButton id="agregarD" value="#{msg['agregar']}" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlTipoBloque.confirmarDuplicar()}" process="@this"/>
-                            <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlTipoBloque.limpiarDuplicarTiposBloques()}" update="duplicarTipoBloque" onclick="PF('DuplicarTipoBloque').hide();"  process="@this"/>
-                        </p:panel>
-                    </p:dialog>
-
-                    <p:dialog id="validacionNuevoTipoBloque" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoBloque"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoBloque.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoBloque').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
-                        <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
-                    </p:dialog>
-
-                    <!-- DIALOGOS RASTROS -->
-
-                    <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoBloque.secRegistro, 'TiposBloques', 'tiposbloques')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposBloques', 'tiposbloques')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
-                        <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
-                        <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoBloque.secRegistro, 'TiposBloques', 'tiposbloques')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
-                        <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
-                    </p:dialog>
-
-                    <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
-                    </p:dialog>
-
-                    <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-
-                    <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
-                        <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
-                        <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
-                    </p:dialog>
-                </h:form>
-                <h:form id="formExportar">
-                    <p:dataTable id="datosTiposBloquesExportar" var="tc" style="visibility: hidden; display: none;"                           
-                                 value="#{controlTipoBloque.listaTiposBloques}"> 
-                        <!--COLUMNAS TABLA Inforeportes--> 
-
-                        <p:column headerText="#{msg['fechainicialXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechainicialX']}" />
-                            </f:facet>
-                            <h:outputText value="#{tc.fechainicial}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['fechainicial']}" sortBy="#{tc.fechainicial}" filterBy="#{tc.fechainicial}" filterMatchMode="contains"  width="15%" id="tiposBloquesIniciales" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.fechainicial}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaInicial" value="#{tc.fechainicial}">
+                                    <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechainicial)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechainicial)}" update="@this" />
+                                    <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 0)}" process="@this" />
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['fechafinalXX']}">  
-                            <f:facet name="header">
-                                <h:outputText value="#{msg['fechafinalX']}" />
-                            </f:facet>
-                            <h:outputText value="#{tc.fechafinal}" >
-                                <f:convertDateTime pattern="dd/MM/yyyy" />
-                            </h:outputText>
+                        <p:column headerText="#{msg['fechafinal']}" sortBy="#{tc.fechafinal}" filterBy="#{tc.fechafinal}" filterMatchMode="contains"  width="15%" id="tiposBloquesFinales" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.fechafinal}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="editFechaFinal" value="#{tc.fechafinal}">
+                                    <p:ajax event="dateSelect" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechafinal)}" update="@this"/>
+                                    <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.fechafinal)}" update="@this" />
+                                    <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 1)}" process="@this" />
+                                 </p:calendar>
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value="" />
+                           </f:facet>
                         </p:column>
 
-                        <p:column headerText="#{msg['tipoX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/></f:facet>
-                            <h:outputText value="#{tc.estadoTipo}" />
+                        <p:column headerText="#{msg['tipo']}" style="padding: 0px;" sortBy="#{tc.tipo}" filterBy="#{tc.tipo}" filterMatchMode="contains" id="tiposBloquesTipos" width="20%" filterStyle="display: none; visibility: hidden;" >                                  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.estadoTipo}"  style="text-transform: uppercase; margin-left:10px">
+                                 </h:outputText>
+                              </f:facet>
+                              <f:facet name="input">
+                                 <p:selectOneMenu  id="editarTipos" value="#{tc.estadoTipo}" style="width: 99.9%; height: 22px">  
+                                    <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                                    <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                                    <f:selectItem itemLabel="#{msg['cadena']}" itemValue="CADENA" />      
+                                    <p:ajax listener="#{controlTipoConstante.seleccionarTipo(tc.estadoTipo, indice, celda)}" event="change" update="editarTipos" />
+                                 </p:selectOneMenu>
+                              </f:facet>
+                              <f:facet name="footer">
+                                 <h:outputText value="" />
+                              </f:facet>
+                           </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msg['plsqlX']}">
-                            <f:facet name="header"><h:outputText value="#{msg['plsqlX']}"/></f:facet>
-                            <h:outputText value="#{tc.bloqueplsql}" />
+                        <p:column headerText="#{msg['codigoplsql']}" width="50%" sortBy="#{tc.bloqueplsql}" filterBy="#{tc.bloqueplsql}"  filterMatchMode="contains" id="tiposBloquesSQL" filterStyle="display: none; visibility: hidden;"  >  
+                           <p:cellEditor>  
+                              <f:facet name="output">
+                                 <h:outputText value="#{tc.bloqueplsql}"  style="text-transform: uppercase;">
+                                 </h:outputText>
+                              </f:facet>  
+                              <f:facet name="input">
+                                 <p:inputText  autocomplete="off"  value="#{tc.bloqueplsql}" id="editarPLSQL" style=" border-radius: 0px; width: 99.5%; text-transform: uppercase; height: 12px"> 
+                                    <p:ajax event="select" listener="#{controlTipoBloque.cambiarIndice(tc, 3)}" process="@this" />
+                                    <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(tc, 'N', tc.bloqueplsql)}" update="@this" />
+                                 </p:inputText> 
+                              </f:facet>   
+                           </p:cellEditor>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
                         </p:column>
+                     </p:dataTable>
+                     <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlTipoBloque.infoRegistro}" style="display: table; position: relative; left: 5px; top: 0px; font-weight: bold;"/>
+                     <p:commandButton style="position: absolute; left: 700px; top: 334px;" class="cssBoton" icon="ui-icon-extlink" id="DEPENDENCIA" value="#{msg['dependencia']}" actionListener="#{controlTipoBloque.guardarVariables()}" process="@this" />
+                  </fieldset>
 
-                    </p:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>          
-    </h:body>
+                  <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlTipoBloque.cambiosPagina}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosTiposBloques" process="@this" />
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlTipoBloque.salir()}" process="@this" />
+
+                  <p:remoteCommand name="dirigirDependencia" actionListener="#{controlDependenciaOperando.recibirDatosOperando(controlTipoBloque.tipoBloqueSeleccionado)}" action="dependencia" process="@this"/>
+               </p:panel>
+            </h:form>
+
+            <h:form id="formularioDialogos">
+
+               <!--HotKey-->
+               <p:hotkey bind="ctrl+f11" actionListener="#{controlTipoBloque.activarCtrlF11()}" process="@this"/> 
+
+               <!-- DIALOGOS EDITAR -->
+
+               <p:dialog id="editarSQL" header="#{msg['editarSQL']}" widgetVar="editarSQL" resizable="false" draggable="true" modal="true" height="510" width="650" >  
+                  <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.bloqueplsql}" style="overflow: auto; width: 605px; height: 450px">
+                     <p:ajax event="change" listener="#{controlTipoBloque.modificarTiposBloques(editarTiposBloques, 'N', controlTipoBloque.editarTiposBloques.bloqueplsql)}" update="@this" />
+                  </p:inputTextarea>
+                  <p:commandButton id="aceptarSQL" value="#{msg['aceptar']}" actionListener="#{controlTipoBloque.cambiarEditor()}" onclick="PF('editarSQL').hide();" style="position: absolute; top: 470px; left: 450px; " process="@this"/>
+                  <p:commandButton id="cancelarSQL" value="#{msg['atras']}" onclick="PF('editarSQL').hide();" style="position: absolute; top: 470px; left: 533px; " process="@this"/>
+               </p:dialog>
+
+               <p:dialog id="editarFechasIniciales" header="#{msg['editarFechasIniciales']}" widgetVar="editarFechasIniciales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" style=" padding: 0px">  
+                  <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.fechainicial}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="editarFechasFinales" header="#{msg['editarFechasFinales']}" widgetVar="editarFechasFinales" resizable="false" draggable="true" modal="true" height="80" width="400" class="cssDialogosEditar" >  
+                  <p:inputTextarea value="#{controlTipoBloque.editarTiposBloques.fechafinal}" style="overflow: auto;" readonly="true">                        
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                  </p:inputTextarea>
+               </p:dialog>
+
+               <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight:bold;" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoBloque.guardarYSalir()}" style="position: absolute; top: 50px; left: 207px;" process="@this" icon="ui-icon-check" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlTipoBloque.cancelarYSalir()}" style="position: absolute; top: 50px; left: 258px;" process="@this" icon="ui-icon-close" />
+                  <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 315px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
+               </p:dialog>
+
+               <!-- Nuevo Registro -->
+
+               <p:dialog id="NuevoTipoBloque" header="#{msg['nuevoregistro']}" widgetVar="NuevoTipoBloque" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="350" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="nuevoTipoBloque" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
+                     <div style=" position: absolute; top: 80px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaInicial" value="#{controlTipoBloque.nuevoTipoBloque.fechainicial}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
+                     <div style=" position: absolute; top: 120px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="nuevaFechaFinal" value="#{controlTipoBloque.nuevoTipoBloque.fechafinal}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <p:selectOneMenu  id="nuevoTipo" value="#{controlTipoBloque.nuevoTipoBloque.estadoTipo}" style="position:absolute; top:160px; left:150px;width: 145px; height: 22px">  
+                        <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                        <f:selectItem itemLabel="#{msg['caracter']}" itemValue="CARACTER" />  
+                        <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                        <p:ajax listener="#{controlTipoBloque.seleccionarTipoNuevoTipoBloque(controlTipoBloque.nuevoTipoBloque.estadoTipo, 1)}" event="change" update="nuevoTipo" />
+                     </p:selectOneMenu>
+
+                     <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="nuevoCodigoPLSQL" value="#{controlTipoBloque.nuevoTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+
+                     <p:commandButton id="limpiar" value="#{msg['limpiar']}" icon="ui-icon-trash" style=" position: absolute; left: 20px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" process="@this"/>
+                     <p:commandButton id="agregarN" value="#{msg['agregar']}" icon="ui-icon-circle-check" style=" position: absolute; left: 150px; top: 240px;"  actionListener="#{controlTipoBloque.agregarNuevoTipoBloque()}" process="@this"/>
+                     <p:commandButton id="cancelarN" value="#{msg['cancelar']}" icon="ui-icon-circle-close" style=" position: absolute; left: 240px; top: 240px;" actionListener="#{controlTipoBloque.limpiarNuevoTiposBloques()}" update="nuevoTipoBloque" onclick="PF('NuevoTipoBloque').hide();" process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <!-- Duplicar Registro --> 
+
+               <p:dialog id="DuplicarTipoBloque" header="#{msg['duplicarregistro']}" widgetVar="DuplicarTipoBloque" closable="false" resizable="false"  draggable="true" modal="true" height="280" width="350" style=" padding: 0px">  
+
+                  <center><strong><h:outputText value="#{msg['ingresarnuevo']}" style="font-size: 14px; color: blue; position: relative; top: 10px;" /></strong></center> 
+
+                  <p:panel id="duplicarTipoBloque" style="border: none;">
+
+                     <strong><h:outputText value="#{msg['inicialN']}" style=" position: absolute; top: 85px;" /></strong>
+
+                     <div style=" position: absolute; top: 80px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaInicial" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['finalN']}" style=" position: absolute; top: 125px;" /></strong>
+                     <div style=" position: absolute; top: 120px; left: 150px;">
+                        <p:calendar  autocomplete="off"  mask="true" pattern="dd/MM/yyyy" id="duplicarFechaFinal" value="#{controlTipoBloque.duplicarTipoBloque.fechainicial}">
+                           <p:ajax event="dateSelect" update="@this"/>
+                           <p:ajax event="change" update="@this"/>
+                        </p:calendar>
+                     </div>
+
+                     <strong><h:outputText value="#{msg['tipoN']}" style=" position: absolute; top: 165px;" /></strong>
+                     <p:selectOneMenu  id="duplicarTipo" value="#{controlTipoBloque.duplicarTipoBloque.estadoTipo}" style="position:absolute; top:160px; left:150px;width: 160px; height: 22px">  
+                        <f:selectItem itemLabel="#{msg['numerico']}" itemValue="NUMERICO" />  
+                        <f:selectItem itemLabel="#{msg['caracter']}" itemValue="CARACTER" />  
+                        <f:selectItem itemLabel="#{msg['fecha']}" itemValue="FECHA" />  
+                        <p:ajax listener="#{controlTipoBloque.seleccionarTipoNuevoTipoBloque(controlTipoBloque.duplicarTipoBloque.estadoTipo, 2)}" event="change" update="duplicarTipo" />
+                     </p:selectOneMenu>
+
+                     <strong><h:outputText value="#{msg['codigoN']}" style=" position: absolute; top: 205px;" /></strong>
+                     <p:inputText  autocomplete="off"  id="duplicarCodigoPLSQL" value="#{controlTipoBloque.duplicarTipoBloque.bloqueplsql}" style=" width: 122px; position: absolute; left: 150px; top: 200px; text-transform: uppercase" >
+                        <p:ajax event="change" update="@this"/>
+                     </p:inputText>
+
+                     <p:commandButton id="limpiarD" value="#{msg['limpiar']}" style=" position: absolute; left: 20px; top: 240px;" icon="ui-icon-trash" actionListener="#{controlTipoBloque.limpiarDuplicarTiposBloques()}" update="duplicarTipoBloque" process="@this"/>
+                     <p:commandButton id="agregarD" value="#{msg['agregar']}" style=" position: absolute; left: 150px; top: 240px;" icon="ui-icon-circle-check" actionListener="#{controlTipoBloque.confirmarDuplicar()}" process="@this"/>
+                     <p:commandButton id="cancelarD" value="#{msg['cancelar']}" style=" position: absolute; left: 240px; top: 240px;" icon="ui-icon-circle-close" actionListener="#{controlTipoBloque.limpiarDuplicarTiposBloques()}" update="duplicarTipoBloque" onclick="PF('DuplicarTipoBloque').hide();"  process="@this"/>
+                  </p:panel>
+               </p:dialog>
+
+               <p:dialog id="validacionNuevoTipoBloque" header="#{msg['atencion']}" widgetVar="validacionNuevoTipoBloque"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['validacionNuevo']}  #{controlTipoBloque.mensajeValidacion}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('validacionNuevoTipoBloque').hide();" style="position: absolute; top: 50px; left: 300px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorFechas" header="#{msg['atencion']}" widgetVar="errorFechas"  resizable="false" draggable="true" modal="true" height="95" width="400"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="50" style="position: absolute; left: 30px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorFechas']}" style="position: absolute; left: 100px; top: 20px; width: 300px;" />
+                  <p:commandButton value="#{msg['aceptar']}" onclick="PF('errorFechas').hide();" style="position: absolute; top: 60px; left: 300px;" process="@this" />
+               </p:dialog>
+
+               <!-- DIALOGOS RASTROS -->
+
+               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoBloque.tipoBloqueSeleccionado.secuencia, 'TiposBloques', 'tiposbloques')}" style="position: absolute; top: 63px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('TiposBloques', 'tiposbloques')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+                  <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight:bold; text-align: center" />
+                  <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoBloque.tipoBloqueSeleccionado.secuencia, 'TiposBloques', 'tiposbloques')}" style="position: absolute; top: 60px; left: 230px;" action="rastrotabla" process="@this" />
+                  <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this" />
+               </p:dialog>
+
+               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
+               </p:dialog>
+
+               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+
+               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
+                  <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 70px; top: 10px; width: 185px; font-weight:bold;" />
+               </p:dialog>
+            </h:form>
+            <h:form id="formExportar">
+               <p:dataTable id="datosTiposBloquesExportar" var="tc" style="visibility: hidden; display: none;"                           
+                            value="#{controlTipoBloque.listaTiposBloques}"> 
+                  <!--COLUMNAS TABLA Inforeportes--> 
+
+                  <p:column headerText="#{msg['fechainicialXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechainicialX']}" />
+                     </f:facet>
+                     <h:outputText value="#{tc.fechainicial}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['fechafinalXX']}">  
+                     <f:facet name="header">
+                        <h:outputText value="#{msg['fechafinalX']}" />
+                     </f:facet>
+                     <h:outputText value="#{tc.fechafinal}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                     </h:outputText>
+                  </p:column>
+
+                  <p:column headerText="#{msg['tipoX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['tipoX']}"/></f:facet>
+                     <h:outputText value="#{tc.estadoTipo}" />
+                  </p:column>
+
+                  <p:column headerText="#{msg['plsqlX']}">
+                     <f:facet name="header"><h:outputText value="#{msg['plsqlX']}"/></f:facet>
+                     <h:outputText value="#{tc.bloqueplsql}" />
+                  </p:column>
+
+               </p:dataTable>
+            </h:form>
+         </ui:define>
+      </ui:composition>          
+   </h:body>
 </html>
 

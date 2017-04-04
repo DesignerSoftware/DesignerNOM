@@ -13,7 +13,6 @@
          <ui:define name="body">   
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
@@ -438,8 +437,8 @@
                      </p:dataTable>
                   </fieldset>
 
-                  <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 475px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                   background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="OPERANDOS" value="[Operandos]" process="@this"/>
+                  <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 475px;" class="cssBotonLargo" action="operando"
+                                   actionListener="#{controlOperando.recibirPaginaEntrante('historiaformula')}" id="OPERANDOS" value="[Operandos]" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="OPERANDOS" value="Visualizar Operandos."/>
                   <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 180px; top: 475px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
                                    background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="CAMBIOANUAL" value="[Cambio Anual]" process="@this"/>
@@ -478,7 +477,7 @@
                <p:dialog id="confirmarRastro" header="Información" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
                                    icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" onclick="PF('confirmarRastro').hide();"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    icon="ui-icon-close" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
@@ -487,7 +486,7 @@
                <p:dialog id="confirmarRastroHistorico" header="Información" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
-                  <p:commandButton value="Si" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                  <p:commandButton value="Si" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
                                    style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>
@@ -506,7 +505,7 @@
                <p:dialog id="errorTablaConRastro" header="Información" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" style="font-size: 12px;" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
-                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaFormulaRastro')}"
+                  <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
                                    style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>

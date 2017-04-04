@@ -33,9 +33,19 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
    public List<Operandos> buscarOperandos(EntityManager em) {
       try {
          em.clear();
+//         System.out.println("PersistenciaOperandos.buscarOperandos() 1");
+//         Query q = em.createNativeQuery("SELECT * FROM OPERANDOS", Operandos.class);
+//         System.out.println("PersistenciaOperandos.buscarOperandos() 2");
+//         List<Operandos> lista = q.getResultList();
+//         if (lista != null) {
+//            System.out.println("PersistenciaOperandos.buscarOperandos() lista.size() : " + lista.size());
+//         }
          CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+         System.out.println("PersistenciaOperandos.buscarOperandos() 1");
          cq.select(cq.from(Operandos.class));
-         return em.createQuery(cq).getResultList();
+         System.out.println("PersistenciaOperandos.buscarOperandos() 2");
+         List<Operandos> lista = em.createQuery(cq).getResultList();
+         return lista;
       } catch (Exception e) {
          System.out.println("Error buscarOperandos PersistenciaOperandos : " + e.toString());
          return null;
@@ -76,10 +86,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
-            if (tx.isActive()) {
-               tx.rollback();
-            }
+         System.out.println("Persistencia.PersistenciaOperandos.crear()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
       }
    }
 
@@ -92,10 +102,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.merge(operandos);
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
-            if (tx.isActive()) {
-               tx.rollback();
-            }
+         System.out.println("Persistencia.PersistenciaOperandos.editar()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
       }
    }
 
@@ -108,10 +118,10 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
          em.remove(em.merge(operandos));
          tx.commit();
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
-            if (tx.isActive()) {
-               tx.rollback();
-            }
+         System.out.println("Persistencia.PersistenciaOperandos.borrar()" + e.getMessage());
+         if (tx.isActive()) {
+            tx.rollback();
+         }
       }
    }
 
@@ -120,13 +130,13 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
       try {
          em.clear();
          String valor;
-         Query query = em.createNativeQuery("SELECT DECODE(tc.tipo,'C',tc.valorstring,'N',to_char(tc.valorreal),to_char(tc.valordate,'DD/MM/YYYY')) FROM TIPOSCONSTANTES tc WHERE tc.operando=? AND tc.fechainicial=(select max(tci.fechainicial) from tiposconstantes tci WHERE tci.operando= ?)");
+         Query query = em.createNativeQuery("SELECT DECODE(tc.tipo,'C',tc.valorstring,'N',to_char(tc.valorreal),to_char(tc.valordate,'DD/MM/YYYY')) FROM TIPOSCONSTANTES tc WHERE tc.operando=? AND tc.fechainicial=(select max(tci.fechainicial) from tiposconstantes tci WHERE tci.operando= tc.operando)");
          query.setParameter(1, secuenciaOperando);
-         query.setParameter(2, secuenciaOperando);
+//         query.setParameter(2, secuenciaOperando);
          valor = (String) query.getSingleResult();
          return valor;
       } catch (Exception e) {
-          System.out.println("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
+//          System.out.println("Persistencia.PersistenciaOperandos.valores()" + e.getMessage());
          return null;
       }
    }

@@ -23,7 +23,7 @@ public interface AdministrarTiposConstantesInterface {
      */
     public void obtenerConexion(String idSesion);
     
-    public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando, String tipoOperando);
+    public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando);
 
     public void borrarTiposConstantes(TiposConstantes tiposConstantes);
 

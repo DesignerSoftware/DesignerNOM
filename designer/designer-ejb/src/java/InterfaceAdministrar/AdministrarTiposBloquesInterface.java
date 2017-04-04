@@ -22,7 +22,7 @@ public interface AdministrarTiposBloquesInterface {
      */
     public void obtenerConexion(String idSesion);
     
-    public List<TiposBloques> buscarTiposBloques(BigInteger secuenciaOperando, String tipoOperando);
+    public List<TiposBloques> buscarTiposBloques(BigInteger secuenciaOperando);
 
     public void borrarTiposBloques(TiposBloques tiposBloques);
 

@@ -15,19 +15,20 @@ import java.util.List;
  */
 public interface AdministrarTiposFuncionesInterface {
 
-    /**
-     * Método encargado de obtener el Entity Manager el cual tiene
-     * asociado la sesion del usuario que utiliza el aplicativo.
-     * @param idSesion Identificador se la sesion.
-     */
-    public void obtenerConexion(String idSesion);
-    
-    public List<TiposFunciones> buscarTiposFunciones(BigInteger secuenciaOperando, String tipoOperando);
+   /**
+    * Método encargado de obtener el Entity Manager el cual tiene asociado la
+    * sesion del usuario que utiliza el aplicativo.
+    *
+    * @param idSesion Identificador se la sesion.
+    */
+   public void obtenerConexion(String idSesion);
 
-    public void borrarTiposFunciones(TiposFunciones tiposFunciones);
+   public List<TiposFunciones> buscarTiposFunciones(BigInteger secuenciaOperando);
 
-    public void crearTiposFunciones(TiposFunciones tiposFunciones);
+   public void borrarTiposFunciones(TiposFunciones tiposFunciones);
 
-    public void modificarTiposFunciones(List<TiposFunciones> listaTiposFuncionesModificar);
+   public void crearTiposFunciones(TiposFunciones tiposFunciones);
+
+   public void modificarTiposFunciones(List<TiposFunciones> listaTiposFuncionesModificar);
 
 }

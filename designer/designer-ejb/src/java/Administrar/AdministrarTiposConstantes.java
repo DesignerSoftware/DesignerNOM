@@ -43,9 +43,9 @@ public class AdministrarTiposConstantes implements AdministrarTiposConstantesInt
     }    
 
     @Override
-    public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando, String tipoOperando) {
+    public List<TiposConstantes> buscarTiposConstantes(BigInteger secuenciaOperando) {
         List<TiposConstantes> listaTiposConstantes;
-        listaTiposConstantes = persistenciaTiposConstantes.tiposConstantes(em, secuenciaOperando, tipoOperando);
+        listaTiposConstantes = persistenciaTiposConstantes.tiposConstantes(em, secuenciaOperando);
         return listaTiposConstantes;
     }
 
