@@ -89,9 +89,9 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
       DetallesEmpresas detallesEmpresas;
       try {
          em.clear();
-         Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.codigo = :codigoEmpresa");
-         query.setParameter("codigoEmpresa", codigoEmpresa);
-         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+         Query query = em.createNativeQuery("SELECT de.* FROM DetallesEmpresas de, empresas e WHERE de.empresa = e.secuencia and e.codigo = " + codigoEmpresa);
+//         query.setParameter("codigoEmpresa", codigoEmpresa);
+//         query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          detallesEmpresas = (DetallesEmpresas) query.getSingleResult();
          return detallesEmpresas;
       } catch (Exception e) {
@@ -106,7 +106,7 @@ public class PersistenciaDetallesEmpresas implements PersistenciaDetallesEmpresa
       try {
          em.clear();
          DetallesEmpresas detallesEmpresas;
-         Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.empresa.secuencia =:secEmpresa");
+         Query query = em.createQuery("SELECT de FROM DetallesEmpresas de WHERE de.ref_empresa =:secEmpresa");
          query.setParameter("secEmpresa", secEmpresa);
          query.setHint("javax.persistence.cache.storeMode", "REFRESH");
          detallesEmpresas = (DetallesEmpresas) query.getSingleResult();

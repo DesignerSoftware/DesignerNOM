@@ -23,9 +23,8 @@ import ControlNavegacion.ControlListaNavegacion;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.component.column.Column;
 import org.primefaces.component.datatable.DataTable;
@@ -36,8 +35,8 @@ import org.primefaces.context.RequestContext;
  *
  * @author user
  */
-@ManagedBean
-@SessionScoped
+@Named(value = "controlTipoConstante")
+@javax.enterprise.context.SessionScoped
 public class ControlTipoConstante implements Serializable {
 
    @EJB
@@ -67,8 +66,8 @@ public class ControlTipoConstante implements Serializable {
    private boolean guardado;
    //Crear Novedades
    private List<TiposConstantes> listaTiposConstantesCrear;
-   public TiposConstantes nuevoTipoConstante;
-   public TiposConstantes duplicarTipoConstante;
+   private TiposConstantes nuevoTipoConstante;
+   private TiposConstantes duplicarTipoConstante;
    private int k;
    private BigInteger l;
    private String mensajeValidacion;
@@ -95,9 +94,10 @@ public class ControlTipoConstante implements Serializable {
    private boolean numericoBD;
    private boolean fechaBD;
    private boolean cadenaBD;
-   public String infoRegistro;
+   private String infoRegistro;
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
+   private DataTable tabla;
 
    public ControlTipoConstante() {
       cambiosPagina = true;
@@ -110,7 +110,7 @@ public class ControlTipoConstante implements Serializable {
       listaTiposConstantesBorrar = new ArrayList<TiposConstantes>();
       listaTiposConstantesCrear = new ArrayList<TiposConstantes>();
       listaTiposConstantesModificar = new ArrayList<TiposConstantes>();
-      altoTabla = "270";
+      altoTabla = "286";
       duplicarTipoConstante = new TiposConstantes();
       nuevoTipoConstante.setFechainicial(new Date());
       mapParametros.put("paginaAnterior", paginaAnterior);
@@ -161,7 +161,7 @@ public class ControlTipoConstante implements Serializable {
          //mas Parametros
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+         //           controlRastro.recibirDatosTabla(tipoConctanteSeleccionada.getSecuencia(), "Conceptos", pagActual);
          //      } else if (pag.equals("rastrotablaH")) {
          //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //     controlRastro.historicosTabla("Conceptos", pagActual);
@@ -169,7 +169,8 @@ public class ControlTipoConstante implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    //UBICACION CELDA
@@ -209,7 +210,7 @@ public class ControlTipoConstante implements Serializable {
    public void activarCtrlF11() {
       if (bandera == 0) {
          FacesContext c = FacesContext.getCurrentInstance();
-         altoTabla = "250";
+         altoTabla = "266";
          tiposConstantesTipos = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesTipos");
          tiposConstantesTipos.setFilterStyle("width: 85% !important;");
          tiposConstantesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesIniciales");
@@ -233,7 +234,7 @@ public class ControlTipoConstante implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "270";
+      altoTabla = "286";
       System.out.println("Desactivar");
       System.out.println("TipoLista= " + tipoLista);
       tiposConstantesTipos = (Column) c.getViewRoot().findComponent("form:datosTiposConstantes:tiposConstantesTipos");
@@ -255,7 +256,8 @@ public class ControlTipoConstante implements Serializable {
       tipoLista = 0;
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
@@ -315,9 +317,9 @@ public class ControlTipoConstante implements Serializable {
       listaTiposConstantesBorrar.clear();
       listaTiposConstantesCrear.clear();
       listaTiposConstantesModificar.clear();
+      listaTiposConstantes = null;
       tipoConstanteSeleccionada = null;
       k = 0;
-      listaTiposConstantes = null;
       guardado = true;
       cambiosPagina = true;
       RequestContext.getCurrentInstance().update("form:ACEPTAR");
@@ -507,7 +509,6 @@ public class ControlTipoConstante implements Serializable {
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarValorDate");
          RequestContext.getCurrentInstance().update("formularioDialogos:duplicarValorCadena");
       }
-
    }
 
    public void revisarTipo(TiposConstantes tipoC) {
@@ -592,7 +593,6 @@ public class ControlTipoConstante implements Serializable {
 
    public void agregarNuevoTipoConstante() {
       int pasa = 0;
-      int pasa2 = 0;
       mensajeValidacion = new String();
 
       if (nuevoTipoConstante.getFechainicial() == null) {
@@ -603,44 +603,44 @@ public class ControlTipoConstante implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Fecha Final\n";
          pasa++;
       }
-      if (nuevoTipoConstante.getFechainicial() != null && nuevoTipoConstante.getFechafinal() != null) {
-         if (nuevoTipoConstante.getFechafinal().before(nuevoTipoConstante.getFechainicial())) {
-            RequestContext.getCurrentInstance().update("formularioDialogos:errorFechas");
-            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
-            pasa2++;
-         }
-      }
+      if (pasa == 0) {
+         if (nuevoTipoConstante.getFechafinal().after(nuevoTipoConstante.getFechainicial())) {
+            if (validarNuevoTraslapes(nuevoTipoConstante)) {
 
-      if (pasa != 0) {
+               if (bandera == 1) {
+                  restaurarTabla();
+               }
+               //AGREGAR REGISTRO A LA LISTA NOVEDADES .
+               k++;
+               l = BigInteger.valueOf(k);
+               nuevoTipoConstante.setSecuencia(l);
+               System.out.println("Operando: " + operando);
+               nuevoTipoConstante.setOperando(operando);
+
+               cambiosPagina = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               listaTiposConstantesCrear.add(nuevoTipoConstante);
+               listaTiposConstantes.add(nuevoTipoConstante);
+               tipoConstanteSeleccionada = listaTiposConstantes.get(listaTiposConstantes.indexOf(nuevoTipoConstante));
+               nuevoTipoConstante = new TiposConstantes();
+               RequestContext.getCurrentInstance().update("form:datosTiposConstantes");
+               contarRegistros();
+               if (guardado == true) {
+                  guardado = false;
+                  cambiosPagina = false;
+                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               }
+               RequestContext.getCurrentInstance().execute("PF('NuevoTipoConstante').hide()");
+
+            } else {
+               RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+         }
+      } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoConstante");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoConstante').show()");
-      }
-
-      if (pasa == 0 && pasa2 == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-         //AGREGAR REGISTRO A LA LISTA NOVEDADES .
-         k++;
-         l = BigInteger.valueOf(k);
-         nuevoTipoConstante.setSecuencia(l);
-         System.out.println("Operando: " + operando);
-         nuevoTipoConstante.setOperando(operando);
-
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         listaTiposConstantesCrear.add(nuevoTipoConstante);
-         listaTiposConstantes.add(nuevoTipoConstante);
-         tipoConstanteSeleccionada = listaTiposConstantes.get(listaTiposConstantes.indexOf(nuevoTipoConstante));
-         nuevoTipoConstante = new TiposConstantes();
-         RequestContext.getCurrentInstance().update("form:datosTiposConstantes");
-         contarRegistros();
-         if (guardado == true) {
-            guardado = false;
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         RequestContext.getCurrentInstance().execute("PF('NuevoTipoConstante').hide()");
       }
    }
 
@@ -651,32 +651,71 @@ public class ControlTipoConstante implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Fecha Inicial\n";
          pasa++;
       }
-      if (pasa != 0) {
+      if (duplicarTipoConstante.getFechafinal() == null) {
+         mensajeValidacion = mensajeValidacion + " * Fecha Final\n";
+         pasa++;
+      }
+      if (pasa == 0) {
+         if (duplicarTipoConstante.getFechafinal().after(duplicarTipoConstante.getFechainicial())) {
+            if (validarNuevoTraslapes(duplicarTipoConstante)) {
+
+               if (bandera == 1) {
+                  restaurarTabla();
+               }
+               cambiosPagina = false;
+               RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               //Falta Ponerle el Operando al cual se agregará
+               duplicarTipoConstante.setOperando(operando);
+               listaTiposConstantes.add(duplicarTipoConstante);
+               listaTiposConstantesCrear.add(duplicarTipoConstante);
+               tipoConstanteSeleccionada = listaTiposConstantes.get(listaTiposConstantes.indexOf(duplicarTipoConstante));
+
+               if (guardado == true) {
+                  guardado = false;
+                  cambiosPagina = false;
+                  RequestContext.getCurrentInstance().update("form:ACEPTAR");
+               }
+               RequestContext.getCurrentInstance().update("form:datosTiposConstantes");
+               duplicarTipoConstante = new TiposConstantes();
+               RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoConstante");
+               RequestContext.getCurrentInstance().execute("PF('DuplicarTipoConstante').hide()");
+
+            } else {
+               RequestContext.getCurrentInstance().execute("PF('errorFechasTraslapos').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorFechas').show()");
+         }
+      } else {
          RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevoTipoConstante");
          RequestContext.getCurrentInstance().execute("PF('validacionNuevoTipoConstante').show()");
       }
-      if (pasa == 0) {
-         if (bandera == 1) {
-            restaurarTabla();
-         }
-         cambiosPagina = false;
-         RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         //Falta Ponerle el Operando al cual se agregará
-         duplicarTipoConstante.setOperando(operando);
-         listaTiposConstantes.add(duplicarTipoConstante);
-         listaTiposConstantesCrear.add(duplicarTipoConstante);
-         tipoConstanteSeleccionada = listaTiposConstantes.get(listaTiposConstantes.indexOf(duplicarTipoConstante));
+   }
 
-         if (guardado == true) {
-            guardado = false;
-            cambiosPagina = false;
-            RequestContext.getCurrentInstance().update("form:ACEPTAR");
-         }
-         RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
-         duplicarTipoConstante = new TiposConstantes();
-         RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoConstante");
-         RequestContext.getCurrentInstance().execute("PF('DuplicarTipoConstante').hide()");
+   public boolean hayTraslaposFechas(Date fecha1Ini, Date fecha1Fin, Date fecha2Ini, Date fecha2Fin) {
+      boolean hayTraslapos;
+      if ((fecha1Fin.after(fecha2Fin) && fecha1Ini.before(fecha2Fin))
+              || (fecha1Ini.before(fecha2Ini) && fecha1Fin.after(fecha2Ini))
+              || fecha1Fin.equals(fecha2Fin)
+              || fecha1Ini.equals(fecha2Ini)
+              || fecha1Ini.equals(fecha2Fin)
+              || fecha1Fin.equals(fecha2Ini)) {
+         hayTraslapos = true;
+      } else {
+         hayTraslapos = false;
       }
+      return hayTraslapos;
+   }
+
+   public boolean validarNuevoTraslapes(TiposConstantes tipoContante) {
+      boolean continuar = true;
+      for (int i = 0; i < listaTiposConstantes.size(); i++) {
+         if (hayTraslaposFechas(listaTiposConstantes.get(i).getFechainicial(), listaTiposConstantes.get(i).getFechafinal(),
+                 tipoContante.getFechainicial(), tipoContante.getFechafinal())) {
+            continuar = false;
+         }
+      }
+      return continuar;
    }
 
    //EXPORTAR
@@ -710,7 +749,15 @@ public class ControlTipoConstante implements Serializable {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
    }
 
-   //Getter & Setter
+   public void recordarSeleccion() {
+      if (tipoConstanteSeleccionada != null) {
+         FacesContext c = FacesContext.getCurrentInstance();
+         tabla = (DataTable) c.getViewRoot().findComponent("form:datosTiposConstantes");
+         tabla.setSelection(tipoConstanteSeleccionada);
+      }
+   }
+
+//Getter & Setter
    public List<TiposConstantes> getListaTiposConstantes() {
       if (listaTiposConstantes == null && operando != null) {
          listaTiposConstantes = administrarTiposConstantes.buscarTiposConstantes(operando.getSecuencia());

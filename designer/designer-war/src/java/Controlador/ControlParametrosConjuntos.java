@@ -476,7 +476,13 @@ public class ControlParametrosConjuntos implements Serializable {
    }
 
    public void cargarEstadisticas() {
+      System.out.println("ControlParametrosConjuntos.cargarEstadisticas()");
       listaEstadisticas = administrarParametrosConjuntos.consultarDSolucionesNodosN(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
+      if(listaEstadisticas != null){
+         System.out.println("listaEstadisticas.size()" + listaEstadisticas.size());
+      } else{
+         System.out.println("listaEstadisticas == null");
+      }
       if (listaEstadisticas != null) {
          totales = new VWDSolucionesNodosN();
          for (int i = 0; i < listaEstadisticas.size(); i++) {
@@ -585,7 +591,13 @@ public class ControlParametrosConjuntos implements Serializable {
    }
 
    public void cargarEstadisticasLB() {
+      System.out.println("ControlParametrosConjuntos.cargarEstadisticasLB()");
       listaEstadisticasLB = administrarParametrosConjuntos.consultarDSolucionesNodosNLB(parametrosActuales.getDimension(), parametrosActuales.getFechaHasta());
+      if(listaEstadisticasLB != null){
+         System.out.println("listaEstadisticasLB.size()" + listaEstadisticasLB.size());
+      } else{
+         System.out.println("listaEstadisticasLB == null");
+      }
       totalesLB = new VWDSolucionesNodosN();
       diferencia = new VWDSolucionesNodosN();
       if (listaEstadisticasLB != null) {

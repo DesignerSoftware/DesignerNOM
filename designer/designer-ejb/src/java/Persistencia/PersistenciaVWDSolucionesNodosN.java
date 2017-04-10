@@ -35,6 +35,7 @@ public class PersistenciaVWDSolucionesNodosN implements PersistenciaVWDSolucione
                 DateFormat formatoF = new SimpleDateFormat("ddMMyyyy");
                 String fecha = formatoF.format(fechaParametro);
                 em.clear();
+                System.out.println("PersistenciaVWDSolucionesNodosN.consultarDSolucionesNodosN()");
                 String sqlQuery = "SELECT VW.*, E.CODIGOEMPLEADO CODIGOEMPLEADO, C.NOMBRE CARGO, ES.NOMBRE ESTRUCTURA\n"
                         + "FROM VWDSOLUCIONESNODOS0 VW, EMPLEADOS E, VIGENCIASCARGOS VC, CARGOS C, ESTRUCTURAS ES WHERE \n"
                         + "VW.Y = E.SECUENCIA AND VC.EMPLEADO = E.SECUENCIA AND VC.CARGO = C.SECUENCIA \n"

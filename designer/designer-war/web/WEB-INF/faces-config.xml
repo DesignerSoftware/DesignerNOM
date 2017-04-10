@@ -941,6 +941,12 @@
          <redirect />
       </navigation-case>
 
+      <navigation-case>
+         <from-outcome>tipoformula</from-outcome>
+         <to-view-id>/tipoformula.xhtml</to-view-id>
+         <redirect />
+      </navigation-case>
+
    </navigation-rule>
 
    <navigation-rule>

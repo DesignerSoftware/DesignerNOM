@@ -10,8 +10,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -153,6 +155,36 @@ public class PersistenciaOperandos implements PersistenciaOperandosInterface {
       } catch (Exception e) {
          System.out.println("Error Persistencia operandosPorSecuencia : " + e.toString());
          return null;
+      }
+   }
+
+   public String clonarOperando(EntityManager em, short codigoOrigen, String nombreDest, String descripcionDest) {
+      em.clear();
+      EntityTransaction tx = em.getTransaction();
+      try {
+         tx.begin();
+         System.out.println("codigoOrigen : " + codigoOrigen);
+         System.out.println("nombreDest : " + nombreDest);
+         System.out.println("descripcionDest : " + descripcionDest);
+         StoredProcedureQuery query = em.createStoredProcedureQuery("OPERANDOS_PKG.ClonarOperando");
+         query.registerStoredProcedureParameter(1, short.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+         query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+
+         query.setParameter(1, codigoOrigen);
+         query.setParameter(2, nombreDest);
+         query.setParameter(3, descripcionDest);
+         query.execute();
+         return "BIEN";
+      } catch (Exception e) {
+         System.err.println("ERROR: " + this.getClass().getName() + ".clonarOperando()");
+         e.printStackTrace();
+         if (tx.isActive()) {
+            tx.rollback();
+         }
+         return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
+      } finally {
+         tx.commit();
       }
    }
 }

@@ -99,7 +99,7 @@ public class ControlTipoFuncion implements Serializable {
       listaTiposFuncionesBorrar = new ArrayList<TiposFunciones>();
       listaTiposFuncionesCrear = new ArrayList<TiposFunciones>();
       listaTiposFuncionesModificar = new ArrayList<TiposFunciones>();
-      altoTabla = "270";
+      altoTabla = "280";
       duplicarTipoFuncion = new TiposFunciones();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -157,7 +157,8 @@ public class ControlTipoFuncion implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    //UBICACION CELDA
@@ -232,7 +233,7 @@ public class ControlTipoFuncion implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "270";
+      altoTabla = "280";
       tiposFuncionesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesIniciales");
       tiposFuncionesIniciales.setFilterStyle("display: none; visibility: hidden;");
       tiposFuncionesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesFinales");
@@ -254,7 +255,7 @@ public class ControlTipoFuncion implements Serializable {
       FacesContext c = FacesContext.getCurrentInstance();
 
       if (bandera == 0) {
-         altoTabla = "250";
+         altoTabla = "260";
          tiposFuncionesIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesIniciales");
          tiposFuncionesIniciales.setFilterStyle("width: 85% !important;");
          tiposFuncionesFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFunciones:tiposFuncionesFinales");
@@ -269,7 +270,7 @@ public class ControlTipoFuncion implements Serializable {
          restaurarTabla();
       }
    }
-   
+
    public void cancelarYSalir() {
       cancelarModificacion();
       salir();
@@ -365,11 +366,11 @@ public class ControlTipoFuncion implements Serializable {
       }
    }
 
-   public void guardarYSalir(){
+   public void guardarYSalir() {
       guardarCambiosTiposFunciones();
       salir();
    }
-   
+
    //GUARDAR
    public void guardarCambiosTiposFunciones() {
       if (guardado == false) {
@@ -512,7 +513,8 @@ public class ControlTipoFuncion implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }

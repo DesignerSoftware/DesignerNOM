@@ -14,12 +14,12 @@
          <ui:define name="body">  
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
                   foco('form:guardarRapido');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <div class="loader"/>
             <h:form id="form">
@@ -91,7 +91,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" 
-                                         actionListener="#{controlLegislacion.Salir()}" action="#{controlLegislacion.redirigir()}" process="@this"/>  
+                                         actionListener="#{controlLegislacion.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  

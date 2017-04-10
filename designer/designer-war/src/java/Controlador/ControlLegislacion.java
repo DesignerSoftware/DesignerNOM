@@ -159,10 +159,11 @@ public class ControlLegislacion implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-  public void limpiarListasValor() {
+   public void limpiarListasValor() {
 
    }
 
@@ -186,10 +187,6 @@ public class ControlLegislacion implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       RequestContext.getCurrentInstance().update("formularioDialogos:confirmarGuardar");
       RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
-   }
-
-   public String redirigir() {
-      return paginaAnterior;
    }
 
    public void cambiarIndice(Contratos contrato, int celda) {
@@ -866,7 +863,8 @@ public class ControlLegislacion implements Serializable {
       //refrescar();
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       restaurarTabla();
       listaContratosBorrar.clear();
       listaContratosCrear.clear();
@@ -875,6 +873,7 @@ public class ControlLegislacion implements Serializable {
       k = 0;
       listaContratos = null;
       guardado = true;
+      navegar("atras");
    }
 
    public void restaurarTabla() {

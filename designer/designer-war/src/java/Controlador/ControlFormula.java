@@ -35,7 +35,6 @@ public class ControlFormula implements Serializable {
    @EJB
    AdministrarRastrosInterface administrarRastros;
    //Parametros que llegan
-   private TiposFormulas tiposFormulas;
    private List<Formulas> listaFormulas;
    private List<Formulas> filtradoListaFormulas;
    private List<Formulas> listaFormulasLOV;
@@ -112,7 +111,6 @@ public class ControlFormula implements Serializable {
       formulaOriginal = new Formulas();
 //      permitirIndex = true;
 //      altoTablaReg = "204";
-      tiposFormulas = null;
 
       formulaSeleccionada = null;
       unaVez = true;
@@ -153,18 +151,23 @@ public class ControlFormula implements Serializable {
          if (cargarFormula.equals("SI")) {
             BigInteger sec = (BigInteger) mapParametros.get("secFormula");
             obtenerFormulaSecuencia(sec);
+         } else if (cargarFormula.equals("NO")) {
+            formulaSeleccionada = (Formulas) mapParametros.get("formula");
+            listaFormulas.clear();
+            listaFormulas.add(formulaSeleccionada);
+            llamadoPrevioPagina = 0;
+            mostrarTodos = false;
          } else {
             listaFormulas = null;
          }
-      } else {
-         listaFormulas = null;
       }
    }
+//Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
 
-   //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class
+      );
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
@@ -186,13 +189,12 @@ public class ControlFormula implements Serializable {
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       System.out.println("ControlFormula.navegar() pag:_" + pag + "_");
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public boolean activarSelec() {
       unaVez = true;
-//      regSolucion = -1;
-      nombreLargoMientras = "0";
 //      regSolucion = -1;
       nombreLargoMientras = "0";
       return false;
@@ -211,13 +213,6 @@ public class ControlFormula implements Serializable {
       }
       llamadoPrevioPagina = 0;
       mostrarTodos = false;
-   }
-
-   public void recibirDatosTiposFormulas(TiposFormulas tiposFormulasRegistro) {
-      tiposFormulas = tiposFormulasRegistro;
-      listaFormulas = null;
-      getListaFormulas();
-      contarRegistros();
    }
 
    //SELECCIONAR NATURALEZA
@@ -717,7 +712,8 @@ public class ControlFormula implements Serializable {
       duplicarFormula = new Formulas();
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          cargarTablaDefault();
       }
@@ -891,7 +887,8 @@ public class ControlFormula implements Serializable {
       nombreLargoMientras = "0";
       formulaSeleccionada = formula;
       FacesContext fc = FacesContext.getCurrentInstance();
-      ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
+      ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class
+      );
       controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "formula");
 
    }
@@ -951,20 +948,20 @@ public class ControlFormula implements Serializable {
       administrarFormula.operandoFormula(formulaSeleccionada.getSecuencia());
    }
 
-   public String paginaRetorno() {
-      unaVez = true;
-//      regSolucion = -1;
-      nombreLargoMientras = "0";
-      String paginaRetorno = "";
-      if (llamadoPrevioPagina == 1) {
-         paginaRetorno = "nomina";
-      }
-      if (llamadoPrevioPagina == 0) {
-         paginaRetorno = "detalleconcepto";
-      }
-      llamadoPrevioPagina = 1;
-      return paginaRetorno;
-   }
+//   public String paginaRetorno() {
+//      unaVez = true;
+////      regSolucion = -1;
+//      nombreLargoMientras = "0";
+//      String paginaRetorno = "";
+//      if (llamadoPrevioPagina == 1) {
+//         paginaRetorno = "nomina";
+//      }
+//      if (llamadoPrevioPagina == 0) {
+//         paginaRetorno = "detalleconcepto";
+//      }
+//      llamadoPrevioPagina = 1;
+//      return paginaRetorno;
+//   }
 
    public void darSeleccion() {
       if (formulaSeleccionada != null) {
@@ -1018,11 +1015,8 @@ public class ControlFormula implements Serializable {
 
    //GETTER AND SETTER
    public List<Formulas> getListaFormulas() {
-      if (listaFormulas == null && tiposFormulas == null) {
+      if (listaFormulas == null) {
          listaFormulas = administrarFormula.formulas();
-      } else if (tiposFormulas != null) {
-         listaFormulas.clear();
-         listaFormulas.add(tiposFormulas.getFormula());
       }
       return listaFormulas;
    }

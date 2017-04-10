@@ -175,7 +175,8 @@ public class ControlTipoBloque implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void guardarVariables() {
@@ -302,7 +303,8 @@ public class ControlTipoBloque implements Serializable {
       tipoLista = 0;
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
@@ -320,7 +322,7 @@ public class ControlTipoBloque implements Serializable {
       cancelarModificacion();
       salir();
    }
-   
+
    public void cancelarModificacion() {
       if (bandera == 1) {
          restaurarTabla();
@@ -576,7 +578,7 @@ public class ControlTipoBloque implements Serializable {
             cambiosPagina = false;
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
          }
-         RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
+         RequestContext.getCurrentInstance().update("form:datosTiposBloques");
          duplicarTipoBloque = new TiposBloques();
          RequestContext.getCurrentInstance().update("formularioDialogos:DuplicarTipoBloque");
          RequestContext.getCurrentInstance().execute("PF('DuplicarTipoBloque').hide()");

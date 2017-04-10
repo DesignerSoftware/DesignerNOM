@@ -27,5 +27,6 @@ public interface AdministrarOperandosInterface {
     public void modificarOperando(List<Operandos> listaOperandosModificar);
     public String buscarValores(BigInteger secuenciaOperando);
     public Operandos consultarOperandoActual(BigInteger secOperando);
+    public String clonarOperando(short codigoO, String nombreDes, String descripcionDes);
     
 }

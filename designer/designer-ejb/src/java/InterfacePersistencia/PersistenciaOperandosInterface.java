@@ -35,4 +35,6 @@ public interface PersistenciaOperandosInterface {
     public Operandos operandosPorSecuencia(EntityManager em, BigInteger secuencia);
 
     public List<Operandos> operandoPorConceptoSoporte(EntityManager em, BigInteger secConcepto);
+    
+    public String clonarOperando(EntityManager em, short codigoOrigen, String nombreDes, String descripcionDes);
 }

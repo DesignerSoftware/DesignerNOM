@@ -89,6 +89,7 @@ public class ControlOperando implements Serializable {
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
    private String nombreNuevoClon, descripcionNuevoClon;
+   String errorClonado;
 
    public ControlOperando() {
       lovOperandos = null;
@@ -107,11 +108,14 @@ public class ControlOperando implements Serializable {
       listaOperandosBorrar = new ArrayList<Operandos>();
       listaOperandosCrear = new ArrayList<Operandos>();
       listaOperandosModificar = new ArrayList<Operandos>();
-      altoTabla = "240";
+      altoTabla = "242";
       altoTablaReg = "10";
       duplicarOperando = new Operandos();
       mapParametros.put("paginaAnterior", paginaAnterior);
       tipoLLamado = 0;
+      errorClonado = "";
+      nombreNuevoClon = "";
+      descripcionNuevoClon = "";
    }
 
    @PostConstruct
@@ -152,9 +156,10 @@ public class ControlOperando implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "operando";
-         mapParametros = new LinkedHashMap<String, Object>();
-         mapParametros.put("paginaAnterior", pagActual);
-         mapParametros.put("operandoActual", operandoSeleccionado);
+         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+         mapParaEnviar = new LinkedHashMap<String, Object>();
+         mapParaEnviar.put("paginaAnterior", pagActual);
+         mapParaEnviar.put("operandoActual", operandoSeleccionado);
 //         mas Parametros
          //if (pag.equals("rastrotabla")) {
          //ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
@@ -167,24 +172,28 @@ public class ControlOperando implements Serializable {
          if (pag.equals("FORMULA")) {
             pag = "tipoformula";
             ControlTipoFormula controlTipoFormula = (ControlTipoFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFormula}", ControlTipoFormula.class);
-            controlTipoFormula.recibirParametros(mapParametros);
+            controlTipoFormula.recibirParametros(mapParaEnviar);
          } else if (pag.equals("CONSTANTE")) {
             pag = "tipoconstante";
             ControlTipoConstante controlTipoConstante = (ControlTipoConstante) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoConstante}", ControlTipoConstante.class);
-            controlTipoConstante.recibirParametros(mapParametros);
+            controlTipoConstante.recibirParametros(mapParaEnviar);
          } else if (pag.equals("BLOQUE PL/SQL")) {
             pag = "tipobloque";
             ControlTipoBloque controlTipoBloque = (ControlTipoBloque) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoBloque}", ControlTipoBloque.class);
-            controlTipoBloque.recibirParametros(mapParametros);
+            controlTipoBloque.recibirParametros(mapParaEnviar);
          } else if (pag.equals("FUNCION")) {
             pag = "tipofuncion";
             ControlTipoFuncion controlTipoFuncion = (ControlTipoFuncion) fc.getApplication().evaluateExpressionGet(fc, "#{controlTipoFuncion}", ControlTipoFuncion.class);
-            controlTipoFuncion.recibirParametros(mapParametros);
+            controlTipoFuncion.recibirParametros(mapParaEnviar);
+         } else if (pag.equals("novedadoperando")) {
+            pag = "novedadoperando";
+            ControlNovedadOperando controlNovedadOperando = (ControlNovedadOperando) fc.getApplication().evaluateExpressionGet(fc, "#{controlNovedadOperando}", ControlNovedadOperando.class);
+            controlNovedadOperando.recibirParametros(mapParaEnviar);
          }
          controlListaNavegacion.adicionarPagina(pagActual);
       }
       limpiarListasValor();
- fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void seleccionarTipo(String estadoTipo, int indice, int celda) {
@@ -262,17 +271,16 @@ public class ControlOperando implements Serializable {
       contarRegistros();
    }
 
-   public void guardarVariables(BigInteger secuencia) {
-      if (operandoSeleccionado == null) {
-         RequestContext context = RequestContext.getCurrentInstance();
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
-      if (listaOperandosCrear.isEmpty() && listaOperandosBorrar.isEmpty() && listaOperandosModificar.isEmpty()) {
-         if (operandoSeleccionado != null) {
-            RequestContext.getCurrentInstance().execute("PF('dirigirDetalle()");
+   public void guardarVariables(Operandos op) {
+      operandoSeleccionado = op;
+      if (operandoSeleccionado != null) {
+         if (listaOperandosCrear.isEmpty() && listaOperandosBorrar.isEmpty() && listaOperandosModificar.isEmpty()) {
+            navegar("novedadoperando");
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
          }
       } else {
-         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
+         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
       }
    }
 
@@ -344,6 +352,7 @@ public class ControlOperando implements Serializable {
       this.tipoLLamado = tipoLLamado;
       operandoLovSeleccionado = null;
       RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
+      RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
       RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
 //      }
    }
@@ -365,7 +374,7 @@ public class ControlOperando implements Serializable {
             operandoBaseClon.setCodigo(new Short("0"));
             operandoBaseClon.setDescripcion("");
             RequestContext.getCurrentInstance().update("form:CodigoBaseClonado");
-            RequestContext.getCurrentInstance().update("form:DescripcionBaseClonado");
+            RequestContext.getCurrentInstance().update("form:NombreBaseClonado");
             RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
             RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
             contarRegistrosLovOp();
@@ -374,7 +383,7 @@ public class ControlOperando implements Serializable {
       }
       if (tipoAutoComp == 1) {
          for (int i = 0; i < lovOperandos.size(); i++) {
-            if (lovOperandos.get(i).getDescripcion().startsWith(valor.toUpperCase())) {
+            if (lovOperandos.get(i).getNombre().startsWith(valor.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -384,12 +393,15 @@ public class ControlOperando implements Serializable {
          } else {
             operandoBaseClon.setCodigo(new Short("0"));
             operandoBaseClon.setDescripcion("");
-            RequestContext.getCurrentInstance().update("form:CodigoBaseClonado");
-            RequestContext.getCurrentInstance().update("form:DescripcionBaseClonado");
-            RequestContext.getCurrentInstance().update("formularioDialogos:operandosDialogo");
-            RequestContext.getCurrentInstance().update("formularioDialogos:LOVOperandos");
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.update("form:CodigoBaseClonado");
+            context.update("form:NombreBaseClonado");
+            context.update("form:NombreNuevoClonado");
+            context.update("form:DescripcionNuevoClonado");
+            context.update("formularioDialogos:operandosDialogo");
+            context.update("formularioDialogos:LOVOperandos");
             contarRegistrosLovOp();
-            RequestContext.getCurrentInstance().execute("PF('operandosDialogo').show()");
+            context.execute("PF('operandosDialogo').show()");
          }
       }
    }
@@ -457,8 +469,7 @@ public class ControlOperando implements Serializable {
       if (tipoLLamado == 1) {
          operandoBaseClon = operandoLovSeleccionado;
          context.update("form:CodigoBaseClonado");
-         context.update("form:DescripcionBaseClonado");
-         tipoLLamado = 0;
+         context.update("form:NombreBaseClonado");
       } else {
          if (listaOperandos == null) {
             listaOperandos = new ArrayList<Operandos>();
@@ -468,11 +479,11 @@ public class ControlOperando implements Serializable {
          }
          listaOperandos.add(operandoLovSeleccionado);
          context.reset("formularioDialogos:LOVOperandos:globalFilter");
-         context.execute("PF('operandosDialogo').hide()");
          context.execute("PF('LOVOperandos').clearFilters()");
          context.update("formularioDialogos:LOVOperandos");
          context.update("formularioDialogos:operandosDialogo");
          context.update("form:datosOperandos");
+         context.execute("PF('operandosDialogo').hide()");
          contarRegistros();
          filtradoOperandos = null;
          operandoLovSeleccionado = null;
@@ -485,7 +496,7 @@ public class ControlOperando implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "220";
+         altoTabla = "222";
          altoTablaReg = "9";
          operandosNombres = (Column) c.getViewRoot().findComponent("form:datosOperandos:operandosNombres");
          operandosNombres.setFilterStyle("width: 85% !important;");
@@ -508,7 +519,7 @@ public class ControlOperando implements Serializable {
 
    public void restaurarTabla() {
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "240";
+      altoTabla = "242";
       altoTablaReg = "10";
       System.out.println("Desactivar");
       System.out.println("TipoLista= " + tipoLista);
@@ -545,8 +556,16 @@ public class ControlOperando implements Serializable {
       k = 0;
       listaOperandos = null;
       guardado = true;
-      RequestContext.getCurrentInstance().update("form:ACEPTAR");
-      RequestContext.getCurrentInstance().update("form:datosOperandos");
+      operandoBaseClon = new Operandos();
+      nombreNuevoClon = "";
+      descripcionNuevoClon = "";
+      RequestContext context = RequestContext.getCurrentInstance();
+      context.update("form:CodigoBaseClonado");
+      context.update("form:NombreBaseClonado");
+      context.update("form:NombreNuevoClonado");
+      context.update("form:DescripcionNuevoClonado");
+      context.update("form:ACEPTAR");
+      context.update("form:datosOperandos");
       contarRegistros();
    }
 
@@ -558,8 +577,8 @@ public class ControlOperando implements Serializable {
       cualCelda = -1;
       RequestContext context = RequestContext.getCurrentInstance();
       context.reset("formularioDialogos:LOVOperandos:globalFilter");
-      RequestContext.getCurrentInstance().execute("PF('LOVOperandos').clearFilters()");
-      RequestContext.getCurrentInstance().execute("PF('operandosDialogo').hide()");
+      context.execute("PF('LOVOperandos').clearFilters()");
+      context.execute("PF('operandosDialogo').hide()");
    }
 
    public void cancelarCambioModulos() {
@@ -798,7 +817,8 @@ public class ControlOperando implements Serializable {
       cambiarIndice(listaOperandos.get(pos), cualCelda);
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
@@ -818,6 +838,53 @@ public class ControlOperando implements Serializable {
 
    public void contarRegistrosLovOp() {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovOp");
+   }
+
+   public boolean validarNuevoOperandoClon() {
+      boolean retorno = true;
+      int conteo = 0;
+      for (int i = 0; i < lovOperandos.size(); i++) {
+         if (lovOperandos.get(i).getNombre().equals(nombreNuevoClon)) {
+            conteo++;
+         }
+      }
+      if (conteo > 0) {
+         retorno = false;
+      }
+      return retorno;
+   }
+
+   public void clonarOperando() {
+      if (descripcionNuevoClon != null && nombreNuevoClon != null && operandoBaseClon.getCodigo() >= 1) {
+         if (!descripcionNuevoClon.isEmpty() && !nombreNuevoClon.isEmpty()) {
+            if (validarNuevoOperandoClon() == true) {
+               short newcodigo = (short) operandoBaseClon.getCodigo();
+               errorClonado = administrarOperandos.clonarOperando(newcodigo, nombreNuevoClon, descripcionNuevoClon);
+               RequestContext context = RequestContext.getCurrentInstance();
+               if (errorClonado.equals("BIEN")) {
+                  FacesMessage msg = new FacesMessage("Información", "El registro fue clonado con Éxito.");
+                  FacesContext.getCurrentInstance().addMessage(null, msg);
+                  operandoBaseClon = new Operandos();
+                  nombreNuevoClon = "";
+                  descripcionNuevoClon = "";
+                  context.update("form:CodigoBaseClonado");
+                  context.update("form:NombreBaseClonado");
+                  context.update("form:NombreNuevoClonado");
+                  context.update("form:DescripcionNuevoClonado");
+                  context.update("form:growl");
+               } else {
+                  context.update("form:errorClonado");
+                  context.execute("PF('errorClonado').show()");
+               }
+            } else {
+               RequestContext.getCurrentInstance().execute("PF('errorNombreClon').show()");
+            }
+         } else {
+            RequestContext.getCurrentInstance().execute("PF('errorDatosClonado').show()");
+         }
+      } else {
+         RequestContext.getCurrentInstance().execute("PF('errorDatosClonado').show()");
+      }
    }
 
    //Getter & Setter
@@ -1004,4 +1071,13 @@ public class ControlOperando implements Serializable {
    public void setInfoRegistroLovOp(String infoRegistroLovOp) {
       this.infoRegistroLovOp = infoRegistroLovOp;
    }
+
+   public String getErrorClonado() {
+      return errorClonado;
+   }
+
+   public void setErrorClonado(String errorClonado) {
+      this.errorClonado = errorClonado;
+   }
+
 }

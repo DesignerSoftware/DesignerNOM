@@ -289,7 +289,7 @@ public class AdministrarProcesos implements AdministrarProcesosInterface {
          return persistenciaProcesos.clonarProceso(em, descripcionN, codigoN, codigoO);
       } catch (Exception e) {
          System.out.println("Administrar.AdministrarProcesos.clonarProceso() Error : " + e.toString());
-         return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
+         return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
       }
    }
    ///// ---- OPERANDOSLOGS ---- /////

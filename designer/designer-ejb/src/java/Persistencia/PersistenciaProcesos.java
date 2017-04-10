@@ -211,7 +211,7 @@ public class PersistenciaProcesos implements PersistenciaProcesosInterface {
          if (tx.isActive()) {
             tx.rollback();
          }
-         return "ERROR EN LA TRANSACCION DESDE EL SISTEMA";
+         return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
       } finally {
          tx.commit();
       }

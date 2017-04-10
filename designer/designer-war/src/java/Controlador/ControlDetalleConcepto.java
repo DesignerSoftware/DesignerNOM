@@ -228,7 +228,6 @@ public class ControlDetalleConcepto implements Serializable {
    private Date fechaParametro;
    private String comportamientoConcepto;
    private boolean formulaSeleccionada;
-   private String paginaRetorno;
    private String conceptoEliminar;
    private int num;
    ////////////////////////////////
@@ -248,7 +247,6 @@ public class ControlDetalleConcepto implements Serializable {
       altoTablaVigenciaConceptoRL = "105";
       altoTablaFormulaConcepto = "122";
       //
-      paginaRetorno = "";
       formulaSeleccionada = true;
       conceptoActual = new Conceptos();
 
@@ -444,15 +442,13 @@ public class ControlDetalleConcepto implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "detalleconcepto";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
          if (pag.equals("formula")) {
-            mapParametros.put("paginaAnterior", pagActual);
-            mapParametros.put("secFormula", actualFormulaConcepto.getFormula());
-            mapParametros.put("cargarFormula", (String) "SI");
+            Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            mapParaEnviar.put("paginaAnterior", pagActual);
+            mapParaEnviar.put("secFormula", actualFormulaConcepto.getFormula());
+            mapParaEnviar.put("cargarFormula", (String) "SI");
             ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
-            controlFormula.recibirParametros(mapParametros);
+            controlFormula.recibirParametros(mapParaEnviar);
          }
 
 //         if (pag.equals("rastrotabla")) {
@@ -465,7 +461,8 @@ public class ControlDetalleConcepto implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    public void limpiarListasValor() {
@@ -530,12 +527,6 @@ public class ControlDetalleConcepto implements Serializable {
          getListVigenciasConceptosTCConcepto();
          getListVigenciasGruposConceptos();
          getListVigenciasCuentasConcepto();
-//         contarRegistrosConceptoRL();
-//         contarRegistrosConceptoTT();
-//         contarRegistrosConceptoTC();
-//         contarRegistrosCuentas();
-//         contarRegistrosFormulaConcepto();
-//         contarRegistrosGrupoC();
          System.out.println("2");
          listVigenciasCuentasConcepto = null;
          listVigenciasGruposConceptos = null;
@@ -547,13 +538,6 @@ public class ControlDetalleConcepto implements Serializable {
          try {
             FacesContext fc = FacesContext.getCurrentInstance();
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "detalleconcepto");
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            RequestContext.getCurrentInstance().update("form:datosVigenciaCuenta");
-//            RequestContext.getCurrentInstance().update("form:datosVigenciaGrupoConcepto");
-//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTT");
-//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoTC");
-//            RequestContext.getCurrentInstance().update("form:datosVigenciaConceptoRL");
-//            RequestContext.getCurrentInstance().update("form:datosFormulaConcepto");
             System.out.println("3");
          } catch (Exception e) {
             System.out.println("obtenerConcepto() Entro al Catch, Error : " + e.toString());
@@ -4256,7 +4240,8 @@ public class ControlDetalleConcepto implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (banderaVigenciaCuenta == 1) {
          recargarVigenciaCuentaDefault();
       }
@@ -4352,9 +4337,8 @@ public class ControlDetalleConcepto implements Serializable {
       lovFormulas = null;
       lovFormulasConceptos = null;
       lovProcesos = null;
-
       formulaSeleccionada = true;
-      paginaRetorno = "";
+      navegar("atras");
    }
 
    public void actualizarTipoCentroCosto() {
@@ -5425,11 +5409,9 @@ public class ControlDetalleConcepto implements Serializable {
       boolean rep = administrarDetalleConcepto.eliminarConceptoTotal(conceptoActual.getSecuencia());
       if (rep == true) {
          salir();
-         paginaRetorno = "retornoConcepto";
       } else {
          FacesMessage msg = new FacesMessage("Información", "El reporte no pudo ser eliminado.");
          FacesContext.getCurrentInstance().addMessage(null, msg);
-         paginaRetorno = "";
       }
    }
 
@@ -6462,14 +6444,6 @@ public class ControlDetalleConcepto implements Serializable {
 
    public void setFiltrarListFormulasConceptos(List<FormulasConceptos> filtrarListFormulasConceptos) {
       this.filtrarListFormulasConceptos = filtrarListFormulasConceptos;
-   }
-
-   public String getPaginaRetorno() {
-      return paginaRetorno;
-   }
-
-   public void setPaginaRetorno(String paginaRetorno) {
-      this.paginaRetorno = paginaRetorno;
    }
 
    public FormulasConceptos getActualFormulaConcepto() {

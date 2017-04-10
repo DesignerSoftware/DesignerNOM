@@ -72,7 +72,7 @@
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);"
-                                         actionListener="#{controlOperando.cancelarModificacion()}" oncomplete="window.location.reload" process="@this"/>  
+                                         actionListener="#{controlOperando.cancelarModificacion()}" oncomplete="window.location.reload()" process="@this"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -239,20 +239,20 @@
                               <h:outputText value="" />
                            </f:facet>
                         </p:column>
-                        <!--
-                                                <p:column id="columnarevisar" width="18" style="padding: 0px !important; alignment-adjust: central; padding: 0;" class="cssColumnasCentradas">                                                              
-                                                   <f:facet name="header">
-                                                      <h:outputText id="RevisarC" value="R"/>
-                                                      <p:tooltip for="RevisarC" value="#{msg['identificacion']}"/>
-                                                   </f:facet>
-                                                   <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlOperando.guardarVariables(controlOperando.operandoSeleccionado.secuencia)}" id="revisar"
-                                                                    style="background-image: url(Imagenes/Iconos/lupa.png) !important; height: 18px !important; width: 18px !important;" value=""/>
-                                                   <p:tooltip for="revisar" value="#{msg['identificacion']}"/>
-                                                                              <p:commandButton style="background-image: url(Imagenes/Iconos/revisar.png); background-size: 100% 100%; background-repeat: no-repeat; position: absolute; width: 28px; height: 28px; left: 50px; top: 470px;" id="PRIMERA" value="" process="@this" actionListener="#/{controlOperando.verificarTipo(controlOperando.operandoRegistro.secuencia)}"/>
-                                                   <f:facet name="footer">
-                                                      <h:outputText value=""/>
-                                                   </f:facet>
-                                                </p:column>-->
+
+                        <p:column id="columnarevisar" width="18" style="padding: 0px !important; alignment-adjust: central; padding: 0;" class="cssColumnasCentradas">                                                              
+                           <f:facet name="header">
+                              <h:outputText id="RevisarC" value="R"/>
+                              <p:tooltip for="RevisarC" value="#{msg['identificacion']}"/>
+                           </f:facet>
+                           <p:commandButton class="cssBotonLovDialogos" actionListener="#{controlOperando.guardarVariables(op)}" id="revisar"
+                                            style="background-image: url(Imagenes/Iconos/lupa.png) !important; height: 18px !important; width: 18px !important;" value=""
+                                            onstart="PF('datosOperandos').unselectAllRows();PF('datosOperandos').selectRow(#{indice});"/>
+                           <p:tooltip for="revisar" value="#{msg['identificacion']}"/>
+                           <f:facet name="footer">
+                              <h:outputText value=""/>
+                           </f:facet>
+                        </p:column>
                      </p:dataTable>
                      <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlOperando.infoRegistro}" style="display: table; position: relative; left: 5px; top: 0px; font-weight: bold;"/>
 
@@ -268,11 +268,11 @@
                            <h:outputText style="color: #14388B; font-weight: bold; position: relative; top: -2px; left: 15px; width: 420px;" value="#{msg['nuevoClonado']}"/>
                         </div>
                         <div style="display: block;">
-                           <p:inputText autocomplete="off" id="DescripcionNuevoClonado" value="#{controlOperando.nombreNuevoClon}" onclick="select();"
+                           <p:inputText autocomplete="off" id="NombreNuevoClonado" value="#{controlOperando.nombreNuevoClon}" onclick="select();"
                                         style="position: relative; width: 60px; height: 14px; margin: 1px; left: 10px; top: 0px;">
                               <p:ajax event="change" update="NombreNuevoClonado" process="@this"/>
                            </p:inputText>
-                           <p:inputText autocomplete="off" id="NombreNuevoClonado" value="#{controlOperando.descripcionNuevoClon}" onclick="select();"
+                           <p:inputText autocomplete="off" id="DescripcionNuevoClonado" value="#{controlOperando.descripcionNuevoClon}" onclick="select();"
                                         style="position: relative; width: 270px; height: 14px; margin: 1px; left: 10px; top: 0px;">
                               <p:ajax event="change" update="DescripcionNuevoClonado" process="@this"/>
                            </p:inputText>
@@ -290,24 +290,38 @@
                               <!--<p:ajax event="select" process="@this" listener="#/{controlProceso.posicionProcesoClonado()}"/>-->
                               <p:ajax event="dblclick" process="@this" listener="#{controlOperando.asignarIndex(1)}"/>
                            </p:inputText>
-                           <p:inputText autocomplete="off" id="DescripcionBaseClonado" onclick="select();" value="#{controlOperando.operandoBaseClon.descripcion}"
+                           <p:inputText autocomplete="off" id="NombreBaseClonado" onclick="select();" value="#{controlOperando.operandoBaseClon.nombre}"
                                         style="position: relative; width: 270px; height: 14px; margin: 1px; left: 0px; top: 0px;">
-                              <p:ajax event="change" update="DescripcionBaseClonado"  process="@this" listener="#{controlOperando.autoCompletarClonado(controlOperando.operandoBaseClon.descripcion,1)}"/>
+                              <p:ajax event="change" update="NombreBaseClonado"  process="@this" listener="#{controlOperando.autoCompletarClonado(controlOperando.operandoBaseClon.nombre,1)}"/>
                               <!--<p:ajax event="select" process="@this" listener="#/{controlProceso.posicionProcesoClonado()}"/>-->
                               <p:ajax event="dblclick" process="@this" listener="#{controlOperando.asignarIndex(1)}"/>
                            </p:inputText>
                         </div>
                      </div>
                   </fieldset>
-                  <p:commandButton style="position: absolute; top: 444px; left: 790px;" value="" id="botomClonar" class="cssBotonClonar"
-                                   actionListener="#{controlProceso.clonarProceso()}"/>
+                  <p:commandButton style="position: absolute; top: 444px; left: 790px;" value="" id="botomClonar" class="cssBotonClonar" actionListener="#{controlOperando.clonarOperando()}"/>
                   <p:tooltip for="botomClonar" value="#{msg['clonar']}"/>
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" disabled="#{controlOperando.guardado}" value="" onclick="PF('confirmarGuardar').show();" update=":form:datosOperandos" process="@this" />
                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlOperando.salir()}" process="@this" />
 
                </p:panel>
-               <p:remoteCommand name="dirigirDetalle" actionListener="#{controlNovedadOperando.recibirDatosOperando(controlOperando.secuenciaOperando,controlOperando.operandoSeleccionado)}" action="novedadoperando" process="@this"/>
+
+               <p:dialog id="errorClonado" header="#{msg['error']}" widgetVar="errorClonado"  resizable="false" draggable="true" modal="true" height="60" width="290"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{controlOperando.errorClonado}" style="position: absolute; left: 76px; top: 8px; width: 200px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorNombreClon" header="#{msg['error']}" widgetVar="errorNombreClon"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorNombreClon']}" style="position: absolute; left: 70px; top: 8px; width: 185px; font-weight: bold;"/>
+               </p:dialog>
+
+               <p:dialog id="errorDatosClonado" header="#{msg['error']}" widgetVar="errorDatosClonado"  resizable="false" draggable="true" modal="true" height="74" width="280"  closable="true">  
+                  <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
+                  <h:outputText value="#{msg['errorDatosClonado']}" style="position: absolute; left: 70px; top: 10px; width: 190px; font-weight: bold;"/>
+               </p:dialog>
+
                <p:remoteCommand name="ubicacionRegistro" actionListener="#{controlOperando.ubicacionRegistro()}" process="@this"/>
             </h:form>
 
@@ -440,7 +454,7 @@
 
                <!-- DIALOGOS RASTROS -->
 
-               <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 20px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOperando.secRegistro, 'Operandos', 'operando')}"
@@ -449,7 +463,7 @@
                                    style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 20px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}"
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;" />
@@ -459,17 +473,17 @@
                                    style="position: absolute; top: 60px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="errorRastroHistorico" header="#{msg['atencion']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRastroHistorico" header="#{msg['error']}" widgetVar="errorRastroHistorico"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRastroHistorico']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorRegistroRastro" header="#{msg['atencion']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="errorRegistroRastro" header="#{msg['error']}" widgetVar="errorRegistroRastro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorRegistroRastro']}" style="position: absolute; left: 70px; top: 20px; width: 185px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="errorTablaConRastro" header="#{msg['atencion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
+               <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 20px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight:bold; text-align: center" />
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlOperando.secRegistro, 'Operandos', 'operando')}"
@@ -478,17 +492,17 @@
                                    style="position: absolute; top: 70px; left: 270px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
-               <p:dialog id="errorTablaSinRastro" header="#{msg['atencion']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
+               <p:dialog id="errorTablaSinRastro" header="#{msg['error']}" widgetVar="errorTablaSinRastro"  resizable="false" draggable="true" modal="true" height="60" width="285"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaSinRastro']}" style="position: absolute; left: 70px; top: 10px; width: 195px; font-weight:bold; text-align: center" />
                </p:dialog>
 
-               <p:dialog id="seleccionarRegistro" header="#{msg['atencion']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
+               <p:dialog id="seleccionarRegistro" header="#{msg['error']}" widgetVar="seleccionarRegistro"  resizable="false" draggable="true" modal="true" height="60" width="275"  closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['seleccionarRegistro']}" style="position: absolute; left: 70px; top: 18px; width: 185px; font-weight:bold;" />
                </p:dialog>
 
-               <p:dialog id="errorObjetosDB" header="#{msg['atencion']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="80" width="280" closable="true">  
+               <p:dialog id="errorObjetosDB" header="#{msg['error']}" widgetVar="errorObjetosDB"  resizable="false" draggable="true" modal="true" height="80" width="280" closable="true">  
                   <h:graphicImage value="Imagenes/Iconos/error.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{msg['errorObjetosDB']}" style="position: absolute; left: 80px; top: 8px; width: 200px; font-weight: bold;"/>
                </p:dialog>
@@ -496,12 +510,12 @@
                <!-- DIALOGO L.O.V OPERANDOS-->
                <p:dialog header="#{msg['operandosO']}"  widgetVar="operandosDialogo" draggable="true" resizable="false" closable="false" id="operandosDialogo"  
                          showEffect="fade" hideEffect="fade" width="470" modal="true">
-                  <p:dataTable id="LOVOperandos" var="o" value="#{controlOperando.lovOperandos}" rowKey="#{o.secuencia}"
+                  <p:dataTable id="LOVOperandos" var="o" value="#{controlOperando.lovOperandos}" rowKey="#{o.secuencia}" liveScroll="true" scrollRows="30"
                                selection="#{controlOperando.operandoLovSeleccionado}" selectionMode="single" widgetVar="LOVOperandos" scrollable="true" scrollWidth="445" scrollHeight="250"
                                filteredValue="#{controlOperando.filtradoLovOperandos}" emptyMessage="#{msg['lovvacio']}">              
 
                      <p:ajax event="rowSelect" listener="#{controlOperando.activarAceptar()}" update=":formularioDialogos:aceptarO"/>
-                     <p:ajax event="rowDblselect" listener="#{controlOperando.actualizarOperandos()}" process="@this" />
+                     <p:ajax event="rowDblselect" listener="#{controlOperando.actualizarOperandos()}" oncomplete="PF('operandosDialogo').hide()" process="@this" />
                      <p:ajax event="filter" listener="#{controlOperando.contarRegistrosLovOp()}"/>
 
                      <f:facet name="header">  
@@ -529,8 +543,9 @@
                   </p:dataTable>
                   <div class="cssBotonesLOV">
                      <h:outputText id="infoRegistroLovOp" value="#{msg['infoRegistro']} #{controlOperando.infoRegistroLovOp}" class="cssinfoRegistroLOV"/>
-                     <p:commandButton id="aceptarO" value="#{msg['aceptar']}" disabled="#{controlOperando.aceptar}" class="cssAceptarLOV" actionListener="#{controlOperando.actualizarOperandos()}" process="@this"/>
-                     <p:commandButton id="atrasO" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlOperando.cancelarCambioOperandos()}" process="@this"/>
+                     <p:commandButton id="aceptarO" icon="ui-icon-check" value="#{msg['aceptar']}" disabled="#{controlOperando.aceptar}" class="cssAceptarLOV"
+                                      oncomplete="PF('operandosDialogo').hide()" actionListener="#{controlOperando.actualizarOperandos()}" process="@this"/>
+                     <p:commandButton id="atrasO" icon="ui-icon-close" class="cssAtrasLOV" value="#{msg['atras']}" actionListener="#{controlOperando.cancelarCambioOperandos()}" process="@this"/>
                   </div>
                </p:dialog>
             </h:form>
@@ -573,7 +588,6 @@
                      <f:facet name="header"><h:outputText value="#{msg['codigoX']}"/></f:facet>
                      <h:outputText value="#{o.codigo}" />
                   </p:column>
-
                </p:dataTable>
             </h:form>
 

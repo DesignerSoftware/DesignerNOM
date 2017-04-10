@@ -77,7 +77,7 @@ public class ControlTipoFormula implements Serializable {
    //Borrar Novedades
    private List<TiposFormulas> listaTiposFormulasBorrar;
    //AUTOCOMPLETAR
-   private String Formula;
+   private String formula;
    //Columnas Tabla Ciudades
    private Column tiposFormulasIniciales, tiposFormulasFinales, tiposFormulasObjetos;
    //ALTO SCROLL TABLA
@@ -90,7 +90,7 @@ public class ControlTipoFormula implements Serializable {
    //Enviar a Formulas
    private String paginaAnterior = "nominaf";
    private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-   public String infoRegistro;
+   public String infoRegistro, infoRegistroLovFormula;
 
    public ControlTipoFormula() {
       cambiosPagina = true;
@@ -104,7 +104,7 @@ public class ControlTipoFormula implements Serializable {
       listaTiposFormulasBorrar = new ArrayList<TiposFormulas>();
       listaTiposFormulasCrear = new ArrayList<TiposFormulas>();
       listaTiposFormulasModificar = new ArrayList<TiposFormulas>();
-      altoTabla = "270";
+      altoTabla = "285";
       duplicarTipoFormula = new TiposFormulas();
       mapParametros.put("paginaAnterior", paginaAnterior);
    }
@@ -149,9 +149,18 @@ public class ControlTipoFormula implements Serializable {
          controlListaNavegacion.quitarPagina();
       } else {
          String pagActual = "tipoformula";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
+         if (pag.equals("formula")) {
+            Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            mapParaEnviar.put("paginaAnterior", pagActual);
+            mapParaEnviar.put("cargarFormula", (String) "NO");
+            if (tipoFormulaSeleccionada != null) {
+               mapParaEnviar.put("formula", tipoFormulaSeleccionada.getFormula());
+            } else {
+               mapParaEnviar.put("formula", listaTiposFormulas.get(0));
+            }
+            ControlFormula controlFormula = (ControlFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlFormula}", ControlFormula.class);
+            controlFormula.recibirParametros(mapParaEnviar);
+         }
 //         if (pag.equals("rastrotabla")) {
 //           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
          //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
@@ -162,10 +171,11 @@ public class ControlTipoFormula implements Serializable {
          //}
          controlListaNavegacion.adicionarPagina(pagActual);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
-
    //UBICACION CELDA
+
    public void cambiarIndice(TiposFormulas tipoF, int celda) {
       tipoFormulaSeleccionada = tipoF;
       cualCelda = celda;
@@ -179,7 +189,6 @@ public class ControlTipoFormula implements Serializable {
 
       if (confirmarCambio.equalsIgnoreCase("N")) {
          if (!listaTiposFormulasCrear.contains(tipoFormulaSeleccionada)) {
-
             if (listaTiposFormulasModificar.isEmpty()) {
                listaTiposFormulasModificar.add(tipoFormulaSeleccionada);
             } else if (!listaTiposFormulasModificar.contains(tipoFormulaSeleccionada)) {
@@ -194,10 +203,10 @@ public class ControlTipoFormula implements Serializable {
          RequestContext.getCurrentInstance().update("form:datosTiposFormulas");
          contarRegistros();
       } else if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
-         tipoFormulaSeleccionada.getFormula().setNombrecorto(Formula);
+         tipoFormulaSeleccionada.getFormula().setNombrelargo(formula);
 
          for (int i = 0; i < listaTiposFormulas.size(); i++) {
-            if (listaTiposFormulas.get(i).getFormula().getNombrecorto().startsWith(valorConfirmar.toUpperCase())) {
+            if (listaTiposFormulas.get(i).getFormula().getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
                indiceUnicoElemento = i;
                coincidencias++;
             }
@@ -235,12 +244,9 @@ public class ControlTipoFormula implements Serializable {
    }
 
    public void guardarVariables(BigInteger secuencia) {
-      if (tipoFormulaSeleccionada == null) {
-         RequestContext.getCurrentInstance().execute("PF('seleccionarRegistro').show()");
-      }
       if (listaTiposFormulasCrear.isEmpty() && listaTiposFormulasBorrar.isEmpty() && listaTiposFormulasModificar.isEmpty()) {
          if (tipoFormulaSeleccionada != null) {
-            RequestContext.getCurrentInstance().execute("PF('dirigirFormula()");
+            navegar("formula");
          }
       } else {
          RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
@@ -263,9 +269,9 @@ public class ControlTipoFormula implements Serializable {
    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
       if (Campo.equals("FORMULA")) {
          if (tipoNuevo == 1) {
-            Formula = nuevoTipoFormula.getFormula().getNombrecorto();
+            formula = nuevoTipoFormula.getFormula().getNombrelargo();
          } else if (tipoNuevo == 2) {
-            Formula = duplicarTipoFormula.getFormula().getNombrecorto();
+            formula = duplicarTipoFormula.getFormula().getNombrelargo();
          }
       }
 
@@ -277,9 +283,9 @@ public class ControlTipoFormula implements Serializable {
       RequestContext context = RequestContext.getCurrentInstance();
       if (confirmarCambio.equalsIgnoreCase("FORMULA")) {
          if (tipoNuevo == 1) {
-            nuevoTipoFormula.getFormula().setNombrecorto(Formula);
+            nuevoTipoFormula.getFormula().setNombrelargo(formula);
          } else if (tipoNuevo == 2) {
-            duplicarTipoFormula.getFormula().setNombrecorto(Formula);
+            duplicarTipoFormula.getFormula().setNombrelargo(formula);
          }
          for (int i = 0; i < lovListaFormulas.size(); i++) {
             if (lovListaFormulas.get(i).getNombrelargo().startsWith(valorConfirmar.toUpperCase())) {
@@ -362,7 +368,7 @@ public class ControlTipoFormula implements Serializable {
    public void activarCtrlF11() {
       FacesContext c = FacesContext.getCurrentInstance();
       if (bandera == 0) {
-         altoTabla = "250";
+         altoTabla = "265";
          tiposFormulasIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasIniciales");
          tiposFormulasIniciales.setFilterStyle("width: 85% !important;");
          tiposFormulasFinales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasFinales");
@@ -595,7 +601,7 @@ public class ControlTipoFormula implements Serializable {
          mensajeValidacion = mensajeValidacion + " * Fecha Final\n";
          pasa++;
       }
-      if (nuevoTipoFormula.getFormula().getNombrecorto() == null) {
+      if (nuevoTipoFormula.getFormula().getNombrelargo() == null) {
          mensajeValidacion = mensajeValidacion + " * Nombre Corto\n";
          pasa++;
       }
@@ -643,7 +649,7 @@ public class ControlTipoFormula implements Serializable {
    public void restaurarTabla() {
       //CERRAR FILTRADO
       FacesContext c = FacesContext.getCurrentInstance();
-      altoTabla = "270";
+      altoTabla = "285";
       System.out.println("Desactivar");
       System.out.println("TipoLista= " + tipoLista);
       tiposFormulasIniciales = (Column) c.getViewRoot().findComponent("form:datosTiposFormulas:tiposFormulasIniciales");
@@ -687,7 +693,8 @@ public class ControlTipoFormula implements Serializable {
       }
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (bandera == 1) {
          restaurarTabla();
       }
@@ -703,6 +710,10 @@ public class ControlTipoFormula implements Serializable {
 
    public void contarRegistros() {
       RequestContext.getCurrentInstance().update("form:informacionRegistro");
+   }
+
+   public void contarRegistrosLovFor() {
+      RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroLovFormula");
    }
 
    //Getter & Setter
@@ -841,6 +852,17 @@ public class ControlTipoFormula implements Serializable {
 
    public void setInfoRegistro(String infoRegistro) {
       this.infoRegistro = infoRegistro;
+   }
+
+   public String getInfoRegistroLovFormula() {
+      FacesContext c = FacesContext.getCurrentInstance();
+      DataTable tabla = (DataTable) c.getViewRoot().findComponent("formularioDialogos:LOVFormulas");
+      infoRegistroLovFormula = String.valueOf(tabla.getRowCount());
+      return infoRegistroLovFormula;
+   }
+
+   public void setInfoRegistroLovFormula(String infoRegistroLovFormula) {
+      this.infoRegistroLovFormula = infoRegistroLovFormula;
    }
 
 }

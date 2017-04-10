@@ -81,4 +81,13 @@ public class AdministrarOperandos implements AdministrarOperandosInterface {
       }
    }
 
+   public String clonarOperando(short codigoO, String nombreDes, String descripcionDes) {
+      try {
+         return persistenciaOperandos.clonarOperando(em, codigoO, nombreDes, descripcionDes);
+      } catch (Exception e) {
+         System.out.println("AdministrarOperandos.clonarOperando() Error : " + e.toString());
+         return "ERROR EJECUTANDO LA TRANSACCION DESDE EL SISTEMA";
+      }
+   }
+
 }

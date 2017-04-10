@@ -13,8 +13,7 @@
          <ui:define name="body"> 
             <script type="text/javascript">
                $(window).load(function () {
-                  //$(".loader").fadeOut("slow");
-                  foco('form:guardarRapido');
+                  foco('form:editar');
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
@@ -33,46 +32,46 @@
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/guardar.png);"
                                          disabled="true" id="guardarRapido" value=""/>
-                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}" />
+                        <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/editar.png);"
                                          actionListener="#{controlParametrosConjuntos.editar()}" id="editar" value=""/>
-                        <p:tooltip  for="editar" value="#{msg['editar']}" />
+                        <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/lupa.png);" 
                                          disabled="true" id="listaValores" value=""/>
 
-                        <p:tooltip  for="listaValores" value="#{msg['lista']}" />
+                        <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/embudo.png);"
                                          id="filtrar" value="" actionListener="#{controlParametrosConjuntos.activarFiltros()}"/>
-                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}" />
+                        <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/excel.png);"
                                          actionListener="#{controlParametrosConjuntos.exportXLS()}" id="exportarXLS" value="" ajax="false"/>
-                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}" />
+                        <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/xml.png);"
                                          id="exportarXML" value="" ajax="false">
-                           <p:dataExporter type="xml" target="#{controlParametrosConjuntos.tablaXML()}" fileName="#{controlParametrosConjuntos.nombreArchivoXML()}" encoding="UTF-8" />
+                           <p:dataExporter type="xml" target="#{controlParametrosConjuntos.tablaXML()}" fileName="#{controlParametrosConjuntos.nombreArchivoXML()}" encoding="UTF-8"/>
                         </p:commandButton> 
-                        <p:tooltip  for="exportarXML" value="#{msg['xml']}" />
+                        <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/pdf.png);"
                                          actionListener="#{controlParametrosConjuntos.exportPDF()}" id="exportarPDF" value="" ajax="false"/>
-                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}" />
+                        <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);"
                                          disabled="true" id="insertar" value=""/> 
-                        <p:tooltip  for="insertar" value="#{msg['nuevo']}" />
+                        <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/delete.png);"
                                          disabled="true" id="eliminar" value=""/>  
-                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}" />
+                        <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton style="background-image: url(Imagenes/Iconos/duplicar.png);"
                                          disabled="true" id="duplicar" value=""/>  
@@ -84,13 +83,13 @@
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);"
+                        <p:commandButton style="background-image: url(Imagenes/Iconos/refrescar.png);" action="#{controlParametrosConjuntos.restablecerTablas()}"
                                          id="refrescar" value="" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);"
+                        <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" process="@this"
                                          id="salir" value="" action="#{controlParametrosConjuntos.retornarPagina()}"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
                      </p:toolbarGroup>
@@ -129,7 +128,7 @@
                         </div>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/acumulados.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
                                          width: 35px; height: 35px; left: 81%; top: -23px;" actionListener="#{controlParametrosConjuntos.cargarEstadisticas()}" 
-                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" id="consultar" value=""/>  
+                                         onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" id="consultar" value="" process="@this"/>  
                      </div>
 
                      <div style="display: inline-block; width: 19%; position: relative;"/>
@@ -200,7 +199,7 @@
                            </div>
                         </div>
                         <p:commandButton style="background-image: url(Imagenes/Iconos/acumulados.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; 
-                                         width: 35px; height: 35px; left: 81%; top: -23px;" id="consultarLB" value=""
+                                         width: 35px; height: 35px; left: 81%; top: -23px;" id="consultarLB" value="" process="@this"
                                          actionListener="#{controlParametrosConjuntos.cargarEstadisticasLB()}" onclick="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()"/>  
                      </div>
                   </fieldset>
@@ -4203,7 +4202,7 @@
                   </p:selectOneMenu>
 
                   <p:commandButton styleClass="cssBotonCancelar" id="ATRAS" 
-                                   action="#{controlParametrosConjuntos.retornarPagina()}" value=""/>
+                                   action="#{controlParametrosConjuntos.retornarPagina()}" process="@this" value=""/>
                </p:panel>
 
 
