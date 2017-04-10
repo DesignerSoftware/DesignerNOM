@@ -34,24 +34,12 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
 
     @Override
     public void inicarC() {
-        /*try {
-            Class.forName("oracle.jdbc.OracleDriver");
-            conexion = DriverManager.getConnection("jdbc:oracle:thin:@SOPORTE9:1521:SOPORTE9", "PRODUCCION", "PRODUCCION");
-            System.out.println("Conexión exitosa");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Conexión fallidab ClassNotFoundException\n");
-            System.out.println(e);
-        } catch (SQLException e) {
-            System.out.println("Conexión fallida SQLException\n");
-            System.out.println(e);
-        }*/
         System.out.println("inicarC(). NO IMPLEMENTADO. ");
     }
 
     @Override
     public String ejecutarReporte(String nombreReporte, String rutaReporte, String rutaGenerado, String nombreArchivo, String tipoReporte, Connection cxn, Map parametrosemp) {
         try {
-            //inicarC();
             System.out.println("INICIARREPORTE NombreReporte: " + nombreReporte);
             System.out.println("INICIARREPORTE rutaReporte: " + rutaReporte);
             System.out.println("INICIARREPORTE rutaGenerado: " + rutaGenerado);
@@ -69,10 +57,8 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                     parametros.put("empleadoHasta", parametrosemp.get("empleadoHasta"));
                 }
             }
-            //JasperPrint imprimir = JasperFillManager.fillReport(masterReport, null, cxn);
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
-            //JasperPrint imprimir = JasperFillManager.fillReport(masterReport, null, conexion);
             String outFileName = rutaGenerado + nombreArchivo;
             System.out.println("INICIARREPORTE outFileName: " + outFileName);
             JRExporter exporter = null;
@@ -113,14 +99,9 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            System.out.println("fin. " + outFileName);
-            //cerrarConexion();
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
-            //System.out.println(e.getStackTrace());
-            System.out.println("************************************");
-            //e.printStackTrace();
             if (e.getCause() != null) {
                 return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -153,15 +134,10 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             });
             //handle.startFill();
             AsyncJasperPrintAccessor acceso = new AsyncJasperPrintAccessor(handle);
-            System.out.println("0");
             handle.startFill();
-            System.out.println("1");
             jpAcceso = acceso;
-            System.out.println("2");
             imprimir = acceso.getFinalJasperPrint();
-            System.out.println("3");
             String outFileName = rutaGenerado + nombreArchivo;
-            System.out.println("4");
             JRExporter exporter = null;
             if (tipoReporte.equals("PDF")) {
                 exporter = new JRPdfExporter();
@@ -193,10 +169,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error ejecutarReportinho IniciarReporte.ejecutarReporte: " + e);
-            //System.out.println(e.getStackTrace());
-            System.out.println("************************************");
-            // System.out.println(e.getCause().toString());
-            //e.printStackTrace();
             if (e.getCause() != null) {
                 return "Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -271,7 +243,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
     @Override
     public void cancelarReporte() {
         try {
-            System.out.println("CANCELAR REPORTE");
             handle.cancellFill();
             handle = null;
         } catch (Exception ex) {
@@ -284,8 +255,7 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
         try {
             conexion.close();
         } catch (Exception e) {
-            System.out.println("Error cerrar: " + e);
-            System.out.println("Error causa: " + e.getCause());
+            System.out.println("Error Cerrar Conexión: " + e.getCause());
         }
     }
 
@@ -325,7 +295,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
-            System.out.println("************************************");
             if (e.getCause() != null) {
                 return "INICIARREPORTE Error: " + e.toString() + "\n" + e.getCause().toString();
             } else {
@@ -356,7 +325,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
             String outFileName = rutaGenerado + nombreArchivo;
-            System.out.println("INICIARREPORTE outFileName: " + outFileName);
             JRExporter exporter = null;
             if (tipoReporte.equals("PDF")) {
                 exporter = new JRPdfExporter();
@@ -366,7 +334,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            System.out.println("fin. " + outFileName);
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
@@ -410,7 +377,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            System.out.println("fin. " + outFileName);
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporte: " + e);
@@ -448,7 +414,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            System.out.println("fin. " + outFileName);
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReportePlanta1: " + e);
@@ -488,7 +453,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
                 exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outFileName);
                 exporter.exportReport();
             }
-            System.out.println("fin. " + outFileName);
             return outFileName;
         } catch (JRException e) {
             System.out.println("Error IniciarReporte.ejecutarReporteSegUsuarios: " + e);
@@ -522,7 +486,6 @@ public class IniciarReporte implements IniciarReporteInterface, Serializable {
             JasperPrint imprimir = JasperFillManager.fillReport(masterReport, parametros, cxn);
             System.out.println("INICIARREPORTE lleno reporte ");
             String outFileName = rutaGenerado + nombreArchivo;
-            System.out.println("INICIARREPORTE outFileName: " + outFileName);
             JRExporter exporter = null;
             if (tipoReporte.equals("PDF")) {
                 exporter = new JRPdfExporter();

@@ -184,6 +184,8 @@ public class ParametrosReportes implements Serializable {
     private String estadoPersonal;
     @Transient
     private String estadoSN;
+    @Transient
+    private String tipocuentabanco;
     public ParametrosReportes() {
     }
 
@@ -670,6 +672,24 @@ public class ParametrosReportes implements Serializable {
         }
     }
 
+    public String getTipocuentabanco() {
+        if (tipocuentacredi == null) {
+            this.tipocuentabanco = " ";
+        } else {
+            tipocuentabanco = tipocuentacredi;
+        }
+        return tipocuentabanco;
+    }
+
+    public void setTipocuentabanco(String tipocuentabanco) {
+        this.tipocuentabanco = tipocuentabanco;
+        if (tipocuentabanco.trim().isEmpty()) {
+            this.tipocuentacredi = null;
+        } else {
+            this.tipocuentacredi = tipocuentabanco;
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -702,5 +722,4 @@ public class ParametrosReportes implements Serializable {
     public void setNombregerente(Empleados nombregerente) {
         this.nombregerente = nombregerente;
     }
-
 }

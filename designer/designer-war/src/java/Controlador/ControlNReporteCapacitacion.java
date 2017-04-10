@@ -677,7 +677,7 @@ public class ControlNReporteCapacitacion implements Serializable {
                     System.out.println("validar descarga reporte - ingreso al if 3");
                     if (reporteSeleccionado != null) {
                         System.out.println("validar descarga reporte - ingreso al if 4");
-                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                             //System.out.println("Acceso por mobiles.");
                             context.update("formDialogos:descargarReporte");
                             context.execute("PF('descargarReporte').show();");

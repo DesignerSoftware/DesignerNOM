@@ -1246,11 +1246,8 @@
                         <p:commandButton id="mostrarTodos" style="position: absolute; left: 200px; top: 490px;  width: 150px; height: 30px; background-image: url(Imagenes/Iconos/todosdbL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; "
                                          onclick="PF('operacionEnProceso').show()" actionListener="#{controlParametrosCorreccionAutoL.mostrarTodosAporteEntidad()}" value="" process="@this" />
 
-                        <p:commandButton style="position: relative; left: 675px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                         disabled="#{controlParametrosCorreccionAutoL.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
-                        <p:commandButton style="position: absolute; left: 775px; top: 490px; position: absolute; width: 90px; height: 30px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                         id="ATRAS" value="" actionListener="#{controlParametrosCorreccionAutoL.salir()}" action="atrascorreccionparametro" process="@this" />
-
+                        <p:commandButton class="cssBotonAceptar" disabled="#{controlParametrosCorreccionAutoL.guardado}" id="ACEPTAR" value=" " onclick="PF('confirmarGuardarSalida').show();" process="@this" />
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlParametrosCorreccionAutoL.salir()}" action="atrascorreccionparametro" process="@this" />
                         <p:remoteCommand name="posicionAporteEntidad" actionListener="#{controlParametrosCorreccionAutoL.posicionAporteEntidad()}"/>
                         <p:remoteCommand name="posicionParametro" actionListener="#{controlParametrosCorreccionAutoL.posicionParametro()}"/>
                     </p:panel>

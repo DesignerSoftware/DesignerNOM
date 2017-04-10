@@ -95,12 +95,9 @@ public class AdministarReportes implements AdministarReportesInterface {
         em.getTransaction().begin();
         conexion = em.unwrap(java.sql.Connection.class);
         em.getTransaction().commit();
-        //em.close();
-        System.out.println("AdministrarReportes consultarDatosConexion");
     }
 
     public String generarReporte(String nombreReporte, String tipoReporte, AsynchronousFilllListener asistenteReporte) {
-        //try {
         general = persistenciaGenerales.obtenerRutas(em);
         String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
         String pathReporteGenerado = null;
@@ -123,22 +120,10 @@ public class AdministarReportes implements AdministarReportesInterface {
             } else if (tipoReporte.equals("DOCX")) {
                 nombreArchivo = nombreArchivo + ".rtf";
             }
-            //datosConexion();
-            // if (conexion != null && !conexion.isClosed()) {
-            //pathReporteGenerado = reporte.ejecutarReporte(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, null);
-            // pathReporteGenerado = reporte.ejecutarReportinho(nombreReporte, rutaReporte, rutaGenerado, nombreArchivo, tipoReporte, null);
             reporte.llenarReporte(nombreReporte, rutaReporte, asistenteReporte);
-            //conexion.close();
-            // return pathReporteGenerado;
-            // }
             return pathReporteGenerado;
         }
         return pathReporteGenerado;
-        /*
-         * } catch (SQLException ex) { System.out.println("PUM PUM xD"); return
-         * null;
-         }
-         */
     }
 
     @Override
@@ -148,7 +133,6 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporte(String nombreReporte, String tipoReporte, Map paramEmpl) {
-        System.out.println(this.getClass().getName() + ".generarReporte()");
         try {
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
@@ -164,20 +148,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 String rutaGenerado = general.getUbicareportes();
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
-//                if (tipoReporte.equals("PDF")) {
-//                    System.out.println("entró a PDF");
-//                    nombreArchivo = nombreArchivo + ".pdf";
-//                } else if (tipoReporte.equals("XLSX")) {
-//                    nombreArchivo = nombreArchivo + ".xlsx";
-//                } else if (tipoReporte.equals("XLS")) {
-//                    nombreArchivo = nombreArchivo + ".xls";
-//                } else if (tipoReporte.equals("CSV")) {
-//                    nombreArchivo = nombreArchivo + ".csv";
-//                } else if (tipoReporte.equals("HTML")) {
-//                    nombreArchivo = nombreArchivo + ".html";
-//                } else if (tipoReporte.equals("DOCX")) {
-//                    nombreArchivo = nombreArchivo + ".rtf";
-//                }
                 String extension = "";
                 switch (tipoReporte) {
                     case "PDF":
@@ -253,9 +223,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteCifraControl(String nombreReporte, String tipoReporte, Map paramFechas) {
-        System.out.println(this.getClass().getName() + ".generarReporteCifraControl()");
         try {
-            System.out.println("Mapa en generar Reporte Cifra Control : " + paramFechas);
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;
@@ -270,7 +238,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();
@@ -293,9 +260,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteFuncionesCargo(String nombreReporte, String tipoReporte, Map parametros) {
-        System.out.println("Administrar.AdministarReportes.generarReporteFuncionesCargo()");
         try {
-            System.out.println("Mapa en generar Reporte Funciones Cargo : " + parametros);
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;
@@ -310,7 +275,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();
@@ -333,9 +297,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteHojaVida(String nombreReporte, String tipoReporte, Map parametros) {
-        System.out.println("Administrar.AdministarReportes.generarReporteHojaVida()");
         try {
-            System.out.println("Mapa en generar Reporte Hoja de Vida : " + parametros);
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;
@@ -350,7 +312,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();
@@ -373,7 +334,6 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReportePlanta1(String nombreReporte, String tipoReporte) {
-        System.out.println("Administrar.AdministarReportes.generarReportePlanta1()");
         try {
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
@@ -389,7 +349,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();
@@ -412,7 +371,6 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteSegUsuarios(String nombreReporte, String tipoReporte) {
-        System.out.println("Administrar.AdministarReportes.generarReporteSegUsuarios()");
           try {
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
@@ -428,7 +386,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();
@@ -451,9 +408,7 @@ public class AdministarReportes implements AdministarReportesInterface {
 
     @Override
     public String generarReporteHistoricosUsuarios(String nombreReporte, String tipoReporte, Map parametros) {
-        System.out.println("Administrar.AdministarReportes.generarReporteHistoricosUsuarios()");
         try {
-            System.out.println("Mapa en generar Reporte Historicos Usuarios: " + parametros);
             general = persistenciaGenerales.obtenerRutas(em);
             String nombreUsuario = persistenciaActualUsuario.actualAliasBD(em);
             String pathReporteGenerado = null;
@@ -468,7 +423,6 @@ public class AdministarReportes implements AdministarReportesInterface {
                 System.out.println("general.getPathreportes() : " + general.getPathreportes());
                 System.out.println("general.getUbicareportes() : " + general.getUbicareportes());
                 if (tipoReporte.equals("PDF")) {
-                    System.out.println("entró a PDF");
                     nombreArchivo = nombreArchivo + ".pdf";
                 }
                 consultarDatosConexion();

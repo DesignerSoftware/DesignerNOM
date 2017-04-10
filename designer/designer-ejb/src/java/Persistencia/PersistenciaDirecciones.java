@@ -215,10 +215,13 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
             Query query = em.createNativeQuery(sql);
             query.setParameter(1, secuenciaPersona);
             direccion = (String) query.getSingleResult();
+            if (direccion == null || direccion.isEmpty()) {
+                direccion = " ";
+            }
             return direccion;
         } catch (Exception e) {
-           System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()");
-           e.printStackTrace();
+            System.out.println("Persistencia.PersistenciaDirecciones.consultarPrimeraDireccion()");
+            e.printStackTrace();
             direccion = " ";
             return direccion;
         }
@@ -226,7 +229,7 @@ public class PersistenciaDirecciones implements PersistenciaDireccionesInterface
 
     @Override
     public List<Direcciones> direccionesBanco(EntityManager em, BigInteger secuenciaBanco) {
-       try {
+        try {
             em.clear();
             String sql = "SELECT * FROM DIRECCIONES WHERE BANCO = ? ORDER BY FECHAVIGENCIA DESC ";
             Query query = em.createNativeQuery(sql, Direcciones.class);

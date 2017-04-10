@@ -138,7 +138,7 @@ private ExternalContext externalContext;
         inforreporteSeleccionado = null;
         cambiosReporte = true;
         listaInfoReportesModificados = new ArrayList<>();
-        altoTabla = "185";
+        altoTabla = "200";
         parametroDeReporte = null;
         listaIR = null;
         bandera = 0;
@@ -352,7 +352,7 @@ private ExternalContext externalContext;
 
     public void activarCtrlF11() {
         if (bandera == 0) {
-            altoTabla = "165";
+            altoTabla = "180";
             codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:codigoIR");
             codigoIR.setFilterStyle("width: 85% !important;");
             reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:reporteIR");
@@ -370,7 +370,7 @@ private ExternalContext externalContext;
     }
 
     private void cerrarFiltrado() {
-        altoTabla = "185";
+        altoTabla = "200";
         codigoIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:codigoIR");
         codigoIR.setFilterStyle("display: none; visibility: hidden;");
         reporteIR = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:reportesContabilidad:reporteIR");
@@ -661,7 +661,7 @@ private ExternalContext externalContext;
                 if (file != null) {
                     System.out.println("validar descarga reporte - ingreso al if 3");
                     if (inforreporteSeleccionado != null) {
-                         if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
+                         if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                             //System.out.println("Acceso por mobiles.");
                             context.update("formDialogos:descargarReporte");
                             context.execute("PF('descargarReporte').show();");

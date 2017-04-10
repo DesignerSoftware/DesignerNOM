@@ -219,7 +219,8 @@ public class ControlEmpleadoIndividual implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void limpiarListasValor() {
@@ -242,6 +243,7 @@ public class ControlEmpleadoIndividual implements Serializable {
     }
 
     public void recibirEmpleado(BigInteger sec) {
+        try{
         imprimir("2: recibirEmpleado.", "recibido secuencia: " + sec.toString());
         secuencia = sec;
         imprimir("2: recibirEmpleado.", "secuencia: " + secuencia);
@@ -256,62 +258,68 @@ public class ControlEmpleadoIndividual implements Serializable {
         listaCiudadesDocumento = null;
         listaCargos = null;
         guardado = true;
+        }catch(Exception e){
+            System.out.println("error en recibir empleado" + e.getMessage());
+        }
     }
 
     public void datosEmpleado() {
-        imprimir("3: datosEmpleado.", "secuencia: " + secuencia);
-        BigInteger secPersona = null;
-        if (persona != null) {
-            secPersona = persona.getSecuencia();
-        }
-        BigInteger secEmpleado = empleado.getSecuencia();
-        hojaDeVidaPersona = administrarEmpleadoIndividual.hvHojaDeVidaPersona(secPersona);
-        if (hojaDeVidaPersona == null) {
-            hojaDeVidaPersona = new HVHojasDeVida();
-            hojaDeVidaPersona.setCargo(new Cargos());
-        }
+        try {
 
-        if (hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
-            BigInteger secHv = hojaDeVidaPersona.getSecuencia();
+            imprimir("3: datosEmpleado.", "secuencia: " + secuencia);
+            BigInteger secPersona = null;
+            if (persona != null) {
+                secPersona = persona.getSecuencia();
+            }
+            BigInteger secEmpleado = empleado.getSecuencia();
+            hojaDeVidaPersona = administrarEmpleadoIndividual.hvHojaDeVidaPersona(secPersona);
+            if (hojaDeVidaPersona == null) {
+                hojaDeVidaPersona = new HVHojasDeVida();
+                hojaDeVidaPersona.setCargo(new Cargos());
+            }
 
-            referenciasPersonalesP = administrarEmpleadoIndividual.consultarPrimeraReferenciaP(secHv);
-            referenciasFamiliaresP = administrarEmpleadoIndividual.consultarPrimeraReferenciaF(secHv);
+            if (hojaDeVidaPersona != null && hojaDeVidaPersona.getSecuencia() != null) {
+                BigInteger secHv = hojaDeVidaPersona.getSecuencia();
 
-            experienciaLaboralP = administrarEmpleadoIndividual.consultarPrimeraExpLaboral(secHv);
-            entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
-            existenHV = false;
-        } else {
-            referenciasPersonalesP = "";
-            referenciasFamiliaresP = "";
-            experienciaLaboralP = "";
-            entrevistasP = "";
-        }
+                referenciasPersonalesP = administrarEmpleadoIndividual.consultarPrimeraReferenciaP(secHv);
+                referenciasFamiliaresP = administrarEmpleadoIndividual.consultarPrimeraReferenciaF(secHv);
 
-        telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);
-        direccionP = administrarEmpleadoIndividual.consultarPrimeraDireccionPersona(secPersona);
-        estadoCivilP = administrarEmpleadoIndividual.consultarPrimerEstadoCivilPersona(secPersona);
-        informacionAdicionalP = administrarEmpleadoIndividual.consultarPrimeraInformacionAd(secPersona);
-        reemplazoP = administrarEmpleadoIndividual.consultarPrimerReemplazo(secPersona);
-        educacionP = administrarEmpleadoIndividual.consultarPrimeraVigenciaFormal(secPersona);
-        idiomasP = administrarEmpleadoIndividual.consultarPimerIdioma(secPersona);
-        proyectosP = administrarEmpleadoIndividual.consultarPrimerProyecto(secPersona);
-        deportesP = administrarEmpleadoIndividual.consultarPrimerDeporte(secPersona);
-        eventosP = administrarEmpleadoIndividual.consultarPrimerEvento(secPersona);
-        aficionesP = administrarEmpleadoIndividual.consultarPrimeraAficion(secPersona);
-        familiaresP = administrarEmpleadoIndividual.consultarPrimerFamiliar(secPersona);
-        indicadoresP = administrarEmpleadoIndividual.consultarPrimerIndicador(secPersona);
-        demandasP = administrarEmpleadoIndividual.consultarPrimeraDemanda(secPersona);
-        visitasDomiciliariasP = administrarEmpleadoIndividual.consultarPrimeraVisita(secPersona);
-        pruebasAplicadasP = administrarEmpleadoIndividual.consultarPrimeraPrueba(secPersona);
+                experienciaLaboralP = administrarEmpleadoIndividual.consultarPrimeraExpLaboral(secHv);
+                entrevistasP = administrarEmpleadoIndividual.consultarPrimeraEntrevista(secHv);
+                existenHV = false;
+            } else {
+                referenciasPersonalesP = "";
+                referenciasFamiliaresP = "";
+                experienciaLaboralP = "";
+                entrevistasP = "";
+            }
 
-//        pruebasAplicadas = administrarEmpleadoIndividual.pruebasAplicadasPersona(secEmpleado);
-        //VEHICULO PROPIO
-        if (persona.getPlacavehiculo() != null) {
-            estadoVP = false;
-            vehiculoPropio = "S";
-        } else {
-            estadoVP = true;
-            vehiculoPropio = "N";
+            telefonoP = administrarEmpleadoIndividual.consultarPrimerTelefonoPersona(secPersona);
+            direccionP = administrarEmpleadoIndividual.consultarPrimeraDireccionPersona(secPersona);
+            estadoCivilP = administrarEmpleadoIndividual.consultarPrimerEstadoCivilPersona(secPersona);
+            informacionAdicionalP = administrarEmpleadoIndividual.consultarPrimeraInformacionAd(secPersona);
+            reemplazoP = administrarEmpleadoIndividual.consultarPrimerReemplazo(secPersona);
+            educacionP = administrarEmpleadoIndividual.consultarPrimeraVigenciaFormal(secPersona);
+            idiomasP = administrarEmpleadoIndividual.consultarPimerIdioma(secPersona);
+            proyectosP = administrarEmpleadoIndividual.consultarPrimerProyecto(secPersona);
+            deportesP = administrarEmpleadoIndividual.consultarPrimerDeporte(secPersona);
+            eventosP = administrarEmpleadoIndividual.consultarPrimerEvento(secPersona);
+            aficionesP = administrarEmpleadoIndividual.consultarPrimeraAficion(secPersona);
+            familiaresP = administrarEmpleadoIndividual.consultarPrimerFamiliar(secPersona);
+            indicadoresP = administrarEmpleadoIndividual.consultarPrimerIndicador(secPersona);
+            demandasP = administrarEmpleadoIndividual.consultarPrimeraDemanda(secPersona);
+            visitasDomiciliariasP = administrarEmpleadoIndividual.consultarPrimeraVisita(secPersona);
+            pruebasAplicadasP = administrarEmpleadoIndividual.consultarPrimeraPrueba(secPersona);
+
+            if (persona.getPlacavehiculo() != null) {
+                estadoVP = false;
+                vehiculoPropio = "S";
+            } else {
+                estadoVP = true;
+                vehiculoPropio = "N";
+            }
+        } catch (Exception e) {
+            System.out.println("error en consultar Datos Empleado" + e.getCause() + e.getMessage());
         }
     }
 
@@ -722,8 +730,8 @@ public class ControlEmpleadoIndividual implements Serializable {
 //                RequestContext.getCurrentInstance().update("formularioDialogos:errorObjetosDB");
 //                RequestContext.getCurrentInstance().execute("PF('errorObjetosDB').show()");
 //            } else if (resultado == 2) {
-                RequestContext.getCurrentInstance().update("formularioDialogos:confirmarRastro");
-                RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
+        RequestContext.getCurrentInstance().update("formularioDialogos:confirmarRastro");
+        RequestContext.getCurrentInstance().execute("PF('confirmarRastro').show()");
 //            } else if (resultado == 3) {
 //                RequestContext.getCurrentInstance().update("formularioDialogos:errorRegistroRastro");
 //                RequestContext.getCurrentInstance().execute("PF('errorRegistroRastro').show()");

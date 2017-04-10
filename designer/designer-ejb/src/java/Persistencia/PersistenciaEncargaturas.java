@@ -161,16 +161,17 @@ public class PersistenciaEncargaturas implements PersistenciaEncargaturasInterfa
                  + "   and e.fechainicial = (select max(ei.fechainicial) from encargaturas ei where ei.empleado = e.empleado) AND ROWNUM = 1";
          Query query = em.createNativeQuery(sql);
          query.setParameter(1, secuenciaEmpleado);
+         if(query.getSingleResult() != null){
          reemplazo = (String) query.getSingleResult();
-         if(reemplazo == null){
-         reemplazo = "";
+         }else{
+         reemplazo = " ";
          }
          return reemplazo;
 
       } catch (Exception e) {
          System.out.println("Persistencia.PersistenciaEncargaturas.primeraEncargatura() e: " + e);
          e.printStackTrace();
-         reemplazo = "";
+         reemplazo = " ";
          return reemplazo;
       }
    }

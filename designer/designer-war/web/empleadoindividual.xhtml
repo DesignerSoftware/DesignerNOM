@@ -554,13 +554,7 @@
 
                      </fieldset>
 
-
-                     <!--<fieldset style="position: absolute; left: 208px; top: 126px; width: 409px; height: 83px; border-radius: 7px; padding: 0px; border: none;">-->
-                         <!-- <legend style="font-weight: bold; color: blue">#/{msg['actividades']}</legend> -->
-                       <!--</fieldset>-->
                   </fieldset>
-                  <!-- </p:scrollPanel> -->
-                  <!-- ********************************************************************** -->
                   <p:commandButton id="imprimirhojavida" icon="ui-icon-extlink" oncomplete="PF('generandoReporte').hide();"
                                    style="position: absolute; left: 12px; top: 495px; height: 32px; width: 181px; color: white;
                                    background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"
@@ -571,8 +565,8 @@
                                    value="#{msg['reportesdepersonal']}" process="@this" action="reportePersonal" 
                                    actionListener="#{controlNReportePersonal.iniciarPagina()}"/>
 
-                  <p:commandButton id="ATRAS" style="position: absolute; left: 760px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this" />
-                  <p:commandButton id="ACEPTAR" style="position: absolute; left: 660px; top: 495px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
+                  <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" process="@this" />
+                  <p:commandButton id="ACEPTAR" class="cssBotonAceptar" disabled="#{controlEmpleadoIndividual.guardado}" value="" onclick="PF('confirmarGuardar').show()" process="@this" />
 
                </p:panel>
                <!-- ********************************************************************** -->
@@ -583,7 +577,6 @@
                      <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmpleadoIndividual.refrescar()}" action="nominaf" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close" />
                      <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w" />
                </p:dialog>
-<!--                    <p:remoteCommand name="iniciarcomponentes" update="#{controlEmpleadoIndividual.iniciarComponentes()}" />-->
             </h:form>
             <!-- ********************************************************************** -->
             <h:form id="formularioDialogos">
@@ -662,9 +655,7 @@
                      <p:commandButton id="atrasC" icon="ui-icon-arrowreturnthick-1-w" class="cssAtrasLOV" value="#{msg['atras']}" 
                                       actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudad()}" process="@this"/>
                   </div>
-
                </p:dialog> 
-
                <!-- ********************************************************************** -->
                <p:dialog id="CiudadesDocumentoDialogo" header="#{controlEmpleadoIndividual.cabezeraDialogoCiudad}" widgetVar="CiudadesDocumentoDialogo" draggable="true" resizable="false" closable="false" 
                          showEffect="fade" hideEffect="fade" width="445" modal="true">
@@ -707,7 +698,6 @@
                                       actionListener="#{controlEmpleadoIndividual.cancelarSeleccionCiudadDocumento()}" process="@this"/>
                   </div>
                </p:dialog> 
-
                <!-- ********************************************************************** -->
                <p:dialog id="CargosDialogo" header="Cargo Postulado" widgetVar="CargosDialogo" draggable="true" resizable="false" closable="false"   
                          showEffect="fade" hideEffect="fade" width="492" modal="true" >

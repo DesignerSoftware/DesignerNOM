@@ -92,16 +92,16 @@
                             </p:toolbarGroup>
                         </p:toolbar>
 
-                        <fieldset style="position: absolute; left: 150px; top: 197px; width: 690px; height: 245px; border-radius: 10px">
+                        <fieldset style="position: absolute; left: 150px; top: 197px; width: 690px; height: 260px; border-radius: 10px">
                                <!-- <legend style=" color: blue; text-align:left"><strong>#{msg['titulo']}</strong></legend> -->
 
-                            <p:dataTable id="reportesContabilidad" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 675px;"                           
+                            <p:dataTable id="reportesContabilidad" var="info" rowKey="#{info.secuencia}" rowIndexVar="indice" style="border: 1px; width: 675px;"  widgetVar="reportesContabilidad"                         
                                          value="#{controlNReporteContabilidad.listaIR}" scrollable="true" scrollHeight="#{controlNReporteContabilidad.altoTabla}" scrollWidth="696"
                                          filteredValue="#{controlNReporteContabilidad.filtrarListInforeportesUsuario}" selectionMode="single" emptyMessage="#{msg['vacio']}"
                                          editable="true" editMode="cell" selection="#{controlNReporteContabilidad.inforreporteSeleccionado}"  liveScroll="true" scrollRows="25">
 
                                 <p:ajax event="filter" listener="#{controlNReporteContabilidad.eventoFiltrar()}"/>
-                                <p:ajax event="rowSelect" listener="#{controlNReporteContabilidad.seleccionRegistro()}" process="@this" />
+                                <p:ajax event="rowSelect" listener="#{controlNReporteContabilidad.seleccionRegistro()}" process="@this"/>
                                 <p:ajax event="rowDblselect" listener="#{controlNReporteContabilidad.requisitosParaReporte()}" process="@this" />
 
                                 <p:column id="codigoIR" style="text-align: center" headerText="#{msg['codigo']}" width="50" sortBy="#{info.codigo}" filterBy="#{info.codigo}" filterMatchMode="contains"  filterStyle="display: none; visibility: hidden;"  >  
@@ -143,7 +143,7 @@
                                 </p:column>
                             </p:dataTable>
 
-                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteContabilidad.infoRegistro}" style="position: relative; left: 15px; top: -7px; font-weight: bold"/>
+                            <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlNReporteContabilidad.infoRegistro}" style="position: relative; left: 0px; top: -10px; font-weight: bold"/>
 
                             <p:commandButton id="BUSCARREPORTE" style="position: relative; left: 430px; top: 3px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/buscardb.png); 
                                              background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="" process="@this" 
@@ -156,24 +156,22 @@
                             <p:tooltip  for="MOSTRARTODOS" value="#{msg['mostrarTodos']}" />
                         </fieldset>
 
-                        <fieldset style="position: absolute; left: 10px; top: 197px; height: 245px;width: 115px; border-radius: 10px;">
+                        <fieldset style="position: absolute; left: 10px; top: 197px; height: 260px;width: 115px; border-radius: 10px;">
                             <h:outputText id="btn" style="position: absolute; left: 10px; top: 10px; background-image: url(Imagenes/Iconos/reporte.png); width:115px; height:180px; background-repeat: no-repeat; border: none; background-size: 100% 100%"/>
                         </fieldset>
 
-                        <p:commandButton id="ACEPTAR" style="position: absolute; left: 673px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/aceptar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value=""  
+                        <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=""  
                                          actionListener="#{controlNReporteContabilidad.dispararDialogoGuardarCambios()}" disabled="#{controlNReporteContabilidad.cambiosReporte}" process="@this" />
 
-                        <p:commandButton id="ATRAS" style="position: absolute; left: 763px; top: 483px; height: 30px; width: 90px; background-image: url(Imagenes/Iconos/cancelar.png); 
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="" action="nominaf" 
+                        <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" action="nominaf" 
                                          actionListener="#{controlNReporteContabilidad.cancelarYSalir()}" process="@this" />
 
-                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteContabilidad.activarEnvio}"
                                          action="enviocorreo" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportecontabilidad', controlNReporteContabilidad.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}" />
 
-                        <p:commandButton id="UGPP" icon="ui-icon-extlink" style="position: absolute; left: 150px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
+                        <p:commandButton id="UGPP" icon="ui-icon-extlink" style="position: absolute; left: 150px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="UGPP" process="@this" />
                         <p:tooltip  for="UGPP" value="#{msg['ugpp']}"/>
 
@@ -253,7 +251,7 @@
                                                  style="position: absolute; width: 70px; left: 120px; top: 35px; text-transform: uppercase;">  
                                     <f:selectItem itemLabel="#{msg['liquidado']}" itemValue="LIQUIDADO"/>  
                                     <f:selectItem itemLabel="#{msg['cerrado']}" itemValue="CERRADO"/>  
-                                    <f:selectItem itemLabel=" " itemValue="null"/>
+                                    <f:selectItem itemLabel=" " itemValue=" "/>
                                     <p:ajax event="change" listener="#{controlNReporteContabilidad.modificarParametroInforme()}" onstart="PF('operacionEnProceso').show()" oncomplete="PF('operacionEnProceso').hide()" process="@this" update="estadoParametroL"/>
                                 </p:selectOneMenu> 
                             </div>

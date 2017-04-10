@@ -138,225 +138,318 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
 
     @Override
     public Telefonos primerTelefonoPersona(BigInteger secPersona) {
-        List<Telefonos> listaTelefonos;
-        listaTelefonos = persistenciaTelefonos.telefonosPersona(em, secPersona);
-        if (listaTelefonos != null && !listaTelefonos.isEmpty()) {
-            return listaTelefonos.get(0);
-        } else {
+        try {
+            List<Telefonos> listaTelefonos;
+            listaTelefonos = persistenciaTelefonos.telefonosPersona(em, secPersona);
+            if (listaTelefonos != null && !listaTelefonos.isEmpty()) {
+                return listaTelefonos.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en Primer Telefono Persona :" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public Direcciones primeraDireccionPersona(BigInteger secPersona) {
-        List<Direcciones> listaDirecciones;
-        listaDirecciones = persistenciaDirecciones.direccionPersona(em, secPersona);
-        if (listaDirecciones != null && !listaDirecciones.isEmpty()) {
-            return listaDirecciones.get(0);
-        } else {
+        try {
+            List<Direcciones> listaDirecciones;
+            listaDirecciones = persistenciaDirecciones.direccionPersona(em, secPersona);
+            if (listaDirecciones != null && !listaDirecciones.isEmpty()) {
+                return listaDirecciones.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en Primera Dirección Persona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasEstadosCiviles estadoCivilPersona(BigInteger secPersona) {
-        List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles;
-        listaVigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPersona(em, secPersona);
-        if (listaVigenciasEstadosCiviles != null && !listaVigenciasEstadosCiviles.isEmpty()) {
-            return listaVigenciasEstadosCiviles.get(0);
-        } else {
+        try {
+            List<VigenciasEstadosCiviles> listaVigenciasEstadosCiviles;
+            listaVigenciasEstadosCiviles = persistenciaVigenciasEstadosCiviles.consultarVigenciasEstadosCivilesPersona(em, secPersona);
+            if (listaVigenciasEstadosCiviles != null && !listaVigenciasEstadosCiviles.isEmpty()) {
+                return listaVigenciasEstadosCiviles.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error es estadoCivilPersona : " + e.getMessage());
             return null;
         }
+
     }
 
     @Override
     public InformacionesAdicionales informacionAdicionalPersona(BigInteger secEmpleado) {
-        List<InformacionesAdicionales> listaInformacionesAdicionales;
-        listaInformacionesAdicionales = persistenciaInformacionesAdicionales.informacionAdicionalPersona(em, secEmpleado);
-        if (listaInformacionesAdicionales != null && !listaInformacionesAdicionales.isEmpty()) {
-            return listaInformacionesAdicionales.get(0);
-        } else {
+        try {
+            List<InformacionesAdicionales> listaInformacionesAdicionales;
+            listaInformacionesAdicionales = persistenciaInformacionesAdicionales.informacionAdicionalPersona(em, secEmpleado);
+            if (listaInformacionesAdicionales != null && !listaInformacionesAdicionales.isEmpty()) {
+                return listaInformacionesAdicionales.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en informaciónAdicionalPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public Encargaturas reemplazoPersona(BigInteger secEmpleado) {
-        List<Encargaturas> listaEncargaturas;
-        listaEncargaturas = persistenciaEncargaturas.reemplazoPersona(em, secEmpleado);
-        if (listaEncargaturas != null && !listaEncargaturas.isEmpty()) {
-            return listaEncargaturas.get(0);
-        } else {
+        try {
+            List<Encargaturas> listaEncargaturas;
+            listaEncargaturas = persistenciaEncargaturas.reemplazoPersona(em, secEmpleado);
+            if (listaEncargaturas != null && !listaEncargaturas.isEmpty()) {
+                return listaEncargaturas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en reemplazoPersona : " + e.getMessage());
             return null;
         }
+
     }
 
     @Override
     public VigenciasFormales educacionPersona(BigInteger secPersona) {
-        List<VigenciasFormales> listaVigenciasFormales;
-        listaVigenciasFormales = persistenciaVigenciasFormales.educacionPersona(em, secPersona);
-        if (listaVigenciasFormales != null && !listaVigenciasFormales.isEmpty()) {
-            return listaVigenciasFormales.get(0);
-        } else {
+        try {
+            List<VigenciasFormales> listaVigenciasFormales;
+            listaVigenciasFormales = persistenciaVigenciasFormales.educacionPersona(em, secPersona);
+            if (listaVigenciasFormales != null && !listaVigenciasFormales.isEmpty()) {
+                return listaVigenciasFormales.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("errro en educacionPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public IdiomasPersonas idiomasPersona(BigInteger secPersona) {
-        List<IdiomasPersonas> listaIdiomasPersonas;
-        listaIdiomasPersonas = persistenciaIdiomasPersonas.idiomasPersona(em, secPersona);
-        if (listaIdiomasPersonas != null && !listaIdiomasPersonas.isEmpty()) {
-            return listaIdiomasPersonas.get(0);
-        } else {
+        try {
+            List<IdiomasPersonas> listaIdiomasPersonas;
+            listaIdiomasPersonas = persistenciaIdiomasPersonas.idiomasPersona(em, secPersona);
+            if (listaIdiomasPersonas != null && !listaIdiomasPersonas.isEmpty()) {
+                return listaIdiomasPersonas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en idiomasPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasProyectos proyectosPersona(BigInteger secEmpleado) {
-        List<VigenciasProyectos> listaVigenciasProyectos;
-        listaVigenciasProyectos = persistenciaVigenciasProyectos.proyectosEmpleado(em, secEmpleado);
-        if (listaVigenciasProyectos != null && !listaVigenciasProyectos.isEmpty()) {
-            return listaVigenciasProyectos.get(0);
-        } else {
+        try {
+            List<VigenciasProyectos> listaVigenciasProyectos;
+            listaVigenciasProyectos = persistenciaVigenciasProyectos.proyectosEmpleado(em, secEmpleado);
+            if (listaVigenciasProyectos != null && !listaVigenciasProyectos.isEmpty()) {
+                return listaVigenciasProyectos.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en proyectosPersona  :" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public HvReferencias referenciasPersonalesPersona(BigInteger secHv) {
-        List<HvReferencias> listaReferenciasPersonales;
-        listaReferenciasPersonales = persistenciaHvReferencias.referenciasPersonalesPersona(em, secHv);
-        if (listaReferenciasPersonales != null && !listaReferenciasPersonales.isEmpty()) {
-            return listaReferenciasPersonales.get(0);
-        } else {
+        try {
+            List<HvReferencias> listaReferenciasPersonales;
+            listaReferenciasPersonales = persistenciaHvReferencias.referenciasPersonalesPersona(em, secHv);
+            if (listaReferenciasPersonales != null && !listaReferenciasPersonales.isEmpty()) {
+                return listaReferenciasPersonales.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en referenciasPersonalesPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public HvReferencias referenciasFamiliaresPersona(BigInteger secHv) {
-        List<HvReferencias> listaReferenciasPersonales;
-        listaReferenciasPersonales = persistenciaHvReferencias.contarReferenciasFamiliaresPersona(em, secHv);
-        if (listaReferenciasPersonales != null && !listaReferenciasPersonales.isEmpty()) {
-            return listaReferenciasPersonales.get(0);
-        } else {
+        try {
+            List<HvReferencias> listaReferenciasPersonales;
+            listaReferenciasPersonales = persistenciaHvReferencias.contarReferenciasFamiliaresPersona(em, secHv);
+            if (listaReferenciasPersonales != null && !listaReferenciasPersonales.isEmpty()) {
+                return listaReferenciasPersonales.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en referenciasFamiliaresPersona  : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public HvExperienciasLaborales experienciaLaboralPersona(BigInteger secHv) {
-        List<HvExperienciasLaborales> listaExperienciaLaboral;
-        listaExperienciaLaboral = persistenciaHvExperienciasLaborales.experienciaLaboralPersona(em, secHv);
-        if (listaExperienciaLaboral != null && !listaExperienciaLaboral.isEmpty()) {
-            return listaExperienciaLaboral.get(0);
-        } else {
+        try {
+            List<HvExperienciasLaborales> listaExperienciaLaboral;
+            listaExperienciaLaboral = persistenciaHvExperienciasLaborales.experienciaLaboralPersona(em, secHv);
+            if (listaExperienciaLaboral != null && !listaExperienciaLaboral.isEmpty()) {
+                return listaExperienciaLaboral.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en experienciaLaboralPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasEventos eventosPersona(BigInteger secEmpl) {
-        List<VigenciasEventos> listaVigenciasEventos;
-        listaVigenciasEventos = persistenciaVigenciasEventos.eventosEmpleado(em, secEmpl);
-        if (listaVigenciasEventos != null && !listaVigenciasEventos.isEmpty()) {
-            return listaVigenciasEventos.get(0);
-        } else {
+        try {
+            List<VigenciasEventos> listaVigenciasEventos;
+            listaVigenciasEventos = persistenciaVigenciasEventos.eventosEmpleado(em, secEmpl);
+            if (listaVigenciasEventos != null && !listaVigenciasEventos.isEmpty()) {
+                return listaVigenciasEventos.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en eventosPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasDeportes deportesPersona(BigInteger secPersona) {
-        List<VigenciasDeportes> listaVigenciasDeportes;
-        listaVigenciasDeportes = persistenciaVigenciasDeportes.deportePersona(em, secPersona);
-        if (listaVigenciasDeportes != null && !listaVigenciasDeportes.isEmpty()) {
-            return listaVigenciasDeportes.get(0);
-        } else {
+        try {
+            List<VigenciasDeportes> listaVigenciasDeportes;
+            listaVigenciasDeportes = persistenciaVigenciasDeportes.deportePersona(em, secPersona);
+            if (listaVigenciasDeportes != null && !listaVigenciasDeportes.isEmpty()) {
+                return listaVigenciasDeportes.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en deportesPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasAficiones aficionesPersona(BigInteger secPersona) {
-        List<VigenciasAficiones> listaVigenciasAficiones;
-        listaVigenciasAficiones = persistenciaVigenciasAficiones.aficionesPersona(em, secPersona);
-        if (listaVigenciasAficiones != null && !listaVigenciasAficiones.isEmpty()) {
-            return listaVigenciasAficiones.get(0);
-        } else {
+        try {
+            List<VigenciasAficiones> listaVigenciasAficiones;
+            listaVigenciasAficiones = persistenciaVigenciasAficiones.aficionesPersona(em, secPersona);
+            if (listaVigenciasAficiones != null && !listaVigenciasAficiones.isEmpty()) {
+                return listaVigenciasAficiones.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en aficionesPersona  : " + e.getMessage());
             return null;
         }
     }
 
-    /*@Override
-    public Familiares familiaresPersona(BigInteger secPersona) {
-        List<Familiares> listaFamiliares;
-        listaFamiliares = persistenciaFamiliares.familiaresPersona(em, secPersona);
-        if (listaFamiliares != null && !listaFamiliares.isEmpty()) {
-            return listaFamiliares.get(0);
-        } else {
-            return null;
-        }
-    }*/
     @Override
     public String consultaFamiliaresPersona(BigInteger secPersona) {
-        String resultado = persistenciaFamiliares.consultaFamiliar(em, secPersona);
-        return resultado;
+        String resultado = " ";
+        try {
+            resultado = persistenciaFamiliares.consultaFamiliar(em, secPersona);
+            return resultado;
+        } catch (Exception e) {
+            System.out.println("error en consultaFamiliaresPersona : " + e.getMessage());
+            return resultado;
+        }
     }
 
     @Override
     public HvEntrevistas entrevistasPersona(BigInteger secHv) {
-        List<HvEntrevistas> listaEntrevistas;
-        listaEntrevistas = persistenciaHvEntrevistas.entrevistasPersona(em, secHv);
-        if (listaEntrevistas != null && !listaEntrevistas.isEmpty()) {
-            return listaEntrevistas.get(0);
-        } else {
+        try {
+            List<HvEntrevistas> listaEntrevistas;
+            listaEntrevistas = persistenciaHvEntrevistas.entrevistasPersona(em, secHv);
+            if (listaEntrevistas != null && !listaEntrevistas.isEmpty()) {
+                return listaEntrevistas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en entrevistasPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasIndicadores indicadoresPersona(BigInteger secEmpl) {
-        List<VigenciasIndicadores> listaVigenciasIndicadores;
-        listaVigenciasIndicadores = persistenciaVigenciasIndicadores.ultimosIndicadoresEmpleado(em, secEmpl);
-        if (listaVigenciasIndicadores != null && !listaVigenciasIndicadores.isEmpty()) {
-            return listaVigenciasIndicadores.get(0);
-        } else {
+        try {
+            List<VigenciasIndicadores> listaVigenciasIndicadores;
+            listaVigenciasIndicadores = persistenciaVigenciasIndicadores.ultimosIndicadoresEmpleado(em, secEmpl);
+            if (listaVigenciasIndicadores != null && !listaVigenciasIndicadores.isEmpty()) {
+                return listaVigenciasIndicadores.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en Indicadores Persona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public Demandas demandasPersona(BigInteger secEmpl) {
-        List<Demandas> listaDemandas;
-        listaDemandas = persistenciaDemandas.demandasPersona(em, secEmpl);
-        if (listaDemandas != null && !listaDemandas.isEmpty()) {
-            return listaDemandas.get(0);
-        } else {
+        try {
+            List<Demandas> listaDemandas;
+            listaDemandas = persistenciaDemandas.demandasPersona(em, secEmpl);
+            if (listaDemandas != null && !listaDemandas.isEmpty()) {
+                return listaDemandas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en demanda Persona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public VigenciasDomiciliarias visitasDomiciliariasPersona(BigInteger secPersona) {
-        List<VigenciasDomiciliarias> listaVigenciasDomiciliarias;
-        listaVigenciasDomiciliarias = persistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona(em, secPersona);
-        if (listaVigenciasDomiciliarias != null && !listaVigenciasDomiciliarias.isEmpty()) {
-            return listaVigenciasDomiciliarias.get(0);
-        } else {
+        try {
+            List<VigenciasDomiciliarias> listaVigenciasDomiciliarias;
+            listaVigenciasDomiciliarias = persistenciaVigenciasDomiciliarias.visitasDomiciliariasPersona(em, secPersona);
+            if (listaVigenciasDomiciliarias != null && !listaVigenciasDomiciliarias.isEmpty()) {
+                return listaVigenciasDomiciliarias.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en visitasDomiciliariasPersona : " + e.getMessage());
             return null;
         }
     }
 
     @Override
     public EvalResultadosConv pruebasAplicadasPersona(BigInteger secEmpleado) {
-        List<EvalResultadosConv> listaPruebasAplicadas;
-        listaPruebasAplicadas = persistenciaEvalResultadosConv.pruebasAplicadasPersona(em, secEmpleado);
-        if (listaPruebasAplicadas != null && !listaPruebasAplicadas.isEmpty()) {
-            return listaPruebasAplicadas.get(0);
-        } else {
+        try {
+            List<EvalResultadosConv> listaPruebasAplicadas;
+            listaPruebasAplicadas = persistenciaEvalResultadosConv.pruebasAplicadasPersona(em, secEmpleado);
+            if (listaPruebasAplicadas != null && !listaPruebasAplicadas.isEmpty()) {
+                return listaPruebasAplicadas.get(0);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("error en pruebasAplicadasPersona : " + e.getMessage());
             return null;
         }
     }
@@ -364,23 +457,38 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
     //LOVS
     @Override
     public List<TiposDocumentos> tiposDocumentos() {
-        List<TiposDocumentos> listaTiposDocumentos;
-        listaTiposDocumentos = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
-        return listaTiposDocumentos;
+        try {
+            List<TiposDocumentos> listaTiposDocumentos;
+            listaTiposDocumentos = persistenciaTiposDocumentos.consultarTiposDocumentos(em);
+            return listaTiposDocumentos;
+        } catch (Exception e) {
+            System.out.println("error en tiposDocumentos  : " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public List<Ciudades> ciudades() {
-        List<Ciudades> listaCiudades;
-        listaCiudades = persistenciaCiudades.consultarCiudades(em);
-        return listaCiudades;
+        try {
+            List<Ciudades> listaCiudades;
+            listaCiudades = persistenciaCiudades.consultarCiudades(em);
+            return listaCiudades;
+        } catch (Exception e) {
+            System.out.println("error en ciudades : " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public List<Cargos> cargos() {
-        List<Cargos> listaCargos;
-        listaCargos = persistenciaCargos.consultarCargos(em);
-        return listaCargos;
+        try {
+            List<Cargos> listaCargos;
+            listaCargos = persistenciaCargos.consultarCargos(em);
+            return listaCargos;
+        } catch (Exception e) {
+            System.out.println("Error Administrar.AdministrarEmpleadoIndividual.cargos() : " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -459,150 +567,262 @@ public class AdministrarEmpleadoIndividual implements AdministrarEmpleadoIndivid
 
     @Override
     public String fotoEmpleado(Empleados empleado) {
-        String rutaFoto;
-        general = persistenciaGenerales.obtenerRutas(em);
-        if (general != null) {
-            if (empleado.getPersona().getPathfoto() == null || empleado.getPersona().getPathfoto().equalsIgnoreCase("N")) {
-                rutaFoto = general.getPathfoto() + "sinFoto.jpg";
+        try {
+            String rutaFoto;
+            general = persistenciaGenerales.obtenerRutas(em);
+            if (general != null) {
+                if (empleado.getPersona().getPathfoto() == null || empleado.getPersona().getPathfoto().equalsIgnoreCase("N")) {
+                    rutaFoto = general.getPathfoto() + "sinFoto.jpg";
+                } else {
+                    rutaFoto = general.getPathfoto() + empleado.getPersona().getNumerodocumento() + ".jpg";
+                }
+                return rutaFoto;
             } else {
-                rutaFoto = general.getPathfoto() + empleado.getPersona().getNumerodocumento() + ".jpg";
+                return null;
             }
-            return rutaFoto;
-        } else {
+        } catch (Exception e) {
+            System.out.println("Error en foto empleado" + e.getMessage());
             return null;
         }
     }
 
     @Override
     public Personas encontrarPersona(BigInteger secPersona) {
-        System.out.println(this.getClass().getName() + "encontrarPersona()");
-        return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+        try {
+            return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+        } catch (Exception e) {
+            System.out.println("error en encontrarPersona : " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public Personas obtenerPersonaPorEmpleado(BigInteger secPersona) {
-        System.out.println(this.getClass().getName() + "encontrarPersona()");
-        System.out.println("secPersona: " + secPersona);
-        return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+        try {
+            return persistenciaPersonas.buscarPersonaSecuencia(em, secPersona);
+        } catch (Exception e) {
+            System.out.println("error en obtenerPersonaPorEmpleado : " + e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public String consultarPrimerTelefonoPersona(BigInteger secPersona) {
-        String telefono = persistenciaTelefonos.consultarUltimoTelefono(em, secPersona);
-        return telefono;
+        try {
+            String telefono = persistenciaTelefonos.consultarUltimoTelefono(em, secPersona);
+            return telefono;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerTelefonoPersona : " + e.getMessage());
+           return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraDireccionPersona(BigInteger secPersona) {
-        String direccion = persistenciaDirecciones.consultarPrimeraDireccion(em, secPersona);
-        return direccion;
+        try {
+            String direccion = persistenciaDirecciones.consultarPrimeraDireccion(em, secPersona);
+            return direccion;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraDireccionPersona");
+           return " ";
+        }
     }
 
     @Override
     public String consultarPrimerEstadoCivilPersona(BigInteger secPersona) {
-        String estadoCivil = persistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil(em, secPersona);
-        return estadoCivil;
+        try {
+            String estadoCivil = persistenciaVigenciasEstadosCiviles.consultarPrimerEstadoCivil(em, secPersona);
+            return estadoCivil;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerEstadoCivilPersona : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraInformacionAd(BigInteger secPersona) {
-        String infoAd = persistenciaInformacionesAdicionales.primeraInformacionAdicional(em, secPersona);
-        return infoAd;
+        try {
+            String infoAd = persistenciaInformacionesAdicionales.primeraInformacionAdicional(em, secPersona);
+            return infoAd;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraInformacionAd : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimerReemplazo(BigInteger secPersona) {
-        String reemplazo = persistenciaEncargaturas.primeraEncargatura(em, secPersona);
-        return reemplazo;
+        try {
+            String reemplazo = persistenciaEncargaturas.primeraEncargatura(em, secPersona);
+            return reemplazo;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerReemplazo : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraVigenciaFormal(BigInteger secPersona) {
-        String educacion = persistenciaVigenciasFormales.primeraVigenciaFormal(em, secPersona);
-        return educacion;
+        try {
+            String educacion = persistenciaVigenciasFormales.primeraVigenciaFormal(em, secPersona);
+            return educacion;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraVigenciaFormal  : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPimerIdioma(BigInteger secPersona) {
-        String idioma = persistenciaIdiomasPersonas.primerIdioma(em, secPersona);
-        return idioma;
+        try {
+            String idioma = persistenciaIdiomasPersonas.primerIdioma(em, secPersona);
+            return idioma;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerIdioma : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimerProyecto(BigInteger secPersona) {
-        String proyecto = persistenciaVigenciasProyectos.primerProyecto(em, secPersona);
-        return proyecto;
+        try {
+            String proyecto = persistenciaVigenciasProyectos.primerProyecto(em, secPersona);
+            return proyecto;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerProyecto : " + e.getMessage());
+           return " ";
+        }
     }
 
     @Override
     public String consultarPrimerEvento(BigInteger secPersona) {
-       String evento = persistenciaVigenciasEventos.primerEvento(em, secPersona);
-       return evento;
+        try {
+            String evento = persistenciaVigenciasEventos.primerEvento(em, secPersona);
+            return evento;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerEvento : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimerDeporte(BigInteger secPersona) {
-        String deporte = persistenciaVigenciasDeportes.consultarPrimerDeporte(em, secPersona);
-        return deporte;
+        try {
+            String deporte = persistenciaVigenciasDeportes.consultarPrimerDeporte(em, secPersona);
+            return deporte;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerDeporte : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraAficion(BigInteger secPersona) {
-        String aficion = persistenciaVigenciasAficiones.primeraAficion(em, secPersona);
-        return aficion;
+        try {
+            String aficion = persistenciaVigenciasAficiones.primeraAficion(em, secPersona);
+            return aficion;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraAfición : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimerFamiliar(BigInteger secPersona) {
-        String familiar = persistenciaFamiliares.consultarPrimerFamiliar(em, secPersona);
-        return familiar;
+        try {
+            String familiar = persistenciaFamiliares.consultarPrimerFamiliar(em, secPersona);
+            return familiar;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerFamiliar : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimerIndicador(BigInteger secPersona) {
-        String indicador = persistenciaVigenciasIndicadores.primeraVigenciaIndicador(em, secPersona);
-        return indicador;
+        try {
+            String indicador = persistenciaVigenciasIndicadores.primeraVigenciaIndicador(em, secPersona);
+            return indicador;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimerIndicador : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraDemanda(BigInteger Persona) {
-        String demanda = persistenciaDemandas.primeraDemanda(em, Persona);
-        return demanda;
+        try {
+            String demanda = persistenciaDemandas.primeraDemanda(em, Persona);
+            return demanda;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraDemanda : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraVisita(BigInteger secPersona) {
-       String visita = persistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria(em, secPersona);
-       return visita;
+        try {
+            String visita = persistenciaVigenciasDomiciliarias.primeraVigenciaDomiciliaria(em, secPersona);
+            return visita;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraVisita : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraEntrevista(BigInteger secHV) {
-       String entrevista = persistenciaHvEntrevistas.consultarPrimeraEnterevista(em, secHV);
-       return entrevista;
+        try {
+            String entrevista = persistenciaHvEntrevistas.consultarPrimeraEnterevista(em, secHV);
+            return entrevista;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraEntrevista : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraReferenciaF(BigInteger secHV) {
-      String referenciaF = persistenciaHvReferencias.primeraReferenciaFamiliar(em, secHV);
-      return referenciaF;
+        try {
+            String referenciaF = persistenciaHvReferencias.primeraReferenciaFamiliar(em, secHV);
+            return referenciaF;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraReferenciaF : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraReferenciaP(BigInteger secHV) {
-        String referenciaP = persistenciaHvReferencias.primeraReferenciaPersonal(em, secHV);
-        return referenciaP;
+        try {
+            String referenciaP = persistenciaHvReferencias.primeraReferenciaPersonal(em, secHV);
+            return referenciaP;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraReferenciaP : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraExpLaboral(BigInteger secHv) {
-        String experiencia = persistenciaHvExperienciasLaborales.primeraExpLaboral(em, secHv);
-        return experiencia;
+        try {
+            String experiencia = persistenciaHvExperienciasLaborales.primeraExpLaboral(em, secHv);
+            return experiencia;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraExpLaboral : " + e.getMessage());
+            return " ";
+        }
     }
 
     @Override
     public String consultarPrimeraPrueba(BigInteger secPersona) {
-        String prueba = persistenciaEvalResultadosConv.primerPruebaAplicada(em, secPersona);
-        return prueba;
+        try {
+            String prueba = persistenciaEvalResultadosConv.primerPruebaAplicada(em, secPersona);
+            return prueba;
+        } catch (Exception e) {
+            System.out.println("error en consultarPrimeraPrueba : " + e.getMessage());
+            return " ";
+        }
     }
 }

@@ -137,6 +137,7 @@ public class ControlReportesBancos implements Serializable {
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
     private ExternalContext externalContext;
     private String userAgent;
+    private boolean activarLov;
 
     public ControlReportesBancos() {
         activoMostrarTodos = true;
@@ -177,6 +178,7 @@ public class ControlReportesBancos implements Serializable {
         permitirIndex = true;
         reporteSeleccionadoLOV = null;
         mapParametros.put("paginaAnterior", paginaAnterior);
+        activarLov = true;
     }
 
     public void limpiarListasValor() {
@@ -238,6 +240,7 @@ public class ControlReportesBancos implements Serializable {
     public void iniciarPagina() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
+        listaIR = null;
         getListaIR();
     }
 
@@ -289,7 +292,6 @@ public class ControlReportesBancos implements Serializable {
             decoracion2 = "underline";
             RequestContext.getCurrentInstance().update("formParametros");
         }
-        System.out.println("reporteSeleccionado.getEmdesde(): " + inforreporteSeleccionado.getEmdesde());
         if (inforreporteSeleccionado.getEmdesde().equals("SI")) {
             empleadoDesdeParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoDesdeParametro");
             //empleadoDesdeParametro.setStyle("position: absolute; top: 41px; left: 150px; height: 10px; font-size: 11px; width: 90px; color: red;");
@@ -298,10 +300,7 @@ public class ControlReportesBancos implements Serializable {
             }
         } else {
             try {
-                System.out.println("empleadoDesdeParametro: " + empleadoDesdeParametro);
                 if (empleadoDesdeParametro.getStyle().contains(" color: red;")) {
-
-                    System.out.println("reeemplazarr " + empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                     empleadoDesdeParametro.setStyle(empleadoDesdeParametro.getStyle().replace(" color: red;", ""));
                 }
             } catch (Exception e) {
@@ -310,7 +309,6 @@ public class ControlReportesBancos implements Serializable {
         }
         if (inforreporteSeleccionado.getEmhasta().equals("SI")) {
             empleadoHastaParametro = (InputText) FacesContext.getCurrentInstance().getViewRoot().findComponent("formParametros:empleadoHastaParametro");
-//            empleadoHastaParametro.setStyle("position: absolute; top: 37px; left: 390px;height: 15px;width: 90px; text-decoration: underline; color: red;");
             RequestContext.getCurrentInstance().update("formParametros:empleadoHastaParametro");
         }
 
@@ -329,19 +327,7 @@ public class ControlReportesBancos implements Serializable {
         }
     }
 
-//    public void cambiarIndexInforeporte(int i, int c) {
-//        casillaInforReporte = c;
-//        casilla = -1;
-//        if (tipoLista == 0) {
-//            setActualInfoReporteTabla(listaIR.get(i));
-//        }
-//        if (tipoLista == 1) {
-//            setActualInfoReporteTabla(filtrarListInforeportesUsuario.get(i));
-//        }
-//        resaltoParametrosParaReporte(i);
-//    }
     public void dispararDialogoGuardarCambios() {
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().execute("PF('confirmarGuardar').show()");
     }
 
@@ -431,30 +417,39 @@ public class ControlReportesBancos implements Serializable {
             casilla = i;
             switch (casilla) {
                 case 1:
+                    deshabilitarLov();
                     fechaDesde = parametroDeReporte.getFechadesde();
                     break;
                 case 2:
+                    habilitarLov();
                     emplDesde = parametroDeReporte.getCodigoempleadodesde();
                     break;
                 case 3:
+                    habilitarLov();
                     empresa = parametroDeReporte.getEmpresa().getNombre();
                     break;
                 case 4:
+                    habilitarLov();
                     proceso = parametroDeReporte.getProceso().getDescripcion();
                     break;
                 case 5:
+                    deshabilitarLov();
                     fechaHasta = parametroDeReporte.getFechahasta();
                     break;
                 case 6:
+                    habilitarLov();
                     emplHasta = parametroDeReporte.getCodigoempleadohasta();
                     break;
                 case 8:
+                    habilitarLov();
                     banco = parametroDeReporte.getBanco().getNombre();
                     break;
                 case 9:
+                    habilitarLov();
                     tipoTrabajador = parametroDeReporte.getTipotrabajador().getNombre();
                     break;
                 case 11:
+                    habilitarLov();
                     ciudad = parametroDeReporte.getCiudad().getNombre();
                     break;
                 default:
@@ -1102,25 +1097,12 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void eventoFiltrar() {
-        System.out.println("Estoy Controlador.ControlNReporteNomina.eventoFiltrar()");
+        if(tipoLista == 0){
+            tipoLista = 1;
+        }
         contarRegistros();
     }
 
-//    public void modificacionTipoReporte(Inforeportes reporte) {
-//        System.out.println(this.getClass().getName() + ".modificacionTipoReporte()");
-//        inforreporteSeleccionado = reporte;
-//        cambiosReporte = false;
-//        if (listaInfoReportesModificados.isEmpty()) {
-//            listaInfoReportesModificados.add(inforreporteSeleccionado);
-//        } else if ((!listaInfoReportesModificados.isEmpty()) && (!listaInfoReportesModificados.contains(inforreporteSeleccionado))) {
-//            listaInfoReportesModificados.add(inforreporteSeleccionado);
-//        } else {
-//            int posicion = listaInfoReportesModificados.indexOf(inforreporteSeleccionado);
-//            listaInfoReportesModificados.set(posicion, inforreporteSeleccionado);
-//        }
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        RequestContext.getCurrentInstance().update("form:ACEPTAR");
-//    }
     public void activarCtrlF11() {
         if (bandera == 0) {
             altoTabla = "160";
@@ -1149,10 +1131,7 @@ public class ControlReportesBancos implements Serializable {
         tipoLista = 0;
     }
 
-    public void reporteSeleccionado(int i) {
-        System.out.println("Posicion del reporte : " + i);
-    }
-
+   
     public void defaultPropiedadesParametrosReporte() {
         color = "black";
         decoracion = "none";
@@ -1165,22 +1144,16 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void generarReporte(Inforeportes reporte) throws IOException {
-        System.out.println("Controlador.ControlReportesBancos.generarReporte()");
         if (inforreporteSeleccionado != null) {
-            System.out.println("Ingrese primer if");
             seleccionRegistro();
-            System.out.println("generando reporte - ingreso al if");
             nombreReporte = inforreporteSeleccionado.getNombrereporte();
             tipoReporte = "TXT";
             if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
                 pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
             }
             if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
-                System.out.println("Voy a validarDescargaReporte");
                 validarDescargaReporte();
             } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
@@ -1188,12 +1161,10 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void validarDescargaReporte() {
-        System.out.println("Controlador.ControlReportesBancos.validarDescargaReporte()");
         RequestContext context = RequestContext.getCurrentInstance();
         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if");
-            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase())) {
-                //System.out.println("Acceso por mobiles.");
+            System.out.println("userAgent : " + userAgent);
+            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
                 context.update("formDialogos:descargarReporte");
                 context.execute("PF('descargarReporte').show();");
             }
@@ -1205,7 +1176,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void exportarReporte() throws IOException {
-        System.out.println("Controlador.ControlReportesBancos.exportarReporte()");
         if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
             File reporteF = new File(pathReporteGenerado);
             System.out.println("ReporteF: " + reporteF);
@@ -1215,9 +1185,6 @@ public class ControlReportesBancos implements Serializable {
             System.out.println("fis: " + fis);
             byte[] bytes = new byte[1024];
             int read;
-            if (!ctx.getResponseComplete()) {
-                System.out.println("Ingrese al if");
-            }
             {
                 String fileName = reporteF.getName();
                 HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
@@ -1232,31 +1199,19 @@ public class ControlReportesBancos implements Serializable {
                 ctx.responseComplete();
             }
         } else {
-            System.out.println("validar descarga reporte - ingreso al else");
             RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
             RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
         }
     }
 
     public AsynchronousFilllListener listener() {
-        System.out.println(this.getClass().getName() + ".listener()");
         return new AsynchronousFilllListener() {
-            //RequestContext context = c;
 
             @Override
             public void reportFinished(JasperPrint jp) {
-                System.out.println(this.getClass().getName() + ".listener().reportFinished()");
                 try {
                     estadoReporte = true;
                     resultadoReporte = "Exito";
-                    /*
-                     * final RequestContext currentInstance =
-                     * RequestContext.getCurrentInstance();
-                     * Renderer.instance().render(template);
-                     * RequestContext.setCurrentInstance(currentInstance)
-                     */
-                    // RequestContext.getCurrentInstance().execute("PF('formDialogos:generandoReporte");
-                    //generarArchivoReporte(jp);
                 } catch (Exception e) {
                     System.out.println("ControlNReportePersonal reportFinished ERROR: " + e.toString());
                 }
@@ -1264,14 +1219,12 @@ public class ControlReportesBancos implements Serializable {
 
             @Override
             public void reportCancelled() {
-                System.out.println(this.getClass().getName() + ".listener().reportCancelled()");
                 estadoReporte = true;
                 resultadoReporte = "Cancelación";
             }
 
             @Override
             public void reportFillError(Throwable e) {
-                System.out.println(this.getClass().getName() + ".listener().reportFillError()");
                 if (e.getCause() != null) {
                     pathReporteGenerado = "ControlNReportePersonal reportFillError Error: " + e.toString() + "\n" + e.getCause().toString();
                 } else {
@@ -1285,7 +1238,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void mostrarDialogoBuscarReporte() {
-        System.out.println(this.getClass().getName() + ".mostrarDialogoBuscarReporte()");
         try {
             if (cambiosReporte == true) {
                 listValInforeportes = null;
@@ -1338,7 +1290,6 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void mostrarTodos() {
-        System.out.println(this.getClass().getName() + ".mostrarTodos()");
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
@@ -1436,6 +1387,16 @@ public class ControlReportesBancos implements Serializable {
             listValInforeportes = administrarReportesBancos.listInforeportesUsuario();
         }
     }
+    
+    public void habilitarLov(){
+     activarLov = false;   
+     RequestContext.getCurrentInstance().update("form:listaValores");
+    }
+    
+    public void deshabilitarLov(){
+     activarLov = true;   
+     RequestContext.getCurrentInstance().update("form:listaValores");
+    }
 
     //GETTER && SETTER
     public ParametrosReportes getParametroDeReporte() {
@@ -1477,15 +1438,10 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Inforeportes> getListaIR() {
-        try {
             if (listaIR == null) {
                 listaIR = administrarReportesBancos.listInforeportesUsuario();
             }
             return listaIR;
-        } catch (Exception e) {
-            System.out.println("Error getListInforeportesUsuario : " + e);
-            return null;
-        }
     }
 
     public void setListaIR(List<Inforeportes> listaIR) {
@@ -1887,4 +1843,11 @@ public class ControlReportesBancos implements Serializable {
         this.activarEnvio = activarEnvio;
     }
 
+    public boolean isActivarLov() {
+        return activarLov;
+    }
+
+    public void setActivarLov(boolean activarLov) {
+        this.activarLov = activarLov;
+    }
 }

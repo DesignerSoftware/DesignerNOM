@@ -398,13 +398,11 @@
                                  #{msg['ingresodepersonal1']}<br/>#{msg['ingresodepersonal2']}
                               </p:tooltip>
 
-                              <p:commandButton id="informacionjubilados" value="" disabled="#{controlRemoto.pensionado}" style="background-image: url(Imagenes/Iconos/pensionado.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
-                                               />
+                              <p:commandButton id="informacionjubilados" value="" disabled="#{controlRemoto.pensionado}" style="background-image: url(Imagenes/Iconos/pensionado.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;"/>
                               <p:tooltip  for="informacionjubilados">
                                  #{msg['informacionjubilados1']}<br/>#{msg['informacionjubilados2']}
                               </p:tooltip>
-                              <p:commandButton id="ingresoaspirantes" value="" disabled="#{controlRemoto.aspirante}" style="background-image: url(Imagenes/Iconos/aspirantes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" 
-                                               />
+                              <p:commandButton id="ingresoaspirantes" value="" disabled="#{controlRemoto.aspirante}" style="background-image: url(Imagenes/Iconos/aspirantes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" />
                               <p:tooltip  for="ingresoaspirantes">
                                  #{msg['ingresoaspirantes1']}<br/>#{msg['ingresoaspirantes2']}
                               </p:tooltip>
@@ -418,14 +416,13 @@
 
                               <p:spacer styleClass="separador"/>
                               <!-- Panel Reportes -->
-                              <p:commandButton id="reporteslaborales" value="" style="background-image: url(Imagenes/Iconos/reportes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="ReporteLaboral" actionListener="#{controlNReporteLaboral.iniciarPagina()}" 
-                                               />
+                              <p:commandButton id="reporteslaborales" value="" style="background-image: url(Imagenes/Iconos/reportes.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;"
+                                               action="ReporteLaboral" actionListener="#{controlNReporteLaboral.iniciarPagina()}"/>
                               <p:tooltip  for="reporteslaborales">
                                  #{msg['reporteslaborales1']}<br/>#{msg['reporteslaborales2']}
                               </p:tooltip>
                               <p:spacer styleClass="separador"/>
-                              <p:commandButton id="acercade" value="" style="background-image: url(Imagenes/Iconos/acercade.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="acercade" 
-                                               />
+                              <p:commandButton id="acercade" value="" style="background-image: url(Imagenes/Iconos/acercade.png); width: 40px; height: 40px; background-repeat: no-repeat; background-size: 100% 100%; border: none;" action="acercade"/>
                               <p:tooltip  for="acercade">
                                  #{msg['acercade1']}
                               </p:tooltip>
@@ -524,26 +521,21 @@
 
 
                               <p:commandButton value=" " id="btnparametrosliquidacion" style="position: absolute; left: 10px; top: 5px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_parametros.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
-                                               actionListener="#{controlRemoto.navegarAParametro()}"
-                                               />
+                                               actionListener="#{controlRemoto.navegarAParametro()}" />
 
                               <p:commandButton value=" " id="btngenerarliquidacion" style="position: absolute; left: 10px; top: 90px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_liquidar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
-                                               update="confirmarliquidacion" oncomplete="PF('confirmarliquidacion').show();"
-                                               />
+                                               update="confirmarliquidacion" oncomplete="PF('confirmarliquidacion').show();" />
 
                               <p:commandButton value=" " id="btncomprobantespago" style="position: absolute; left: 10px; top: 175px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_comprobante.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
-                                               action="comprobante"
-                                               />
+                                               action="comprobante" />
 
                               <hr style="float: left; height: 250px; position: absolute; left: 270px; top: 0px;"/>
 
                               <p:commandButton id="btnborrarliquidacion" value=" " style="position: absolute; left: 275px; top: 5px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_borrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
-                                               actionListener="#{controlRemoto.validarBorradoLiquidacion()}"
-                                               />
+                                               actionListener="#{controlRemoto.validarBorradoLiquidacion()}" />
 
                               <p:commandButton id="btncerrarliquidacion" value=" " style="position: absolute; left: 275px; top: 90px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/nom_cerrar.png);  background-repeat: no-repeat; background-size: 100% 100%; border: none;"
-                                               actionListener="#{controlCerrarLiquidacion.tipoLiquidacion(controlRemoto.pago)}" action="cerrarliq"
-                                               />
+                                               actionListener="#{controlCerrarLiquidacion.tipoLiquidacion(controlRemoto.pago)}" action="cerrarliq"/>
 
                               <p:commandButton style="position: absolute; left: 275px; top: 175px; width: 78px; height: 78px; background-image: url(Imagenes/Iconos/reportesboton.png); background-repeat: no-repeat; background-size: 100% 100%; border: none;"
                                                id="btnreportesnomina" value=" " actionListener="#{controlNReporteNomina.iniciarPagina()}" action="ReporteNomina"/>
