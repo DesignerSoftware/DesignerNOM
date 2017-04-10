@@ -117,7 +117,7 @@
                         <!--<f:event type="preRenderView" listener="#/{controlConcepto.recordarSeleccion()}"/>-->
                         <p:ajax event="filter" listener="#{controlConcepto.eventoFiltrar()}" />
 
-                        <p:column id="columnaDetalleConcepto" width="19" style="padding: 0px !important; width: 20px; alignment-adjust: central;" >                                                              
+                        <p:column id="columnaDetalleConcepto" width="19" style="padding: 0px !important; width: 20px; alignment-adjust: central;">                                                              
                            <f:facet name="header">
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Concepto"/>
@@ -139,7 +139,7 @@
                         <p:column id="columnaCodigo" sortBy="#{concepto.codigo}" filterBy="#{concepto.codigo}" filterMatchMode="contains" 
                                   width="60" filterStyle="display: none; visibility: hidden;">                                  
                            <f:facet name="header">
-                              <h:outputText id="headerC" value="#{msg['codigo']}" />
+                              <h:outputText id="headerC" value="#{msg['codigo']}"/>
                               <p:tooltip  for="headerC" value="#{msg['codigoTtip']}"/> 
                            </f:facet>
                            <p:cellEditor>  
