@@ -194,7 +194,8 @@ public class ControlNReporteCapacitacion implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void limpiarListasValor() {
@@ -372,7 +373,8 @@ public class ControlNReporteCapacitacion implements Serializable {
         salir();
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         System.out.println(this.getClass().getName() + ".salir()");
         if (bandera == 1) {
             cerrarFiltrado();
@@ -549,10 +551,13 @@ public class ControlNReporteCapacitacion implements Serializable {
     }
 
     public void generarReporte(Inforeportes reporte) {
-        System.out.println(this.getClass().getName() + ".generarReporte()");
-        reporteSeleccionado = reporte;
-        seleccionRegistro();
-        generarDocumentoReporte();
+        try {
+            reporteSeleccionado = reporte;
+            seleccionRegistro();
+            generarDocumentoReporte();
+        } catch (Exception e) {
+            System.out.println("error en generarReporte : " + e.getMessage());
+        }
     }
 
     public AsynchronousFilllListener listener() {
@@ -601,103 +606,105 @@ public class ControlNReporteCapacitacion implements Serializable {
     }
 
     public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null || pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+        try {
+            if (pathReporteGenerado != null || pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
             }
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte : " + e.getMessage());
         }
     }
 
     public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show()");
-        if (reporteSeleccionado != null) {
-            System.out.println("generando reporte - ingreso al if");
-            nombreReporte = reporteSeleccionado.getNombrereporte();
-            tipoReporte = reporteSeleccionado.getTipo();
+        try {
+            if (reporteSeleccionado != null) {
+                System.out.println("generando reporte - ingreso al if");
+                nombreReporte = reporteSeleccionado.getNombrereporte();
+                tipoReporte = reporteSeleccionado.getTipo();
 
-            if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-            }
-            if (pathReporteGenerado != null) {
-                System.out.println("generando reporte - ingreso al 3 if");
-                validarDescargaReporte();
+                if (nombreReporte != null && tipoReporte != null) {
+                    System.out.println("generando reporte - ingreso al 2 if");
+                    pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+                }
+                if (pathReporteGenerado != null) {
+                    System.out.println("generando reporte - ingreso al 3 if");
+                    validarDescargaReporte();
+                } else {
+                    System.out.println("generando reporte - ingreso al 3 if else");
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+                    RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                    RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                }
             } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
-                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
-                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                System.out.println("generando reporte - ingreso al if else");
+                System.out.println("Reporte Seleccionado es nulo");
             }
-        } else {
-            System.out.println("generando reporte - ingreso al if else");
-            System.out.println("Reporte Seleccionado es nulo");
+        } catch (Exception e) {
+            System.out.println("error generarDocumentoReprote : " + e.getMessage());
         }
     }
 
     public void validarDescargaReporte() {
-        System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (!tipoReporte.equals("PDF")) {
-                System.out.println("validar descarga reporte - ingreso al if 2");
-                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-            } else {
-                System.out.println("validar descarga reporte - ingreso al if 2 else");
-                FileInputStream fis;
-                try {
-                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                    fis = new FileInputStream(new File(pathReporteGenerado));
-                    System.out.println("fis : " + fis);
-                    reporte = new DefaultStreamedContent(fis, "application/pdf");
-                } catch (FileNotFoundException ex) {
-                    System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex);
-                    reporte = null;
-                }
-                if (reporte != null) {
-                    System.out.println("validar descarga reporte - ingreso al if 3");
-                    if (reporteSeleccionado != null) {
-                        System.out.println("validar descarga reporte - ingreso al if 4");
-                        if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
-                            //System.out.println("Acceso por mobiles.");
-                            context.update("formDialogos:descargarReporte");
-                            context.execute("PF('descargarReporte').show();");
-                        } else {
-                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                        }
-                        cabezeraVisor = "Reporte - " + nombreReporte;
-                    } else {
-                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-                        cabezeraVisor = "Reporte - ";
+        try {
+            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                if (!tipoReporte.equals("PDF")) {
+                    RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
+                } else {
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        reporte = new DefaultStreamedContent(fis, "application/pdf");
+                    } catch (FileNotFoundException ex) {
+                        System.out.println(ex);
+                        reporte = null;
                     }
+                    if (reporte != null) {
+                        if (reporteSeleccionado != null) {
+                            System.out.println("userAgent " + userAgent);
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                                context.update("formDialogos:descargarReporte");
+                                context.execute("PF('descargarReporte').show();");
+                            } else {
+                                RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
+                            cabezeraVisor = "Reporte - " + nombreReporte;
+                        } else {
+                            cabezeraVisor = "Reporte - ";
+                        }
+                    }
+                    pathReporteGenerado = null;
                 }
-                pathReporteGenerado = null;
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        } catch (Exception e) {
+            System.out.println("error en validarDescargarReporte : " + e.getMessage());
         }
+
     }
 
     public void dispararDialogoGuardarCambios() {

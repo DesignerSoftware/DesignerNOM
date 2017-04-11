@@ -122,10 +122,10 @@ public class ControlNReporteContabilidad implements Serializable {
     private String resultadoReporte;
     private String paginaAnterior = "nominaf";
     private Map<String, Object> mapParametros = new LinkedHashMap<String, Object>();
-private ExternalContext externalContext;
+    private ExternalContext externalContext;
     private String userAgent;
     private boolean activarLov;
-    
+
     public ControlNReporteContabilidad() {
         activoMostrarTodos = true;
         activoBuscarReporte = false;
@@ -530,11 +530,14 @@ private ExternalContext externalContext;
     }
 
     public void generarReporte(Inforeportes reporte) {
-        System.out.println(this.getClass().getName() + ".generarReporte()");
-        inforreporteSeleccionado = reporte;
-        seleccionRegistro();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').show();");
-        generarDocumentoReporte();
+        try {
+            inforreporteSeleccionado = reporte;
+            seleccionRegistro();
+            RequestContext.getCurrentInstance().execute("PF('generandoReporte').show();");
+            generarDocumentoReporte();
+        } catch (Exception e) {
+            System.out.println("error en generarReporte : " + e.getMessage());
+        }
     }
 
     public AsynchronousFilllListener listener() {
@@ -583,104 +586,102 @@ private ExternalContext externalContext;
     }
 
     public void exportarReporte() throws IOException {
-        System.out.println(this.getClass().getName() + ".exportarReporte()");
-        if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            FileInputStream fis = new FileInputStream(reporteF);
-            byte[] bytes = new byte[1024];
-            int read;
-            if (!ctx.getResponseComplete()) {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+        try {
+            if (pathReporteGenerado != null || !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                FileInputStream fis = new FileInputStream(reporteF);
+                byte[] bytes = new byte[1024];
+                int read;
+                if (!ctx.getResponseComplete()) {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
-            }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-        }
-    }
-
-    public void generarDocumentoReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (inforreporteSeleccionado != null) {
-            System.out.println("generando reporte - ingreso al if");
-            nombreReporte = inforreporteSeleccionado.getNombrereporte();
-            tipoReporte = inforreporteSeleccionado.getTipo();
-
-            if (nombreReporte != null && tipoReporte != null) {
-                System.out.println("generando reporte - ingreso al 2 if");
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
-            }
-            if (pathReporteGenerado != null) {
-                System.out.println("generando reporte - ingreso al 3 if");
-                validarDescargaReporte();
             } else {
-                System.out.println("generando reporte - ingreso al 3 if else");
-                RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
                 RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
                 RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("generando reporte - ingreso al if else");
-            System.out.println("Reporte Seleccionado es nulo");
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte : " + e.getMessage());
+        }
+
+    }
+
+    public void generarDocumentoReporte() {
+        try {
+            if (inforreporteSeleccionado != null) {
+                nombreReporte = inforreporteSeleccionado.getNombrereporte();
+                tipoReporte = inforreporteSeleccionado.getTipo();
+
+                if (nombreReporte != null && tipoReporte != null) {
+                    pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+                }
+                if (pathReporteGenerado != null) {
+                    validarDescargaReporte();
+                } else {
+                    RequestContext.getCurrentInstance().execute("PF('generandoReporte.hide();");
+                    RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                    RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                }
+            } else {
+                System.out.println("generando reporte - ingreso al if else");
+                System.out.println("Reporte Seleccionado es nulo");
+            }
+        } catch (Exception e) {
+            System.out.println("Error en generarDocumentoReporte : " + e.getMessage());
         }
     }
 
     public void validarDescargaReporte() {
-        System.out.println(this.getClass().getName() + ".validarDescargaReporte()");
-        RequestContext context = RequestContext.getCurrentInstance();
-        RequestContext.getCurrentInstance().execute("PF('generandoReporte').hide()");
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("validar descarga reporte - ingreso al if 1");
-            if (!tipoReporte.equals("PDF")) {
-                System.out.println("validar descarga reporte - ingreso al if 2");
-                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
-            } else {
-                System.out.println("validar descarga reporte - ingreso al if 2 else");
-                FileInputStream fis;
-                try {
-                    System.out.println("pathReporteGenerado : " + pathReporteGenerado);
-                    fis = new FileInputStream(new File(pathReporteGenerado));
-                    System.out.println("fis : " + fis);
-                    file = new DefaultStreamedContent(fis, "application/pdf");
-                } catch (FileNotFoundException ex) {
-                    System.out.println("validar descarga reporte - ingreso al catch 1");
-                    System.out.println(ex);
-                    file = null;
-                }
-                if (file != null) {
-                    System.out.println("validar descarga reporte - ingreso al if 3");
-                    if (inforreporteSeleccionado != null) {
-                         if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
-                            //System.out.println("Acceso por mobiles.");
-                            context.update("formDialogos:descargarReporte");
-                            context.execute("PF('descargarReporte').show();");
-                        } else {
-                            RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
-                            RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
-                        }
-                    } else {
-                        System.out.println("validar descarga reporte - ingreso al if 4 else ");
-                        cabezeraVisor = "Reporte - ";
+        try {
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                if (!tipoReporte.equals("PDF")) {
+                    RequestContext.getCurrentInstance().execute("PF('descargarReporte').show()");
+                } else {
+                    FileInputStream fis;
+                    try {
+                        System.out.println("pathReporteGenerado : " + pathReporteGenerado);
+                        fis = new FileInputStream(new File(pathReporteGenerado));
+                        System.out.println("fis : " + fis);
+                        file = new DefaultStreamedContent(fis, "application/pdf");
+                    } catch (FileNotFoundException ex) {
+                        System.out.println(ex);
+                        file = null;
                     }
-                   
+                    if (file != null) {
+                        if (inforreporteSeleccionado != null) {
+                            System.out.println("userAgent " + userAgent);
+                            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                                RequestContext.getCurrentInstance().update("formDialogos:descargarReporte");
+                                RequestContext.getCurrentInstance().execute("PF('descargarReporte').show();");
+                            } else {
+                                RequestContext.getCurrentInstance().update("formDialogos:verReportePDF");
+                                RequestContext.getCurrentInstance().execute("PF('verReportePDF').show()");
+                            }
+                        } else {
+                            System.out.println("validar descarga reporte - ingreso al if 4 else ");
+                            cabezeraVisor = "Reporte - ";
+                        }
+                    }
                 }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al if 1 else");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al if 1 else");
-            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        } catch (Exception e) {
+            System.out.println("error en validarDescargarReporte : " + e.getMessage());
         }
+
     }
 
     public void dispararDialogoGuardarCambios() {
@@ -721,7 +722,7 @@ private ExternalContext externalContext;
     }
 
     public void mostrarTodos() {
-         System.out.println(this.getClass().getName() + ".mostrarTodos()");
+        System.out.println(this.getClass().getName() + ".mostrarTodos()");
         if (cambiosReporte == true) {
             defaultPropiedadesParametrosReporte();
             listaIR.clear();
@@ -1075,7 +1076,7 @@ private ExternalContext externalContext;
         activarLov = true;
         RequestContext.getCurrentInstance().update("form:listaValores");
     }
-    
+
 //******************GETTER AND SETTER***************************
     public ParametrosReportes getParametroDeReporte() {
         try {

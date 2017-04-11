@@ -1309,7 +1309,7 @@ public class ControlInterfaseContableTotal implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         if (tipoActualizacion == 0) {
             parametroContableActual.setProceso(procesoSeleccionado);
-            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
+//            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
             if (guardado == true) {
                 guardado = false;
             }
@@ -1317,11 +1317,11 @@ public class ControlInterfaseContableTotal implements Serializable {
             RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().update("form:parametroProceso");
         }
-        if (tipoActualizacion == 1) {
-            nuevoParametroContable.setProceso(procesoSeleccionado);
-            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
-            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
-        }
+//        if (tipoActualizacion == 1) {
+//            nuevoParametroContable.setProceso(procesoSeleccionado);
+////            parametroContableActual.setArchivo(procesoSeleccionado.getDescripcion());
+//            RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProcesoParametro");
+//        }
         procesoSeleccionado = null;
         filtrarLovProcesos = null;
         aceptar = true;

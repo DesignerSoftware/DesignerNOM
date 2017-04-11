@@ -169,7 +169,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoProceso" readonly="true" value="#{infoG.nombreproceso}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '0'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>    
                                         </f:facet>   
                                     </p:cellEditor>
@@ -187,7 +187,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoEmpleado" readonly="true" value="#{infoG.nombreempleado}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionGenerado([{name: 'n', value: '1'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>    
                                         </f:facet>  
                                     </p:cellEditor>
@@ -205,7 +205,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoCntCredito" readonly="true" value="#{infoG.codigocuentac}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '2'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -223,7 +223,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoCntDebito" readonly="true" value="#{infoG.codigocuentad}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '3'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -241,7 +241,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoTercero" readonly="true" value="#{infoG.nittercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '4'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -262,7 +262,7 @@
                                             <p:inputText  autocomplete="off"  id="generadoValor" readonly="true" value="#{infoG.valor}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionGenerado([{name: 'n', value: '5'}, {name: 't', value: '#{indiceG}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});PF('datosIntercon').unselectAllRows()" />    
                                             </p:inputText> 
 
                                         </f:facet>  
@@ -281,7 +281,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="generadoConcepto" readonly="true" value="#{infoG.nombreconcepto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionGenerado([{name: 'n', value: '6'}, {name: 't', value: '#{indiceG}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG});"/>    
+                                                <p:ajax event="select" onstart="PF('datosGenerados').unselectAllRows();PF('datosGenerados').selectRow(#{indiceG}); PF('datosIntercon').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -343,7 +343,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="interconEmpleado" readonly="true" value="#{infoI.empleado.persona.nombreCompleto}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '0'}, {name: 't', value: '#{indiceI}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>   
                                     </p:cellEditor>
@@ -362,7 +362,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="interconTercero" readonly="true" value="#{infoI.codigotercero}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionIntercon([{name: 'n', value: '1'}, {name: 't', value: '#{indiceI}'}]);" > 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -380,7 +380,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="interconCuenta" readonly="true" value="#{infoI.cuenta.codigo}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '2'}, {name: 't', value: '#{indiceI}'}]);" > 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -401,7 +401,7 @@
                                             <p:inputText  autocomplete="off"  id="interconDebito" readonly="true" value="#{infoI.valord}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '3'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -422,7 +422,7 @@
                                             <p:inputText  autocomplete="off"  id="interconCredito" readonly="true" value="#{infoI.valorc}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '4'}, {name: 't', value: '#{indiceI}'}]);">
                                                 <f:convertNumber currencySymbol="$" type="currency" />
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText> 
                                         </f:facet>  
                                     </p:cellEditor>
@@ -440,7 +440,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="interconConcepto" readonly="true" value="#{infoI.concepto.descripcion}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;" 
                                                           onselect="posicionIntercon([{name: 'n', value: '5'}, {name: 't', value: '#{indiceI}'}]);" > 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>
@@ -459,7 +459,7 @@
                                         <f:facet name="input">
                                             <p:inputText  autocomplete="off"  id="interconCentroCosto" readonly="true" value="#{infoI.centrocosto.nombre}" style=" border-radius: 0px; width: 97%; text-transform: uppercase; height: 12px;"
                                                           onselect="posicionIntercon([{name: 'n', value: '6'}, {name: 't', value: '#{indiceI}'}]);"> 
-                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI});"/>    
+                                                <p:ajax event="select" onstart="PF('datosIntercon').unselectAllRows();PF('datosIntercon').selectRow(#{indiceI}); PF('datosGenerados').unselectAllRows()"/>    
                                             </p:inputText>   
                                         </f:facet>  
                                     </p:cellEditor>

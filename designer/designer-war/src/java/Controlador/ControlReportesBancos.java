@@ -234,7 +234,8 @@ public class ControlReportesBancos implements Serializable {
             //}
             controlListaNavegacion.adicionarPagina(pagActual);
         }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void iniciarPagina() {
@@ -1034,7 +1035,8 @@ public class ControlReportesBancos implements Serializable {
         posicionReporte = -1;
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
         if (bandera == 1) {
             cerrarFiltrado();
         }
@@ -1097,7 +1099,7 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void eventoFiltrar() {
-        if(tipoLista == 0){
+        if (tipoLista == 0) {
             tipoLista = 1;
         }
         contarRegistros();
@@ -1131,7 +1133,6 @@ public class ControlReportesBancos implements Serializable {
         tipoLista = 0;
     }
 
-   
     public void defaultPropiedadesParametrosReporte() {
         color = "black";
         decoracion = "none";
@@ -1144,63 +1145,75 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public void generarReporte(Inforeportes reporte) throws IOException {
-        if (inforreporteSeleccionado != null) {
-            seleccionRegistro();
-            nombreReporte = inforreporteSeleccionado.getNombrereporte();
-            tipoReporte = "TXT";
-            if (nombreReporte != null && tipoReporte != null) {
-                pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+        try {
+            if (inforreporteSeleccionado != null) {
+                seleccionRegistro();
+                nombreReporte = inforreporteSeleccionado.getNombrereporte();
+                tipoReporte = "TXT";
+                if (nombreReporte != null && tipoReporte != null) {
+                    pathReporteGenerado = administarReportes.generarReporte(nombreReporte, tipoReporte);
+                }
+                if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
+                    validarDescargaReporte();
+                } else {
+                    RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                    RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+                }
             }
-            if (pathReporteGenerado != null && pathReporteGenerado.startsWith("Error:")) {
-                validarDescargaReporte();
-            } else {
-                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
-            }
+        } catch (Exception e) {
+            System.out.println("error generarReporte : " + e.getMessage());
         }
     }
 
     public void validarDescargaReporte() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            System.out.println("userAgent : " + userAgent);
-            if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
-                context.update("formDialogos:descargarReporte");
-                context.execute("PF('descargarReporte').show();");
+        try {
+            RequestContext context = RequestContext.getCurrentInstance();
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                System.out.println("userAgent : " + userAgent);
+                if (userAgent.toUpperCase().contains("Mobile".toUpperCase()) || userAgent.toUpperCase().contains("Tablet".toUpperCase()) || userAgent.toUpperCase().contains("Android".toUpperCase())) {
+                    context.update("formDialogos:descargarReporte");
+                    context.execute("PF('descargarReporte').show();");
+                }
+            } else {
+                System.out.println("validar descarga reporte - ingreso al else");
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            System.out.println("validar descarga reporte - ingreso al else");
-            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        } catch (Exception e) {
+            System.out.println("error en validarDescargarReporte : " + e.getMessage());
         }
     }
 
     public void exportarReporte() throws IOException {
-        if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
-            File reporteF = new File(pathReporteGenerado);
-            System.out.println("ReporteF: " + reporteF);
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            System.out.println("ctx: " + ctx);
-            FileInputStream fis = new FileInputStream(reporteF);
-            System.out.println("fis: " + fis);
-            byte[] bytes = new byte[1024];
-            int read;
-            {
-                String fileName = reporteF.getName();
-                HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
-                response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
-                ServletOutputStream out = response.getOutputStream();
+        try {
+            if (pathReporteGenerado != null && !pathReporteGenerado.startsWith("Error:")) {
+                File reporteF = new File(pathReporteGenerado);
+                System.out.println("ReporteF: " + reporteF);
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                System.out.println("ctx: " + ctx);
+                FileInputStream fis = new FileInputStream(reporteF);
+                System.out.println("fis: " + fis);
+                byte[] bytes = new byte[1024];
+                int read;
+                {
+                    String fileName = reporteF.getName();
+                    HttpServletResponse response = (HttpServletResponse) ctx.getExternalContext().getResponse();
+                    response.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
+                    ServletOutputStream out = response.getOutputStream();
 
-                while ((read = fis.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
+                    while ((read = fis.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+                    out.flush();
+                    out.close();
+                    ctx.responseComplete();
                 }
-                out.flush();
-                out.close();
-                ctx.responseComplete();
+            } else {
+                RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
+                RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
             }
-        } else {
-            RequestContext.getCurrentInstance().update("formDialogos:errorGenerandoReporte");
-            RequestContext.getCurrentInstance().execute("PF('errorGenerandoReporte').show()");
+        } catch (Exception e) {
+            System.out.println("error en exportarReporte : " + e.getMessage());
         }
     }
 
@@ -1387,15 +1400,15 @@ public class ControlReportesBancos implements Serializable {
             listValInforeportes = administrarReportesBancos.listInforeportesUsuario();
         }
     }
-    
-    public void habilitarLov(){
-     activarLov = false;   
-     RequestContext.getCurrentInstance().update("form:listaValores");
+
+    public void habilitarLov() {
+        activarLov = false;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
-    
-    public void deshabilitarLov(){
-     activarLov = true;   
-     RequestContext.getCurrentInstance().update("form:listaValores");
+
+    public void deshabilitarLov() {
+        activarLov = true;
+        RequestContext.getCurrentInstance().update("form:listaValores");
     }
 
     //GETTER && SETTER
@@ -1438,10 +1451,10 @@ public class ControlReportesBancos implements Serializable {
     }
 
     public List<Inforeportes> getListaIR() {
-            if (listaIR == null) {
-                listaIR = administrarReportesBancos.listInforeportesUsuario();
-            }
-            return listaIR;
+        if (listaIR == null) {
+            listaIR = administrarReportesBancos.listInforeportesUsuario();
+        }
+        return listaIR;
     }
 
     public void setListaIR(List<Inforeportes> listaIR) {
