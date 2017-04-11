@@ -233,6 +233,7 @@ public class ControlRemoto implements Serializable {
                moduloSeleccionado = listModulos.get(0);
             }
          }
+         controlListaNavegacion = (ControlListaNavegacion) x.getApplication().evaluateExpressionGet(x, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       } catch (Exception e) {
          System.out.println("Error postconstruct " + this.getClass().getName() + ": " + e);
          System.out.println("Causa: " + e.getCause());
@@ -1097,21 +1098,17 @@ public class ControlRemoto implements Serializable {
          if (pag != null) {
             pag = pag.toLowerCase();
             FacesContext fc = FacesContext.getCurrentInstance();
-            controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
             controlListaNavegacion.adicionarPagina("nominaf");
             fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
          }
       }
       infoTablas(tablaSeleccionada);
    }
-
-   public void adicionarPagina(String pag) {
-      controlListaNavegacion.adicionarPagina(pag);
-   }
-
-   public void quitarPagina() {
-      controlListaNavegacion.quitarPagina();
-   }
+//
+//   public String guardarNavegacion(String pag) {
+//      controlListaNavegacion.adicionarPagina("nominaf");
+//      return pag;
+//   }
 
    public void infoTablas(Tablas tab) {
       tablaSeleccionada = tab;

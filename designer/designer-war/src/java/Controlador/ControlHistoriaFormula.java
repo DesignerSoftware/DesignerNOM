@@ -260,7 +260,19 @@ public class ControlHistoriaFormula implements Serializable {
    public void recibirParametros(Map<String, Object> map) {
       mapParametros = map;
       paginaAnterior = (String) mapParametros.get("paginaAnterior");
-      //inicializarCosas(); Inicializar cosas de ser necesario
+      formulaActual = (Formulas) mapParametros.get("formula");
+      listHistoriasFormulas = null;
+      listEstructurasFormulas = null;
+      getListHistoriasFormulas();
+      if (listHistoriasFormulas != null) {
+         if (!listHistoriasFormulas.isEmpty()) {
+            historiaFormulaSeleccionada = listHistoriasFormulas.get(0);
+         }
+      }
+      getListNodosHistoriaFormula();
+      cargarDatosParaNodos2();
+      listNodosParaExportar = null;
+      getListEstructurasFormulas();
    }
 
    //Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
@@ -271,6 +283,7 @@ public class ControlHistoriaFormula implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "historiaformula";
          //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -284,13 +297,13 @@ public class ControlHistoriaFormula implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
-  public void limpiarListasValor() {
-
+   public void limpiarListasValor() {
    }
 
    public boolean validarSolapamientoFechas(int i) {
@@ -360,34 +373,6 @@ public class ControlHistoriaFormula implements Serializable {
          }
       }
       return retorno;
-   }
-
-   public void recibirFormulaYPagina(Formulas formula, String pagina) {
-//      formulaActual = administrarHistoriaFormula.actualFormula(secuencia);
-      System.out.println("Controlador.ControlHistoriaFormula.recibirFormulaYPagina()");
-      System.out.println("formula" + formula);
-      System.out.println("formula.getNombrecorto()" + formula.getNombrecorto());
-      paginaAnterior = pagina;
-      formulaActual = formula;
-      listHistoriasFormulas = null;
-      listEstructurasFormulas = null;
-      getListHistoriasFormulas();
-      if (listHistoriasFormulas != null) {
-         if (!listHistoriasFormulas.isEmpty()) {
-            historiaFormulaSeleccionada = listHistoriasFormulas.get(0);
-         }
-      }
-      getListNodosHistoriaFormula();
-      cargarDatosParaNodos2();
-      listNodosParaExportar = null;
-      getListEstructurasFormulas();
-
-      FacesContext fc = FacesContext.getCurrentInstance();
-      fc.getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "historiaFormula");
-   }
-
-   public String retornarPagina() {
-      return paginaAnterior;
    }
 
    public void modificarHistoriaFormula(Historiasformulas historiaformula) {
@@ -572,6 +557,11 @@ public class ControlHistoriaFormula implements Serializable {
    /**
     * Cancela las modificaciones realizas en la pagina
     */
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       cancelarModificacionesHistoriaFormula();
       cancelarModificacionNodos();
@@ -978,7 +968,8 @@ public class ControlHistoriaFormula implements Serializable {
    /**
     * Metodo que cierra la sesion y limpia los datos en la pagina
     */
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       if (banderaHistoriasFormulas == 1) {
          historiaFechaInicial = (Column) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:datosHistoriaFormula:historiaFechaInicial");
          historiaFechaInicial.setFilterStyle("display: none; visibility: hidden;");
@@ -1012,6 +1003,7 @@ public class ControlHistoriaFormula implements Serializable {
       aceptar = true;
       listNodosParaExportar = null;
       listEstructurasFormulas = null;
+      navegar("atras");
    }
 
    public void activarAceptar() {

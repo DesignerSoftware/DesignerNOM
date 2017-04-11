@@ -21,7 +21,8 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ControlListaNavegacion implements Serializable {
 
-   private static List<String> listaPaginasAnteriores = new ArrayList<String>();
+   private List<String> listaPaginasAnteriores = new ArrayList<String>();
+   private String paginaActual = "";
 
    /**
     * Creates a new instance of ControlListaNavegacion
@@ -30,22 +31,29 @@ public class ControlListaNavegacion implements Serializable {
       listaPaginasAnteriores.add("iniciored");
    }
 
+   public String guardarNavegacion(String pagActual, String pagDestino) {
+      paginaActual = pagDestino;
+      adicionarPagina(pagActual);
+      return pagDestino;
+   }
+
    public void adicionarPagina(String pag) {
       listaPaginasAnteriores.add(pag);
-      System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("ControlListaNavegacion.adicionarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
    }
 
    public void quitarPagina() {
       if (listaPaginasAnteriores.size() > 0) {
+         paginaActual = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
          listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
       }
-      System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("ControlListaNavegacion.quitarPagina() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
    }
 
    public String retornarPaginaAnterior() {
       String s = listaPaginasAnteriores.get((listaPaginasAnteriores.size() - 1));
       listaPaginasAnteriores.remove((listaPaginasAnteriores.size() - 1));
-      System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores);
+      System.out.println("ControlListaNavegacion.retornarPaginaAnterior() listaPaginasAnteriores : " + listaPaginasAnteriores + " → " + paginaActual);
       return s;
    }
 

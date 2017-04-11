@@ -230,6 +230,7 @@ public class ControlConcepto implements Serializable {
          paginaAnterior = "nominaf";
 //         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "concepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -258,7 +259,7 @@ public class ControlConcepto implements Serializable {
             ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
             controlUnidad.recibirPaginaEntrante(pagActual);
          }
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
 //         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
       limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);

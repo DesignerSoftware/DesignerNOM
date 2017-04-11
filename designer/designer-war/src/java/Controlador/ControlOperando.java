@@ -154,6 +154,7 @@ public class ControlOperando implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "operando";
          Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -190,7 +191,7 @@ public class ControlOperando implements Serializable {
             ControlNovedadOperando controlNovedadOperando = (ControlNovedadOperando) fc.getApplication().evaluateExpressionGet(fc, "#{controlNovedadOperando}", ControlNovedadOperando.class);
             controlNovedadOperando.recibirParametros(mapParaEnviar);
          }
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
       limpiarListasValor();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);

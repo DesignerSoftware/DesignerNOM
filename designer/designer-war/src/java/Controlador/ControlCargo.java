@@ -320,6 +320,7 @@ public class ControlCargo implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "cargo";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -330,7 +331,7 @@ public class ControlCargo implements Serializable {
 //            controlGruposViaticos.recibirParametros(mapParaEnviar);
 //            controlGruposViaticos.recibirPaginaEntrante(pagActual);
 //         } else if(){}
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
       limpiarListasValor();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);

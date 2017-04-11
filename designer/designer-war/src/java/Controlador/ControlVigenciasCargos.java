@@ -267,6 +267,7 @@ public class ControlVigenciasCargos implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "vigenciascargos";
          //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -280,9 +281,10 @@ public class ControlVigenciasCargos implements Serializable {
          //     controlRastro.historicosTabla("Conceptos", pagActual);
          //   pag = "rastrotabla";
          //}
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+      limpiarListasValor();
+      fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
    }
 
    //------------------------------------------------------------------------------------------
@@ -625,6 +627,11 @@ public class ControlVigenciasCargos implements Serializable {
       }
    }
 
+   public void cancelarYSalir() {
+      cancelarModificacion();
+      salir();
+   }
+
    public void cancelarModificacion() {
       restaurarTabla();
       activarLOV = true;
@@ -644,7 +651,8 @@ public class ControlVigenciasCargos implements Serializable {
       context.update("form:listaValores");
    }
 
-   public void salir() {  limpiarListasValor();
+   public void salir() {
+      limpiarListasValor();
       limpiarListasValor();
       restaurarTabla();
       activarLOV = true;
@@ -655,7 +663,7 @@ public class ControlVigenciasCargos implements Serializable {
       k = 0;
       vigenciasCargosEmpleado = null;
       guardado = true;
-      //administrarVigenciasCargos.salir(); //Esto invalida el administrar pero genera conflictos con el scope.
+      navegar("atras");
    }
 
    private void restaurarTabla() {
@@ -1032,6 +1040,11 @@ public class ControlVigenciasCargos implements Serializable {
             RequestContext.getCurrentInstance().update("formularioDialogos:duplicarJefe");
          }
       }
+   }
+
+   public void guardarYSalir() {
+      guardarCambiosVC();
+      salir();
    }
 
    public void guardarCambiosVC() {

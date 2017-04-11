@@ -256,6 +256,7 @@ public class ControlVigenciaJornada implements Serializable {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
             controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
         } else {
             String pagActual = "emplvigenciajornada";
             //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -269,7 +270,7 @@ public class ControlVigenciaJornada implements Serializable {
             //     controlRastro.historicosTabla("Conceptos", pagActual);
             //   pag = "rastrotabla";
             //}
-            controlListaNavegacion.adicionarPagina(pagActual);
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
         }
         limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }

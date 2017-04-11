@@ -162,35 +162,38 @@ public class ControlFormula implements Serializable {
          }
       }
    }
-//Reemplazar la funcion volverAtras, retornarPagina, Redirigir.....Atras.etc
 
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
-      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class
-      );
+      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
       if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          cancelarModificaciones();
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "formula";
-         //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParametros.put("paginaAnterior", pagActual);
-         //mas Parametros
-         //if (pag.equals("rastrotabla")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-         controlListaNavegacion.adicionarPagina(pagActual);
+         if (pag.equals("historiaFormula")) {
+            Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
+            mapParaEnviar.put("paginaAnterior", pagActual);
+            mapParaEnviar.put("formula", formulaSeleccionada);
+            ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class);
+            controlHistoriaFormula.recibirParametros(mapParaEnviar);
+            pag = "historiaFormula";
+         }
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
-      System.out.println("ControlFormula.navegar() pag:_" + pag + "_");
       limpiarListasValor();
       fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+   }
+
+   public void verDetalle(Formulas formula) {
+      System.out.println("Controlador.ControlFormula.verDetalle()");
+      unaVez = true;
+      nombreLargoMientras = "0";
+      formulaSeleccionada = formula;
+      navegar("historiaFormula");
    }
 
    public boolean activarSelec() {
@@ -880,19 +883,6 @@ public class ControlFormula implements Serializable {
       RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroFormula");
    }
 
-   public void verDetalle(Formulas formula) {
-      System.out.println("Controlador.ControlFormula.verDetalle()");
-      unaVez = true;
-//      regSolucion = -1;
-      nombreLargoMientras = "0";
-      formulaSeleccionada = formula;
-      FacesContext fc = FacesContext.getCurrentInstance();
-      ControlHistoriaFormula controlHistoriaFormula = (ControlHistoriaFormula) fc.getApplication().evaluateExpressionGet(fc, "#{controlHistoriaFormula}", ControlHistoriaFormula.class
-      );
-      controlHistoriaFormula.recibirFormulaYPagina(formulaSeleccionada, "formula");
-
-   }
-
    public void activarAceptar() {
       aceptar = false;
    }
@@ -962,7 +952,6 @@ public class ControlFormula implements Serializable {
 //      llamadoPrevioPagina = 1;
 //      return paginaRetorno;
 //   }
-
    public void darSeleccion() {
       if (formulaSeleccionada != null) {
          if (listaFormulas.contains(formulaSeleccionada)) {

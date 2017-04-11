@@ -1457,6 +1457,7 @@ public class ControlGrupoConcepto implements Serializable {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
       } else {
          String pagActual = "grupoconcepto";
 //         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -1479,7 +1480,7 @@ public class ControlGrupoConcepto implements Serializable {
             controlRastro.historicosTabla("VigenciasGruposConceptos", pagActual);
             pag = "rastrotabla";
          }
-         controlListaNavegacion.adicionarPagina(pagActual);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
       }
       System.out.println("ControlGrupoConcepto.navegar() paginaAnterior:" + paginaAnterior + ", pag: " + pag);
       limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);

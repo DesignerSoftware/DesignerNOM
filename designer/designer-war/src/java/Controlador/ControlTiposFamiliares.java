@@ -123,6 +123,7 @@ public class ControlTiposFamiliares implements Serializable {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
             controlListaNavegacion.quitarPagina();
+         System.out.println("navegar('Atras') : " + pag);
         } else {
             String pagActual = "tipofamiliar";
             //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -136,7 +137,7 @@ public class ControlTiposFamiliares implements Serializable {
             //     controlRastro.historicosTabla("Conceptos", pagActual);
             //   pag = "rastrotabla";
             //}
-            controlListaNavegacion.adicionarPagina(pagActual);
+            controlListaNavegacion.guardarNavegacion(pagActual, pag);
         }
         limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }

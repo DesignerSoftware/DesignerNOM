@@ -13,6 +13,7 @@ and open the template in the editor.
    height: 530px;
    box-shadow: 5px 5px 5px 0px rgba(0,12,92,1);
 }
+
 .ui-widget {
    font-family: Tahoma;
    font-size: 12px;
@@ -25,15 +26,18 @@ and open the template in the editor.
    font-family: Tahoma;
    font-size: 12px;
 }
+
 .ui-widget-content {
    border: 1px solid #1E63A4;
    /*background: #CBCFDA;*/
    background: #FFFFFF;
    color: #1F2429;
 }
+
 .ui-widget-content a {
    color: #000000;
 }
+
 .ui-widget-header {
    border: 1px solid #ffffff;
    background: #61A0CA url("images/ui-bg_highlight-hard_50_61A0CA_1x100.png") 50% 50% repeat-x;
@@ -41,6 +45,7 @@ and open the template in the editor.
    font-weight: bold;
    text-shadow: none;
 }
+
 .ui-widget-header a {
    color: #ffffff;
 }
@@ -50,8 +55,8 @@ and open the template in the editor.
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default{
    border: 1px solid #a8a8a8;
-   box-shadow:none;
-   background-color:transparent;
+   box-shadow: none;
+   background-color: transparent;
    color: #1F2429;
    text-shadow: none;
 }
@@ -817,14 +822,112 @@ button .ui-widget-header{
    border-width: 0px !important;
 }
 
-/*.ui-selectonemenu ui-widget ui-state-default ui-corner-all*/
+.cssComandsLinksNominaf {
+   position: absolute !important;
+   font-weight: bold !important;
+   color: #14388B !important;
+}
+
+.cssOutputTextNomina {
+   position: absolute !important;
+   top: 104px !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: center !important;
+   width: 160px !important;
+}
+
+.cssOutputTextNomina3 {
+   width: 160px !important;
+   height: 12px !important;
+   position: absolute !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: center !important;
+}
+
+.cssOutputTextNomina2 {
+   width: 280px !important;
+   height: 12px !important;
+   position: absolute !important;
+   color: #14388B !important;
+   font-weight: bold !important;
+   text-align: justify !important;
+}
+
+.cssOutputTextNomina2N {
+   width: 280px !important;
+   height: 12px !important;
+   position: absolute !important;
+   text-align: justify !important;
+}
+
+.cssOutputTextCajas {
+   position: absolute !important;
+   width: 210px !important;
+   height: 12px !important;
+   box-shadow: none !important;
+   border: none !important;
+   font-size: 0.9em !important;
+}
+
+.cssBotonesNomina {
+   position: absolute !important;
+   top: 7px !important;
+   width: 95px !important;
+   height: 95px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
+.cssBotonesPInferior {
+   width: 40px !important;
+   height: 40px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
+.cssBotonesNomina2 {
+   position: absolute !important;
+   width: 78px !important;
+   height: 78px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
+.cssBotonesIntegracion {
+   position: absolute !important;
+   width: 90px !important;
+   height: 90px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
+.cssBotonesNomina3 {
+   position: absolute !important;
+   width: 100px !important;
+   height: 100px !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
+.cssBotonConImagen{
+   position: absolute !important;
+   background-repeat: no-repeat !important;
+   background-size: 100% 100% !important;
+   border: none !important;
+}
+
 .ui-selectonemenu{
    min-width: 0px !important;
 }
 
 .ui-button.ui-state-focus{
-   /*background-color: #3D80BF !important;*/
-   /*color: white;*/
    border-left: solid 2px #1A5FA0 !important;
    border-right: solid 2px #1A5FA0 !important;
    border-top: solid 2px #5498D8 !important;
@@ -865,3 +968,4 @@ a:link:focus {
 .ui-datatable-scrollable .ui-cell-editor-input .ui-selectonemenu{
    padding-left: 0px !important;
 }
+

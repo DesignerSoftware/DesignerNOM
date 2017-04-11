@@ -17,7 +17,8 @@
                });
                function foco(idElemento) {
                   document.getElementById(idElemento).focus();
-               };
+               }
+               ;
             </script>
             <h:form id="form"> 
                <p:growl id="growl" showDetail="true"/>
@@ -81,7 +82,7 @@
                         <p:tooltip  for="refrescar" value="Deshacer cambios no guardados"/>
 
                         <p:separator/> 
-                        <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);" action="#{controlHistoriaFormula.retornarPagina()}"
+                        <p:commandButton style="background-image: url(Imagenes/Iconos/salir.png);"
                                          id="salir" value="" actionListener="#{controlHistoriaFormula.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="Salir"/>
                      </p:toolbarGroup>  
@@ -437,22 +438,21 @@
                      </p:dataTable>
                   </fieldset>
 
-                  <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 475px;" class="cssBotonLargo" action="operando"
+                  <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 475px;" class="cssBotonLargo" action="#{controlListaNavegacion.guardarNavegacion('historiaformula', 'operando')}"
                                    actionListener="#{controlOperando.recibirPaginaEntrante('historiaformula')}" id="OPERANDOS" value="[Operandos]" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="OPERANDOS" value="Visualizar Operandos."/>
                   <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 180px; top: 475px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
                                    background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="CAMBIOANUAL" value="[Cambio Anual]" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="CAMBIOANUAL" value="Visualizar Operandos."/>
                   <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 350px; top: 475px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%;
-                                   background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="VALORESUNIT" value="Valores Un. Concep" action="valoresconceptos" process="@this"/>
+                                   background-repeat: no-repeat; border: none; width: 170px; height: 30px; color: white;" id="VALORESUNIT" value="Valores Un. Concep" action="#{controlListaNavegacion.guardarNavegacion('historiaformula', 'valoresconceptos')}" process="@this"/>
                   <p:tooltip style="font-size: 12px;" for="VALORESUNIT" value="Visualizar Operandos."/>
                   <!--<p:separator style="position: absolute; left: 400px; top: 510px;width: 2px; height: 30px;"/>--> 
                   <!--<p:commandButton style="position: absolute; left: 415px; top: 480px; font-size: 11px; font-family: Arial, Helvetica, sans-serif;" id="REFRESCAR" value="Refrescar" icon="ui-icon-refresh" actionListener="#/{controlHistoriaFormula.cancelarModificacion()}" process="@this"/>-->
 
                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value="" actionListener="#{controlHistoriaFormula.dispararDialogoGuardarCambios()}"
                                    update=":form:datosHistoriaFormula" process="@this" disabled="#{controlHistoriaFormula.guardado}"/>
-                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoriaFormula.salir()}"
-                                   action="#{controlHistoriaFormula.retornarPagina()}" process="@this"/>
+                  <p:commandButton class="cssBotonCancelar" id="ATRAS" value="" actionListener="#{controlHistoriaFormula.salir()}" process="@this"/>
                   <!--<p:tooltip style="font-size: 12px;" for="formulaComplete" value="De click en cada una de las casillas para adicionar operadores y operandos."/>-->
 
                </p:panel>
@@ -478,7 +478,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" onclick="PF('confirmarRastro').hide();"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('historiaformula', 'rastrotabla')}" process="@this" onclick="PF('confirmarRastro').hide();"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    icon="ui-icon-close" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -487,7 +487,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="#{controlHistoriaFormula.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.historicosTabla(controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
+                                   style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('historiaformula', 'rastrotabla')}" process="@this" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlHistoriaFormula.limpiarMSNRastros()}"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -506,7 +506,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center"/>
                   <p:commandButton value="Si" actionListener="#{controlRastro.recibirDatosTabla(controlHistoriaFormula.backUp, controlHistoriaFormula.nombreTablaRastro , 'historiaformula')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="rastrotabla" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
+                                   style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('historiaformula', 'rastrotabla')}" process="@this" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -570,9 +570,9 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="70" height="55" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="¿Desea guardar los cambios realizados?" style="position: absolute; left: 100px; top: 20px; width: 300px;"/>
                   <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHistoriaFormula.guardarYSalir()}"
-                                   style="position: absolute; top: 60px; left: 125px;" action="#{controlHistoriaFormula.retornarPagina()}" process="@this"/>
-                  <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirmarGuardar').hide();" action="#{controlHistoriaFormula.retornarPagina()}"
-                                   style="position: absolute; top: 60px; left: 185px;" actionListener="#{controlHistoriaFormula.cancelarModificacion()}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 125px;" process="@this"/>
+                  <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlHistoriaFormula.cancelarYSalir()}"
+                                   style="position: absolute; top: 60px; left: 185px;" process="@this"/>
                   <p:commandButton icon="ui-icon-arrowreturnthick-1-w" value="Cancelar" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                </p:dialog>
 
