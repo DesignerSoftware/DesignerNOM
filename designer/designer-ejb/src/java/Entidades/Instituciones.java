@@ -57,7 +57,7 @@ public class Instituciones implements Serializable {
 
     public String getDescripcion() {
         if (descripcion == null) {
-            descripcion = "";
+            descripcion = " ";
         }
         return descripcion;
     }

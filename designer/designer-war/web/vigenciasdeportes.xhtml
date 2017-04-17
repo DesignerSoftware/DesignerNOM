@@ -86,10 +86,10 @@
                                          action="vigDepEmplInd" process="@this" />  
                         <p:tooltip  for="salir" value="Salir"/>
 
-                        <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value=" " disabled="#{controlVigenciaDeporte.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasDeportes" process="@this" />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlVigenciaDeporte.salir()}" action="vigDepEmplInd" process="@this" />
                      </p:toolbarGroup>    
                   </p:toolbar>
+                   <p:commandButton class="cssBotonAceptar" id="ACEPTAR"  value=" " disabled="#{controlVigenciaDeporte.guardado}" onclick="PF('confirmarGuardar').show();" update=":form:datosVigenciasDeportes" process="@this" />
+                   <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  actionListener="#{controlVigenciaDeporte.salir()}" action="vigDepEmplInd" process="@this" />
 
                   <fieldset style="position: absolute; top: 73px; left: 10px; height: 18px; width: 833px; border-radius: 3px; text-align: left; border: solid #C7BFBF 1px">
                      <h:outputText value="#{msg['empleado']} " style="font-weight: bold; color: #14388B; position: relative; top: 5px; left: 0px;" />

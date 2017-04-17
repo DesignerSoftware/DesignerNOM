@@ -198,11 +198,11 @@ public class ControlPersonaEducacion implements Serializable {
         mapParametros.put("paginaAnterior", paginaAnterior);
     }
 
-   public void limpiarListasValor() {
+    public void limpiarListasValor() {
 
-   }
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void inicializarAdministrador() {
         try {
             FacesContext x = FacesContext.getCurrentInstance();
@@ -235,7 +235,7 @@ public class ControlPersonaEducacion implements Serializable {
             pag = paginaAnterior;
             paginaAnterior = "nominaf";
             controlListaNavegacion.quitarPagina();
-         System.out.println("navegar('Atras') : " + pag);
+            System.out.println("navegar('Atras') : " + pag);
         } else {
             String pagActual = "personaeducacion";
             //Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
@@ -251,7 +251,8 @@ public class ControlPersonaEducacion implements Serializable {
             //}
             controlListaNavegacion.guardarNavegacion(pagActual, pag);
         }
-        limpiarListasValor();fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
+        limpiarListasValor();
+        fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
     }
 
     public void recibirPersona(BigInteger secEmpl, String pagina) {
@@ -548,21 +549,28 @@ public class ControlPersonaEducacion implements Serializable {
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
     public void asignarIndex(VigenciasFormales vigenciaFormal, int dlg, int LND) {
         vigenciaFormalSeleccionada = vigenciaFormal;
-        RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
+            listaTiposEducaciones = null;
+            cargarListaTiposEducaciones();
             contarRegistroEducacion();
             RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
         } else if (dlg == 1) {
+            listaProfesiones = null;
+            cargarListaProfesiones();
             contarRegistroProfesion();
             RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
         } else if (dlg == 2) {
+            listaInstituciones = null;
+            cargarListaInstituciones();
             contarRegistroInstitucionesF();
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
         } else if (dlg == 3) {
+            listaAdiestramientosFormales = null;
+            cargarListaAdiestramientosF();
             contarRegistroAdiestramientoF();
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
@@ -929,25 +937,29 @@ public class ControlPersonaEducacion implements Serializable {
             if (CualTabla == 0) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 1) {
-                    habilitarBotonLov();
+                    listaTiposEducaciones = null;
+                    cargarListaTiposEducaciones();
                     contarRegistroEducacion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:tiposEducacionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 2) {
-                    habilitarBotonLov();
+                    listaProfesiones = null;
+                    cargarListaProfesiones();
                     contarRegistroProfesion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:profesionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 3) {
-                    habilitarBotonLov();
+                    listaInstituciones = null;
+                    cargarListaInstituciones();
                     contarRegistroInstitucionesF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:institucionesDialogo");
                     RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 4) {
-                    habilitarBotonLov();
+                    listaAdiestramientosFormales = null;
+                    cargarListaAdiestramientosF();
                     contarRegistroAdiestramientoF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
@@ -959,19 +971,22 @@ public class ControlPersonaEducacion implements Serializable {
             if (CualTabla == 1) {
                 RequestContext context = RequestContext.getCurrentInstance();
                 if (cualCelda == 1) {
-                    habilitarBotonLov();
+                    listaCursos = null;
+                    cargarListaCursos();
                     contarRegistroEducacion();
                     RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
                     RequestContext.getCurrentInstance().execute("PF('cursosDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 3) {
-                    habilitarBotonLov();
+                    listaInstituciones = null;
+                    cargarListaInstituciones();
                     contarRegistroInstituciones();
                     RequestContext.getCurrentInstance().update("formularioDialogos:institucionesNFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('institucionesNFDialogo').show()");
                     tipoActualizacion = 0;
                 } else if (cualCelda == 4) {
-                    habilitarBotonLov();
+                    listaAdiestramientosNoFormales = null;
+                    cargarListaAdiestramientosNF();
                     contarRegistroAdiestramientoNF();
                     RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
                     RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
@@ -1142,170 +1157,168 @@ public class ControlPersonaEducacion implements Serializable {
         nuevaVigenciaNoFormal.setFechavigencia(new Date());
     }
 
-    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
-        if (Campo.equals("TIPOEDUCACION")) {
-            if (tipoNuevo == 1) {
-                TipoEducacion = nuevaVigenciaFormal.getTipoeducacion().getNombre();
-            } else if (tipoNuevo == 2) {
-                TipoEducacion = duplicarVigenciaFormal.getTipoeducacion().getNombre();
-            } else if (Campo.equals("PROFESION")) {
-                if (tipoNuevo == 1) {
-                    Profesion = nuevaVigenciaFormal.getProfesion().getDescripcion();
-                } else if (tipoNuevo == 2) {
-                    Profesion = duplicarVigenciaFormal.getProfesion().getDescripcion();
-                }
-            } else if (Campo.equals("INSTITUCION")) {
-                if (tipoNuevo == 1) {
-                    Institucion = nuevaVigenciaFormal.getInstitucion().getDescripcion();
-                } else if (tipoNuevo == 2) {
-                    Institucion = duplicarVigenciaFormal.getInstitucion().getDescripcion();
-                }
-            } else if (Campo.equals("ADIESTRAMIENTOF")) {
-                if (tipoNuevo == 1) {
-                    AdiestramientoF = nuevaVigenciaFormal.getAdiestramientof().getDescripcion();
-                } else if (tipoNuevo == 2) {
-                    AdiestramientoF = duplicarVigenciaFormal.getAdiestramientof().getDescripcion();
-                }
-            }
-        }
-    }
-
-    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
-        int coincidencias = 0;
-        int indiceUnicoElemento = 0;
-        RequestContext context = RequestContext.getCurrentInstance();
-        if (confirmarCambio.equalsIgnoreCase("TIPOEDUCACION")) {
-            if (tipoNuevo == 1) {
-                nuevaVigenciaFormal.getTipoeducacion().setNombre(TipoEducacion);
-            } else if (tipoNuevo == 2) {
-                duplicarVigenciaFormal.getTipoeducacion().setNombre(TipoEducacion);
-            }
-            for (int i = 0; i < listaTiposEducaciones.size(); i++) {
-                if (listaTiposEducaciones.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoNuevo == 1) {
-                    nuevaVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
-                } else if (tipoNuevo == 2) {
-                    duplicarVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
-                }
-                listaTiposEducaciones.clear();
-                getListaTiposEducaciones();
-            } else {
-                RequestContext.getCurrentInstance().update("form:tiposEducacionesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-                if (tipoNuevo == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
-                } else if (tipoNuevo == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
-                }
-            }
-        } else if (confirmarCambio.equalsIgnoreCase("PROFESION")) {
-            if (tipoNuevo == 1) {
-                nuevaVigenciaFormal.getProfesion().setDescripcion(Profesion);
-            } else if (tipoNuevo == 2) {
-                duplicarVigenciaFormal.getProfesion().setDescripcion(Profesion);
-            }
-            for (int i = 0; i < listaProfesiones.size(); i++) {
-                if (listaProfesiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoNuevo == 1) {
-                    nuevaVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
-                } else if (tipoNuevo == 2) {
-                    duplicarVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
-                }
-                listaProfesiones.clear();
-                getListaProfesiones();
-            } else {
-                RequestContext.getCurrentInstance().update("form:profesionesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-                if (tipoNuevo == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
-                } else if (tipoNuevo == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
-                }
-            }
-        } else if (confirmarCambio.equalsIgnoreCase("INSTITUCION")) {
-            if (tipoNuevo == 1) {
-                nuevaVigenciaFormal.getInstitucion().setDescripcion(Institucion);
-            } else if (tipoNuevo == 2) {
-                duplicarVigenciaFormal.getInstitucion().setDescripcion(Institucion);
-            }
-            for (int i = 0; i < listaInstituciones.size(); i++) {
-                if (listaInstituciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoNuevo == 1) {
-                    nuevaVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
-                } else if (tipoNuevo == 2) {
-                    duplicarVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
-                }
-                listaInstituciones.clear();
-                getListaInstituciones();
-            } else {
-                RequestContext.getCurrentInstance().update("form:institucionesDialogo");
-                RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-                if (tipoNuevo == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
-                } else if (tipoNuevo == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
-                }
-            }
-        } else if (confirmarCambio.equalsIgnoreCase("ADIESTRAMIENTOF")) {
-            if (tipoNuevo == 1) {
-                nuevaVigenciaFormal.getAdiestramientof().setDescripcion(AdiestramientoF);
-            } else if (tipoNuevo == 2) {
-                duplicarVigenciaFormal.getAdiestramientof().setDescripcion(AdiestramientoF);
-            }
-            for (int i = 0; i < listaAdiestramientosFormales.size(); i++) {
-                if (listaAdiestramientosFormales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
-                    indiceUnicoElemento = i;
-                    coincidencias++;
-                }
-            }
-            if (coincidencias == 1) {
-                if (tipoNuevo == 1) {
-                    nuevaVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
-                } else if (tipoNuevo == 2) {
-                    duplicarVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
-                }
-                listaAdiestramientosFormales.clear();
-                getListaAdiestramientosFormales();
-            } else {
-                RequestContext.getCurrentInstance().update("form:adiestramientosFDialogo");
-                RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
-                tipoActualizacion = tipoNuevo;
-                if (tipoNuevo == 1) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
-                } else if (tipoNuevo == 2) {
-                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
-                }
-            }
-        }
-    }
-// Agregar Nueva Vigencia Formal
-
+//    public void valoresBackupAutocompletar(int tipoNuevo, String Campo) {
+//        if (Campo.equals("TIPOEDUCACION")) {
+//            if (tipoNuevo == 1) {
+//                TipoEducacion = nuevaVigenciaFormal.getTipoeducacion().getNombre();
+//            } else if (tipoNuevo == 2) {
+//                TipoEducacion = duplicarVigenciaFormal.getTipoeducacion().getNombre();
+//            } else if (Campo.equals("PROFESION")) {
+//                if (tipoNuevo == 1) {
+//                    Profesion = nuevaVigenciaFormal.getProfesion().getDescripcion();
+//                } else if (tipoNuevo == 2) {
+//                    Profesion = duplicarVigenciaFormal.getProfesion().getDescripcion();
+//                }
+//            } else if (Campo.equals("INSTITUCION")) {
+//                if (tipoNuevo == 1) {
+//                    Institucion = nuevaVigenciaFormal.getInstitucion().getDescripcion();
+//                } else if (tipoNuevo == 2) {
+//                    Institucion = duplicarVigenciaFormal.getInstitucion().getDescripcion();
+//                }
+//            } else if (Campo.equals("ADIESTRAMIENTOF")) {
+//                if (tipoNuevo == 1) {
+//                    AdiestramientoF = nuevaVigenciaFormal.getAdiestramientof().getDescripcion();
+//                } else if (tipoNuevo == 2) {
+//                    AdiestramientoF = duplicarVigenciaFormal.getAdiestramientof().getDescripcion();
+//                }
+//            }
+//        }
+//    }
+//
+//    public void autocompletarNuevoyDuplicado(String confirmarCambio, String valorConfirmar, int tipoNuevo) {
+//        int coincidencias = 0;
+//        int indiceUnicoElemento = 0;
+//        RequestContext context = RequestContext.getCurrentInstance();
+//        if (confirmarCambio.equalsIgnoreCase("TIPOEDUCACION")) {
+//            if (tipoNuevo == 1) {
+//                nuevaVigenciaFormal.getTipoeducacion().setNombre(TipoEducacion);
+//            } else if (tipoNuevo == 2) {
+//                duplicarVigenciaFormal.getTipoeducacion().setNombre(TipoEducacion);
+//            }
+//            for (int i = 0; i < listaTiposEducaciones.size(); i++) {
+//                if (listaTiposEducaciones.get(i).getNombre().startsWith(valorConfirmar.toUpperCase())) {
+//                    indiceUnicoElemento = i;
+//                    coincidencias++;
+//                }
+//            }
+//            if (coincidencias == 1) {
+//                if (tipoNuevo == 1) {
+//                    nuevaVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
+//                } else if (tipoNuevo == 2) {
+//                    duplicarVigenciaFormal.setTipoeducacion(listaTiposEducaciones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
+//                }
+//                listaTiposEducaciones.clear();
+//                getListaTiposEducaciones();
+//            } else {
+//                RequestContext.getCurrentInstance().update("form:tiposEducacionesDialogo");
+//                RequestContext.getCurrentInstance().execute("PF('tiposEducacionesDialogo').show()");
+//                tipoActualizacion = tipoNuevo;
+//                if (tipoNuevo == 1) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoTipoEducacion");
+//                } else if (tipoNuevo == 2) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarTipoEducacion");
+//                }
+//            }
+//        } else if (confirmarCambio.equalsIgnoreCase("PROFESION")) {
+//            if (tipoNuevo == 1) {
+//                nuevaVigenciaFormal.getProfesion().setDescripcion(Profesion);
+//            } else if (tipoNuevo == 2) {
+//                duplicarVigenciaFormal.getProfesion().setDescripcion(Profesion);
+//            }
+//            for (int i = 0; i < listaProfesiones.size(); i++) {
+//                if (listaProfesiones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+//                    indiceUnicoElemento = i;
+//                    coincidencias++;
+//                }
+//            }
+//            if (coincidencias == 1) {
+//                if (tipoNuevo == 1) {
+//                    nuevaVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
+//                } else if (tipoNuevo == 2) {
+//                    duplicarVigenciaFormal.setProfesion(listaProfesiones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
+//                }
+//                listaProfesiones.clear();
+//                getListaProfesiones();
+//            } else {
+//                RequestContext.getCurrentInstance().update("form:profesionesDialogo");
+//                RequestContext.getCurrentInstance().execute("PF('profesionesDialogo').show()");
+//                tipoActualizacion = tipoNuevo;
+//                if (tipoNuevo == 1) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaProfesion");
+//                } else if (tipoNuevo == 2) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarProfesion");
+//                }
+//            }
+//        } else if (confirmarCambio.equalsIgnoreCase("INSTITUCION")) {
+//            if (tipoNuevo == 1) {
+//                nuevaVigenciaFormal.getInstitucion().setDescripcion(Institucion);
+//            } else if (tipoNuevo == 2) {
+//                duplicarVigenciaFormal.getInstitucion().setDescripcion(Institucion);
+//            }
+//            for (int i = 0; i < listaInstituciones.size(); i++) {
+//                if (listaInstituciones.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+//                    indiceUnicoElemento = i;
+//                    coincidencias++;
+//                }
+//            }
+//            if (coincidencias == 1) {
+//                if (tipoNuevo == 1) {
+//                    nuevaVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
+//                } else if (tipoNuevo == 2) {
+//                    duplicarVigenciaFormal.setInstitucion(listaInstituciones.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
+//                }
+//                listaInstituciones.clear();
+//                getListaInstituciones();
+//            } else {
+//                RequestContext.getCurrentInstance().update("form:institucionesDialogo");
+//                RequestContext.getCurrentInstance().execute("PF('institucionesDialogo').show()");
+//                tipoActualizacion = tipoNuevo;
+//                if (tipoNuevo == 1) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevaInstitucion");
+//                } else if (tipoNuevo == 2) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarInstitucion");
+//                }
+//            }
+//        } else if (confirmarCambio.equalsIgnoreCase("ADIESTRAMIENTOF")) {
+//            if (tipoNuevo == 1) {
+//                nuevaVigenciaFormal.getAdiestramientof().setDescripcion(AdiestramientoF);
+//            } else if (tipoNuevo == 2) {
+//                duplicarVigenciaFormal.getAdiestramientof().setDescripcion(AdiestramientoF);
+//            }
+//            for (int i = 0; i < listaAdiestramientosFormales.size(); i++) {
+//                if (listaAdiestramientosFormales.get(i).getDescripcion().startsWith(valorConfirmar.toUpperCase())) {
+//                    indiceUnicoElemento = i;
+//                    coincidencias++;
+//                }
+//            }
+//            if (coincidencias == 1) {
+//                if (tipoNuevo == 1) {
+//                    nuevaVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
+//                } else if (tipoNuevo == 2) {
+//                    duplicarVigenciaFormal.setAdiestramientof(listaAdiestramientosFormales.get(indiceUnicoElemento));
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
+//                }
+//                listaAdiestramientosFormales.clear();
+//                getListaAdiestramientosFormales();
+//            } else {
+//                RequestContext.getCurrentInstance().update("form:adiestramientosFDialogo");
+//                RequestContext.getCurrentInstance().execute("PF('adiestramientosFDialogo').show()");
+//                tipoActualizacion = tipoNuevo;
+//                if (tipoNuevo == 1) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:nuevoAdiestramientoF");
+//                } else if (tipoNuevo == 2) {
+//                    RequestContext.getCurrentInstance().update("formularioDialogos:duplicarAdiestramientoF");
+//                }
+//            }
+//        }
+//    }
     public void agregarNuevaVigenciaFormal() {
         int pasa = 0;
         mensajeValidacion = " ";
@@ -1375,6 +1388,7 @@ public class ControlPersonaEducacion implements Serializable {
             contarRegistrosF();
             RequestContext.getCurrentInstance().update("form:infoRegistroF");
             vigenciaFormalSeleccionada = nuevaVigenciaFormal;
+            vigenciaNoFormalSeleccionada = null;
             nuevaVigenciaFormal = new VigenciasFormales();
             nuevaVigenciaFormal.setTipoeducacion(new TiposEducaciones());
             nuevaVigenciaFormal.setProfesion(new Profesiones());
@@ -1384,10 +1398,9 @@ public class ControlPersonaEducacion implements Serializable {
             nuevaVigenciaFormal.setFechavencimientotarjeta(new Date());
             nuevaVigenciaFormal.setFechaexpediciontarjeta(new Date());
             RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
-            if (guardado == true) {
-                guardado = false;
-                RequestContext.getCurrentInstance().update("form:ACEPTAR");
-            }
+            RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
+            guardado = false;
+            RequestContext.getCurrentInstance().update("form:ACEPTAR");
             RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').hide()");
         } else {
             RequestContext.getCurrentInstance().update("formularioDialogos:validacionNuevaVigenciaFormal");
@@ -1646,7 +1659,8 @@ public class ControlPersonaEducacion implements Serializable {
 
     }
 
-    public void salir() {  limpiarListasValor();
+    public void salir() {
+        limpiarListasValor();
 
         if (bandera == 1) {
             FacesContext c = FacesContext.getCurrentInstance();
@@ -2012,28 +2026,27 @@ public class ControlPersonaEducacion implements Serializable {
     //ASIGNAR INDEX PARA DIALOGOS COMUNES (LDN = LISTA - NUEVO - DUPLICADO)
     public void asignarIndexNF(VigenciasNoFormales vigenciaNoFormal, int dlg, int LND) {
         vigenciaNoFormalSeleccionada = vigenciaNoFormal;
-        RequestContext context = RequestContext.getCurrentInstance();
         tipoActualizacion = LND;
         if (dlg == 0) {
+            listaCursos = null;
+            cargarListaCursos();
             contarRegistroCursos();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroCursos");
-            habilitarBotonLov();
             RequestContext.getCurrentInstance().update("formularioDialogos:cursosDialogo");
             RequestContext.getCurrentInstance().execute("PF('cursosDialogo').show()");
         } else if (dlg == 2) {
-            habilitarBotonLov();
+            listaInstituciones = null;
+            cargarListaInstituciones();
             contarRegistroInstituciones();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroInstituciones");
             RequestContext.getCurrentInstance().update("formularioDialogos:institucionesNFDialogo");
             RequestContext.getCurrentInstance().execute("PF('institucionesNFDialogo').show()");
         } else if (dlg == 3) {
+            listaAdiestramientosNoFormales = null;
+            cargarListaAdiestramientosNF();
             habilitarBotonLov();
             contarRegistroAdiestramientoNF();
-            RequestContext.getCurrentInstance().update("formularioDialogos:infoRegistroAdiestramientosNF");
             RequestContext.getCurrentInstance().update("formularioDialogos:adiestramientosNFDialogo");
             RequestContext.getCurrentInstance().execute("PF('adiestramientosNFDialogo').show()");
         }
-
     }
 
     public void actualizarCursos() {
@@ -2421,11 +2434,12 @@ public class ControlPersonaEducacion implements Serializable {
 
             listaVigenciasNoFormales.add(nuevaVigenciaNoFormal);
             vigenciaNoFormalSeleccionada = nuevaVigenciaNoFormal;
+            vigenciaFormalSeleccionada = null;
             getListaVigenciasFormales();
             contarRegistrosNF();
             RequestContext.getCurrentInstance().update("form:infoRegistroNF");
             RequestContext.getCurrentInstance().update("form:datosVigenciasNoFormalesPersona");
-
+            RequestContext.getCurrentInstance().update("form:datosVigenciasFormalesPersona");
             nuevaVigenciaNoFormal = new VigenciasNoFormales();
             nuevaVigenciaNoFormal.setCurso(new Cursos());
             nuevaVigenciaNoFormal.setInstitucion(new Instituciones());
@@ -2443,9 +2457,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public void elegirTabla() {
-        RequestContext context = RequestContext.getCurrentInstance();
-        System.out.println("Cual Tabla= " + CualTabla);
-
         RequestContext.getCurrentInstance().update("formularioDialogos:elegirTabla");
         RequestContext.getCurrentInstance().execute("PF('elegirTabla').show()");
     }
@@ -2492,13 +2503,11 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public void dialogoVigenciasFormales() {
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaFormal");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaFormal').show()");
     }
 
     public void dialogoVigenciasNoFormales() {
-        RequestContext context = RequestContext.getCurrentInstance();
         RequestContext.getCurrentInstance().update("formularioDialogos:NuevoRegistroVigenciaNoFormal");
         RequestContext.getCurrentInstance().execute("PF('NuevoRegistroVigenciaNoFormal').show()");
 
@@ -2584,6 +2593,42 @@ public class ControlPersonaEducacion implements Serializable {
         }
     }
 
+    public void cargarListaTiposEducaciones() {
+        if (listaTiposEducaciones == null) {
+            listaTiposEducaciones = administrarVigenciasFormales.lovTiposEducaciones();
+        }
+    }
+
+    public void cargarListaProfesiones() {
+        if (listaProfesiones == null) {
+            listaProfesiones = administrarVigenciasFormales.lovProfesiones();
+        }
+    }
+
+    public void cargarListaInstituciones() {
+        if (listaInstituciones == null) {
+            listaInstituciones = administrarVigenciasFormales.lovInstituciones();
+        }
+    }
+
+    public void cargarListaCursos() {
+        if (listaCursos == null) {
+            listaCursos = administrarVigenciasNoFormales.lovCursos();
+        }
+    }
+
+    public void cargarListaAdiestramientosF() {
+        if (listaAdiestramientosFormales == null) {
+            listaAdiestramientosFormales = administrarVigenciasFormales.lovAdiestramientosF();
+        }
+    }
+
+    public void cargarListaAdiestramientosNF() {
+        if (listaAdiestramientosNoFormales == null) {
+            listaAdiestramientosNoFormales = administrarVigenciasNoFormales.lovAdiestramientosNF();
+        }
+    }
+
     //<--------------------------------------------FIN METODOS VIGENCIAS NO FORMALES ----------------------------------------->
 //GETTER & SETTER
     public Personas getPersona() {
@@ -2616,9 +2661,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<TiposEducaciones> getListaTiposEducaciones() {
-        if (listaTiposEducaciones == null) {
-            listaTiposEducaciones = administrarVigenciasFormales.lovTiposEducaciones();
-        }
         return listaTiposEducaciones;
     }
 
@@ -2635,9 +2677,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<Profesiones> getListaProfesiones() {
-        if (listaProfesiones == null) {
-            listaProfesiones = administrarVigenciasFormales.lovProfesiones();
-        }
         return listaProfesiones;
     }
 
@@ -2654,9 +2693,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<Instituciones> getListaInstituciones() {
-        if (listaInstituciones == null) {
-            listaInstituciones = administrarVigenciasFormales.lovInstituciones();
-        }
         return listaInstituciones;
     }
 
@@ -2673,9 +2709,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<AdiestramientosF> getListaAdiestramientosFormales() {
-        if (listaAdiestramientosFormales == null) {
-            listaAdiestramientosFormales = administrarVigenciasFormales.lovAdiestramientosF();
-        }
         return listaAdiestramientosFormales;
     }
 
@@ -2784,9 +2817,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<Cursos> getListaCursos() {
-        if (listaCursos == null) {
-            listaCursos = administrarVigenciasNoFormales.lovCursos();
-        }
         return listaCursos;
     }
 
@@ -2811,9 +2841,6 @@ public class ControlPersonaEducacion implements Serializable {
     }
 
     public List<AdiestramientosNF> getListaAdiestramientosNoFormales() {
-        if (listaAdiestramientosNoFormales == null) {
-            listaAdiestramientosNoFormales = administrarVigenciasNoFormales.lovAdiestramientosNF();
-        }
         return listaAdiestramientosNoFormales;
     }
 

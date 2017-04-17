@@ -63,7 +63,7 @@ public class TiposEducaciones implements Serializable {
 
     public String getNombre() {
         if (nombre == null) {
-            nombre = "";
+            nombre = " ";
             return nombre;
         } else {
             return nombre.toUpperCase();

@@ -81,7 +81,7 @@ public class VigenciasNoFormales implements Serializable {
 
     public String getTitulo() {
         if (titulo == null) {
-            titulo = " ";
+            titulo = "";
             return titulo;
         } else {
             return titulo.toUpperCase();
