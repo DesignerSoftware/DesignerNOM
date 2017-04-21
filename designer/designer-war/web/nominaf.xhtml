@@ -365,16 +365,16 @@
                               <p:spacer styleClass="separador"/> 
 
                               <!-- Panel Evaluacion y Resultados -->
-                              <p:commandButton id="evaluarpersona" value="" disabled="#{controlRemoto.evaluacion}" class="cssBotonesPInferior" style=" background-image: url(Imagenes/Iconos/evaluacion.png);"/>
+                              <p:commandButton id="evaluarpersona" value="" class="cssBotonesPInferior" style=" background-image: url(Imagenes/Iconos/evaluacion.png);" disabled="#{controlRemoto.consultarPermisosPorId('evaluarpersona')}" />
                               <p:tooltip  for="evaluarpersona" value="#{msg['EvaluarPersona']}"/>
 
-                              <p:commandButton id="resultadosevaluaciones" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/resultados.png);"/>
+                              <p:commandButton id="resultadosevaluaciones" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/resultados.png);" disabled="#{controlRemoto.consultarPermisosPorId('resultadosevaluaciones')}" />
                               <p:tooltip  for="resultadosevaluaciones">#{msg['resultadosevaluaciones1']}<br/>#{msg['resultadosevaluaciones2']}</p:tooltip>
                               <p:spacer styleClass="separador"/>
 
                               <!-- Panel Salud Ocupacional-->
                               <p:commandButton id="saludocupacional" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/saludOcupacional2.png);"
-                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigsaludocupacional')}"/>
+                                               action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'emplvigsaludocupacional')}" disabled="#{controlRemoto.consultarPermisosPorId('saludocupacional')}" />
                               <p:tooltip  for="saludocupacional">#{msg['saludocupacional1']}<br/>#{msg['saludocupacional2']}</p:tooltip>
                               <p:spacer styleClass="separador"/>
 
@@ -387,12 +387,12 @@
                               <p:commandButton id="informacionjubilados" value="" disabled="#{controlRemoto.pensionado}" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/pensionado.png);"/>
                               <p:tooltip  for="informacionjubilados">#{msg['informacionjubilados1']}<br/>#{msg['informacionjubilados2']}</p:tooltip>
 
-                              <p:commandButton id="ingresoaspirantes" value="" disabled="#{controlRemoto.aspirante}" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/aspirantes.png);"/>
+                              <p:commandButton id="ingresoaspirantes" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/aspirantes.png);" disabled="#{controlRemoto.consultarPermisosPorId('ingresoaspirantes')}" />
                               <p:tooltip  for="ingresoaspirantes">#{msg['ingresoaspirantes1']}<br/>#{msg['ingresoaspirantes2']}</p:tooltip>
                               <p:spacer styleClass="separador"/>
 
                               <!-- Panel Hoja de Vida -->
-                              <p:commandButton id="informacionadicional" value="" disabled="#{controlRemoto.hv1}" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/informacionAdicional.png);"/>
+                              <p:commandButton id="informacionadicional" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/informacionAdicional.png);" disabled="#{controlRemoto.consultarPermisosPorId('informacionadicional')}" />
                               <p:tooltip  for="informacionadicional">#{msg['informacionadicionalaspirantes1']}<br/>#{msg['informacionadicionalaspirantes2']}</p:tooltip>
                               <p:spacer styleClass="separador"/>
 
@@ -556,7 +556,7 @@
                                             style="left: 10px; top: 20px; background-image: url(Imagenes/Iconos/IntPILA.png);"
                                             action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'parametroautoliq')}" actionListener="#{controlParametroAutoliq.recibirPaginaEntrante('nominaf')}"/>
                            <p:commandButton id="btnpresup" value="" class="cssBotonesIntegracion"
-                                            style="left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntPresupuesto.png);"/>
+                                            style="left: 10px; top: 115px; background-image: url(Imagenes/Iconos/IntPresupuesto.png);" disabled="#{controlRemoto.consultarPermisosPorId('btnpresup')}" />
                            <p:commandButton id="btntersoreria" value="" class="cssBotonesIntegracion"
                                             style="left: 10px; top: 213px; background-image: url(Imagenes/Iconos/IntTesoreria.png);"
                                             action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'reportesbancos')}" actionListener="#{controlReportesBancos.iniciarPagina}"/>
@@ -588,7 +588,8 @@
 
                            <p:commandButton id="btngrepor" value="" class="cssBotonesNomina3" style="left: 80px; top: 15px; background-image: url(Imagenes/Iconos/GereGeneradorRepor.png);"/>
                            <p:commandButton id="btnestrucorgan" value="" class="cssBotonesNomina3" style="left: 265px; top: 15px; background-image: url(Imagenes/Iconos/GereEstructuraOrgan.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'estructura')}" actionListener="#{controlEstructura.recibirPaginaEntrante('nominaf')}"/>
-                           <p:commandButton id="btnsaludocu" value="" class="cssBotonesNomina3" style="left: 450px; top: 15px; background-image: url(Imagenes/Iconos/GereSaludOcupacion.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'gersaludocupacional')}"/>
+                           <p:commandButton id="btnsaludocu" value="" class="cssBotonesNomina3" style="left: 450px; top: 15px; background-image: url(Imagenes/Iconos/GereSaludOcupacion.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'gersaludocupacional')}"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btnsaludocu')}" />
                            <p:commandButton id="btnconcepjuridicos" value="" class="cssBotonesNomina3" style="left: 630px; top: 15px; background-image: url(Imagenes/Iconos/GereNormativo.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'conceptojuridico')}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 55px; top: 117px;" value="#{msg['generadordereportes']}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 235px; top: 117px;" value="#{msg['estructuraorganizacional']}"/>
@@ -598,18 +599,24 @@
 
                            <p:commandButton id="btnanalisiscargos" value="" class="cssBotonesNomina3" style="left: 80px; top: 150px; background-image: url(Imagenes/Iconos/GereAnalisisCargos.png);"
                                             action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'cargo')}" actionListener="#{controlCargo.recibirPaginaEntrante('nominaf')}"/>
-                           <p:commandButton id="btngplangestion" value="" class="cssBotonesNomina3" style="left: 265px; top: 150px; background-image: url(Imagenes/Iconos/GerePlanGestion.png);"/>
-                           <p:commandButton id="btnevaluacioncomp" value="" class="cssBotonesNomina3" style="left: 450px; top: 150px; background-image: url(Imagenes/Iconos/GereEvaluacionComp.png);"/>
-                           <p:commandButton id="btnevaluaciondesemp" value="" class="cssBotonesNomina3" style="left: 630px; top: 150px; background-image: url(Imagenes/Iconos/GereEvalDesempenho.png);"/>
+                           <p:commandButton id="btngplangestion" value="" class="cssBotonesNomina3" style="left: 265px; top: 150px; background-image: url(Imagenes/Iconos/GerePlanGestion.png);"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btngplangestion')}" />
+                           <p:commandButton id="btnevaluacioncomp" value="" class="cssBotonesNomina3" style="left: 450px; top: 150px; background-image: url(Imagenes/Iconos/GereEvaluacionComp.png);"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btnevaluacioncomp')}" />
+                           <p:commandButton id="btnevaluaciondesemp" value="" class="cssBotonesNomina3" style="left: 630px; top: 150px; background-image: url(Imagenes/Iconos/GereEvalDesempenho.png);" 
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btnevaluaciondesemp')}" />
                            <h:outputText class="cssOutputTextNomina3" style="left: 55px; top: 252px;" value="#{msg['analisisdecargos']}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 240px; top: 252px;" value="#{msg['plandegestion']}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 424px; top: 252px;" value="#{msg['evaluacioncompetencias']}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 606px; top: 252px;" value="#{msg['evaluaciondesempeño']}"/>
                            <hr style="width:785px; top:266.6px; position:absolute; height:0px;"/>
 
-                           <p:commandButton id="btnevaluacionseleccion" value="" class="cssBotonesNomina3" style="left: 80px; top: 281px; background-image: url(Imagenes/Iconos/GereEvalSeleccion.png);"/>
-                           <p:commandButton id="btncapacitacion" value="" class="cssBotonesNomina3" style="left: 265px; top: 281px; background-image: url(Imagenes/Iconos/GereCapacitacion.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'menucapacitacion')}"/>
-                           <p:commandButton id="btnbienestar" value="" class="cssBotonesNomina3" style="left: 450px; top: 281px; background-image: url(Imagenes/Iconos/GereBienestar.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'bienestar')}"/>
+                           <p:commandButton id="btnevaluacionseleccion" value="" class="cssBotonesNomina3" style="left: 80px; top: 281px; background-image: url(Imagenes/Iconos/GereEvalSeleccion.png);"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btnevaluacionseleccion')}" />
+                           <p:commandButton id="btncapacitacion" value="" class="cssBotonesNomina3" style="left: 265px; top: 281px; background-image: url(Imagenes/Iconos/GereCapacitacion.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'menucapacitacion')}"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btncapacitacion')}" />
+                           <p:commandButton id="btnbienestar" value="" class="cssBotonesNomina3" style="left: 450px; top: 281px; background-image: url(Imagenes/Iconos/GereBienestar.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'bienestar')}"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('btnbienestar')}" />
                            <p:commandButton id="btnproyecciones" value="" class="cssBotonesNomina3" style="left: 630px; top: 281px; background-image: url(Imagenes/Iconos/GereProyeccion1.png);" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'liquidarproyeccion')}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 54px; top: 383px;" value="#{msg['evaluacionseleccion']}"/>
                            <h:outputText class="cssOutputTextNomina3" style="left: 240px; top: 383px;" value="#{msg['capacitacion']}"/>

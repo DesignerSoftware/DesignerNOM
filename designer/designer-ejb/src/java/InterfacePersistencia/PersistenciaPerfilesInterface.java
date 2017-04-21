@@ -15,5 +15,6 @@ public interface PersistenciaPerfilesInterface {
     
     public Perfiles consultarPerfil(EntityManager em, BigInteger secuencia);
     public List<Perfiles> consultarPerfiles(EntityManager em);
+    public Perfiles consultarPerfilPorUsuario(EntityManager em);
     
 }
