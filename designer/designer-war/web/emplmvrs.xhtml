@@ -195,7 +195,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','motivomvr')}" id="fooMotivo"  value="">
+                              <p:commandButton style="width: 120%;" onstart="#{controlEmplMvr.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','motivomvr')}" id="fooMotivo"  value="">
                                  <f:actionListener binding="#{controlMotivosMvrs.recibirPaginaAnterior('emplmvrs')}"/>
                                  <f:actionListener binding="#{controlEmplMvr.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -341,7 +341,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','tipocertificado')}" actionListener="#{controlTiposCertificados.recibirPaginaEntrante('emplmvrs')}" id="fooCertificadosOC" value=""/>
+                              <p:commandButton style="width: 120%;" onstart="#{controlEmplMvr.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','tipocertificado')}" actionListener="#{controlTiposCertificados.recibirPaginaEntrante('emplmvrs')}" id="fooCertificadosOC" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -471,7 +471,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlEmplMvr.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'emplmvrs')}" 
-                                   style="position: absolute; top: 63px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/> 
+                                   style="position: absolute; top: 63px; left: 205px;" onstart="#{controlEmplMvr.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/> 
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px;" process="@this"/>
                </p:dialog>
 
@@ -479,7 +479,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlEmplMvr.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlEmplMvr.nombreTablaRastro , 'emplmvrs')}" 
-                                   style="position: absolute; top: 63px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 205px;" onstart="#{controlEmplMvr.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlEmplMvr.limpiarMSNRastros()}" 
                                    style="position: absolute; top: 63px; left: 267px;" process="@this"/>
                </p:dialog>
@@ -498,7 +498,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplMvr.backUp, controlEmplMvr.nombreTablaRastro , 'emplmvrs')}" 
-                                   style="position: absolute; top: 68px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 68px; left: 205px;" onstart="#{controlEmplMvr.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplmvrs','rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 267px;" process="@this"/>
                </p:dialog>
 

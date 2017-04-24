@@ -17,31 +17,31 @@
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlHvReferencias1.guardarHvReferencia()}" process="@this"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlHvReferencias1.guardarHvReferencia()}" process="@this"/>
                         <p:tooltip style="" for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlHvReferencias1.editarCelda()}"  process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlHvReferencias1.editarCelda()}"  process="@this"/>
                         <p:tooltip style="" for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlHvReferencias1.listaValoresBoton()}" disabled="#{controlHvReferencias1.activarLov}" process="@this"/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlHvReferencias1.listaValoresBoton()}" disabled="#{controlHvReferencias1.activarLov}" process="@this"/>
                         <p:tooltip style="" for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlHvReferencias1.activarCtrlF11()}"  process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlHvReferencias1.activarCtrlF11()}"  process="@this"/>
                         <p:tooltip style="" for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " actionListener="#{controlHvReferencias1.exportXLS()}"  ajax="false"/>
+                        <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png);" actionListener="#{controlHvReferencias1.exportXLS()}"  ajax="false"/>
                         <p:tooltip style="" for="exportarXLS" value="#{msg['xls']}"/>
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlHvReferencias1.limpiarNuevoHvReferencias()}"  ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlHvReferencias1.limpiarNuevoHvReferencias()}"  ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosHvReferenciaExportar" fileName="REFERENCIASFAMILIARES" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip style="" for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlHvReferencias1.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlHvReferencias1.exportPDF()}" ajax="false"/>
                         <p:tooltip style="" for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/> 
@@ -51,20 +51,20 @@
                         <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; "  actionListener="#{controlHvReferencias1.borrandoHvReferencias()}" process="@this"/>  
                         <p:tooltip style="" for="eliminar" value="#{msg['eliminar']}"/>
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; " actionListener="#{controlHvReferencias1.duplicandoHvEntrevistas()}" process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlHvReferencias1.duplicandoHvEntrevistas()}" process="@this"/>  
                         <p:tooltip style="" for="duplicar" value="#{msg['duplicar']}"/>
                         <p:separator style="position: relative; top: -9px"/> 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlHvReferencias1.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlHvReferencias1.verificarRastro()}" process="@this"/>  
                         <p:tooltip style="" for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlHvReferencias1.cancelarModificacion()}" process="@this"
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlHvReferencias1.cancelarModificacion()}" process="@this"
                                          oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlHvReferencias1.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHvReferencias1.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -167,7 +167,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'tipofamiliar')}" actionListener="#{controlTiposFamiliares.recibirPaginaEntrante('perreferencialaboral1')}" id="fooparentesco" value=""/>
+                              <p:commandButton style="width: 170px;" onstart="#{controlHvReferencias1.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'tipofamiliar')}" actionListener="#{controlTiposFamiliares.recibirPaginaEntrante('perreferencialaboral1')}" id="fooparentesco" value=""/>
                            </f:facet>
                         </p:column>
                      </p:dataTable>
@@ -253,7 +253,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvReferencias1.hvReferencia1Seleccionada.secuencia,'HvReferencias', 'perreferencialaboral')}" 
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlHvReferencias1.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -261,7 +261,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvReferencias', 'perreferencialaboral')}" style="position: absolute; top: 60px; left: 175px;"
-                                   icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this"/>
+                                   icon="ui-icon-check" onstart="#{controlHvReferencias1.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -279,7 +279,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvReferencias1.hvReferencia1Seleccionada.secuencia,'HvReferencias', 'perreferencialaboral')}" 
-                                   style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlHvReferencias1.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perreferencialaboral1', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

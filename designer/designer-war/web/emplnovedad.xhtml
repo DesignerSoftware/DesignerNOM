@@ -109,7 +109,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','concepto')}" process="@this" value=" " style="width: 100px"/>
+                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','concepto')}" process="@this" value=" " style="width: 100px"/>
                            </f:facet>
                         </p:column>
 
@@ -126,7 +126,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','concepto')}" process="@this" value=" " style="width: 185px"/>
+                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('emplnovedad')}" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','concepto')}" process="@this" value=" " style="width: 185px"/>
                            </f:facet>
                         </p:column>
 
@@ -230,7 +230,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','periodicidad')}" process="@this" value=" " style="width: 100px"/>
+                              <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','periodicidad')}" process="@this" value=" " style="width: 100px"/>
                            </f:facet>
                         </p:column>
 
@@ -247,7 +247,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','periodicidad')}" process="@this" value=" " style="width: 195px"/>
+                              <p:commandButton actionListener="#{controlPeriodicidades.recibirPaginaEntrante('emplnovedad')}" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','periodicidad')}" process="@this" value=" " style="width: 195px"/>
                            </f:facet>
                         </p:column>
 
@@ -264,7 +264,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlTercero.recibirPaginaEntrante('emplnovedad')}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','tercero')}" process="@this" value=" " style="width: 195px"/>
+                              <p:commandButton actionListener="#{controlTercero.recibirPaginaEntrante('emplnovedad')}" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','tercero')}" process="@this" value=" " style="width: 195px"/>
                            </f:facet>
                         </p:column>
 
@@ -311,7 +311,7 @@
                               <p:tooltip for="DetalleN" value="Ver acumulados involucrados con esta novedad"/>
                            </f:facet>
                            <p:commandButton style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                            value="" process="@this" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','solucionformula')}">
+                                            value="" process="@this" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','solucionformula')}">
                               <f:actionListener binding="#{controlSolucionFormula.recibirParametros(controlEmplNovedad.empleado.codigoempleado, controlEmplNovedad.novedadSeleccionada.secuencia,'emplnovedad')}"/>
                               <f:actionListener binding="#{controlSolucionFormula.recibirPaginaEntrante('emplnovedad')}"/>
                            </p:commandButton>
@@ -347,7 +347,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplNovedad.novedadSeleccionada.secuencia, 'Novedades', 'emplnovedad')}"
-                                   style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -355,7 +355,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'emplnovedad')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -372,7 +372,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplNovedad.novedadSeleccionada.secuencia, 'Novedades', 'emplnovedad')}" style="position: absolute; top: 65px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplNovedad.novedadSeleccionada.secuencia, 'Novedades', 'emplnovedad')}" style="position: absolute; top: 65px; left: 190px;" onstart="#{controlEmplNovedad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplnovedad','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this"/>
                </p:dialog>
 

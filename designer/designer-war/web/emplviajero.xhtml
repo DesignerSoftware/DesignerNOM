@@ -27,7 +27,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="listaValores" disabled="#{controlVigenciasViajeros.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasViajeros.listaValoresBoton()}"   process="@this"/>
+                        <p:commandButton id="listaValores" disabled="#{controlVigenciasViajeros.activarLOV}" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlVigenciasViajeros.listaValoresBoton()}" process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
                         <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlVigenciasViajeros.activarCtrlF11()}"  process="@this"/>
@@ -129,7 +129,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 120%;" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','tipoviajero')}" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero"/>
+                              <p:commandButton value="" style="width: 120%;" onstart="#{controlVigenciasViajeros.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','tipoviajero')}" onclick="#{controlTiposViajeros.inicializarLista()}" id="fooViajero"/>
                            </f:facet>
                         </p:column>
 
@@ -293,7 +293,7 @@
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}"  icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasViajeros.vigenciaSeleccionada.secuencia, 'VigenciasViageros','emplviajero')}" 
                                    oncomplete="PF('#{controlVigenciasViajeros.anularLOV()}" style="position: absolute; top: 63px; left: 180px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
+                                   onstart="#{controlVigenciasViajeros.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this"/>
                </p:dialog>
 
@@ -302,7 +302,7 @@
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}"  icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasViageros','emplviajero')}"
                                    oncomplete="PF('#{controlVigenciasViajeros.anularLOV()}" style="position: absolute; top: 60px; left: 200px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
+                                   onstart="#{controlVigenciasViajeros.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -320,7 +320,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}"  icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasViajeros.vigenciaSeleccionada.secuencia,'VigenciasViageros','emplviajero')}"
-                                   style="position: absolute; top: 70px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 70px; left: 190px;" onstart="#{controlVigenciasViajeros.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvialero','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 260px;" process="@this"/>
                </p:dialog>
 

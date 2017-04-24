@@ -152,7 +152,7 @@
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlNReporteLaboral.salir()}" process="@this"/>
                   <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteLaboral.activarEnvio}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('nreportelaboral', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this"/>
+                                   onstart="#{controlNReporteLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportelaboral', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportelaboral', controlNReporteLaboral.inforreporteSeleccionado.secuencia)}" process="@this"/>
                   <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
                </p:panel>

@@ -176,7 +176,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla 'MONEDAS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMonedas.monedaSeleccionada.secuencia, 'Monedas', 'moneda')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 63px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 63px; left: 210px;" onstart="#{controlMonedas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();"
                                    icon="ui-icon-close" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -185,7 +185,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla MONEDAS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Monedas', 'moneda')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 210px;" onstart="#{controlMonedas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();"
                                    icon="ui-icon-close" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -204,7 +204,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"/>
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlMonedas.monedaSeleccionada.secuencia, 'Monedas', 'moneda')}"
-                                   style="position: absolute; top: 67px; left: 210px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 67px; left: 210px;" icon="ui-icon-check" onstart="#{controlMonedas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('moneda', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 67px; left: 270px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>

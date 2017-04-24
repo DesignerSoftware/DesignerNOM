@@ -221,7 +221,7 @@
                         </p:treeNode>   
                      </p:tree>
                      <p:commandButton id="btnEstructuraPlanta" value="Estructura Planta" icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
-                                      background-repeat: no-repeat; border: none; color: white;" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'estructuraplanta')}" actionListener="#{controlEstructuraPlanta.inicializarPagina('estructura')}"/>
+                                      background-repeat: no-repeat; border: none; color: white;" onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'estructuraplanta')}" actionListener="#{controlEstructuraPlanta.inicializarPagina('estructura')}"/>
                      <p:tooltip  for="btnEstructuraPlanta" value="#{msg['estructuraplanta']}"/>
                      <p:commandButton id="btnRiesgosProfesionales" value="Riesgos Pro..." icon="ui-icon-extlink" style="position: relative; top: 225px; width: 160px; height: 30px; background-image: url(Imagenes/Iconos/botonL.png); background-size: 100% 100%; 
                                       background-repeat: no-repeat; border: none; color: white;"/>
@@ -277,7 +277,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEstructura.organigramaSeleccionado.secuencia , 'Organigramas', 'estructuras')}" 
-                                   style="position: absolute; top: 63px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 210px;" onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -285,7 +285,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Organigramas', 'estructuras')}"
-                                   style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 210px;" onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -303,7 +303,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEstructura.organigramaSeleccionado.secuencia , 'Organigramas', 'estructuras')}"
-                                   style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 210px;" onstart="#{controlEstructura.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('estructura', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 

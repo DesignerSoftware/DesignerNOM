@@ -70,7 +70,7 @@
                             </p:toolbarGroup>  
                         </p:toolbar>
 
-                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" action="#{controlListaNavegacion.guardarNavegacion('banco','cuentasbancos')}" icon="ui-icon-extlink"  actionListener="#{controlCuentasBancos.recibirPaginaEntrante('cuentasbancos')}" process="@this" 
+                        <p:commandButton class="cssBotonLargo" id="CUENTAS" value="Cuentas Bancos" onstart="#{controlBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('banco','cuentasbancos')}" icon="ui-icon-extlink"  actionListener="#{controlCuentasBancos.recibirPaginaEntrante('cuentasbancos')}" process="@this" 
                                          style="position: relative; top: 430px; left: 10px; "   />
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlBancos.revisarDialogoGuardar()}" disabled="#{controlBancos.guardado}"    process="@this"   />
                         <p:commandButton class="cssBotonCancelar" id="ATRAS" actionListener="#{controlBancos.salir()}"  value=""/>
@@ -91,7 +91,7 @@
                                         <h:outputText id="DetalleC" value="D"/>
                                         <p:tooltip for="DetalleC" value="Dirección Banco"/>
                                     </f:facet>
-                                    <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('banco','direccionesbancos')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                                    <p:commandButton onstart="#{controlBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('banco','direccionesbancos')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                                      value=""  actionListener="#{controlDireccionesBancos.recibirPaginaEntrante('banco', controlBancos.bancoSeleccionado.secuencia)}">
                                     </p:commandButton>   
                                     <f:facet name="footer">
@@ -276,7 +276,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlBancos.bancoSeleccionado.secuencia, 'Bancos', 'banco')}"
-                                         style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -284,7 +284,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Bancos', 'banco')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -302,7 +302,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlBancos.bancoSeleccionado.secuencia, 'Bancos', 'banco')}" icon="ui-icon-close"
-                                         style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 70px; left: 175px;" onstart="#{controlBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('banco','rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 

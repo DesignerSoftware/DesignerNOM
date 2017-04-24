@@ -31,10 +31,10 @@
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.guardarCambios()}" process="@this"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlAportesEntidadesXDia.guardarCambios()}" process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlAportesEntidadesXDia.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -42,7 +42,7 @@
                         <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  disabled="#{controlAportesEntidadesXDia.activarLov}" process="@this"/>
                         <p:tooltip for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlAportesEntidadesXDia.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -55,7 +55,7 @@
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlAportesEntidadesXDia.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlAportesEntidadesXDia.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -71,17 +71,17 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlAportesEntidadesXDia.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlAportesEntidadesXDia.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" process="@this"
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlAportesEntidadesXDia.cancelarModificacion()}" process="@this"
                                          oncomplete="window.location.reload()"/> 
                         <p:separator style="position: relative; top: -9px"/>
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlAportesEntidadesXDia.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -332,7 +332,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'AportesEntidadesXDia', 'AportesEntidadesXDia')}"
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlAportesEntidadesXDia.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -340,7 +340,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('AportesEntidadesXDia', 'AportesEntidadesXDia')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlAportesEntidadesXDia.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -358,7 +358,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 5px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAportesEntidadesXDia.aporteSeleccionado.secuencia, 'ParametrosAutoliq', 'parametroautoliq')}"
-                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 70px; left: 175px;" onstart="#{controlAportesEntidadesXDia.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('aporteentidadxdia','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 

@@ -171,7 +171,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 90px;" id="fooConcepto" actionListener="#{controlConcepto.recibirPaginaEntrante('novedadempleado')}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'concepto')}" value=" "  />
+                              <p:commandButton style="width: 90px;" id="fooConcepto" actionListener="#{controlConcepto.recibirPaginaEntrante('novedadempleado')}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'concepto')}" value=" "  />
                            </f:facet>
                         </p:column>
 
@@ -290,7 +290,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 60px;" id="fooPeriodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('novedadempleado')}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'periodicidad')}" value=""/>
+                              <p:commandButton style="width: 60px;" id="fooPeriodicidad" actionListener="#{controlPeriodicidades.recibirPaginaEntrante('novedadempleado')}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'periodicidad')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -328,7 +328,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120px;" id="fooTercerosNit" actionListener="#{controlTercero.recibirPaginaEntrante('novedadempleado')}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'tercero')}" value=""/>
+                              <p:commandButton style="width: 120px;" id="fooTercerosNit" actionListener="#{controlTercero.recibirPaginaEntrante('novedadempleado')}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'tercero')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -365,7 +365,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 200px;" id="fooFormulas" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('novedadempleado')}" value=""/>
+                              <p:commandButton style="width: 200px;" id="fooFormulas" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('novedadempleado')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -446,7 +446,7 @@
                   <p:tooltip  for="ACTUALES" value="#{msg['actuales']}"/>
 
                   <p:commandButton style="position: absolute; left: 270px; top: 475px; background-image: url(Imagenes/Iconos/boton.png); background-size: 100% 100%; background-repeat: no-repeat; border: none; width: 128px; height: 30px; color: white;" 
-                                   icon="ui-icon-extlink" id="ACUMULADOS" value="Acumulados" disabled="#{controlNovedadesEmpleados.activoBtnAcumulado}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'solucionformula')}" actionListener="#{controlSolucionFormula.recibirParametros(controlNovedadesEmpleados.empleadoSeleccionado.codigo, controlNovedadesEmpleados.actualNovedadTabla.secuencia,'novedadempleado')}" process="@this"/>
+                                   icon="ui-icon-extlink" id="ACUMULADOS" value="Acumulados" disabled="#{controlNovedadesEmpleados.activoBtnAcumulado}" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'solucionformula')}" actionListener="#{controlSolucionFormula.recibirParametros(controlNovedadesEmpleados.empleadoSeleccionado.codigo, controlNovedadesEmpleados.actualNovedadTabla.secuencia,'novedadempleado')}" process="@this"/>
                   <p:tooltip  for="ACUMULADOS" value="#{msg['btnAcumuladoNovedad']}"/>
 
                   <p:commandButton id="ACEPTAR" widgetVar="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();"
@@ -1060,14 +1060,14 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id , 'Novedades', 'novedadempleado')}" style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id , 'Novedades', 'novedadempleado')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Novedades', 'novedadempleado')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -1084,7 +1084,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id, 'Novedades', 'novedadempleado')}" style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesEmpleados.empleadoSeleccionado.id, 'Novedades', 'novedadempleado')}" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlNovedadesEmpleados.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadempleado', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 

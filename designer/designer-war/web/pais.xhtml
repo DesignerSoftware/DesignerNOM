@@ -289,7 +289,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPaises.paisSeleccionado.secuencia, 'Paises', 'pais')}" 
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlPaises.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
@@ -297,7 +297,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('Paises', 'pais')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPaises.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -315,7 +315,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPaises.paisSeleccionado.secuencia, 'Paises', 'pais')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPaises.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pais', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

@@ -218,7 +218,7 @@
                   </fieldset>  
 
                   <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlSets.infoRegistro}" style="position: absolute; left: 20px; top: 455px; font-weight: bold;"/>
-                  <p:commandButton style="position: absolute; left: 10px; top: 478px;" class="cssBotonLargo" id="DECLARANTE" value="#{msg['declarante']}" icon="ui-icon-extlink" action="#{controlListaNavegacion.guardarNavegacion('emplsets','declarante')}" actionListener="#{controlDeclarantes.recibirPersona(controlSets.per)}" process="@this"/>
+                  <p:commandButton style="position: absolute; left: 10px; top: 478px;" class="cssBotonLargo" id="DECLARANTE" value="#{msg['declarante']}" icon="ui-icon-extlink" onstart="#{controlSets.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplsets','declarante')}" actionListener="#{controlDeclarantes.recibirPersona(controlSets.per)}" process="@this"/>
                   <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value=" " onclick="PF('confirmarGuardar').show();" update=":form:datosSetsEmpleado" process="@this" disabled="#{controlSets.guardado}"/>
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value=" " actionListener="#{controlSets.salir()}" process="@this"/>
 
@@ -234,7 +234,7 @@
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSets.setSeleccionado.secuencia, 'Sets', 'emplsets')}"
-                                      style="position: absolute; top: 63px; left: 180px;" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
+                                      style="position: absolute; top: 63px; left: 180px;" onstart="#{controlSets.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
                      <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 250px;" process="@this"/>
                   </p:dialog>
 
@@ -242,7 +242,7 @@
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Sets', 'emplsets')}"
-                                      style="position: absolute; top: 60px; left: 180px;" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
+                                      style="position: absolute; top: 60px; left: 180px;" onstart="#{controlSets.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
                      <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                   </p:dialog>
 
@@ -260,7 +260,7 @@
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSets.setSeleccionado.secuencia, 'Sets', 'emplsets')}"
-                                      style="position: absolute; top: 68px; left: 180px;" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
+                                      style="position: absolute; top: 68px; left: 180px;" onstart="#{controlSets.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplsets','rastrotabla')}" process="@this"/>
                      <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 250px;" process="@this"/>
                   </p:dialog>
 

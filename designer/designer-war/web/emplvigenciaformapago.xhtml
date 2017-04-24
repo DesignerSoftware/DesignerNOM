@@ -167,7 +167,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 170px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','sucursal')}" id="fooSucursal" process="@this">
+                              <p:commandButton value="" style="width: 170px;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','sucursal')}" id="fooSucursal" process="@this">
                                  <f:actionListener binding="#{controlSucursales.recibirPaginaEntrante('emplvigenciaformapago')}"/>
                                  <f:actionListener binding="#{controlVigenciasFormasPagos.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -188,7 +188,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 120%;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','periodicidad')}" id="fooFormaPago">
+                              <p:commandButton value="" style="width: 120%;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','periodicidad')}" id="fooFormaPago">
                                  <f:actionListener binding="#{controlPeriodicidades.recibirPaginaEntrante('emplvigenciaformapago')}"/>
                                  <f:actionListener binding="#{controlVigenciasFormasPagos.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -225,7 +225,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 150px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','metodospagos')}" id="fooMetodoPago"/>
+                              <p:commandButton value="" style="width: 150px;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','metodospagos')}" id="fooMetodoPago"/>
                            </f:facet>
                         </p:column> 
 
@@ -419,7 +419,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}"
-                                   style="position: absolute; top: 67px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 67px; left: 190px;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this"/>
                </p:dialog>
 
@@ -427,7 +427,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormasPagos', 'vigenciasformaspagos')}"
-                                   style="position: absolute; top: 65px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 190px;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 65px; left: 260px;" process="@this"/>
                </p:dialog>
 
@@ -445,7 +445,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasFormasPagos.vigenciaSeleccionada.secuencia, 'VigenciasFormasPagos', 'vigenciasformaspagos')}"
-                                   style="position: absolute; top: 67px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 67px; left: 190px;" onstart="#{controlVigenciasFormasPagos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaformapago','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 67px; left: 260px;" process="@this"/>
                </p:dialog>
 

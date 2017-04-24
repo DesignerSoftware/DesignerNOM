@@ -134,7 +134,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 195px;" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'tipotalla')}" id="footipoTalla" value=""  actionListener="#{controlTiposTallas.recibirPaginaEntrante('tipotalla')}"/>
+                                        <p:commandButton style="width: 195px;" onstart="#{controlVigenciasTallas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'tipotalla')}" id="footipoTalla" value=""  actionListener="#{controlTiposTallas.recibirPaginaEntrante('tipotalla')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -246,7 +246,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasTallas.vigenciaTallaSeleccionada.secuencia,'VigenciasTallas', 'vigenciastallas')}"
-                                         style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlVigenciasTallas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -254,7 +254,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasTallas', 'vigenciastallas')}" style="position: absolute; top: 60px; left: 175px;"
-                                         icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
+                                         icon="ui-icon-check" onstart="#{controlVigenciasTallas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -272,7 +272,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasTallas.vigenciaTallaSeleccionada.secuencia,'HvReferencias', 'perreferencialaboral')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlVigenciasTallas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('vigenciatalla', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 

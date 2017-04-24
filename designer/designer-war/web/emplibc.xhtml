@@ -163,7 +163,7 @@
                   </fieldset>
 
                   <h:outputText id="informacionRegistro" value="#{msg['infoRegistro']} #{controlEmplIbcs.infoRegistro}" style="position: absolute; left: 25px; top: 460px; font-weight: bold;"/>
-                  <p:commandButton style="position: absolute; left: 15px; top: 485px;" class="cssBotonLargo" icon="ui-icon-triangle-1-e" action="#{controlListaNavegacion.guardarNavegacion('emplibc','ibcAuto')}"
+                  <p:commandButton style="position: absolute; left: 15px; top: 485px;" class="cssBotonLargo" icon="ui-icon-triangle-1-e" onstart="#{controlEmplIbcs.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplibc','ibcAuto')}"
                                    actionListener="#{controlIbcAutoliquid.obtenerTipoEntidad(controlEmplIbcs.empleadoSeleccionado.secuencia)}" id="detallesIbcs" value="#{msg['detalleIBCS']}" process="@this"/>
                   <p:commandButton id="ATRAS" class="cssBotonCancelar" value="" actionListener="#{controlEmplIbcs.cancelarYSalir()}"/>
             </p:panel>

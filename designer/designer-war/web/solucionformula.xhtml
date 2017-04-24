@@ -19,10 +19,10 @@
                   <p:toolbar styleClass="cssToolbar">  
                      <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlSolucionFormula.guardarCambios()}"  process="@this"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlSolucionFormula.guardarCambios()}"  process="@this"/>
                         <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlSolucionFormula.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlSolucionFormula.editarCelda()}" process="@this"/>
                         <p:tooltip for="editar" value="#{msg['editar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -30,7 +30,7 @@
                         <p:commandButton id="listaValores" disabled="true" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; "  process="@this"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlSolucionFormula.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlSolucionFormula.activarCtrlF11()}" process="@this"/>
                         <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -43,7 +43,7 @@
                         </p:commandButton> 
                         <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlSolucionFormula.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlSolucionFormula.exportPDF()}" ajax="false"/>
                         <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -51,7 +51,7 @@
                         <p:commandButton id="insertar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; "  process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlSolucionFormula.borrarSolucionFormula()}"  process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlSolucionFormula.borrarSolucionFormula()}"  process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                         <p:commandButton id="duplicar" disabled="true" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this"/>  
@@ -59,7 +59,7 @@
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlSolucionFormula.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlSolucionFormula.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -128,7 +128,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('solucionformula')}" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'concepto')}" process="@this" value=" " style="width: 350px;"/>
+                              <p:commandButton actionListener="#{controlConcepto.recibirPaginaEntrante('solucionformula')}" onstart="#{controlSolucionFormula.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'concepto')}" process="@this" value=" " style="width: 350px;"/>
                            </f:facet>
                         </p:column>
 
@@ -248,7 +248,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSolucionFormula.backUpSecRegistro, 'SolucionesFormulas', 'rastroSolucionesFormulas')}"
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlSolucionFormula.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -256,7 +256,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('SolucionesFormulas', 'rastroSolucionesFormulas')}"
-                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this"/>
+                                   icon="ui-icon-check" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlSolucionFormula.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -274,7 +274,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlSolucionFormula.backUpSecRegistro, 'SolucionesFormulas', 'rastroSolucionesFormulas')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlSolucionFormula.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('solucionformula', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 

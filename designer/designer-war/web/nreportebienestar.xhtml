@@ -150,7 +150,7 @@
                                          actionListener="#{controlNReporteBienestar.salir()}" process="@this"/>
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 512px; top: 483px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
-                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" action="#{controlListaNavegacion.guardarNavegacion('nreportebienestar', 'enviocorreo')}" disabled="#{controlNReporteBienestar.activarEnvio}" 
+                                         background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" onstart="#{controlNReporteBienestar.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportebienestar', 'enviocorreo')}" disabled="#{controlNReporteBienestar.activarEnvio}" 
                                          actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportebienestar', controlNReporteBienestar.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 

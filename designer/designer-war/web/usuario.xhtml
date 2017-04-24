@@ -82,13 +82,13 @@
                         <p:ajax event="filter" listener="#{controlUsuarios.eventofiltrar()}"/>
 
                         <p:column width="10">
-                           <p:commandButton id="estructura"  value=""  action="#{controlListaNavegacion.guardarNavegacion('usuario', 'usuarioestructura')}" actionListener="#{controlUsuariosEstructuras.recibirUsuario('usuario',controlUsuarios.usuariosSeleccionado)}" 
+                           <p:commandButton id="estructura"  value=""  onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'usuarioestructura')}" actionListener="#{controlUsuariosEstructuras.recibirUsuario('usuario',controlUsuarios.usuariosSeleccionado)}" 
                                             style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  />
                            <p:tooltip for="estructura" value="#{msg['estructuratt']}"/>
 
                         </p:column>
                         <p:column width="10">
-                           <p:commandButton id="historico"  value="" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'historicosusuarios')}" actionListener="#{controlHistoricosUsuarios.recibirUsuario('usuario', controlUsuarios.usuariosSeleccionado)}"
+                           <p:commandButton id="historico"  value="" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'historicosusuarios')}" actionListener="#{controlHistoricosUsuarios.recibirUsuario('usuario', controlUsuarios.usuariosSeleccionado)}"
                                             style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;"  />
                            <p:tooltip for="historico" value="#{msg['historicott']}"/>
 
@@ -757,7 +757,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -765,7 +765,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Usuarios', 'usuario')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -783,7 +783,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlUsuarios.usuariosSeleccionado.secuencia, 'Usuarios', 'usuario')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlUsuarios.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('usuario', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

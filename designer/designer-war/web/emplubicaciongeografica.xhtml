@@ -129,7 +129,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooUbicacion" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','ubicaciongeografica')}" value=" ">
+                              <p:commandButton style="width: 120%;" id="fooUbicacion" onstart="#{controlVigenciasUbicaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','ubicaciongeografica')}" value=" ">
                                  <f:actionListener binding="#{controlUbicacionesGeograficas.recibirPaginaEntrante('emplubicaciongeografica')}"/>
                                  <f:actionListener binding="#{controlVigenciasUbicaciones.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -146,7 +146,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 260px;" id="fooCiudad" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','ciudades')}" value=" ">
+                              <p:commandButton style="width: 260px;" id="fooCiudad" onstart="#{controlVigenciasUbicaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','ciudades')}" value=" ">
                                  <f:actionListener binding="#{controlCiudades.recibirPaginaEntrante('emplubicaciongeografica')}"/>
                                  <f:actionListener binding="#{controlVigenciasUbicaciones.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -253,7 +253,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}"
-                                   style="position: absolute; top: 65px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 190px;" onstart="#{controlVigenciasUbicaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 265px;" process="@this"/>
                </p:dialog>
 
@@ -261,7 +261,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 15px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasUbicaciones', 'emplubicaciongeografica')}"
-                                   style="position: absolute; top: 60px; left: 200px;" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 200px;" onstart="#{controlVigenciasUbicaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 265px;" process="@this"/>
                </p:dialog>
 
@@ -279,7 +279,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 20px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check"  onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasUbicaciones.vigenciaSeleccionada.secuencia, 'VigenciasUbicaciones', 'emplubicaciongeografica')}"
-                                   style="position: absolute; top: 68px; left: 195px;" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 68px; left: 195px;" onstart="#{controlVigenciasUbicaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplubicaciongeografica','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 265px;" process="@this"/>
                </p:dialog>
 

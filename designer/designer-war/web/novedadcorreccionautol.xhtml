@@ -21,10 +21,10 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.guardarCambios()}" process="@this"/>
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.guardarCambios()}" process="@this"/>
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
-                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.editarCelda()}" process="@this"/>
+                                <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.editarCelda()}" process="@this"/>
                                 <p:tooltip  for="editar" value="#{msg['editar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -32,7 +32,7 @@
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " disabled="#{controlNovedadesCorreccionAutoLiquidaciones.activarlov}" process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -40,21 +40,21 @@
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.exportXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlNovedadesVacaciones.limpiarNuevaNovedad()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlNovedadesCorreccionAutoLiquidaciones.exportXMLTabla()}" fileName="#{controlNovedadesCorreccionAutoLiquidaciones.exportXMLNombreArchivo()}" encoding="UTF-8"/> 
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.validarExportPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.validarExportPDF()}" ajax="false"/>
 
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.dispararDialogoNuevoRegistro()}"  process="@this"/>   
+                                <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.dispararDialogoNuevoRegistro()}"  process="@this"/>   
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.borrarNovedades()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.borrarNovedades()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.duplicarNuevaNovedadAuto()}"/>  
@@ -62,12 +62,12 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlNovedadesCorreccionAutoLiquidaciones.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"  /> 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
@@ -500,7 +500,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" onstart="#{controlNovedadesCorreccionAutoLiquidaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
 
@@ -508,7 +508,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('NovedadesAutoLiquidaciones', 'novedadesAutoLiqRastro')}"
-                                         style="position: absolute; top: 60px; left: 160px;" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" icon="ui-icon-check"  process="@this"  />
+                                         style="position: absolute; top: 60px; left: 160px;" onstart="#{controlNovedadesCorreccionAutoLiquidaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" icon="ui-icon-check"  process="@this"  />
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 250px;" process="@this"/>
                     </p:dialog>
 
@@ -526,7 +526,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesCorreccionAutoLiquidaciones.novedadSeleccionada.getSecuencia(), 'NovedadAutoliq', 'NovedadAutoliqRastro')}" 
-                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 63px; left: 160px;" icon="ui-icon-check" onstart="#{controlNovedadesCorreccionAutoLiquidaciones.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadcorreccionautol', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                     </p:dialog>
 

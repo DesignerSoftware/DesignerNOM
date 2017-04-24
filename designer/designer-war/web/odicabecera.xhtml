@@ -20,7 +20,7 @@
                         <p:toolbar styleClass="cssToolbar">  
                             <p:toolbarGroup align="left;"> 
 
-                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlOdiCabecera.guardarCambios()}" process="@this"/>    
+                                <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlOdiCabecera.guardarCambios()}" process="@this"/>    
                                 <p:tooltip  for="guardarRapido" value="#{msg['guardar']}"/>
 
                                 <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; "  actionListener="#{controlOdiCabecera.editarCelda()}" process="@this"/>
@@ -31,7 +31,7 @@
                                 <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " disabled="#{controlOdiCabecera.activarlov}"  process="@this"/>
                                 <p:tooltip for="listaValores" value="#{msg['lista']}"/>
 
-                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlOdiCabecera.activarCtrlF11()}" process="@this"/>
+                                <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlOdiCabecera.activarCtrlF11()}" process="@this"/>
                                 <p:tooltip  for="filtrar" value="#{msg['filtrar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
@@ -39,13 +39,13 @@
                                 <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlOdiCabecera.seleccionarExportarXLS()}"/>
                                 <p:tooltip  for="exportarXLS" value="#{msg['xls']}"/>
 
-                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlOdiCabecera.limpiarNuevaOdiCabecera()}" oncomplete="PF('#{controlOdiCabecera.limpiarNuevaOdiDetalles()}" ajax="false">
+                                <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlOdiCabecera.limpiarNuevaOdiCabecera()}" oncomplete="PF('#{controlOdiCabecera.limpiarNuevaOdiDetalles()}" ajax="false">
                                     <p:dataExporter type="xml"  target="#{controlOdiCabecera.seleccionarExportarXML()}" fileName="#{controlOdiCabecera.nombreXML()}" encoding="UTF-8"/> 
                                     <!--                                <p:dataExporter type="xml"  target=":formExportar:datosNovedadesExportar" fileName="NovedadVacacionesXML" encoding="UTF-8"/> -->
                                 </p:commandButton> 
                                 <p:tooltip  for="exportarXML" value="#{msg['xml']}"/>
 
-                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlOdiCabecera.seleccionarExportarPDF()}" ajax="false"/>
+                                <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlOdiCabecera.seleccionarExportarPDF()}" ajax="false"/>
 
                                 <p:tooltip  for="exportarPDF" value="#{msg['pdf']}"/>
 
@@ -55,7 +55,7 @@
                                 <!--oncomplete="PF('nuevaOdiCabeceraAuto').show()" update=":formularioDialogos:nuevaOdiCabeceraAuto"-->
                                 <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlOdiCabecera.borrarNovedades()}" process="@this"/>  
+                                <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlOdiCabecera.borrarNovedades()}" process="@this"/>  
                                 <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
                                 <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; "  process="@this" actionListener="#{controlOdiCabecera.duplicandoOdiCabecera()}"/>  
@@ -63,12 +63,12 @@
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlOdiCabecera.verificarRastro()}" process="@this"/>  
+                                <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlOdiCabecera.verificarRastro()}" process="@this"/>  
                                 <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
 
-                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlOdiCabecera.cancelarModificacion()}" process="@this"
+                                <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlOdiCabecera.cancelarModificacion()}" process="@this"
                                                  oncomplete="window.location.reload()"  /> 
                                 <p:separator style="position: relative; top: -9px"/>
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>

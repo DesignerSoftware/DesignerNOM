@@ -321,7 +321,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton  value=" " style="width: 115%;"  id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPaginaEntrante('atausentismos')}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}" process="@this"/>
+                              <p:commandButton  value=" " style="width: 115%;"  id="fooTipoAusentismo" actionListener="#{controlTiposAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}" process="@this"/>
                            </f:facet>
                         </p:column>
                         <!--Clase Ausentismo -->
@@ -338,7 +338,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton value=" " style="width: 115%;"  id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPaginaEntrante('atausentismos')}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}"  process="@this"/>
+                              <p:commandButton value=" " style="width: 115%;"  id="fooClaseAusentismo" actionListener="#{controlClasesAusentismos.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','atausentismos')}"  process="@this"/>
                            </f:facet>
                         </p:column>
                         <!--Causa Ausentismo-->
@@ -356,7 +356,7 @@
                            </p:cellEditor>                                     
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;"  value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('causaausentismo')}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','causaausentismo')}"  process="@this"/>
+                              <p:commandButton style="width: 115%;"  value=" " id="fooCausaAusentismo" actionListener="#{controlCausasAusentismos.recibirPaginaEntrante('causaausentismo')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','causaausentismo')}"  process="@this"/>
                            </f:facet>
                         </p:column>
                         <!-- Dias Ausentismo -->  
@@ -612,7 +612,7 @@
                               </f:facet>
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" value=" " id="fooDiagnostico" actionListener="#{controlDiagnosticosCategorias.recibirPaginaEntrante('atausentismos')}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','diagnosticoscategorias')}"  process="@this"/>
+                              <p:commandButton style="width: 115%;" value=" " id="fooDiagnostico" actionListener="#{controlDiagnosticosCategorias.recibirPaginaEntrante('atausentismos')}" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','diagnosticoscategorias')}"  process="@this"/>
                            </f:facet>
                         </p:column>
                         <!-- Prorroga -->
@@ -704,7 +704,7 @@
                </p:panel>
                <!-- <p:remoteCommand name="periodoAusentismo" actionListener="#/{controlAusentismos.periodoAusentismo()}"/>-->
                <p:commandButton id="carguePlano" value="Archivo Plano" process="@this" style="position: absolute; top: 505px; height: 32px; left: 25px" class="cssBotonLargo" 
-                                icon="ui-icon-extlink" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','tempsoausentismos')}"  actionListener="#{controlTempSoAusentismos.recibirPaginaEntrante('atausentismos')}"   />
+                                icon="ui-icon-extlink" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','tempsoausentismos')}"  actionListener="#{controlTempSoAusentismos.recibirPaginaEntrante('atausentismos')}"   />
 
 
                <style>
@@ -1637,7 +1637,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'ausentismos')}"
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();"
                                    style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
@@ -1646,7 +1646,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Soausentismos', 'ausentismos')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -1664,7 +1664,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlAusentismos.ausentismoSeleccionado.getSecuencia(), 'Soausentismos', 'soausentismos')}"
-                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 70px; left: 175px;" onstart="#{controlXXXX.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('atausentismos','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 

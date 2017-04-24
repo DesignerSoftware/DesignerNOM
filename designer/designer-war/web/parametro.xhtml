@@ -129,7 +129,7 @@
                               <div style="position: absolute; top: 0px; left: 265px; display: inline-block; padding: 0px;">
                                  <p:commandButton value="" id="botonPeriodoAct" style="width: 25px; height: 25px;
                                                   background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
-                                                  actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}" process="@this" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'controlperiodoactivo')}"/>
+                                                  actionListener="#{controlPeriodosActivos.recibirEmpresa(controlParametro.parametroLiquidacion.estructura.centrocosto.empresa.secuencia)}" process="@this" onstart="#{controlParametro.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'controlperiodoactivo')}"/>
                                  <p:tooltip for="botonPeriodoAct" value="#{msg['config']}"/>
                               </div>
 
@@ -334,7 +334,7 @@
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                       background-size: 100% 100%; background-repeat: no-repeat; border: none;" id="cambiosMasivos" value="Masivos" process="@this"
-                                      actionListener="#{controlCambiosMasivos.recibirPaginaEntrante('parametro')}" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'cambiosmasivos')}"/>
+                                      actionListener="#{controlCambiosMasivos.recibirPaginaEntrante('parametro')}" onstart="#{controlParametro.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('parametro', 'cambiosmasivos')}"/>
                      <p:tooltip  for="cambiosMasivos" value="#{msg['cambiosmasivos']}"/>
 
                      <p:commandButton icon="ui-icon-extlink" style="display: inline-block; position: relative; left: 0px; top: 10px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;

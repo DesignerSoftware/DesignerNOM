@@ -227,7 +227,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooSector" value="" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'sectoresconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('perexperiencialaboral')}"/>
+                              <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooSector" value="" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'sectoresconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('perexperiencialaboral')}"/>
                            </f:facet>
                         </p:column>
 
@@ -245,7 +245,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooMotivo" value="" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'motivosretiros')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('perexperiencialaboral')}"/>
+                              <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooMotivo" value="" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'motivosretiros')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('perexperiencialaboral')}"/>
                            </f:facet>
                         </p:column>
                      </p:dataTable>
@@ -336,7 +336,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}"
-                                   style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
@@ -344,7 +344,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvExperienciasLaborales', 'experienciasLabRastro')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -362,7 +362,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerExperienciaLaboral.backUpSecRegistro, 'HvExperienciasLaborales', 'experienciasLabRastro')}" 
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerExperienciaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perexperiencialaboral', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 

@@ -132,7 +132,7 @@
 
                         <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 12px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                          background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlReportesBancos.activarEnvio}"
-                                         action="#{controlListaNavegacion.guardarNavegacion('reportesbancos', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this"/>
+                                         onstart="#{controlReportesBancos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('reportesbancos', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('reportesbancos', controlReportesBancos.inforreporteSeleccionado.secuencia)}" process="@this"/>
                         <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
                     </p:panel>
                     <p:hotkey bind="ctrl+f11" actionListener="#{controlReportesBancos.activarCtrlF11()}" process="@this"/> 

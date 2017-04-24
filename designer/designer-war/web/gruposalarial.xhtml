@@ -218,7 +218,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
-                                   style="position: absolute; top: 63px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -226,7 +226,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlGrupoSalarial.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
-                                   style="position: absolute; top: 60px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}"  icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlGrupoSalarial.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -244,7 +244,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGrupoSalarial.backUp, controlGrupoSalarial.nombreTablaRastro , 'GrupoSalarial')}"
-                                   style="position: absolute; top: 60px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 170px;" onstart="#{controlGrupoSalarial.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('gruposalarial', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 

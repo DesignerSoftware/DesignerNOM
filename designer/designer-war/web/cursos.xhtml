@@ -152,7 +152,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton value="" style="width: 255px" action="#{controlListaNavegacion.guardarNavegacion('curso','tipocurso')}" actionListener="#{controlTiposCursos.recibirPaginaEntrante('curso')}"/>
+                              <p:commandButton value="" style="width: 255px" onstart="#{controlCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('curso','tipocurso')}" actionListener="#{controlTiposCursos.recibirPaginaEntrante('curso')}"/>
                            </f:facet>
                         </p:column>
 
@@ -290,7 +290,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCursos.cursoSeleccionado.getSecuencia(), 'Cursos', 'curso')}"
-                                   style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
+                                   style="position: absolute; top: 65px; left: 175px;" onstart="#{controlCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-circle-close"  />
                </p:dialog>
 
@@ -298,7 +298,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-circle-check"  onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Cursos', 'curso')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-circle-close"  onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -316,7 +316,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCursos.cursoSeleccionado.getSecuencia(), 'Cursos', 'curso')}"
-                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
+                                   style="position: absolute; top: 70px; left: 175px;" onstart="#{controlCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('curso','rastrotabla')}" process="@this" icon="ui-icon-circle-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-circle-close"/>
                </p:dialog>
 

@@ -222,7 +222,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooFormula" value=" " action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
+                              <p:commandButton style="width: 110px;" id="fooFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
                            </f:facet>
                         </p:column>
 
@@ -242,7 +242,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooFormulaConcepto" value="" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('tiposueldo')}"/>
+                              <p:commandButton style="width: 110px;" id="fooFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('tiposueldo')}"/>
                            </f:facet>
                         </p:column>
 
@@ -317,7 +317,7 @@
                               </f:facet>   
                            </p:cellEditor>   
                            <f:facet name="footer">
-                              <p:commandButton style="width: 410px;" id="fooTipoEntidad" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'grupotipoentidad')}" actionListener="#{controlGruposTiposEntidades.recibirPaginaEntrante('tiposueldo')}"  value=" "/>
+                              <p:commandButton style="width: 410px;" id="fooTipoEntidad" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'grupotipoentidad')}" actionListener="#{controlGruposTiposEntidades.recibirPaginaEntrante('tiposueldo')}"  value=" "/>
                            </f:facet>
 
                         </p:column> 
@@ -354,7 +354,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120px;" id="fooTipoEntidad" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" "/>
+                              <p:commandButton style="width: 120px;" id="fooTipoEntidad" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'tipoentidad')}" actionListener="#{controlTiposEntidades.recibirPaginaEntrante('tipoentidad')}"  value=" "/>
                            </f:facet>
                         </p:column>
 
@@ -374,7 +374,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooTEFormula" value=" " action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
+                              <p:commandButton style="width: 110px;" id="fooTEFormula" value=" " onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'formula')}" actionListener="#{controlFormula.recibirPaginaEntrante('formula')}"/>
                            </f:facet>
                         </p:column>
 
@@ -394,7 +394,7 @@
                               </f:facet>   
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 110px;" id="fooTEFormulaConcepto" value="" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('concepto')}"/>
+                              <p:commandButton style="width: 110px;" id="fooTEFormulaConcepto" value="" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'concepto')}" actionListener="#{controlConcepto.recibirPaginaEntrante('concepto')}"/>
                            </f:facet>
                         </p:column>
 
@@ -433,14 +433,14 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlTipoSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'tiposueldo')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTipoSueldo.nombreTablaRastro , 'tiposueldo')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTipoSueldo.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -457,7 +457,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 70px; left: 230px;" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
+                  <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTipoSueldo.backUp, controlTipoSueldo.nombreTablaRastro , 'tipocontrato')}" style="position: absolute; top: 70px; left: 230px;" onstart="#{controlTipoSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tiposueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>
 

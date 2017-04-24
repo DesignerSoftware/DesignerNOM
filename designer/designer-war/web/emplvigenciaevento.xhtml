@@ -20,18 +20,18 @@
                   <p:toolbar styleClass="cssToolbar"> 
                      <p:toolbarGroup align="left;"> 
 
-                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" process="@this"/>
+                        <p:commandButton id="guardarRapido" value="" style="background-image: url(Imagenes/Iconos/guardar.png);" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}" process="@this"/>
                         <p:tooltip for="guardarRapido" value="#{msg['guardar']}"/>
 
-                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.editarCelda()}" process="@this"/>
+                        <p:commandButton id="editar" value="" style="background-image: url(Imagenes/Iconos/editar.png);" actionListener="#{controlEmplVigenciaEvento.editarCelda()}" process="@this"/>
                         <p:tooltip  for="editar" value="#{msg['editar']}"/> 
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png); border: none; " actionListener="#{controlEmplVigenciaEvento.listaValoresBoton()}" process="@this" disabled="#{controlEmplVigenciaEvento.activarLov}"/>
+                        <p:commandButton id="listaValores" value="" style="background-image: url(Imagenes/Iconos/lupa.png);" actionListener="#{controlEmplVigenciaEvento.listaValoresBoton()}" process="@this" disabled="#{controlEmplVigenciaEvento.activarLov}"/>
                         <p:tooltip  for="listaValores" value="#{msg['lista']}"/>
 
-                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png); border: none; " actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}" process="@this"/>
+                        <p:commandButton id="filtrar" value="" style="background-image: url(Imagenes/Iconos/embudo.png);" actionListener="#{controlEmplVigenciaEvento.activarCtrlF11()}" process="@this"/>
                         <p:tooltip for="filtrar" value="#{msg['filtrar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -39,12 +39,12 @@
                         <p:commandButton id="exportarXLS" value="" style="background-image: url(Imagenes/Iconos/excel.png); border: none; " ajax="false" actionListener="#{controlEmplVigenciaEvento.exportXLS()}"/>
                         <p:tooltip for="exportarXLS" value="#{msg['xls']}"/>
 
-                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png); border: none; " actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" ajax="false">
+                        <p:commandButton id="exportarXML" value="" style="background-image: url(Imagenes/Iconos/xml.png);" actionListener="#{controlEmplVigenciaEvento.limpiarNuevaVigenciaEvento()}" ajax="false">
                            <p:dataExporter type="xml"  target=":formExportar:datosVigenciaExportar" fileName="VigenciasEventosXML" encoding="UTF-8"/> 
                         </p:commandButton> 
                         <p:tooltip for="exportarXML" value="#{msg['xml']}"/>
 
-                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png); border: none; " actionListener="#{controlEmplVigenciaEvento.exportPDF()}" ajax="false"/>
+                        <p:commandButton id="exportarPDF" value="" style="background-image: url(Imagenes/Iconos/pdf.png);" actionListener="#{controlEmplVigenciaEvento.exportPDF()}" ajax="false"/>
                         <p:tooltip for="exportarPDF" value="#{msg['pdf']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
@@ -52,24 +52,24 @@
                         <p:commandButton id="insertar" value="" style="background-image: url(Imagenes/Iconos/nuevoRegistro.png); border: none; " oncomplete="PF('NuevoRegistroVigencias').show()" update=":formularioDialogos:nuevaVigencias" process="@this"/> 
                         <p:tooltip  for="insertar" value="#{msg['nuevo']}"/>
 
-                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png); border: none; " actionListener="#{controlEmplVigenciaEvento.borrarVigenciaEvento()}" process="@this"/>  
+                        <p:commandButton id="eliminar" value="" style="background-image: url(Imagenes/Iconos/delete.png);" actionListener="#{controlEmplVigenciaEvento.borrarVigenciaEvento()}" process="@this"/>  
                         <p:tooltip  for="eliminar" value="#{msg['eliminar']}"/>
 
-                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.duplicarVigenciaEventoM()}"  process="@this"/>  
+                        <p:commandButton id="duplicar" value="" style="background-image: url(Imagenes/Iconos/duplicar.png);" actionListener="#{controlEmplVigenciaEvento.duplicarVigenciaEventoM()}"  process="@this"/>  
                         <p:tooltip  for="duplicar" value="#{msg['duplicar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png); border: none; " actionListener="#{controlEmplVigenciaEvento.verificarRastro()}" process="@this"/>  
+                        <p:commandButton id="rastro" value="" style="background-image: url(Imagenes/Iconos/rastro.png);" actionListener="#{controlEmplVigenciaEvento.verificarRastro()}" process="@this"/>  
                         <p:tooltip  for="rastro" value="#{msg['rastro']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
 
-                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png); border: none; " actionListener="#{controlEmplVigenciaEvento.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
+                        <p:commandButton id="refrescar" value="" style="background-image: url(Imagenes/Iconos/refrescar.png);" actionListener="#{controlEmplVigenciaEvento.cancelarModificacion()}" process="@this" oncomplete="window.location.reload()"/>  
                         <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                         <p:separator style="position: relative; top: -9px"/>
-                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png); border: none; " actionListener="#{controlEmplVigenciaEvento.salir()}" process="@this"/>  
+                        <p:commandButton id="salir" value="" style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlEmplVigenciaEvento.salir()}" process="@this"/>  
                         <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                      </p:toolbarGroup>  
@@ -162,7 +162,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','evento')}">
+                              <p:commandButton style="width: 196px;" id="fooDescripcion" value=" " onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','evento')}">
                                  <f:actionListener binding="#{controlEventos.recibirPag('emplvigenciaevento')}"/>
                                  <f:actionListener binding="#{controlEmplVigenciaEvento.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -296,9 +296,9 @@
                   <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
                   <h:outputText value="#{msg['cambiosRealizados']}" style="position: absolute; left: 120px; top: 20px; width: 250px; font-weight: bold;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.guardarCambios()}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','emplIndv')}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','emplIndv')}" style="position: absolute; top: 50px; left: 140px;" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarGuardar').hide();" actionListener="#{controlEmplVigenciaEvento.salir()}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','emplIndv')}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
+                                   onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','emplIndv')}" style="position: absolute; top: 50px; left: 205px;" process="@this" icon="ui-icon-close"/>
                   <p:commandButton value="#{msg['cancelar']}" onclick="PF('confirmarGuardar').hide();" style="position: absolute; top: 50px; left: 275px;" process="@this" icon="ui-icon-arrowreturnthick-1-w"/>
                </p:dialog>    
 
@@ -306,7 +306,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}" 
-                                   style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 175px;" icon="ui-icon-check" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
@@ -314,7 +314,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEventos', 'vigenciasERastros')}"
-                                   style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 175px;" icon="ui-icon-check" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" icon="ui-icon-close" process="@this"/>
                </p:dialog>
 
@@ -332,7 +332,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlEmplVigenciaEvento.backUpSecRegistro, 'VigenciasEventos', 'vigenciasERastros')}"
-                                   style="position: absolute; top: 68px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" icon="ui-icon-check" process="@this"/>
+                                   style="position: absolute; top: 68px; left: 175px;" onstart="#{controlEmplVigenciaEvento.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciaevento','rastrotabla')}" icon="ui-icon-check" process="@this"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 68px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

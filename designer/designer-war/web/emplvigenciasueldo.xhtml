@@ -152,7 +152,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%" id="fooMotivoCambioSueldo" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'motivocambiosueldo')}" value="">
+                              <p:commandButton style="width: 120%" id="fooMotivoCambioSueldo" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'motivocambiosueldo')}" value="">
                                  <f:actionListener binding="#{controlMotivosCambiosSueldos.recibirPaginaEntrante('emplvigenciasueldo')}"/>
                                  <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -173,7 +173,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%" id="fooTipoSueldo" value="" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tiposueldo')}">
+                              <p:commandButton style="width: 120%" id="fooTipoSueldo" value="" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tiposueldo')}">
                                  <f:actionListener binding="#{controlTipoSueldo.inicializarPagina('emplvigenciasueldo')}"/>
                                  <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -335,7 +335,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" id="fooTerceroVA" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tercero')}" value="">
+                              <p:commandButton style="width: 120%;" id="fooTerceroVA" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tercero')}" value="">
                                  <f:actionListener binding="#{controlTercero.recibirPaginaEntrante('emplvigenciasueldo')}"/>
                                  <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -356,7 +356,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tipoentidad')}" value="">
+                              <p:commandButton style="width: 200px;" id="fooTipoEntidadVA" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'tipoentidad')}" value="">
                                  <f:actionListener binding="#{controlTiposEntidades.recibirPaginaEntrante('emplvigenciasueldo')}"/>
                                  <f:actionListener binding="#{controlVigenciaSueldo.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -585,7 +585,7 @@
                   <h:outputText value="#{controlVigenciaSueldo.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"  oncomplete="PF('#{controlVigenciaSueldo.anularLOV()}"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaSueldo.backUp, controlVigenciaSueldo.nombreTablaRastro , 'emplvigenciasueldo')}" 
-                                   style="position: relative; top: 70px; left: 185px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
+                                   style="position: relative; top: 70px; left: 185px;" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" 
                                    actionListener="#{controlVigenciaSueldo.limpiarMSNRastros()}" 
                                    style="position: relative; top: 70px; left: 190px;" process="@this"/>
@@ -596,7 +596,7 @@
                   <h:outputText value="#{controlVigenciaSueldo.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" oncomplete="PF('#{controlVigenciaSueldo.anularLOV()}"
                                    actionListener="#{controlRastro.historicosTabla(controlVigenciaSueldo.nombreTablaRastro , 'emplvigenciasueldo')}" 
-                                   style="position: relative; top: 78px; left: 185px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
+                                   style="position: relative; top: 78px; left: 185px;" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" 
                                    actionListener="#{controlVigenciaSueldo.limpiarMSNRastros()}" 
                                    style="position: relative; top: 78px; left: 190px;" process="@this"/>
@@ -616,7 +616,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaSueldo.backUp, controlVigenciaSueldo.nombreTablaRastro , 'emplvigenciasueldo')}" 
-                                   style="position: relative; top: 70px; left: 180px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
+                                   style="position: relative; top: 70px; left: 180px;" onstart="#{controlVigenciaSueldo.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciasueldo', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" 
                                    style="position: relative; top: 70px; left: 185px;" process="@this"/>
                </p:dialog>

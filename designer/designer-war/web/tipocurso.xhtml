@@ -164,7 +164,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla 'TIPOSCURSOS' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" icon="ui-icon-check" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCursos.tiposCursosSeleccionado.secuencia, 'TiposCursos', 'tipocurso')}"
-                                         style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 65px; left: 175px;" onstart="#{controlTiposCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" icon="ui-icon-close" style="position: absolute; top: 65px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -172,7 +172,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla TIPOSCURSOS tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-check" actionListener="#{controlRastro.historicosTabla('TiposCursos', 'tipocurso')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlTiposCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" icon="ui-icon-close" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -190,7 +190,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTiposCursos.tiposCursosSeleccionado.secuencia, 'TiposCursos', 'tipocurso')}"
-                                         icon="ui-icon-close" style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
+                                         icon="ui-icon-close" style="position: absolute; top: 70px; left: 175px;" onstart="#{controlTiposCursos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tipocurso', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 

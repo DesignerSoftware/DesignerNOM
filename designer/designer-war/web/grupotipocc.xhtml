@@ -70,7 +70,7 @@
                         </p:toolbar>
 
                         <p:commandButton class="cssBotonAceptar"  id="ACEPTAR" value=""  actionListener="#{controlGruposTiposCC.revisarDialogoGuardar()}" disabled="#{controlGruposTiposCC.guardado}"    process="@this"   />
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'grupotipocc')}"  actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" onstart="#{controlGruposTiposCC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'grupotipocc')}"  actionListener="#{controlGruposTiposCC.salir()}"  value=""/>
 
                         <fieldset style="position: absolute; top: 80px; left: 10px; height: 350px; width: 830px; border-radius: 10px; text-align: left;">
                             <legend style="font-size: 14px; color: blue"><strong>Tipos del Curso</strong></legend>
@@ -143,7 +143,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposTiposCC.grupoTipoCCSeleccionado.secuencia.toBigInteger(), 'GruposTipoCC', 'GruposTipoCC')}"
-                                         style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlGruposTiposCC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -151,7 +151,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('GruposTipoCC', 'GruposTipoCC')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlGruposTiposCC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 
@@ -169,7 +169,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlGruposTiposCC.grupoTipoCCSeleccionado.secuencia.toBigInteger(), 'GruposTipoCC', 'GruposTipoCC')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlGruposTiposCC.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('grupotipocc', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                     </p:dialog>
 

@@ -384,7 +384,7 @@
                                     </f:facet>
                                  </p:cellEditor>
                                  <f:facet name="footer">
-                                    <p:commandButton style="width: 130px;" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','centrocostoEmplComprobante')}" actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('emplcomprobante')}" id="fooNombreJornada" value=""/>
+                                    <p:commandButton style="width: 130px;" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','centrocostoEmplComprobante')}" actionListener="#{controlBetaCentrosCostos.recibirPaginaEntrante('emplcomprobante')}" id="fooNombreJornada" value=""/>
                                  </f:facet>
                                  <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -899,7 +899,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['tiene']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();"
-                                   style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
+                                   style="position: absolute; top: 60px; left: 210px;" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlEmplComprobantes.secRegistro, controlEmplComprobantes.nombreTabla, 'emplcomprobante')}"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();"
                                    style="position: absolute; top: 60px; left: 270px;" process="@this"/>
@@ -908,7 +908,7 @@
                <p:dialog id="confirmarRastroHistorico" header="#{msg['informacion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['historicos']} " style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarRastroHistorico').hide();" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
+                  <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('confirmarRastroHistorico').hide();" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
                                    actionListener="#{controlRastro.historicosTabla(controlEmplComprobantes.nombreTabla, 'emplcomprobante')}" style="position: absolute; top: 60px; left: 210px"/>
                   <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
@@ -927,7 +927,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['latabla']} #{controlEmplComprobantes.nombreTabla} #{msg['rastrostablas']} " style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="Si" onclick="PF('errorTablaConRastro').hide();"
-                                   style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
+                                   style="position: absolute; top: 65px; left: 210px;" onstart="#{controlEmplComprobantes.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplcomprobante','rastrotabla')}" process="@this"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlEmplComprobantes.secRegistro, controlEmplComprobantes.nombreTabla, 'emplcomprobante')}"/>
                   <p:commandButton icon="ui-icon-close" value="No" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 65px; left: 270px;" process="@this"/>

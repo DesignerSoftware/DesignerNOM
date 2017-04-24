@@ -160,7 +160,7 @@
 
                   <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 500px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;" value="envio correo" disabled="#{controlNReportesSeguridad.activarEnvio}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('nreporteseguridad', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreporteseguridad', controlNReportesSeguridad.reporteSeleccionado.secuencia)}" process="@this"/>
+                                   onstart="#{controlNReportesSeguridad.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreporteseguridad', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreporteseguridad', controlNReportesSeguridad.reporteSeleccionado.secuencia)}" process="@this"/>
                   <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
                   <p:hotkey bind="ctrl+f11" actionListener="#{controlNReportesSeguridad.activarCtrlF11()}" process="@this"/> 

@@ -323,7 +323,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px;" id="fooCiudad" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'ciudades')}" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value="" process="@this"/>
+                                 <p:commandButton style="width: 170px;" id="fooCiudad" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'ciudades')}" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value="" process="@this"/>
                               </f:facet>
                            </p:column> 
 
@@ -481,7 +481,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipotelefono')}" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 250px;" id="fooTipoTelefono" value=" " onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipotelefono')}" actionListener="#{controlTiposTelefonos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -523,7 +523,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 210px;" id="fooCiudadTel" value=" " action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'ciudades')}" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 210px;" id="fooCiudadTel" value=" " onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'ciudades')}" onclick="#{controlCiudades.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column> 
                         </p:dataTable>  
@@ -581,7 +581,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'estadocivil')}" value=" " onclick="#{controlEstadosCiviles.recibirPag('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 740px;" id="fooEstadoCivil"  onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'estadocivil')}" value=" " onclick="#{controlEstadosCiviles.recibirPag('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
                         </p:dataTable>
@@ -642,7 +642,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 215px;" id="fooTipoAntecedente" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tiposantecedentes')}" onclick="#{controlSoTiposAntecedentes.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 215px;" id="fooTipoAntecedente" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tiposantecedentes')}" onclick="#{controlSoTiposAntecedentes.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -681,7 +681,7 @@
 
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 215px;" id="fooAntecedente" value=" " action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'antecedentes')}" onclick="#{controlSoAntecedentes.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 215px;" id="fooAntecedente" value=" " onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'antecedentes')}" onclick="#{controlSoAntecedentes.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column> 
 
@@ -787,7 +787,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 120%;" id="fooTipoFamiliar" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipofamiliar')}" onclick="#{controlTiposFamiliares.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value=" " process="@this"/>
+                                 <p:commandButton style="width: 120%;" id="fooTipoFamiliar" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipofamiliar')}" onclick="#{controlTiposFamiliares.recibirPaginaEntrante('pervigenciadomiciliaria')}"  value=" " process="@this"/>
                               </f:facet>
                            </p:column> 
                            <p:column id="servicioMedico" sortBy="#{familiar.serviciomedico}" filterBy="#{familiar.serviciomedico}" width="20"
@@ -931,7 +931,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipoeducacion')}" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px;" id="fooTipoEducacion" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'tipoeducacion')}" onclick="#{controlTiposEducaciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -953,7 +953,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px;" id="fooProfesion" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'profesiones')}" onclick="#{controlProfesiones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px;" id="fooProfesion" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'profesiones')}" onclick="#{controlProfesiones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -975,7 +975,7 @@
                               </p:cellEditor>
 
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px;" id="fooInstitucion" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'instituciones')}" onclick="#{controlInstituciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px;" id="fooInstitucion" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'instituciones')}" onclick="#{controlInstituciones.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -1274,7 +1274,7 @@
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooSector" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'sectoreseconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooSector" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'sectoreseconomicos')}" actionListener="#{controlSectoresEconomicos.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
 
@@ -1296,7 +1296,7 @@
                                  </f:facet>  
                               </p:cellEditor>
                               <f:facet name="footer">
-                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooMotivo" value="" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'motivoretiro')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
+                                 <p:commandButton style="width: 170px; margin: -1px; height: 26px; border: none; color: blue" id="fooMotivo" value="" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'motivoretiro')}" actionListener="#{controlMotivosRetiros.recibirPaginaEntrante('pervigenciadomiciliaria')}" process="@this"/>
                               </f:facet>
                            </p:column>
                         </p:dataTable>
@@ -3644,14 +3644,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroEstadosCiviles').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaEstadoCivilSeleccionado.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 63px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroEstadosCiviles').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoEstadosCiviles" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoEstadosCiviles"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoEstadosCiviles']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEstadosCiviles').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEstadosCiviles').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoEstadosCiviles').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3669,7 +3669,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroEstadosCiviles']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEstadosCiviles').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaEstadoCivilSeleccionado.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroEstadosCiviles').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3689,7 +3689,7 @@
                <p:dialog id="confirmarRastroDirecciones" header="#{msg['informacion']}" widgetVar="confirmarRastroDirecciones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroDirecciones']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroDirecciones').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.direccionSeleccionada.getSecuencia(),'Direcciones', 'Direcciones')}" style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}"
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroDirecciones').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.direccionSeleccionada.getSecuencia(),'Direcciones', 'Direcciones')}" style="position: absolute; top: 63px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}"
                                    process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroDirecciones').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
@@ -3697,7 +3697,7 @@
                <p:dialog id="confirmarRastroHistoricoDirecciones" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoDirecciones"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoDirecciones']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoDirecciones').hide();" actionListener="#{controlRastro.historicosTabla('Direcciones', 'Direcciones')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoDirecciones').hide();" actionListener="#{controlRastro.historicosTabla('Direcciones', 'Direcciones')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoDirecciones').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3715,7 +3715,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroDirecciones']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroDirecciones').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.direccionSeleccionada.getSecuencia(),'Direcciones', 'Direcciones')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroDirecciones').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3736,14 +3736,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroTelefonos']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroTelefonos').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.telefonoSeleccionado.getSecuencia(),'Telefonos', 'pertelefono')}" style="position: absolute; top: 63px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroTelefonos').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoTelefonos" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoTelefonos"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoTelefonos']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTelefonos').hide();" actionListener="#{controlRastro.historicosTabla('Telefonos', 'pertelefono')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoTelefonos').hide();" actionListener="#{controlRastro.historicosTabla('Telefonos', 'pertelefono')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoTelefonos').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3761,7 +3761,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroTelefonos']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroTelefonos').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.telefonoSeleccionado.getSecuencia(),'Telefonos', 'perTelefono')}" style="position: absolute; top: 65px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroTelefonos').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3781,14 +3781,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroAntecedentes']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.antecedentemSeleccionado.getSecuencia(),'AntecedentesMedicos', 'AntecedentesMedicos')}" style="position: absolute; top: 63px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroAntecedentes').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoAntecedentes" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoAntecedentes"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoAntecedentes']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoAntecedentes').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoAntecedentes').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoAntecedentes').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3806,7 +3806,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroAntecedentes']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.antecedentemSeleccionado.getSecuencia(),'AntecedentesMedicos', 'AntecedentesMedicos')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroAntecedentes').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3828,14 +3828,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroFamiliares']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroFamiliares').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.familiarSeleccionado.getSecuencia(),'Familiares', 'emplFamiliares')}" style="position: absolute; top: 63px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroFamiliares').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoFamiliares" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoFamiliares"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoFamiliares']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoFamiliares').hide();" actionListener="#{controlRastro.historicosTabla('Familiares', 'emplFamiliares')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoFamiliares').hide();" actionListener="#{controlRastro.historicosTabla('Familiares', 'emplFamiliares')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoFamiliares').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3853,7 +3853,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroFamiliares']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroAntecedentes').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.familiarSeleccionado.getSecuencia(),'Familiares', 'emplFamiliares')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroAntecedentes').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3876,14 +3876,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroEducacion']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaFormalSeleccionada.getSecuencia(),'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 63px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroEducacion').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoEducacion" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoEducacion"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoEducacion']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEducacion').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoEducacion').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoEducacion').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3901,7 +3901,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroEducacion']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaFormalSeleccionada.getSecuencia(),'VigenciasFormales', 'personaeducacion')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroEducacion').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3924,14 +3924,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroExpLaboral']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroExpLaboral').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.hvexpSeleccionada.getSecuencia(),'HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 63px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroExpLaboral').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoExpLaboral" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoExpLaboral"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoExpLaboral']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoExpLaboral').hide();" actionListener="#{controlRastro.historicosTabla('HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoExpLaboral').hide();" actionListener="#{controlRastro.historicosTabla('HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoExpLaboral').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3949,7 +3949,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroExpLaboral']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroEducacion').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.hvexpSeleccionada.getSecuencia(),'HVEXPLABORALES', 'perexperiencialaboral')}" style="position: absolute; top: 65px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroEducacion').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3969,14 +3969,14 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroVisitaDomiciliaria').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaDomiciliariaSeleccionada.getSecuencia(),'VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 63px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroVisitaDomiciliaria').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
                <p:dialog id="confirmarRastroHistoricoVisitaDomiciliaria" header="#{msg['informacion']}" widgetVar="confirmarRastroHistoricoVisitaDomiciliaria"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistoricoVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoVisitaDomiciliaria').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('confirmarRastroHistoricoVisitaDomiciliaria').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistoricoVisitaDomiciliaria').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -3994,7 +3994,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastroVisitaDomiciliaria']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('errorTablaConRastroVisitaDomiciliarial').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlPerVigenciaDomiciliaria.vigenciaDomiciliariaSeleccionada.getSecuencia(),'VigenciasDomiciliarias', 'pervigenciadomiciliaria')}" style="position: absolute; top: 65px; left: 175px;" 
-                                   action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlPerVigenciaDomiciliaria.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('pervigenciadomiciliaria', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastroVisitaDomiciliarial').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

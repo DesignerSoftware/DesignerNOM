@@ -143,7 +143,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooCliente"  action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'pry_cliente')}" actionListener="#{controlPryClientes.recibirPaginaEntrante('proyecto')}" value=""/>
+                              <p:commandButton style="width: 170px;" id="fooCliente"  onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'pry_cliente')}" actionListener="#{controlPryClientes.recibirPaginaEntrante('proyecto')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -161,7 +161,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooProceso"  action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'pry_plataforma')}" actionListener="#{controlPryPlataformas.recibirPaginaEntrante('proyecto')}" value=""/>
+                              <p:commandButton style="width: 170px;" id="fooProceso"  onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'pry_plataforma')}" actionListener="#{controlPryPlataformas.recibirPaginaEntrante('proyecto')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -486,7 +486,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.proyectoTablaSeleccionado.secuencia, 'Proyectos', 'proyectoRastro')}" 
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -494,7 +494,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Proyectos', 'proyectoRastro')}"
-                                   style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 60px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -512,7 +512,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlProyecto.proyectoTablaSeleccionado.secuencia, 'Proyectos', 'proyectoRastro')}" 
-                                   style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 70px; left: 175px;" onstart="#{controlProyecto.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('proyecto', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

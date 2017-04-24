@@ -127,7 +127,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 120%;" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'proceso')}"
+                              <p:commandButton style="width: 120%;" onstart="#{controlFormulaProceso.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'proceso')}"
                                                actionListener="#{controlProceso.inicializarPagina('formulaproceso')}" id="fooProcesoFormula" value=""/>
                            </f:facet>
                         </p:column>
@@ -153,7 +153,7 @@
                   </fieldset> 
 
                   <p:commandButton icon="ui-icon-extlink" style="position: absolute; left: 20px; top: 460px;" class="cssBotonLargo" id="FORMULASASEGURADAS"
-                                   value="F. Aseguradas" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'formulasaseguradas')}" process="@this"/>
+                                   value="F. Aseguradas" onstart="#{controlFormulaProceso.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'formulasaseguradas')}" process="@this"/>
                   <p:tooltip for="FORMULASASEGURADAS" value="Formulas Aseguradas"/>
 
                   <p:commandButton styleClass="cssBotonAceptar" id="ACEPTAR" value="" onclick="PF('confirmarGuardar').show();"
@@ -180,7 +180,7 @@
                   <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro"
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;"
-                                   actionListener="#{controlRastro.recibirDatosTabla(controlFormulaProceso.formulaProcesoSeleccionada.secuencia, controlFormulaProceso.nombreTablaRastro , 'formulaproceso')}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"/>
+                                   actionListener="#{controlRastro.recibirDatosTabla(controlFormulaProceso.formulaProcesoSeleccionada.secuencia, controlFormulaProceso.nombreTablaRastro , 'formulaproceso')}" onstart="#{controlFormulaProceso.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlFormulaProceso.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -189,7 +189,7 @@
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico"
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlFormulaProceso.nombreTablaRastro , 'formulanovedad')}"
-                                   style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 210px;" onstart="#{controlFormulaProceso.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlFormulaProceso.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -207,7 +207,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" 
-                                   style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"
+                                   style="position: absolute; top: 60px; left: 210px;" onstart="#{controlFormulaProceso.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('formulaproceso', 'rastrotabla')}" process="@this"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlFormulaProceso.formulaProcesoSeleccionada.secuencia, controlFormulaProceso.nombreTablaRastro , 'formulaproceso')}"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();"
                                    style="position: absolute; top: 60px; left: 270px;" process="@this"/>

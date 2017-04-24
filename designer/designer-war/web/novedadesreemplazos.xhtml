@@ -140,7 +140,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 205px;" id="fooNombreReemplazado" value=" " action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'empleado')}" actionListener="#{controlEmpleado.recibirPaginaEntrante('novedadesreemplazos')}"/>
+                                        <p:commandButton style="width: 205px;" id="fooNombreReemplazado" value=" " onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'empleado')}" actionListener="#{controlEmpleado.recibirPaginaEntrante('novedadesreemplazos')}"/>
                                     </f:facet>
                                 </p:column>
 
@@ -158,7 +158,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'tiporeemplazo')}" actionListener="#{controlTiposReemplazos.recibirPaginaEntrante('novedadesreemplazos')}" id="fooTipoReemplazo" value=""/>
+                                        <p:commandButton style="width: 175px;" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'tiporeemplazo')}" actionListener="#{controlTiposReemplazos.recibirPaginaEntrante('novedadesreemplazos')}" id="fooTipoReemplazo" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -243,7 +243,7 @@
                                     </p:cellEditor>
 
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooCargos" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'cargo')}" actionListener="#{controlCargo.recibirPaginaEntrante('novedadesreemplazos')}" value=""/>
+                                        <p:commandButton style="width: 170px;" id="fooCargos" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'cargo')}" actionListener="#{controlCargo.recibirPaginaEntrante('novedadesreemplazos')}" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -278,7 +278,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 170px;" id="fooEstructura" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'estructura')}" actionListener="#{controlEstructura.recibirPaginaEntrante('novedadesreemplazos')}" value=""/>
+                                        <p:commandButton style="width: 170px;" id="fooEstructura" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'estructura')}" actionListener="#{controlEstructura.recibirPaginaEntrante('novedadesreemplazos')}" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -294,7 +294,7 @@
                     <p:dialog id="confirmarRastro" header="#{msg['atencion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesReemplazos.encargaturaSeleccionada.secuencia, 'Encargaturas', 'novedadesreemplazos')}" style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this" 
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesReemplazos.encargaturaSeleccionada.secuencia, 'Encargaturas', 'novedadesreemplazos')}" style="position: absolute; top: 65px; left: 175px;" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this" 
                                          icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"  />
                     </p:dialog>
@@ -302,7 +302,7 @@
                     <p:dialog id="confirmarRastroHistorico" header="#{msg['atencion']}" widgetVar="confirmarRastroHistorico"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Encargaturas', 'novedadesreemplazos')}" style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this"  icon="ui-icon-check"/>
+                        <p:commandButton value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Encargaturas', 'novedadesreemplazos')}" style="position: absolute; top: 60px; left: 175px;" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this"  icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -320,7 +320,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlNovedadesReemplazos.encargaturaSeleccionada.secuencia, 'Encargaturas', 'novedadesreemplazos')}" 
-                                         style="position: absolute; top: 70px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                         style="position: absolute; top: 70px; left: 175px;" onstart="#{controlNovedadesReemplazos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('novedadesreemplazos', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 

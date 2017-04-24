@@ -63,7 +63,7 @@
                                 <p:tooltip  for="refrescar" value="#{msg['refrescar']}"/>
 
                                 <p:separator style="position: relative; top: -9px"/>
-                                <p:commandButton id="salir" value=""   style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHvEntrevistas.salir()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'empleadoindividual')}"  process="@this"/>  
+                                <p:commandButton id="salir" value=""   style="background-image: url(Imagenes/Iconos/salir.png);" actionListener="#{controlHvEntrevistas.salir()}" onstart="#{controlHvEntrevistas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'empleadoindividual')}"  process="@this"/>  
                                 <p:tooltip  for="salir" value="#{msg['salir']}"/>
 
                             </p:toolbarGroup>  
@@ -163,7 +163,7 @@
                         </fieldset>
 
                         <p:commandButton class="cssBotonAceptar" id="ACEPTAR" value=" "  actionListener="#{controlHvEntrevistas.revisarDialogoGuardar()}" disabled="#{controlHvEntrevistas.guardado}" process="@this"/>
-                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" "  action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'empleadoindividual')}"  actionListener="#{controlHvEntrevistas.salir()}" process="@this"/>
+                        <p:commandButton class="cssBotonCancelar" id="ATRAS" value=" " onstart="#{controlHvEntrevistas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'empleadoindividual')}"  actionListener="#{controlHvEntrevistas.salir()}" process="@this"/>
 
                         <p:dialog id="confirmarGuardar" header="#{msg['atencion']}" widgetVar="confirmarGuardar"  resizable="false" draggable="true" modal="true" height="85" width="425" closable="false">  
                             <h:graphicImage value="Imagenes/Iconos/alerta.png" width="75" height="60" style="position: absolute; left: 30px; top: 10px;"  />
@@ -206,7 +206,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.hvEntrevistaSeleccionada.secuencia,'HvEntrevistas', 'hventrevista')}"
-                                         style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                         style="position: absolute; top: 63px; left: 175px;" onstart="#{controlHvEntrevistas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -214,7 +214,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('HvEntrevistas', 'hventrevista')}" 
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlHvEntrevistas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                     </p:dialog>
 
@@ -232,7 +232,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlHvEntrevistas.hvEntrevistaSeleccionada.secuencia,'HvEntrevistas', 'hventrevista')}"
-                                         style="position: absolute; top: 60px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                         style="position: absolute; top: 60px; left: 175px;" onstart="#{controlHvEntrevistas.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('hventrevista', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                         <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this"  icon="ui-icon-close"/>
                     </p:dialog>
 

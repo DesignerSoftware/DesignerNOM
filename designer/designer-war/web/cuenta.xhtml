@@ -111,7 +111,7 @@
                               <h:outputText id="DetalleC" value="D"/>
                               <p:tooltip for="DetalleC" value="Detalle Cuenta"/>
                            </f:facet>
-                           <p:commandButton action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
+                           <p:commandButton onstart="#{controlCuenta.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cuenta','detallecuenta')}" style="width: 18px; height: 18px; background-image: url(Imagenes/Iconos/editar.png); background-size: 100% 100%; background-repeat: no-repeat; border: none;" 
                                             value=""  actionListener="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}">
                        <!--<p:ajax event="click"  listener="#{controlCuenta.verDetalle(infoC)}" oncomplete="#{controlDetalleCuenta.recibirCuenta(controlCuenta.cuentaActual.secuencia)}"/>-->
                            </p:commandButton>   
@@ -577,7 +577,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuenta')}"
-                                   style="position: absolute; top: 60px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 170px;" onstart="#{controlCuenta.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close"  onclick="PF('confirmarRastro').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -585,7 +585,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastroHistorico']}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlCuenta.nombreTablaRastro , 'cuenta')}"
-                                   style="position: absolute; top: 60px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 170px;" onstart="#{controlCuenta.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlCuenta.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 240px;" process="@this"/>
                </p:dialog>
 
@@ -603,7 +603,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlCuenta.backUp, controlCuenta.nombreTablaRastro , 'cuenta')}"
-                                   style="position: absolute; top: 70px; left: 170px;" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 70px; left: 170px;" onstart="#{controlCuenta.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('cuenta','rastrotabla')}" process="@this"/>
                   <p:commandButton value="No" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 240px;" process="@this"/>
                </p:dialog>
 

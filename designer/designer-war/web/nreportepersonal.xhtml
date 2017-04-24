@@ -152,7 +152,7 @@
 
                   <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 490px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReportePersonal.activarEnvio}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('nreportepersonal', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportepersonal', controlNReportePersonal.reporteSeleccionado.secuencia)}" process="@this"/>
+                                   onstart="#{controlNReportePersonal.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreportepersonal', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportepersonal', controlNReportePersonal.reporteSeleccionado.secuencia)}" process="@this"/>
                   <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
 

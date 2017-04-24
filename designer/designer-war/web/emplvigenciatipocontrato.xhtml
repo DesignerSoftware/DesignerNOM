@@ -129,7 +129,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooContrato" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'motivocontrato')}" value=" ">
+                              <p:commandButton style="width: 170px;" id="fooContrato" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'motivocontrato')}" value=" ">
                                  <f:actionListener binding="#{controlMotivosContratos.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
                                  <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -151,7 +151,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooMotivos" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'tipocontrato')}" value=" ">
+                              <p:commandButton style="width: 170px;" id="fooMotivos" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'tipocontrato')}" value=" ">
                                  <f:actionListener binding="#{controlTipoContrato.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
                                  <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -172,7 +172,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 170px;" id="fooCargos" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'ciudad')}" value=" ">
+                              <p:commandButton style="width: 170px;" id="fooCargos" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'ciudad')}" value=" ">
                                  <f:actionListener binding="#{controlCiudades.recibirPaginaEntrante('emplvigenciatipocontrato')}"/>
                                  <f:actionListener binding="#{controlVigenciasTiposContratos.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -286,7 +286,7 @@
                   </fieldset>
 
                   <p:commandButton class="cssBotonLargo" style="position: absolute; left: 10px; top: 467px;"
-                                   icon="ui-icon-calendar" id="DETALLES" value="Cambio Fecha" process="@this" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'cambiofechaingreso')}" actionListener="#{controlCambioFechaIngreso.recibirEmpleado(controlVigenciasTiposContratos.empleado.secuencia,controlVigenciasTiposContratos.vigenciaSeleccionada)}"/>
+                                   icon="ui-icon-calendar" id="DETALLES" value="Cambio Fecha" process="@this" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'cambiofechaingreso')}" actionListener="#{controlCambioFechaIngreso.recibirEmpleado(controlVigenciasTiposContratos.empleado.secuencia,controlVigenciasTiposContratos.vigenciaSeleccionada)}"/>
 
                   <p:commandButton id="ACEPTAR" class="cssBotonAceptar" value="" onclick="PF('confirmarGuardar').show();"
                                    update=":form:datosVTCEmpleado" process="@this" disabled="#{controlVigenciasTiposContratos.guardado}"/>
@@ -323,7 +323,7 @@
                      <h:outputText value="#{msg['confirmarRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" oncomplete="PF('#{controlVigenciasTiposContratos.anularLOV()}"
                                       actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasTiposContratos.vigenciaSeleccionada.secuencia,'VigenciasTiposContratos', 'emplvigenciatipocontrato')}" 
-                                      style="position: relative; top: 60px; left: 185px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
+                                      style="position: relative; top: 60px; left: 185px;" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
                      <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: relative; top: 60px; left: 190px;" process="@this"/>
                   </p:dialog>
 
@@ -331,7 +331,7 @@
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['confirmarRastroHistorico']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton  icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" oncomplete="PF('#{controlVigenciasTiposContratos.anularLOV()}"
-                                       actionListener="#{controlRastro.historicosTabla('VigenciasTiposContratos', 'emplvigenciatipocontrato')}" style="position: relative; top: 60px; left: 185px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
+                                       actionListener="#{controlRastro.historicosTabla('VigenciasTiposContratos', 'emplvigenciatipocontrato')}" style="position: relative; top: 60px; left: 185px;" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
                      <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: relative; top: 60px; left: 190px;" process="@this"/>
                   </p:dialog>
 
@@ -349,7 +349,7 @@
                      <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                      <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                      <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasTiposContratos.vigenciaSeleccionada.secuencia, 'VigenciasTiposContratos', 'emplvigenciatipocontrato')}" 
-                                      style="position: absolute; top: 65px; left: 200px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
+                                      style="position: absolute; top: 65px; left: 200px;" onstart="#{controlVigenciasTiposContratos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciatipocontrato', 'rastrotabla')}" process="@this"/>
                      <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 262px;" process="@this"/>
                   </p:dialog>
 

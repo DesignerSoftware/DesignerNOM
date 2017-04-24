@@ -141,7 +141,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 320px;" id="fooNombreJornada" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','jornadaslaborales')}" value=""/>
+                              <p:commandButton style="width: 320px;" id="fooNombreJornada" onstart="#{controlVigenciaJornada.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','jornadaslaborales')}" value=""/>
                            </f:facet>
                         </p:column>
 
@@ -158,7 +158,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 115%;" id="fooTIpoDescanso" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','tipodescanso')}" value="">
+                              <p:commandButton style="width: 115%;" id="fooTIpoDescanso" onstart="#{controlVigenciaJornada.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','tipodescanso')}" value="">
                                  <f:actionListener binding="#{controlTiposDescansos.recibirPaginaEntrante('emplvigenciajornada')}"/>
                                  <f:actionListener binding="#{controlVigenciaJornada.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -436,7 +436,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlVigenciaJornada.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaJornada.backUp, controlVigenciaJornada.nombreTablaRastro , 'vigenciasJornadas')}"
-                                   style="position: absolute; top: 63px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 205px;" onstart="#{controlVigenciaJornada.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" actionListener="#{controlVigenciaJornada.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px;" process="@this"/>
                </p:dialog>
 
@@ -444,7 +444,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlVigenciaJornada.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlVigenciaJornada.nombreTablaRastro , 'vigenciasJornadas')}"
-                                   style="position: absolute; top: 63px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 205px;" onstart="#{controlVigenciaJornada.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
                                    <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlVigenciaJornada.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 267px;" process="@this"/>
                </p:dialog>
 
@@ -462,7 +462,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton  icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciaJornada.backUp, controlVigenciaJornada.nombreTablaRastro , 'vigenciasJornadas')}" 
-                                    style="position: absolute; top: 66px; left: 205px;" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
+                                    style="position: absolute; top: 66px; left: 205px;" onstart="#{controlVigenciaJornada.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('emplvigenciajornada','rastrotabla')}" process="@this"/>
                                     <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 66px; left: 267px;" process="@this"/>
                </p:dialog>
 

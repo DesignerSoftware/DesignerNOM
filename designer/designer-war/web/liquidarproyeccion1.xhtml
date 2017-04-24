@@ -59,7 +59,7 @@
                         <h:outputText style="position: absolute; top: 155px; left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Presenta los resultados de la liquidación y los calculos de retroactivos o proyecciones"/>
 
                         <p:commandButton onclick="PF('opciones').show();" process="@this" style="background: url(Imagenes/Iconos/nom_borrar.gif)  ;border-color:#045491; width:90px ; height: 100px ; border-width: 2px; position: absolute; top: 250px; left: 305px;"
-                                         id="b6" disabled="#{controlLiquidarProyeccion1.b1}" action="#{controlListaNavegacion.guardarNavegacion('liquidarproyeccion1', 'opciones')}" value=" "></p:commandButton>
+                                         id="b6" disabled="#{controlLiquidarProyeccion1.b1}" onstart="#{controlLiquidarProyeccion1.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('liquidarproyeccion1', 'opciones')}" value=" "></p:commandButton>
                         <h:outputText id="t6"  value="Borrar y/o Cerrar Proceso" style="font-weight: bold;position: absolute; top: 265px; left: 405px;font-size: 12px; color: #{controlLiquidarProyeccion1.color}"/>
                         <h:outputText style="position: absolute; top: 285px; left: 405px; width: 130px; height: 200px; font-size: 12px  " value="Elimina los resultados de la liquidación y los calculos de retroactivos"/>
                      </fieldset>

@@ -173,7 +173,7 @@
 
                   <p:commandButton id="ENVIOCORREO" icon="ui-icon-extlink" style="position: absolute; left: 10px; top: 480px; height: 30px; width: 130px; background-image: url(Imagenes/Iconos/boton.png); color: white;
                                    background-size: 100% 100%; background-repeat: no-repeat; border: none;"  value="envio correo" disabled="#{controlNReporteEvalCompetencia.activarEnvio}"
-                                   action="#{controlListaNavegacion.guardarNavegacion('nreporteevalcompetencias', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportenomina', controlNReporteEvalCompetencia.reporteSeleccionado.secuencia)}" process="@this"/>
+                                   onstart="#{controlNReporteEvalCompetencia.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('nreporteevalcompetencias', 'enviocorreo')}" actionListener="#{controlEnvioCorreos.recibirPaginaEntrante('nreportenomina', controlNReporteEvalCompetencia.reporteSeleccionado.secuencia)}" process="@this"/>
                   <p:tooltip  for="ENVIOCORREO" value="#{msg['envio']}"/>
 
                </p:panel>

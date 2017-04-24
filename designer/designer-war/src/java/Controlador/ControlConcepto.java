@@ -221,61 +221,38 @@ public class ControlConcepto implements Serializable {
    public void navegar(String pag) {
       FacesContext fc = FacesContext.getCurrentInstance();
       ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) fc.getApplication().evaluateExpressionGet(fc, "#{controlListaNavegacion}", ControlListaNavegacion.class);
-//      HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-//      ControlListaNavegacion controlListaNavegacion = (ControlListaNavegacion) session.getAttribute("controlListaNavegacion");
-      /*if (pag.equals("atras")) {
-         pag = paginaAnterior;
-         paginaAnterior = "nominaf";
-//         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).quitarPagina();
-         controlListaNavegacion.quitarPagina(pagActual);
-      } else {
-         */
-String pagActual = "concepto";
-//         Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-//         mapParametros.put("paginaAnterior", pagActual);
-         
-         if (pag.equals("rastrotabla")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         } else if (pag.equals("rastrotablaH")) {
-            ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-            controlRastro.historicosTabla("Conceptos", pagActual);
-            pag = "rastrotabla";
-         } else if (pag.equals("tercero")) {
-            ControlTercero controlTercero = (ControlTercero) fc.getApplication().evaluateExpressionGet(fc, "#{controlTercero}", ControlTercero.class);
-            controlTercero.recibirPaginaEntrante(pagActual);
-         } else if (pag.equals("grupoconcepto")) {
-            ControlGrupoConcepto controlGrupoConcepto = (ControlGrupoConcepto) fc.getApplication().evaluateExpressionGet(fc, "#{controlGrupoConcepto}", ControlGrupoConcepto.class);
-            controlGrupoConcepto.recibirPaginaEntrante(pagActual);
-         } else if (pag.equals("conceptoredondeo")) {
-            ControlConceptoRedondeo controlConceptoRedondeo = (ControlConceptoRedondeo) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptoRedondeo}", ControlConceptoRedondeo.class);
-            controlConceptoRedondeo.recibirPaginaEntrante(pagActual);
-         } else if (pag.equals("conceptosoporte")) {
-            ControlConceptosSoportes controlConceptosSoportes = (ControlConceptosSoportes) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptosSoportes}", ControlConceptosSoportes.class);
-            controlConceptosSoportes.recibirPaginaEntrante(pagActual);
-         } else if (pag.equals("unidad")) {
-            ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
-            controlUnidad.recibirPaginaEntrante(pagActual);
-         }
-         if (pag.equals("atras")) {
+      String pagActual = "concepto";
+
+      if (pag.equals("rastrotabla")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
+      } else if (pag.equals("rastrotablaH")) {
+         ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
+         controlRastro.historicosTabla("Conceptos", pagActual);
+         pag = "rastrotabla";
+      } else if (pag.equals("tercero")) {
+         ControlTercero controlTercero = (ControlTercero) fc.getApplication().evaluateExpressionGet(fc, "#{controlTercero}", ControlTercero.class);
+         controlTercero.recibirPaginaEntrante(pagActual);
+      } else if (pag.equals("grupoconcepto")) {
+         ControlGrupoConcepto controlGrupoConcepto = (ControlGrupoConcepto) fc.getApplication().evaluateExpressionGet(fc, "#{controlGrupoConcepto}", ControlGrupoConcepto.class);
+         controlGrupoConcepto.recibirPaginaEntrante(pagActual);
+      } else if (pag.equals("conceptoredondeo")) {
+         ControlConceptoRedondeo controlConceptoRedondeo = (ControlConceptoRedondeo) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptoRedondeo}", ControlConceptoRedondeo.class);
+         controlConceptoRedondeo.recibirPaginaEntrante(pagActual);
+      } else if (pag.equals("conceptosoporte")) {
+         ControlConceptosSoportes controlConceptosSoportes = (ControlConceptosSoportes) fc.getApplication().evaluateExpressionGet(fc, "#{controlConceptosSoportes}", ControlConceptosSoportes.class);
+         controlConceptosSoportes.recibirPaginaEntrante(pagActual);
+      } else if (pag.equals("unidad")) {
+         ControlUnidad controlUnidad = (ControlUnidad) fc.getApplication().evaluateExpressionGet(fc, "#{controlUnidad}", ControlUnidad.class);
+         controlUnidad.recibirPaginaEntrante(pagActual);
+      }
+      if (pag.equals("atras")) {
          pag = paginaAnterior;
          paginaAnterior = "nominaf";
          controlListaNavegacion.quitarPagina(pagActual);
       } else {
-	controlListaNavegacion.guardarNavegacion(pagActual, pag);
+         controlListaNavegacion.guardarNavegacion(pagActual, pag);
          fc.getApplication().getNavigationHandler().handleNavigation(fc, null, pag);
-//Map<String, Object> mapParaEnviar = new LinkedHashMap<String, Object>();
-         //mapParaEnviar.put("paginaAnterior", pagActual);
-         //mas Parametros
-//         if (pag.equals("rastrotabla")) {
-//           ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //           controlRastro.recibirDatosTabla(conceptoSeleccionado.getSecuencia(), "Conceptos", pagActual);
-         //      } else if (pag.equals("rastrotablaH")) {
-         //       ControlRastro controlRastro = (ControlRastro) fc.getApplication().evaluateExpressionGet(fc, "#{controlRastro}", ControlRastro.class);
-         //     controlRastro.historicosTabla("Conceptos", pagActual);
-         //   pag = "rastrotabla";
-         //}
-//         ((ControlRemoto) fc.getApplication().evaluateExpressionGet(fc, "#{controlRemoto}", ControlRemoto.class)).adicionarPagina(pagActual);
       }
       limpiarListasValor();
    }

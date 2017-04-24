@@ -123,7 +123,7 @@
                            </p:cellEditor>
 
                            <f:facet name="footer">
-                              <p:commandButton style="width: 740px;" id="fooEstadoCivil"  action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'perestadocivil')}" value=" ">
+                              <p:commandButton style="width: 740px;" id="fooEstadoCivil"  onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'perestadocivil')}" value=" ">
                                  <f:actionListener binding="#{controlEstadosCiviles.recibirPag('estadoCivil')}"/>
                                  <f:actionListener binding="#{controlVigenciasEstadosCiviles.limpiarListasValor()}"/>
                               </p:commandButton>
@@ -216,7 +216,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla 'VIGENCIASESTADOSCIVILES' tiene rastros para el registro seleccionado, ¿desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasEstadosCiviles.vigenciaSeleccionada.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}"
-                                   style="position: absolute; top: 63px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   style="position: absolute; top: 63px; left: 175px;" onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -224,7 +224,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla VIGENCIASESTADOSCIVILES tiene rastros historicos, ¿Desea continuar?" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="Si" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 60px; left: 175px;"
-                                   action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                                   onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 
@@ -241,7 +241,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="La tabla no existe en RASTROSTABLAS, pero tiene registros asociados, ¿Desea continuar?" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasEstadosCiviles.vigenciaSeleccionada.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 65px; left: 175px;" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
+                  <p:commandButton value="Si" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlVigenciasEstadosCiviles.vigenciaSeleccionada.getSecuencia(),'VigenciasEstadosCiviles', 'perestadocivil')}" style="position: absolute; top: 65px; left: 175px;" onstart="#{controlVigenciasEstadosCiviles.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('perestadocivil', 'rastrotabla')}" process="@this" icon="ui-icon-check"/>
                   <p:commandButton value="No" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 240px;" process="@this" icon="ui-icon-close"/>
                </p:dialog>
 

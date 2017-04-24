@@ -54,7 +54,7 @@
                             </fieldset>
 
                             <p:commandButton id="registroEnvio" icon="ui-icon-extlink" style="font-size: small; position: absolute; left: 150px; top: 380px; height: 25px; width: 130px;" value="Registros E" onclick="PF('EnvioCorreoDialogo').hide()"
-                                             action="#{controlListaNavegacion.guardarNavegacion('enviocorreo', 'registroenvios')}" actionListener="#{controlRegistroEnvios.recibirPaginaEntrante('atrasregistroenvio', controlEnvioCorreos.reporteActual.secuencia)}" process="@this"></p:commandButton>
+                                             onstart="#{controlEnvioCorreos.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('enviocorreo', 'registroenvios')}" actionListener="#{controlRegistroEnvios.recibirPaginaEntrante('atrasregistroenvio', controlEnvioCorreos.reporteActual.secuencia)}" process="@this"></p:commandButton>
                             <p:tooltip for="registroEnvio" value="#{msg['registrodeenvios']}"/>
 
                             <p:commandButton id="envioCorreo"  icon="ui-icon-extlink"  style="font-size: small; position: absolute; left: 310px; top: 380px; height: 25px; width: 130px;" value="Enviar"

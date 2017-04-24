@@ -276,7 +276,7 @@
                <p:dialog id="confirmarRastro" header="#{msg['informacion']}" widgetVar="confirmarRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{controlReformaLaboral.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}"
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 210px;" onstart="#{controlReformaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'reformalaboral')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;"
                                    actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" process="@this"/>
@@ -287,7 +287,7 @@
                   <h:outputText value="#{controlReformaLaboral.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico"
                                 style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 210px;"
-                                   actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro, 'reformalaboral')}" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}" process="@this"/>
+                                   actionListener="#{controlRastro.historicosTabla(controlReformaLaboral.nombreTablaRastro, 'reformalaboral')}" onstart="#{controlReformaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 63px; left: 270px;"
                                    actionListener="#{controlReformaLaboral.limpiarMSNRastros()}" process="@this"/>
                </p:dialog>
@@ -305,7 +305,7 @@
                <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350" closable="false">  
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
-                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}"
+                  <p:commandButton icon="ui-icon-check" value="#{msg['si']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 210px;" onstart="#{controlReformaLaboral.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('reformalaboral', 'rastrotabla')}"
                                    actionListener="#{controlRastro.recibirDatosTabla(controlReformaLaboral.backUp, controlReformaLaboral.nombreTablaRastro , 'reformalaboral')}" process="@this"/>
                   <p:commandButton icon="ui-icon-close" value="#{msg['no']}" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 270px;" process="@this"/>
                </p:dialog>

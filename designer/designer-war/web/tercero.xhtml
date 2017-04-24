@@ -331,7 +331,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 150px;" id="fooTerceroCiudad" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'ciudades')}" actionListener="#{controlCiudades.recibirPaginaEntrante('tercero')}" value=""/>
+                                        <p:commandButton style="width: 150px;" id="fooTerceroCiudad" onstart="#{controlTercero.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'ciudades')}" actionListener="#{controlCiudades.recibirPaginaEntrante('tercero')}" value=""/>
                                     </f:facet>
                                 </p:column>
 
@@ -501,7 +501,7 @@
                                         </f:facet>  
                                     </p:cellEditor>
                                     <f:facet name="footer">
-                                        <p:commandButton style="width: 210px;" id="fooTerceroSucursalCiudad" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'ciudades')}" actionListener="#{controlCiudades.recibirPaginaEntrante('tercero')}" value=""/>
+                                        <p:commandButton style="width: 210px;" id="fooTerceroSucursalCiudad" onstart="#{controlTercero.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'ciudades')}" actionListener="#{controlCiudades.recibirPaginaEntrante('tercero')}" value=""/>
                                     </f:facet>
                                 </p:column>
                             </p:dataTable>
@@ -666,7 +666,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastro}" id="msnConfirmarRastro" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'tercero')}"
-                                         style="position: absolute; top: 63px; left: 200px;" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 63px; left: 200px;" onstart="#{controlTercero.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                     </p:dialog>
 
@@ -674,7 +674,7 @@
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{controlTercero.msnConfirmarRastroHistorico}" id="msnConfirmarRastroHisttorico" style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                         <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla(controlTercero.nombreTablaRastro , 'tercero')}"
-                                         style="position: absolute; top: 60px; left: 200px;" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
+                                         style="position: absolute; top: 60px; left: 200px;" onstart="#{controlTercero.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlTercero.limpiarMSNRastros()}" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                     </p:dialog>
 
@@ -691,7 +691,7 @@
                     <p:dialog id="errorTablaConRastro" header="#{msg['informacion']}" widgetVar="errorTablaConRastro"  resizable="false" draggable="true" modal="true" height="95" width="350"  closable="false">  
                         <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                         <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 20px; width: 250px; font-weight: bold; text-align: center;"/>
-                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'tercero')}" style="position: absolute; top: 70px; left: 190px;" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
+                        <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlTercero.backUp, controlTercero.nombreTablaRastro , 'tercero')}" style="position: absolute; top: 70px; left: 190px;" onstart="#{controlTercero.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('tercero', 'rastrotabla')}" process="@this"/>
                         <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 70px; left: 260px;" process="@this"/>
                     </p:dialog>
 

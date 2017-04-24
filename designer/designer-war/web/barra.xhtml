@@ -135,8 +135,8 @@
                                          value="#{msg['repcontrol']}" actionListener="#{controlBarra.validarDescargaReporte()}"/>
                         <p:commandButton id="cancelar" value="#{msg['cancelar']}" actionListener="#{controlBarra.cancelarLiquidacion()}" disabled="#{controlBarra.botonCancelar}"
                                          style="position: relative; top: 13px; left: 0px; width: 120px; border-color: #B61B26; border-width: 2px; background-color: white;"/>
-                        <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" action="#{controlListaNavegacion.guardarNavegacion('barra','liquidacionlog')}" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
-                        <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" action="#{controlListaNavegacion.guardarNavegacion('barra','errorliquidacion')}" actionListener="#{controlErroresLiquidacion.recibirPaginaEntrante('barra')}"/>
+                        <p:commandButton value="#{msg['detalles']}" style="position: relative; top: 13px; left: 2px; width: 189px; border-color: #B61B26; border-width: 2px; background-color: white;" onstart="#{controlBarra.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('barra','liquidacionlog')}" actionListener="#{controlLiquidacionesLogs.recibirPaginaEntrante('barra')}"/>
+                        <p:commandButton value="#{msg['errores']}" style="position: relative; top: 13px; width: 151px; left: 4px; border-color: #B61B26; border-width: 2px; background-color: white;" onstart="#{controlBarra.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('barra','errorliquidacion')}" actionListener="#{controlErroresLiquidacion.recibirPaginaEntrante('barra')}"/>
                      </fieldset>
                   </fieldset>
 

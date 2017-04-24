@@ -178,7 +178,7 @@
                               </f:facet>  
                            </p:cellEditor>
                            <f:facet name="footer">
-                              <p:commandButton style="width: 270px;" id="fooTipoCot" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'tipocotizante')}" actionListener="#{controlTipoCotizante.recibirPaginaEntrante('legislacion')}" value=""/> 
+                              <p:commandButton style="width: 270px;" id="fooTipoCot" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'tipocotizante')}" actionListener="#{controlTipoCotizante.recibirPaginaEntrante('legislacion')}" value=""/> 
                            </f:facet>
                         </p:column>
 
@@ -445,7 +445,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['confirmarRastro']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'legislacion')}"
-                                   style="position: absolute; top: 63px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 63px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastro').hide();" style="position: absolute; top: 63px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -453,7 +453,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['cofirmarRastroHistorico']}"  style="position: absolute; left: 70px; top: 15px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('confirmarRastroHistorico').hide();" actionListener="#{controlRastro.historicosTabla('Contratos', 'legislacion')}"
-                                   style="position: absolute; top: 60px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 60px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('confirmarRastroHistorico').hide();" style="position: absolute; top: 60px; left: 270px;" process="@this"/>
                </p:dialog>
 
@@ -471,7 +471,7 @@
                   <h:graphicImage value="Imagenes/Iconos/informacion.png" width="50" height="50" style="position: absolute; left: 10px; top: 10px;"  />
                   <h:outputText value="#{msg['errorTablaConRastro']}" style="position: absolute; left: 70px; top: 10px; width: 250px; font-weight: bold; text-align: center;"/>
                   <p:commandButton value="#{msg['si']}" icon="ui-icon-check" onclick="PF('errorTablaConRastro').hide();" actionListener="#{controlRastro.recibirDatosTabla(controlLegislacion.contratoSeleccionado.secuencia, 'Contratos', 'legislacion')}" 
-                                   style="position: absolute; top: 65px; left: 210px;" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
+                                   style="position: absolute; top: 65px; left: 210px;" onstart="#{controlLegislacion.limpiarListasValor()}" action="#{controlListaNavegacion.guardarNavegacion('legislacion', 'rastrotabla')}" process="@this"/>
                   <p:commandButton value="#{msg['no']}" icon="ui-icon-close" onclick="PF('errorTablaConRastro').hide();" style="position: absolute; top: 65px; left: 270px;" process="@this"/>
                </p:dialog>
 
