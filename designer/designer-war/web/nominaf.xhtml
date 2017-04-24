@@ -36,28 +36,33 @@
                         <fieldset style="height: 92px; width: 148px; display: block; position: absolute; border-radius: 10px; top: 40px; left: 15px; padding-right: 8px; padding-bottom: 0px; padding-top: 0px;">
 
                            <p:commandButton id="tipopersonal" widgetVar="tipopersonal" class="cssBotonConImagen" style="background-image: url(Imagenes/Iconos/#{controlRemoto.imagen}); width: 41px; height: 80px; top: 7px; left: 5px;"
-                                            value="" update=":formulariodialogos" actionListener="#{controlRemoto.pruebita()}" action="#{controlRemoto.pantallaReintegrar()}" process="@this"/>
+                                            value="" update=":formulariodialogos" actionListener="#{controlRemoto.pruebita()}" action="#{controlRemoto.pantallaReintegrar()}" process="@this"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('tipopersonal')}" />
                            <p:tooltip  for="tipopersonal">
                               #{msg['cargosdesempenados1']} <br/> #{msg['cargosdesempenados2']}
                            </p:tooltip>
                            <p:commandButton id="activos" widgetVar="activos" value="#{msg['activos']}" style="position: absolute; width: 110px; height: 20px; left: 50px; top: 7px; font-size: 11px; border: none;"
                                             styleClass="#{controlRemoto.styleActivos}" actionListener="#{controlRemoto.activos()}" 
-                                            update=":form:tabmenu:contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                            update=":form:tabmenu:contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('activos')}" />
                            <p:tooltip id="tooltipActivos" for="activos" value="#{msg['informacionactivos']}"/>
 
                            <p:commandButton id="pensionados" value="#{msg['pensionados']}" style="position: absolute; left: 50px; top: 27px; width: 110px; height: 20px; font-size: 11px; padding: 0; border: none;"
                                             styleClass="#{controlRemoto.stylePensionados}" actionListener="#{controlRemoto.pensionados()}"
-                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"
+                                           disabled="#{controlRemoto.consultarPermisosPorId('pensionados')}" />
                            <p:tooltip id="tooltippencionados" for="pensionados" value="#{msg['informacionpensionados']}"/>
 
                            <p:commandButton id="retirados" value="#{msg['retirados']}" style="position: absolute; left: 50px; top: 47px; width: 110px; height: 20px; font-size: 11px; border: none;"
                                             styleClass="#{controlRemoto.styleRetirados}" actionListener="#{controlRemoto.retirados()}"
-                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('retirados')}" />
                            <p:tooltip id="tooltipRetirados" for="retirados" value="#{msg['informacionretirados']}"/>
 
                            <p:commandButton id="aspirantes" value="#{msg['aspirantes']}" style="position: absolute; left: 50px; top: 67px; width: 110px; height: 20px; font-size: 11px; border: none;"
                                             styleClass="#{controlRemoto.styleAspirantes}" actionListener="#{controlRemoto.aspirantes()}" 
-                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"/>
+                                            update="contenedor, :form:alerta, tipopersonal, tooltipActivos, tooltippencionados, tooltipRetirados, tooltipAspirantes"
+                                            disabled="#{controlRemoto.consultarPermisosPorId('aspirantes')}" />
                            <p:tooltip id="tooltipAspirantes" for="aspirantes" value="#{msg['informacionaspirantes']}"/>
                         </fieldset>
 
@@ -87,7 +92,8 @@
                               <br/>
                               <!-- Botones Con Imagen (3) -->
                               <p:commandButton class="cssBotonConImagen" style="left: 9px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarlaboral1.png);" 
-                                               id="buscarlaboral" value="" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'busquedaAvanzada')}" actionListener="#{controlBusquedaAvanzada.recibirPaginaEntrante('nominaf')}"/>
+                                               id="buscarlaboral" value="" action="#{controlListaNavegacion.guardarNavegacion('nominaf', 'busquedaAvanzada')}" actionListener="#{controlBusquedaAvanzada.recibirPaginaEntrante('nominaf')}"
+                                              disabled="#{controlRemoto.consultarPermisosPorId('buscarlaboral')}"  />
                               <p:tooltip  for="buscarlaboral" value="#{msg['bad2']}"/>
 
                               <p:commandButton class="cssBotonConImagen" style="left: 39px; top: 60px; width: 30px; height: 30px; background-image: url(Imagenes/Iconos/buscarrapida1.png);" 
@@ -384,7 +390,8 @@
                                                widgetVar="ingresopersonal" value="" disabled="#{controlRemoto.activo}" actionListener="#{controlRemoto.asignarUnicaEmpresa()}"/>                            
                               <p:tooltip  for="ingresopersonal">#{msg['ingresodepersonal1']}<br/>#{msg['ingresodepersonal2']}</p:tooltip>
 
-                              <p:commandButton id="informacionjubilados" value="" disabled="#{controlRemoto.pensionado}" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/pensionado.png);"/>
+                              <p:commandButton id="informacionjubilados" value=""  class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/pensionado.png);"
+                                               disabled="#{controlRemoto.consultarPermisosPorId('informacionjubilados')}" />
                               <p:tooltip  for="informacionjubilados">#{msg['informacionjubilados1']}<br/>#{msg['informacionjubilados2']}</p:tooltip>
 
                               <p:commandButton id="ingresoaspirantes" value="" class="cssBotonesPInferior" style="background-image: url(Imagenes/Iconos/aspirantes.png);" disabled="#{controlRemoto.consultarPermisosPorId('ingresoaspirantes')}" />

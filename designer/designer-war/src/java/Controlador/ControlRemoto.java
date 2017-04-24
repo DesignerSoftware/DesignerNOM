@@ -1822,11 +1822,8 @@ public class ControlRemoto implements Serializable {
         boolean enable = false;
         for (int i = 0; i < ListObjetosJSF.size(); i++) {
             if (id.equalsIgnoreCase(ListObjetosJSF.get(i).getIdentificador())) {
-                if (ListObjetosJSF.get(i).getEnable().equals("N")) {
-                    enable = true;
-                } else {
-                    enable = false;
-                }
+                enable = ListObjetosJSF.get(i).getEnable().equals("N");
+                i = ListObjetosJSF.size();
             }
         }
         return enable;
